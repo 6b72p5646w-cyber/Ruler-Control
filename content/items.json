@@ -1,0 +1,362 @@
+{
+  "version": "0.2",
+  "items": [
+    {
+      "id": "I01",
+      "name": "餐包",
+      "rarity": "common",
+      "shop_price": 15,
+      "effect": "饱腹+25",
+      "tradeoff": "无额外状态",
+      "tag": "food",
+      "consumable": true,
+      "design_origin": "original_game_adaptation",
+      "resource_deltas": {
+        "satiety": 25
+      }
+    },
+    {
+      "id": "I02",
+      "name": "饭团",
+      "rarity": "common",
+      "shop_price": 22,
+      "effect": "饱腹+40",
+      "tradeoff": "连续食用受100上限限制",
+      "tag": "food",
+      "consumable": true,
+      "design_origin": "original_game_adaptation",
+      "resource_deltas": {
+        "satiety": 40
+      }
+    },
+    {
+      "id": "I03",
+      "name": "葡萄糖片",
+      "rarity": "common",
+      "shop_price": 12,
+      "effect": "体力+35",
+      "tradeoff": "不恢复精力与饱腹",
+      "tag": "stamina",
+      "consumable": true,
+      "design_origin": "original_game_adaptation"
+    },
+    {
+      "id": "I04",
+      "name": "薄荷糖",
+      "rarity": "common",
+      "shop_price": 10,
+      "effect": "SAN+8",
+      "tradeoff": "同一遭遇最多生效2次",
+      "tag": "san",
+      "consumable": true,
+      "design_origin": "original_game_adaptation"
+    },
+    {
+      "id": "I05",
+      "name": "罐装咖啡",
+      "rarity": "common",
+      "shop_price": 18,
+      "effect": "精力立即+12",
+      "tradeoff": "下一游戏小时精力-8且SAN-2，债务写入存档",
+      "tag": "energy",
+      "consumable": true,
+      "design_origin": "original_game_adaptation"
+    },
+    {
+      "id": "I06",
+      "name": "备用电池",
+      "rarity": "common",
+      "shop_price": 12,
+      "effect": "一件兼容照明恢复25电量",
+      "tradeoff": "不修理损坏回路",
+      "tag": "light",
+      "consumable": true,
+      "design_origin": "original_game_adaptation"
+    },
+    {
+      "id": "I07",
+      "name": "修补胶带",
+      "rarity": "common",
+      "shop_price": 8,
+      "effect": "修复一处非关键容器破口",
+      "tradeoff": "无法封住会主动破坏的实体",
+      "tag": "repair",
+      "consumable": true,
+      "design_origin": "original_game_adaptation"
+    },
+    {
+      "id": "I08",
+      "name": "一次性手套",
+      "rarity": "common",
+      "shop_price": 8,
+      "effect": "一次隔离操作不沾染普通污物",
+      "tradeoff": "不免疫精神干扰或所有诅咒",
+      "tag": "isolation",
+      "consumable": true,
+      "design_origin": "original_game_adaptation"
+    },
+    {
+      "id": "I09",
+      "name": "门楔",
+      "rarity": "common",
+      "shop_price": 10,
+      "effect": "暂时维持一扇普通内门状态",
+      "tradeoff": "不能强制违背当前门槛禁忌",
+      "tag": "threshold",
+      "consumable": true,
+      "design_origin": "original_game_adaptation"
+    },
+    {
+      "id": "I10",
+      "name": "封口袋",
+      "rarity": "common",
+      "shop_price": 8,
+      "effect": "暂存一件待核小物",
+      "tradeoff": "大型实体与活跃危险需使用工位隔离设施",
+      "tag": "isolation",
+      "consumable": true,
+      "design_origin": "original_game_adaptation"
+    },
+    {
+      "id": "I11",
+      "name": "粉笔",
+      "rarity": "common",
+      "shop_price": 8,
+      "effect": "留下三段可信玩家路径标记",
+      "tradeoff": "积水会擦除普通粉笔，地图记录仍保留",
+      "tag": "path",
+      "consumable": true,
+      "design_origin": "original_game_adaptation"
+    },
+    {
+      "id": "I12",
+      "name": "压货夹",
+      "rarity": "common",
+      "shop_price": 10,
+      "effect": "固定一组纸质单据或标签",
+      "tradeoff": "占用一次物件操作",
+      "tag": "wind",
+      "consumable": true,
+      "design_origin": "original_game_adaptation"
+    },
+    {
+      "id": "I13",
+      "name": "定心茶",
+      "rarity": "uncommon",
+      "shop_price": 28,
+      "effect": "SAN+20",
+      "tradeoff": "需在安全工位使用3秒",
+      "tag": "san",
+      "consumable": true,
+      "design_origin": "original_game_adaptation"
+    },
+    {
+      "id": "I14",
+      "name": "保温便当",
+      "rarity": "uncommon",
+      "shop_price": 30,
+      "effect": "饱腹+35且精力+4",
+      "tradeoff": "安全开封后使用，不能把供物当成便当",
+      "tag": "food",
+      "consumable": true,
+      "design_origin": "original_game_adaptation"
+    },
+    {
+      "id": "I15",
+      "name": "速冷包",
+      "rarity": "uncommon",
+      "shop_price": 24,
+      "effect": "延缓一组冷链升温30秒",
+      "tradeoff": "不会驱散寒冷或水域原型",
+      "tag": "cold",
+      "consumable": true,
+      "design_origin": "original_game_adaptation"
+    },
+    {
+      "id": "I16",
+      "name": "应急灯棒",
+      "rarity": "uncommon",
+      "shop_price": 26,
+      "effect": "建立20秒局部照明",
+      "tradeoff": "仅提供光，驱避效果须原型明确适用",
+      "tag": "light",
+      "consumable": true,
+      "design_origin": "original_game_adaptation"
+    },
+    {
+      "id": "I17",
+      "name": "示踪粉",
+      "rarity": "uncommon",
+      "shop_price": 28,
+      "effect": "显现一段可留实体足迹的路径",
+      "tradeoff": "对无形、飞行实体无效",
+      "tag": "trace",
+      "consumable": true,
+      "design_origin": "original_game_adaptation"
+    },
+    {
+      "id": "I18",
+      "name": "一次性核验封签",
+      "rarity": "uncommon",
+      "shop_price": 24,
+      "effect": "生成一次可对照的物品封存记录",
+      "tradeoff": "不能单独证明持有人身份",
+      "tag": "identity",
+      "consumable": true,
+      "design_origin": "original_game_adaptation"
+    },
+    {
+      "id": "I19",
+      "name": "游戏急救贴",
+      "rarity": "uncommon",
+      "shop_price": 30,
+      "effect": "缓解一层游戏轻伤动作限制",
+      "tradeoff": "不能治疗严重伤势，属于游戏道具",
+      "tag": "injury",
+      "consumable": true,
+      "design_origin": "original_game_adaptation"
+    },
+    {
+      "id": "I20",
+      "name": "净水瓶",
+      "rarity": "uncommon",
+      "shop_price": 22,
+      "effect": "补充一份已核验净水或清理一小块普通污迹",
+      "tradeoff": "净化灵体仅对已研究的匹配方法生效",
+      "tag": "water",
+      "consumable": true,
+      "design_origin": "original_game_adaptation"
+    },
+    {
+      "id": "I21",
+      "name": "应急护身符",
+      "rarity": "rare",
+      "shop_price": 60,
+      "effect": "一次已预告严重阶段延迟8秒",
+      "tradeoff": "只延迟指定可延迟标签，不撤销错误交易",
+      "tag": "ward",
+      "consumable": true,
+      "design_origin": "original_game_adaptation"
+    },
+    {
+      "id": "I22",
+      "name": "定界盐包",
+      "rarity": "rare",
+      "shop_price": 55,
+      "effect": "建立一道已学适用类型的短暂边界",
+      "tradeoff": "不是所有原型都惧盐；非适用者不生效",
+      "tag": "threshold",
+      "consumable": true,
+      "design_origin": "original_game_adaptation"
+    },
+    {
+      "id": "I23",
+      "name": "引路铃",
+      "rarity": "rare",
+      "shop_price": 65,
+      "effect": "把可被声音引导的对象引向预设空区",
+      "tradeoff": "可能同时吸引其他听觉型访客",
+      "tag": "sound",
+      "consumable": true,
+      "design_origin": "original_game_adaptation"
+    },
+    {
+      "id": "I24",
+      "name": "返程绳",
+      "rarity": "rare",
+      "shop_price": 60,
+      "effect": "固定入口锚点并保留一次可见回程",
+      "tradeoff": "只能连接实际通路，不穿墙或抹除封锁",
+      "tag": "path",
+      "consumable": true,
+      "design_origin": "original_game_adaptation"
+    }
+  ],
+  "lottery": {
+    "currency": "earned_shift_ticket",
+    "real_money_purchase": false,
+    "draw_cost": 1,
+    "base_tier_probabilities": {
+      "common": 0.6,
+      "uncommon": 0.3,
+      "rare": 0.1
+    },
+    "within_tier": "uniform_over_current_tier_pool",
+    "noncommon_pity_after_common_draws": 4,
+    "rare_pity_after_nonrare_draws": 9,
+    "noncommon_pity_weights": {
+      "uncommon": 0.75,
+      "rare": 0.25
+    },
+    "rare_pity_has_priority": true,
+    "all_results_granted": true,
+    "save_before_reveal": true,
+    "essential_countermeasures_never_lottery_only": true,
+    "overflow_options": [
+      "store",
+      "use_if_safe",
+      "replace_selected_item"
+    ],
+    "automatic_destroy": false,
+    "pity_persistence": {
+      "save_scope": "campaign",
+      "across_nights": true,
+      "across_weeks": true,
+      "reset_on_night_start": false,
+      "reset_on_week_start": false,
+      "reset_on_night_failure": false,
+      "reset_on_reload": false,
+      "initial_counter_value_for_new_campaign": 0
+    },
+    "pity_counter_updates": {
+      "common": {
+        "increment": [
+          "consecutive_common",
+          "consecutive_nonrare"
+        ],
+        "reset": []
+      },
+      "uncommon": {
+        "increment": [
+          "consecutive_nonrare"
+        ],
+        "reset": [
+          "consecutive_common"
+        ]
+      },
+      "rare": {
+        "increment": [],
+        "reset": [
+          "consecutive_common",
+          "consecutive_nonrare"
+        ]
+      }
+    },
+    "atomic_ticket_reward_counter_save": true
+  },
+  "job_supply": {
+    "daily_free_food": {
+      "id": "daily_job_food",
+      "reset_time": "06:00",
+      "reset_period": "game_day",
+      "available_on_new_run": true,
+      "requires_completed_night": false,
+      "claim_location": "job_supply_locker",
+      "price": 0,
+      "claim_limit_per_game_day": 1,
+      "unclaimed_allowance_rolls_over": false,
+      "items": [
+        {
+          "item_id": "I01",
+          "quantity": 1
+        },
+        {
+          "item_id": "I02",
+          "quantity": 1
+        }
+      ],
+      "nominal_satiety_total": 65,
+      "overflow_destination": "job_supply_locker"
+    }
+  }
+}

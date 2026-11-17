@@ -1,0 +1,537 @@
+{
+  "version": "0.2",
+  "total": 59,
+  "sources": [
+    {
+      "id": "AS01",
+      "title": "蒲松龄《聊斋志异》卷五〈狐梦〉",
+      "url": "https://zh.wikisource.org/zh-hant/%E8%81%8A%E9%BD%8B%E5%BF%97%E7%95%B0/%E7%AC%AC05%E5%8D%B7",
+      "supported_claim": "狐以人的形貌来往；宴席中器物外观、容量和实际物件不一致。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "古典文学中的具体篇章；不能据此断言所有中国狐精具有同一弱点。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "AS02",
+      "title": "Herbert A. Giles, Chinese Fairy Tales (1920), The Painted Skin, p.17",
+      "url": "https://en.wikisource.org/wiki/Page:Chinese_Fairy_Tales_(H._Giles,_1920).djvu/19",
+      "supported_claim": "画皮故事中妖物变换女子与老妇身份，画皮脱落后显露原形。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "经校对的公共领域译本扫描转录；只取画皮伪装意象。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "AS03",
+      "title": "PBS Monstrum: The Ancient Terror of the Chinese Hopping Corpse, Jiangshi",
+      "url": "https://www.pbs.org/video/the-ancient-terror-of-the-chinese-hopping-corpse-jiangshi-0dtmtb/",
+      "supported_claim": "僵尸的尸体意象、生命之气，以及后世尤其影视中的跳跃行进造型。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "2024年公共电视文化史节目；区分古代尸变与近现代影视惯例。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "AS04",
+      "title": "教育部重编国语辞典修订本：鲛人",
+      "url": "https://pedia.cloud.edu.tw/Entry/Detail?search=%E9%AE%AB%E4%BA%BA&title=%E9%AE%AB%E4%BA%BA",
+      "supported_claim": "引《搜神记》：水居、善织、泪成珠。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "历史语言辞典转引古典记载；不引入现代影视鲛人王国等设定。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "AS05",
+      "title": "National Diet Library: TORIYAMA Sekien’s Illustrated Night Parade of the Demon Horde",
+      "url": "https://www.ndl.go.jp/en/imagebank/column/sekienyokai",
+      "supported_claim": "河童与水域拖拽；轆轤首伸长颈部；海坊主与德藏问答故事；日常工具器皿化为付丧神。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "日本国立国会图书馆图像展览；海坊主仅取桑名德藏故事版本，轆轤首取长颈型。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "AS06",
+      "title": "Lafcadio Hearn, Kwaidan (1904): Yuki-Onna",
+      "url": "https://en.wikisource.org/wiki/Yuki-onna",
+      "supported_claim": "雪女吐出寒冷气息、要求见证者守密、后来以人形生活。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "明确采用小泉八云1904年文学版本；不声称守密契约是日本所有雪女传承的共同规则。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "AS07",
+      "title": "小学馆《日本大百科全书》／不列颠国际大百科事典：座敷わらし",
+      "url": "https://kotobank.jp/word/%E5%BA%A7%E6%95%B7%E3%82%8F%E3%82%89%E3%81%97-68996",
+      "supported_claim": "日本东北旧宅中的幼童形灵体，其在场与家庭繁荣、离去与衰落关联；部分传承只有儿童看见。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "可靠百科汇编；店内空座与奖励机制不是民俗原规则。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "AS08",
+      "title": "National Folk Museum of Korea: Dokkaebi",
+      "url": "https://folkency.nfm.go.kr/en/topic/detail/11917",
+      "supported_claim": "独特的韩国原型；爱摔跤、喜荞麦和黍米食物；有带来好运或灾祸的复杂性。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "韩国国立民俗博物馆词条；不套用韩剧人物关系。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "AS09",
+      "title": "韩国学中央研究院《韩国民族文化大百科》：불가사리",
+      "url": "https://encykorea.aks.ac.kr/Article/E0024904",
+      "supported_claim": "不可杀／不可杀伊吃铁成长，形体有多个版本。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "学术百科；不将某一版本火克制机制推广为所有版本。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "AS10",
+      "title": "Benjamin Baumann, Tamnan Krasue: Constructing a Khmer Ghost for a Thai Film, Kyoto Review of Southeast Asia 14 (2013)",
+      "url": "https://kyotoreview.org/issue-14/tamnan-krasue-constructing-a-khmer-ghost-for-a-thai-film/",
+      "supported_claim": "Krasue与污秽、夜间活动、附着女性主体的地方叙事；发光飞头连内脏形象的现代电影传播。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "学术文章特别指出地方口传与现代国家化／电影形象不可混为一种古老定说。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "AS11",
+      "title": "Ian G. Baird, Where Do the Ravenous Spirits (Phi Pop) Go? Southeast Asian Studies 13(1), 2024",
+      "url": "https://www.jstage.jst.go.jp/article/seas/13/1/13_109/_article/-char/en",
+      "supported_claim": "泰老文化中的饥饿附身灵体及其通过人类宿主存在的信念；现实中的指控与驱逐具有社会伤害。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "同行评议民族志；游戏用明确超自然证据，绝不把疾病、贫穷或族群当作附身证据。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "AS12",
+      "title": "National Library Singapore, BiblioAsia: A History of Singapore Horror (2017)",
+      "url": "https://biblioasia.nlb.gov.sg/all-sections/vol-13-issue-2-jul-sep-2017-history-of-singaporean-horror/",
+      "supported_claim": "Pontianak作为马来传承中与分娩死亡有关的长发复仇女鬼；1957年电影改成受诅咒妻子的差异。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "国家图书馆文化史文章；不把电影改写当传统共识。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "AS13",
+      "title": "Aji Dwi Saputra & Edo Galasro Limbong, Visualisasi Karakter Pocong, Kuntilanak, dan Tuyul pada Film Animasi Keluarga Hantu Indonesia, Jurnal Desain 7(1), 2019",
+      "url": "https://journal.lppmunindra.ac.id/index.php/Jurnal_Desain/article/download/5468/2900",
+      "supported_claim": "文献背景中的Tuyul为小孩形象、被使唤取钱；Pocong与未解开的裹尸布束带、要求解开有关。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "大学设计学术期刊的二手民俗综述，来源链较弱；只用文章背景段，不用作者原创动画人物外观。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "AS14",
+      "title": "Maximo Ramos, Belief in Ghouls in Contemporary Philippine Society, Western Folklore 27(3), 1968, pp.184–190",
+      "url": "https://tile.loc.gov/storage-services/service/afc/afc2014008/afc2014008_ms1903/afc2014008_ms1903.pdf",
+      "supported_claim": "Aswang属于多种怪异存在的复合称呼，不能把全部吸血、变形、分体特征视为同一统一种族。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "美国国会图书馆存档期刊；PDF印刷页184–190，文件页约39–45。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "AS15",
+      "title": "Arthur W. Ryder, Twenty-Two Goblins (1917), Sanskrit translation",
+      "url": "https://www.gutenberg.org/files/52309/old/52309-h/52309-h.htm",
+      "supported_claim": "尸体中的灵体由国王背负，讲述故事并提问，打破沉默会使运送反复。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "公共领域文学译本的尸鬼故事循环，不以该英文goblin译名混同欧洲哥布林。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "AS16",
+      "title": "National Museum, New Delhi: Ravana comes to Panchavati in the disguise of a mendicant, 51.65/28",
+      "url": "https://museumsofindia.gov.in/repository/record/nat_del-51-65-28-1293",
+      "supported_claim": "罗波那改变外形，装作求施舍的修行者接近悉多；画作包含门前边界意象。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "印度国家博物馆藏17世纪画作解说；采用罗刹王罗波那的一则叙事，不把图像版本的边界说成所有《罗摩衍那》版本共有。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "AS17",
+      "title": "The Aswang Project: What is an Aswang? (2015)",
+      "url": "https://www.aswangproject.com/what-is-an-aswang/",
+      "supported_claim": "某些狭义Aswang叙事采用人／犬／猪／鸟等变形而不自我分体。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "民俗研究传播项目的二手说明，含个人见闻；仅辅助选择变形分支，不引用未经证实的现实指控。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "EU01",
+      "title": "Dúchas / National Folklore Collection: Death and Funeral Customs — Gort an Iomaire",
+      "url": "https://www.duchas.ie/en/cbes/4583338/4580848/4588113",
+      "supported_claim": "学校民俗采集记录：报丧女妖与特定家族有关，在死亡前哭号。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "这是民间信仰的档案记录，不是关于超自然现象的实证。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "EU02",
+      "title": "Historic Environment Scotland: Supernatural Creatures of Scottish Folklore",
+      "url": "https://blog.historicenvironment.scot/2018/10/supernatural-creatures-scottish-folklore/",
+      "supported_claim": "布朗尼在夜间暗中帮助家务，接受食物；受轻慢或把赠礼当工资会离去。凯尔皮可化人，水草、沙或马蹄可暴露其身份。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "EU03",
+      "title": "Scotland.org: Scottish Myths, Folklore and Legends",
+      "url": "https://www.scotland.org/inspiration/scottish-myths-folklore-and-legends",
+      "supported_claim": "塞尔基凭海豹皮在人与海豹之间变化；皮被藏起会无法归海。凯尔皮具有水马和人形变体。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "EU04",
+      "title": "Fingal County Council: Púca",
+      "url": "https://www.fingal.ie/puca",
+      "supported_claim": "普卡具有变化形体、恶作剧与边界地点的联系；地方传说形态并不一致。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "EU05",
+      "title": "Historic Environment Scotland: 13 Days of Halloween",
+      "url": "https://blog.historicenvironment.scot/2018/10/13-days-halloween/",
+      "supported_claim": "苏格兰边境红帽妖传说中的 Robin Redcap 与沾染受害者鲜血的帽子有关。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "采用赫米蒂奇城堡传说的血帽特征，不声称所有红帽妖记载完全相同。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "EU06",
+      "title": "Store norske leksikon: troll",
+      "url": "https://snl.no/troll",
+      "supported_claim": "斯堪的纳维亚巨魔常与山林有关，形体和善恶均有不同；挪威叙事常见巨大怪物形态。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "不把阳光石化、低智商、某种武器弱点当作全体巨魔共有规律。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "EU07",
+      "title": "Store norske leksikon: nøkken",
+      "url": "https://snl.no/n%C3%B8kken",
+      "supported_claim": "挪威水怪会变为人、马或物件引诱落水；部分传说可以叫破其名字解除威胁，并与音乐有关。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "EU08",
+      "title": "Institutet för språk och folkminnen: Tid för tomtegröt",
+      "url": "https://www.isof.se/utforska/webbutstallningar/nu-ar-det-jul-igen/julkalender-om-tomten/tid-for-tomtegrot",
+      "supported_claim": "瑞典家园精灵接受粥、奶与黄油；文中记载黄油藏在粥底而被误认为没给的故事。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "是 gårdstomte 的供食传统，不直接套用现代圣诞老人的设定。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "EU09",
+      "title": "Store norske leksikon: draug",
+      "url": "https://snl.no/draug",
+      "supported_claim": "后期挪威沿海传说将 draug 描述为未妥善安葬的溺亡者，关联半条船、海草头部、带海草的压舱石和海难征兆。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "本条只采用挪威海亡灵变体，不把它与所有古诺斯坟丘亡灵混成同一机制。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "EU10",
+      "title": "Store norske leksikon: mare",
+      "url": "https://snl.no/mare",
+      "supported_claim": "北欧马拉与睡眠中被压迫、噩梦及骑压人畜的民间解释有关。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "只记录历史民俗叙事，不把真实睡眠问题归因于灵体。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "EU11",
+      "title": "Store norske leksikon: vampyr",
+      "url": "https://snl.no/vampyr",
+      "supported_claim": "欧洲吸血鬼传统包括夜间返回侵扰生人的死者，部分日耳曼与斯拉夫传统强调吸血；现代牙齿、镜像、邀请等设定有文学和影视混合。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "本设计以死者夜返与吸血为基础；无需邀请、镜像和尖牙均不作为普遍史实。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "EU12",
+      "title": "Store norske leksikon: varulv",
+      "url": "https://snl.no/varulv",
+      "supported_claim": "狼人是人变狼的传说；某些记载以狼形受伤与人形留下同处伤痕识破身份。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "不同地区的变形原因不同，不要求全部狼人遵守满月或银弹规律。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "EU13",
+      "title": "Internet Encyclopedia of Ukraine: Rusalka",
+      "url": "https://www.encyclopediaofukraine.com/display.asp?linkpath=pages%5CR%5CU%5CRusalkaIT.htm",
+      "supported_claim": "乌克兰鲁萨尔卡的水域、长发、歌舞与诱惑特征；部分地方信仰用苦艾、独活或受保护衣物防备。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "此条仅取乌克兰文献所述变体；不把所有东欧水灵或水中女性都等同于鲁萨尔卡。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "EU14",
+      "title": "World History Encyclopedia: Baba Yaga",
+      "url": "https://www.worldhistory.org/Baba_Yaga/",
+      "supported_claim": "芭芭雅嘎可威胁也可帮助；《美丽的瓦西里萨》故事中以劳动换火，布置难题，形象关联鸡脚屋与臼杵。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "百科对故事的概述；保留角色的多义性，不复制某部影视或游戏的具体造型。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "EU15",
+      "title": "Encyclopaedia Iranica: GENIE",
+      "url": "https://www.iranicaonline.org/articles/genie/",
+      "supported_claim": "精灵 jinn 的传统包括隐身、化为人与动物及类似人类的社会活动；不同故事中的善恶与关系不同。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "不把所有 jinn 写成邪恶物种，也不把店内合同机制说成宗教通则。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "EU16",
+      "title": "Encyclopaedia Iranica: ḠUL",
+      "url": "https://www.iranicaonline.org/articles/gul/",
+      "supported_claim": "古尔可变形诱骗；伊朗安比村记载中，它模仿熟人夜间叫名，后退诱使人离家进入荒野。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "玩法明确采用文中安比村变体。中文使用“古尔／荒野妖”，不默认现代西方墓地食尸怪形象。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "EU17",
+      "title": "Store norske leksikon: dobbeltgjenger",
+      "url": "https://snl.no/dobbeltgjenger",
+      "supported_claim": "替身／双重身与人的极相似形貌有关，民间叙事也把其出现视作死亡等事件的征兆。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "未把模仿记忆、复制权限或同步动作当作传统共识；这些均为游戏设计。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "EU18",
+      "title": "World History Encyclopedia: Kikimora — Kikimora, Domovoi, & Leshy",
+      "url": "https://www.worldhistory.org/Kikimora/",
+      "supported_claim": "多莫沃伊是家庭守护灵，与炉灶及搬家邀请有关；列希是森林守护者，可变形并用森林声音误导闯入者。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "本条分别支持家宅守护与森林迷路母题，不使用文章中所有起源推断作为定论。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "EU19",
+      "title": "Scottish Maritime Museum: Here Be Monsters! Sea Monsters of Scottish Folktale",
+      "url": "https://www.scottishmaritimemuseum.org/here-be-monsters-sea-monsters-of-scottish-folktale-by-shelby-judge/",
+      "supported_claim": "凯尔皮的湿鬃、马形和人形，塞尔基的皮衣与归海；文章说明水马名称和地方变体需区分。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "EU20",
+      "title": "Cultural Analysis 8 (2009): The Mythical Ghoul in Arabic Culture, with response",
+      "url": "https://www.ocf.berkeley.edu/~culturalanalysis/volume8/vol8_article3.html",
+      "supported_claim": "研究讨论 ghoul 在阿拉伯与西方叙述中的变迁；随文回应提醒不能把地方民俗与伊斯兰教义直接等同。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "仅用作改编边界和异文警示；不把文章中有争论的宗教史断言写入怪物事实栏。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "WO01",
+      "title": "美国国会图书馆 American Folklife Center：La Llorona: An Introduction to the Weeping Woman",
+      "url": "https://blogs.loc.gov/folklife/2021/10/la-llorona-an-introduction-to-the-weeping-woman/",
+      "supported_claim": "哭泣、寻找孩子、河流等母题出现在哭泣女的流传版本中；不同讲述者的理解和版本有明显差别。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "已核对公开页面或检索正文；仅支持所列传统特征。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "WO02",
+      "title": "波哥大文化、娱乐与体育秘书处：Explora los mitos y leyendas de Colombia",
+      "url": "https://mail.culturarecreacionydeporte.gov.co/es/principal/noticias/mitos-y-leyendas-de-colombia",
+      "supported_claim": "El Silbón 的哨声存在远近倒置母题：听来远时实际近，听来近时实际远。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "政府文化普及文章；该页关于起源地点的表述与其他资料不一致，不采用其单一起源判断。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "WO03",
+      "title": "哥伦比亚文化部 Banco de Contenidos：El Silbón",
+      "url": "https://bancodecontenidos.mincultura.gov.co/FichaDocumental/?id=8987",
+      "supported_claim": "El Silbón 属于哥伦比亚与委内瑞拉共享平原地区的口述传统，行走时持续吹哨。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "政府目录对一部现代改编的介绍；仅采用其民俗归属与哨声母题，不采用作品文本和美术。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "WO04",
+      "title": "哥伦比亚文化部：Más cuentos y relatos del folclor afrocolombiano，Leer es mi cuento 53",
+      "url": "https://mng.mincultura.gov.co/areas/artes/literatura/Documents/LeerEsMiCuento/53%20_%20relatos%20afro_v17.pdf",
+      "supported_claim": "La Tunda 可以采取亲近者的外貌引人离开；一个像搅棒的木足不能变形。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "2022 年政府民俗读本，La Tunda 一节，PDF 第 5 页；这是已发表版本而非所有社群的统一说法。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "WO05",
+      "title": "危地马拉文化与体育部：Espantos y leyendas cobran vida en Tierra de Leyenda",
+      "url": "https://noticias.mcd.gob.gt/2026/04/27/espantos-y-leyendas-cobran-vida-en-tierra-de-leyenda-en-el-teatro-de-camara/",
+      "supported_claim": "危地马拉版本的 Sombrerón 是戴巨帽、夜间弹小吉他唱歌的小个子；Cadejo 是会护送夜行者的异犬；Siguanaba 先呈女人外貌、随后显露马头或马颅，并把人引向险地。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "政府对民俗舞台演出的介绍；属于现代公共转述。三条均标中等置信度，只采用这些已明示母题，不复刻舞台台词、造型或剧情。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "WO06",
+      "title": "巴西戈亚尼亚教育局：Folclore",
+      "url": "https://sme.goiania.go.gov.br/conexaoescola/ensino_fundamental/folclore/",
+      "supported_claim": "Curupira 有反向双足、红发并保护动植物；Saci 是恶作剧者，在旋风中出现，红帽与筛子捕捉是所述故事母题。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "已核对公开页面或检索正文；仅支持所列传统特征。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "WO07",
+      "title": "巴西 Fundação Joaquim Nabuco：Iara — Pesquisa Escolar",
+      "url": "https://pesquisaescolar.fundaj.gov.br/pt-br/artigo/iara/",
+      "supported_claim": "Iara 是巴西流传的水中女性/美人鱼形象，以歌声引人接近河水；资料列出多个版本并讨论文化交融。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "采用官方研究教育站点检索正文；外貌肤色、固定起源和性别惩罚不作为游戏规则。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "WO08",
+      "title": "巴西 Instituto Butantan：Dia do Folclore: conheça 8 animais fantásticos das lendas brasileiras",
+      "url": "https://butantan.gov.br/bubutantan/dia-do-folclore-conheca-8-animais-fantasticos-das-lendas-brasileiras",
+      "supported_claim": "Boto 夜间由淡水海豚化作人、戴帽遮住呼吸孔；Boitatá 为发光火蛇，保护林地，针对纵火行为。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "研究机构的民俗教育文章；仅采纳上述母题，忽略性别归责叙事和未必普遍的具体袭击细节。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "WO09",
+      "title": "美国新泽西 Pinelands Commission：The Jersey Devil",
+      "url": "https://www.nj.gov/pinelands/infor/educational/facts/jerseydevil.shtml",
+      "supported_claim": "泽西恶魔与 Pine Barrens 地域传说、飞行和尖锐叫声相关。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "已核对公开页面或检索正文；仅支持所列传统特征。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "WO10",
+      "title": "英国 National Army Museum：Anansi Tales",
+      "url": "https://www.nam.ac.uk/whats-on/anansi-tales",
+      "supported_claim": "Anansi 是非洲及加勒比故事中的蜘蛛/人形诡计者和民间英雄，以机智见长。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "博物馆活动的民俗概述；不把民间英雄写成邪恶物种。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "WO11",
+      "title": "Dictionary of South African English：tokoloshe",
+      "url": "https://dsae.co.za/entry/tokoloshe/e07240",
+      "supported_claim": "Tokoloshe 在南部非洲语言与文献中有小个子、毛发、水灵、恶作剧等描述。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "词典保存多个历史引文和拼写，不设定唯一统一外貌；游戏仅采用体型、水边和恶作剧母题。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "WO12",
+      "title": "National Museums Scotland：The African spiritual tradition of Mami Wata",
+      "url": "https://www.nms.ac.uk/discover-catalogue/the-african-spiritual-tradition-of-mami-wata",
+      "supported_claim": "Mami Wata 是多样的水灵传统，涉及财富、好运、疗愈与危险，部分形象为人鱼或与蛇相连。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "这是仍有现实文化与信仰意义的水灵传统；游戏使用明确原创的来访者，不制作宗教驱杀任务。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "WO13",
+      "title": "Smithsonian National Museum of African Art：Mami Wata figure",
+      "url": "https://www.si.edu/object/mami-wata-figure%3Anmafa_2009-16-1",
+      "supported_claim": "史密森尼馆藏标签描述 Mami Wata 的水灵身份、赋予财富的母题以及图像在文化交流中的发展。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "直接打开失败，但完整馆藏标签可由搜索索引读取；主论据同时有 WO12，避免把现代图像来源当作整个信仰的唯一源头。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "WO14",
+      "title": "Wits University Press：Senkatana",
+      "url": "https://archivewitspress.co.za/catalogue/senkatana-2/",
+      "supported_claim": "出版社说明 Senkatana 改写 Basotho 口述传说；其中 Kgodumodumo 吞下人和动物，英雄击败它并解救被吞者。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "采用大学出版社对传统母题的说明，不复制 1952 年戏剧的具体台词、角色编排。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "WO15",
+      "title": "South African National Parks：Kgodumodumo Dinosaur Interpretation Centre",
+      "url": "https://www.sanparks.org/parks/golden-gate-highlands/explore/heritage/kgodumodumo-dinosaur-interpretation-centre",
+      "supported_claim": "Kgodumodumo 是 Sesotho 传统中的巨型传说生物，与当地山地口述传统有关。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "仅作为地区与巨兽母题的独立佐证，不将神话描述为古生物学证据。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "WO16",
+      "title": "John S. Ryan：Bunyip，The Oxford Companion to Australian Folklore；University of New England 研究库",
+      "url": "https://rune.une.edu.au/entities/publication/7e4eee66-a47e-45c8-9388-0ea1115fc0ed",
+      "supported_claim": "Bunyip 公开记述与澳大利亚东南部内陆湖泊、沼泽、河流的水中生物有关。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "1993 年辞书条目的机构库摘要；具体形态与族群版本不能据此统一。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "WO17",
+      "title": "Allison Craven：An Uncommon Ancestor: Monstrous Emanations and Australian Tales of the Bunyip；James Cook University",
+      "url": "https://researchonline.jcu.edu.au/81118/",
+      "supported_claim": "学术研究区分地方 First Nations 水灵知识与后来殖民文学、流行文化中的 Bunyip 形象。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "用于限制改编边界：不声称游戏设定复原了某一社群的神圣知识。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "WO18",
+      "title": "Basil Keane：Taniwha，Te Ara Encyclopedia of New Zealand",
+      "url": "https://teara.govt.nz/en/taniwha/print",
+      "supported_claim": "Taniwha 形态与部族版本不同，常与水域相关；部分危险，部分是群体的守护者，某些可以变形。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "游戏采用虚构水路守护访客，不直接改编具名祖灵、真实河流守护者或祈词。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "WO19",
+      "title": "Martin Wikaira：Patupaiarehe，Te Ara Encyclopedia of New Zealand",
+      "url": "https://teara.govt.nz/en/patupaiarehe/print",
+      "supported_claim": "Patupaiarehe 与山林雾气、笛声、夜间活动有关；所述版本不喜熟食气味和明亮火光。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "不采用肤色或现实族群身份作为识别危险的依据；便利店热食边界是原创机制。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "WO20",
+      "title": "Mānoa Heritage Center：Menehune",
+      "url": "https://www.manoaheritagecenter.org/moolelo/menehune/",
+      "supported_claim": "夏威夷口述传统将多处石墙、鱼塘、建筑工程与 Menehune 联系起来；其身份与起源存在多种故事和研究解释。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "只采用建造者母题，不声称其是可捕获的矮人种族，也不复刻真实 heiau 仪式或建筑。",
+      "source_type": "folklore_reference"
+    },
+    {
+      "id": "TV01",
+      "title": "Viu：The Rules กฎหลังเที่ยงคืน 与夜班规则的官方介绍",
+      "url": "https://www.viu.com/ott/th/articles/the-rules-thai-series-recommendation/",
+      "supported_claim": "官方介绍将 The Rules 描述为以便利店夜班与13条规则为核心的恐怖剧，借熟悉的员工习惯制造威胁。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "只核对官方介绍，未声称观看完整剧集；中文名《致命规则》的对应仍待具体链接确认。不搬用完整13条规则、台词与人物。",
+      "source_type": "official_screen_reference"
+    },
+    {
+      "id": "TV02",
+      "title": "Viu：The Rules กฎหลังเที่ยงคืน 官方制作介绍",
+      "url": "https://www.viu.com/ott/th/articles/the-rules-midnight-horror-series/",
+      "supported_claim": "Viu 官方对便利店恐怖项目 The Rules / กฎหลังเที่ยงคืน 的作品及制作介绍。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "用于确认作品识别，不作为民俗原型或游戏玩法的事实依据。",
+      "source_type": "official_screen_reference"
+    }
+  ]
+}

@@ -1,0 +1,224 @@
+{
+  "version": "0.2",
+  "max_active": 1,
+  "baseline_uses_per_night": 2,
+  "permanent_death": false,
+  "may_replace_identity_proof": false,
+  "care_model": "one_explicit_need_per_active_pet_per_day",
+  "pets": [
+    {
+      "id": "P01",
+      "name": "三花猫",
+      "purchase_price": 160,
+      "ability": "提示一个异常关注方向",
+      "limitation": "需要食物；对普通声响也会警觉",
+      "tag": "trace",
+      "acquisition": [
+        "shop",
+        "specified_rescue_or_contract_event"
+      ],
+      "design_origin": "original_game_companion",
+      "uses_per_night": 2,
+      "care_supply_id": "PC01"
+    },
+    {
+      "id": "P02",
+      "name": "黑犬",
+      "purchase_price": 180,
+      "ability": "在可留气味的对象上提示一段路径",
+      "limitation": "噪声可能惊动听觉型对象",
+      "tag": "trace",
+      "acquisition": [
+        "shop",
+        "specified_rescue_or_contract_event"
+      ],
+      "design_origin": "original_game_companion",
+      "uses_per_night": 2,
+      "care_supply_id": "PC02"
+    },
+    {
+      "id": "P03",
+      "name": "鹦鹉",
+      "purchase_price": 180,
+      "ability": "回放一段已保存声音帮助对照",
+      "limitation": "声音可被模仿，不能单独判身份",
+      "tag": "sound",
+      "acquisition": [
+        "shop",
+        "specified_rescue_or_contract_event"
+      ],
+      "design_origin": "original_game_companion",
+      "uses_per_night": 2,
+      "care_supply_id": "PC03"
+    },
+    {
+      "id": "P04",
+      "name": "小仓鼠",
+      "purchase_price": 140,
+      "ability": "在已知安全路线送一件小耗材",
+      "limitation": "运输期间不能再次派遣",
+      "tag": "delivery",
+      "acquisition": [
+        "shop",
+        "specified_rescue_or_contract_event"
+      ],
+      "design_origin": "original_game_companion",
+      "uses_per_night": 2,
+      "care_supply_id": "PC04"
+    },
+    {
+      "id": "P05",
+      "name": "白鸽",
+      "purchase_price": 180,
+      "ability": "观察一处门外的可见路线",
+      "limitation": "雨雾天气能力降低",
+      "tag": "path",
+      "acquisition": [
+        "shop",
+        "specified_rescue_or_contract_event"
+      ],
+      "design_origin": "original_game_companion",
+      "uses_per_night": 2,
+      "care_supply_id": "PC05"
+    },
+    {
+      "id": "P06",
+      "name": "壁虎",
+      "purchase_price": 150,
+      "ability": "检查高处标签或通风口",
+      "limitation": "不能处理需要力量的任务",
+      "tag": "inspection",
+      "acquisition": [
+        "shop",
+        "specified_rescue_or_contract_event"
+      ],
+      "design_origin": "original_game_companion",
+      "uses_per_night": 2,
+      "care_supply_id": "PC06"
+    },
+    {
+      "id": "P07",
+      "name": "纸灯灵",
+      "purchase_price": 320,
+      "ability": "提供一次短暂可移动微光",
+      "limitation": "本作原创灵宠，需要照料灯芯且无驱魔通用效果",
+      "tag": "light",
+      "acquisition": [
+        "shop",
+        "specified_rescue_or_contract_event"
+      ],
+      "design_origin": "original_game_companion",
+      "uses_per_night": 1,
+      "care_supply_id": "PC07"
+    },
+    {
+      "id": "P08",
+      "name": "布偶守夜者",
+      "purchase_price": 360,
+      "ability": "在安全区帮助一次SAN恢复",
+      "limitation": "本作原创灵宠，不能远程作战或替代身份核验",
+      "tag": "san",
+      "acquisition": [
+        "shop",
+        "specified_rescue_or_contract_event"
+      ],
+      "design_origin": "original_game_companion",
+      "uses_per_night": 1,
+      "care_supply_id": "PC08"
+    }
+  ],
+  "individual_uses_override_baseline": true,
+  "care_rules": {
+    "full_care_day_slots": 1,
+    "full_care_hours": 2,
+    "matching_supply_quantity": 1,
+    "can_buy_matching_supply_during_care_action": true,
+    "purchase_adds_day_slots": 0,
+    "missed_care_effect": "disable_active_abilities_next_night_only",
+    "missed_care_effect_stacks": false,
+    "missed_care_effect_expires_at": "end_of_next_night",
+    "reassess_care_readiness_each_day": true,
+    "may_stay_home": true,
+    "inactive_pets_accrue_care_debt": false,
+    "player_resource_penalty_on_missed_care": false,
+    "permanent_loss_on_missed_care": false
+  },
+  "care_supplies_shop": {
+    "fixed_inventory": true,
+    "rotation_dependent": false,
+    "lottery_pool_member": false,
+    "available_during": [
+      "procurement_phase",
+      "day_care_action"
+    ],
+    "currency": "wage_coins",
+    "min_price": 5,
+    "max_price": 10
+  },
+  "care_supplies": [
+    {
+      "id": "PC01",
+      "name": "猫咪照料包",
+      "shop_price": 5,
+      "for_pet_id": "P01",
+      "consumable": true,
+      "design_origin": "original_game_companion_care"
+    },
+    {
+      "id": "PC02",
+      "name": "犬用照料包",
+      "shop_price": 6,
+      "for_pet_id": "P02",
+      "consumable": true,
+      "design_origin": "original_game_companion_care"
+    },
+    {
+      "id": "PC03",
+      "name": "鹦鹉照料包",
+      "shop_price": 5,
+      "for_pet_id": "P03",
+      "consumable": true,
+      "design_origin": "original_game_companion_care"
+    },
+    {
+      "id": "PC04",
+      "name": "仓鼠照料包",
+      "shop_price": 5,
+      "for_pet_id": "P04",
+      "consumable": true,
+      "design_origin": "original_game_companion_care"
+    },
+    {
+      "id": "PC05",
+      "name": "白鸽照料包",
+      "shop_price": 5,
+      "for_pet_id": "P05",
+      "consumable": true,
+      "design_origin": "original_game_companion_care"
+    },
+    {
+      "id": "PC06",
+      "name": "壁虎照料包",
+      "shop_price": 5,
+      "for_pet_id": "P06",
+      "consumable": true,
+      "design_origin": "original_game_companion_care"
+    },
+    {
+      "id": "PC07",
+      "name": "灯芯照料包",
+      "shop_price": 8,
+      "for_pet_id": "P07",
+      "consumable": true,
+      "design_origin": "original_game_companion_care"
+    },
+    {
+      "id": "PC08",
+      "name": "布偶修护包",
+      "shop_price": 10,
+      "for_pet_id": "P08",
+      "consumable": true,
+      "design_origin": "original_game_companion_care"
+    }
+  ]
+}

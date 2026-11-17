@@ -1,0 +1,248 @@
+{
+  "version": "0.2",
+  "status": "proposal_not_playtested",
+  "week_length_days": 7,
+  "same_phases_every_day": true,
+  "daily_phases": [
+    {
+      "id": "D01",
+      "start": "06:00",
+      "end": "08:00",
+      "name": "交班早餐与回顾"
+    },
+    {
+      "id": "D02",
+      "start": "08:00",
+      "end": "20:00",
+      "name": "六个白天行动格"
+    },
+    {
+      "id": "D03",
+      "start": "20:00",
+      "end": "22:00",
+      "name": "采购与整备"
+    },
+    {
+      "id": "D04",
+      "start": "22:00",
+      "end": "24:00",
+      "name": "出勤与验岗"
+    },
+    {
+      "id": "N01",
+      "start": "00:00",
+      "end": "01:00",
+      "name": "开班核验与收银"
+    },
+    {
+      "id": "N02",
+      "start": "01:00",
+      "end": "02:00",
+      "name": "验货与补货"
+    },
+    {
+      "id": "N03",
+      "start": "02:00",
+      "end": "03:00",
+      "name": "热食与冷链"
+    },
+    {
+      "id": "N04",
+      "start": "03:00",
+      "end": "04:00",
+      "name": "清洁与废弃物"
+    },
+    {
+      "id": "N05",
+      "start": "04:00",
+      "end": "05:00",
+      "name": "盘点与补单"
+    },
+    {
+      "id": "N06",
+      "start": "05:00",
+      "end": "06:00",
+      "name": "结账与交班准备"
+    }
+  ],
+  "night_seconds_per_hour": 120,
+  "day_action_slots": 6,
+  "day_hours_per_slot": 2,
+  "resources": {
+    "energy": {
+      "min": 0,
+      "max": 100,
+      "night_hour_drain": 4,
+      "sleep_hour_gain": 8,
+      "daytime_hour_drain": 0,
+      "daytime_cost_policy": "explicit_action_costs_only"
+    },
+    "san": {
+      "min": 0,
+      "max": 100,
+      "per_entity_per_phase_fear_cap": 15,
+      "repeat_fear_cooldown_seconds": 20,
+      "panic_window_seconds": 20,
+      "panic_control_restriction_seconds": 10,
+      "panic_timer_start": "first_zero_in_current_episode",
+      "panic_timer_restarts_on_repeat_zero": false,
+      "stabilization_allowed_during_panic": true,
+      "free_stabilizations_per_night": 1,
+      "safe_zone_stabilization_seconds": 8,
+      "safe_zone_stabilization_target_san": 15,
+      "stabilization_progress_preserved_on_interrupt": true,
+      "panic_closes_when": "san_above_zero",
+      "post_stabilization_fear_immunity_seconds": 5,
+      "post_stabilization_immunity_scope": "fear_san_damage_only",
+      "post_stabilization_immunity_triggers": "once_on_successful_panic_episode_close"
+    },
+    "satiety": {
+      "min": 0,
+      "max": 100,
+      "awake_hour_drain": 3,
+      "sleep_hour_drain": 1,
+      "accounting_clock": "unified_24_hour_game_clock",
+      "include_all_day_and_night_phases": true,
+      "action_satiety_annotations_add_extra_drain": false
+    },
+    "stamina": {
+      "min": 0,
+      "max_formula": "50 + 0.5 * energy",
+      "base_regen_per_real_second": 6,
+      "regen_delay_seconds": 2,
+      "low_energy_threshold": 25,
+      "low_energy_regen_multiplier": 0.65,
+      "low_satiety_threshold": 25,
+      "low_satiety_regen_multiplier": 0.6,
+      "minimum_regen_per_second": 2
+    }
+  },
+  "economy": {
+    "starting_coins": 120,
+    "base_wage_per_completed_night": 80,
+    "performance_bonus_max": 40,
+    "normal_lottery_ticket_per_completed_night": 1,
+    "starting_tickets": 1,
+    "daily_free_job_food_bundle_id": "daily_job_food"
+  },
+  "director": {
+    "max_new_primary_per_hour": 1,
+    "active_limits_by_day": [
+      1,
+      1,
+      2,
+      2,
+      2,
+      3,
+      3
+    ],
+    "stress_budgets_by_day": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "minor_events_per_night_range": [
+      2,
+      4
+    ],
+    "major_events_max_per_night": 1,
+    "day_events_per_day_range": [
+      0,
+      2
+    ],
+    "impersonators_max_first_week": 1,
+    "hard_conflicts_checked_before_budget": true,
+    "guarantee_from_admission_state_only": true
+  },
+  "day_actions": [
+    {
+      "id": "A01",
+      "name": "睡眠",
+      "slots": 1,
+      "energy_delta": 16,
+      "san_delta": 4,
+      "satiety_accounting": "sleep_rate_only"
+    },
+    {
+      "id": "A02",
+      "name": "短休",
+      "slots": 1,
+      "energy_delta": 10,
+      "san_delta": 4,
+      "satiety_accounting": "awake_rate_only"
+    },
+    {
+      "id": "A03",
+      "name": "驱魔知识学习",
+      "slots": 1,
+      "energy_delta": -6,
+      "study_points": 2,
+      "satiety_accounting": "awake_rate_only"
+    },
+    {
+      "id": "A04",
+      "name": "整理证据",
+      "slots": 1,
+      "energy_delta": -3,
+      "research_progress": 1,
+      "satiety_accounting": "awake_rate_only"
+    },
+    {
+      "id": "A05",
+      "name": "谈心与安静活动",
+      "slots": 1,
+      "san_delta": 15,
+      "satiety_accounting": "awake_rate_only"
+    },
+    {
+      "id": "A06",
+      "name": "装备维修",
+      "slots": 1,
+      "energy_delta": -4,
+      "satiety_accounting": "awake_rate_only"
+    },
+    {
+      "id": "A07",
+      "name": "特殊采购",
+      "slots": 1,
+      "energy_delta": -3,
+      "satiety_accounting": "awake_rate_only"
+    },
+    {
+      "id": "A08",
+      "name": "宠物照料",
+      "slots": 1,
+      "energy_delta": -2,
+      "san_delta": 5,
+      "satiety_accounting": "awake_rate_only",
+      "hours": 2,
+      "care_supply_quantity": 1,
+      "care_supply_reference": "active_pet.care_supply_id",
+      "care_rules_reference": "pets.care_rules"
+    },
+    {
+      "id": "A09",
+      "name": "临时兼职",
+      "slots": 1,
+      "energy_delta": -12,
+      "coins_delta": 30,
+      "satiety_accounting": "awake_rate_only"
+    }
+  ],
+  "night_completion": {
+    "planned_base_orders_per_hour": 2,
+    "planned_base_orders_per_night": 12,
+    "minimum_valid_transactions": 8,
+    "all_phase_critical_work_required": true,
+    "verified_colleague_transactions_count": true,
+    "matching_special_transactions_count": true,
+    "receipt_counts_once": true,
+    "admission_checks_remaining_service_capacity": true,
+    "survive_without_completion": "safe_withdrawal_no_completion_reward",
+    "daily_basic_food_independent_of_completion": true
+  }
+}

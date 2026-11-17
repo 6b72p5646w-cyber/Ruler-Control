@@ -1,0 +1,4505 @@
+{
+  "version": "0.2",
+  "events": [
+    {
+      "id": "E001",
+      "name": "暴单十分钟",
+      "category": "营业",
+      "phase": "night",
+      "trigger": "正常客流集中",
+      "choices": [
+        {
+          "label": "先挂单分批",
+          "consequence": "少赚部分奖金但保工作面",
+          "time_cost": {
+            "night_seconds_max": 20,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "让已核验同事接台",
+          "consequence": "提高吞吐并占用同事",
+          "time_cost": {
+            "night_seconds_max": 20,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "queue"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 20,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "matched_existing_task",
+        "task_kind": "收银",
+        "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
+      }
+    },
+    {
+      "id": "E002",
+      "name": "零钱告急",
+      "category": "营业",
+      "phase": "night",
+      "trigger": "现金订单多且零钱不足",
+      "choices": [
+        {
+          "label": "改为整单待付",
+          "consequence": "延迟收益但不伪造找零",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "申请备用零钱",
+          "consequence": "占用一次店长核验窗口",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "transaction"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "transaction"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 12,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "matched_existing_task",
+        "task_kind": "收银",
+        "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
+      }
+    },
+    {
+      "id": "E003",
+      "name": "退货小高峰",
+      "category": "营业",
+      "phase": "night",
+      "trigger": "多笔有效退货到店",
+      "choices": [
+        {
+          "label": "按原票逐单核对",
+          "consequence": "少量精力消耗，避免库存混淆",
+          "time_cost": {
+            "night_seconds_max": 20,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "先入待核区",
+          "consequence": "占用存放格换处理时间",
+          "time_cost": {
+            "night_seconds_max": 20,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "ownership"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "ownership"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 20,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "matched_existing_task",
+        "task_kind": "退货",
+        "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
+      }
+    },
+    {
+      "id": "E004",
+      "name": "鲜食预约",
+      "category": "营业",
+      "phase": "night",
+      "trigger": "00—04时段有顾客预约下一小时，且下一小时制作/交付容量已通过硬约束检查",
+      "choices": [
+        {
+          "label": "提前制作并预约交付",
+          "consequence": "当前实际制作占用货物与12秒处理预算，下一小时另预留8秒交付；不能只收单就记制作完成",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "预约下一小时制作与交付",
+          "consequence": "当前登记最多12秒，下一小时同时预留20秒制作交付；容量不足不接受订单",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "food"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "food"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "duration_seconds": 12,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "matched_existing_task",
+        "task_kind": "热食订单",
+        "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
+      },
+      "follow_up_reservation": {
+        "target": "next_game_hour",
+        "latest_finish": "next_hour_end",
+        "latest_absolute_finish": "06:00",
+        "seconds_by_choice": [
+          8,
+          20
+        ],
+        "reserve_before_acceptance": true,
+        "may_overlap_E037_only_if_same_work_object": true
+      }
+    },
+    {
+      "id": "E005",
+      "name": "走失儿童求助",
+      "category": "营业",
+      "phase": "night",
+      "trigger": "普通顾客请求帮助",
+      "choices": [
+        {
+          "label": "按可信求助流程联系",
+          "consequence": "占用电话与时间，得到关系收益",
+          "time_cost": {
+            "night_seconds_max": 20,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "请已核验同事陪同等候",
+          "consequence": "减少自己中断，消耗同事可用性",
+          "time_cost": {
+            "night_seconds_max": 20,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "staff"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 20,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E006",
+      "name": "匿名代购",
+      "category": "营业",
+      "phase": "night",
+      "trigger": "订单要求替未到场者付款",
+      "choices": [
+        {
+          "label": "要求完整订单范围",
+          "consequence": "延时但明确责任",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "转为普通现货购买",
+          "consequence": "降低订单收益而不承诺未知事项",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "contract"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "contract"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 12,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E007",
+      "name": "失物认领",
+      "category": "营业",
+      "phase": "night",
+      "trigger": "两人声称同一失物",
+      "choices": [
+        {
+          "label": "查登记与独立特征",
+          "consequence": "耗观察时间后恢复正确归属",
+          "time_cost": {
+            "night_seconds_max": 16,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "保持封存待核",
+          "consequence": "暂占一格，不强制猜人",
+          "time_cost": {
+            "night_seconds_max": 16,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "ownership"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "ownership"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 16,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E008",
+      "name": "骑手迟到",
+      "category": "营业",
+      "phase": "night",
+      "trigger": "封好外卖无人取走",
+      "choices": [
+        {
+          "label": "保温等待",
+          "consequence": "占用保温格",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "联系真实订单来源改时",
+          "consequence": "占用电话，释放取货区",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "cold"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 12,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "matched_existing_task",
+        "task_kind": "已接外卖",
+        "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
+      }
+    },
+    {
+      "id": "E009",
+      "name": "团购长单",
+      "category": "营业",
+      "phase": "night",
+      "trigger": "商品数量多且取货集中",
+      "choices": [
+        {
+          "label": "按编号分批交付",
+          "consequence": "稳定秩序但耗时",
+          "time_cost": {
+            "night_seconds_max": 24,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "借用空台打包",
+          "consequence": "占用可用于隔离的工作面",
+          "time_cost": {
+            "night_seconds_max": 24,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "queue"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 24,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "matched_existing_task",
+        "task_kind": "真实团购",
+        "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
+      }
+    },
+    {
+      "id": "E010",
+      "name": "暴雨拍门",
+      "category": "天气",
+      "phase": "night",
+      "trigger": "雨量预告并有门外水痕",
+      "choices": [
+        {
+          "label": "先铺雨垫分流",
+          "consequence": "降低湿区面积，占少量体力",
+          "time_cost": {
+            "night_seconds_max": 16,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "继续营业后清洁",
+          "consequence": "增加收益并保留明确积水风险",
+          "time_cost": {
+            "night_seconds_max": 16,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "water"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 16,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E011",
+      "name": "浓雾围店",
+      "category": "天气",
+      "phase": "night",
+      "trigger": "窗外能见度下降",
+      "choices": [
+        {
+          "label": "依赖室内核验",
+          "consequence": "失去部分外部预警但证据可靠",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "安排安全门内观察",
+          "consequence": "耗精力与同事时间",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "perception"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "perception"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 12,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E012",
+      "name": "热浪滞留",
+      "category": "天气",
+      "phase": "night",
+      "trigger": "环境温度持续偏高",
+      "choices": [
+        {
+          "label": "优先保冷",
+          "consequence": "增加设备负载",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "减少易坏货陈列",
+          "consequence": "损失营业机会换稳定",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "cold"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 12,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E013",
+      "name": "寒潮结霜",
+      "category": "天气",
+      "phase": "night",
+      "trigger": "温条与外霜预警",
+      "choices": [
+        {
+          "label": "暂停一处柜门检修",
+          "consequence": "降低吞吐",
+          "time_cost": {
+            "night_seconds_max": 18,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "转运到备用保温容器",
+          "consequence": "占随身或工位容量",
+          "time_cost": {
+            "night_seconds_max": 18,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "cold"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 18,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E014",
+      "name": "雷暴闪光",
+      "category": "天气",
+      "phase": "night",
+      "trigger": "室外闪光与断电预报",
+      "choices": [
+        {
+          "label": "预置应急照明",
+          "consequence": "少量准备成本",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "保留手持电量等待",
+          "consequence": "节省准备但牺牲一只手",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "light"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 12,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E015",
+      "name": "区域停水",
+      "category": "天气",
+      "phase": "night",
+      "trigger": "供水通知与水压下降",
+      "choices": [
+        {
+          "label": "节省净水留核验",
+          "consequence": "降低清洁效率",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "购买一批应急用水",
+          "consequence": "耗工资币但缓解容量问题",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "water"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 12,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E016",
+      "name": "门外积水",
+      "category": "天气",
+      "phase": "night",
+      "trigger": "公共门外出现可见湿区",
+      "choices": [
+        {
+          "label": "改走已核验侧边通路",
+          "consequence": "营业动线变长",
+          "time_cost": {
+            "night_seconds_max": 20,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "暂停短时入店清理",
+          "consequence": "少赚收益并消耗体力",
+          "time_cost": {
+            "night_seconds_max": 20,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "path"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "path"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 20,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E017",
+      "name": "动物避雨",
+      "category": "天气",
+      "phase": "night",
+      "trigger": "普通流浪动物停在门外",
+      "choices": [
+        {
+          "label": "放置安全休息点",
+          "consequence": "耗食物并可能触发后续领养",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "联系白天救助记录",
+          "consequence": "耗电话时间，不直接获得宠物",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "pet"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "pet"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 12,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E018",
+      "name": "闷热无风",
+      "category": "天气",
+      "phase": "night",
+      "trigger": "通风效率下降",
+      "choices": [
+        {
+          "label": "调整风门",
+          "consequence": "可能改变纸张与声音传播",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "减少热食同时工作",
+          "consequence": "减少负载与营业额",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "wind"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 12,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E019",
+      "name": "片区断电",
+      "category": "设备供应",
+      "phase": "night",
+      "trigger": "独立应急灯仍可用",
+      "choices": [
+        {
+          "label": "按回路恢复",
+          "consequence": "耗精力并保留关键设备",
+          "time_cost": {
+            "night_seconds_max": 24,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "压缩营业范围",
+          "consequence": "降低客流但减少用电需求",
+          "time_cost": {
+            "night_seconds_max": 24,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "light"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 24,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E020",
+      "name": "冷柜报警",
+      "category": "设备供应",
+      "phase": "night",
+      "trigger": "温度条离开正常区",
+      "choices": [
+        {
+          "label": "检修并暂停销售",
+          "consequence": "增加当小时工作量",
+          "time_cost": {
+            "night_seconds_max": 24,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "先转移易坏货",
+          "consequence": "占保温容量",
+          "time_cost": {
+            "night_seconds_max": 24,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "cold"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 24,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "matched_existing_task",
+        "task_kind": "冷链维护",
+        "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
+      }
+    },
+    {
+      "id": "E021",
+      "name": "微波炉停转",
+      "category": "设备供应",
+      "phase": "night",
+      "trigger": "工作进度停住且无异常来源证据",
+      "choices": [
+        {
+          "label": "切换备用加热点",
+          "consequence": "占一个工位",
+          "time_cost": {
+            "night_seconds_max": 16,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "退回未完成订单",
+          "consequence": "损失收益并释放时间",
+          "time_cost": {
+            "night_seconds_max": 16,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "food"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "food"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 16,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "matched_existing_task",
+        "task_kind": "热食制作",
+        "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
+      }
+    },
+    {
+      "id": "E022",
+      "name": "打印纸卡住",
+      "category": "设备供应",
+      "phase": "night",
+      "trigger": "物理卡纸可见",
+      "choices": [
+        {
+          "label": "停机清纸",
+          "consequence": "耗短时操作",
+          "time_cost": {
+            "night_seconds_max": 16,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "启用编号手写备单",
+          "consequence": "精力支出增加但保核验能力",
+          "time_cost": {
+            "night_seconds_max": 16,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "transaction"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "transaction"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 16,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "matched_existing_task",
+        "task_kind": "真实订单记录",
+        "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
+      }
+    },
+    {
+      "id": "E023",
+      "name": "收银离线",
+      "category": "设备供应",
+      "phase": "night",
+      "trigger": "网络状态异常",
+      "choices": [
+        {
+          "label": "使用离线订单号",
+          "consequence": "保留交易，班末再同步",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "暂停复杂支付",
+          "consequence": "营业额下降但流程简化",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "transaction"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "transaction"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 12,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "matched_existing_task",
+        "task_kind": "真实支付",
+        "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
+      }
+    },
+    {
+      "id": "E024",
+      "name": "门铃失灵",
+      "category": "设备供应",
+      "phase": "night",
+      "trigger": "测试来客与门铃灯不一致",
+      "choices": [
+        {
+          "label": "启用人工验客",
+          "consequence": "占同事守岗时间",
+          "time_cost": {
+            "night_seconds_max": 16,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "暂停入店修铃",
+          "consequence": "耗时后恢复自动提示",
+          "time_cost": {
+            "night_seconds_max": 16,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "threshold"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "threshold"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 16,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E025",
+      "name": "后门锁卡",
+      "category": "设备供应",
+      "phase": "night",
+      "trigger": "门状态无法正常闭合",
+      "choices": [
+        {
+          "label": "加内侧安全挡板",
+          "consequence": "保边界但损失通路",
+          "time_cost": {
+            "night_seconds_max": 24,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "安排同事守门并维修",
+          "consequence": "占人力与体力",
+          "time_cost": {
+            "night_seconds_max": 24,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "threshold"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "threshold"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 24,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E026",
+      "name": "仓库漏水",
+      "category": "设备供应",
+      "phase": "night",
+      "trigger": "已定位的普通水源渗漏",
+      "choices": [
+        {
+          "label": "先断水源再搬货",
+          "consequence": "耗时但减少扩散",
+          "time_cost": {
+            "night_seconds_max": 24,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "抢救低层货",
+          "consequence": "保库存但暂增湿区",
+          "time_cost": {
+            "night_seconds_max": 24,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "water"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 24,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "matched_existing_task",
+        "task_kind": "当前清洁",
+        "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
+      }
+    },
+    {
+      "id": "E027",
+      "name": "送货错点",
+      "category": "设备供应",
+      "phase": "night",
+      "trigger": "送货单时间与班表不符",
+      "choices": [
+        {
+          "label": "核验后留在接货格",
+          "consequence": "占存放空间",
+          "time_cost": {
+            "night_seconds_max": 16,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "要求按约定时段重送",
+          "consequence": "可能错过本夜额外销量",
+          "time_cost": {
+            "night_seconds_max": 16,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "ownership"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "ownership"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 16,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "matched_existing_task",
+        "task_kind": "验货",
+        "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
+      }
+    },
+    {
+      "id": "E028",
+      "name": "同事迟到",
+      "category": "人员身份",
+      "phase": "night",
+      "trigger": "开班时同事未到",
+      "choices": [
+        {
+          "label": "先安全缩减营业",
+          "consequence": "减少收入并保主角资源",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "按已核验渠道确认",
+          "consequence": "耗精力但可获得可靠返岗时间",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "identity"
+      ],
+      "stress_cost": 2,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "identity"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0
+      ],
+      "duration_seconds": 12,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": true,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      },
+      "entity_binding": {
+        "anomalous_variant_requires_binding": true,
+        "required_catalog": "F",
+        "required_instance_state": "already_admitted_by_director",
+        "required_capability": "当前事件所需的员工拟态或远程冒充能力，必须已列在该F模板中",
+        "create_new_entity": false,
+        "resample_identity": false,
+        "unbound_behavior": "真实同事因已记录交通原因迟到，只有一个真实同事实体。",
+        "entity_slot_cost": "只由绑定的F实例计一次，事件不增加未登记席位",
+        "stress_cost_mode": "stress_cost只计未被绑定F实例预算包含的额外操作，已包含则为0"
+      },
+      "permission_policy": {
+        "high_risk_independent_sources_min": 2,
+        "seal_alone_proves_identity": false,
+        "transferable_artifacts": [
+          "封签",
+          "工牌",
+          "工单",
+          "一次性序号",
+          "工单照片"
+        ],
+        "shared_origin_counts_once": true,
+        "gentle_isolation_relation_penalty": 0,
+        "gentle_isolation_rating_penalty": 0,
+        "insufficient_evidence": "继续低风险待核，不恢复高风险权限"
+      }
+    },
+    {
+      "id": "E029",
+      "name": "两个同事",
+      "category": "人员身份",
+      "phase": "night",
+      "trigger": "已绑定获准的员工拟态F实例后，同一外观身份的真实角色与假角色同时出现",
+      "choices": [
+        {
+          "label": "暂停两者高风险权限并分别核验",
+          "consequence": "每人各取得两种独立来源证据才恢复其范围内权限；未完成者继续待核",
+          "time_cost": {
+            "night_seconds_max": 24,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "两者待核并分区等候",
+          "consequence": "先主动测试其中一人；另一人不自动放行，温和隔离不扣信任或绩效",
+          "time_cost": {
+            "night_seconds_max": 24,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "identity"
+      ],
+      "stress_cost": 2,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "identity"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 24,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      },
+      "entity_binding": {
+        "anomalous_variant_requires_binding": true,
+        "required_catalog": "F",
+        "required_instance_state": "already_admitted_by_director",
+        "required_capability": "当前事件所需的员工拟态或远程冒充能力，必须已列在该F模板中",
+        "create_new_entity": false,
+        "resample_identity": false,
+        "unbound_behavior": "降级为E028正常迟到/接班等待；不显示第二具同事身体。",
+        "entity_slot_cost": "只由绑定的F实例计一次，事件不增加未登记席位",
+        "stress_cost_mode": "stress_cost只计未被绑定F实例预算包含的额外操作，已包含则为0"
+      },
+      "permission_policy": {
+        "high_risk_independent_sources_min": 2,
+        "seal_alone_proves_identity": false,
+        "transferable_artifacts": [
+          "封签",
+          "工牌",
+          "工单",
+          "一次性序号",
+          "工单照片"
+        ],
+        "shared_origin_counts_once": true,
+        "gentle_isolation_relation_penalty": 0,
+        "gentle_isolation_rating_penalty": 0,
+        "insufficient_evidence": "继续低风险待核，不恢复高风险权限"
+      }
+    },
+    {
+      "id": "E030",
+      "name": "店长双来电",
+      "category": "人员身份",
+      "phase": "night",
+      "trigger": "已绑定获准的远程冒充F实例后，两线路自称店长；未绑定只可显示正常重复线路",
+      "choices": [
+        {
+          "label": "优先回拨已核实渠道",
+          "consequence": "取得一个来源；新权限仍需另一独立本地或现场证据，不能只凭声音或口令放行",
+          "time_cost": {
+            "night_seconds_max": 20,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "优先核对封存工单",
+          "consequence": "只执行此前已验证的有限任务；封签不认证来电者，证据不足继续待核",
+          "time_cost": {
+            "night_seconds_max": 20,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "identity"
+      ],
+      "stress_cost": 2,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "identity"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 20,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      },
+      "entity_binding": {
+        "anomalous_variant_requires_binding": true,
+        "required_catalog": "F",
+        "required_instance_state": "already_admitted_by_director",
+        "required_capability": "当前事件所需的员工拟态或远程冒充能力，必须已列在该F模板中",
+        "create_new_entity": false,
+        "resample_identity": false,
+        "unbound_behavior": "同一真实店长的线路重拨或重复通知；没有冒充声音或假实体。",
+        "entity_slot_cost": "只由绑定的F实例计一次，事件不增加未登记席位",
+        "stress_cost_mode": "stress_cost只计未被绑定F实例预算包含的额外操作，已包含则为0"
+      },
+      "permission_policy": {
+        "high_risk_independent_sources_min": 2,
+        "seal_alone_proves_identity": false,
+        "transferable_artifacts": [
+          "封签",
+          "工牌",
+          "工单",
+          "一次性序号",
+          "工单照片"
+        ],
+        "shared_origin_counts_once": true,
+        "gentle_isolation_relation_penalty": 0,
+        "gentle_isolation_rating_penalty": 0,
+        "insufficient_evidence": "继续低风险待核，不恢复高风险权限"
+      }
+    },
+    {
+      "id": "E031",
+      "name": "店长临时查账",
+      "category": "人员身份",
+      "phase": "night",
+      "trigger": "经理提出异常优先级",
+      "choices": [
+        {
+          "label": "核验当前工单与权限",
+          "consequence": "保留现有任务并耗观察时间",
+          "time_cost": {
+            "night_seconds_max": 16,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "请求延后到交班核查",
+          "consequence": "仅记录实际工作延后，温和待核本身不扣关系或绩效，也不构成违例",
+          "time_cost": {
+            "night_seconds_max": 16,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "identity"
+      ],
+      "stress_cost": 2,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "identity"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 16,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      },
+      "entity_binding": {
+        "anomalous_variant_requires_binding": true,
+        "required_catalog": "F",
+        "required_instance_state": "already_admitted_by_director",
+        "required_capability": "当前事件所需的员工拟态或远程冒充能力，必须已列在该F模板中",
+        "create_new_entity": false,
+        "resample_identity": false,
+        "unbound_behavior": "真实店长的普通工单优先级需要确认。",
+        "entity_slot_cost": "只由绑定的F实例计一次，事件不增加未登记席位",
+        "stress_cost_mode": "stress_cost只计未被绑定F实例预算包含的额外操作，已包含则为0"
+      },
+      "permission_policy": {
+        "high_risk_independent_sources_min": 2,
+        "seal_alone_proves_identity": false,
+        "transferable_artifacts": [
+          "封签",
+          "工牌",
+          "工单",
+          "一次性序号",
+          "工单照片"
+        ],
+        "shared_origin_counts_once": true,
+        "gentle_isolation_relation_penalty": 0,
+        "gentle_isolation_rating_penalty": 0,
+        "insufficient_evidence": "继续低风险待核，不恢复高风险权限"
+      }
+    },
+    {
+      "id": "E032",
+      "name": "同事借工牌",
+      "category": "人员身份",
+      "phase": "night",
+      "trigger": "声称工牌遗失请求借用",
+      "choices": [
+        {
+          "label": "启动补证流程",
+          "consequence": "耗时并限制部分权限",
+          "time_cost": {
+            "night_seconds_max": 16,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "维持其低风险工作",
+          "consequence": "保营业但不能代为授权",
+          "time_cost": {
+            "night_seconds_max": 16,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "identity"
+      ],
+      "stress_cost": 2,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "identity"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 16,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      },
+      "entity_binding": {
+        "anomalous_variant_requires_binding": true,
+        "required_catalog": "F",
+        "required_instance_state": "already_admitted_by_director",
+        "required_capability": "当前事件所需的员工拟态或远程冒充能力，必须已列在该F模板中",
+        "create_new_entity": false,
+        "resample_identity": false,
+        "unbound_behavior": "真实同事正常遗失工牌并等待补证。",
+        "entity_slot_cost": "只由绑定的F实例计一次，事件不增加未登记席位",
+        "stress_cost_mode": "stress_cost只计未被绑定F实例预算包含的额外操作，已包含则为0"
+      },
+      "permission_policy": {
+        "high_risk_independent_sources_min": 2,
+        "seal_alone_proves_identity": false,
+        "transferable_artifacts": [
+          "封签",
+          "工牌",
+          "工单",
+          "一次性序号",
+          "工单照片"
+        ],
+        "shared_origin_counts_once": true,
+        "gentle_isolation_relation_penalty": 0,
+        "gentle_isolation_rating_penalty": 0,
+        "insufficient_evidence": "继续低风险待核，不恢复高风险权限"
+      }
+    },
+    {
+      "id": "E033",
+      "name": "同事短暂失联",
+      "category": "人员身份",
+      "phase": "night",
+      "trigger": "离岗超过约定时间",
+      "choices": [
+        {
+          "label": "暂停后续高风险委派",
+          "consequence": "主角承担更多任务",
+          "time_cost": {
+            "night_seconds_max": 20,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "沿已知安全路径查看",
+          "consequence": "消耗体力与时间",
+          "time_cost": {
+            "night_seconds_max": 20,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "staff"
+      ],
+      "stress_cost": 2,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 20,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      },
+      "entity_binding": {
+        "anomalous_variant_requires_binding": true,
+        "required_catalog": "F",
+        "required_instance_state": "already_admitted_by_director",
+        "required_capability": "当前事件所需的员工拟态或远程冒充能力，必须已列在该F模板中",
+        "create_new_entity": false,
+        "resample_identity": false,
+        "unbound_behavior": "真实同事因已记录搬货或休息暂未回应。",
+        "entity_slot_cost": "只由绑定的F实例计一次，事件不增加未登记席位",
+        "stress_cost_mode": "stress_cost只计未被绑定F实例预算包含的额外操作，已包含则为0"
+      },
+      "permission_policy": {
+        "high_risk_independent_sources_min": 2,
+        "seal_alone_proves_identity": false,
+        "transferable_artifacts": [
+          "封签",
+          "工牌",
+          "工单",
+          "一次性序号",
+          "工单照片"
+        ],
+        "shared_origin_counts_once": true,
+        "gentle_isolation_relation_penalty": 0,
+        "gentle_isolation_rating_penalty": 0,
+        "insufficient_evidence": "继续低风险待核，不恢复高风险权限"
+      }
+    },
+    {
+      "id": "E034",
+      "name": "班前约定不符",
+      "category": "人员身份",
+      "phase": "night",
+      "trigger": "返回者答复与私约不一致",
+      "choices": [
+        {
+          "label": "追加另一类证据",
+          "consequence": "避免把真实忘记当假扮",
+          "time_cost": {
+            "night_seconds_max": 16,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "先撤高风险权限待核",
+          "consequence": "减少帮手但保边界",
+          "time_cost": {
+            "night_seconds_max": 16,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "identity"
+      ],
+      "stress_cost": 2,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "identity"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 16,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      },
+      "entity_binding": {
+        "anomalous_variant_requires_binding": true,
+        "required_catalog": "F",
+        "required_instance_state": "already_admitted_by_director",
+        "required_capability": "当前事件所需的员工拟态或远程冒充能力，必须已列在该F模板中",
+        "create_new_entity": false,
+        "resample_identity": false,
+        "unbound_behavior": "真实同事记错非关键约定，追加核验而不改其身份。",
+        "entity_slot_cost": "只由绑定的F实例计一次，事件不增加未登记席位",
+        "stress_cost_mode": "stress_cost只计未被绑定F实例预算包含的额外操作，已包含则为0"
+      },
+      "permission_policy": {
+        "high_risk_independent_sources_min": 2,
+        "seal_alone_proves_identity": false,
+        "transferable_artifacts": [
+          "封签",
+          "工牌",
+          "工单",
+          "一次性序号",
+          "工单照片"
+        ],
+        "shared_origin_counts_once": true,
+        "gentle_isolation_relation_penalty": 0,
+        "gentle_isolation_rating_penalty": 0,
+        "insufficient_evidence": "继续低风险待核，不恢复高风险权限"
+      }
+    },
+    {
+      "id": "E035",
+      "name": "店长带陌生访客",
+      "category": "人员身份",
+      "phase": "night",
+      "trigger": "申请直接进入员工区",
+      "choices": [
+        {
+          "label": "逐人核验权限",
+          "consequence": "占时间而不承诺新岗位",
+          "time_cost": {
+            "night_seconds_max": 20,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "改在公共区完成交谈",
+          "consequence": "保安全并占用顾客空间",
+          "time_cost": {
+            "night_seconds_max": 20,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "identity"
+      ],
+      "stress_cost": 2,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "identity"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 20,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      },
+      "entity_binding": {
+        "anomalous_variant_requires_binding": true,
+        "required_catalog": "F",
+        "required_instance_state": "already_admitted_by_director",
+        "required_capability": "当前事件所需的员工拟态或远程冒充能力，必须已列在该F模板中",
+        "create_new_entity": false,
+        "resample_identity": false,
+        "unbound_behavior": "真实店长携普通未授权来访者，只能在公共区等待。",
+        "entity_slot_cost": "只由绑定的F实例计一次，事件不增加未登记席位",
+        "stress_cost_mode": "stress_cost只计未被绑定F实例预算包含的额外操作，已包含则为0"
+      },
+      "permission_policy": {
+        "high_risk_independent_sources_min": 2,
+        "seal_alone_proves_identity": false,
+        "transferable_artifacts": [
+          "封签",
+          "工牌",
+          "工单",
+          "一次性序号",
+          "工单照片"
+        ],
+        "shared_origin_counts_once": true,
+        "gentle_isolation_relation_penalty": 0,
+        "gentle_isolation_rating_penalty": 0,
+        "insufficient_evidence": "继续低风险待核，不恢复高风险权限"
+      }
+    },
+    {
+      "id": "E036",
+      "name": "提前下班通知",
+      "category": "人员身份",
+      "phase": "night",
+      "trigger": "来电或来客称已到六点",
+      "choices": [
+        {
+          "label": "查看可信时钟与开店单",
+          "consequence": "保持正常阶段",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "暂缓其他指令并完成预交接",
+          "consequence": "消耗核验时间，不提前离店",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "time"
+      ],
+      "stress_cost": 2,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "time"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 12,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      },
+      "entity_binding": {
+        "anomalous_variant_requires_binding": true,
+        "required_catalog": "F",
+        "required_instance_state": "already_admitted_by_director",
+        "required_capability": "当前事件所需的员工拟态或远程冒充能力，必须已列在该F模板中",
+        "create_new_entity": false,
+        "resample_identity": false,
+        "unbound_behavior": "普通排班误报，依据可信时钟纠正，不改变人员身份。",
+        "entity_slot_cost": "只由绑定的F实例计一次，事件不增加未登记席位",
+        "stress_cost_mode": "stress_cost只计未被绑定F实例预算包含的额外操作，已包含则为0"
+      },
+      "permission_policy": {
+        "high_risk_independent_sources_min": 2,
+        "seal_alone_proves_identity": false,
+        "transferable_artifacts": [
+          "封签",
+          "工牌",
+          "工单",
+          "一次性序号",
+          "工单照片"
+        ],
+        "shared_origin_counts_once": true,
+        "gentle_isolation_relation_penalty": 0,
+        "gentle_isolation_rating_penalty": 0,
+        "insufficient_evidence": "继续低风险待核，不恢复高风险权限"
+      }
+    },
+    {
+      "id": "E037",
+      "name": "百鬼夜行",
+      "category": "大型异变",
+      "phase": "night",
+      "trigger": "01—04阶段起点，有旗影与通行预告；该阶段实际关键工作可完整嵌入120秒流程且没有冲突义务",
+      "choices": [
+        {
+          "label": "分批服务并完成本阶段工作",
+          "consequence": "最多两笔特殊交易，各至多12秒；40秒关键工作和前后验收仍须实际执行",
+          "time_cost": {
+            "night_seconds_max": 120,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "保守模式暂停特殊交易",
+          "consequence": "取消24秒可选交易额度以留余量，仍须执行40秒关键工作与前后验收；只降低额外收益",
+          "time_cost": {
+            "night_seconds_max": 120,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "procession"
+      ],
+      "stress_cost": 3,
+      "primary_slot": true,
+      "required_rule_tags": [
+        "procession"
+      ],
+      "cooldown_hours": 6,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "duration_seconds": 120,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": true,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "embedded_current_phase_work",
+        "completion_requires_object_matched_receipt": true,
+        "auto_complete_on_event_end": false,
+        "phase_work_reserved_seconds": 40,
+        "required_actions_by_hour": {
+          "1": [
+            {
+              "action": "核验两箱真实货物",
+              "count": 2,
+              "seconds_each": 8
+            },
+            {
+              "action": "搬入对应货格",
+              "count": 2,
+              "seconds_each": 8
+            },
+            {
+              "action": "登记批次",
+              "count": 1,
+              "seconds_each": 8
+            }
+          ],
+          "2": [
+            {
+              "action": "制作分装真实订单，含设备操作等待",
+              "count": 2,
+              "seconds_each": 12
+            },
+            {
+              "action": "温度核验",
+              "count": 2,
+              "seconds_each": 4
+            },
+            {
+              "action": "标记批次并复位",
+              "count": 1,
+              "seconds_each": 8
+            }
+          ],
+          "3": [
+            {
+              "action": "清扫或复检当前地面",
+              "count": 2,
+              "seconds_each": 12
+            },
+            {
+              "action": "分类回收",
+              "count": 1,
+              "seconds_each": 8
+            },
+            {
+              "action": "登记清洁验收",
+              "count": 1,
+              "seconds_each": 8
+            }
+          ],
+          "4": [
+            {
+              "action": "盘点当前货格",
+              "count": 2,
+              "seconds_each": 8
+            },
+            {
+              "action": "补录真实订单",
+              "count": 2,
+              "seconds_each": 8
+            },
+            {
+              "action": "核对差额",
+              "count": 1,
+              "seconds_each": 8
+            }
+          ]
+        },
+        "same_object_action_counts_once": true,
+        "conservative_mode_still_requires_full_work": true
+      },
+      "timeline": [
+        {
+          "name": "预告",
+          "start_second": 0,
+          "end_second": 20,
+          "mandatory_seconds": 12,
+          "movement_and_margin_seconds": 8
+        },
+        {
+          "name": "服务与同阶段工作",
+          "start_second": 20,
+          "end_second": 100,
+          "phase_work_reserved_seconds": 40,
+          "optional_trade_max_seconds": 24,
+          "optional_orders_max": 2,
+          "movement_recovery_margin_seconds": 16
+        },
+        {
+          "name": "复店",
+          "start_second": 100,
+          "end_second": 120,
+          "mandatory_seconds": 12,
+          "margin_seconds": 8
+        }
+      ],
+      "admission_constraints": {
+        "hour_boundary_only": true,
+        "no_forced_small_events_during_run": true,
+        "no_stage_extension": true,
+        "no_deferred_critical_phase_work": true,
+        "no_unrelated_accepted_order_cancellation": true,
+        "reject_if_effective_work_exceeds_40_seconds": true,
+        "reject_if_other_committed_actions_do_not_fit": true,
+        "reject_if_other_large_event_reserved_this_night": true,
+        "conservative_mode_must_be_feasible": true
+      }
+    },
+    {
+      "id": "E038",
+      "name": "借道迎亲",
+      "category": "大型异变",
+      "phase": "night",
+      "trigger": "队伍请求穿过特定门线",
+      "choices": [
+        {
+          "label": "核实范围后安排独立通路",
+          "consequence": "占通路并换取契约回报",
+          "time_cost": {
+            "night_seconds_max": 60,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "拒绝改动员工区边界",
+          "consequence": "保门店但承受已预告等待压力",
+          "time_cost": {
+            "night_seconds_max": 60,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "threshold"
+      ],
+      "stress_cost": 3,
+      "primary_slot": true,
+      "required_rule_tags": [
+        "threshold"
+      ],
+      "cooldown_hours": 6,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "duration_seconds": 60,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": true,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E039",
+      "name": "午夜送葬",
+      "category": "大型异变",
+      "phase": "night",
+      "trigger": "送行队伍需要短时安静",
+      "choices": [
+        {
+          "label": "降低非必要声源",
+          "consequence": "牺牲叫号效率",
+          "time_cost": {
+            "night_seconds_max": 50,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "转移工作至远端区",
+          "consequence": "消耗搬运体力，维持正常订单",
+          "time_cost": {
+            "night_seconds_max": 50,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "sound"
+      ],
+      "stress_cost": 3,
+      "primary_slot": true,
+      "required_rule_tags": [
+        "sound"
+      ],
+      "cooldown_hours": 6,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "duration_seconds": 50,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": true,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E040",
+      "name": "鬼市临门",
+      "category": "大型异变",
+      "phase": "night",
+      "trigger": "门外出现限时特殊摊位",
+      "choices": [
+        {
+          "label": "仅交易已知代价物品",
+          "consequence": "耗货币并可能得到限定辅助品",
+          "time_cost": {
+            "night_seconds_max": 45,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "不外出并做店内生意",
+          "consequence": "放弃特殊收益，保持安全",
+          "time_cost": {
+            "night_seconds_max": 45,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "contract"
+      ],
+      "stress_cost": 3,
+      "primary_slot": true,
+      "required_rule_tags": [
+        "contract"
+      ],
+      "cooldown_hours": 6,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "duration_seconds": 45,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": true,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E041",
+      "name": "归魂寻物",
+      "category": "大型异变",
+      "phase": "night",
+      "trigger": "多个访客要求认领旧物",
+      "choices": [
+        {
+          "label": "依登记逐件核验",
+          "consequence": "增加精力消耗，获得归还回报",
+          "time_cost": {
+            "night_seconds_max": 50,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "集中封存等待白天补证",
+          "consequence": "占库存位，无需当场赌博",
+          "time_cost": {
+            "night_seconds_max": 50,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "ownership"
+      ],
+      "stress_cost": 3,
+      "primary_slot": true,
+      "required_rule_tags": [
+        "ownership"
+      ],
+      "cooldown_hours": 6,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "duration_seconds": 50,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": true,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E042",
+      "name": "无名宴席",
+      "category": "大型异变",
+      "phase": "night",
+      "trigger": "陌生客群要求共用食台",
+      "choices": [
+        {
+          "label": "划分供物台与个人食物",
+          "consequence": "消耗货物并限制区域",
+          "time_cost": {
+            "night_seconds_max": 50,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "拒绝未知饮食约定",
+          "consequence": "减少营业回报，保饱腹补给",
+          "time_cost": {
+            "night_seconds_max": 50,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "offering"
+      ],
+      "stress_cost": 3,
+      "primary_slot": true,
+      "required_rule_tags": [
+        "offering"
+      ],
+      "cooldown_hours": 6,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        2,
+        3,
+        4
+      ],
+      "duration_seconds": 50,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": true,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E043",
+      "name": "假黎明",
+      "category": "大型异变",
+      "phase": "night",
+      "trigger": "窗外天亮但可信时间未到",
+      "choices": [
+        {
+          "label": "维持夜班规程",
+          "consequence": "承受短暂SAN压力",
+          "time_cost": {
+            "night_seconds_max": 30,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "提前整理交接资料但不离店",
+          "consequence": "占用当前工作时间并减少终局负担",
+          "time_cost": {
+            "night_seconds_max": 30,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "time"
+      ],
+      "stress_cost": 3,
+      "primary_slot": true,
+      "required_rule_tags": [
+        "time"
+      ],
+      "cooldown_hours": 6,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        4,
+        5
+      ],
+      "duration_seconds": 30,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": true,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E044",
+      "name": "群影求宿",
+      "category": "大型异变",
+      "phase": "night",
+      "trigger": "大量身影请求越过柜台休息",
+      "choices": [
+        {
+          "label": "保公共边界并限额接待",
+          "consequence": "耗空间与等待时间",
+          "time_cost": {
+            "night_seconds_max": 45,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "提供店外明确范围的等候点",
+          "consequence": "降低收入，避免扩大邀约",
+          "time_cost": {
+            "night_seconds_max": 45,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "threshold"
+      ],
+      "stress_cost": 3,
+      "primary_slot": true,
+      "required_rule_tags": [
+        "threshold"
+      ],
+      "cooldown_hours": 6,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "duration_seconds": 45,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": true,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E045",
+      "name": "旧债清算",
+      "category": "大型异变",
+      "phase": "night",
+      "trigger": "签约时已预留的到期夜04—05窗口开始；至少一份真实已承诺债务待结算",
+      "choices": [
+        {
+          "label": "按合并清单逐项履约",
+          "consequence": "40秒内实际核销最多三份兼容债务；每份资源与回执分别记录",
+          "time_cost": {
+            "night_seconds_max": 40,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "按各合同条款逐项退出",
+          "consequence": "分别结算签约时已展示的退出或违约代价；不随机取消、改日或增加罚则",
+          "time_cost": {
+            "night_seconds_max": 40,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "contract"
+      ],
+      "stress_cost": 3,
+      "primary_slot": true,
+      "required_rule_tags": [
+        "contract"
+      ],
+      "cooldown_hours": 6,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        4
+      ],
+      "duration_seconds": 40,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": true,
+        "finish_before_stage_change": true,
+        "reserved_at_contract_acceptance": true
+      },
+      "work_credit": {
+        "mode": "contract_settlement_only",
+        "rule": "逐债写回的真实核销凭证只完成该债务，不能自动完成同小时盘点补单。"
+      },
+      "reservation": {
+        "slot_hour": 4,
+        "absolute_latest_finish": "05:00",
+        "one_batch_per_due_night": true,
+        "max_compatible_contracts": 3,
+        "seconds": {
+          "review": 8,
+          "per_contract_max": 8,
+          "contracts_total_max": 24,
+          "writeback_and_exit": 8
+        },
+        "reserves_only_large_event_quota_for_night": true,
+        "reserves_primary_slot": true,
+        "normal_phase_work_and_margin_reserved_separately": true,
+        "merge_keeps_individual_costs": true,
+        "unscheduled_random_roll": false,
+        "overflow_policy": "签约前另选有容量的到期夜或放弃新合同，不得签约后静默延期"
+      }
+    },
+    {
+      "id": "E046",
+      "name": "旧货集市",
+      "category": "白天出行",
+      "phase": "day",
+      "trigger": "白天特殊采购开放",
+      "choices": [
+        {
+          "label": "花一格去核验旧物",
+          "consequence": "取得有代价的装备机会",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 1,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "保留时间睡眠",
+          "consequence": "放弃本次轮换商品",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "equipment"
+      ],
+      "stress_cost": 0,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "duration_seconds": 0,
+      "allowed_hours": [
+        8,
+        10,
+        12,
+        14,
+        16,
+        18
+      ],
+      "latest_finish": "action_slot_end",
+      "time_binding": {
+        "kind": "existing_day_slot",
+        "no_extra_slots": true,
+        "no_stacked_full_activity_rewards": true
+      },
+      "work_credit": {
+        "mode": "day_action_or_modifier",
+        "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
+      }
+    },
+    {
+      "id": "E047",
+      "name": "补给折扣",
+      "category": "白天出行",
+      "phase": "day",
+      "trigger": "可信商店发布确定折扣",
+      "choices": [
+        {
+          "label": "购买已需补给",
+          "consequence": "减少金币库存但节省单价",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "不囤货",
+          "consequence": "保流动金币，下一次按原价",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "economy"
+      ],
+      "stress_cost": 0,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "duration_seconds": 0,
+      "allowed_hours": [
+        20
+      ],
+      "latest_finish": "22:00",
+      "time_binding": {
+        "kind": "preparation",
+        "shared_optional_budget_minutes": 60,
+        "essential_minutes_untouched": 60
+      },
+      "work_credit": {
+        "mode": "preparation_only",
+        "rule": "从20—22时的共享可选整备预算扣除明示分钟；不新增白天格，也不计夜间店务。"
+      }
+    },
+    {
+      "id": "E048",
+      "name": "公交绕行",
+      "category": "白天出行",
+      "phase": "day",
+      "trigger": "20:00前已公告出勤路线变长，整备弹性窗口尚未被其他可选操作占用",
+      "choices": [
+        {
+          "label": "使用整备弹性提前出发",
+          "consequence": "占用20—22窗口中的60分钟弹性，基本整备60分钟和22—24必要验岗仍保留",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 0,
+            "preparation_minutes": 60
+          }
+        },
+        {
+          "label": "支付确定交通费用",
+          "consequence": "保留60分钟整备弹性；只在费用可付时提供此选项",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "path"
+      ],
+      "stress_cost": 0,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "path"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "duration_seconds": 0,
+      "allowed_hours": [
+        20
+      ],
+      "latest_finish": "22:00",
+      "time_binding": {
+        "kind": "preparation",
+        "shared_optional_budget_minutes": 60,
+        "essential_minutes_untouched": 60,
+        "no_half_day_slot": true,
+        "no_effect_on_required_staff_verification": true
+      },
+      "work_credit": {
+        "mode": "preparation_only",
+        "rule": "从20—22时的共享可选整备预算扣除明示分钟；不新增白天格，也不计夜间店务。"
+      }
+    },
+    {
+      "id": "E049",
+      "name": "书店缺卷",
+      "category": "白天出行",
+      "phase": "day",
+      "trigger": "想学的资料本次无货",
+      "choices": [
+        {
+          "label": "改学同分支基础内容",
+          "consequence": "保持学习收益",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 1,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "预订并改为休息",
+          "consequence": "延期知识，恢复资源",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 1,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "knowledge"
+      ],
+      "stress_cost": 0,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "knowledge"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "duration_seconds": 0,
+      "allowed_hours": [
+        8,
+        10,
+        12,
+        14,
+        16,
+        18
+      ],
+      "latest_finish": "action_slot_end",
+      "time_binding": {
+        "kind": "existing_day_slot",
+        "no_extra_slots": true,
+        "no_stacked_full_activity_rewards": true,
+        "host_activity": "当前已选择的学习格"
+      },
+      "work_credit": {
+        "mode": "day_action_or_modifier",
+        "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
+      }
+    },
+    {
+      "id": "E050",
+      "name": "资料馆开放",
+      "category": "白天出行",
+      "phase": "day",
+      "trigger": "文化资料展临时开放",
+      "choices": [
+        {
+          "label": "用一格核对某类传闻",
+          "consequence": "取得可靠研究进度",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 1,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "按原计划活动",
+          "consequence": "不额外惩罚",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "knowledge"
+      ],
+      "stress_cost": 0,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "knowledge"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "duration_seconds": 0,
+      "allowed_hours": [
+        8,
+        10,
+        12,
+        14,
+        16,
+        18
+      ],
+      "latest_finish": "action_slot_end",
+      "time_binding": {
+        "kind": "existing_day_slot",
+        "no_extra_slots": true,
+        "no_stacked_full_activity_rewards": true
+      },
+      "work_credit": {
+        "mode": "day_action_or_modifier",
+        "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
+      }
+    },
+    {
+      "id": "E051",
+      "name": "维修排队",
+      "category": "白天出行",
+      "phase": "day",
+      "trigger": "维修台需要预约",
+      "choices": [
+        {
+          "label": "交备用装备延后取回",
+          "consequence": "本夜换装但减少修理费用",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 0,
+            "preparation_minutes": 30
+          }
+        },
+        {
+          "label": "加急维修",
+          "consequence": "花更多金币保原装备",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 0,
+            "preparation_minutes": 30
+          }
+        }
+      ],
+      "tags": [
+        "equipment"
+      ],
+      "stress_cost": 0,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "duration_seconds": 0,
+      "allowed_hours": [
+        20
+      ],
+      "latest_finish": "22:00",
+      "time_binding": {
+        "kind": "preparation",
+        "shared_optional_budget_minutes": 60,
+        "essential_minutes_untouched": 60
+      },
+      "work_credit": {
+        "mode": "preparation_only",
+        "rule": "从20—22时的共享可选整备预算扣除明示分钟；不新增白天格，也不计夜间店务。"
+      }
+    },
+    {
+      "id": "E052",
+      "name": "宠物领养日",
+      "category": "白天出行",
+      "phase": "day",
+      "trigger": "救助站提供明确领养流程",
+      "choices": [
+        {
+          "label": "照料一格并领养候选伙伴",
+          "consequence": "增加宠物与后续照料需求",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 1,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "记录饲料采购清单后继续原计划",
+          "consequence": "不增加白天行动格；饲料在20点既定采购时才付款领取",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "pet"
+      ],
+      "stress_cost": 0,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "pet"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "duration_seconds": 0,
+      "allowed_hours": [
+        8,
+        10,
+        12,
+        14,
+        16,
+        18
+      ],
+      "latest_finish": "action_slot_end",
+      "time_binding": {
+        "kind": "existing_day_slot",
+        "no_extra_slots": true,
+        "no_stacked_full_activity_rewards": true
+      },
+      "work_credit": {
+        "mode": "day_action_or_modifier",
+        "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
+      }
+    },
+    {
+      "id": "E053",
+      "name": "邻里送餐",
+      "category": "白天出行",
+      "phase": "day",
+      "trigger": "熟悉邻居提供可验证来源食物",
+      "choices": [
+        {
+          "label": "核验后接受",
+          "consequence": "恢复饱腹并增加关系",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "礼貌拒绝",
+          "consequence": "保自己食物计划，不判危险",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "food"
+      ],
+      "stress_cost": 0,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "food"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "duration_seconds": 0,
+      "allowed_hours": [
+        8,
+        10,
+        12,
+        14,
+        16,
+        18
+      ],
+      "latest_finish": "action_slot_end",
+      "time_binding": {
+        "kind": "existing_day_slot",
+        "no_extra_slots": true,
+        "no_stacked_full_activity_rewards": true,
+        "host_activity": "当前既有用餐或休息活动"
+      },
+      "work_credit": {
+        "mode": "day_action_or_modifier",
+        "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
+      }
+    },
+    {
+      "id": "E054",
+      "name": "临时兼职",
+      "category": "白天出行",
+      "phase": "day",
+      "trigger": "有确定两小时岗位",
+      "choices": [
+        {
+          "label": "接受工作",
+          "consequence": "金币+30、精力-12",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 1,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "继续白天计划",
+          "consequence": "没有额外成本",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "economy"
+      ],
+      "stress_cost": 0,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "duration_seconds": 0,
+      "allowed_hours": [
+        8,
+        10,
+        12,
+        14,
+        16,
+        18
+      ],
+      "latest_finish": "action_slot_end",
+      "time_binding": {
+        "kind": "existing_day_slot",
+        "no_extra_slots": true,
+        "no_stacked_full_activity_rewards": true
+      },
+      "work_credit": {
+        "mode": "day_action_or_modifier",
+        "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
+      }
+    },
+    {
+      "id": "E055",
+      "name": "旧员工笔记",
+      "category": "白天学习关系",
+      "phase": "day",
+      "trigger": "发现带可疑批注的记录",
+      "choices": [
+        {
+          "label": "与可靠来源对照",
+          "consequence": "把一条假说升级为证实或否定",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 1,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "先归档不采信",
+          "consequence": "保时间但知识暂不提升",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "knowledge"
+      ],
+      "stress_cost": 0,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "knowledge"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "duration_seconds": 0,
+      "allowed_hours": [
+        8,
+        10,
+        12,
+        14,
+        16,
+        18
+      ],
+      "latest_finish": "action_slot_end",
+      "time_binding": {
+        "kind": "existing_day_slot",
+        "no_extra_slots": true,
+        "no_stacked_full_activity_rewards": true
+      },
+      "work_credit": {
+        "mode": "day_action_or_modifier",
+        "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
+      }
+    },
+    {
+      "id": "E056",
+      "name": "导师答疑",
+      "category": "白天学习关系",
+      "phase": "day",
+      "trigger": "可预约的一次研究讨论",
+      "choices": [
+        {
+          "label": "提一个明确原型问题",
+          "consequence": "得到替代处置线索",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 1,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "复习通用安全规程",
+          "consequence": "提升基础准备效率",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 1,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "knowledge"
+      ],
+      "stress_cost": 0,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "knowledge"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "duration_seconds": 0,
+      "allowed_hours": [
+        8,
+        10,
+        12,
+        14,
+        16,
+        18
+      ],
+      "latest_finish": "action_slot_end",
+      "time_binding": {
+        "kind": "existing_day_slot",
+        "no_extra_slots": true,
+        "no_stacked_full_activity_rewards": true
+      },
+      "work_credit": {
+        "mode": "day_action_or_modifier",
+        "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
+      }
+    },
+    {
+      "id": "E057",
+      "name": "同事午餐",
+      "category": "白天学习关系",
+      "phase": "day",
+      "trigger": "真实同事在安全时段邀约",
+      "choices": [
+        {
+          "label": "共餐并形成私约",
+          "consequence": "SAN恢复、获得本班可用关系线索",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 1,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "改为简短留言",
+          "consequence": "保时间但关系收益较少",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "staff"
+      ],
+      "stress_cost": 0,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "duration_seconds": 0,
+      "allowed_hours": [
+        12,
+        14
+      ],
+      "latest_finish": "action_slot_end",
+      "time_binding": {
+        "kind": "existing_day_slot",
+        "no_extra_slots": true,
+        "no_stacked_full_activity_rewards": true
+      },
+      "work_credit": {
+        "mode": "day_action_or_modifier",
+        "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
+      }
+    },
+    {
+      "id": "E058",
+      "name": "店长谈话",
+      "category": "白天学习关系",
+      "phase": "day",
+      "trigger": "白天已核验店长发布目标",
+      "choices": [
+        {
+          "label": "核对工资与授权边界",
+          "consequence": "降低夜间假命令的模糊空间",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 1,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "仅接受书面工单",
+          "consequence": "省时但无额外关系收益",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "staff"
+      ],
+      "stress_cost": 0,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "duration_seconds": 0,
+      "allowed_hours": [
+        8,
+        10,
+        12,
+        14,
+        16,
+        18
+      ],
+      "latest_finish": "action_slot_end",
+      "time_binding": {
+        "kind": "existing_day_slot",
+        "no_extra_slots": true,
+        "no_stacked_full_activity_rewards": true
+      },
+      "work_credit": {
+        "mode": "day_action_or_modifier",
+        "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
+      }
+    },
+    {
+      "id": "E059",
+      "name": "资料译法冲突",
+      "category": "白天学习关系",
+      "phase": "day",
+      "trigger": "两份材料对同一特征不同",
+      "choices": [
+        {
+          "label": "记录地域差异并核源",
+          "consequence": "获得更准确条件知识",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 1,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "保留未知标记",
+          "consequence": "不使用未核实弱点",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 1,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "knowledge"
+      ],
+      "stress_cost": 0,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "knowledge"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "duration_seconds": 0,
+      "allowed_hours": [
+        8,
+        10,
+        12,
+        14,
+        16,
+        18
+      ],
+      "latest_finish": "action_slot_end",
+      "time_binding": {
+        "kind": "existing_day_slot",
+        "no_extra_slots": true,
+        "no_stacked_full_activity_rewards": true,
+        "host_activity": "当前已选择的学习格"
+      },
+      "work_credit": {
+        "mode": "day_action_or_modifier",
+        "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
+      }
+    },
+    {
+      "id": "E060",
+      "name": "噩梦反复",
+      "category": "白天学习关系",
+      "phase": "day",
+      "trigger": "有可见未处理恐惧状态",
+      "choices": [
+        {
+          "label": "安排安静活动",
+          "consequence": "SAN恢复，消耗一格",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 1,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "坚持学习",
+          "consequence": "获得学习点但保留SAN负担",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 1,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "san"
+      ],
+      "stress_cost": 0,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "duration_seconds": 0,
+      "allowed_hours": [
+        8,
+        10,
+        12,
+        14,
+        16,
+        18
+      ],
+      "latest_finish": "action_slot_end",
+      "time_binding": {
+        "kind": "existing_day_slot",
+        "no_extra_slots": true,
+        "no_stacked_full_activity_rewards": true
+      },
+      "work_credit": {
+        "mode": "day_action_or_modifier",
+        "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
+      }
+    },
+    {
+      "id": "E061",
+      "name": "安静午睡",
+      "category": "白天学习关系",
+      "phase": "day",
+      "trigger": "当前住所环境安静",
+      "choices": [
+        {
+          "label": "利用一格短休",
+          "consequence": "获得正常短休加小额奖励",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 1,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "继续计划",
+          "consequence": "无惩罚",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "energy"
+      ],
+      "stress_cost": 0,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "duration_seconds": 0,
+      "allowed_hours": [
+        8,
+        10,
+        12,
+        14,
+        16,
+        18
+      ],
+      "latest_finish": "action_slot_end",
+      "time_binding": {
+        "kind": "existing_day_slot",
+        "no_extra_slots": true,
+        "no_stacked_full_activity_rewards": true
+      },
+      "work_credit": {
+        "mode": "day_action_or_modifier",
+        "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
+      }
+    },
+    {
+      "id": "E062",
+      "name": "邻居施工",
+      "category": "白天学习关系",
+      "phase": "day",
+      "trigger": "睡前预告噪声",
+      "choices": [
+        {
+          "label": "换安静休息点",
+          "consequence": "小额花费换稳定睡眠",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 1,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "使用已有隔音用品",
+          "consequence": "消耗道具而不丢整段睡眠",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 1,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "energy"
+      ],
+      "stress_cost": 0,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "duration_seconds": 0,
+      "allowed_hours": [
+        8,
+        10,
+        12,
+        14,
+        16,
+        18
+      ],
+      "latest_finish": "action_slot_end",
+      "time_binding": {
+        "kind": "existing_day_slot",
+        "no_extra_slots": true,
+        "no_stacked_full_activity_rewards": true,
+        "host_activity": "当前已选择的睡眠格"
+      },
+      "work_credit": {
+        "mode": "day_action_or_modifier",
+        "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
+      }
+    },
+    {
+      "id": "E063",
+      "name": "传闻对照会",
+      "category": "白天学习关系",
+      "phase": "day",
+      "trigger": "多位夜班者分享相互矛盾故事",
+      "choices": [
+        {
+          "label": "检验一条可观察假说",
+          "consequence": "获得证据方法",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 1,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "只整理已经证实内容",
+          "consequence": "减少新信息但避免误信",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 1,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "knowledge"
+      ],
+      "stress_cost": 0,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "knowledge"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "duration_seconds": 0,
+      "allowed_hours": [
+        8,
+        10,
+        12,
+        14,
+        16,
+        18
+      ],
+      "latest_finish": "action_slot_end",
+      "time_binding": {
+        "kind": "existing_day_slot",
+        "no_extra_slots": true,
+        "no_stacked_full_activity_rewards": true
+      },
+      "work_credit": {
+        "mode": "day_action_or_modifier",
+        "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
+      }
+    },
+    {
+      "id": "E064",
+      "name": "福利双选",
+      "category": "抽奖契约宠物",
+      "phase": "day",
+      "trigger": "取得一次特殊奖券事件",
+      "choices": [
+        {
+          "label": "在两份公开随机结果中选一份",
+          "consequence": "获得一件道具，另一份放弃",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 0,
+            "preparation_minutes": 15
+          }
+        },
+        {
+          "label": "领取等值普通补给",
+          "consequence": "保证基础收益",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "lottery"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "duration_seconds": 0,
+      "allowed_hours": [
+        20
+      ],
+      "latest_finish": "22:00",
+      "time_binding": {
+        "kind": "preparation",
+        "shared_optional_budget_minutes": 60,
+        "essential_minutes_untouched": 60
+      },
+      "work_credit": {
+        "mode": "reward_or_inventory_resolution",
+        "rule": "仅结算已经满足条件的奖励、库存或退款；不产生第二次工作进度和完整行动收益。"
+      }
+    },
+    {
+      "id": "E065",
+      "name": "奖券碎片",
+      "category": "抽奖契约宠物",
+      "phase": "night",
+      "trigger": "完成一项额外可选工作",
+      "choices": [
+        {
+          "label": "收下碎片",
+          "consequence": "累计兑换，不占随身格",
+          "time_cost": {
+            "night_seconds_max": 4,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "换少量固定补给",
+          "consequence": "获得确定的小收益",
+          "time_cost": {
+            "night_seconds_max": 4,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "lottery"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 4,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "reward_or_inventory_resolution",
+        "rule": "仅结算已经满足条件的奖励、库存或退款；不产生第二次工作进度和完整行动收益。"
+      }
+    },
+    {
+      "id": "E066",
+      "name": "重复道具",
+      "category": "抽奖契约宠物",
+      "phase": "day",
+      "trigger": "抽到已有且仓位有限的物品",
+      "choices": [
+        {
+          "label": "存入白天仓库",
+          "consequence": "保留后续用途",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 0,
+            "preparation_minutes": 5
+          }
+        },
+        {
+          "label": "选择明示回收",
+          "consequence": "换少量金币，不自动销毁",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 0,
+            "preparation_minutes": 5
+          }
+        }
+      ],
+      "tags": [
+        "inventory"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "duration_seconds": 0,
+      "allowed_hours": [
+        20
+      ],
+      "latest_finish": "22:00",
+      "time_binding": {
+        "kind": "preparation",
+        "shared_optional_budget_minutes": 60,
+        "essential_minutes_untouched": 60
+      },
+      "work_credit": {
+        "mode": "reward_or_inventory_resolution",
+        "rule": "仅结算已经满足条件的奖励、库存或退款；不产生第二次工作进度和完整行动收益。"
+      }
+    },
+    {
+      "id": "E067",
+      "name": "无署名礼盒",
+      "category": "抽奖契约宠物",
+      "phase": "night",
+      "trigger": "柜台出现未知赠物",
+      "choices": [
+        {
+          "label": "先登记隔离再核验",
+          "consequence": "占格与时间后才可使用",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "保持封存退还来源",
+          "consequence": "放弃潜在奖励，不触发隐藏必死",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "ownership"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "ownership"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 12,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E068",
+      "name": "宠物夜警",
+      "category": "抽奖契约宠物",
+      "phase": "night",
+      "trigger": "宠物朝某方向示警",
+      "choices": [
+        {
+          "label": "用另一种证据检查",
+          "consequence": "耗观察时间，确认线索",
+          "time_cost": {
+            "night_seconds_max": 10,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "暂时缩减该区作业",
+          "consequence": "损失效率但不把叫声当定罪",
+          "time_cost": {
+            "night_seconds_max": 10,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "pet"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "pet"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 10,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E069",
+      "name": "宠物藏物",
+      "category": "抽奖契约宠物",
+      "phase": "night",
+      "trigger": "出勤宠物藏起小件非关键物品",
+      "choices": [
+        {
+          "label": "按可见线索找回",
+          "consequence": "耗少量时间",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "使用确定备用品稍后找回",
+          "consequence": "耗补给但保主任务",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "pet"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "pet"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 12,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E070",
+      "name": "宠物疲惫",
+      "category": "抽奖契约宠物",
+      "phase": "night",
+      "trigger": "剩余出勤次数和疲惫明确提示",
+      "choices": [
+        {
+          "label": "让宠物休息",
+          "consequence": "保次日状态",
+          "time_cost": {
+            "night_seconds_max": 6,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "使用正常照料用品恢复一次",
+          "consequence": "消耗物资，不能无限刷技能",
+          "time_cost": {
+            "night_seconds_max": 6,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "pet"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "pet"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 6,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      }
+    },
+    {
+      "id": "E071",
+      "name": "有限借贷契约",
+      "category": "抽奖契约宠物",
+      "phase": "night",
+      "trigger": "夜间访客提供公开额度、到期日与退出条款，并有经检查可预约的未来E045窗口",
+      "choices": [
+        {
+          "label": "确认预约后接受限定额度",
+          "consequence": "原子性保存到期夜、04—05窗口、金额、退出条款和处理容量成功后才发放金币",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        },
+        {
+          "label": "拒绝或另选有容量的到期夜",
+          "consequence": "未最终确认前不发金币也不生债；无容量时保留无惩罚拒绝选项",
+          "time_cost": {
+            "night_seconds_max": 12,
+            "day_action_slots": 0,
+            "preparation_minutes": 0
+          }
+        }
+      ],
+      "tags": [
+        "contract"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [
+        "contract"
+      ],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "allowed_hours": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "duration_seconds": 12,
+      "latest_finish": "hour_end",
+      "time_binding": {
+        "kind": "night_stage",
+        "start_at_hour_boundary": false,
+        "finish_before_stage_change": true
+      },
+      "work_credit": {
+        "mode": "additional_handling",
+        "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
+      },
+      "creates_obligation": {
+        "event": "E045",
+        "reserve_before_reward": true,
+        "due_hour": 4,
+        "contract_seconds_max": 8,
+        "compatible_contracts_per_due_night_max": 3,
+        "batch_handling_seconds": 40,
+        "reserve_night_large_event_quota": true,
+        "reserve_resources_and_exit_path_at_acceptance": true,
+        "persist_fields": [
+          "contract_id",
+          "due_night",
+          "due_hour",
+          "amount",
+          "exit_terms",
+          "handling_seconds",
+          "reservation_id"
+        ],
+        "no_retroactive_due_date_change": true,
+        "no_silent_forgiveness_or_extra_penalty": true
+      }
+    },
+    {
+      "id": "E072",
+      "name": "意外退款",
+      "category": "抽奖契约宠物",
+      "phase": "day",
+      "trigger": "真实交易更正后返还多付款",
+      "choices": [
+        {
+          "label": "收回并核销记录",
+          "consequence": "获得确定金币",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 0,
+            "preparation_minutes": 5
+          }
+        },
+        {
+          "label": "将退款转作同事共享补给",
+          "consequence": "提升关系并减少个人零钱",
+          "time_cost": {
+            "night_seconds_max": 0,
+            "day_action_slots": 0,
+            "preparation_minutes": 5
+          }
+        }
+      ],
+      "tags": [
+        "economy"
+      ],
+      "stress_cost": 1,
+      "primary_slot": false,
+      "required_rule_tags": [],
+      "cooldown_hours": 2,
+      "design_origin": "original_game_event",
+      "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
+      "bound_entity_id": null,
+      "duration_seconds": 0,
+      "allowed_hours": [
+        20
+      ],
+      "latest_finish": "22:00",
+      "time_binding": {
+        "kind": "preparation",
+        "shared_optional_budget_minutes": 60,
+        "essential_minutes_untouched": 60
+      },
+      "work_credit": {
+        "mode": "reward_or_inventory_resolution",
+        "rule": "仅结算已经满足条件的奖励、库存或退款；不产生第二次工作进度和完整行动收益。"
+      }
+    }
+  ],
+  "note": "72项为候选内容池；七天阶段完全一致。所有事件有明确允许小时、处理预算、截止点与工作计入方式；白天结算不增加隐形时间，异常人员事件必须绑定获准F实例。",
+  "scheduling_contract": {
+    "allowed_hours": "游戏时钟的允许开始小时；夜间0—5，白天行动格8/10/12/14/16/18，整备20；22—24验岗不接受随机事件。",
+    "duration_seconds": "夜间从处理到善后的现实秒预算，含操作、核验和行走；白天结算为0，但必须支付choices.time_cost指明的既有行动格或整备分钟。数值是设计上限，须按当前资源与路径验证。",
+    "latest_finish_values": {
+      "hour_end": "本次开始小时结束；不跨阶段。",
+      "action_slot_end": "本次既有2小时行动格结束，最迟20:00。",
+      "22:00": "当日整备结束；不得侵占22—24验岗。"
+    },
+    "day_slots": [
+      8,
+      10,
+      12,
+      14,
+      16,
+      18
+    ],
+    "day_slot_game_minutes": 120,
+    "preparation": {
+      "window": "20:00—22:00",
+      "total_game_minutes": 120,
+      "essential_reserved_minutes": 60,
+      "optional_shared_minutes": 60
+    },
+    "minimum_night_margin_seconds": 10,
+    "work_credit": "只有完成实际动作、匹配真实对象并记录验收才抵扣对应工作；同一动作不可重复计进度，事件结束不自动完成店务。",
+    "deferred_effects": "天气、空间和库存占用若跨小时，先登记下一阶段负担；不能用本次处理结束来免费消除残留。",
+    "runtime_binding": "bound_entity_id模板为null；人员异常必须绑定通过所有硬约束检查且具有对应能力的F系列运行时实例。事件不创建、复制或重新抽样实体。"
+  }
+}

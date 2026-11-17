@@ -1,0 +1,292 @@
+{
+  "version": "0.2",
+  "total": 18,
+  "evaluation_order": [
+    "default_enabled",
+    "time_and_slots",
+    "knowledge_and_tools",
+    "evidence_and_safe_paths",
+    "actions_and_resources",
+    "pressure_budget"
+  ],
+  "counting_policy": "同一实体和同一压力影响不能因被多个事件引用而重复生成或重复计费。减难不取消硬性身份与证据要求。",
+  "synergies": [
+    {
+      "id": "S01",
+      "monster_ids": [
+        "F05"
+      ],
+      "event_ids": [
+        "E010"
+      ],
+      "effect_type": "harder",
+      "stress_delta_proposal": 1,
+      "condition": "暴雨滴水将原本分隔的湿格连成路线。",
+      "effect": "河童可以从后门附近进入货架区，玩家要先断开关键湿格。",
+      "hard_admission_gate": "保留一条干燥通路与可用拖把；没有干燥出口时禁止同时生成新的水路。",
+      "player_response": "已核验同事控制入口，玩家清除连接点，减少来回拖地。",
+      "status": "hand_authored_design_case_not_runtime_predicate"
+    },
+    {
+      "id": "S02",
+      "monster_ids": [
+        "F05",
+        "F57"
+      ],
+      "event_ids": [],
+      "effect_type": "mixed",
+      "stress_delta_proposal": 2,
+      "condition": "塔尼瓦需要连续水路，河童依赖湿路移动；两者同时处于有效状态。",
+      "effect": "玩家须保留指定水道，同时用可见隔离挡板把它与营业湿格分开。",
+      "hard_admission_gate": "必须有独立可隔离的水道、足够挡板和干燥人行通道；仅靠反复关水不能同时满足时禁投。",
+      "player_response": "完成通水契约后获得一次洪水限界保护，但不能把河童自动变为友方。",
+      "status": "hand_authored_design_case_not_runtime_predicate"
+    },
+    {
+      "id": "S03",
+      "monster_ids": [
+        "F56",
+        "F57"
+      ],
+      "event_ids": [],
+      "effect_type": "easier",
+      "stress_delta_proposal": -1,
+      "condition": "已完成塔尼瓦契约且洪水限界保护尚未使用。",
+      "effect": "保护固定一次水深边界，给邦耶普遭遇留下更稳定的排水窗口。",
+      "hard_admission_gate": "不能消除邦耶普所有证据，也不能把未签订的契约当成免费保护。",
+      "player_response": "用地面标尺确认边界后从干地排水；保护只用一次。",
+      "status": "hand_authored_design_case_not_runtime_predicate"
+    },
+    {
+      "id": "S04",
+      "monster_ids": [
+        "F13"
+      ],
+      "event_ids": [
+        "E012"
+      ],
+      "effect_type": "harder",
+      "stress_delta_proposal": 1,
+      "condition": "热浪使未密封厨余更快产生气味轨迹。",
+      "effect": "收运路线暴露更早，先封袋再搬运的顺序更关键。",
+      "hard_admission_gate": "免费岗位垃圾袋、外桶和一条安全搬运路必须存在；禁止无预兆瞬间入侵。",
+      "player_response": "提前冷藏待处理厨余或请同事闭合后门，可延缓追踪。",
+      "status": "hand_authored_design_case_not_runtime_predicate"
+    },
+    {
+      "id": "S05",
+      "monster_ids": [
+        "F13",
+        "F26"
+      ],
+      "event_ids": [],
+      "effect_type": "harder",
+      "stress_delta_proposal": 2,
+      "condition": "同场存在食物气味和沾血废物两种可见痕迹。",
+      "effect": "玩家需要分别处理气味源与地面血迹，不能只清空一个垃圾桶。",
+      "hard_admission_gate": "至少提供两份可分别封存的容器和基础急救；首次擦伤先给处理窗口。",
+      "player_response": "先封住持续产生痕迹的源头，再选择绕行清理顺序。",
+      "status": "hand_authored_design_case_not_runtime_predicate"
+    },
+    {
+      "id": "S06",
+      "monster_ids": [
+        "F08",
+        "F12"
+      ],
+      "event_ids": [],
+      "effect_type": "mixed",
+      "stress_delta_proposal": 1,
+      "condition": "旧金属器具仍待退役，不可杀伊正在寻找金属。",
+      "effect": "直接拿有记忆的器具投喂会扩大付丧神问题；先办理退役，才能把确认的废铁交回收线。",
+      "hard_admission_gate": "需有替代废铁或拒绝投喂的退路；不能强迫玩家在修复与喂食两项互斥要求间二选一即死。",
+      "player_response": "学习旧器物处理后，可让两项工作顺序衔接，减少一次搬运。",
+      "status": "hand_authored_design_case_not_runtime_predicate"
+    },
+    {
+      "id": "S07",
+      "monster_ids": [
+        "F16"
+      ],
+      "event_ids": [
+        "E002"
+      ],
+      "effect_type": "harder",
+      "stress_delta_proposal": 1,
+      "condition": "零钱库存紧张且敞口现金盘仍在使用。",
+      "effect": "图尤尔逐枚移走硬币，短缺更快影响收银，但固定面额差额也更明显。",
+      "hard_admission_gate": "保留可读现金记录与封袋；不得同时抹除金额和硬币移动两种证据。",
+      "player_response": "使用封闭找零袋并由已核验同事守台，以部分经营效率换稳定。",
+      "status": "hand_authored_design_case_not_runtime_predicate"
+    },
+    {
+      "id": "S08",
+      "monster_ids": [
+        "F21",
+        "F38"
+      ],
+      "event_ids": [],
+      "effect_type": "easier",
+      "stress_delta_proposal": -1,
+      "condition": "报丧女妖的预警对象为真实员工，双重身制造两个位置。",
+      "effect": "危险岗位提示可作为额外观察线索，帮助缩小轨迹核验范围。",
+      "hard_admission_gate": "预警不是完整身份认证；恢复权限仍需要另一类独立证据。",
+      "player_response": "先调离受威胁岗位，再比较时间与行动轨迹。",
+      "status": "hand_authored_design_case_not_runtime_predicate"
+    },
+    {
+      "id": "S09",
+      "monster_ids": [
+        "F22",
+        "F38"
+      ],
+      "event_ids": [],
+      "effect_type": "harder",
+      "stress_delta_proposal": 1,
+      "condition": "布朗尼的工作需要玩家离开其视线，同事身份又待核。",
+      "effect": "后仓委托与前台核验争夺玩家位置，考验交接和任务延期。",
+      "hard_admission_gate": "委托可暂停，高风险权限保持冻结；不得强迫未核验者独自守关键区域。",
+      "player_response": "先完成身份核验，再离开后仓，或放弃这次家务收益。",
+      "status": "hand_authored_design_case_not_runtime_predicate"
+    },
+    {
+      "id": "S10",
+      "monster_ids": [
+        "F31"
+      ],
+      "event_ids": [],
+      "effect_type": "harder",
+      "stress_delta_proposal": 1,
+      "condition": "精力低于25且选择员工椅短休，马拉已合法入场。",
+      "effect": "玩家更需要休息收益，也更依赖现实锚点与唤醒准备。",
+      "hard_admission_gate": "休息前展示风险，必须保留不睡、交岗或安全暂停营业的选择；不在玩家毫无选择时偷触发。",
+      "player_response": "白天补觉、设置计时唤醒或先恢复精力，可降低夜间休息压力。",
+      "status": "hand_authored_design_case_not_runtime_predicate"
+    },
+    {
+      "id": "S11",
+      "monster_ids": [
+        "F31",
+        "F39"
+      ],
+      "event_ids": [],
+      "effect_type": "easier",
+      "stress_delta_proposal": -1,
+      "condition": "完成多莫沃伊安置，获得本夜一次安全休息点保护。",
+      "effect": "保护争取一次从梦魇中提前退出的窗口，降低全部恢复被打断的风险。",
+      "hard_admission_gate": "保护必须先取得且会消耗；不能代替休息前的锚点教学。",
+      "player_response": "把有限保护留给低精力时段，而不是在满精力时浪费。",
+      "status": "hand_authored_design_case_not_runtime_predicate"
+    },
+    {
+      "id": "S12",
+      "monster_ids": [
+        "F26",
+        "F32"
+      ],
+      "event_ids": [],
+      "effect_type": "harder",
+      "stress_delta_proposal": 2,
+      "condition": "同一受伤事件同时产生员工目标与地面血迹。",
+      "effect": "吸血鬼关注员工，红帽妖沿地面痕迹移动，救人与清路需要排序。",
+      "hard_admission_gate": "保持一个可关门隔离的员工安全点，提供止血用品；不得让两者同时封住唯一出口。",
+      "player_response": "先让员工停止产生新痕迹，再处理旧血迹，避免一边擦一边新增。",
+      "status": "hand_authored_design_case_not_runtime_predicate"
+    },
+    {
+      "id": "S13",
+      "monster_ids": [
+        "F24"
+      ],
+      "event_ids": [
+        "E010"
+      ],
+      "effect_type": "harder",
+      "stress_delta_proposal": 1,
+      "condition": "雨水使普通顾客也留下湿痕。",
+      "effect": "水马的潮湿表象辨识度下降，蹄印和跨区域行为变得更重要。",
+      "hard_admission_gate": "至少保留一个干燥脚印检验区；普通淋雨不直接标为怪物。",
+      "player_response": "在干燥交接台服务，核验连续脚印与权限请求。",
+      "status": "hand_authored_design_case_not_runtime_predicate"
+    },
+    {
+      "id": "S14",
+      "monster_ids": [
+        "F45"
+      ],
+      "event_ids": [
+        "E010"
+      ],
+      "effect_type": "harder",
+      "stress_delta_proposal": 1,
+      "condition": "雨水削弱地面搬运痕迹。",
+      "effect": "逆足林守的足迹方向更容易误导，需要对照货物来源与推车实际轨迹。",
+      "hard_admission_gate": "来源记录和至少一种移动对照必须可见；不能把两条信息一起遮掉。",
+      "player_response": "启用已验货标签、安排同事守接货点，减少追错方向。",
+      "status": "hand_authored_design_case_not_runtime_predicate"
+    },
+    {
+      "id": "S15",
+      "monster_ids": [
+        "F53"
+      ],
+      "event_ids": [
+        "E015"
+      ],
+      "effect_type": "harder",
+      "stress_delta_proposal": 1,
+      "condition": "区域停水且正在考虑饮水高价契约。",
+      "effect": "饮水的即时售价和后续营业需求同时上升，签约前要分配保留库存。",
+      "hard_admission_gate": "只允许承诺当前可履行的份额；个人最低补给不得被未经确认的合同自动扣走。",
+      "player_response": "部分签约或拒绝均合法；把库存保护条款写清楚后再确认。",
+      "status": "hand_authored_design_case_not_runtime_predicate"
+    },
+    {
+      "id": "S16",
+      "monster_ids": [
+        "F59"
+      ],
+      "event_ids": [
+        "E019"
+      ],
+      "effect_type": "easier",
+      "stress_delta_proposal": -1,
+      "condition": "工队已承接可修复的照明供电支线且材料到位。",
+      "effect": "施工完成可提前恢复一个营业区域的照明。",
+      "hard_admission_gate": "只修具体支线，不消除整个区域停电；保留绕行路和独立应急灯。",
+      "player_response": "玩家暂时缩小营业面，用材料和时间换取后半夜安全工作区。",
+      "status": "hand_authored_design_case_not_runtime_predicate"
+    },
+    {
+      "id": "S17",
+      "monster_ids": [
+        "F36",
+        "F51"
+      ],
+      "event_ids": [],
+      "effect_type": "harder",
+      "stress_delta_proposal": 2,
+      "condition": "同时收到空间授权契约与故事换物契约。",
+      "effect": "两组对象、代价和时限并列，考验分开记录与避免无意代理承诺。",
+      "hard_admission_gate": "两合同都能在签订前拒绝；若承诺相互矛盾，不得提供同时接受按钮。",
+      "player_response": "先完成一项短契约，再处理另一项；可按明价买商品结束故事交易。",
+      "status": "hand_authored_design_case_not_runtime_predicate"
+    },
+    {
+      "id": "S18",
+      "monster_ids": [
+        "F42"
+      ],
+      "event_ids": [
+        "E010"
+      ],
+      "effect_type": "harder",
+      "stress_delta_proposal": 1,
+      "condition": "暴雨掩盖哨声层次，实体又具有反向声距。",
+      "effect": "听觉难以决定卸货窗口，门槛压力格或影长对照成为主线索。",
+      "hard_admission_gate": "必须保留视觉或触觉的独立距离证据，字幕只复现声效而不伪装成真实距离。",
+      "player_response": "已核验同事观察门槛，玩家只在确认窗口卸货。",
+      "status": "hand_authored_design_case_not_runtime_predicate"
+    }
+  ]
+}

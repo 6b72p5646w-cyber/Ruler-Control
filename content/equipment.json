@@ -1,0 +1,319 @@
+{
+  "version": "0.2",
+  "slots": [
+    "hand",
+    "light",
+    "uniform",
+    "shoes",
+    "charm",
+    "bag"
+  ],
+  "max_per_slot": 1,
+  "baseline_job_tools_always_available": true,
+  "equipment": [
+    {
+      "id": "Q01",
+      "slot": "hand",
+      "name": "夹取钳",
+      "rarity": "standard",
+      "price": 60,
+      "benefit": "隔离小物的体力成本-20%",
+      "tradeoff": "持用期间需要换手才能扫码",
+      "design_origin": "original_game_item",
+      "hands_required": 1
+    },
+    {
+      "id": "Q02",
+      "slot": "hand",
+      "name": "检视镜",
+      "rarity": "uncommon",
+      "price": 95,
+      "benefit": "在安全位置扩大可检查角度",
+      "tradeoff": "观察时占用手持位",
+      "design_origin": "original_game_item",
+      "hands_required": 1
+    },
+    {
+      "id": "Q03",
+      "slot": "hand",
+      "name": "铜铃",
+      "rarity": "rare",
+      "price": 150,
+      "benefit": "生成可控声源，用于已知适用对象",
+      "tradeoff": "会惊动其他听觉型目标",
+      "design_origin": "original_game_item",
+      "hands_required": 1
+    },
+    {
+      "id": "Q04",
+      "slot": "hand",
+      "name": "契约印板",
+      "rarity": "special",
+      "price": 240,
+      "benefit": "对已学契约增加一次范围核验",
+      "tradeoff": "每次精力-2，需要对应知识",
+      "design_origin": "original_game_item",
+      "hands_required": 1
+    },
+    {
+      "id": "Q05",
+      "slot": "light",
+      "name": "手电",
+      "rarity": "standard",
+      "price": 65,
+      "benefit": "持续照亮前方",
+      "tradeoff": "使用时占1手，单一区域，需要电池",
+      "design_origin": "original_game_item",
+      "hands_required": 1
+    },
+    {
+      "id": "Q06",
+      "slot": "light",
+      "name": "头灯",
+      "rarity": "uncommon",
+      "price": 110,
+      "benefit": "搬运时仍可照明，占0手",
+      "tradeoff": "耗电较普通手电快",
+      "design_origin": "original_game_item",
+      "hands_required": 0
+    },
+    {
+      "id": "Q07",
+      "slot": "light",
+      "name": "偏振检视灯",
+      "rarity": "rare",
+      "price": 180,
+      "benefit": "对已学反射线索提供更清晰观察",
+      "tradeoff": "使用时占1手，普通照明范围较小",
+      "design_origin": "original_game_item",
+      "hands_required": 1
+    },
+    {
+      "id": "Q08",
+      "slot": "light",
+      "name": "双点灯组",
+      "rarity": "special",
+      "price": 260,
+      "benefit": "放置两处短程灯点，放置后占0手",
+      "tradeoff": "架设或回收占2手；架设消耗体力12，搬家需回收",
+      "design_origin": "original_game_item",
+      "hands_required": 0,
+      "setup_hands_required": 2,
+      "recovery_hands_required": 2
+    },
+    {
+      "id": "Q09",
+      "slot": "uniform",
+      "name": "工作围裙",
+      "rarity": "standard",
+      "price": 60,
+      "benefit": "减少普通污物带来的清理返工",
+      "tradeoff": "不防止身份或精神异常",
+      "design_origin": "original_game_item",
+      "hands_required": 0
+    },
+    {
+      "id": "Q10",
+      "slot": "uniform",
+      "name": "检修围裙",
+      "rarity": "uncommon",
+      "price": 105,
+      "benefit": "降低游戏中低级设备检修的体力成本",
+      "tradeoff": "移动工作效率小幅下降",
+      "design_origin": "original_game_item",
+      "hands_required": 0
+    },
+    {
+      "id": "Q11",
+      "slot": "uniform",
+      "name": "净纹外套",
+      "rarity": "rare",
+      "price": 190,
+      "benefit": "对选定已学污染类型减少一次负面积累",
+      "tradeoff": "每夜有限耐久，需维修",
+      "design_origin": "original_game_item",
+      "hands_required": 0
+    },
+    {
+      "id": "Q12",
+      "slot": "uniform",
+      "name": "匿名制服",
+      "rarity": "special",
+      "price": 230,
+      "benefit": "遮蔽多余姓名信息并保留员工编号",
+      "tradeoff": "真实同事也需先按编号确认",
+      "design_origin": "original_game_item",
+      "hands_required": 0
+    },
+    {
+      "id": "Q13",
+      "slot": "shoes",
+      "name": "防滑鞋",
+      "rarity": "standard",
+      "price": 70,
+      "benefit": "湿区普通行走更稳定",
+      "tradeoff": "不能穿越灵体禁区",
+      "design_origin": "original_game_item",
+      "hands_required": 0
+    },
+    {
+      "id": "Q14",
+      "slot": "shoes",
+      "name": "轻步鞋",
+      "rarity": "uncommon",
+      "price": 115,
+      "benefit": "行走声音减小",
+      "tradeoff": "重搬体力成本增加",
+      "design_origin": "original_game_item",
+      "hands_required": 0
+    },
+    {
+      "id": "Q15",
+      "slot": "shoes",
+      "name": "搬运靴",
+      "rarity": "rare",
+      "price": 170,
+      "benefit": "重搬体力成本-20%",
+      "tradeoff": "冲刺声音增加",
+      "design_origin": "original_game_item",
+      "hands_required": 0
+    },
+    {
+      "id": "Q16",
+      "slot": "shoes",
+      "name": "路标鞋",
+      "rarity": "special",
+      "price": 250,
+      "benefit": "脚下留下可追溯路径标记",
+      "tradeoff": "寻迹类对象也可能利用标记",
+      "design_origin": "original_game_item",
+      "hands_required": 0
+    },
+    {
+      "id": "Q17",
+      "slot": "charm",
+      "name": "纪念物",
+      "rarity": "standard",
+      "price": 60,
+      "benefit": "安全休息时SAN恢复小幅增加",
+      "tradeoff": "需要停止高耗动作",
+      "design_origin": "original_game_item",
+      "hands_required": 0
+    },
+    {
+      "id": "Q18",
+      "slot": "charm",
+      "name": "护袋",
+      "rarity": "uncommon",
+      "price": 110,
+      "benefit": "携带一份已核验护身材料",
+      "tradeoff": "只对已研究的匹配类型有效",
+      "design_origin": "original_game_item",
+      "hands_required": 0
+    },
+    {
+      "id": "Q19",
+      "slot": "charm",
+      "name": "定心珠",
+      "rarity": "rare",
+      "price": 180,
+      "benefit": "降低一次明确惊吓的SAN损失",
+      "tradeoff": "有冷却，不阻止实体伤害",
+      "design_origin": "original_game_item",
+      "hands_required": 0
+    },
+    {
+      "id": "Q20",
+      "slot": "charm",
+      "name": "双证护牌",
+      "rarity": "special",
+      "price": 250,
+      "benefit": "保存一次独立核验摘要",
+      "tradeoff": "只辅助记录，不直接判真伪",
+      "design_origin": "original_game_item",
+      "hands_required": 0
+    },
+    {
+      "id": "Q21",
+      "slot": "bag",
+      "name": "标准挎包",
+      "rarity": "standard",
+      "price": 60,
+      "benefit": "额外2格普通随身位，与基础4格合计6格",
+      "tradeoff": "关键岗位工具不占该格",
+      "design_origin": "original_game_item",
+      "hands_required": 0,
+      "capacity_bonus": {
+        "ordinary": 2,
+        "insulated_food": 0,
+        "sealed_evidence": 0
+      }
+    },
+    {
+      "id": "Q22",
+      "slot": "bag",
+      "name": "保温包",
+      "rarity": "uncommon",
+      "price": 110,
+      "benefit": "额外2格保温食品位加2格普通位",
+      "tradeoff": "食品专用位不能装非食品",
+      "design_origin": "original_game_item",
+      "hands_required": 0,
+      "capacity_bonus": {
+        "ordinary": 2,
+        "insulated_food": 2,
+        "sealed_evidence": 0
+      }
+    },
+    {
+      "id": "Q23",
+      "slot": "bag",
+      "name": "证据包",
+      "rarity": "rare",
+      "price": 180,
+      "benefit": "额外3格封存证据位及2格普通位",
+      "tradeoff": "证据专用位不能装普通耗材",
+      "design_origin": "original_game_item",
+      "hands_required": 0,
+      "capacity_bonus": {
+        "ordinary": 2,
+        "insulated_food": 0,
+        "sealed_evidence": 3
+      }
+    },
+    {
+      "id": "Q24",
+      "slot": "bag",
+      "name": "搬运背包",
+      "rarity": "special",
+      "price": 260,
+      "benefit": "额外6格普通随身位，与基础4格合计10格",
+      "tradeoff": "满载时重动作体力成本+15%",
+      "design_origin": "original_game_item",
+      "hands_required": 0,
+      "capacity_bonus": {
+        "ordinary": 6,
+        "insulated_food": 0,
+        "sealed_evidence": 0
+      }
+    }
+  ],
+  "baseline_inventory_slots": 4,
+  "bag_capacity_mode": "additive_to_baseline",
+  "only_equipped_bag_grants_capacity": true,
+  "critical_job_tools_use_inventory_slots": false,
+  "available_hands": 2,
+  "hands_required_applies_when": "actively_using_equipment",
+  "heavy_carry_hands_required": 2,
+  "switch_policy": {
+    "cancellable": true,
+    "commit_timing": "action_completion",
+    "on_cancel": "retain_last_committed_equipment_state",
+    "automatically_complete_other_interactions": false,
+    "when_capacity_would_overflow": [
+      "store_excess_at_workstation_or_warehouse",
+      "cancel_switch"
+    ],
+    "automatic_item_destruction": false
+  }
+}

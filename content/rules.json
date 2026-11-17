@@ -1,0 +1,168 @@
+{
+  "version": "0.2",
+  "unlocks_by": "milestone_before_first_applicable_threat",
+  "total": 20,
+  "canonical_manual_immutable": true,
+  "rules": [
+    {
+      "id": "H01",
+      "title": "柜台要有人，身份要确认",
+      "action": "安排已核验员工守岗；无人可接替时先暂停新客入店。",
+      "unlock": "首次上岗",
+      "clear_condition": "完成交接或店门切至安全暂停模式",
+      "tag": "staff"
+    },
+    {
+      "id": "H02",
+      "title": "下班只认本班的钟",
+      "action": "店内普通钟、窗外天色与他人报时须与可信时间核对。",
+      "unlock": "首次上岗",
+      "clear_condition": "真实时间与结算记录一致",
+      "tag": "time"
+    },
+    {
+      "id": "H03",
+      "title": "顾客进店不等于获准进员工区",
+      "action": "公共区域、仓库、柜台后各有独立权限，不随邀请自动扩大。",
+      "unlock": "首次门禁教学",
+      "clear_condition": "通行范围已明确或来客退出",
+      "tag": "threshold"
+    },
+    {
+      "id": "H04",
+      "title": "同事回来了，也要接得上这班",
+      "action": "离岗返回者核对本班记录与独立行为证据，待核者先撤高风险权限。",
+      "unlock": "首次人员离岗或假扮前",
+      "clear_condition": "至少两类独立证据一致",
+      "tag": "identity"
+    },
+    {
+      "id": "H05",
+      "title": "店长的声音不能改店规",
+      "action": "经理指令须有当前工单与权限来源，不能仅按声线执行危险操作。",
+      "unlock": "首次店长远程指令前",
+      "clear_condition": "来源与范围核验完毕",
+      "tag": "identity"
+    },
+    {
+      "id": "H06",
+      "title": "只报工号，不替别人应名",
+      "action": "涉及姓名、回应与代理承诺时采用员工编号和明示流程。",
+      "unlock": "首次姓名型访客前",
+      "clear_condition": "对话不形成未知代理或实名绑定",
+      "tag": "name"
+    },
+    {
+      "id": "H07",
+      "title": "没写清的代价，先别答应",
+      "action": "契约必须显示对象、范围、时限、代价与退出方式。",
+      "unlock": "首次契约访客前",
+      "clear_condition": "条款核对后接受或明确拒绝",
+      "tag": "contract"
+    },
+    {
+      "id": "H08",
+      "title": "钱与货要对得上，额外代价也要对得上",
+      "action": "核对付款、实物和票据，非金钱交换也需明确确认。",
+      "unlock": "首次交易教学",
+      "clear_condition": "交易账实一致或取消",
+      "tag": "transaction"
+    },
+    {
+      "id": "H09",
+      "title": "供物有自己的台，不能混进货架",
+      "action": "按已核实方法分离供物、库存和个人食物。",
+      "unlock": "首次供物型访客前",
+      "clear_condition": "归属与用途清楚，污染隔离",
+      "tag": "offering"
+    },
+    {
+      "id": "H10",
+      "title": "吃进嘴的东西，要知道从哪里来",
+      "action": "只食用已验证个人补给；未知赠食先封存核验。",
+      "unlock": "首次上岗与资源教学",
+      "clear_condition": "食品来源与状态可确认",
+      "tag": "food"
+    },
+    {
+      "id": "H11",
+      "title": "失物不是无主商品",
+      "action": "先登记归属与领取证据，不直接出售或占为己有。",
+      "unlock": "首次失物事件前",
+      "clear_condition": "物品进入合规保管或完成核验交付",
+      "tag": "ownership"
+    },
+    {
+      "id": "H12",
+      "title": "异常商品先停售",
+      "action": "移动、变形或污染物先控范围，再按已学方法处置。",
+      "unlock": "首次商品异常前",
+      "clear_condition": "异常停止且复检或退货完成",
+      "tag": "isolation"
+    },
+    {
+      "id": "H13",
+      "title": "听见熟悉的话，先确认是谁在说",
+      "action": "电话与广播只作为信息源；高风险动作需独立证据。",
+      "unlock": "首次声音诱导前",
+      "clear_condition": "信息来源经过核验",
+      "tag": "sound"
+    },
+    {
+      "id": "H14",
+      "title": "看见一个影像，不等于看见事实",
+      "action": "镜子、监控与自身感知都需用可控测试或实物对照。",
+      "unlock": "首次影像类异常前",
+      "clear_condition": "至少一个独立对照成立",
+      "tag": "perception"
+    },
+    {
+      "id": "H15",
+      "title": "先留退路，再动水火门灯",
+      "action": "改变环境前预览自身与同事的安全路线。",
+      "unlock": "首次环境调度前",
+      "clear_condition": "目标与返回路线均可用",
+      "tag": "path"
+    },
+    {
+      "id": "H16",
+      "title": "先辨来者，再选驱法",
+      "action": "盐、金属、灯、食物等仅按已学适用范围使用。",
+      "unlock": "首次主动驱离前",
+      "clear_condition": "对象特征与方法匹配或选择保守暂缓",
+      "tag": "knowledge"
+    },
+    {
+      "id": "H17",
+      "title": "撑不住就交岗，不要在危险工位睡着",
+      "action": "低精力或恐慌时先接岗或暂停营业，再恢复资源。",
+      "unlock": "首次资源低阈值前",
+      "clear_condition": "工位安全且资源恢复到行动门槛",
+      "tag": "resource"
+    },
+    {
+      "id": "H18",
+      "title": "宠物会提醒，不会替你作证",
+      "action": "宠物提示须与其他线索核对，不能单凭叫声驱赶人员。",
+      "unlock": "首次宠物出勤前",
+      "clear_condition": "获得独立证据或保持待核",
+      "tag": "pet"
+    },
+    {
+      "id": "H19",
+      "title": "街上来了一队客人，先确认营业方式",
+      "action": "群体事件按预告切门禁与服务窗口，逐批处理并清点。",
+      "unlock": "首次大型群体事件前",
+      "clear_condition": "群体离开且复店检查通过",
+      "tag": "procession"
+    },
+    {
+      "id": "H20",
+      "title": "交了账与钥匙，才算真正下班",
+      "action": "真实六点后核对接班身份、账单与钥匙，系统确认交班。",
+      "unlock": "首次正式交班前",
+      "clear_condition": "时间、身份与职责移交均通过",
+      "tag": "handover"
+    }
+  ]
+}
