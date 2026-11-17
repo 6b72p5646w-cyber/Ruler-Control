@@ -1,5 +1,5 @@
 {
-  "version": "0.3",
+  "version": "0.4",
   "events": [
     {
       "id": "E001",
@@ -61,7 +61,18 @@
         "EV05"
       ],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F07V1",
+        "F09V2",
+        "F11V2",
+        "F15V1",
+        "F21V1",
+        "F32V1",
+        "F34V1",
+        "F44V1",
+        "F59V1"
+      ]
     },
     {
       "id": "E002",
@@ -123,7 +134,11 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F01V2",
+        "F16V1"
+      ]
     },
     {
       "id": "E003",
@@ -185,7 +200,12 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F19V1",
+        "F25V1",
+        "F45V2"
+      ]
     },
     {
       "id": "E004",
@@ -257,7 +277,11 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F14V1",
+        "F29V2"
+      ]
     },
     {
       "id": "E005",
@@ -316,7 +340,10 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F41V1"
+      ]
     },
     {
       "id": "E006",
@@ -377,7 +404,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": []
     },
     {
       "id": "E007",
@@ -438,7 +466,10 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F23V1"
+      ]
     },
     {
       "id": "E008",
@@ -498,7 +529,13 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F23V2",
+        "F33V1",
+        "F37V1",
+        "F55V1"
+      ]
     },
     {
       "id": "E009",
@@ -558,7 +595,16 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F09V1",
+        "F17V1",
+        "F22V1",
+        "F27V1",
+        "F36V1",
+        "F54V1",
+        "F57V2"
+      ]
     },
     {
       "id": "E010",
@@ -619,7 +665,14 @@
         "EV01"
       ],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F04V2",
+        "F10V1",
+        "F30V1",
+        "F41V2",
+        "F56V1"
+      ]
     },
     {
       "id": "E011",
@@ -682,7 +735,13 @@
         "EV06"
       ],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F40V1",
+        "F47V1",
+        "F58V2",
+        "F60V1"
+      ]
     },
     {
       "id": "E012",
@@ -741,7 +800,11 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F11V1",
+        "F53V1"
+      ]
     },
     {
       "id": "E013",
@@ -800,7 +863,10 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F06V1"
+      ]
     },
     {
       "id": "E014",
@@ -859,7 +925,11 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F33V2",
+        "F50V2"
+      ]
     },
     {
       "id": "E015",
@@ -918,7 +988,12 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F04V1",
+        "F28V1",
+        "F53V2"
+      ]
     },
     {
       "id": "E016",
@@ -979,7 +1054,14 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F05V2",
+        "F10V2",
+        "F24V1",
+        "F34V2",
+        "F55V2"
+      ]
     },
     {
       "id": "E017",
@@ -1040,7 +1122,10 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F18V1"
+      ]
     },
     {
       "id": "E018",
@@ -1099,7 +1184,11 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F03V1",
+        "F49V1"
+      ]
     },
     {
       "id": "E019",
@@ -1160,7 +1249,23 @@
         "EV02"
       ],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F02V2",
+        "F14V2",
+        "F15V2",
+        "F17V2",
+        "F21V2",
+        "F31V2",
+        "F32V2",
+        "F35V2",
+        "F38V2",
+        "F39V2",
+        "F42V2",
+        "F50V1",
+        "F52V2",
+        "F60V2"
+      ]
     },
     {
       "id": "E020",
@@ -1222,7 +1327,10 @@
         "EV03"
       ],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F29V1"
+      ]
     },
     {
       "id": "E021",
@@ -1286,7 +1394,12 @@
         "EV12"
       ],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F08V1",
+        "F39V1",
+        "F58V1"
+      ]
     },
     {
       "id": "E022",
@@ -1350,7 +1463,16 @@
         "EV07"
       ],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F06V2",
+        "F08V2",
+        "F19V2",
+        "F35V1",
+        "F43V2",
+        "F46V1",
+        "F51V1"
+      ]
     },
     {
       "id": "E023",
@@ -1412,7 +1534,12 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F16V2",
+        "F25V2",
+        "F44V2"
+      ]
     },
     {
       "id": "E024",
@@ -1473,7 +1600,12 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F18V2",
+        "F22V2",
+        "F59V2"
+      ]
     },
     {
       "id": "E025",
@@ -1536,7 +1668,16 @@
         "EV04"
       ],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F03V2",
+        "F12V2",
+        "F26V2",
+        "F30V2",
+        "F37V2",
+        "F49V2",
+        "F54V2"
+      ]
     },
     {
       "id": "E026",
@@ -1598,7 +1739,16 @@
         "EV09"
       ],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F05V1",
+        "F13V2",
+        "F26V1",
+        "F28V2",
+        "F52V1",
+        "F56V2",
+        "F57V1"
+      ]
     },
     {
       "id": "E027",
@@ -1662,7 +1812,17 @@
         "EV08"
       ],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F01V1",
+        "F12V1",
+        "F13V1",
+        "F24V2",
+        "F27V2",
+        "F40V2",
+        "F42V1",
+        "F45V1"
+      ]
     },
     {
       "id": "E028",
@@ -1744,7 +1904,10 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F07V2"
+      ]
     },
     {
       "id": "E029",
@@ -1833,7 +1996,11 @@
         "EV11"
       ],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F38V1",
+        "F43V1"
+      ]
     },
     {
       "id": "E030",
@@ -1920,7 +2087,10 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F36V2"
+      ]
     },
     {
       "id": "E031",
@@ -2007,7 +2177,11 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F20V1",
+        "F48V2"
+      ]
     },
     {
       "id": "E032",
@@ -2094,7 +2268,10 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F02V1"
+      ]
     },
     {
       "id": "E033",
@@ -2179,7 +2356,10 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F31V1"
+      ]
     },
     {
       "id": "E034",
@@ -2266,7 +2446,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": []
     },
     {
       "id": "E035",
@@ -2353,7 +2534,11 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F20V2",
+        "F48V1"
+      ]
     },
     {
       "id": "E036",
@@ -2440,7 +2625,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": []
     },
     {
       "id": "E037",
@@ -2614,7 +2800,8 @@
         "EV10"
       ],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": []
     },
     {
       "id": "E038",
@@ -2673,7 +2860,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": []
     },
     {
       "id": "E039",
@@ -2732,7 +2920,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": []
     },
     {
       "id": "E040",
@@ -2791,7 +2980,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": []
     },
     {
       "id": "E041",
@@ -2850,7 +3040,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": []
     },
     {
       "id": "E042",
@@ -2908,7 +3099,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": []
     },
     {
       "id": "E043",
@@ -2965,7 +3157,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": []
     },
     {
       "id": "E044",
@@ -3024,7 +3217,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": []
     },
     {
       "id": "E045",
@@ -3099,7 +3293,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": []
     },
     {
       "id": "E046",
@@ -3158,7 +3353,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": false
+      "requires_actual_world_or_station_work": false,
+      "encounter_variant_ids": []
     },
     {
       "id": "E047",
@@ -3212,7 +3408,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": false
+      "requires_actual_world_or_station_work": false,
+      "encounter_variant_ids": []
     },
     {
       "id": "E048",
@@ -3270,7 +3467,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": false
+      "requires_actual_world_or_station_work": false,
+      "encounter_variant_ids": []
     },
     {
       "id": "E049",
@@ -3332,7 +3530,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": false
+      "requires_actual_world_or_station_work": false,
+      "encounter_variant_ids": []
     },
     {
       "id": "E050",
@@ -3393,7 +3592,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": false
+      "requires_actual_world_or_station_work": false,
+      "encounter_variant_ids": []
     },
     {
       "id": "E051",
@@ -3447,7 +3647,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": false
+      "requires_actual_world_or_station_work": false,
+      "encounter_variant_ids": []
     },
     {
       "id": "E052",
@@ -3508,7 +3709,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": false
+      "requires_actual_world_or_station_work": false,
+      "encounter_variant_ids": []
     },
     {
       "id": "E053",
@@ -3570,7 +3772,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": false
+      "requires_actual_world_or_station_work": false,
+      "encounter_variant_ids": []
     },
     {
       "id": "E054",
@@ -3629,7 +3832,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": false
+      "requires_actual_world_or_station_work": false,
+      "encounter_variant_ids": []
     },
     {
       "id": "E055",
@@ -3690,7 +3894,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": false
+      "requires_actual_world_or_station_work": false,
+      "encounter_variant_ids": []
     },
     {
       "id": "E056",
@@ -3751,7 +3956,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": false
+      "requires_actual_world_or_station_work": false,
+      "encounter_variant_ids": []
     },
     {
       "id": "E057",
@@ -3806,7 +4012,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": false
+      "requires_actual_world_or_station_work": false,
+      "encounter_variant_ids": []
     },
     {
       "id": "E058",
@@ -3865,7 +4072,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": false
+      "requires_actual_world_or_station_work": false,
+      "encounter_variant_ids": []
     },
     {
       "id": "E059",
@@ -3927,7 +4135,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": false
+      "requires_actual_world_or_station_work": false,
+      "encounter_variant_ids": []
     },
     {
       "id": "E060",
@@ -3986,7 +4195,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": false
+      "requires_actual_world_or_station_work": false,
+      "encounter_variant_ids": []
     },
     {
       "id": "E061",
@@ -4045,7 +4255,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": false
+      "requires_actual_world_or_station_work": false,
+      "encounter_variant_ids": []
     },
     {
       "id": "E062",
@@ -4105,7 +4316,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": false
+      "requires_actual_world_or_station_work": false,
+      "encounter_variant_ids": []
     },
     {
       "id": "E063",
@@ -4166,7 +4378,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": false
+      "requires_actual_world_or_station_work": false,
+      "encounter_variant_ids": []
     },
     {
       "id": "E064",
@@ -4220,7 +4433,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": false
+      "requires_actual_world_or_station_work": false,
+      "encounter_variant_ids": []
     },
     {
       "id": "E065",
@@ -4279,7 +4493,10 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F47V2"
+      ]
     },
     {
       "id": "E066",
@@ -4333,7 +4550,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": false
+      "requires_actual_world_or_station_work": false,
+      "encounter_variant_ids": []
     },
     {
       "id": "E067",
@@ -4394,7 +4612,10 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F51V2"
+      ]
     },
     {
       "id": "E068",
@@ -4455,7 +4676,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": []
     },
     {
       "id": "E069",
@@ -4516,7 +4738,10 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": [
+        "F46V2"
+      ]
     },
     {
       "id": "E070",
@@ -4577,7 +4802,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": []
     },
     {
       "id": "E071",
@@ -4659,7 +4885,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": true
+      "requires_actual_world_or_station_work": true,
+      "encounter_variant_ids": []
     },
     {
       "id": "E072",
@@ -4713,7 +4940,8 @@
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
-      "requires_actual_world_or_station_work": false
+      "requires_actual_world_or_station_work": false,
+      "encounter_variant_ids": []
     }
   ],
   "note": "72项为候选内容池；七天阶段完全一致。所有事件有明确允许小时、处理预算、截止点与工作计入方式；白天结算不增加隐形时间，异常人员事件必须绑定获准F实例。",
@@ -4746,5 +4974,7 @@
     "runtime_binding": "bound_entity_id模板为null；人员异常必须绑定通过所有硬约束检查且具有对应能力的F系列运行时实例。事件不创建、复制或重新抽样实体。"
   },
   "choices_semantics": "夜间choices是处置计划；必须执行实际工作并产生凭证才完成。白天选择按行动格结算。",
-  "interaction_variants_reference": "event_variants.json"
+  "interaction_variants_reference": "event_variants.json",
+  "encounter_variant_catalog": "content/encounter_designs.json",
+  "encounter_variant_count": 120
 }

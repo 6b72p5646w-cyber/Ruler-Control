@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="820" viewBox="0 0 1160 820">
+<style>text{font-family:"Noto Sans CJK SC","Microsoft YaHei",sans-serif}</style>
+<rect width="1160" height="820" fill="#101b25"/>
+<text x="40" y="48" font-size="30" fill="#dfe9ed" font-weight="700" text-anchor="start">白天地图 · 恢复、准备与知识成长</text>
+<text x="40" y="80" font-size="16" fill="#a7bcc9" font-weight="400" text-anchor="start">三个 12×15 格的单屏场景，通过街区行程图连接；无需开发一座可漫游城市。</text>
+<text x="40" y="125" font-size="22" fill="#dfe9ed" font-weight="700" text-anchor="start">玩家家</text>
+<rect x="40" y="150" width="288" height="360" fill="#20323c" stroke="none"/>
+<path d="M40,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M64,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M88,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M112,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M136,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M160,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M184,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M208,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M232,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M256,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M280,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M304,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M328,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M40,150H328" stroke="#5d7280" opacity=".17"/>
+<path d="M40,174H328" stroke="#5d7280" opacity=".17"/>
+<path d="M40,198H328" stroke="#5d7280" opacity=".17"/>
+<path d="M40,222H328" stroke="#5d7280" opacity=".17"/>
+<path d="M40,246H328" stroke="#5d7280" opacity=".17"/>
+<path d="M40,270H328" stroke="#5d7280" opacity=".17"/>
+<path d="M40,294H328" stroke="#5d7280" opacity=".17"/>
+<path d="M40,318H328" stroke="#5d7280" opacity=".17"/>
+<path d="M40,342H328" stroke="#5d7280" opacity=".17"/>
+<path d="M40,366H328" stroke="#5d7280" opacity=".17"/>
+<path d="M40,390H328" stroke="#5d7280" opacity=".17"/>
+<path d="M40,414H328" stroke="#5d7280" opacity=".17"/>
+<path d="M40,438H328" stroke="#5d7280" opacity=".17"/>
+<path d="M40,462H328" stroke="#5d7280" opacity=".17"/>
+<path d="M40,486H328" stroke="#5d7280" opacity=".17"/>
+<path d="M40,510H328" stroke="#5d7280" opacity=".17"/>
+<rect x="64" y="174" width="96" height="96" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="208" y="174" width="72" height="48" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="64" y="318" width="72" height="48" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="208" y="294" width="72" height="48" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="208" y="390" width="72" height="48" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="64" y="390" width="72" height="48" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="40" y="150" width="24" height="360" fill="#080f16" stroke="none"/>
+<rect x="304" y="150" width="24" height="360" fill="#080f16" stroke="none"/>
+<rect x="40" y="150" width="288" height="24" fill="#080f16" stroke="none"/>
+<rect x="40" y="486" width="120" height="24" fill="#080f16" stroke="none"/>
+<rect x="208" y="486" width="120" height="24" fill="#080f16" stroke="none"/>
+<rect x="160" y="486" width="48" height="24" fill="#3b8877" stroke="none"/>
+<text x="112.0" y="226.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">床</text>
+<text x="244.0" y="202.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">学习桌</text>
+<text x="100.0" y="346.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">简易厨房</text>
+<text x="244.0" y="322.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">装备柜</text>
+<text x="244.0" y="418.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">宠物角</text>
+<text x="100.0" y="418.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">休息沙发</text>
+<circle cx="172.0" cy="234.0" r="2.7" fill="#81e3b3"/>
+<circle cx="244.0" cy="234.0" r="2.7" fill="#81e3b3"/>
+<circle cx="148.0" cy="354.0" r="2.7" fill="#81e3b3"/>
+<circle cx="244.0" cy="354.0" r="2.7" fill="#81e3b3"/>
+<circle cx="196.0" cy="426.0" r="2.7" fill="#81e3b3"/>
+<circle cx="148.0" cy="426.0" r="2.7" fill="#81e3b3"/>
+<circle cx="172.0" cy="474.0" r="2.7" fill="#81e3b3"/>
+<text x="40" y="552" font-size="16" fill="#dfe9ed" font-weight="400" text-anchor="start">床：睡眠和精力恢复</text>
+<text x="40" y="582" font-size="16" fill="#dfe9ed" font-weight="400" text-anchor="start">厨房：基础餐食和饱腹</text>
+<text x="40" y="612" font-size="16" fill="#dfe9ed" font-weight="400" text-anchor="start">书桌：怪物笔记与规则预演</text>
+<text x="40" y="642" font-size="16" fill="#dfe9ed" font-weight="400" text-anchor="start">柜 / 宠物角：装备与照料</text>
+<text x="420" y="125" font-size="22" fill="#dfe9ed" font-weight="700" text-anchor="start">旧物与补给道具店</text>
+<rect x="420" y="150" width="288" height="360" fill="#20323c" stroke="none"/>
+<path d="M420,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M444,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M468,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M492,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M516,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M540,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M564,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M588,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M612,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M636,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M660,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M684,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M708,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M420,150H708" stroke="#5d7280" opacity=".17"/>
+<path d="M420,174H708" stroke="#5d7280" opacity=".17"/>
+<path d="M420,198H708" stroke="#5d7280" opacity=".17"/>
+<path d="M420,222H708" stroke="#5d7280" opacity=".17"/>
+<path d="M420,246H708" stroke="#5d7280" opacity=".17"/>
+<path d="M420,270H708" stroke="#5d7280" opacity=".17"/>
+<path d="M420,294H708" stroke="#5d7280" opacity=".17"/>
+<path d="M420,318H708" stroke="#5d7280" opacity=".17"/>
+<path d="M420,342H708" stroke="#5d7280" opacity=".17"/>
+<path d="M420,366H708" stroke="#5d7280" opacity=".17"/>
+<path d="M420,390H708" stroke="#5d7280" opacity=".17"/>
+<path d="M420,414H708" stroke="#5d7280" opacity=".17"/>
+<path d="M420,438H708" stroke="#5d7280" opacity=".17"/>
+<path d="M420,462H708" stroke="#5d7280" opacity=".17"/>
+<path d="M420,486H708" stroke="#5d7280" opacity=".17"/>
+<path d="M420,510H708" stroke="#5d7280" opacity=".17"/>
+<rect x="468" y="198" width="168" height="48" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="444" y="294" width="72" height="72" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="612" y="294" width="72" height="72" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="444" y="414" width="48" height="48" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="612" y="414" width="72" height="48" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="420" y="150" width="24" height="360" fill="#080f16" stroke="none"/>
+<rect x="684" y="150" width="24" height="360" fill="#080f16" stroke="none"/>
+<rect x="420" y="150" width="288" height="24" fill="#080f16" stroke="none"/>
+<rect x="420" y="486" width="120" height="24" fill="#080f16" stroke="none"/>
+<rect x="588" y="486" width="120" height="24" fill="#080f16" stroke="none"/>
+<rect x="540" y="486" width="48" height="24" fill="#3b8877" stroke="none"/>
+<text x="552.0" y="226.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">柜台</text>
+<text x="480.0" y="334.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">基础货架</text>
+<text x="648.0" y="334.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">装备架</text>
+<text x="468.0" y="442.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">奖券机</text>
+<text x="648.0" y="442.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">维修台</text>
+<circle cx="552.0" cy="258.0" r="2.7" fill="#81e3b3"/>
+<circle cx="528.0" cy="330.0" r="2.7" fill="#81e3b3"/>
+<circle cx="600.0" cy="330.0" r="2.7" fill="#81e3b3"/>
+<circle cx="504.0" cy="426.0" r="2.7" fill="#81e3b3"/>
+<circle cx="600.0" cy="426.0" r="2.7" fill="#81e3b3"/>
+<circle cx="552.0" cy="474.0" r="2.7" fill="#81e3b3"/>
+<text x="420" y="552" font-size="16" fill="#dfe9ed" font-weight="400" text-anchor="start">基础货架：确定性补给</text>
+<text x="420" y="582" font-size="16" fill="#dfe9ed" font-weight="400" text-anchor="start">装备架：六槽配置与比较</text>
+<text x="420" y="612" font-size="16" fill="#dfe9ed" font-weight="400" text-anchor="start">奖券机：临时道具与保底</text>
+<text x="420" y="642" font-size="16" fill="#dfe9ed" font-weight="400" text-anchor="start">柜台：维修和宠物契约</text>
+<text x="800" y="125" font-size="22" fill="#dfe9ed" font-weight="700" text-anchor="start">民俗资料室</text>
+<rect x="800" y="150" width="288" height="360" fill="#20323c" stroke="none"/>
+<path d="M800,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M824,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M848,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M872,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M896,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M920,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M944,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M968,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M992,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M1016,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M1040,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M1064,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M1088,150V510" stroke="#5d7280" opacity=".17"/>
+<path d="M800,150H1088" stroke="#5d7280" opacity=".17"/>
+<path d="M800,174H1088" stroke="#5d7280" opacity=".17"/>
+<path d="M800,198H1088" stroke="#5d7280" opacity=".17"/>
+<path d="M800,222H1088" stroke="#5d7280" opacity=".17"/>
+<path d="M800,246H1088" stroke="#5d7280" opacity=".17"/>
+<path d="M800,270H1088" stroke="#5d7280" opacity=".17"/>
+<path d="M800,294H1088" stroke="#5d7280" opacity=".17"/>
+<path d="M800,318H1088" stroke="#5d7280" opacity=".17"/>
+<path d="M800,342H1088" stroke="#5d7280" opacity=".17"/>
+<path d="M800,366H1088" stroke="#5d7280" opacity=".17"/>
+<path d="M800,390H1088" stroke="#5d7280" opacity=".17"/>
+<path d="M800,414H1088" stroke="#5d7280" opacity=".17"/>
+<path d="M800,438H1088" stroke="#5d7280" opacity=".17"/>
+<path d="M800,462H1088" stroke="#5d7280" opacity=".17"/>
+<path d="M800,486H1088" stroke="#5d7280" opacity=".17"/>
+<path d="M800,510H1088" stroke="#5d7280" opacity=".17"/>
+<rect x="824" y="174" width="72" height="96" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="968" y="174" width="72" height="48" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="992" y="294" width="72" height="72" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="848" y="342" width="96" height="48" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="800" y="150" width="24" height="360" fill="#080f16" stroke="none"/>
+<rect x="1064" y="150" width="24" height="360" fill="#080f16" stroke="none"/>
+<rect x="800" y="150" width="288" height="24" fill="#080f16" stroke="none"/>
+<rect x="800" y="486" width="120" height="24" fill="#080f16" stroke="none"/>
+<rect x="968" y="486" width="120" height="24" fill="#080f16" stroke="none"/>
+<rect x="920" y="486" width="48" height="24" fill="#3b8877" stroke="none"/>
+<text x="860.0" y="226.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">书架</text>
+<text x="1004.0" y="202.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">导师台</text>
+<text x="1028.0" y="334.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">档案柜</text>
+<text x="896.0" y="370.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">阅读桌</text>
+<circle cx="908.0" cy="234.0" r="2.7" fill="#81e3b3"/>
+<circle cx="1004.0" cy="234.0" r="2.7" fill="#81e3b3"/>
+<circle cx="980.0" cy="330.0" r="2.7" fill="#81e3b3"/>
+<circle cx="908.0" cy="402.0" r="2.7" fill="#81e3b3"/>
+<circle cx="932.0" cy="474.0" r="2.7" fill="#81e3b3"/>
+<text x="800" y="552" font-size="16" fill="#dfe9ed" font-weight="400" text-anchor="start">资料架：按线索查母题</text>
+<text x="800" y="582" font-size="16" fill="#dfe9ed" font-weight="400" text-anchor="start">导师：驱魔方法与练习</text>
+<text x="800" y="612" font-size="16" fill="#dfe9ed" font-weight="400" text-anchor="start">档案柜：不同版本对照</text>
+<text x="800" y="642" font-size="16" fill="#dfe9ed" font-weight="400" text-anchor="start">阅读桌：整理观察记录</text>
+<text x="40" y="720" font-size="16" fill="#a7bcc9" font-weight="400" text-anchor="start">行动槽：08–20 共6个整2小时槽；20–22基础准备，22–24通勤与核验。地图浏览不再重复扣时。</text>
+<text x="40" y="753" font-size="16" fill="#a7bcc9" font-weight="400" text-anchor="start">店铺夜班时不能传送回家。家中基础恢复有保障；白天异常主要改变服务、情报和资源选择。</text>
+<text x="40" y="786" font-size="15" fill="#a7bcc9" font-weight="400" text-anchor="start">绿色点：实际操作位。基础过道和所有服务位已作静态可达检查；并非可玩的移动客户端。</text>
+</svg>

@@ -1,5 +1,5 @@
 {
-  "version": "0.3",
+  "version": "0.4",
   "status": "prototype_proposal_not_playtested",
   "judgment_policy": "visible_region_matches_logical_region_no_hidden_input_error_roll",
   "snapshot_modifiers_at_attempt_start": true,
@@ -104,7 +104,8 @@
     "illumination_changes_san_value": false,
     "target_scale_multiplier_max": 1.12,
     "precision_increase_combination": "strongest_single_increase_not_sum",
-    "pet_multiplier_contribution_capped_at_normal_target": true
+    "pet_multiplier_contribution_capped_at_normal_target": true,
+    "task_seconds_bonus_policy": "只有列入task_profiles的专属效果可用秒数加成；在无辅助判定窗下限之后增加，与通用强化取最强，最终受同一上限约束。普通比例加成仍最多0.12。"
   },
   "closeup_time_policy": {
     "world_and_threat_timers_frozen": true,
@@ -122,5 +123,23 @@
     "read_only_preparation_is_not_started_attempt": true,
     "press_start_is_first_committed_input": true,
     "cost_reserved_on_start_charged_once_on_exit": true
-  }
+  },
+  "task_profiles": [
+    {
+      "id": "F47_song",
+      "template_id": "QT01",
+      "cycle_seconds": 3,
+      "segment_base_windows_seconds": [
+        1.2,
+        1.0,
+        0.8
+      ],
+      "attempt_cost_seconds": 8,
+      "task_bonus_seconds_max": 0.4,
+      "task_bonus_source": "P03_special_F47",
+      "task_bonus_applied_after_unassisted_floor": true,
+      "stacking": "strongest_single_increase_not_sum",
+      "maximum_final_window_seconds": 1.8
+    }
+  ]
 }

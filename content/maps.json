@@ -1,0 +1,2459 @@
+{
+  "version": "0.4",
+  "status": "complete_layout_proposal_not_playtested",
+  "unit": "tile",
+  "camera": {
+    "orientation_proposal": "portrait",
+    "world_view_tiles": [
+      12,
+      15
+    ],
+    "reference_device_css_px": [
+      360,
+      720
+    ],
+    "world_rect_css_px": [
+      0,
+      72,
+      360,
+      450
+    ],
+    "hud_top_height_px": 72,
+    "control_and_safe_area_height_px": 198,
+    "tile_display_px": 30,
+    "interior_viewport_area_ratio": 5,
+    "continuous_scroll": true,
+    "camera_rotation": false,
+    "pinch_zoom_changes_rules": false,
+    "adaptation": "保留至少12×15世界视野；更高屏幕把额外空间给HUD和安全区，不使距离判定随像素变化。横屏作为后续可选模式，不改变地图格距。"
+  },
+  "scenes": [
+    {
+      "id": "MAP_STORE",
+      "name": "午夜便利店及门外",
+      "mode": "continuous_night_world",
+      "coordinate_contract": "格心使用 n+0.5；x向右、y向下；店内轮廓[0,0,30,30]包括墙和设备。店外不计入5屏。",
+      "interior_rect": [
+        0,
+        0,
+        30,
+        30
+      ],
+      "walk_surfaces": [
+        {
+          "id": "floor",
+          "name": "店内",
+          "rect": [
+            0,
+            0,
+            30,
+            30
+          ]
+        },
+        {
+          "id": "front",
+          "name": "店前空地",
+          "rect": [
+            0,
+            30,
+            30,
+            8
+          ]
+        },
+        {
+          "id": "rear",
+          "name": "后门垃圾区",
+          "rect": [
+            18,
+            -8,
+            12,
+            8
+          ]
+        },
+        {
+          "id": "alley",
+          "name": "东侧装卸通道",
+          "rect": [
+            30,
+            -8,
+            4,
+            46
+          ]
+        }
+      ],
+      "zones": [
+        {
+          "id": "Z01",
+          "name": "前场收银",
+          "rect": [
+            0,
+            20,
+            30,
+            10
+          ],
+          "color": "#234b56"
+        },
+        {
+          "id": "Z02",
+          "name": "商品货架",
+          "rect": [
+            0,
+            10,
+            18,
+            10
+          ],
+          "color": "#314a3c"
+        },
+        {
+          "id": "Z03",
+          "name": "熟食与冷链",
+          "rect": [
+            18,
+            10,
+            12,
+            10
+          ],
+          "color": "#294c69"
+        },
+        {
+          "id": "Z04",
+          "name": "库房与验收",
+          "rect": [
+            14,
+            0,
+            16,
+            10
+          ],
+          "color": "#57442f"
+        },
+        {
+          "id": "Z05",
+          "name": "员工与设备",
+          "rect": [
+            0,
+            0,
+            14,
+            10
+          ],
+          "color": "#4c3e62"
+        }
+      ],
+      "walls": [
+        {
+          "id": "wall_w",
+          "name": "西墙",
+          "rect": [
+            0,
+            0,
+            1,
+            30
+          ]
+        },
+        {
+          "id": "wall_e",
+          "name": "东墙",
+          "rect": [
+            29,
+            0,
+            1,
+            30
+          ]
+        },
+        {
+          "id": "wall_n",
+          "name": "北墙",
+          "rect": [
+            0,
+            0,
+            26,
+            1
+          ]
+        },
+        {
+          "id": "wall_s1",
+          "name": "南墙西",
+          "rect": [
+            0,
+            29,
+            13,
+            1
+          ]
+        },
+        {
+          "id": "wall_s2",
+          "name": "南墙东",
+          "rect": [
+            17,
+            29,
+            13,
+            1
+          ]
+        },
+        {
+          "id": "wall_back1",
+          "name": "后场隔墙西",
+          "rect": [
+            0,
+            9,
+            5,
+            1
+          ]
+        },
+        {
+          "id": "wall_back2",
+          "name": "后场隔墙中",
+          "rect": [
+            9,
+            9,
+            12,
+            1
+          ]
+        },
+        {
+          "id": "wall_back3",
+          "name": "后场隔墙东",
+          "rect": [
+            25,
+            9,
+            5,
+            1
+          ]
+        },
+        {
+          "id": "wall_staff1",
+          "name": "员工库房墙北",
+          "rect": [
+            13,
+            0,
+            1,
+            4
+          ]
+        },
+        {
+          "id": "wall_staff2",
+          "name": "员工库房墙南",
+          "rect": [
+            13,
+            8,
+            1,
+            1
+          ]
+        }
+      ],
+      "doors": [
+        {
+          "id": "DOOR_FRONT",
+          "name": "正门",
+          "rect": [
+            13,
+            29,
+            4,
+            1
+          ],
+          "default_open": true,
+          "can_lock_during_chase": false
+        },
+        {
+          "id": "DOOR_REAR",
+          "name": "后门",
+          "rect": [
+            26,
+            0,
+            3,
+            1
+          ],
+          "default_open": true,
+          "can_lock_during_chase": false
+        },
+        {
+          "id": "DOOR_STAFF",
+          "name": "员工区通道",
+          "rect": [
+            5,
+            9,
+            4,
+            1
+          ],
+          "default_open": true,
+          "can_lock_during_chase": false
+        },
+        {
+          "id": "DOOR_COLD",
+          "name": "库房冷链通道",
+          "rect": [
+            21,
+            9,
+            4,
+            1
+          ],
+          "default_open": true,
+          "can_lock_during_chase": false
+        },
+        {
+          "id": "DOOR_LINK",
+          "name": "后场横向通道",
+          "rect": [
+            13,
+            4,
+            1,
+            4
+          ],
+          "default_open": true,
+          "can_lock_during_chase": false
+        }
+      ],
+      "fixtures": [
+        {
+          "id": "FX01",
+          "name": "员工桌",
+          "rect": [
+            1,
+            1,
+            4,
+            2
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": false
+        },
+        {
+          "id": "FX02",
+          "name": "更衣柜",
+          "rect": [
+            7,
+            1,
+            3,
+            2
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": true
+        },
+        {
+          "id": "FX03",
+          "name": "休息椅",
+          "rect": [
+            1,
+            5,
+            3,
+            2
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": false
+        },
+        {
+          "id": "FX04",
+          "name": "餐桌",
+          "rect": [
+            7,
+            6,
+            4,
+            2
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": false
+        },
+        {
+          "id": "FX05",
+          "name": "配电",
+          "rect": [
+            11,
+            1,
+            1,
+            2
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": false
+        },
+        {
+          "id": "FX06",
+          "name": "储物架",
+          "rect": [
+            15,
+            1,
+            5,
+            2
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": true
+        },
+        {
+          "id": "FX07",
+          "name": "验收台",
+          "rect": [
+            22,
+            1,
+            4,
+            2
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": false
+        },
+        {
+          "id": "FX08",
+          "name": "打包台",
+          "rect": [
+            15,
+            7,
+            5,
+            2
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": false
+        },
+        {
+          "id": "FX09",
+          "name": "隔离架",
+          "rect": [
+            26,
+            4,
+            3,
+            2
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": true
+        },
+        {
+          "id": "FX10",
+          "name": "分袋台",
+          "rect": [
+            26,
+            7,
+            3,
+            2
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": false
+        },
+        {
+          "id": "FX11",
+          "name": "货架A",
+          "rect": [
+            3,
+            12,
+            3,
+            6
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": true
+        },
+        {
+          "id": "FX12",
+          "name": "文具架",
+          "rect": [
+            10,
+            12,
+            3,
+            6
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": true
+        },
+        {
+          "id": "FX13",
+          "name": "货架B",
+          "rect": [
+            16,
+            12,
+            2,
+            6
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": true
+        },
+        {
+          "id": "FX14",
+          "name": "热食台",
+          "rect": [
+            20,
+            13,
+            4,
+            2
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": false
+        },
+        {
+          "id": "FX15",
+          "name": "冰柜",
+          "rect": [
+            25,
+            12,
+            4,
+            2
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": false
+        },
+        {
+          "id": "FX16",
+          "name": "饮料冷柜",
+          "rect": [
+            27,
+            16,
+            2,
+            4
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": true
+        },
+        {
+          "id": "FX17",
+          "name": "水槽",
+          "rect": [
+            27,
+            10,
+            2,
+            1
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": false
+        },
+        {
+          "id": "FX18",
+          "name": "收银台",
+          "rect": [
+            2,
+            24,
+            7,
+            2
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": false
+        },
+        {
+          "id": "FX19",
+          "name": "柜台侧翼",
+          "rect": [
+            2,
+            26,
+            2,
+            2
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": false
+        },
+        {
+          "id": "FX20",
+          "name": "保留座",
+          "rect": [
+            2,
+            20,
+            3,
+            2
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": false
+        },
+        {
+          "id": "FX21",
+          "name": "失物柜",
+          "rect": [
+            10,
+            26,
+            2,
+            2
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": true
+        },
+        {
+          "id": "FX22",
+          "name": "提货架",
+          "rect": [
+            18,
+            26,
+            4,
+            2
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": false
+        },
+        {
+          "id": "FX23",
+          "name": "核验台",
+          "rect": [
+            25,
+            25,
+            4,
+            2
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": false
+        },
+        {
+          "id": "FX24",
+          "name": "垃圾箱",
+          "rect": [
+            19,
+            -7,
+            5,
+            2
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": false
+        },
+        {
+          "id": "FX25",
+          "name": "回收箱",
+          "rect": [
+            19,
+            -3,
+            3,
+            2
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": false
+        },
+        {
+          "id": "FX26",
+          "name": "门前长椅",
+          "rect": [
+            3,
+            34,
+            5,
+            2
+          ],
+          "blocks_navigation": true,
+          "blocks_rule_sight": false
+        }
+      ],
+      "anchors": [
+        {
+          "role": "cashier",
+          "name": "收银操作位",
+          "position": [
+            6.5,
+            26.5
+          ]
+        },
+        {
+          "role": "safe_counter",
+          "name": "柜台稳定区",
+          "position": [
+            7.5,
+            27.5
+          ]
+        },
+        {
+          "role": "customer_wait",
+          "name": "顾客等候位",
+          "position": [
+            6.5,
+            22.5
+          ]
+        },
+        {
+          "role": "verification_desk",
+          "name": "身份核验操作位",
+          "position": [
+            25.5,
+            27.5
+          ]
+        },
+        {
+          "role": "pickup_shelf",
+          "name": "自提架操作位",
+          "position": [
+            19.5,
+            25.5
+          ]
+        },
+        {
+          "role": "goods_shelf",
+          "name": "主补货位",
+          "position": [
+            6.5,
+            15.5
+          ]
+        },
+        {
+          "role": "metal_shelf",
+          "name": "回形针取货位",
+          "position": [
+            13.5,
+            17.5
+          ]
+        },
+        {
+          "role": "hot_food",
+          "name": "热食操作位",
+          "position": [
+            21.5,
+            15.5
+          ]
+        },
+        {
+          "role": "sink",
+          "name": "水槽操作位",
+          "position": [
+            27.5,
+            11.5
+          ]
+        },
+        {
+          "role": "cold_cabinet",
+          "name": "冷柜操作位",
+          "position": [
+            26.5,
+            18.5
+          ]
+        },
+        {
+          "role": "freezer_main",
+          "name": "主冰柜交付位",
+          "position": [
+            26.5,
+            14.5
+          ]
+        },
+        {
+          "role": "freezer_backup",
+          "name": "备用冷柜交付位",
+          "position": [
+            26.5,
+            19.5
+          ],
+          "requires_feature": "backup_freezer_registration",
+          "default_quest_usable": false
+        },
+        {
+          "role": "warehouse_meat",
+          "name": "任务肉箱停放位",
+          "position": [
+            16.5,
+            4.5
+          ]
+        },
+        {
+          "role": "receiving",
+          "name": "到货验收位",
+          "position": [
+            23.5,
+            3.5
+          ]
+        },
+        {
+          "role": "packing",
+          "name": "打包操作位",
+          "position": [
+            17.5,
+            6.5
+          ]
+        },
+        {
+          "role": "storage_shelf",
+          "name": "储物领取位",
+          "position": [
+            17.5,
+            3.5
+          ]
+        },
+        {
+          "role": "isolation_cage",
+          "name": "隔离收货位",
+          "position": [
+            25.5,
+            5.5
+          ]
+        },
+        {
+          "role": "lost_property",
+          "name": "失物领取位",
+          "position": [
+            12.5,
+            27.5
+          ]
+        },
+        {
+          "role": "staff_desk",
+          "name": "班表签署位",
+          "position": [
+            4.5,
+            3.5
+          ]
+        },
+        {
+          "role": "rest_chair",
+          "name": "安全休息位",
+          "position": [
+            4.5,
+            6.5
+          ]
+        },
+        {
+          "role": "staff_locker",
+          "name": "员工储物领取位",
+          "position": [
+            8.5,
+            3.5
+          ]
+        },
+        {
+          "role": "break_table",
+          "name": "餐桌操作位",
+          "position": [
+            8.5,
+            8.5
+          ]
+        },
+        {
+          "role": "monitor_terminal",
+          "name": "监控快照终端",
+          "position": [
+            2.5,
+            3.5
+          ]
+        },
+        {
+          "role": "power_panel",
+          "name": "配电操作位",
+          "position": [
+            11.5,
+            3.5
+          ]
+        },
+        {
+          "role": "mop_station",
+          "name": "清洁工具位",
+          "position": [
+            20.5,
+            7.5
+          ]
+        },
+        {
+          "role": "waste_sort",
+          "name": "封袋操作位",
+          "position": [
+            25.5,
+            7.5
+          ]
+        },
+        {
+          "role": "dumpster",
+          "name": "垃圾投放位",
+          "position": [
+            24.5,
+            -5.5
+          ]
+        },
+        {
+          "role": "forecourt_handoff",
+          "name": "门前大件交接位",
+          "position": [
+            20.5,
+            33.5
+          ]
+        },
+        {
+          "role": "loading_bay",
+          "name": "侧巷装卸位",
+          "position": [
+            31.5,
+            -2.5
+          ]
+        },
+        {
+          "role": "rear_threshold",
+          "name": "后门外等候位",
+          "position": [
+            27.5,
+            -1.5
+          ]
+        },
+        {
+          "role": "street_boundary",
+          "name": "街道离店边界",
+          "position": [
+            15.5,
+            37.5
+          ]
+        },
+        {
+          "role": "front_door",
+          "name": "正门内侧",
+          "position": [
+            15.5,
+            28.5
+          ]
+        },
+        {
+          "role": "rear_door",
+          "name": "后门内侧",
+          "position": [
+            27.5,
+            1.5
+          ]
+        },
+        {
+          "role": "front_exit",
+          "name": "正门诱离完成区",
+          "position": [
+            14.5,
+            33.5
+          ]
+        },
+        {
+          "role": "rear_exit",
+          "name": "后门诱离完成区",
+          "position": [
+            27.5,
+            -4.5
+          ]
+        },
+        {
+          "role": "convex_mirror",
+          "name": "凸面镜观察位",
+          "position": [
+            19.5,
+            22.5
+          ]
+        },
+        {
+          "role": "reserve_seat",
+          "name": "座位交接位",
+          "position": [
+            5.5,
+            21.5
+          ]
+        },
+        {
+          "role": "construction_zone",
+          "name": "固定施工区",
+          "position": [
+            10.5,
+            21.5
+          ]
+        },
+        {
+          "role": "drain_channel",
+          "name": "独立排水沟入口",
+          "position": [
+            28.5,
+            -5.5
+          ]
+        },
+        {
+          "role": "water_valve",
+          "name": "店内水阀位",
+          "position": [
+            28.5,
+            11.5
+          ]
+        },
+        {
+          "role": "aisle_loop",
+          "name": "货架环路中心",
+          "position": [
+            8.5,
+            19.5
+          ]
+        },
+        {
+          "role": "floor_markers",
+          "name": "通道地标位",
+          "position": [
+            14.5,
+            19.5
+          ]
+        }
+      ],
+      "sockets": [
+        {
+          "role": "SO01",
+          "name": "前门灯/门铃",
+          "position": [
+            16.5,
+            30.5
+          ]
+        },
+        {
+          "role": "SO02",
+          "name": "柜台防护",
+          "position": [
+            8.5,
+            27.5
+          ]
+        },
+        {
+          "role": "SO03",
+          "name": "文具诱饵盒",
+          "position": [
+            14.5,
+            18.5
+          ]
+        },
+        {
+          "role": "SO04",
+          "name": "冷链保冷套",
+          "position": [
+            24.5,
+            15.5
+          ]
+        },
+        {
+          "role": "SO05",
+          "name": "后场减速带",
+          "position": [
+            22.5,
+            8.5
+          ]
+        },
+        {
+          "role": "SO06",
+          "name": "员工应急灯",
+          "position": [
+            6.5,
+            8.5
+          ]
+        },
+        {
+          "role": "SO07",
+          "name": "货架遮挡屏",
+          "position": [
+            7.5,
+            19.5
+          ]
+        },
+        {
+          "role": "SO08",
+          "name": "后门吸水垫",
+          "position": [
+            27.5,
+            -0.5
+          ]
+        }
+      ],
+      "camera_zones": [
+        {
+          "id": "CAM1",
+          "name": "前门收银快照",
+          "rect": [
+            1,
+            20,
+            18,
+            10
+          ]
+        },
+        {
+          "id": "CAM2",
+          "name": "货架快照",
+          "rect": [
+            1,
+            10,
+            17,
+            10
+          ]
+        },
+        {
+          "id": "CAM3",
+          "name": "冷链快照",
+          "rect": [
+            18,
+            10,
+            11,
+            10
+          ]
+        },
+        {
+          "id": "CAM4",
+          "name": "库房快照",
+          "rect": [
+            14,
+            1,
+            15,
+            8
+          ]
+        },
+        {
+          "id": "CAM5",
+          "name": "门外快照",
+          "rect": [
+            0,
+            30,
+            30,
+            8
+          ]
+        }
+      ],
+      "camera_policy": {
+        "render": "snapshot_sprite_layer_not_multicamera_realtime",
+        "max_channels": 5,
+        "capture_world_seconds": 1,
+        "snapshot_reading_pauses_world": true,
+        "old_snapshot_expiry_seconds": 8,
+        "snapshot_age_uses_world_clock": true,
+        "staff_room_has_no_camera": true,
+        "cannot_reveal_hidden_identity": true,
+        "cannot_auto_refresh_while_paused": true,
+        "cue_alternative": "新旧脚印、货物位置或门铃日志；任何必须快照核验的遭遇入场前保证终端可用。"
+      },
+      "circuits": [
+        {
+          "id": "C1",
+          "name": "前场照明",
+          "zones": [
+            "Z01",
+            "Z02"
+          ]
+        },
+        {
+          "id": "C2",
+          "name": "冷链与热食",
+          "zones": [
+            "Z03"
+          ]
+        },
+        {
+          "id": "C3",
+          "name": "后场与监控",
+          "zones": [
+            "Z04",
+            "Z05"
+          ]
+        }
+      ],
+      "wet_graph": {
+        "nodes": [
+          [
+            28,
+            -6
+          ],
+          [
+            28,
+            -4
+          ],
+          [
+            28,
+            -2
+          ],
+          [
+            27,
+            -1
+          ],
+          [
+            27,
+            1
+          ],
+          [
+            24,
+            8
+          ],
+          [
+            23,
+            10
+          ],
+          [
+            25,
+            11
+          ]
+        ],
+        "protected_channel_nodes": [
+          [
+            28,
+            -6
+          ],
+          [
+            28,
+            -4
+          ],
+          [
+            28,
+            -2
+          ]
+        ],
+        "policy": "地面预置单元的湿/干布尔值，不模拟水；塔尼瓦保水沟与河童营业湿格可独立隔离。",
+        "never_wet_emergency_corridor": true,
+        "edges": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            7
+          ]
+        ],
+        "edge_contract": "边连接固定短沟/地面段，不以节点间欧氏距离直接当水格；内部地格段在灰盒中登记，切断只切指定边。"
+      },
+      "rules": {
+        "navigation": "四邻接固定格；门只改预置边可通行状态；装置不改变图。",
+        "minimum_primary_aisle_width_tiles": 3,
+        "minimum_door_width_tiles": 3,
+        "collision_radius_tiles": 0.3,
+        "external_loop": "正门→前场→东侧巷→后院→后门，与店内主环路形成可预判替代路线。",
+        "monster_ground_topology": "地面怪和玩家共用固定导航；飞行怪仍走预设飞行航线/节点，不穿任意墙。",
+        "door_safety": "有活动追逐时不能新增锁门事件；已有关闭通道仅当替代路线和120秒预算可验证时准入。",
+        "tall_shelf_occlusion": "货架遮挡角色规则视线，未遮挡HUD；2D顶面图标仍可标方向但不泄露身份。"
+      },
+      "route_checks": [
+        {
+          "id": "R01",
+          "name": "验收到货架",
+          "roles": [
+            "receiving",
+            "goods_shelf"
+          ],
+          "speed": 2.4,
+          "max_seconds": 20
+        },
+        {
+          "id": "R02",
+          "name": "任务生肉入主冰柜",
+          "roles": [
+            "warehouse_meat",
+            "freezer_main"
+          ],
+          "speed": 2.6,
+          "max_seconds": 12
+        },
+        {
+          "id": "R03",
+          "name": "封袋送垃圾箱",
+          "roles": [
+            "waste_sort",
+            "dumpster"
+          ],
+          "speed": 2.4,
+          "max_seconds": 12
+        },
+        {
+          "id": "R04",
+          "name": "回形针架到正门店外",
+          "roles": [
+            "metal_shelf",
+            "front_exit"
+          ],
+          "speed": 3.0,
+          "max_seconds": 10
+        },
+        {
+          "id": "R05",
+          "name": "柜台修电往返",
+          "roles": [
+            "cashier",
+            "power_panel",
+            "cashier"
+          ],
+          "speed": 3.0,
+          "max_seconds": 25
+        },
+        {
+          "id": "R06",
+          "name": "后门关闭时外环清运",
+          "roles": [
+            "waste_sort",
+            "dumpster"
+          ],
+          "speed": 2.4,
+          "closed_doors": [
+            "DOOR_REAR"
+          ],
+          "max_seconds": 40
+        },
+        {
+          "id": "R07",
+          "name": "冷链通道关闭备用路",
+          "roles": [
+            "warehouse_meat",
+            "freezer_main"
+          ],
+          "speed": 2.6,
+          "closed_doors": [
+            "DOOR_COLD"
+          ],
+          "max_seconds": 22
+        },
+        {
+          "id": "R08",
+          "name": "四区主巡店回路",
+          "roles": [
+            "cashier",
+            "goods_shelf",
+            "hot_food",
+            "receiving",
+            "staff_desk",
+            "cashier"
+          ],
+          "speed": 3.0,
+          "max_seconds": 40
+        },
+        {
+          "id": "R09",
+          "name": "巨魔两批搬货并回柜台",
+          "roles": [
+            "receiving",
+            "forecourt_handoff",
+            "receiving",
+            "forecourt_handoff",
+            "cashier"
+          ],
+          "speed": 3.0,
+          "segment_speeds": [
+            2.4,
+            3.0,
+            2.4,
+            3.0
+          ],
+          "max_seconds": 56
+        },
+        {
+          "id": "R10",
+          "name": "双重身三工位证据链",
+          "roles": [
+            "staff_desk",
+            "monitor_terminal",
+            "receiving",
+            "storage_shelf",
+            "cashier",
+            "verification_desk"
+          ],
+          "speed": 3.0,
+          "max_seconds": 35
+        }
+      ],
+      "lure_route": {
+        "monster_id": "F12",
+        "spawn": [
+          8.5,
+          22.5
+        ],
+        "tutorial_player_start": [
+          13.5,
+          19.5
+        ],
+        "pickup_role": "metal_shelf",
+        "bait_points": [
+          [
+            13.5,
+            22.5
+          ],
+          [
+            14.5,
+            26.5
+          ],
+          [
+            14.5,
+            30.5
+          ],
+          [
+            14.5,
+            33.5
+          ]
+        ],
+        "exit_role": "front_exit",
+        "bait_detection_radius": 5,
+        "max_step_distance": 4.5,
+        "capacity": 6,
+        "max_active": 3,
+        "guaranteed_exit_rect": [
+          13,
+          32,
+          4,
+          3
+        ],
+        "note": "预放点只用于标注教学路线；玩家必须亲手取料并逐点投放。实际使用点序推进，不在开局免费生成。",
+        "alternate_pickup_position": [
+          9.5,
+          17.5
+        ],
+        "alternate_pickup_slot_id": "ATT11"
+      },
+      "placement_contract": {
+        "counter_work_role": "cashier",
+        "distance_customer_role": "customer_wait",
+        "distance_band": [
+          2.5,
+          4.5
+        ],
+        "no_spawn_within_tiles": 5,
+        "spawn_must_not_cut_only_required_route": true,
+        "warnings_while_offscreen": "方向箭头+怪物音符/步迹图标+最短危险倒计时，HUD不受SAN黑视覆盖。"
+      },
+      "closeup_anchor_policy": "所有精细工位的近景都从绿色操作位进入；世界冻结与明示时间预留按interactions.json统一执行。距离怪站在customer_wait，玩家在cashier，两点相距4格，不能把交互要求错误地设在怪物脚下。",
+      "fixed_attachments": [
+        {
+          "id": "ATT01",
+          "name": "门前服务窗和遮帘",
+          "anchor_role": "forecourt_handoff",
+          "mechanics": [
+            "service_window_open",
+            "opaque_curtain"
+          ]
+        },
+        {
+          "id": "ATT02",
+          "name": "镜面档位",
+          "anchor_role": "convex_mirror",
+          "mechanics": [
+            "preset_mirror_angle",
+            "turn_warning"
+          ]
+        },
+        {
+          "id": "ATT03",
+          "name": "三个取货绳槽",
+          "anchor_role": "forecourt_handoff",
+          "mechanics": [
+            "ordered_retrieval",
+            "max_three_slots"
+          ]
+        },
+        {
+          "id": "ATT04",
+          "name": "屋檐分段掩护",
+          "anchor_role": "loading_bay",
+          "mechanics": [
+            "fixed_cover_nodes",
+            "dive_warning"
+          ]
+        },
+        {
+          "id": "ATT05",
+          "name": "授权门闩",
+          "anchor_role": "verification_desk",
+          "mechanics": [
+            "permission_route_gate",
+            "revoke_access"
+          ]
+        },
+        {
+          "id": "ATT06",
+          "name": "打包/计量面板",
+          "anchor_role": "packing",
+          "mechanics": [
+            "QT02",
+            "QT03",
+            "max_three_steps"
+          ]
+        },
+        {
+          "id": "ATT07",
+          "name": "室外隔离封存托盘",
+          "anchor_role": "forecourt_handoff",
+          "mechanics": [
+            "sealed_stone_storage",
+            "reserve_exclusive_slot"
+          ]
+        },
+        {
+          "id": "ATT08",
+          "name": "旧新电子灶位",
+          "anchor_role": "hot_food",
+          "mechanics": [
+            "hearth_slot_A",
+            "hearth_slot_B",
+            "same_station_two_slots"
+          ]
+        },
+        {
+          "id": "ATT09",
+          "name": "三处实体路标",
+          "anchor_role": "floor_markers",
+          "mechanics": [
+            "persistent_seal",
+            "fixed_route_three_nodes"
+          ],
+          "positions": [
+            [
+              14.5,
+              19.5
+            ],
+            [
+              10.5,
+              19.5
+            ],
+            [
+              8.5,
+              22.5
+            ]
+          ]
+        },
+        {
+          "id": "ATT10",
+          "name": "前场离店预留线",
+          "anchor_role": "front_door",
+          "mechanics": [
+            "clear_exit_reservation"
+          ],
+          "path_positions": [
+            [
+              15.5,
+              25.5
+            ],
+            [
+              15.5,
+              28.5
+            ],
+            [
+              15.5,
+              31.5
+            ]
+          ]
+        },
+        {
+          "id": "ATT11",
+          "name": "备用文具取盒槽",
+          "anchor_role": "metal_shelf",
+          "mechanics": [
+            "same_free_clip_supply",
+            "alternate_pickup"
+          ],
+          "player_positions": [
+            [
+              9.5,
+              17.5
+            ]
+          ],
+          "note": "文具架另一侧既有槽；不是B05部署设备。"
+        },
+        {
+          "id": "ATT12",
+          "name": "后门验货小窗与近侧排水拉杆",
+          "anchor_role": "rear_door",
+          "mechanics": [
+            "rear_service_slit",
+            "drain_remote_control"
+          ],
+          "player_positions": [
+            [
+              27.5,
+              1.5
+            ],
+            [
+              27.5,
+              2.5
+            ]
+          ],
+          "window_interact_position": [
+            27.5,
+            1.5
+          ],
+          "drain_control_position": [
+            27.5,
+            2.5
+          ],
+          "window_read_seconds": 6,
+          "control_action_seconds": 1,
+          "close_window_seconds": 1,
+          "note": "拉杆遥控固定后院沟，只切换枚举水位；不要求6秒内跑到沟边。小窗与可通行后门是独立实体。"
+        },
+        {
+          "id": "ATT13",
+          "name": "柜台外沿处理箱与服务挡板",
+          "anchor_role": "cashier",
+          "mechanics": [
+            "treated_box_slot",
+            "adjacent_shutter_control"
+          ],
+          "player_positions": [
+            [
+              8.5,
+              26.5
+            ],
+            [
+              7.5,
+              26.5
+            ]
+          ],
+          "box_position": [
+            8.5,
+            25.5
+          ],
+          "box_is_countertop_object": true,
+          "guest_position": [
+            6.5,
+            22.5
+          ],
+          "shutter_seconds": 0.6,
+          "attention_window_seconds": 4,
+          "timer_start": "registered_box_placed_after_wound_sealed"
+        },
+        {
+          "id": "ATT14",
+          "name": "单组相邻双窗防御",
+          "anchor_role": "forecourt_handoff",
+          "mechanics": [
+            "one_of_two_local_groups",
+            "board_rail",
+            "fixed_curtain",
+            "telegraphed_dive_strip"
+          ],
+          "groups": [
+            {
+              "id": "front_pair",
+              "window_objects": [
+                [
+                  18.5,
+                  29.5
+                ],
+                [
+                  22.5,
+                  29.5
+                ]
+              ],
+              "player_positions": [
+                [
+                  18.5,
+                  30.5
+                ],
+                [
+                  22.5,
+                  30.5
+                ]
+              ],
+              "board_pickup_position": [
+                20.5,
+                30.5
+              ],
+              "safe_position": [
+                20.5,
+                32.5
+              ],
+              "dive_strips": [
+                [
+                  18,
+                  30,
+                  1,
+                  2
+                ],
+                [
+                  22,
+                  30,
+                  1,
+                  2
+                ]
+              ]
+            },
+            {
+              "id": "rear_pair",
+              "window_objects": [
+                [
+                  23.5,
+                  0.5
+                ],
+                [
+                  25.5,
+                  0.5
+                ]
+              ],
+              "player_positions": [
+                [
+                  23.5,
+                  -0.5
+                ],
+                [
+                  25.5,
+                  -0.5
+                ]
+              ],
+              "board_pickup_position": [
+                24.5,
+                -0.5
+              ],
+              "safe_position": [
+                24.5,
+                -1.5
+              ],
+              "dive_strips": [
+                [
+                  23,
+                  -2,
+                  1,
+                  2
+                ],
+                [
+                  25,
+                  -2,
+                  1,
+                  2
+                ]
+              ]
+            }
+          ],
+          "select_one_group_per_encounter": true,
+          "warning_seconds": 8,
+          "push_board_seconds": 2,
+          "curtain_seconds": 1,
+          "max_player_to_board_to_target_tiles": 12,
+          "note": "每组窗都在同一墙段；8秒含入槽、走出条带。B02不等于此实体板，板不改变导航图。"
+        },
+        {
+          "id": "ATT15",
+          "name": "排水沟本地交叉维护组",
+          "anchor_role": "drain_channel",
+          "mechanics": [
+            "local_pause_flow",
+            "folding_bridge",
+            "two_buffer_slots"
+          ],
+          "player_positions": [
+            [
+              27.5,
+              -3.5
+            ],
+            [
+              27.5,
+              -4.5
+            ],
+            [
+              29.5,
+              -4.5
+            ],
+            [
+              26.5,
+              -3.5
+            ],
+            [
+              26.5,
+              -5.5
+            ]
+          ],
+          "local_lever_position": [
+            27.5,
+            -3.5
+          ],
+          "board_player_position": [
+            27.5,
+            -4.5
+          ],
+          "crossing_start": [
+            27.5,
+            -4.5
+          ],
+          "crossing_end": [
+            29.5,
+            -4.5
+          ],
+          "buffer_slots": [
+            [
+              26.5,
+              -3.5
+            ],
+            [
+              26.5,
+              -5.5
+            ]
+          ],
+          "maintenance_seconds": 8,
+          "operations": {
+            "stop_flow": 0.5,
+            "place_board": 0.6,
+            "pick_up_box": 0.6,
+            "put_down_box": 0.25,
+            "remove_board": 0.6,
+            "restore_flow": 0.5
+          },
+          "note": "远端water_valve只用于初次通水；8秒窗由本地杆启动。踏板位仅改变湿规则，不改变既有可走网格。"
+        },
+        {
+          "id": "ATT16",
+          "name": "员工椅短湿线与检查位",
+          "anchor_role": "rest_chair",
+          "mechanics": [
+            "independent_wet_branch",
+            "low_inspection_lamp",
+            "standing_recovery"
+          ],
+          "player_positions": [
+            [
+              4.5,
+              3.5
+            ],
+            [
+              4.5,
+              4.5
+            ],
+            [
+              4.5,
+              5.5
+            ],
+            [
+              4.5,
+              6.5
+            ],
+            [
+              5.5,
+              6.5
+            ]
+          ],
+          "wet_nodes": [
+            [
+              4,
+              3
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              4,
+              5
+            ]
+          ],
+          "edges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "source_node": 0,
+          "seat_touch_node": 2,
+          "cut_node": 1,
+          "inspection_position": [
+            4.5,
+            6.5
+          ],
+          "standing_safe_position": [
+            5.5,
+            6.5
+          ],
+          "note": "局部漏水支线与后院主水路独立；最多新增一条平行短边，保留干站点。检查灯固定手压，不用购买电池。"
+        }
+      ]
+    },
+    {
+      "id": "MAP_HOME",
+      "name": "玩家家",
+      "mode": "day_safe_station_map",
+      "interior_rect": [
+        0,
+        0,
+        12,
+        15
+      ],
+      "walk_surfaces": [
+        {
+          "id": "floor",
+          "name": "地面",
+          "rect": [
+            0,
+            0,
+            12,
+            15
+          ]
+        }
+      ],
+      "zones": [],
+      "walls": [
+        {
+          "id": "w",
+          "name": "西墙",
+          "rect": [
+            0,
+            0,
+            1,
+            15
+          ]
+        },
+        {
+          "id": "e",
+          "name": "东墙",
+          "rect": [
+            11,
+            0,
+            1,
+            15
+          ]
+        },
+        {
+          "id": "n",
+          "name": "北墙",
+          "rect": [
+            0,
+            0,
+            12,
+            1
+          ]
+        },
+        {
+          "id": "s1",
+          "name": "南墙西",
+          "rect": [
+            0,
+            14,
+            5,
+            1
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "南墙东",
+          "rect": [
+            7,
+            14,
+            5,
+            1
+          ]
+        }
+      ],
+      "doors": [
+        {
+          "id": "EXIT",
+          "name": "出口",
+          "rect": [
+            5,
+            14,
+            2,
+            1
+          ],
+          "default_open": true
+        }
+      ],
+      "fixtures": [
+        {
+          "id": "H1",
+          "name": "床",
+          "rect": [
+            1,
+            1,
+            4,
+            4
+          ]
+        },
+        {
+          "id": "H2",
+          "name": "学习桌",
+          "rect": [
+            7,
+            1,
+            3,
+            2
+          ]
+        },
+        {
+          "id": "H3",
+          "name": "简易厨房",
+          "rect": [
+            1,
+            7,
+            3,
+            2
+          ]
+        },
+        {
+          "id": "H4",
+          "name": "装备柜",
+          "rect": [
+            7,
+            6,
+            3,
+            2
+          ]
+        },
+        {
+          "id": "H5",
+          "name": "宠物角",
+          "rect": [
+            7,
+            10,
+            3,
+            2
+          ]
+        },
+        {
+          "id": "H6",
+          "name": "休息沙发",
+          "rect": [
+            1,
+            10,
+            3,
+            2
+          ]
+        }
+      ],
+      "anchors": [
+        {
+          "role": "bed",
+          "name": "睡眠与梦境复盘",
+          "position": [
+            5.5,
+            3.5
+          ]
+        },
+        {
+          "role": "study",
+          "name": "驱魔笔记学习",
+          "position": [
+            8.5,
+            3.5
+          ]
+        },
+        {
+          "role": "kitchen",
+          "name": "免费餐与进食",
+          "position": [
+            4.5,
+            8.5
+          ]
+        },
+        {
+          "role": "wardrobe",
+          "name": "装备与背包配置",
+          "position": [
+            8.5,
+            8.5
+          ]
+        },
+        {
+          "role": "pet_corner",
+          "name": "宠物照料",
+          "position": [
+            6.5,
+            11.5
+          ]
+        },
+        {
+          "role": "sofa",
+          "name": "短休与SAN恢复",
+          "position": [
+            4.5,
+            11.5
+          ]
+        },
+        {
+          "role": "exit",
+          "name": "出门",
+          "position": [
+            5.5,
+            13.5
+          ]
+        }
+      ],
+      "route_checks": [],
+      "time_policy": "行走/查看地图不扣夜班秒数，也不额外扣白天槽位；按下确认的服务占已标注的整2小时行动槽。基础采购归入20–22准备时段，不重复扣槽。",
+      "night_access": "夜班不能传送到这里；06:00后结算离店才开放。",
+      "protected_recovery": "基础睡眠、免费食物和稳定SAN不被随机怪物追逐封锁。噩梦事件只改既定回报与可选复盘；不暗中追加夜战。"
+    },
+    {
+      "id": "MAP_SHOP",
+      "name": "旧物与补给道具店",
+      "mode": "day_safe_station_map",
+      "interior_rect": [
+        0,
+        0,
+        12,
+        15
+      ],
+      "walk_surfaces": [
+        {
+          "id": "floor",
+          "name": "地面",
+          "rect": [
+            0,
+            0,
+            12,
+            15
+          ]
+        }
+      ],
+      "zones": [],
+      "walls": [
+        {
+          "id": "w",
+          "name": "西墙",
+          "rect": [
+            0,
+            0,
+            1,
+            15
+          ]
+        },
+        {
+          "id": "e",
+          "name": "东墙",
+          "rect": [
+            11,
+            0,
+            1,
+            15
+          ]
+        },
+        {
+          "id": "n",
+          "name": "北墙",
+          "rect": [
+            0,
+            0,
+            12,
+            1
+          ]
+        },
+        {
+          "id": "s1",
+          "name": "南墙西",
+          "rect": [
+            0,
+            14,
+            5,
+            1
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "南墙东",
+          "rect": [
+            7,
+            14,
+            5,
+            1
+          ]
+        }
+      ],
+      "doors": [
+        {
+          "id": "EXIT",
+          "name": "出口",
+          "rect": [
+            5,
+            14,
+            2,
+            1
+          ],
+          "default_open": true
+        }
+      ],
+      "fixtures": [
+        {
+          "id": "S1",
+          "name": "柜台",
+          "rect": [
+            2,
+            2,
+            7,
+            2
+          ]
+        },
+        {
+          "id": "S2",
+          "name": "基础货架",
+          "rect": [
+            1,
+            6,
+            3,
+            3
+          ]
+        },
+        {
+          "id": "S3",
+          "name": "装备架",
+          "rect": [
+            8,
+            6,
+            3,
+            3
+          ]
+        },
+        {
+          "id": "S4",
+          "name": "奖券机",
+          "rect": [
+            1,
+            11,
+            2,
+            2
+          ]
+        },
+        {
+          "id": "S5",
+          "name": "维修台",
+          "rect": [
+            8,
+            11,
+            3,
+            2
+          ]
+        }
+      ],
+      "anchors": [
+        {
+          "role": "vendor",
+          "name": "商店与宠物契约",
+          "position": [
+            5.5,
+            4.5
+          ]
+        },
+        {
+          "role": "essentials",
+          "name": "确定性基础补给",
+          "position": [
+            4.5,
+            7.5
+          ]
+        },
+        {
+          "role": "equipment",
+          "name": "装备比较与试配",
+          "position": [
+            7.5,
+            7.5
+          ]
+        },
+        {
+          "role": "lottery",
+          "name": "奖券抽取与保底",
+          "position": [
+            3.5,
+            11.5
+          ]
+        },
+        {
+          "role": "repair",
+          "name": "装备维修预约",
+          "position": [
+            7.5,
+            11.5
+          ]
+        },
+        {
+          "role": "exit",
+          "name": "出门",
+          "position": [
+            5.5,
+            13.5
+          ]
+        }
+      ],
+      "route_checks": [],
+      "time_policy": "行走/查看地图不扣夜班秒数，也不额外扣白天槽位；按下确认的服务占已标注的整2小时行动槽。基础采购归入20–22准备时段，不重复扣槽。",
+      "night_access": "夜班不能传送到这里；06:00后结算离店才开放。",
+      "purchase_policy": "基础任务道具由岗位保证，商店出售补充/升级；先显示价格与效果再确认购买。宠物通过柜台契约页领养，动物不做货架障碍。奖券消费、结果和保底计数原子保存。"
+    },
+    {
+      "id": "MAP_STUDY",
+      "name": "民俗资料室",
+      "mode": "day_safe_station_map",
+      "interior_rect": [
+        0,
+        0,
+        12,
+        15
+      ],
+      "walk_surfaces": [
+        {
+          "id": "floor",
+          "name": "地面",
+          "rect": [
+            0,
+            0,
+            12,
+            15
+          ]
+        }
+      ],
+      "zones": [],
+      "walls": [
+        {
+          "id": "w",
+          "name": "西墙",
+          "rect": [
+            0,
+            0,
+            1,
+            15
+          ]
+        },
+        {
+          "id": "e",
+          "name": "东墙",
+          "rect": [
+            11,
+            0,
+            1,
+            15
+          ]
+        },
+        {
+          "id": "n",
+          "name": "北墙",
+          "rect": [
+            0,
+            0,
+            12,
+            1
+          ]
+        },
+        {
+          "id": "s1",
+          "name": "南墙西",
+          "rect": [
+            0,
+            14,
+            5,
+            1
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "南墙东",
+          "rect": [
+            7,
+            14,
+            5,
+            1
+          ]
+        }
+      ],
+      "doors": [
+        {
+          "id": "EXIT",
+          "name": "出口",
+          "rect": [
+            5,
+            14,
+            2,
+            1
+          ],
+          "default_open": true
+        }
+      ],
+      "fixtures": [
+        {
+          "id": "L1",
+          "name": "书架",
+          "rect": [
+            1,
+            1,
+            3,
+            4
+          ]
+        },
+        {
+          "id": "L2",
+          "name": "导师台",
+          "rect": [
+            7,
+            1,
+            3,
+            2
+          ]
+        },
+        {
+          "id": "L3",
+          "name": "档案柜",
+          "rect": [
+            8,
+            6,
+            3,
+            3
+          ]
+        },
+        {
+          "id": "L4",
+          "name": "阅读桌",
+          "rect": [
+            2,
+            8,
+            4,
+            2
+          ]
+        }
+      ],
+      "anchors": [
+        {
+          "role": "books",
+          "name": "按线索检索传统版本",
+          "position": [
+            4.5,
+            3.5
+          ]
+        },
+        {
+          "role": "mentor",
+          "name": "驱魔方法课",
+          "position": [
+            8.5,
+            3.5
+          ]
+        },
+        {
+          "role": "archive",
+          "name": "两份资料对照",
+          "position": [
+            7.5,
+            7.5
+          ]
+        },
+        {
+          "role": "reading",
+          "name": "规则与证据整理",
+          "position": [
+            4.5,
+            10.5
+          ]
+        },
+        {
+          "role": "exit",
+          "name": "出门",
+          "position": [
+            5.5,
+            13.5
+          ]
+        }
+      ],
+      "route_checks": [],
+      "time_policy": "行走/查看地图不扣夜班秒数，也不额外扣白天槽位；按下确认的服务占已标注的整2小时行动槽。基础采购归入20–22准备时段，不重复扣槽。",
+      "night_access": "夜班不能传送到这里；06:00后结算离店才开放。",
+      "knowledge_policy": "学习解锁观察提示、操作预演与已约定效率收益，不要求背冷知识答案；首次强制怪物的基础求生方法必须免费前置。"
+    }
+  ],
+  "district": {
+    "id": "MAP_DISTRICT",
+    "name": "街区行程图",
+    "mode": "menu_graph_not_open_world",
+    "nodes": [
+      "MAP_STORE",
+      "MAP_HOME",
+      "MAP_SHOP",
+      "MAP_STUDY"
+    ],
+    "edges": [
+      {
+        "from": "MAP_HOME",
+        "to": "MAP_STORE",
+        "use": "22–24通勤与班前核验已包含"
+      },
+      {
+        "from": "MAP_HOME",
+        "to": "MAP_SHOP",
+        "use": "日间特殊购物占1槽；20–22基础准备采购不加槽"
+      },
+      {
+        "from": "MAP_HOME",
+        "to": "MAP_STUDY",
+        "use": "知识学习占1槽，路程包含在槽内"
+      },
+      {
+        "from": "MAP_SHOP",
+        "to": "MAP_STORE",
+        "use": "准备阶段到岗路径，非夜班传送"
+      }
+    ],
+    "travel_event_policy": "公交绕行等事件修改既有日行动的成本/可选回报，不创造半槽或追加隐藏扣时。主角家/店铺/资料室场景切换保存状态，开店期间只允许门店和连续外部空间。"
+  },
+  "source_of_truth": "坐标以本文件为准，SVG由scripts/render_maps.py生成；路径长度由scripts/validate_maps.py重算。手机方向与格数是本轮提案。",
+  "implementation_scope": "这是地图数据、布局图和静态路线检查；没有引擎碰撞、移动客户端、真实摄像机或微信真机验证。"
+}

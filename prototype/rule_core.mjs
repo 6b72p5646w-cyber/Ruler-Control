@@ -1,5 +1,5 @@
 /**
- * Small, deterministic V0.3 rule reference. No renderer, navigation, input UI,
+ * Small, deterministic V0.4 rule reference. No renderer, navigation, input UI,
  * WeChat integration or complete game is implemented here. Positions, reachability,
  * collision facts and completed interaction commands are supplied by a future client.
  */
@@ -15,15 +15,27 @@ export function sanProfile(san, config) {
   return {...band};
 }
 
-export function timingQte(san, config, {eventMultiplier = 1, targetScaleMultiplier = 1, bonusFraction = 0} = {}) {
+export function timingQte(san, config, {eventMultiplier = 1, targetScaleMultiplier = 1,
+  bonusFraction = 0, taskId = null, segmentIndex = 0, taskWindowBonusSeconds = 0} = {}) {
   const band = sanProfile(san, config);
   const template = config.templates.find(t => t.id === 'QT01');
   const policy = config.common_modifier_policy;
+  const task = taskId === null ? null : config.task_profiles?.find(t => t.id === taskId);
+  if (taskId !== null && !task) throw new Error('Unknown QTE task profile');
+  if (task && (!Number.isInteger(segmentIndex) || segmentIndex < 0 ||
+    segmentIndex >= task.segment_base_windows_seconds.length)) throw new RangeError('Invalid QTE segment');
+  if (!task && taskWindowBonusSeconds !== 0) throw new Error('Task seconds bonus requires a registered task profile');
+  // Eight seconds is the song attempt's advertised work cost, not the sweep cycle.
+  const baseFraction = task ? task.segment_base_windows_seconds[segmentIndex] / template.cycle_seconds : template.base_target_fraction;
   const event = clamp(eventMultiplier, policy.event_precision_multiplier_min, 1);
   const bonus = clamp(bonusFraction, 0, policy.precision_bonus_fraction_max);
-  const rawBase = template.base_target_fraction * band.target_multiplier * event;
-  const scaled = Math.min(template.base_target_fraction, rawBase * clamp(targetScaleMultiplier, 1, policy.target_scale_multiplier_max));
-  const raw = Math.max(scaled, rawBase + bonus);
+  const rawBase = baseFraction * band.target_multiplier * event;
+  const scaled = Math.min(baseFraction, rawBase * clamp(targetScaleMultiplier, 1, policy.target_scale_multiplier_max));
+  const unassisted = Math.max(config.timing_window_seconds_min / template.cycle_seconds, rawBase);
+  // P03's task-specific +0.4s is exact even when SAN already hits the 0.6s floor.
+  // It competes with other increases rather than stacking with them.
+  const taskHelp = task ? unassisted + clamp(taskWindowBonusSeconds, 0, task.task_bonus_seconds_max) / template.cycle_seconds : rawBase;
+  const raw = Math.max(scaled, rawBase + bonus, taskHelp);
   const fraction = clamp(raw, config.timing_window_seconds_min / template.cycle_seconds,
     template.target_fraction_max);
   return {bandId: band.id, targetFraction: fraction,

@@ -1,0 +1,253 @@
+{
+  "version": "0.4",
+  "status": "design_contract_not_full_runtime",
+  "total": 12,
+  "modules": [
+    {
+      "id": "MC01",
+      "name": "线索与快照",
+      "operations": [
+        "capture_snapshot",
+        "inspect_record",
+        "display_signal"
+      ],
+      "scope": "单路1秒采集，冻结阅读；5预置摄像区；图像与声音各带来源、实例和世界时间。",
+      "client_implemented": false
+    },
+    {
+      "id": "MC02",
+      "name": "朝向距离遮挡",
+      "operations": [
+        "test_cone",
+        "measure_distance",
+        "test_static_occlusion"
+      ],
+      "scope": "复用RC01–03；只改阈值和实体姿态，屏幕视角不参与。",
+      "client_implemented": false
+    },
+    {
+      "id": "MC03",
+      "name": "离散区域与连通",
+      "operations": [
+        "set_zone_tag",
+        "cut_wet_edge",
+        "query_connected"
+      ],
+      "scope": "格/预置边的布尔标签，不实现流体或温度场。",
+      "client_implemented": false
+    },
+    {
+      "id": "MC04",
+      "name": "物件携带所有权容器",
+      "operations": [
+        "take_registered",
+        "place_registered",
+        "commit_container_receipt"
+      ],
+      "scope": "既有物件ID与独立任务携带槽；放下不能重新随机物件或消除怒态。",
+      "client_implemented": false
+    },
+    {
+      "id": "MC05",
+      "name": "订单计量账本",
+      "operations": [
+        "scan",
+        "weigh",
+        "compare_measurement",
+        "settle_transaction"
+      ],
+      "scope": "共用订单与W01/02/03/13工位，不为每只怪物写专用收银界面。",
+      "client_implemented": false
+    },
+    {
+      "id": "MC06",
+      "name": "有限顺序进度",
+      "operations": [
+        "append_step",
+        "validate_order",
+        "resume_progress"
+      ],
+      "scope": "最多3个局部步骤；需要更多步骤的任务拆成已说明的子工作。",
+      "client_implemented": false
+    },
+    {
+      "id": "MC07",
+      "name": "维护计时预警",
+      "operations": [
+        "start_world_timer",
+        "accumulate_hold",
+        "emit_warning"
+      ],
+      "scope": "世界/局部操作/预算三钟分离；提示先于处罚，不在暂停时倒计时。",
+      "client_implemented": false
+    },
+    {
+      "id": "MC08",
+      "name": "目标追逐诱饵",
+      "operations": [
+        "select_tagged_target",
+        "follow_fixed_path",
+        "resolve_contact"
+      ],
+      "scope": "共用固定网格和攻击保护；一个主动玩家追逐位。",
+      "client_implemented": false
+    },
+    {
+      "id": "MC09",
+      "name": "身份与权限",
+      "operations": [
+        "bind_claim",
+        "collect_independent_evidence",
+        "grant_scoped_permission"
+      ],
+      "scope": "实体真相与玩家知识分开；暂缓交班不扣信任；宠物不作为全知鉴伪。",
+      "client_implemented": false
+    },
+    {
+      "id": "MC10",
+      "name": "槽位地标保留区",
+      "operations": [
+        "reserve_socket",
+        "mark_waypoint",
+        "assign_safe_zone"
+      ],
+      "scope": "设备和障碍都选预置位置；不动态移动货架或重建地图。",
+      "client_implemented": false
+    },
+    {
+      "id": "MC11",
+      "name": "合约托管收益",
+      "operations": [
+        "escrow_item",
+        "cap_contract",
+        "settle_once"
+      ],
+      "scope": "明确对象、上限、时长和可撤退成本；跨阶段残留继续占资源预算。",
+      "client_implemented": false
+    },
+    {
+      "id": "MC12",
+      "name": "固定设备与回路",
+      "operations": [
+        "toggle_device",
+        "isolate_circuit",
+        "repair_device"
+      ],
+      "scope": "3固定回路与枚举设备状态；不新增个人资源条或复杂电网模拟。",
+      "client_implemented": false
+    }
+  ],
+  "design_reference_source_ids": [
+    "GA01",
+    "GA02",
+    "GA03",
+    "GA04"
+  ],
+  "clock_contract": {
+    "world_paused_during_reading_and_safe_closeup": true,
+    "local_qte_only_runs_after_start": true,
+    "committed_cost_charged_once": true,
+    "no_passive_progress_while_paused": true
+  },
+  "scope_limits": {
+    "shared_verbs": 10,
+    "work_templates": 16,
+    "qte_templates": 3,
+    "map_scenes": 4,
+    "district_is_menu": true,
+    "max_active_player_pursuers": 1,
+    "max_modifiers_per_task": 2,
+    "f12_f13_simultaneous": false
+  },
+  "admission_order": [
+    "implemented_features",
+    "learned_rules_and_pre_warning",
+    "phase_and_event_hours",
+    "required_objects_and_reachable_routes",
+    "remaining_work_budget_with_recovery",
+    "exclusive_station_and_actor_resources",
+    "compatible_spatial_constraints",
+    "stress_budget"
+  ],
+  "route_admission": {
+    "from_current_player_position": true,
+    "include_return_trip_when_required": true,
+    "include_normal_work": true,
+    "include_one_recovery": true,
+    "static_checks_are_not_runtime_proof": true
+  },
+  "ongoing_obligations": {
+    "entity_departure_does_not_remove_obligation_pressure": true,
+    "visible_in_hud": true,
+    "reserve_future_capacity_before_acceptance": true,
+    "max_new_major_event_per_night": 1
+  },
+  "conditional_conflicts": [
+    {
+      "ids": [
+        "F12",
+        "F13"
+      ],
+      "condition": "always in first playable release",
+      "result": "reject"
+    },
+    {
+      "ids": [
+        "F05",
+        "F57"
+      ],
+      "condition": "same required water edge cannot be both dry and wet",
+      "result": "reject unless independent drain graph and isolating edge exist"
+    },
+    {
+      "ids": [
+        "F28",
+        "F57"
+      ],
+      "condition": "same required source must remain open and close",
+      "result": "reject unless separate source binding"
+    },
+    {
+      "ids": [
+        "F13",
+        "E020"
+      ],
+      "condition": "only usable registered freezer would fail",
+      "result": "reject; backup-freezer feature and reachable working anchor required"
+    },
+    {
+      "ids": [
+        "E025",
+        "W10"
+      ],
+      "condition": "rear door closed implies 88 tile outward heavy route",
+      "result": "reopen door or reserve 36.67s outward plus required return/actions before adding any encounter"
+    },
+    {
+      "ids": [
+        "F21",
+        "F22"
+      ],
+      "condition": "both require same sole colleague in overlapping windows",
+      "result": "reject or schedule windows sequentially"
+    },
+    {
+      "ids": [
+        "F42",
+        "E024"
+      ],
+      "condition": "no independent distance cue remains",
+      "result": "reject"
+    },
+    {
+      "ids": [
+        "F49",
+        "F58"
+      ],
+      "condition": "uncontrolled_waste_fire and protected_hot_food_heat are distinct tags",
+      "result": "allow only with distinct targets"
+    }
+  ],
+  "validation_status": "Schema/link and static layout checks only. All game feature gates remain false until client integration.",
+  "pressure_accounting": "base_cost(1..3) + complexity_surcharge(0..1) + compatible conditional deltas, then compare current day budget; all residual obligations keep their reserved pressure."
+}

@@ -1,6 +1,6 @@
 {
-  "version": "0.3",
-  "total": 60,
+  "version": "0.4",
+  "total": 63,
   "sources": [
     {
       "id": "AS01",
@@ -541,6 +541,33 @@
       "accessed_date": "2026-11-17",
       "scope_note": "仅用于确认所参考的部署、防守、升级玩法方向。本作便利店辅助设施、数值与机制为原创。",
       "source_type": "official_game_reference"
+    },
+    {
+      "id": "GA02",
+      "title": "Scott Cawthon: Five Nights at Freddy’s 官方Steam商店介绍",
+      "url": "https://store.steampowered.com/app/319510/Five_Nights_at_Freddys/",
+      "supported_claim": "夜班在小办公室观察监控，电力有限，耗尽后无法使用安全门和灯。",
+      "accessed_date": "2026-11-17",
+      "source_type": "official_game_reference",
+      "scope_note": "只为参考作品的机制特征作证；本作快照、回路、声音视觉提示和怪物工作规则是原创推导。"
+    },
+    {
+      "id": "GA03",
+      "title": "Scott Cawthon: Five Nights at Freddy’s 2 官方Steam商店介绍",
+      "url": "https://store.steampowered.com/app/332800/Five_Nights_at_Freddys_2/",
+      "supported_claim": "夜间观察监控，使用空的角色头套误导进入办公室的机械角色。",
+      "accessed_date": "2026-11-17",
+      "source_type": "official_game_reference",
+      "scope_note": "只为参考作品的机制特征作证；本作快照、回路、声音视觉提示和怪物工作规则是原创推导。"
+    },
+    {
+      "id": "GA04",
+      "title": "Scott Cawthon: Five Nights at Freddy’s 4 官方Steam商店介绍",
+      "url": "https://store.steampowered.com/app/388090/Five_Nights_at_Freddys_4/",
+      "supported_claim": "手电可驱赶走廊远端威胁；对过近威胁照射可能危险，官方说明强调听声音。",
+      "accessed_date": "2026-11-17",
+      "source_type": "official_game_reference",
+      "scope_note": "只为参考作品的机制特征作证；本作快照、回路、声音视觉提示和怪物工作规则是原创推导。"
     }
   ]
 }

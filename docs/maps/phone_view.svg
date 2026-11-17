@@ -1,0 +1,243 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="880" viewBox="0 0 900 880">
+<style>text{font-family:"Noto Sans CJK SC","Microsoft YaHei",sans-serif}</style>
+<rect width="900" height="880" fill="#101b25"/>
+<text x="36" y="45" font-size="28" fill="#dfe9ed" font-weight="700" text-anchor="start">手机视野与操作尺度</text>
+<text x="36" y="73" font-size="16" fill="#a7bcc9" font-weight="400" text-anchor="start">360×720 逻辑界面示意；五屏指世界面积，不包含HUD。</text>
+<rect x="28" y="102" width="376" height="736" rx="26" fill="#070d14" stroke="#71828d"/>
+<rect x="36" y="110" width="360" height="720" rx="18" fill="#172733"/>
+<text x="52" y="137" font-size="18" fill="#dfe9ed" font-weight="700" text-anchor="start">02:24   冷链整理</text>
+<text x="52" y="164" font-size="13" fill="#a6dbca" font-weight="400" text-anchor="start">精力 72   SAN 60   饱腹 58   体力 81</text>
+<defs><clipPath id="phoneWorld"><rect x="36" y="182" width="360" height="450"/></clipPath></defs>
+<g clip-path="url(#phoneWorld)">
+<rect x="-174" y="-148" width="900" height="900" fill="#20323c" stroke="none"/>
+<rect x="-174" y="752" width="900" height="240" fill="#20323c" stroke="none"/>
+<rect x="366" y="-388" width="360" height="240" fill="#20323c" stroke="none"/>
+<rect x="726" y="-388" width="120" height="1380" fill="#20323c" stroke="none"/>
+<rect x="-174" y="452" width="900" height="300" fill="#234b56" stroke="none"/>
+<rect x="-174" y="152" width="540" height="300" fill="#314a3c" stroke="none"/>
+<rect x="366" y="152" width="360" height="300" fill="#294c69" stroke="none"/>
+<rect x="246" y="-148" width="480" height="300" fill="#57442f" stroke="none"/>
+<rect x="-174" y="-148" width="420" height="300" fill="#4c3e62" stroke="none"/>
+<path d="M-174,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M-144,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M-114,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M-84,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M-54,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M-24,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M6,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M36,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M66,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M96,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M126,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M156,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M186,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M216,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M246,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M276,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M306,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M336,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M366,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M396,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M426,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M456,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M486,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M516,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M546,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M576,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M606,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M636,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M666,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M696,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M726,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M756,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M786,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M816,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M846,-388V992" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,-388H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,-358H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,-328H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,-298H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,-268H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,-238H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,-208H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,-178H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,-148H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,-118H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,-88H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,-58H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,-28H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,2H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,32H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,62H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,92H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,122H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,152H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,182H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,212H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,242H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,272H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,302H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,332H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,362H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,392H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,422H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,452H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,482H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,512H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,542H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,572H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,602H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,632H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,662H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,692H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,722H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,752H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,782H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,812H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,842H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,872H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,902H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,932H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,962H846" stroke="#5d7280" opacity=".17"/>
+<path d="M-174,992H846" stroke="#5d7280" opacity=".17"/>
+<rect x="-144" y="-118" width="120" height="60" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="36" y="-118" width="90" height="60" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="-144" y="2" width="90" height="60" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="36" y="32" width="120" height="60" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="156" y="-118" width="30" height="60" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="276" y="-118" width="150" height="60" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="486" y="-118" width="120" height="60" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="276" y="62" width="150" height="60" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="606" y="-28" width="90" height="60" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="606" y="62" width="90" height="60" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="-84" y="212" width="90" height="180" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="126" y="212" width="90" height="180" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="306" y="212" width="60" height="180" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="426" y="242" width="120" height="60" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="576" y="212" width="120" height="60" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="636" y="332" width="60" height="120" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="636" y="152" width="60" height="30" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="-114" y="572" width="210" height="60" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="-114" y="632" width="60" height="60" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="-114" y="452" width="90" height="60" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="126" y="632" width="60" height="60" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="366" y="632" width="120" height="60" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="576" y="602" width="120" height="60" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="396" y="-358" width="150" height="60" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="396" y="-238" width="90" height="60" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="-84" y="872" width="150" height="60" fill="#70818a" stroke="#b5c1c5"/>
+<rect x="-174" y="-148" width="30" height="900" fill="#080f16" stroke="none"/>
+<rect x="696" y="-148" width="30" height="900" fill="#080f16" stroke="none"/>
+<rect x="-174" y="-148" width="780" height="30" fill="#080f16" stroke="none"/>
+<rect x="-174" y="722" width="390" height="30" fill="#080f16" stroke="none"/>
+<rect x="336" y="722" width="390" height="30" fill="#080f16" stroke="none"/>
+<rect x="-174" y="122" width="150" height="30" fill="#080f16" stroke="none"/>
+<rect x="96" y="122" width="360" height="30" fill="#080f16" stroke="none"/>
+<rect x="576" y="122" width="150" height="30" fill="#080f16" stroke="none"/>
+<rect x="216" y="-148" width="30" height="120" fill="#080f16" stroke="none"/>
+<rect x="216" y="92" width="30" height="30" fill="#080f16" stroke="none"/>
+<rect x="216" y="722" width="120" height="30" fill="#3b8877" stroke="none"/>
+<rect x="606" y="-148" width="90" height="30" fill="#3b8877" stroke="none"/>
+<rect x="-24" y="122" width="120" height="30" fill="#3b8877" stroke="none"/>
+<rect x="456" y="122" width="120" height="30" fill="#3b8877" stroke="none"/>
+<rect x="216" y="-28" width="30" height="120" fill="#3b8877" stroke="none"/>
+<text x="-84.0" y="-84.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">员工桌</text>
+<text x="81.0" y="-84.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">更衣柜</text>
+<text x="-99.0" y="36.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">休息椅</text>
+<text x="96.0" y="66.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">餐桌</text>
+<text x="351.0" y="-84.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">储物架</text>
+<text x="546.0" y="-84.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">验收台</text>
+<text x="351.0" y="96.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">打包台</text>
+<text x="651.0" y="6.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">隔离架</text>
+<text x="651.0" y="96.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">分袋台</text>
+<text x="-39.0" y="306.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">货架A</text>
+<text x="171.0" y="306.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">文具架</text>
+<text x="336.0" y="306.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">货架B</text>
+<text x="486.0" y="276.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">热食台</text>
+<text x="636.0" y="246.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">冰柜</text>
+<text x="666.0" y="396.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">饮料冷柜</text>
+<text x="666.0" y="171.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">水槽</text>
+<text x="-9.0" y="606.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">收银台</text>
+<text x="-84.0" y="666.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">柜台侧翼</text>
+<text x="-69.0" y="486.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">保留座</text>
+<text x="156.0" y="666.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">失物柜</text>
+<text x="426.0" y="666.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">提货架</text>
+<text x="636.0" y="636.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">核验台</text>
+<text x="471.0" y="-324.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">垃圾箱</text>
+<text x="441.0" y="-204.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">回收箱</text>
+<text x="-9.0" y="906.0" font-size="11" fill="#0c1921" font-weight="600" text-anchor="middle">门前长椅</text>
+<circle cx="21.0" cy="647.0" r="2.7" fill="#81e3b3"/>
+<circle cx="51.0" cy="677.0" r="2.7" fill="#81e3b3"/>
+<circle cx="21.0" cy="527.0" r="2.7" fill="#81e3b3"/>
+<circle cx="591.0" cy="677.0" r="2.7" fill="#81e3b3"/>
+<circle cx="411.0" cy="617.0" r="2.7" fill="#81e3b3"/>
+<circle cx="21.0" cy="317.0" r="2.7" fill="#81e3b3"/>
+<circle cx="231.0" cy="377.0" r="2.7" fill="#81e3b3"/>
+<circle cx="471.0" cy="317.0" r="2.7" fill="#81e3b3"/>
+<circle cx="651.0" cy="197.0" r="2.7" fill="#81e3b3"/>
+<circle cx="621.0" cy="407.0" r="2.7" fill="#81e3b3"/>
+<circle cx="621.0" cy="287.0" r="2.7" fill="#81e3b3"/>
+<circle cx="621.0" cy="437.0" r="2.7" fill="#81e3b3"/>
+<circle cx="321.0" cy="-13.0" r="2.7" fill="#81e3b3"/>
+<circle cx="531.0" cy="-43.0" r="2.7" fill="#81e3b3"/>
+<circle cx="351.0" cy="47.0" r="2.7" fill="#81e3b3"/>
+<circle cx="351.0" cy="-43.0" r="2.7" fill="#81e3b3"/>
+<circle cx="591.0" cy="17.0" r="2.7" fill="#81e3b3"/>
+<circle cx="201.0" cy="677.0" r="2.7" fill="#81e3b3"/>
+<circle cx="-39.0" cy="-43.0" r="2.7" fill="#81e3b3"/>
+<circle cx="-39.0" cy="47.0" r="2.7" fill="#81e3b3"/>
+<circle cx="81.0" cy="-43.0" r="2.7" fill="#81e3b3"/>
+<circle cx="81.0" cy="107.0" r="2.7" fill="#81e3b3"/>
+<circle cx="-99.0" cy="-43.0" r="2.7" fill="#81e3b3"/>
+<circle cx="171.0" cy="-43.0" r="2.7" fill="#81e3b3"/>
+<circle cx="441.0" cy="77.0" r="2.7" fill="#81e3b3"/>
+<circle cx="591.0" cy="77.0" r="2.7" fill="#81e3b3"/>
+<circle cx="561.0" cy="-313.0" r="2.7" fill="#81e3b3"/>
+<circle cx="441.0" cy="857.0" r="2.7" fill="#81e3b3"/>
+<circle cx="771.0" cy="-223.0" r="2.7" fill="#81e3b3"/>
+<circle cx="651.0" cy="-193.0" r="2.7" fill="#81e3b3"/>
+<circle cx="291.0" cy="977.0" r="2.7" fill="#81e3b3"/>
+<circle cx="291.0" cy="707.0" r="2.7" fill="#81e3b3"/>
+<circle cx="651.0" cy="-103.0" r="2.7" fill="#81e3b3"/>
+<circle cx="261.0" cy="857.0" r="2.7" fill="#81e3b3"/>
+<circle cx="651.0" cy="-283.0" r="2.7" fill="#81e3b3"/>
+<circle cx="411.0" cy="527.0" r="2.7" fill="#81e3b3"/>
+<circle cx="-9.0" cy="497.0" r="2.7" fill="#81e3b3"/>
+<circle cx="141.0" cy="497.0" r="2.7" fill="#81e3b3"/>
+<circle cx="681.0" cy="-313.0" r="2.7" fill="#81e3b3"/>
+<circle cx="681.0" cy="197.0" r="2.7" fill="#81e3b3"/>
+<circle cx="81.0" cy="437.0" r="2.7" fill="#81e3b3"/>
+<circle cx="261.0" cy="437.0" r="2.7" fill="#81e3b3"/>
+<path d="M231.0,420.0L221.0,447.0L241.0,447.0Z" fill="#f4d37e" stroke="#fff1c5" stroke-width="2"/>
+<circle cx="231.0" cy="437.0" r="126" fill="none" stroke="#b2c2dc" stroke-dasharray="6 5" opacity=".5"/>
+</g>
+<rect x="46" y="588" width="340" height="34" rx="7" fill="#17222f"/>
+<text x="58" y="611" font-size="15" fill="#f4c47c" font-weight="400" text-anchor="start">↗ 后门异常：有脚步接近</text>
+<text x="52" y="658" font-size="14" fill="#dfe9ed" font-weight="400" text-anchor="start">手持：空   ｜   任务物：回形针 ×6</text>
+<circle cx="114" cy="735" r="48" fill="#314852" stroke="#6d8d9e"/>
+<circle cx="114" cy="735" r="20" fill="#8bb8be"/>
+<rect x="190" y="697" width="72" height="46" rx="12" fill="#375765"/>
+<text x="226" y="725" font-size="14" fill="#dfe9ed" font-weight="400" text-anchor="middle">锁朝向</text>
+<rect x="278" y="697" width="72" height="46" rx="12" fill="#375765"/>
+<text x="314" y="725" font-size="14" fill="#dfe9ed" font-weight="400" text-anchor="middle">交互</text>
+<rect x="278" y="763" width="72" height="46" rx="12" fill="#375765"/>
+<text x="314" y="791" font-size="14" fill="#dfe9ed" font-weight="400" text-anchor="middle">快捷物</text>
+<text x="450" y="156" font-size="23" fill="#dfe9ed" font-weight="700" text-anchor="start">世界视野：12×15 格</text>
+<text x="450" y="211" font-size="14" fill="#88b8c8" font-weight="700" text-anchor="start">面积</text>
+<text x="450" y="236" font-size="16" fill="#dfe9ed" font-weight="400" text-anchor="start">店内900格 ÷ 单屏180格 = 5屏</text>
+<text x="450" y="278" font-size="14" fill="#88b8c8" font-weight="700" text-anchor="start">移动</text>
+<text x="450" y="303" font-size="16" fill="#dfe9ed" font-weight="400" text-anchor="start">左手摇杆；角色约0.6格碰撞直径</text>
+<text x="450" y="345" font-size="14" fill="#88b8c8" font-weight="700" text-anchor="start">操作</text>
+<text x="450" y="370" font-size="16" fill="#dfe9ed" font-weight="400" text-anchor="start">右侧基础动作、快捷物和锁朝向</text>
+<text x="450" y="412" font-size="14" fill="#88b8c8" font-weight="700" text-anchor="start">尺度</text>
+<text x="450" y="437" font-size="16" fill="#dfe9ed" font-weight="400" text-anchor="start">地图取放 / 工位安排 / 安全特写</text>
+<text x="450" y="479" font-size="14" fill="#88b8c8" font-weight="700" text-anchor="start">低SAN</text>
+<text x="450" y="504" font-size="16" fill="#dfe9ed" font-weight="400" text-anchor="start">判定区变小、周边黑视；输入不乱跳</text>
+<text x="450" y="546" font-size="14" fill="#88b8c8" font-weight="700" text-anchor="start">保留</text>
+<text x="450" y="571" font-size="16" fill="#dfe9ed" font-weight="400" text-anchor="start">HUD、退出、方向提示保持可读</text>
+<text x="450" y="613" font-size="14" fill="#88b8c8" font-weight="700" text-anchor="start">镜头</text>
+<text x="450" y="638" font-size="16" fill="#dfe9ed" font-weight="400" text-anchor="start">跟随平移，无强制旋转或频繁切房</text>
+<text x="450" y="680" font-size="14" fill="#88b8c8" font-weight="700" text-anchor="start">触控</text>
+<text x="450" y="705" font-size="16" fill="#dfe9ed" font-weight="400" text-anchor="start">基础按钮46逻辑像素高，不随SAN缩小</text>
+<text x="450" y="800" font-size="15" fill="#a7bcc9" font-weight="400" text-anchor="start">这是布局示意，数值并非游戏运行截图。</text>
+</svg>

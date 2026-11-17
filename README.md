@@ -1,75 +1,84 @@
 # 午夜便利店 Ruler Control
 
-面向微信小游戏的2D俯瞰规则怪谈经营与生存设计。当前版本为 **V0.3：先完成便利店交互，再把怪物与事件做成动作题**。
+面向微信小游戏的2D俯瞰规则怪谈经营与生存设计。当前为 **V0.4：60种怪物的实际交互规则、120种遭遇变体与完整地图布局**。
 
-本仓库包含设计、结构化内容和一个无画面JavaScript规则参考。客户端、地图导航、画面与微信适配尚未实现；数值与相对开发成本均待原型验证。
+玩家是便利店夜班店员，00:00—06:00一边营业、一边处理异常。怪物把扫码、搬货、冷链、清洁、盘点、交班和设备管理变成有条件的动作问题；随机事件改变对象、路线、环境或时间窗口。
 
-## 当前方向
+本仓库包含设计、结构化内容、精确地图图纸、静态路线检查与小型无画面规则参考。**地图移动客户端、触控、美术、完整AI和微信适配尚未实现**；60种是完整设计提案，不是已经可玩的60种角色。
 
-- 一周一个周期，七天共用日夜阶段；夜班固定00:00—06:00，通常每小时一个新主遭遇。
-- 先设计取放、搬运、扫码、补货、冷链、清洁、开关和部署；怪物改变工作限制，事件改变路线、对象、设备与参数。
-- 低SAN显式缩小QTE判定区并造成黑视，普通按钮、紧急操作、可信HUD和记录保持可用。
-- 三种交互尺度：大地图处理走位和追逐；工位面板安排任务；安全特写处理精细操作。追逐中取、撒、搬、入柜不弹QTE。
-- F12不可杀伊：默认追玩家，玩家取货架回形针、洒地引出店外获胜。
-- F13飞头女鬼：先追任务生肉，触肉后追玩家，玩家搬肉入冰柜解除。
-- 员工两人包含主角，另有店长；同事和店长均可被假扮。四资源、白天学习与休息、抽奖和装备继续采用。
-- 宠物有普通工作辅助和特定怪物作用；便利店材料组成有限的部署装置，帮助玩家完成工作与规则目标。
+## 本轮交付
+
+- F01—F60每种都有线索、操作步骤、状态转移、成功条件、失败补救、免费基础解、四资源、条件难度、地图锚点与至少两个现有事件变体。
+- 店内30×30格，默认手机世界视野12×15格，面积约5屏，连续滚动。前场、后院垃圾区和东侧通道额外计算。
+- 玩家家、道具店、民俗资料室各一张12×15单屏地图；街区采用行程菜单连接。共4个物理场景与1个节点行程图。
+- 12类共享机制复用既有10动作、16店务、3QTE和8空间组件。参考作品的方法、传统母题与本作原创分开记录。
+- F12回形针诱离、F13登记生肉入柜的用户确定条件保持不变；完成后锁定本实例，不受普通开门/断电影响而复活。
 
 ## 优先阅读
 
-1. [V0.3修订依据](docs/00_revision_v03.md)
-2. [16项店务、三种尺度、SAN/QTE、朝向和距离规则](docs/10_interactions_v03.md)
-3. [不可杀伊与飞头女鬼的完整动作和状态机](docs/11_encounters_v03.md)
-4. [即时道具、装备、8种宠物及8种店铺部署](docs/04_items_equipment_pets.md)
-5. [制作顺序、复杂度与验收](docs/08_implementation_plan.md)
+| 文档 | 内容 |
+|---|---|
+| [V0.4修订与决定边界](docs/00_revision_v04.md) | 用户明确要求、本轮新增提案、规格优先级 |
+| [60种完整交互卡](docs/12_all_encounters_v04.md) | 全60种操作、状态、失败恢复和120个变体 |
+| [完整地图](docs/13_maps_v04.md) | 五屏尺度、门内门外、日间地图、坐标和路线预算 |
+| [共享机制与导演](docs/14_systems_and_director_v04.md) | 12模块、时钟、联动、排他资源和准入顺序 |
+| [参考作品的具体推导](docs/15_design_references_v04.md) | FNAF、躺平发育及原创改编边界 |
+| [验证范围和结果](docs/09_validation.md) | 已检查内容及尚需客户端/实机完成的验收 |
 
-## 保留并更新的完整设计
+![门店布局](docs/maps/store_layout.svg)
 
-| 内容 | 文档 |
+[手机操作尺度](docs/maps/phone_view.svg) · [白天地图](docs/maps/daytime_layouts.svg)
+
+## 持续保留的共识
+
+一周一个周期，七天使用同一套日夜阶段；通常每小时一个新主遭遇，重大事件替换。四资源为精力、SAN、饱腹和体力。低SAN缩小QTE判定区、产生黑视，但不随机改写输入，HUD、取消和紧急操作保持可用。
+
+世界动作负责走位和追逐，工位面板负责安排，安全特写负责精细动作。追逐中的拿回形针、洒放、搬肉、入柜不弹QTE。两个员工包含主角，另有店长，同事和店长都可能被假扮；身份、物件凭证和权限分别核验。宠物有通用辅助与指定怪物技能，部署装置帮助完成工作，基本解法不依赖抽奖、稀有装备或宠物。
+
+| 系统 | 详细文档 |
 |---|---|
 | 固定日夜循环 | [01_core_loop.md](docs/01_core_loop.md) |
-| 精力、SAN、饱腹与体力 | [02_resources_and_daytime.md](docs/02_resources_and_daytime.md) |
+| 四资源与白天行动 | [02_resources_and_daytime.md](docs/02_resources_and_daytime.md) |
 | 同事、店长与假扮 | [03_staff_and_impersonation.md](docs/03_staff_and_impersonation.md) |
-| 72项随机事件与调度 | [05_events_and_director.md](docs/05_events_and_director.md) |
-| 60个志怪候选 | [06_folklore_bestiary.md](docs/06_folklore_bestiary.md) |
-| 20条渐进店规 | [07_rules.md](docs/07_rules.md) |
-| 验证范围与结果 | [09_validation.md](docs/09_validation.md) |
-| 原型及参考资料 | [来源目录](references/README.md) |
-| 旧版修订依据 | [V0.2历史记录](docs/00_revision_v02.md) |
+| 24道具、24装备、8宠物、8部署 | [04_items_equipment_pets.md](docs/04_items_equipment_pets.md) |
+| 72项随机事件 | [05_events_and_director.md](docs/05_events_and_director.md) |
+| 60原型的母题与资料 | [06_folklore_bestiary.md](docs/06_folklore_bestiary.md) |
+| 20条逐步解锁店规 | [07_rules.md](docs/07_rules.md) |
+| 分期实现与验收 | [08_implementation_plan.md](docs/08_implementation_plan.md) |
+| 店务、SAN、QTE、空间组件 | [10_interactions_v03.md](docs/10_interactions_v03.md) |
+| F12/F13权威详细蓝图 | [11_encounters_v03.md](docs/11_encounters_v03.md) |
 
-V0.1的M01—M60不采用。新的F01—F60是民俗来源支持的候选；F12/F13按V0.3重写，其他58项继续等待店务映射和成本筛选。F14附身作为进阶可选项默认关闭。`enabled_default`只表达完整候选池的意向，运行时还需通过功能实现和可解性门槛，不能据此直接投放59种未开发角色。
+V0.1的M01—M60不采用；F14附身分支设计完整但默认关闭，候选池59种。`enabled_default`是候选意向，必须通过已实现功能、规则告知、当前地图路线和预算门槛，不能据此直接投放未实现内容。V0.2/V0.3历史记录保留在`docs`中。
 
-## 内容数据
+## 主要结构化文件
 
 | 文件 | 用途 |
 |---|---|
-| [interactions.json](content/interactions.json) | 10个动作原语、16项工作、交互尺度和时间约定 |
-| [qte.json](content/qte.json) | 3种QTE、SAN分档、缩区与黑视下限 |
-| [rule_components.json](content/rule_components.json) | 8种朝向、距离、区域、携带与目标组件 |
-| [encounter_blueprints.json](content/encounter_blueprints.json) | F12/F13状态、参数、胜利条件及各3项变体 |
-| [event_variants.json](content/event_variants.json) | 12项事件到工作与怪物的变体映射 |
-| [deployables.json](content/deployables.json) | B01—B08部署、作用范围、次数和升级取舍 |
-| [monsters.json](content/monsters.json) | 60个原型、资料与交互候选 |
-| [events.json](content/events.json) | 72项事件、时间预算与实际动作要求 |
-| [synergies.json](content/synergies.json) | 18组条件组合，含首轮禁配 |
-| [items.json](content/items.json) | 24项临时道具、13项可操作扩展、抽奖与岗位补给 |
-| [equipment.json](content/equipment.json) | 6槽24件装备与实际占手 |
-| [pets.json](content/pets.json) | 8宠物、通用/专属技能、共用次数与照料 |
-| [rules.json](content/rules.json) | 20条店规及解锁 |
-| [balance.json](content/balance.json) | 四资源、日程、预算与投放上限 |
-| [sources.json](content/sources.json) | 57条民俗资料、2条影视官方资料、1条游戏官方介绍 |
+| [encounter_designs.json](content/encounter_designs.json) | 60张统一完整动作卡，120个遭遇事件变体 |
+| [maps.json](content/maps.json) | 四个场景、42门店锚点、8部署槽、局部操作与路线 |
+| [systems_v04.json](content/systems_v04.json) | 12复用模块、时钟与准入约束 |
+| [monsters.json](content/monsters.json) | 60母题、出处、当前动作简述与假扮边界 |
+| [interactions.json](content/interactions.json) | 10动作、16工作及操作尺度 |
+| [qte.json](content/qte.json) | SAN分档、3QTE、F47歌段配置与专属辅助 |
+| [rule_components.json](content/rule_components.json) | 8个朝向、距离、区域、携带与目标组件 |
+| [encounter_blueprints.json](content/encounter_blueprints.json) | F12/F13精确参数与原子胜利条件 |
+| [events.json](content/events.json) | 72事件、时间与工作约束、120变体反向引用 |
+| [event_variants.json](content/event_variants.json) | 原有12项工作字段级变体映射 |
+| [synergies.json](content/synergies.json) | 原有18组条件联动；补充禁配见V0.4系统契约 |
+| [items.json](content/items.json) / [equipment.json](content/equipment.json) | 临时道具、抽奖保底、装备和占手 |
+| [pets.json](content/pets.json) / [deployables.json](content/deployables.json) | 宠物通用/专属辅助、有限部署资源 |
+| [rules.json](content/rules.json) / [balance.json](content/balance.json) | 20店规、四资源与固定日程 |
+| [sources.json](content/sources.json) | 57民俗资料、2影视官方资料、4游戏官方介绍，共63条 |
 
-## 无画面规则参考与验证
-
-[rule_core.mjs](prototype/rule_core.mjs)实现一部分纯逻辑：SAN缩区、朝向与距离、特写入场与一次结算、F12诱饵状态、F13任务肉触发和入柜凭证、共享受击保护。它不包含完整游戏循环或美术。
+## 验证与复现
 
 ```sh
 python3 scripts/validate_content.py
+python3 scripts/validate_maps.py
 node prototype/check_rule_core.mjs
+python3 scripts/render_maps.py
 ```
 
-内容检查验证引用与配置约束；逻辑检查覆盖20个边界场景。两者都不等于已经完成地图可解性、手机触控、数值平衡或微信实机测试。
+内容验证检查引用、状态图、时长加总和配置约束。地图验证检查所有操作位静态可达、10条指定路线、局部短窗口与五屏面积；报告保存在[map_validation_report.json](docs/map_validation_report.json)。规则参考覆盖21个场景，包括SAN、特写结算、F12/F13与F47局部判定。
 
-## 决定边界
-
-用户明确的玩法方向已写入修订记录。道具数值、宠物技能细节、设施清单与制作阶段为本轮提案；不标作逐项最终审定。资料记载与游戏原创规则分开列出，外部文章与影视、美术资产不打包复制。
+这些检查不等于全部怪物AI、多事件随机组合、触屏手感、黑视舒适度或微信实机性能已经验证。准确地图尺寸、怪物新规则与数值是本轮可审核设计提案；用户已明确的方向与新增提案在修订记录中分开列出。

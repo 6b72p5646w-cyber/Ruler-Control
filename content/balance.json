@@ -1,5 +1,5 @@
 {
-  "version": "0.3",
+  "version": "0.4",
   "status": "proposal_not_playtested",
   "week_length_days": 7,
   "same_phases_every_day": true,
@@ -173,7 +173,11 @@
     "max_rule_modifiers_per_task": 2,
     "requires_feature_gate_before_sampling": true,
     "includes_qte_retry_and_san_in_budget": true,
-    "new_forced_event_during_active_chase": false
+    "new_forced_event_during_active_chase": false,
+    "detailed_design_catalog": "content/encounter_designs.json",
+    "map_contract": "content/maps.json",
+    "admission_contract": "content/systems_v04.json",
+    "design_completeness_is_runtime_enablement": false
   },
   "day_actions": [
     {

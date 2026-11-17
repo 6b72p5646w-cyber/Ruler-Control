@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate V0.3 design references and configuration invariants, not gameplay balance."""
+"""Validate V0.4 design references and configuration invariants, not gameplay balance."""
 
 from collections import Counter
 import json
@@ -41,10 +41,10 @@ def main():
     balance = json.loads((ROOT / 'content/balance.json').read_text(encoding='utf-8'))
     source_data = json.loads((ROOT / 'content/sources.json').read_text(encoding='utf-8'))
     sources = {s['id']: s for s in source_data['sources']}
-    require(len(sources) == len(source_data['sources']) == 60, 'sources: 60 unique records required')
+    require(len(sources) == len(source_data['sources']) == 63, 'sources: 63 unique records required')
     require(sum(s['source_type'] == 'folklore_reference' for s in sources.values()) == 57, 'sources: 57 folklore records required')
     require(sum(s['source_type'] == 'official_screen_reference' for s in sources.values()) == 2, 'sources: 2 screen references required')
-    require(sum(s['source_type'] == 'official_game_reference' for s in sources.values()) == 1, 'sources: 1 game reference required')
+    require(sum(s['source_type'] == 'official_game_reference' for s in sources.values()) == 4, 'sources: 4 official game references required')
     for sid, source in sources.items():
         require(urlparse(source['url']).scheme in {'https', 'http'}, f'{sid}: invalid source URL')
         require(bool(source['title'] and source['supported_claim'] and source['accessed_date']), f'{sid}: missing attribution fields')
@@ -212,6 +212,74 @@ def main():
     require(deployables['B06']['effect']['item_tag'] == encounters['F13']['objects']['meat_tag'], 'B06 meat tag mismatch')
     require(sum('operational_extension' in item for item in items.values()) == 13, '13 immediate item extensions expected')
 
+    # Full encounter design and map bindings. Feature completion is deliberately separate.
+    design_data, designs = catalog('encounter_designs', 'encounters', 'F', 60)
+    system_data, systems = catalog('systems_v04', 'modules', 'MC', 12)
+    map_data = json.loads((ROOT / 'content/maps.json').read_text(encoding='utf-8'))
+    map_scenes = {s['id']: s for s in map_data['scenes']}
+    require(set(map_scenes) == {'MAP_STORE', 'MAP_HOME', 'MAP_SHOP', 'MAP_STUDY'}, 'four authored map scenes required')
+    require(map_data['district']['mode'] == 'menu_graph_not_open_world', 'district scope must remain explicit')
+    roles = {a['role'] for a in map_scenes['MAP_STORE']['anchors']}
+    design_variants = []
+    uniqueness_keys = []
+    for fid, design in designs.items():
+        require(design['design_status'] == 'complete_proposal_not_playtested', f'{fid}: completion/playtest status unclear')
+        require(bool(design['signature'] and design['prototype_basis'] and design['success_predicate']), f'{fid}: incomplete design loop')
+        require(len(design['observable_cues']) >= 2, f'{fid}: two observable cues required')
+        require(3 <= len(design['player_actions']) <= 7, f'{fid}: needs actual action sequence')
+        require(bool(design['work_ids']) and set(design['work_ids']) <= set(work), f'{fid}: unresolved work binding')
+        require(bool(design['component_ids']) and set(design['component_ids']) <= set(systems), f'{fid}: unresolved shared module')
+        require(set(design['rule_ids']) <= set(rules), f'{fid}: unresolved handbook rule')
+        require(bool(design['map_anchor_roles']) and set(design['map_anchor_roles']) <= roles, f'{fid}: unresolved map anchor')
+        require(design['implementation']['client_implemented'] is False, f'{fid}: design falsely labeled implemented')
+        require(design['implementation']['tier'] in {'low', 'medium', 'high'}, f'{fid}: missing relative implementation tier')
+        require(bool(design['implementation']['feature_gate']), f'{fid}: runtime feature gate missing')
+        require(monsters[fid]['interaction_design_stage'] == 'v04_complete_design', f'{fid}: stale design stage')
+        require(all(design['counterplay'].get(k) for k in ['free_baseline','optional_support','does_not_solve']), f'{fid}: free response/support boundary missing')
+        require(all(design['failure_and_recovery'].get(k) for k in ['trigger','consequence','recovery','escape']), f'{fid}: recovery path missing')
+        require(set(design['resource_pressure']) == {'energy','san','satiety','stamina'}, f'{fid}: resource contract changed')
+        t=design['timing']
+        expected=sum(t[k] for k in ['world_action_seconds','closeup_commit_seconds','route_reserve_seconds','recovery_reserve_seconds'])
+        require(abs(expected-t['total_required_seconds']) < 1e-8, f'{fid}: time total inconsistent')
+        require(t['phase_budget_seconds'] == 120 and expected <= 90, f'{fid}: no reserved ordinary work margin')
+        require(t['route_reserve_seconds'] > 0 and t['recovery_reserve_seconds'] > 0, f'{fid}: missing movement or recovery allowance')
+        require(1 <= design['difficulty']['base_cost'] <= 3, f'{fid}: invalid base director pressure')
+        require(bool(design['difficulty']['harder_when'] and design['difficulty']['easier_when'] and design['difficulty']['forbidden_combinations']), f'{fid}: conditional difficulty incomplete')
+        states={s['id']:s for s in design['states']}
+        require(len(states)==len(design['states']) and 'CLEARED' in states, f'{fid}: duplicate or missing state')
+        edges={sid:set() for sid in states}
+        for sid,state in states.items():
+            require(bool(state['monster_behavior'] and state['player_window']), f'{fid}/{sid}: missing behavior or response window')
+            for edge in state['transitions']:
+                require(edge['to'] in states and bool(edge['event'] and edge['guard']), f'{fid}/{sid}: invalid guarded state edge')
+                edges[sid].add(edge['to'])
+        for edge in design.get('global_transitions', []):
+            require(edge['from'] == 'ANY_NONTERMINAL' and edge['to'] in states and bool(edge['event'] and edge['guard']), f'{fid}: invalid global transition')
+            for sid,state in states.items():
+                if state['transitions']:
+                    edges[sid].add(edge['to'])
+        reached={design['states'][0]['id']}
+        while True:
+            grown=reached | set().union(*(edges.get(s,set()) for s in reached))
+            if grown==reached: break
+            reached=grown
+        require('CLEARED' in reached, f'{fid}: CLEARED unreachable in stated graph')
+        require(not states['CLEARED']['transitions'], f'{fid}: cleared encounter must be terminal')
+        for sid in states:
+            require(sid in reached, f'{fid}: orphan state {sid}')
+        require(len(design['variants']) >= 2, f'{fid}: two event variants required')
+        for variant in design['variants']:
+            design_variants.append(variant['id'])
+            require(variant['event_id'] in events, f'{fid}: unknown variant event')
+            require(variant['id'].startswith(fid+'V'), f'{fid}: wrong variant ID namespace')
+            require(all(variant.get(k) for k in ['name','changed_condition','required_action','admission_gate']), f'{fid}: variant needs condition, action and gate')
+            require(variant['id'] in events[variant['event_id']].get('encounter_variant_ids',[]), f'{variant["id"]}: event backlink absent')
+        uniqueness_keys.append(design['uniqueness_key'])
+    require(len(design_variants) >= 120 and len(design_variants)==len(set(design_variants)), 'at least 120 unique encounter variants required')
+    require(len(set(uniqueness_keys)) == 60, 'mechanical uniqueness keys must be distinct; manual design review still required')
+    require(design_data['authoritative_detailed_blueprints'] == ['F12','F13'], 'F12/F13 exact blueprint precedence missing')
+    require(design_data['all_clients_implemented'] is False, 'full design is not a playable client')
+
     for path in ROOT.rglob('*.md'):
         text = path.read_text(encoding='utf-8')
         require(not re.search(r'^(<<<<<<<|=======|>>>>>>>)', text, re.MULTILINE), f'{path}: merge conflict marker')
@@ -227,7 +295,9 @@ def main():
                          'pets': len(pets), 'synergy_cases': len(synergies), 'sources': len(sources),
                          'shared_verbs': len(verbs), 'work_templates': len(work), 'qte_templates': len(qtes),
                          'rule_components': len(components), 'event_variants': len(variants),
-                         'encounter_blueprints': len(encounters), 'deployables': len(deployables)},
+                         'encounter_blueprints': len(encounters), 'deployables': len(deployables),
+                         'complete_encounter_designs': len(designs), 'encounter_event_variants': len(design_variants),
+                         'mechanism_modules': len(systems), 'map_scenes': len(map_scenes)},
               'scope': 'Content integrity and declared configuration only. Separate headless checks do not validate navigation, touch UI, phone performance or play balance.',
               'errors': errors}
     print(json.dumps(result, ensure_ascii=False, indent=2))

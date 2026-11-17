@@ -28,6 +28,20 @@ check('All SAN bands keep a usable center and continuous numeric coverage', () =
   for (let san = 0; san <= 100; san += 0.5) assert.ok(rules.timingQte(san, qte).clearRadius >= 2.6);
   assert.equal(rules.sanProfile(69.9, qte).id, 'uneasy');
 });
+check('F47 uses one three-second QTE with per-segment windows and exact nonstacking pet help', () => {
+  for (const [segmentIndex, expected] of [1.2, 1.0, 0.8].entries()) {
+    assert.ok(Math.abs(rules.timingQte(100, qte, {taskId: 'F47_song', segmentIndex}).windowSeconds - expected) < 1e-9);
+  }
+  const low = {taskId: 'F47_song', segmentIndex: 2};
+  assert.ok(Math.abs(rules.timingQte(10, qte, low).windowSeconds - 0.6) < 1e-9);
+  const helped = rules.timingQte(10, qte, {...low, taskWindowBonusSeconds: 0.4});
+  assert.ok(Math.abs(helped.windowSeconds - 1.0) < 1e-9);
+  assert.equal(rules.timingQte(10, qte, {...low, taskWindowBonusSeconds: 0.4,
+    bonusFraction: 0.12, targetScaleMultiplier: 1.12}).windowSeconds, helped.windowSeconds);
+  assert.equal(rules.timingQte(0, qte, low).canStart, false);
+  assert.throws(() => rules.timingQte(80, qte, {taskWindowBonusSeconds: 0.4}), /registered/);
+  assert.throws(() => rules.timingQte(80, qte, {...low, segmentIndex: 3}), /segment/);
+});
 check('Facing uses the avatar direction and static occlusion', () => {
   const r = spatial.components.find(x => x.id === 'RC01');
   const actor = {x: 0, y: 0, facing: {x: 1, y: 0}};
