@@ -1,0 +1,487 @@
+{
+  "schema_version": 1,
+  "version": "0.3",
+  "status": "design_with_headless_transition_reference_no_client",
+  "units": {
+    "distance": "tile",
+    "time": "real_second"
+  },
+  "shared_components": [
+    "grid_navigation",
+    "entity_target_id",
+    "inventory_pickup",
+    "world_drop_or_place",
+    "single_task_carry_slot",
+    "container_accept_and_close",
+    "trigger_zone",
+    "timed_target_pause",
+    "finite_state_machine"
+  ],
+  "baseline": {
+    "player_walk_speed": 3.0,
+    "carrying_meat_walk_speed": 2.6,
+    "monster_move_speed": 2.3,
+    "interaction_distance": 1.0,
+    "ai_decision_hz": 5,
+    "max_path_replans_per_second": 2
+  },
+  "shared_attack_proposal": {
+    "telegraph_seconds": 1.5,
+    "windup_start_distance": 1.2,
+    "hit_check_distance": 0.65,
+    "san_damage": 10,
+    "attack_cooldown_seconds": 3,
+    "first_touch_instant_death": false,
+    "destroys_quest_item": false,
+    "uses_shared_failure_rules": true,
+    "first_successful_hit_effects": [
+      "minor_injury_discrete_status",
+      "san_damage_10",
+      "global_enemy_collision_grace_2_seconds"
+    ],
+    "collision_grace_seconds": 2.0,
+    "grace_blocks_all_monster_hitboxes": true,
+    "minor_injury_instant_move_slow": false,
+    "minor_injury_is_extra_hp_bar": false
+  },
+  "world_interaction_policy": {
+    "chase_actions_use_closeup": false,
+    "standard_pause_freezes_everything": true,
+    "item_transfer_commits_before_ai_contact_check": true,
+    "success_is_terminal_per_instance": true,
+    "pickup_drop_scatter_store_require_qte": false,
+    "delivery_receipt_survives_same_frame_power_loss": true
+  },
+  "default_director_policy": {
+    "max_active_player_pursuers": 1,
+    "simultaneous_f12_f13_enabled": false,
+    "forbidden_when_only_solution_is_pet_or_rare_item": true
+  },
+  "encounters": [
+    {
+      "id": "F12",
+      "display_name": "不可杀伊",
+      "user_required_solution": "从货架取回形针，洒在地上，将默认追逐玩家的不可杀伊引出店外。",
+      "mechanic_origin": "original_game_adaptation",
+      "retained_source_ids": [
+        "AS09"
+      ],
+      "implementation_tier": "low_after_shared_navigation_and_interactions",
+      "removed_legacy_mechanics": [
+        "metal_growth",
+        "arbitrary_metal_material_scan",
+        "shelf_destruction",
+        "scrap_bin_win_condition",
+        "metal_equipment_ban"
+      ],
+      "objects": {
+        "supply_tag": "paperclip_supply",
+        "bait_tag": "paperclip_bait",
+        "exit_tag": "exit_success_zone"
+      },
+      "parameters": {
+        "pickup_seconds": 1.0,
+        "backup_pickup_seconds": 2.0,
+        "charges_per_box": 6,
+        "backup_boxes": 1,
+        "max_active_bait_points": 3,
+        "bait_place_distance": 1.5,
+        "bait_place_seconds": 0.25,
+        "bait_detection_radius": 5.0,
+        "bait_lifetime_seconds": 15,
+        "eat_pause_seconds": 1.5,
+        "exit_full_collider_hold_seconds": 0.25
+      },
+      "target_policy": {
+        "priority": [
+          "locked_valid_bait",
+          "nearest_reachable_unconsumed_bait_in_radius",
+          "player"
+        ],
+        "chase_player_navigation_scope": "store_interior_only",
+        "bait_navigation_scope": "store_and_marked_exit_pad",
+        "show_selected_target": true,
+        "allow_throw_through_wall": false,
+        "overflow_new_bait_behavior": "reject_with_feedback_keep_existing_points"
+      },
+      "states": [
+        {
+          "id": "CHASE_PLAYER",
+          "target": "player",
+          "transitions": [
+            {
+              "trigger": "valid_bait_available",
+              "to": "SEEK_BAIT",
+              "action": "lock_bait_id"
+            }
+          ]
+        },
+        {
+          "id": "SEEK_BAIT",
+          "target": "locked_bait_id",
+          "transitions": [
+            {
+              "trigger": "whole_collider_inside_exit_success_zone_for_hold",
+              "guard": "currently_lured_to_bait",
+              "to": "CLEARED"
+            },
+            {
+              "trigger": "reached_bait",
+              "to": "EAT_BAIT"
+            },
+            {
+              "trigger": "bait_invalid",
+              "to": "CHASE_PLAYER",
+              "action": "reselect_on_next_tick"
+            }
+          ]
+        },
+        {
+          "id": "EAT_BAIT",
+          "target": "none",
+          "transitions": [
+            {
+              "trigger": "whole_collider_inside_exit_success_zone_for_hold",
+              "guard": "currently_lured_to_bait",
+              "to": "CLEARED"
+            },
+            {
+              "trigger": "eat_timer_complete",
+              "to": "CHASE_PLAYER",
+              "action": "consume_bait_then_reselect"
+            }
+          ]
+        },
+        {
+          "id": "CLEARED",
+          "terminal": true,
+          "actions": [
+            "clear_target",
+            "leave_scene",
+            "settle_once"
+          ]
+        }
+      ],
+      "success_predicate": "state in {SEEK_BAIT,EAT_BAIT} and whole_body_in_marked_outdoor_exit_zone for 0.25 seconds",
+      "success_requires_extra_close_door": false,
+      "admission_gates": [
+        "paperclip_supply_reachable",
+        "at_least_one_exit_open_and_reachable",
+        "six_charges_cover_validated_route_with_two_charge_margin",
+        "no_spawn_on_player_or_supply",
+        "ordinary_movement_keeps_safe_route"
+      ],
+      "variants": [
+        {
+          "id": "F12V1",
+          "name": "办公用品临时换位",
+          "changes": [
+            "paperclip_shelf_anchor"
+          ],
+          "new_code_required": false,
+          "complexity": "low"
+        },
+        {
+          "id": "F12V2",
+          "name": "单侧出口暂停使用",
+          "changes": [
+            "exit_zone_id",
+            "door_initial_state"
+          ],
+          "new_code_required": false,
+          "complexity": "low",
+          "gate": "another_open_exit_visible_before_entry"
+        },
+        {
+          "id": "F12V3",
+          "name": "到货推车占道",
+          "changes": [
+            "preauthored_obstacle_active"
+          ],
+          "new_code_required": false,
+          "complexity": "low_medium",
+          "gate": "alternative_route_reachable"
+        }
+      ],
+      "monster_patch": {
+        "adaptation_notice": "本作原创：默认追逐、回形针诱饵点与出店解除；保留民俗食铁特征作为灵感，首版不实现吞铁成长或任意金属破坏。",
+        "signature_interaction": "诱饵引出：不可杀伊默认追玩家。玩家从办公用品货架取回形针，在大地图逐点洒落，利用其转追诱饵和短暂停食的窗口，把它引入门外标记区即胜利。",
+        "evidence": [
+          "洒落回形针后，它的目标标记从玩家转向地面金属点；未洒落时持续追玩家。",
+          "它追玩家时在门内止步，追门外回形针时会跨过门槛，行为差异可重复观察。"
+        ],
+        "safe_response": "预告中确认回形针货架和可用出口，边绕行边铺诱饵；基础回形针由岗位保证。空体力仍能步行与撒落，备用盒可用额外取物时间换一次补救。",
+        "resource_effects": {
+          "energy": "取物与引导使用普通工作成本，不按每枚回形针额外扣精力。",
+          "san": "受击按共享追逐规则结算；没有吞铁成长额外惊吓。",
+          "satiety": "只随统一时间流逝，不因洒回形针额外扣除。",
+          "stamina": "普通走路、取物、撒落不设硬体力门槛；冲刺照常消耗。"
+        },
+        "synergy_conditions": {
+          "harder": "办公用品换位、一个出口关闭或预置推车占道会改变诱导路线；至少保留可达补给、另一出口和足够诱饵。",
+          "easier": "P04小仓鼠可把玩家已经撒出的当前诱饵吃食停留延长1秒，不代放或生成回形针；挡板或减速装置争取布点时间，仍须把怪物引出店外。与F13的双追逐首版禁配。"
+        },
+        "encounter_blueprint_id": "F12",
+        "interaction_scale": "world_map_only_during_pursuit",
+        "prototype_status": "mapped_to_shared_store_interactions_v03"
+      },
+      "attack_enabled_states": [
+        "CHASE_PLAYER"
+      ],
+      "pursuit_interactions_require_qte": false,
+      "pet_support": {
+        "pet_id": "P04",
+        "pet_name": "小仓鼠",
+        "allowed_state": "EAT_BAIT",
+        "effect": "extend_current_player_placed_bait_eating_pause",
+        "additional_seconds": 1.0,
+        "stacking": "at_most_once_per_bait_point",
+        "creates_bait": false,
+        "places_bait_for_player": false,
+        "consumption": "use_configured_pet_active_charge",
+        "can_clear_encounter": false
+      },
+      "reference_rule_implemented": true,
+      "playable_client_implemented": false,
+      "actor_tags": [
+        "ground_chaser",
+        "metal_lureable"
+      ]
+    },
+    {
+      "id": "F13",
+      "display_name": "飞头女鬼",
+      "user_required_solution": "先追库房生肉；触肉后追杀玩家；玩家将该箱生肉转移到工作冰柜并关门即可解除。",
+      "mechanic_origin": "original_game_adaptation",
+      "retained_source_ids": [
+        "AS10"
+      ],
+      "implementation_tier": "low_after_shared_navigation_carry_and_container",
+      "removed_legacy_mechanics": [
+        "kitchen_waste_scent_field",
+        "double_bag_win_condition",
+        "double_lid_bin_win_condition",
+        "discard_food_to_clear"
+      ],
+      "objects": {
+        "required_meat_count": 1,
+        "meat_tag": "encounter_raw_meat_crate",
+        "freezer_tag": "registered_functional_freezer",
+        "uses_task_carry_slot": true,
+        "required_hands": 2
+      },
+      "parameters": {
+        "pickup_seconds": 0.6,
+        "drop_seconds": 0.25,
+        "store_and_close_seconds": 0.6,
+        "rage_windup_seconds": 1.5,
+        "interaction_distance": 1.0
+      },
+      "target_policy": {
+        "before_meat_contact": "quest_meat_world_position_or_carrier_position",
+        "after_meat_contact": "player",
+        "dropping_meat_reverts_rage": false,
+        "meat_consumed_on_contact": false,
+        "path_model": "same_2d_walkable_grid_as_ground_agents"
+      },
+      "states": [
+        {
+          "id": "SEEK_MEAT",
+          "target": "required_meat_instance",
+          "transitions": [
+            {
+              "trigger": "required_meat_stored_in_valid_freezer",
+              "to": "CLEARED"
+            },
+            {
+              "trigger": "contact_required_meat_unstored",
+              "to": "RAGE_WINDUP"
+            }
+          ]
+        },
+        {
+          "id": "RAGE_WINDUP",
+          "target": "none",
+          "transitions": [
+            {
+              "trigger": "required_meat_stored_in_valid_freezer",
+              "to": "CLEARED"
+            },
+            {
+              "trigger": "windup_timer_complete",
+              "to": "CHASE_PLAYER"
+            }
+          ]
+        },
+        {
+          "id": "CHASE_PLAYER",
+          "target": "player",
+          "transitions": [
+            {
+              "trigger": "required_meat_stored_in_valid_freezer",
+              "to": "CLEARED"
+            }
+          ]
+        },
+        {
+          "id": "CLEARED",
+          "terminal": true,
+          "actions": [
+            "stop_pursuit",
+            "leave_scene",
+            "settle_once"
+          ]
+        }
+      ],
+      "success_predicate": "required_meat_instance is accepted by registered functional freezer and door close commits",
+      "preemptive_clear_before_contact": true,
+      "container_acceptance": {
+        "player_carries_required_crate": true,
+        "within_interaction_range": true,
+        "reserved_capacity_required": true,
+        "door_operable_required": true,
+        "power_or_verified_backup_required": true,
+        "deposit_and_close_atomic": true,
+        "cancel_before_commit": "crate_remains_in_hand",
+        "after_clear_reactivate_on_open_or_outage": false
+      },
+      "admission_gates": [
+        "one_required_crate_reachable",
+        "functional_freezer_reachable_with_reserved_slot",
+        "no_spawn_overlap_with_meat_or_player",
+        "survivable_route_at_carry_walk_speed",
+        "ordinary_walk_pickup_store_allowed_at_zero_stamina",
+        "no_incompatible_forced_handheld_item"
+      ],
+      "variants": [
+        {
+          "id": "F13V1",
+          "name": "生肉错放另一库位",
+          "changes": [
+            "meat_spawn_anchor"
+          ],
+          "new_code_required": false,
+          "complexity": "low"
+        },
+        {
+          "id": "F13V2",
+          "name": "中间门关闭",
+          "changes": [
+            "door_initial_state"
+          ],
+          "new_code_required": false,
+          "complexity": "low",
+          "gate": "door_unlocked_and_route_survivable"
+        },
+        {
+          "id": "F13V3",
+          "name": "仓库漏水",
+          "changes": [
+            "preauthored_wet_cells"
+          ],
+          "new_code_required": "only_if_wet_floor_component_missing",
+          "complexity": "medium",
+          "gate": "dry_alternative_and_enough_response_time"
+        }
+      ],
+      "event_conflicts": {
+        "E019": "forbid_if_outage_disables_only_goal_freezer_without_verified_alternative",
+        "E020": "forbid_if_alarm_disables_only_goal_freezer_without_verified_alternative",
+        "F12": "default_no_simultaneous_active_encounter",
+        "F26": "default_no_second_player_pursuer"
+      },
+      "monster_patch": {
+        "adaptation_notice": "本作原创：库房生肉目标、触肉后转追玩家、搬入冰柜解除。沿用夜间觅食原型作为灵感，不再使用厨余封袋或气味路径作为本怪胜利条件。",
+        "signature_interaction": "生肉抢运：飞头女鬼先追一箱库房任务生肉；若触肉则预告后转追玩家。玩家拿起该箱生肉，送到标明且可用的冰柜，完成存入并关门，即解除本次遭遇；抢先入柜也可直接成功。",
+        "evidence": [
+          "入场目标标记指向任务生肉，玩家提起箱子后目标随箱子移动。",
+          "触到未入柜生肉后先有变色与蓄势，随后目标改为玩家；放下肉不取消追杀。"
+        ],
+        "safe_response": "预先开好到冰柜的通路，使用独立任务携带槽搬一箱肉。体力耗尽仍可步行和存入，生肉不会被怪物吃掉而丢失。存入并关门在大地图一步提交，成功后本实例不再因普通开柜或停电复活。",
+        "resource_effects": {
+          "energy": "沿用搬运工作成本，不为触肉另加隐形时间惩罚。",
+          "san": "受击按共享追逐规则结算，触肉升级先有明确预告。",
+          "satiety": "任务肉属于库存；移动、入柜或污染不直接扣主角已获得的饱腹。",
+          "stamina": "普通携带、拾取与入柜无硬体力门槛，重负荷或冲刺按统一行动配置。"
+        },
+        "synergy_conditions": {
+          "harder": "任务箱换库位、门关闭或少量湿地改变抢运路线；唯一目标冰柜失效且无替代时禁止投放。",
+          "easier": "P02黑犬可在CHASE_PLAYER追逐态将飞头女鬼移动速度降低30%，持续4秒，不回退怒态或直接解除。落地灯、挡板等帮助搬运，保温袋和垃圾封口不能替代入柜目标。F12/F26的第二主动追逐者首版排除。"
+        },
+        "encounter_blueprint_id": "F13",
+        "interaction_scale": "world_map_only_during_pursuit",
+        "prototype_status": "mapped_to_shared_store_interactions_v03"
+      },
+      "attack_enabled_states": [
+        "CHASE_PLAYER"
+      ],
+      "pursuit_interactions_require_qte": false,
+      "pet_support": {
+        "pet_id": "P02",
+        "pet_name": "黑犬",
+        "allowed_state": "CHASE_PLAYER",
+        "effect": "temporary_move_speed_multiplier",
+        "speed_multiplier": 0.7,
+        "duration_seconds": 4.0,
+        "reverts_rage": false,
+        "changes_target": false,
+        "consumption": "use_configured_pet_active_charge",
+        "can_clear_encounter": false
+      },
+      "reference_rule_implemented": true,
+      "playable_client_implemented": false,
+      "actor_tags": [
+        "hovering_chaser",
+        "raw_meat_seeker"
+      ],
+      "delivery_receipt_contract": {
+        "created_only_after_successful_atomic_delivery": true,
+        "fields": [
+          "encounterInstanceId",
+          "itemId",
+          "containerId",
+          "closedAtCommit",
+          "functionalAtCommit",
+          "committed"
+        ],
+        "instance_id_must_match_active_encounter": true,
+        "success_evaluates_committed_receipt_not_later_power_state": true,
+        "touch_requires_registered_meat_instance": true
+      }
+    }
+  ],
+  "legacy_references_to_update": [
+    {
+      "path": "content/synergies.json",
+      "id": "S04",
+      "action": "replace_scent_heat_interaction_with_quality_or_route_modifier_only"
+    },
+    {
+      "path": "content/synergies.json",
+      "id": "S05",
+      "action": "default_exclude_double_pursuer_F13_F26"
+    },
+    {
+      "path": "content/synergies.json",
+      "id": "S06",
+      "action": "replace_scrap_feeding_with_supply_access_order_and_keep_bait_identity_paperclip_only"
+    },
+    {
+      "path": "docs/06_folklore_bestiary.md",
+      "action": "regenerate_F12_F13_and_related_synergy_rows"
+    },
+    {
+      "path": "docs/08_implementation_plan.md",
+      "action": "replace_growth_and_scent_scope_with_target_redirection_and_carry_contact_escalation"
+    }
+  ],
+  "implementation_scope": "two_cost_bounded_world_action_blueprints; remaining folklore candidates await store-task mapping",
+  "reference_implementation": "../prototype/rule_core.mjs",
+  "runtime_not_implemented": [
+    "navigation",
+    "world_rendering",
+    "touch_input",
+    "attack_collision_pipeline",
+    "wechat_integration"
+  ]
+}

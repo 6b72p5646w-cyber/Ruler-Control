@@ -1,6 +1,6 @@
 {
-  "version": "0.2",
-  "total": 59,
+  "version": "0.3",
+  "total": 60,
   "sources": [
     {
       "id": "AS01",
@@ -532,6 +532,15 @@
       "accessed_date": "2026-11-17",
       "scope_note": "用于确认作品识别，不作为民俗原型或游戏玩法的事实依据。",
       "source_type": "official_screen_reference"
+    },
+    {
+      "id": "GA01",
+      "title": "蜜獾工坊《躺平发育》官方入驻游戏介绍（TapTap）",
+      "url": "https://www.taptap.cn/app/796768/all-info",
+      "supported_claim": "官方游戏介绍将其归为塔防，描述上床后通过点击建造、拆除与升级等主要操作。",
+      "accessed_date": "2026-11-17",
+      "scope_note": "仅用于确认所参考的部署、防守、升级玩法方向。本作便利店辅助设施、数值与机制为原创。",
+      "source_type": "official_game_reference"
     }
   ]
 }

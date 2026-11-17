@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate V0.2 design references and configuration invariants, not gameplay balance."""
+"""Validate V0.3 design references and configuration invariants, not gameplay balance."""
 
 from collections import Counter
 import json
@@ -41,9 +41,10 @@ def main():
     balance = json.loads((ROOT / 'content/balance.json').read_text(encoding='utf-8'))
     source_data = json.loads((ROOT / 'content/sources.json').read_text(encoding='utf-8'))
     sources = {s['id']: s for s in source_data['sources']}
-    require(len(sources) == len(source_data['sources']) == 59, 'sources: 59 unique records required')
+    require(len(sources) == len(source_data['sources']) == 60, 'sources: 60 unique records required')
     require(sum(s['source_type'] == 'folklore_reference' for s in sources.values()) == 57, 'sources: 57 folklore records required')
     require(sum(s['source_type'] == 'official_screen_reference' for s in sources.values()) == 2, 'sources: 2 screen references required')
+    require(sum(s['source_type'] == 'official_game_reference' for s in sources.values()) == 1, 'sources: 1 game reference required')
     for sid, source in sources.items():
         require(urlparse(source['url']).scheme in {'https', 'http'}, f'{sid}: invalid source URL')
         require(bool(source['title'] and source['supported_claim'] and source['accessed_date']), f'{sid}: missing attribution fields')
@@ -136,6 +137,81 @@ def main():
         require('F14' not in synergy['monster_ids'], f'{sid}: disabled possession must not enter default synergy cases')
         require(bool(synergy['condition'] and synergy['hard_admission_gate'] and synergy['player_response']), f'{sid}: needs conditions, admission limits and response')
 
+    # V0.3 interaction-first contract. These are design integrity checks, not a client simulation.
+    interaction_data, verbs = catalog('interactions', 'verbs', 'V', 10)
+    _, work = catalog('interactions', 'work_templates', 'W', 16)
+    qte_data, qtes = catalog('qte', 'templates', 'QT', 3)
+    component_data, components = catalog('rule_components', 'components', 'RC', 8)
+    variant_data, variants = catalog('event_variants', 'event_variants', 'EV', 12)
+    deploy_data, deployables = catalog('deployables', 'deployables', 'B', 8)
+    blueprints = json.loads((ROOT / 'content/encounter_blueprints.json').read_text(encoding='utf-8'))
+    encounters = {e['id']: e for e in blueprints['encounters']}
+    require(set(encounters) == {'F12', 'F13'}, 'V0.3: exactly two detailed encounter blueprints')
+    require(blueprints['default_director_policy']['max_active_player_pursuers'] == 1, 'prototype must cap active pursuers')
+    require(blueprints['default_director_policy']['simultaneous_f12_f13_enabled'] is False, 'F12/F13 double pursuit is disabled')
+    require(balance['director']['prototype_max_active_player_pursuers'] == 1, 'director and blueprint pursuit limits differ')
+    require(balance['time_budget_semantics']['wall_clock_session_duration_is_fixed'] is False, 'closeups must not promise a fixed real session duration')
+    for wid, task in work.items():
+        require(set(task['verb_ids']) <= set(verbs), f'{wid}: missing shared verb')
+        require(set(task['phases']) <= {p['id'] for p in night_phases}, f'{wid}: invalid phase')
+        require(0 < task['base_operation_seconds'] <= task['max_attempt_operation_seconds'], f'{wid}: operation budget invalid')
+        require(bool(task['success_feedback'] and task['failure_feedback'] and task['modifier_fields']), f'{wid}: missing feedback or modifiers')
+    require(work['W06']['scale'] == work['W15']['scale'] == 'world', 'meat and lure handling must stay in world scale')
+    for vid, variant in variants.items():
+        require(variant['event_id'] in events, f'{vid}: dangling event')
+        require(set(variant['work_template_ids']) <= set(work), f'{vid}: dangling work template')
+        require(set(variant['monster_ids']) <= set(monsters), f'{vid}: dangling monster')
+        require(set(variant['implementation_gate']['required_rule_components']) <= set(components), f'{vid}: dangling rule component')
+        task_fields = set().union(*(set(work[wid]['modifier_fields']) for wid in variant['work_template_ids']))
+        require(variant['modifier_field'] in task_fields, f'{vid}: event override not allowed by its work templates')
+        require(variant['modifier_field'] in components['RC08']['allowed_fields'], f'{vid}: override missing from component registry')
+        require(variant['victory_contract']['preserve_monster_core_win_predicate'] is True, f'{vid}: cannot replace core victory')
+        require(variant['implementation_gate']['all_required_features_must_be_implemented_and_enabled'] is True, f'{vid}: feature gate missing')
+        require(vid in events[variant['event_id']]['interaction_variant_ids'], f'{vid}: event backlink missing')
+    require(variants['EV03']['implementation_stage'] == 'expansion' and variants['EV03']['enabled_by_default'] is False, 'F13/freezer-failure combination must stay gated')
+    require(qte_data['snapshot_modifiers_at_attempt_start'] is True, 'QTE geometry must be snapshotted')
+    require(qte_data['timing_window_seconds_min'] >= 0.6 and qte_data['telegraph_seconds_min'] >= 1.5, 'QTE warning/window floors invalid')
+    require(qte_data['ordinary_button_and_grab_areas_shrink'] is False, 'SAN may not shrink ordinary controls')
+    require(qte_data['closeup_time_policy']['admit_only_if_no_active_chase'] is True, 'chase-to-closeup exploit')
+    require(qte_data['closeup_time_policy']['cost_reserved_on_start_charged_once_on_exit'] is True, 'closeup cost commit contract missing')
+    for san in range(101):
+        bands = [b for b in qte_data['bands'] if b['san_min'] <= san <= b['san_max']]
+        require(len(bands) == 1, f'SAN {san}: needs exactly one profile')
+        require(bands and bands[0]['clear_radius_tiles'] >= qte_data['world_clear_radius_tiles_min'], f'SAN {san}: clear radius below floor')
+    require(blueprints['baseline']['carrying_meat_walk_speed'] == component_data['units']['raw_meat_carry_speed'] == 2.6, 'meat carrying speeds differ')
+    require(blueprints['baseline']['monster_move_speed'] < blueprints['baseline']['carrying_meat_walk_speed'], 'prototype baseline chase lacks carrying speed margin')
+    for fid, encounter in encounters.items():
+        state_ids = {s['id'] for s in encounter['states']}
+        require('CLEARED' in state_ids, f'{fid}: missing terminal state')
+        for state in encounter['states']:
+            for transition in state.get('transitions', []):
+                require(transition['to'] in state_ids, f'{fid}: unknown state transition')
+        require(encounter['pursuit_interactions_require_qte'] is False, f'{fid}: pursuit actions may not require QTE')
+        require(encounter['playable_client_implemented'] is False, f'{fid}: headless reference is not a client')
+    require(encounters['F13']['preemptive_clear_before_contact'] is True, 'early meat delivery must clear')
+    require(encounters['F13']['delivery_receipt_contract']['success_evaluates_committed_receipt_not_later_power_state'] is True, 'committed meat receipt priority missing')
+    require(encounters['F12']['success_requires_extra_close_door'] is False, 'F12 victory must not add extra door objective')
+    require(pet_data['ability_rules']['general_and_special_share_charge_pool'] is True, 'pet skills must share charges')
+    for pid, pet in pets.items():
+        require(pet['shared_ability_charge_pool'] is True and bool(pet['general_help'] and pet['special_help']), f'{pid}: general/specific help missing')
+        for ability in [pet['general_help']] + pet['special_help']:
+            require(set(ability['target_monster_ids']) <= set(monsters), f'{pid}: unknown special target')
+            require(ability['shared_charge_cost'] == 1, f'{pid}: unclear charge use')
+    dog_effect = pets['P02']['special_help'][0]['effects'][0]
+    require(dog_effect['target_state'] == 'CHASE_PLAYER' and dog_effect['value'] == 0.7, 'P02 must match F13 chase state')
+    hamster_effect = pets['P04']['special_help'][0]['effects'][0]
+    require(hamster_effect['lure_tag'] == encounters['F12']['objects']['bait_tag'], 'P04 lure tag mismatch')
+    require(hamster_effect['max_extensions_per_lure_instance'] == 1 and hamster_effect['does_not_create_lure'] is True, 'P04 cannot duplicate lure or stack indefinitely')
+    require(deploy_data['shared_rules']['max_active_total'] == 3 and deploy_data['shared_rules']['navigation_graph_changes'] is False, 'deployment scope grew beyond fixed sockets')
+    for bid, device in deployables.items():
+        require(device['world_path_graph_mutation'] is False, f'{bid}: dynamic navigation blocker outside scope')
+        require(device['instances_preserve_remaining_resources'] is True, f'{bid}: recovery must not refill resources')
+        require(device['may_complete_encounter_goal'] is False, f'{bid}: helper cannot auto-clear encounter')
+        require(set(device['special_target_monster_ids']) <= set(monsters), f'{bid}: unknown target')
+    require(deployables['B05']['effect']['lure_tag'] == encounters['F12']['objects']['bait_tag'], 'B05 lure tag mismatch')
+    require(deployables['B06']['effect']['item_tag'] == encounters['F13']['objects']['meat_tag'], 'B06 meat tag mismatch')
+    require(sum('operational_extension' in item for item in items.values()) == 13, '13 immediate item extensions expected')
+
     for path in ROOT.rglob('*.md'):
         text = path.read_text(encoding='utf-8')
         require(not re.search(r'^(<<<<<<<|=======|>>>>>>>)', text, re.MULTILINE), f'{path}: merge conflict marker')
@@ -148,8 +224,11 @@ def main():
     result = {'status': 'PASS' if not errors else 'FAIL', 'checks': checks,
               'counts': {'monsters': len(monsters), 'default_enabled_monsters': 59, 'events': len(events),
                          'rules': len(rules), 'temporary_items': len(items), 'equipment': len(gear),
-                         'pets': len(pets), 'synergy_cases': len(synergies), 'sources': len(sources)},
-              'scope': 'Content integrity and declared configuration only; no client, simulation, phone performance or play-balance validation.',
+                         'pets': len(pets), 'synergy_cases': len(synergies), 'sources': len(sources),
+                         'shared_verbs': len(verbs), 'work_templates': len(work), 'qte_templates': len(qtes),
+                         'rule_components': len(components), 'event_variants': len(variants),
+                         'encounter_blueprints': len(encounters), 'deployables': len(deployables)},
+              'scope': 'Content integrity and declared configuration only. Separate headless checks do not validate navigation, touch UI, phone performance or play balance.',
               'errors': errors}
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 1 if errors else 0

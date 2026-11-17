@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "0.3",
   "total": 18,
   "evaluation_order": [
     "default_enabled",
@@ -67,11 +67,12 @@
       ],
       "effect_type": "harder",
       "stress_delta_proposal": 1,
-      "condition": "热浪使未密封厨余更快产生气味轨迹。",
-      "effect": "收运路线暴露更早，先封袋再搬运的顺序更关键。",
-      "hard_admission_gate": "免费岗位垃圾袋、外桶和一条安全搬运路必须存在；禁止无预兆瞬间入侵。",
-      "player_response": "提前冷藏待处理厨余或请同事闭合后门，可延缓追踪。",
-      "status": "hand_authored_design_case_not_runtime_predicate"
+      "condition": "F13任务生肉尚未入柜，同时E012热浪正在影响食品质量。",
+      "effect": "未冷藏任务肉更快降低食品质量，影响后续报损与收入；不生成气味路线，不改变触肉后追玩家及入柜解除规则。",
+      "hard_admission_gate": "必须保留可达的工作冰柜和预留格；质量降低不能销毁任务箱或禁止入柜。变质后仍可完成隔离入柜，随后按经营报损处理。",
+      "player_response": "先开通路，再把任务箱尽快搬入冰柜；保温道具仅保护食品质量，不能直接解除怪物。",
+      "status": "v03_quality_modifier_reuses_food_clock_not_scent_ai",
+      "enabled_default": true
     },
     {
       "id": "S05",
@@ -82,11 +83,12 @@
       "event_ids": [],
       "effect_type": "harder",
       "stress_delta_proposal": 2,
-      "condition": "同场存在食物气味和沾血废物两种可见痕迹。",
-      "effect": "玩家需要分别处理气味源与地面血迹，不能只清空一个垃圾桶。",
-      "hard_admission_gate": "至少提供两份可分别封存的容器和基础急救；首次擦伤先给处理窗口。",
-      "player_response": "先封住持续产生痕迹的源头，再选择绕行清理顺序。",
-      "status": "hand_authored_design_case_not_runtime_predicate"
+      "condition": "F13进入追玩家态，而F26红帽妖也作为活动追逐威胁存在。",
+      "effect": "这会同时要求搬运生肉与处理追逐路径；首轮原型暂不启用该双追逐组合。",
+      "hard_admission_gate": "enabled_default=false；首版最多一个主动追逐者，导演必须把第二实体延后。后续只有双路线、物品切换和实际动作时间都经验证才可启用。",
+      "player_response": "当前版本先解除已入场的一个追逐遭遇，另一项保留为后续时段候选；不要求玩家同时清两种痕迹。",
+      "status": "deferred_double_pursuer_combination_requires_runtime_validation",
+      "enabled_default": false
     },
     {
       "id": "S06",
@@ -97,11 +99,12 @@
       "event_ids": [],
       "effect_type": "mixed",
       "stress_delta_proposal": 1,
-      "condition": "旧金属器具仍待退役，不可杀伊正在寻找金属。",
-      "effect": "直接拿有记忆的器具投喂会扩大付丧神问题；先办理退役，才能把确认的废铁交回收线。",
-      "hard_admission_gate": "需有替代废铁或拒绝投喂的退路；不能强迫玩家在修复与喂食两项互斥要求间二选一即死。",
-      "player_response": "学习旧器物处理后，可让两项工作顺序衔接，减少一次搬运。",
-      "status": "hand_authored_design_case_not_runtime_predicate"
+      "condition": "F08待处理旧器具占用了办公用品架，F12尚处于入场预告或准备阶段。",
+      "effect": "玩家先把旧器具登记并暂存到待办托盘，再取得露出的回形针盒；随后按地面诱饵引出F12，旧器具本身不作为诱饵。",
+      "hard_admission_gate": "追逐开始前须完成取物通路整理，或已在旁边提供可取的备用回形针；F08不能强迫长维修后才开放唯一反制。至少保留一个可达出口。",
+      "player_response": "调整办公用品架的取物顺序，先拿到回形针，再把旧器具的完整修复或退役排入后续工作。只撒回形针，不投喂旧器具或废铁。",
+      "status": "v03_supply_access_order_before_pursuit",
+      "enabled_default": true
     },
     {
       "id": "S07",

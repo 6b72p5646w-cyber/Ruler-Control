@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "0.3",
   "max_active": 1,
   "baseline_uses_per_night": 2,
   "permanent_death": false,
@@ -10,121 +10,528 @@
       "id": "P01",
       "name": "三花猫",
       "purchase_price": 160,
-      "ability": "提示一个异常关注方向",
-      "limitation": "需要食物；对普通声响也会警觉",
-      "tag": "trace",
+      "ability": "让下一项票据归拢或标签整理耗时减少20%，并固定该台面纸张8秒；不会替玩家核验内容。 专属F16：12秒内阻止F16从选定现金盘取走新的硬币；已拿走的硬币仍需玩家追踪找回和封存现金。",
+      "limitation": "普通与专属共用每夜2次；只影响一个工位；对低SAN判断区缩小不直接生效。 不阻止正常找零，不自动找回金币，不判定员工身份。",
+      "tag": "task_support",
       "acquisition": [
         "shop",
         "specified_rescue_or_contract_event"
       ],
       "design_origin": "original_game_companion",
       "uses_per_night": 2,
-      "care_supply_id": "PC01"
+      "care_supply_id": "PC01",
+      "general_help": {
+        "name": "压住单据",
+        "trigger": "选择已在台面的单据工位后短按伙伴键",
+        "effect_type": "task_modifier",
+        "description": "让下一项票据归拢或标签整理耗时减少20%，并固定该台面纸张8秒；不会替玩家核验内容。",
+        "range_tiles": 2,
+        "duration_seconds": 8,
+        "shared_charge_cost": 1,
+        "effects": [
+          {
+            "type": "task_duration_multiplier",
+            "value": 0.8,
+            "task_tags": [
+              "receipt_sort",
+              "label_sort"
+            ],
+            "max_actions": 1
+          },
+          {
+            "type": "block_effect",
+            "tag": "paper_displacement",
+            "scope": "selected_workstation"
+          }
+        ],
+        "target_monster_ids": [],
+        "limitation": "只影响一个工位；对低SAN判断区缩小不直接生效。"
+      },
+      "special_help": [
+        {
+          "name": "守零钱盘",
+          "trigger": "F16已开始移动零钱时，在收银台启用",
+          "effect_type": "block_effect",
+          "description": "12秒内阻止F16从选定现金盘取走新的硬币；已拿走的硬币仍需玩家追踪找回和封存现金。",
+          "range_tiles": 2,
+          "duration_seconds": 12,
+          "shared_charge_cost": 1,
+          "effects": [
+            {
+              "type": "block_effect",
+              "tag": "coin_take",
+              "source_monster_id": "F16",
+              "scope": "selected_cash_tray"
+            }
+          ],
+          "target_monster_ids": [
+            "F16"
+          ],
+          "limitation": "不阻止正常找零，不自动找回金币，不判定员工身份。"
+        }
+      ],
+      "implementation_cost": "low",
+      "shared_ability_charge_pool": true
     },
     {
       "id": "P02",
       "name": "黑犬",
       "purchase_price": 180,
-      "ability": "在可留气味的对象上提示一段路径",
-      "limitation": "噪声可能惊动听觉型对象",
-      "tag": "trace",
+      "ability": "为当前队列中最多两名普通顾客各增加5秒等待耐心，给玩家一次离开柜台搬货的窗口。 专属F13：使当前F13追杀移动速度降低30%，持续4秒，为玩家搬肉至冰柜争取距离。",
+      "limitation": "普通与专属共用每夜2次；对怪物的规则期限和合同期限无效；同一顾客每班只能获得一次。 不改变F13的目标，不让F13攻击宠物，不取消生肉接触；玩家仍须亲手把肉箱送入冰柜。",
+      "tag": "queue_and_chase_support",
       "acquisition": [
         "shop",
         "specified_rescue_or_contract_event"
       ],
       "design_origin": "original_game_companion",
       "uses_per_night": 2,
-      "care_supply_id": "PC02"
+      "care_supply_id": "PC02",
+      "general_help": {
+        "name": "招呼等候",
+        "trigger": "有普通顾客排队时选择柜台",
+        "effect_type": "queue_timer_modifier",
+        "description": "为当前队列中最多两名普通顾客各增加5秒等待耐心，给玩家一次离开柜台搬货的窗口。",
+        "range_tiles": 3,
+        "duration_seconds": 5,
+        "shared_charge_cost": 1,
+        "effects": [
+          {
+            "type": "queue_patience_add",
+            "seconds": 5,
+            "max_customers": 2,
+            "customer_filter": "ordinary"
+          }
+        ],
+        "target_monster_ids": [],
+        "limitation": "对怪物的规则期限和合同期限无效；同一顾客每班只能获得一次。"
+      },
+      "special_help": [
+        {
+          "name": "吠声拦截",
+          "trigger": "F13触碰任务生肉并进入追杀状态后启用",
+          "effect_type": "movement_modifier",
+          "description": "使当前F13追杀移动速度降低30%，持续4秒，为玩家搬肉至冰柜争取距离。",
+          "range_tiles": 4,
+          "duration_seconds": 4,
+          "shared_charge_cost": 1,
+          "effects": [
+            {
+              "type": "speed_multiplier",
+              "value": 0.7,
+              "target_state": "CHASE_PLAYER",
+              "target_id": "F13",
+              "stacking_group": "movement_slow",
+              "stacking_policy": "strongest_only",
+              "maximum_refreshes_per_effect_instance": 0,
+              "does_not_redirect_target": true,
+              "does_not_complete_goal": true
+            }
+          ],
+          "target_monster_ids": [
+            "F13"
+          ],
+          "limitation": "不改变F13的目标，不让F13攻击宠物，不取消生肉接触；玩家仍须亲手把肉箱送入冰柜。"
+        }
+      ],
+      "implementation_cost": "low",
+      "shared_ability_charge_pool": true
     },
     {
       "id": "P03",
       "name": "鹦鹉",
       "purchase_price": 180,
-      "ability": "回放一段已保存声音帮助对照",
-      "limitation": "声音可被模仿，不能单独判身份",
-      "tag": "sound",
+      "ability": "按已确认订单复述下一件商品；下一次扫码或配货QTE的判定区域乘1.12，最多恢复到正常SAN时的大小。 专属F47：在该段结尾播放玩家已经确认的收尾拍，让一次中止交易的操作窗口增加0.4秒。",
+      "limitation": "普通与专属共用每夜2次；只复述已确认记录，不知道未核实信息；QTE开始后不突然改变其判定区。 不自动中止交易，不退还已接受的代价；玩家仍决定继续或收手。",
+      "tag": "qte_support",
       "acquisition": [
         "shop",
         "specified_rescue_or_contract_event"
       ],
       "design_origin": "original_game_companion",
       "uses_per_night": 2,
-      "care_supply_id": "PC03"
+      "care_supply_id": "PC03",
+      "general_help": {
+        "name": "复述已确认订单",
+        "trigger": "在开始扫码或配货QTE之前短按",
+        "effect_type": "qte_modifier",
+        "description": "按已确认订单复述下一件商品；下一次扫码或配货QTE的判定区域乘1.12，最多恢复到正常SAN时的大小。",
+        "range_tiles": 2,
+        "duration_seconds": 10,
+        "shared_charge_cost": 1,
+        "effects": [
+          {
+            "type": "qte_target_scale_multiplier",
+            "value": 1.12,
+            "max_normal_scale": 1.0,
+            "task_tags": [
+              "scan",
+              "order_pack"
+            ],
+            "max_qtes": 1,
+            "value_units": "multiplier_not_absolute_fraction",
+            "evaluation_policy": "multiply_before_global_floor_cap_and_snapshot",
+            "global_limits_reference": "qte.json"
+          }
+        ],
+        "target_monster_ids": [],
+        "limitation": "只复述已确认记录，不知道未核实信息；QTE开始后不突然改变其判定区。"
+      },
+      "special_help": [
+        {
+          "name": "收尾拍提醒",
+          "trigger": "F47下一段歌曲开始前选择启用",
+          "effect_type": "qte_modifier",
+          "description": "在该段结尾播放玩家已经确认的收尾拍，让一次中止交易的操作窗口增加0.4秒。",
+          "range_tiles": 3,
+          "duration_seconds": 12,
+          "shared_charge_cost": 1,
+          "effects": [
+            {
+              "type": "input_window_add_seconds",
+              "value": 0.4,
+              "task_tag": "end_song_trade",
+              "max_qtes": 1
+            }
+          ],
+          "target_monster_ids": [
+            "F47"
+          ],
+          "limitation": "不自动中止交易，不退还已接受的代价；玩家仍决定继续或收手。"
+        }
+      ],
+      "implementation_cost": "low",
+      "shared_ability_charge_pool": true
     },
     {
       "id": "P04",
       "name": "小仓鼠",
       "purchase_price": 140,
-      "ability": "在已知安全路线送一件小耗材",
-      "limitation": "运输期间不能再次派遣",
-      "tag": "delivery",
+      "ability": "3秒后将该耗材转入玩家的空携带格，省去一次短途取物；开始时锁定原物品并预留目标格。 专属F12：仅使选定的、由玩家亲手撒下的回形针诱饵，在F12抵达后的停食时间增加1秒；已经处于停食状态时只追加这一次1秒。",
+      "limitation": "普通与专属共用每夜2次；只是有计时的库存转移和装饰动画，不设宠物寻路；不搬任务生肉、钥匙和未知物，不从货架代领本次F12必须由玩家取出的回形针。 不生成回形针，不代替货架领取，不自动摆路线；同一个诱饵实例最多追加一次，F12仍须由玩家引过店外胜利边界。",
+      "tag": "supply_and_lure_support",
       "acquisition": [
         "shop",
         "specified_rescue_or_contract_event"
       ],
       "design_origin": "original_game_companion",
       "uses_per_night": 2,
-      "care_supply_id": "PC04"
+      "care_supply_id": "PC04",
+      "general_help": {
+        "name": "补给接力",
+        "trigger": "选一个已登记在补给柜的轻便耗材并确认空携带格",
+        "effect_type": "scheduled_item_transfer",
+        "description": "3秒后将该耗材转入玩家的空携带格，省去一次短途取物；开始时锁定原物品并预留目标格。",
+        "range_tiles": 4,
+        "duration_seconds": 3,
+        "shared_charge_cost": 1,
+        "effects": [
+          {
+            "type": "transfer_existing_item",
+            "delay_seconds": 3,
+            "item_tag": "small_supply",
+            "max_quantity": 1,
+            "requires_same_walkable_region": true,
+            "transfer_mode": "move_same_existing_instance",
+            "forbidden_tags": [
+              "encounter_raw_meat_crate",
+              "paperclip_supply",
+              "key",
+              "unverified_item"
+            ],
+            "reserve_source_and_destination_before_commit": true,
+            "refund_same_instance_on_cancel": true
+          }
+        ],
+        "target_monster_ids": [],
+        "limitation": "只是有计时的库存转移和装饰动画，不设宠物寻路；不搬任务生肉、钥匙和未知物，不从货架代领本次F12必须由玩家取出的回形针。"
+      },
+      "special_help": [
+        {
+          "name": "慢慢散落",
+          "trigger": "玩家已从货架取得回形针并亲手撒下诱饵后，选中该已放置诱饵点启用",
+          "effect_type": "lure_modifier",
+          "description": "仅使选定的、由玩家亲手撒下的回形针诱饵，在F12抵达后的停食时间增加1秒；已经处于停食状态时只追加这一次1秒。",
+          "range_tiles": 2,
+          "duration_seconds": 0,
+          "shared_charge_cost": 1,
+          "effects": [
+            {
+              "type": "lure_feeding_duration_add_seconds",
+              "value": 1,
+              "target_monster_id": "F12",
+              "lure_tag": "paperclip_bait",
+              "max_lures": 1,
+              "requires_player_fetched_ammo": true,
+              "requires_player_placed": true,
+              "max_extensions_per_lure_instance": 1,
+              "does_not_create_lure": true,
+              "does_not_complete_goal": true,
+              "requires_existing_unconsumed_bait": true,
+              "effect_applies_in_monster_state": "EAT_BAIT",
+              "may_schedule_before_feeding": true
+            }
+          ],
+          "target_monster_ids": [
+            "F12"
+          ],
+          "limitation": "不生成回形针，不代替货架领取，不自动摆路线；同一个诱饵实例最多追加一次，F12仍须由玩家引过店外胜利边界。"
+        }
+      ],
+      "implementation_cost": "medium",
+      "shared_ability_charge_pool": true
     },
     {
       "id": "P05",
       "name": "白鸽",
       "purchase_price": 180,
-      "ability": "观察一处门外的可见路线",
-      "limitation": "雨雾天气能力降低",
-      "tag": "path",
+      "ability": "白鸽停在感应区，使这一次普通自动门多保持开启4秒，方便抱货通过。 专属F50：将本次俯冲的预告延长2秒，并持续标明已确认的攻击窗位。",
+      "limitation": "普通与专属共用每夜2次；不打开锁门，不越过当前禁入规则，不自动切换出入口权限。 仍由玩家推动遮挡板；不替玩家选择未知攻击面，不将白鸽作为可牺牲目标。",
+      "tag": "door_and_telegraph_support",
       "acquisition": [
         "shop",
         "specified_rescue_or_contract_event"
       ],
       "design_origin": "original_game_companion",
       "uses_per_night": 2,
-      "care_supply_id": "PC05"
+      "care_supply_id": "PC05",
+      "general_help": {
+        "name": "感应门接力",
+        "trigger": "玩家已打开允许通行的自动门后启用",
+        "effect_type": "door_timer_modifier",
+        "description": "白鸽停在感应区，使这一次普通自动门多保持开启4秒，方便抱货通过。",
+        "range_tiles": 3,
+        "duration_seconds": 4,
+        "shared_charge_cost": 1,
+        "effects": [
+          {
+            "type": "door_open_duration_add",
+            "seconds": 4,
+            "max_doors": 1
+          }
+        ],
+        "target_monster_ids": [],
+        "limitation": "不打开锁门，不越过当前禁入规则，不自动切换出入口权限。"
+      },
+      "special_help": [
+        {
+          "name": "掠影拖延",
+          "trigger": "F50俯冲预告出现时选择已观察到的窗位",
+          "effect_type": "telegraph_modifier",
+          "description": "将本次俯冲的预告延长2秒，并持续标明已确认的攻击窗位。",
+          "range_tiles": 4,
+          "duration_seconds": 2,
+          "shared_charge_cost": 1,
+          "effects": [
+            {
+              "type": "telegraph_add_seconds",
+              "value": 2,
+              "target_action": "roof_dive",
+              "max_actions": 1
+            }
+          ],
+          "target_monster_ids": [
+            "F50"
+          ],
+          "limitation": "仍由玩家推动遮挡板；不替玩家选择未知攻击面，不将白鸽作为可牺牲目标。"
+        }
+      ],
+      "implementation_cost": "low",
+      "shared_ability_charge_pool": true
     },
     {
       "id": "P06",
       "name": "壁虎",
       "purchase_price": 150,
-      "ability": "检查高处标签或通风口",
-      "limitation": "不能处理需要力量的任务",
-      "tag": "inspection",
+      "ability": "把一次可延缓的设备故障升级推迟5秒，便于玩家先交岗再检修。 专属F46：3秒后把其中一件已确认的轻工具送到该工位可拿取台面；玩家仍需拾取并完成后续处理。",
+      "limitation": "普通与专属共用每夜2次；不修好设备，不延长怪物禁忌或真实交班时钟；只接受普通故障标签。 不凭空找出未观察到的工具，不消除旋风，不跨锁门。",
+      "tag": "equipment_and_retrieval_support",
       "acquisition": [
         "shop",
         "specified_rescue_or_contract_event"
       ],
       "design_origin": "original_game_companion",
       "uses_per_night": 2,
-      "care_supply_id": "PC06"
+      "care_supply_id": "PC06",
+      "general_help": {
+        "name": "检修守望",
+        "trigger": "对已出现故障预告的设备启用",
+        "effect_type": "progress_timer_modifier",
+        "description": "把一次可延缓的设备故障升级推迟5秒，便于玩家先交岗再检修。",
+        "range_tiles": 3,
+        "duration_seconds": 5,
+        "shared_charge_cost": 1,
+        "effects": [
+          {
+            "type": "escalation_delay_seconds",
+            "value": 5,
+            "target_tag": "ordinary_equipment_fault",
+            "max_actions": 1
+          }
+        ],
+        "target_monster_ids": [],
+        "limitation": "不修好设备，不延长怪物禁忌或真实交班时钟；只接受普通故障标签。"
+      },
+      "special_help": [
+        {
+          "name": "夹缝取物",
+          "trigger": "F46已把工具藏到已揭示的候选货格，玩家选定该货格",
+          "effect_type": "scheduled_item_transfer",
+          "description": "3秒后把其中一件已确认的轻工具送到该工位可拿取台面；玩家仍需拾取并完成后续处理。",
+          "range_tiles": 4,
+          "duration_seconds": 3,
+          "shared_charge_cost": 1,
+          "effects": [
+            {
+              "type": "relocate_existing_item_to_socket",
+              "delay_seconds": 3,
+              "max_quantity": 1,
+              "item_tag": "hidden_light_tool",
+              "requires_revealed_source": true,
+              "transfer_mode": "move_same_existing_instance",
+              "forbidden_tags": [
+                "encounter_raw_meat_crate",
+                "paperclip_supply",
+                "key",
+                "unverified_item"
+              ],
+              "reserve_source_and_destination_before_commit": true,
+              "refund_same_instance_on_cancel": true
+            }
+          ],
+          "target_monster_ids": [
+            "F46"
+          ],
+          "limitation": "不凭空找出未观察到的工具，不消除旋风，不跨锁门。"
+        }
+      ],
+      "implementation_cost": "medium",
+      "shared_ability_charge_pool": true
     },
     {
       "id": "P07",
       "name": "纸灯灵",
       "purchase_price": 320,
-      "ability": "提供一次短暂可移动微光",
-      "limitation": "本作原创灵宠，需要照料灯芯且无驱魔通用效果",
-      "tag": "light",
+      "ability": "8秒内在玩家周围提高局部可见半径1格，最多到正常可见范围；HUD保持原本清晰，SAN数值不恢复。 专属F60：将这一次转身预告延长2秒，并使关联的危险扇区在黑视中可读，便于玩家调整朝向或遮挡。",
+      "limitation": "普通与专属共用每夜1次；只改善局部黑视，不露出墙后未知实体，也不扩大已经开始的QTE判定区。 不模拟真实镜面反射，不替玩家转身或放置遮挡；普通与专属共用唯一一次使用。",
+      "tag": "visibility_support",
       "acquisition": [
         "shop",
         "specified_rescue_or_contract_event"
       ],
       "design_origin": "original_game_companion",
       "uses_per_night": 1,
-      "care_supply_id": "PC07"
+      "care_supply_id": "PC07",
+      "general_help": {
+        "name": "随身微光",
+        "trigger": "低SAN或区域黑暗时短按启用",
+        "effect_type": "visibility_modifier",
+        "description": "8秒内在玩家周围提高局部可见半径1格，最多到正常可见范围；HUD保持原本清晰，SAN数值不恢复。",
+        "range_tiles": 1,
+        "duration_seconds": 8,
+        "shared_charge_cost": 1,
+        "effects": [
+          {
+            "type": "local_visibility_radius_add",
+            "tiles": 1,
+            "max_normal_visibility": true,
+            "follow_player": true,
+            "respect_walls": true
+          }
+        ],
+        "target_monster_ids": [],
+        "limitation": "只改善局部黑视，不露出墙后未知实体，也不扩大已经开始的QTE判定区。"
+      },
+      "special_help": [
+        {
+          "name": "照出转身预告",
+          "trigger": "F60进入已预告的转身阶段，玩家指定当前观察角",
+          "effect_type": "telegraph_modifier",
+          "description": "将这一次转身预告延长2秒，并使关联的危险扇区在黑视中可读，便于玩家调整朝向或遮挡。",
+          "range_tiles": 3,
+          "duration_seconds": 2,
+          "shared_charge_cost": 1,
+          "effects": [
+            {
+              "type": "telegraph_add_seconds",
+              "value": 2,
+              "target_action": "turn_to_face",
+              "max_actions": 1
+            },
+            {
+              "type": "reveal_existing_telegraph",
+              "respect_walls": true
+            }
+          ],
+          "target_monster_ids": [
+            "F60"
+          ],
+          "limitation": "不模拟真实镜面反射，不替玩家转身或放置遮挡；普通与专属共用唯一一次使用。"
+        }
+      ],
+      "implementation_cost": "low",
+      "shared_ability_charge_pool": true
     },
     {
       "id": "P08",
       "name": "布偶守夜者",
       "purchase_price": 360,
-      "ability": "在安全区帮助一次SAN恢复",
-      "limitation": "本作原创灵宠，不能远程作战或替代身份核验",
-      "tag": "san",
+      "ability": "持续3秒后SAN恢复12；若离开安全点则保留进度，不能在追逐中贴脸无条件施放。 专属F31：若第一次唤醒操作失败，保留50%的已获得短休收益并立刻提供一次正常大小的唤醒区域，持续1.5秒；玩家需再次输入才能醒来。",
+      "limitation": "普通与专属共用每夜1次；实际恢复SAN后后续QTE按新值计算；不回改正在进行的QTE。 不自动赢过梦魇，不跳过玩家操作；二次仍失败按已提示后果结算。",
+      "tag": "san_and_recovery_support",
       "acquisition": [
         "shop",
         "specified_rescue_or_contract_event"
       ],
       "design_origin": "original_game_companion",
       "uses_per_night": 1,
-      "care_supply_id": "PC08"
+      "care_supply_id": "PC08",
+      "general_help": {
+        "name": "短暂安定",
+        "trigger": "玩家进入已确认安全的休息点后启用",
+        "effect_type": "resource_modifier",
+        "description": "持续3秒后SAN恢复12；若离开安全点则保留进度，不能在追逐中贴脸无条件施放。",
+        "range_tiles": 1,
+        "duration_seconds": 3,
+        "shared_charge_cost": 1,
+        "effects": [
+          {
+            "type": "resource_delta",
+            "resource": "san",
+            "value": 12,
+            "requires_safe_zone": true,
+            "progress_preserved_on_interrupt": true
+          }
+        ],
+        "target_monster_ids": [],
+        "limitation": "实际恢复SAN后后续QTE按新值计算；不回改正在进行的QTE。"
+      },
+      "special_help": [
+        {
+          "name": "第二次唤醒",
+          "trigger": "F31遭遇的短休开始前把布偶放到锚点位",
+          "effect_type": "qte_retry_guard",
+          "description": "若第一次唤醒操作失败，保留50%的已获得短休收益并立刻提供一次正常大小的唤醒区域，持续1.5秒；玩家需再次输入才能醒来。",
+          "range_tiles": 1,
+          "duration_seconds": 1.5,
+          "shared_charge_cost": 1,
+          "effects": [
+            {
+              "type": "one_retry_on_qte_failure",
+              "task_tag": "wake_from_mara",
+              "retry_seconds": 1.5,
+              "retry_target_scale": 1.0,
+              "retained_rest_fraction": 0.5
+            }
+          ],
+          "target_monster_ids": [
+            "F31"
+          ],
+          "limitation": "不自动赢过梦魇，不跳过玩家操作；二次仍失败按已提示后果结算。"
+        }
+      ],
+      "implementation_cost": "medium",
+      "shared_ability_charge_pool": true
     }
   ],
   "individual_uses_override_baseline": true,
@@ -220,5 +627,64 @@
       "consumable": true,
       "design_origin": "original_game_companion_care"
     }
-  ]
+  ],
+  "ability_rules": {
+    "max_active_pet": 1,
+    "general_and_special_share_charge_pool": true,
+    "charge_on_effect_commit_only": true,
+    "invalid_target_consumes_charge": false,
+    "repeated_state_refresh_is_new_cast": false,
+    "global_command_cooldown_seconds": 6,
+    "ability_charges_are_not_per_skill": true,
+    "missed_care_policy": "保留V0.2：只暂停下一夜主动能力，可留家休息",
+    "permanent_death": false,
+    "monster_target_as_pet": false,
+    "uses_existing_actor_pathfinding": false,
+    "pet_visuals": "贴近玩家或预置工位的无碰撞装饰动画；不实现独立战斗寻路",
+    "inventory_transfers": "开始时锁定来源并预留目标格；取消或目标失效原路退回，不复制也不吃掉物品",
+    "identity_proof": "不生成全局真假结论；宠物能力不算独立身份认证来源",
+    "san_qte_policy": "改变可见性或下一次QTE参数，HUD一直清晰；QTE开始后锁定该次参数",
+    "one_command_commits_one_ability_only": true,
+    "ability_effect_instance_identity_persisted": true,
+    "cannot_refresh_effect_by_recall_or_recovery": true,
+    "movement_slow_stacking": "同一目标同时承受多种减速时取最小速度倍率，不乘算、不相加；同一实例重复触发不续期。",
+    "item_transfer_mode": "move_same_existing_instance",
+    "forbidden_item_transfer_tags": [
+      "encounter_raw_meat_crate",
+      "paperclip_supply",
+      "key",
+      "unverified_item"
+    ],
+    "forbidden_tags_override_allowed_tags": true,
+    "may_create_items": false,
+    "may_consume_task_meat": false,
+    "qte_modifier_pipeline": {
+      "policy": "1.12按乘法计算单项增益，宠物贡献最多恢复到正常尺寸；同类其他增益取最强一项，之后统一应用qte.json的floor/cap。",
+      "precision_multiplier_semantics": "1.12表示当前判定区乘1.12，不表示增加0.12绝对fraction。",
+      "order": [
+        "base_target",
+        "san_multiplier",
+        "single_event_multiplier",
+        "compute_selected_pet_increase_capped_at_normal_target",
+        "compute_other_precision_increase",
+        "choose_strongest_single_increase",
+        "template_floor_and_cap",
+        "snapshot_at_attempt_start"
+      ],
+      "global_precision_bonus_budget_reference": "qte.json.common_modifier_policy.precision_bonus_fraction_max",
+      "global_precision_bonus_budget_units": "absolute_fraction_of_full_judgment_track",
+      "same_category_buffs": "strongest_only",
+      "global_floor_and_cap_source": "qte.json：各模板最小宽度、最小时间窗与最大判定区，以及common_modifier_policy",
+      "snapshot_at_attempt_start": true,
+      "change_active_attempt_geometry": false
+    },
+    "illumination_changes_san_value": false,
+    "illumination_stacking": "同类照明/局部黑视改善取较强效果，遵守正常可见范围上限，HUD始终清晰。",
+    "canonical_tag_sources": {
+      "F12_bait_tag": "paperclip_bait",
+      "F12_supply_tag": "paperclip_supply",
+      "F13_task_meat_tag": "encounter_raw_meat_crate",
+      "source": "encounter_blueprints.json.objects"
+    }
+  }
 }

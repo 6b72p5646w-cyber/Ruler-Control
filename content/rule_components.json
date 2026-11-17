@@ -1,0 +1,149 @@
+{
+  "version": "0.3",
+  "units": {
+    "distance": "tile",
+    "time": "real_second_in_world_simulation",
+    "interaction_range": 1.0,
+    "walk_speed": 3.0,
+    "carry_speed": 2.4,
+    "facing_locked_movement_multiplier": 0.8,
+    "raw_meat_carry_speed": 2.6
+  },
+  "facing_is": "avatar_body_direction_not_top_down_camera_or_ui_pointer",
+  "navigation": "static_walkability_graph_fixed_workstations_and_deployment_sockets",
+  "components": [
+    {
+      "id": "RC01",
+      "type": "avoid_facing",
+      "range_tiles": 4.0,
+      "cone_degrees": 90,
+      "grace_seconds": 1.5,
+      "requires_clear_static_sight": true
+    },
+    {
+      "id": "RC02",
+      "type": "minimum_distance",
+      "minimum_tiles": 2.5,
+      "grace_seconds": 1.5
+    },
+    {
+      "id": "RC03",
+      "type": "distance_band",
+      "minimum_tiles": 2.5,
+      "maximum_tiles": 4.5,
+      "grace_seconds": 1.5
+    },
+    {
+      "id": "RC04",
+      "type": "zone_tag",
+      "shape": "tile_or_axis_aligned_rectangle"
+    },
+    {
+      "id": "RC05",
+      "type": "carry_state",
+      "large_task_item_slots": 1,
+      "cost_from_item_definition": true
+    },
+    {
+      "id": "RC06",
+      "type": "target_priority",
+      "candidate_filter": "tag_active_reachable_in_range",
+      "pathfinding": "shared",
+      "logic_tick_seconds": 0.2
+    },
+    {
+      "id": "RC07",
+      "type": "container_delivery",
+      "check": [
+        "task_item_instance_id",
+        "container_tag",
+        "container_closed"
+      ]
+    },
+    {
+      "id": "RC08",
+      "type": "action_modifier",
+      "allowed_fields": [
+        "actor_presence",
+        "alignment_tolerance",
+        "allowed_facing",
+        "bait_tag",
+        "carry_route_id",
+        "carry_speed",
+        "cash_tray_open",
+        "charges",
+        "contact_trigger",
+        "container_count",
+        "cooldown",
+        "denominations",
+        "deployable_tag",
+        "destination_zone",
+        "dirty_cells",
+        "door_state",
+        "duration",
+        "equipment_working",
+        "exit_zone_id",
+        "expected_quantity",
+        "face_constraint",
+        "fault_type",
+        "freezer_capacity",
+        "freezer_id",
+        "freezer_powered",
+        "handover_object",
+        "hands_required",
+        "heat_setting",
+        "hold_duration",
+        "interruption",
+        "item_visibility",
+        "label_visibility",
+        "marker_lifetime",
+        "max_distance",
+        "max_live_markers",
+        "measurement",
+        "meat_target_id",
+        "min_distance",
+        "operable_target",
+        "part_count",
+        "permission",
+        "permission_scope",
+        "placement_node",
+        "placement_range",
+        "power",
+        "priority_rule",
+        "qte_profile",
+        "range",
+        "receipt_channel",
+        "recipe_steps",
+        "required_light",
+        "route_id",
+        "sample_count",
+        "scan_count",
+        "seal_steps",
+        "shelf_id",
+        "slot_count",
+        "stack_count",
+        "station_light",
+        "steps",
+        "target_tags",
+        "task_object_ids",
+        "trajectory_record",
+        "verified_evidence",
+        "visibility_radius_tiles",
+        "visible_slots",
+        "waste_type",
+        "wet_cells"
+      ]
+    }
+  ],
+  "hard_conflicts": [
+    "required_service_actor_distance_below_minimum_without_separate_counter_slot",
+    "all_legal_routes_blocked",
+    "precision_closeup_during_active_chase",
+    "mandatory_precision_work_while_san_zero_without_recovery_or_handoff",
+    "only_required_container_unavailable_without_reserved_alternative",
+    "two_large_task_crates_mandatory_at_once_with_one_carry_slot",
+    "event_modifiers_change_monster_victory_predicate"
+  ],
+  "world_rules_continue_to_apply": "No camera transition or pet reveals identity by itself; closeup admission checks the current world rules before freezing.",
+  "reference_implementation": "../prototype/rule_core.mjs"
+}

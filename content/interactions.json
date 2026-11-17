@@ -1,0 +1,742 @@
+{
+  "version": "0.3",
+  "status": "design_only_not_implemented",
+  "ordering": "先做便利店动作和工作模板，再配置怪物的空间/状态条件，最后用事件改变参数。",
+  "space_contract": {
+    "unit": "tile",
+    "walk_speed_tiles_per_second": 3.0,
+    "base_interaction_range_tiles": 1.0,
+    "map_style": "2d_top_down",
+    "arbitrary_physics_simulation": false,
+    "facing_is_avatar_direction_not_camera": true,
+    "interaction_does_not_auto_rotate": true,
+    "numbers_are_provisional": true,
+    "default_box_carry_speed_tiles_per_second": 2.4,
+    "raw_meat_carry_speed_tiles_per_second": 2.6,
+    "phase_work_budget_seconds": 120,
+    "phase_clock_policy": "120秒为阶段工作预算，不是严格现实秒数；世界有效运行和特写明示承诺成本消耗该预算，纯阅读暂停不推进。",
+    "wall_clock_session_duration": "实际一局时长随阅读、暂停和特写操作浮动。"
+  },
+  "view_scales": [
+    {
+      "id": "world",
+      "name": "大地图",
+      "purpose": "位置、朝向、距离、追逐、取放搬运、开关与部署",
+      "clock": "实时",
+      "input": "移动+一个当前交互+朝向锁定",
+      "ban": "追逐中不跳到会暂停追击的工位特写"
+    },
+    {
+      "id": "station",
+      "name": "工位面板",
+      "purpose": "库存、订单、分工、证据和设备状态",
+      "clock": "阅读/选目标时冻结，执行命令后进入世界动作或已预约特写",
+      "input": "面板选择具体物件/任务，确认只是发起动作",
+      "ban": "不把选中正确文本答案当作整个任务完成"
+    },
+    {
+      "id": "closeup",
+      "name": "局部特写",
+      "purpose": "扫码对准、短配方、接线、贴签等精细输入",
+      "clock": "冻结世界，仅本地QTE计时；点击开始操作锁定本次成本，退出一次结算明示承诺时间；准备阅读取消免费。",
+      "input": "共享对准/时机/顺序控件",
+      "ban": "不做后台追杀、退出瞬移受击或免费无限重试"
+    }
+  ],
+  "closeup_contract": {
+    "entry_requires_safe_station": true,
+    "entry_denied_during_active_chase": true,
+    "committed_seconds_reserved_before_entry": true,
+    "world_motion_frozen": true,
+    "world_collisions_not_fast_forwarded_on_exit": true,
+    "local_qte_timer_only": true,
+    "each_retry_is_new_attempt": true,
+    "each_retry_reserves_and_pays_time": true,
+    "cancel_before_first_interaction_can_be_read_only": true,
+    "cancel_after_first_interaction_pays_attempt_time": true,
+    "resolution_applied_once": true,
+    "late_world_events": "入场前须无即将命中且剩余阶段工作预算容得下本次承诺成本。退出只结算明示的工作时间/资源，世界中现有规则计数在冻结期间不推进，不补算隐藏伤害。",
+    "range_and_facing_snapshot": "特写前记录角色位置与朝向，退出后保持；不能通过开面板躲过已触发的面对/距离违规。",
+    "entry_denied_when_imminent_hit": true,
+    "entry_requires_current_facing_and_distance_valid": true,
+    "entry_requires_stage_time_for_commitment": true,
+    "world_rule_timers_frozen": true,
+    "no_hidden_damage_replay_on_exit": true,
+    "minimum_reaction_telegraph_seconds": 1.5,
+    "minimum_stop_needle_hit_window_seconds": 0.6,
+    "preparation_phase": "只读说明与选择目标，不生成任务进度；取消免费。",
+    "first_actual_input": "click_start_operation",
+    "start_operation_defines_first_input": true,
+    "cancel_before_start_operation_cost_seconds": 0,
+    "cancel_after_start_operation_pays_committed_cost": true,
+    "failure_after_start_operation_pays_committed_cost": true,
+    "actual_attempt_not_delayed_until_first_qte_hit": true,
+    "committed_cost_definition": "明示承诺成本在点击开始操作时锁定；正常退出、失败或取消均结算该次成本一次，纯阅读准备阶段退出不扣。",
+    "start_operation_reserves_only": true,
+    "cost_charge_time": "resolve_once_on_exit",
+    "idempotent_attempt_resolution_required": true,
+    "never_charge_at_both_begin_and_exit": true
+  },
+  "verbs": [
+    {
+      "id": "V01",
+      "name": "移动",
+      "input": "点击目标或方向输入，走向可达位置",
+      "scale": "world",
+      "implementation": "寻路、碰撞与路径预览；不靠真实物理推挤货架"
+    },
+    {
+      "id": "V02",
+      "name": "保持朝向／背向移动",
+      "input": "朝向锁定键保存当前朝向，移动时保持；解除后恢复跟随移动",
+      "scale": "world",
+      "implementation": "朝向向量与规则检测；打开面板和按交互键均不强制转头"
+    },
+    {
+      "id": "V03",
+      "name": "取出",
+      "input": "进入1格范围，按取物；从容器向携带槽转移唯一物件",
+      "scale": "world",
+      "implementation": "统一容器与物件ID，不按物件另写拾取脚本"
+    },
+    {
+      "id": "V04",
+      "name": "放置／投放",
+      "input": "指向合法格、目标容器或部署节点，确认后转移物件或生成标记",
+      "scale": "world",
+      "implementation": "同一个放置命令处理补货、冰柜存放、回形针标记和设施部署"
+    },
+    {
+      "id": "V05",
+      "name": "搬运",
+      "input": "持物后移动，使用物件定义的速度与占手修正",
+      "scale": "world",
+      "implementation": "携带状态；首版只区分普通与重物，不模拟惯性或散落物理"
+    },
+    {
+      "id": "V06",
+      "name": "开关／操作",
+      "input": "在范围内按键，切换明确的有限状态",
+      "scale": "world_or_station",
+      "implementation": "门、灯、冰柜盖、加热器共用可操作接口"
+    },
+    {
+      "id": "V07",
+      "name": "持续工作",
+      "input": "按住或确认开始进度，移开或按取消中止",
+      "scale": "world",
+      "implementation": "清洁、搬箱确认和短维修共用进度条，支持保留已完成小步骤"
+    },
+    {
+      "id": "V08",
+      "name": "对准／时机",
+      "input": "在特写中把对象对准标记或在可见判定区按下",
+      "scale": "closeup",
+      "implementation": "共享对准/时机QTE控件，具体SAN缩区由统一配置提供"
+    },
+    {
+      "id": "V09",
+      "name": "顺序处理",
+      "input": "依次完成2—3个对象操作，记录已完成步骤",
+      "scale": "closeup_or_world",
+      "implementation": "热食、封袋、结账共用短配方状态机，不另造每项小游戏"
+    },
+    {
+      "id": "V10",
+      "name": "指派与交接",
+      "input": "给已核验同事指定任务对象和范围，接收验收结果",
+      "scale": "station",
+      "implementation": "复用同一任务执行器；当前任务加一个可取消后续任务"
+    }
+  ],
+  "work_templates": [
+    {
+      "id": "W01",
+      "name": "商品扫码结账",
+      "phases": [
+        "N01",
+        "N02",
+        "N03",
+        "N04",
+        "N05",
+        "N06"
+      ],
+      "scale": "station_closeup",
+      "verb_ids": [
+        "V03",
+        "V08",
+        "V09",
+        "V04"
+      ],
+      "base_operation_seconds": 4,
+      "max_attempt_operation_seconds": 8,
+      "input": "将2件商品移过扫描窗，对准后确认，交付订单；普通熟悉商品允许合并操作。",
+      "success_feedback": "生成带物件ID的交易凭证，商品离开店存。",
+      "failure_feedback": "漏扫使订单停留待结算；错扫标红并允许重扫，不直接扣命。",
+      "modifier_fields": [
+        "scan_count",
+        "alignment_tolerance",
+        "item_visibility",
+        "face_constraint",
+        "station_light"
+      ],
+      "implementation_cost": "低：一个共享扫码窗与订单列表。",
+      "movement_cost": "actual_path_length_tiles / 3.0 when empty-handed; normal heavy box uses 2.4 tiles/second; reserve travel separately",
+      "budget_policy": "入场前预留路径、操作与一次可见补救窗口；一起装入阶段120秒工作预算，不跨阶段偷偷补做。",
+      "chase_policy": "closeup_blocked_during_active_chase"
+    },
+    {
+      "id": "W02",
+      "name": "现金与找零",
+      "phases": [
+        "N01",
+        "N02",
+        "N03",
+        "N04",
+        "N05",
+        "N06"
+      ],
+      "scale": "station_closeup",
+      "verb_ids": [
+        "V03",
+        "V04",
+        "V09"
+      ],
+      "base_operation_seconds": 3,
+      "max_attempt_operation_seconds": 7,
+      "input": "把给定面额移进收银格，按实际金额放出找零；重复普通交易可用快捷配组。",
+      "success_feedback": "现金总额与订单回执同步，现金格开闭状态可见。",
+      "failure_feedback": "不符时保留差额让玩家修正；若主动完成错误交付才计营业损失。",
+      "modifier_fields": [
+        "denominations",
+        "cash_tray_open",
+        "interruption",
+        "visible_slots",
+        "receipt_channel"
+      ],
+      "implementation_cost": "低：离散面额和数量，无硬币刚体。",
+      "movement_cost": "actual_path_length_tiles / 3.0 when empty-handed; normal heavy box uses 2.4 tiles/second; reserve travel separately",
+      "budget_policy": "入场前预留路径、操作与一次可见补救窗口；一起装入阶段120秒工作预算，不跨阶段偷偷补做。",
+      "chase_policy": "closeup_blocked_during_active_chase"
+    },
+    {
+      "id": "W03",
+      "name": "货箱验收",
+      "phases": [
+        "N02",
+        "N05"
+      ],
+      "scale": "station_closeup",
+      "verb_ids": [
+        "V03",
+        "V04",
+        "V08"
+      ],
+      "base_operation_seconds": 5,
+      "max_attempt_operation_seconds": 10,
+      "input": "取样放上秤或计量槽，核对实物与箱标，再把箱子推入已验区。",
+      "success_feedback": "写入一次验收记录，货物由待验变成可补货。",
+      "failure_feedback": "数量不符停在隔离区；误签可追溯并要求重新验收。",
+      "modifier_fields": [
+        "expected_quantity",
+        "measurement",
+        "label_visibility",
+        "sample_count",
+        "task_object_ids"
+      ],
+      "implementation_cost": "中：共享计量面板；幻货只改数值和显示，不做液体模拟。",
+      "movement_cost": "actual_path_length_tiles / 3.0 when empty-handed; normal heavy box uses 2.4 tiles/second; reserve travel separately",
+      "budget_policy": "入场前预留路径、操作与一次可见补救窗口；一起装入阶段120秒工作预算，不跨阶段偷偷补做。",
+      "chase_policy": "closeup_blocked_during_active_chase"
+    },
+    {
+      "id": "W04",
+      "name": "货箱搬运",
+      "phases": [
+        "N02",
+        "N03",
+        "N04",
+        "N05"
+      ],
+      "scale": "world",
+      "verb_ids": [
+        "V03",
+        "V05",
+        "V04"
+      ],
+      "base_operation_seconds": 2,
+      "max_attempt_operation_seconds": 6,
+      "input": "拿起箱子，沿路线搬到标记格，放下后确认归位。",
+      "success_feedback": "唯一货箱从来源区转到目标区；进度按真实到达计。",
+      "failure_feedback": "放错可再取；路线阻塞显示不可达，不让箱子永久卡进墙。",
+      "modifier_fields": [
+        "carry_speed",
+        "hands_required",
+        "destination_zone",
+        "min_distance",
+        "max_distance",
+        "face_constraint",
+        "visibility_radius_tiles"
+      ],
+      "implementation_cost": "低：携带挂点加目的区检测。",
+      "movement_cost": "actual_path_length_tiles / 3.0 when empty-handed; normal heavy box uses 2.4 tiles/second; reserve travel separately",
+      "budget_policy": "入场前预留路径、操作与一次可见补救窗口；一起装入阶段120秒工作预算，不跨阶段偷偷补做。",
+      "chase_policy": "world_actions_allowed_subject_to_rules"
+    },
+    {
+      "id": "W05",
+      "name": "货架补货",
+      "phases": [
+        "N02",
+        "N05"
+      ],
+      "scale": "world",
+      "verb_ids": [
+        "V03",
+        "V05",
+        "V07",
+        "V04"
+      ],
+      "base_operation_seconds": 4,
+      "max_attempt_operation_seconds": 8,
+      "input": "从已验箱取一组货，走到目标货格，按住补货直到一组完成。",
+      "success_feedback": "货箱数量减少、货架数量增加，数量守恒。",
+      "failure_feedback": "中断保留已完成小组；放错类可回收后重补。",
+      "modifier_fields": [
+        "shelf_id",
+        "stack_count",
+        "hold_duration",
+        "allowed_facing",
+        "required_light"
+      ],
+      "implementation_cost": "低：库存转移与进度条。",
+      "movement_cost": "actual_path_length_tiles / 3.0 when empty-handed; normal heavy box uses 2.4 tiles/second; reserve travel separately",
+      "budget_policy": "入场前预留路径、操作与一次可见补救窗口；一起装入阶段120秒工作预算，不跨阶段偷偷补做。",
+      "chase_policy": "world_actions_allowed_subject_to_rules"
+    },
+    {
+      "id": "W06",
+      "name": "生肉冷链转移",
+      "phases": [
+        "N03"
+      ],
+      "scale": "world",
+      "verb_ids": [
+        "V03",
+        "V05",
+        "V06",
+        "V04"
+      ],
+      "base_operation_seconds": 2,
+      "max_attempt_operation_seconds": 6,
+      "input": "在库房取得生肉箱，搬到可用冰柜，按存入并合盖。追逐中始终在大地图完成。",
+      "success_feedback": "生肉物件进入冰柜且柜盖闭合，发出可验证的冷藏完成事件。",
+      "failure_feedback": "中途放下仍是同一物件；柜满或断电在目标选取前提示，不能到达后才宣布无解。",
+      "modifier_fields": [
+        "meat_target_id",
+        "freezer_id",
+        "freezer_capacity",
+        "freezer_powered",
+        "carry_speed",
+        "contact_trigger",
+        "carry_route_id"
+      ],
+      "implementation_cost": "低到中：复用搬运与容器状态；不需要气味场。",
+      "movement_cost": "actual_path_length_tiles / 2.6 for the raw-meat task box before allowed event modifiers",
+      "budget_policy": "入场前预留路径、操作与一次可见补救窗口；一起装入阶段120秒工作预算，不跨阶段偷偷补做。",
+      "chase_policy": "world_actions_allowed_subject_to_rules",
+      "raw_meat_carry_speed_tiles_per_second": 2.6
+    },
+    {
+      "id": "W07",
+      "name": "热食制作",
+      "phases": [
+        "N03"
+      ],
+      "scale": "station_closeup",
+      "verb_ids": [
+        "V03",
+        "V04",
+        "V06",
+        "V08",
+        "V09"
+      ],
+      "base_operation_seconds": 6,
+      "max_attempt_operation_seconds": 12,
+      "input": "放入食品、设定加热档、在提示区域完成操作、取出并贴批次标记。",
+      "success_feedback": "食品温度状态更新，真实出餐完成；同一订单可同时满足热食工作和交易量。",
+      "failure_feedback": "错档或失败产生需重做的该份食品与明确时间代价；保留设备停止键。",
+      "modifier_fields": [
+        "recipe_steps",
+        "heat_setting",
+        "qte_profile",
+        "equipment_working",
+        "face_constraint",
+        "task_object_ids"
+      ],
+      "implementation_cost": "中：共享短配方加一个QTE；温度用离散状态。",
+      "movement_cost": "actual_path_length_tiles / 3.0 when empty-handed; normal heavy box uses 2.4 tiles/second; reserve travel separately",
+      "budget_policy": "入场前预留路径、操作与一次可见补救窗口；一起装入阶段120秒工作预算，不跨阶段偷偷补做。",
+      "chase_policy": "closeup_blocked_during_active_chase"
+    },
+    {
+      "id": "W08",
+      "name": "地面清洁",
+      "phases": [
+        "N04"
+      ],
+      "scale": "world",
+      "verb_ids": [
+        "V01",
+        "V07"
+      ],
+      "base_operation_seconds": 3,
+      "max_attempt_operation_seconds": 7,
+      "input": "走到污渍旁，对可见格执行清洁进度，完成后该格状态变为干净/干燥。",
+      "success_feedback": "污渍移除、湿格连通关系更新；可显示清理前后路线。",
+      "failure_feedback": "移开可中止；未完成格仍可见，不隐形再污染。",
+      "modifier_fields": [
+        "dirty_cells",
+        "wet_cells",
+        "hold_duration",
+        "min_distance",
+        "allowed_facing",
+        "task_object_ids"
+      ],
+      "implementation_cost": "低：格子状态与进度，水不需要流体物理。",
+      "movement_cost": "actual_path_length_tiles / 3.0 when empty-handed; normal heavy box uses 2.4 tiles/second; reserve travel separately",
+      "budget_policy": "入场前预留路径、操作与一次可见补救窗口；一起装入阶段120秒工作预算，不跨阶段偷偷补做。",
+      "chase_policy": "world_actions_allowed_subject_to_rules"
+    },
+    {
+      "id": "W09",
+      "name": "垃圾分类与封袋",
+      "phases": [
+        "N04"
+      ],
+      "scale": "station_closeup",
+      "verb_ids": [
+        "V03",
+        "V04",
+        "V09"
+      ],
+      "base_operation_seconds": 4,
+      "max_attempt_operation_seconds": 8,
+      "input": "把废物放入对应容器，闭合内袋，再闭合外桶；以两次明确操作完成。",
+      "success_feedback": "待运容器变成已封存，库存废物数量减少。",
+      "failure_feedback": "错放显示具体物件；未封好保留状态与提示，可追加修正。",
+      "modifier_fields": [
+        "waste_type",
+        "seal_steps",
+        "container_count",
+        "qte_profile"
+      ],
+      "implementation_cost": "低：容器状态及两步配方。",
+      "movement_cost": "actual_path_length_tiles / 3.0 when empty-handed; normal heavy box uses 2.4 tiles/second; reserve travel separately",
+      "budget_policy": "入场前预留路径、操作与一次可见补救窗口；一起装入阶段120秒工作预算，不跨阶段偷偷补做。",
+      "chase_policy": "closeup_blocked_during_active_chase"
+    },
+    {
+      "id": "W10",
+      "name": "垃圾外运",
+      "phases": [
+        "N04"
+      ],
+      "scale": "world",
+      "verb_ids": [
+        "V03",
+        "V05",
+        "V06",
+        "V04"
+      ],
+      "base_operation_seconds": 2,
+      "max_attempt_operation_seconds": 6,
+      "input": "拿起封好的桶，经前后门路线到回收点放下，返回关门。",
+      "success_feedback": "回收登记绑定该桶ID，不能空跑刷完成。",
+      "failure_feedback": "门路受阻时可退回临时存放点；未到回收点不算完成。",
+      "modifier_fields": [
+        "route_id",
+        "door_state",
+        "carry_speed",
+        "min_distance",
+        "face_constraint",
+        "visibility_radius_tiles"
+      ],
+      "implementation_cost": "低：复用搬运和区域检测。",
+      "movement_cost": "actual_path_length_tiles / 3.0 when empty-handed; normal heavy box uses 2.4 tiles/second; reserve travel separately",
+      "budget_policy": "入场前预留路径、操作与一次可见补救窗口；一起装入阶段120秒工作预算，不跨阶段偷偷补做。",
+      "chase_policy": "world_actions_allowed_subject_to_rules"
+    },
+    {
+      "id": "W11",
+      "name": "门灯与设备开关",
+      "phases": [
+        "N01",
+        "N02",
+        "N03",
+        "N04",
+        "N05",
+        "N06"
+      ],
+      "scale": "world",
+      "verb_ids": [
+        "V06"
+      ],
+      "base_operation_seconds": 0.5,
+      "max_attempt_operation_seconds": 2,
+      "input": "走到开关范围按一次，明确显示门、灯、柜盖或设备的新状态。",
+      "success_feedback": "状态变化立即在大地图反馈，触发相应规则条件。",
+      "failure_feedback": "权限不足或卡住先显示原因；动作取消不暗改状态。",
+      "modifier_fields": [
+        "operable_target",
+        "permission",
+        "power",
+        "cooldown",
+        "face_constraint"
+      ],
+      "implementation_cost": "低：统一有限状态开关。",
+      "movement_cost": "actual_path_length_tiles / 3.0 when empty-handed; normal heavy box uses 2.4 tiles/second; reserve travel separately",
+      "budget_policy": "入场前预留路径、操作与一次可见补救窗口；一起装入阶段120秒工作预算，不跨阶段偷偷补做。",
+      "chase_policy": "world_actions_allowed_subject_to_rules"
+    },
+    {
+      "id": "W12",
+      "name": "设备简修",
+      "phases": [
+        "N02",
+        "N03",
+        "N04",
+        "N05"
+      ],
+      "scale": "station_closeup",
+      "verb_ids": [
+        "V06",
+        "V08",
+        "V09"
+      ],
+      "base_operation_seconds": 6,
+      "max_attempt_operation_seconds": 12,
+      "input": "断开需要处理的设备，完成接线/紧固的共享QTE，再复位测试。",
+      "success_feedback": "设备从故障转为可用，材料与时间各扣一次。",
+      "failure_feedback": "失败保持故障并显示损失；不能假装维修成功后才无提示回坏。",
+      "modifier_fields": [
+        "fault_type",
+        "steps",
+        "qte_profile",
+        "part_count",
+        "required_light"
+      ],
+      "implementation_cost": "中：一套共享维修面板；不为每台设备开发电路模拟。",
+      "movement_cost": "actual_path_length_tiles / 3.0 when empty-handed; normal heavy box uses 2.4 tiles/second; reserve travel separately",
+      "budget_policy": "入场前预留路径、操作与一次可见补救窗口；一起装入阶段120秒工作预算，不跨阶段偷偷补做。",
+      "chase_policy": "closeup_blocked_during_active_chase"
+    },
+    {
+      "id": "W13",
+      "name": "盘点与批次记录",
+      "phases": [
+        "N05",
+        "N06"
+      ],
+      "scale": "station",
+      "verb_ids": [
+        "V03",
+        "V06",
+        "V09"
+      ],
+      "base_operation_seconds": 4,
+      "max_attempt_operation_seconds": 8,
+      "input": "到目标货格完成计数，回工位登记实际数；用标签把已盘和待盘分开。",
+      "success_feedback": "生成带货格、时刻与数量的盘点凭证。",
+      "failure_feedback": "漏格保持待盘；重复计数由同一ID去重，不制造凭空损益。",
+      "modifier_fields": [
+        "slot_count",
+        "expected_quantity",
+        "label_visibility",
+        "interruption",
+        "receipt_channel",
+        "task_object_ids"
+      ],
+      "implementation_cost": "低：离散计数和记录。",
+      "movement_cost": "actual_path_length_tiles / 3.0 when empty-handed; normal heavy box uses 2.4 tiles/second; reserve travel separately",
+      "budget_policy": "入场前预留路径、操作与一次可见补救窗口；一起装入阶段120秒工作预算，不跨阶段偷偷补做。",
+      "chase_policy": "world_actions_allowed_subject_to_rules"
+    },
+    {
+      "id": "W14",
+      "name": "工位与物件交接",
+      "phases": [
+        "N01",
+        "N06"
+      ],
+      "scale": "world_station",
+      "verb_ids": [
+        "V03",
+        "V04",
+        "V06",
+        "V10"
+      ],
+      "base_operation_seconds": 4,
+      "max_attempt_operation_seconds": 8,
+      "input": "在交接区交换钥匙/工单/任务物件，核对已形成的活动记录，再授予指定工位权限。",
+      "success_feedback": "真实物件转移与有限权限分别记录，已完成任务有验收结果。",
+      "failure_feedback": "证据不足维持待核；温和隔离不伤关系，但真实占用时间照算。",
+      "modifier_fields": [
+        "handover_object",
+        "permission_scope",
+        "verified_evidence",
+        "actor_presence",
+        "trajectory_record"
+      ],
+      "implementation_cost": "中：任务与权限系统；物件真伪本身不等于人员身份。",
+      "movement_cost": "actual_path_length_tiles / 3.0 when empty-handed; normal heavy box uses 2.4 tiles/second; reserve travel separately",
+      "budget_policy": "入场前预留路径、操作与一次可见补救窗口；一起装入阶段120秒工作预算，不跨阶段偷偷补做。",
+      "chase_policy": "world_actions_allowed_subject_to_rules"
+    },
+    {
+      "id": "W15",
+      "name": "取用与洒放诱饵",
+      "phases": [
+        "N01",
+        "N02",
+        "N03",
+        "N04",
+        "N05",
+        "N06"
+      ],
+      "scale": "world",
+      "verb_ids": [
+        "V03",
+        "V04"
+      ],
+      "base_operation_seconds": 0.5,
+      "max_attempt_operation_seconds": 2,
+      "input": "从确定货架取到诱饵份数，指向附近合法地格洒下一份，生成清楚可见的标记。",
+      "success_feedback": "库存减一、场上标记加一；标记被消费或到期后消失。",
+      "failure_feedback": "无效格不扣物；与墙重叠或不可达位置禁止放置。",
+      "modifier_fields": [
+        "bait_tag",
+        "placement_range",
+        "marker_lifetime",
+        "max_live_markers",
+        "priority_rule",
+        "exit_zone_id"
+      ],
+      "implementation_cost": "低：离散目标点；回形针用一张图标，不做散落粒子物理。",
+      "movement_cost": "actual_path_length_tiles / 3.0 when empty-handed; normal heavy box uses 2.4 tiles/second; reserve travel separately",
+      "budget_policy": "入场前预留路径、操作与一次可见补救窗口；一起装入阶段120秒工作预算，不跨阶段偷偷补做。",
+      "chase_policy": "world_actions_allowed_subject_to_rules"
+    },
+    {
+      "id": "W16",
+      "name": "摆放辅助设施",
+      "phases": [
+        "N01",
+        "N02",
+        "N03",
+        "N04",
+        "N05",
+        "N06"
+      ],
+      "scale": "world",
+      "verb_ids": [
+        "V03",
+        "V04",
+        "V06"
+      ],
+      "base_operation_seconds": 1,
+      "max_attempt_operation_seconds": 3,
+      "input": "将已持有设施放到预设合法节点，确认后启用；回收与补充使用同一操作。",
+      "success_feedback": "节点占用、有限电量/次数和作用范围可见。",
+      "failure_feedback": "节点不合法先拒绝；耐久或次数耗尽明确停机，不隐藏收费。",
+      "modifier_fields": [
+        "deployable_tag",
+        "placement_node",
+        "charges",
+        "duration",
+        "range",
+        "target_tags"
+      ],
+      "implementation_cost": "中：部署节点和范围效果；首版不允许任意建筑改路、连线供电或无限升级。",
+      "movement_cost": "actual_path_length_tiles / 3.0 when empty-handed; normal heavy box uses 2.4 tiles/second; reserve travel separately",
+      "budget_policy": "入场前预留路径、操作与一次可见补救窗口；一起装入阶段120秒工作预算，不跨阶段偷偷补做。",
+      "chase_policy": "world_actions_allowed_subject_to_rules"
+    }
+  ],
+  "predicate_library": [
+    {
+      "id": "inside_zone",
+      "meaning": "对象或角色进入/离开指定区域",
+      "cost": "低：点/矩形或格区检测"
+    },
+    {
+      "id": "distance_band",
+      "meaning": "角色与目标处于给定最小/最大距离，越界先预告",
+      "cost": "低：平方距离；不需要物理碰撞引擎"
+    },
+    {
+      "id": "face_cone",
+      "meaning": "角色朝向是否落在目标的禁止正视角区，结合距离和遮挡",
+      "cost": "低到中：向量点积，首版遮挡只检查货架墙体"
+    },
+    {
+      "id": "object_state",
+      "meaning": "目标是否在指定容器、柜盖是否关闭、设备是否可用",
+      "cost": "低：有限状态与事件"
+    },
+    {
+      "id": "object_path",
+      "meaning": "同一物件或标记沿可达路径转移，不能凭UI选项跳过搬运",
+      "cost": "中：复用寻路和物件ID"
+    },
+    {
+      "id": "action_order",
+      "meaning": "有限2—3步操作是否按流程完成",
+      "cost": "低：短状态机"
+    },
+    {
+      "id": "timing_window",
+      "meaning": "输入发生在清晰显示的有效窗口",
+      "cost": "中：共享QTE；SAN参数由统一系统调整"
+    },
+    {
+      "id": "tag_match",
+      "meaning": "诱饵、设施、宠物的作用标签与目标匹配",
+      "cost": "低：数据标签比较"
+    }
+  ],
+  "complexity_policy": {
+    "configuration_only_examples": [
+      "同一搬运任务更换对象/目标",
+      "距离阈值",
+      "禁止正视角区",
+      "固定湿格数量",
+      "设备是否可用",
+      "诱饵标签与优先级",
+      "已支持QTE的判定区参数"
+    ],
+    "new_system_examples": [
+      "动态液体/气味模拟",
+      "随意推动货架改变导航网格",
+      "多种物理散落物",
+      "每只怪物专有小游戏",
+      "动态破坏建筑",
+      "复杂经济塔防升级树"
+    ],
+    "prototype_max_rule_modifiers_per_task": 2,
+    "prototype_max_local_qte_types": 3,
+    "prototype_deployables_use_fixed_nodes": true,
+    "monster_uniqueness": "不同怪物组合目标、触发和胜利条件；不要求每种都有新输入系统。",
+    "cost_scale": "低/中/高是共享基础系统完成后的相对工作量，不是工期承诺。"
+  },
+  "acceptance_checks": [
+    "16项工作都能无怪物完整执行，并生成可核对的物件/任务状态。",
+    "同一工作加入距离或朝向规则后，玩家用空间行动完成，不只点击文字答案。",
+    "追逐时仍能拾取回形针、洒放、搬生肉、存入冰柜；这些操作不打开暂停特写。",
+    "特写取消、失败、重试的时间与资源只结算一次且有上限，退出不回放隐形追杀。",
+    "单个阶段同时启用不超过两种空间/操作修改，导演按实际路径、操作和补救时间检查120秒工作预算。",
+    "同一库存物件跨取、放、搬、存不会复制；同一工作回执不能重复刷阶段完成或交易量。",
+    "特写阅读准备阶段取消免费；点击开始操作后，无论在首个QTE命中前还是命中后取消/失败，均只结算同一份已明示承诺成本一次。"
+  ],
+  "event_variants_reference": "event_variants.json"
+}

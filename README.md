@@ -1,46 +1,75 @@
 # 午夜便利店 Ruler Control
 
-微信小游戏方向的 2D 规则怪谈经营与生存设计。当前为 **V0.2 设计与内容数据**，游戏客户端尚未实现。所有平衡数值是待试玩的提案。
+面向微信小游戏的2D俯瞰规则怪谈经营与生存设计。当前版本为 **V0.3：先完成便利店交互，再把怪物与事件做成动作题**。
 
-## 本轮已确认的方向
+本仓库包含设计、结构化内容和一个无画面JavaScript规则参考。客户端、地图导航、画面与微信适配尚未实现；数值与相对开发成本均待原型验证。
 
-- 一周为一个周期。七天采用同一套白天与夜晚阶段，变化来自事件、怪物、资源、知识与人员状态。
-- 夜班固定 00:00—06:00，通常每小时一个主遭遇；大型事件占主遭遇位。
-- **V0.1 的 M01—M60 全部废弃**。新库采用 F01—F60，来自世界各地有资料记录的志怪原型。原型特征与本作改编分开记录。
-- 玩家管理精力、SAN、饱腹与体力。精力是慢疲劳，体力是短时行动耐力。
-- 白天可以学习驱魔知识、休息、购物、整备装备及照顾宠物。
-- 临时道具通过常规购买与夜班奖券抽奖获得；装备与宠物形成不同准备策略。
-- 员工共两人：主角与一名同事；另有店长。**同事和店长均可能被假扮**。
+## 当前方向
 
-## 阅读入口
+- 一周一个周期，七天共用日夜阶段；夜班固定00:00—06:00，通常每小时一个新主遭遇。
+- 先设计取放、搬运、扫码、补货、冷链、清洁、开关和部署；怪物改变工作限制，事件改变路线、对象、设备与参数。
+- 低SAN显式缩小QTE判定区并造成黑视，普通按钮、紧急操作、可信HUD和记录保持可用。
+- 三种交互尺度：大地图处理走位和追逐；工位面板安排任务；安全特写处理精细操作。追逐中取、撒、搬、入柜不弹QTE。
+- F12不可杀伊：默认追玩家，玩家取货架回形针、洒地引出店外获胜。
+- F13飞头女鬼：先追任务生肉，触肉后追玩家，玩家搬肉入冰柜解除。
+- 员工两人包含主角，另有店长；同事和店长均可被假扮。四资源、白天学习与休息、抽奖和装备继续采用。
+- 宠物有普通工作辅助和特定怪物作用；便利店材料组成有限的部署装置，帮助玩家完成工作与规则目标。
 
-1. [修订依据与决定边界](docs/00_revision_v02.md)
-2. [固定日夜循环与参考剧](docs/01_core_loop.md)
-3. [四资源与白天安排](docs/02_resources_and_daytime.md)
-4. [同事 店长与假扮系统](docs/03_staff_and_impersonation.md)
-5. [临时道具 抽奖 装备与宠物](docs/04_items_equipment_pets.md)
-6. [72 项随机事件与遭遇调度](docs/05_events_and_director.md)
-7. [60 个志怪原型与便利店交互](docs/06_folklore_bestiary.md)
-8. [20 条渐进解锁店规](docs/07_rules.md)
-9. [原型范围与验收](docs/08_implementation_plan.md)
-10. [来源目录与核验限制](references/README.md)
+## 优先阅读
 
-## 可供程序读取的内容
+1. [V0.3修订依据](docs/00_revision_v03.md)
+2. [16项店务、三种尺度、SAN/QTE、朝向和距离规则](docs/10_interactions_v03.md)
+3. [不可杀伊与飞头女鬼的完整动作和状态机](docs/11_encounters_v03.md)
+4. [即时道具、装备、8种宠物及8种店铺部署](docs/04_items_equipment_pets.md)
+5. [制作顺序、复杂度与验收](docs/08_implementation_plan.md)
 
-- `content/monsters.json`：60 个新原型及来源、证据、交互与条件联动。
-- `content/synergies.json`：18 组组合案例、加难或减难条件，以及必须保留的解法。
-- `content/events.json`：72 项有条件、有选择和后果的事件。
-- `content/items.json`：24 个临时道具和抽奖配置。
-- `content/equipment.json`：6 个槽位、24 件装备。
-- `content/pets.json`：8 个宠物方案。
-- `content/rules.json`：20 条店规及解锁条件。
-- `content/balance.json`：固定阶段、四资源和白天行动提案。
-- `content/sources.json`：来源信息，不包含外部文章全文。
+## 保留并更新的完整设计
 
-60 个原型中，59 个进入默认候选池；F14 附身机制作为进阶可选项保留，默认从遭遇、事件和联动投放中排除。
+| 内容 | 文档 |
+|---|---|
+| 固定日夜循环 | [01_core_loop.md](docs/01_core_loop.md) |
+| 精力、SAN、饱腹与体力 | [02_resources_and_daytime.md](docs/02_resources_and_daytime.md) |
+| 同事、店长与假扮 | [03_staff_and_impersonation.md](docs/03_staff_and_impersonation.md) |
+| 72项随机事件与调度 | [05_events_and_director.md](docs/05_events_and_director.md) |
+| 60个志怪候选 | [06_folklore_bestiary.md](docs/06_folklore_bestiary.md) |
+| 20条渐进店规 | [07_rules.md](docs/07_rules.md) |
+| 验证范围与结果 | [09_validation.md](docs/09_validation.md) |
+| 原型及参考资料 | [来源目录](references/README.md) |
+| 旧版修订依据 | [V0.2历史记录](docs/00_revision_v02.md) |
 
-运行 `python3 scripts/validate_content.py` 检查编号、数量、来源引用、抽奖权重和阶段一致性。该检查不代表已经验证游戏乐趣、实机性能或全部组合的可解性。检查范围见 [验证记录](docs/09_validation.md)。
+V0.1的M01—M60不采用。新的F01—F60是民俗来源支持的候选；F12/F13按V0.3重写，其他58项继续等待店务映射和成本筛选。F14附身作为进阶可选项默认关闭。`enabled_default`只表达完整候选池的意向，运行时还需通过功能实现和可解性门槛，不能据此直接投放59种未开发角色。
 
-## 版本状态
+## 内容数据
 
-用户已确认的是上面的产品方向。具体怪物选择、交互细节、72事件条目、数值和物品列表是本轮提出并同步的设计候选，不标作逐项审定或数值冻结。仓库现有许可证保留，引用来源的原文和现代影视资产不随设计一同复制。
+| 文件 | 用途 |
+|---|---|
+| [interactions.json](content/interactions.json) | 10个动作原语、16项工作、交互尺度和时间约定 |
+| [qte.json](content/qte.json) | 3种QTE、SAN分档、缩区与黑视下限 |
+| [rule_components.json](content/rule_components.json) | 8种朝向、距离、区域、携带与目标组件 |
+| [encounter_blueprints.json](content/encounter_blueprints.json) | F12/F13状态、参数、胜利条件及各3项变体 |
+| [event_variants.json](content/event_variants.json) | 12项事件到工作与怪物的变体映射 |
+| [deployables.json](content/deployables.json) | B01—B08部署、作用范围、次数和升级取舍 |
+| [monsters.json](content/monsters.json) | 60个原型、资料与交互候选 |
+| [events.json](content/events.json) | 72项事件、时间预算与实际动作要求 |
+| [synergies.json](content/synergies.json) | 18组条件组合，含首轮禁配 |
+| [items.json](content/items.json) | 24项临时道具、13项可操作扩展、抽奖与岗位补给 |
+| [equipment.json](content/equipment.json) | 6槽24件装备与实际占手 |
+| [pets.json](content/pets.json) | 8宠物、通用/专属技能、共用次数与照料 |
+| [rules.json](content/rules.json) | 20条店规及解锁 |
+| [balance.json](content/balance.json) | 四资源、日程、预算与投放上限 |
+| [sources.json](content/sources.json) | 57条民俗资料、2条影视官方资料、1条游戏官方介绍 |
+
+## 无画面规则参考与验证
+
+[rule_core.mjs](prototype/rule_core.mjs)实现一部分纯逻辑：SAN缩区、朝向与距离、特写入场与一次结算、F12诱饵状态、F13任务肉触发和入柜凭证、共享受击保护。它不包含完整游戏循环或美术。
+
+```sh
+python3 scripts/validate_content.py
+node prototype/check_rule_core.mjs
+```
+
+内容检查验证引用与配置约束；逻辑检查覆盖20个边界场景。两者都不等于已经完成地图可解性、手机触控、数值平衡或微信实机测试。
+
+## 决定边界
+
+用户明确的玩法方向已写入修订记录。道具数值、宠物技能细节、设施清单与制作阶段为本轮提案；不标作逐项最终审定。资料记载与游戏原创规则分开列出，外部文章与影视、美术资产不打包复制。

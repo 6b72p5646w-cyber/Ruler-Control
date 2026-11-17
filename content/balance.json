@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "0.3",
   "status": "proposal_not_playtested",
   "week_length_days": 7,
   "same_phases_every_day": true,
@@ -94,7 +94,18 @@
       "panic_closes_when": "san_above_zero",
       "post_stabilization_fear_immunity_seconds": 5,
       "post_stabilization_immunity_scope": "fear_san_damage_only",
-      "post_stabilization_immunity_triggers": "once_on_successful_panic_episode_close"
+      "post_stabilization_immunity_triggers": "once_on_successful_panic_episode_close",
+      "precision_profile": "qte.json",
+      "precision_thresholds": [
+        70,
+        40,
+        20,
+        0
+      ],
+      "visible_qte_target_shrinks": true,
+      "blackout_affects_world_and_closeup_periphery": true,
+      "hidden_correct_input_failure_probability": 0,
+      "hud_and_emergency_buttons_masked": false
     },
     "satiety": {
       "min": 0,
@@ -156,7 +167,13 @@
     ],
     "impersonators_max_first_week": 1,
     "hard_conflicts_checked_before_budget": true,
-    "guarantee_from_admission_state_only": true
+    "guarantee_from_admission_state_only": true,
+    "prototype_max_active_player_pursuers": 1,
+    "prototype_simultaneous_f12_f13": false,
+    "max_rule_modifiers_per_task": 2,
+    "requires_feature_gate_before_sampling": true,
+    "includes_qte_retry_and_san_in_budget": true,
+    "new_forced_event_during_active_chase": false
   },
   "day_actions": [
     {
@@ -244,5 +261,14 @@
     "admission_checks_remaining_service_capacity": true,
     "survive_without_completion": "safe_withdrawal_no_completion_reward",
     "daily_basic_food_independent_of_completion": true
+  },
+  "time_budget_semantics": {
+    "night_hour_seconds": 120,
+    "map_time": "world_simulation_seconds",
+    "closeup_time": "advertised_attempt_cost_committed_once_on_exit",
+    "wall_clock_session_duration_is_fixed": false,
+    "no_invisible_movement_or_damage_catchup": true,
+    "energy_and_satiety_use_game_clock_once": true,
+    "paused_world_generates_stamina_recovery": false
   }
 }

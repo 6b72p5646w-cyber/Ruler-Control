@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "0.3",
   "items": [
     {
       "id": "I01",
@@ -38,7 +38,13 @@
       "tradeoff": "不恢复精力与饱腹",
       "tag": "stamina",
       "consumable": true,
-      "design_origin": "original_game_adaptation"
+      "design_origin": "original_game_adaptation",
+      "operational_extension": {
+        "description": "支持大地图快捷使用，恢复体力后可以继续冲刺或搬运；不打开选择题。",
+        "shared_primitive": "resource_delta",
+        "requires_new_item_type": false,
+        "status": "proposal_not_implemented"
+      }
     },
     {
       "id": "I04",
@@ -49,7 +55,13 @@
       "tradeoff": "同一遭遇最多生效2次",
       "tag": "san",
       "consumable": true,
-      "design_origin": "original_game_adaptation"
+      "design_origin": "original_game_adaptation",
+      "operational_extension": {
+        "description": "短按吃糖后恢复SAN；后续新QTE按新SAN结算，已经开始的判定区不突然改动。",
+        "shared_primitive": "resource_delta",
+        "requires_new_item_type": false,
+        "status": "proposal_not_implemented"
+      }
     },
     {
       "id": "I05",
@@ -71,7 +83,16 @@
       "tradeoff": "不修理损坏回路",
       "tag": "light",
       "consumable": true,
-      "design_origin": "original_game_adaptation"
+      "design_origin": "original_game_adaptation",
+      "operational_extension": {
+        "description": "给D03兼容台灯补25电量，不超过容量；不复活已经损坏的设施。",
+        "shared_primitive": "battery_restore",
+        "requires_new_item_type": false,
+        "status": "proposal_not_implemented",
+        "compatible_deployable_ids": [
+          "B03"
+        ]
+      }
     },
     {
       "id": "I07",
@@ -82,7 +103,20 @@
       "tradeoff": "无法封住会主动破坏的实体",
       "tag": "repair",
       "consumable": true,
-      "design_origin": "original_game_adaptation"
+      "design_origin": "original_game_adaptation",
+      "operational_extension": {
+        "description": "在安全工位给尚未损坏的D01恢复1次接触次数；每个实例最多修1次，原上限不变。",
+        "shared_primitive": "limited_charge_restore",
+        "requires_new_item_type": false,
+        "status": "proposal_not_implemented",
+        "compatible_deployable_ids": [
+          "B01"
+        ],
+        "maximum_repairs_per_instance": 1,
+        "may_repair_destroyed_instance": false,
+        "restored_charges": 1,
+        "cannot_exceed_original_capacity": true
+      }
     },
     {
       "id": "I08",
@@ -104,7 +138,13 @@
       "tradeoff": "不能强制违背当前门槛禁忌",
       "tag": "threshold",
       "consumable": true,
-      "design_origin": "original_game_adaptation"
+      "design_origin": "original_game_adaptation",
+      "operational_extension": {
+        "description": "延长一扇已允许开启的普通门，帮助搬箱或布置F12出口；不锁死怪物必需胜利边界。",
+        "shared_primitive": "door_timer_modifier",
+        "requires_new_item_type": false,
+        "status": "proposal_not_implemented"
+      }
     },
     {
       "id": "I10",
@@ -115,7 +155,16 @@
       "tradeoff": "大型实体与活跃危险需使用工位隔离设施",
       "tag": "isolation",
       "consumable": true,
-      "design_origin": "original_game_adaptation"
+      "design_origin": "original_game_adaptation",
+      "operational_extension": {
+        "description": "仍用于小物隔离，不能把任务生肉装袋冒充已进冰柜。",
+        "shared_primitive": "container_tag",
+        "requires_new_item_type": false,
+        "status": "proposal_not_implemented",
+        "not_a_goal_container_for_tags": [
+          "encounter_raw_meat_crate"
+        ]
+      }
     },
     {
       "id": "I11",
@@ -126,7 +175,13 @@
       "tradeoff": "积水会擦除普通粉笔，地图记录仍保留",
       "tag": "path",
       "consumable": true,
-      "design_origin": "original_game_adaptation"
+      "design_origin": "original_game_adaptation",
+      "operational_extension": {
+        "description": "标出玩家选定的搬运路线和回形针投放点，减少低SAN时走错；只显示已知路线，不穿墙探图。",
+        "shared_primitive": "route_marker",
+        "requires_new_item_type": false,
+        "status": "proposal_not_implemented"
+      }
     },
     {
       "id": "I12",
@@ -137,7 +192,13 @@
       "tradeoff": "占用一次物件操作",
       "tag": "wind",
       "consumable": true,
-      "design_origin": "original_game_adaptation"
+      "design_origin": "original_game_adaptation",
+      "operational_extension": {
+        "description": "固定收银/盘点特写中的纸单，抵消一次风吹位移变体；不免除SAN缩区。",
+        "shared_primitive": "block_effect",
+        "requires_new_item_type": false,
+        "status": "proposal_not_implemented"
+      }
     },
     {
       "id": "I13",
@@ -170,7 +231,21 @@
       "tradeoff": "不会驱散寒冷或水域原型",
       "tag": "cold",
       "consumable": true,
-      "design_origin": "original_game_adaptation"
+      "design_origin": "original_game_adaptation",
+      "operational_extension": {
+        "description": "对装在B06转运套中的任务肉箱增加一次30秒普通冷链缓冲，不延长B06的搬运速度增益；不隐藏生肉标签、不停止F13触肉变追人，肉箱仍须由玩家送进冰柜。",
+        "shared_primitive": "item_timer_extension",
+        "requires_new_item_type": false,
+        "status": "proposal_not_implemented",
+        "compatible_deployable_ids": [
+          "B06"
+        ],
+        "ordinary_cold_chain_buffer_add_seconds": 30,
+        "extends_carry_modifier": false,
+        "changes_F13_target_state": false,
+        "can_mark_freezer_goal_complete": false,
+        "target_item_tag": "encounter_raw_meat_crate"
+      }
     },
     {
       "id": "I16",
@@ -181,7 +256,27 @@
       "tradeoff": "仅提供光，驱避效果须原型明确适用",
       "tag": "light",
       "consumable": true,
-      "design_origin": "original_game_adaptation"
+      "design_origin": "original_game_adaptation",
+      "operational_extension": {
+        "description": "在空灯槽插放20秒临时光源，改善该工位黑视；与台灯取较强效果，不相加。",
+        "shared_primitive": "local_light_aura",
+        "requires_new_item_type": false,
+        "status": "proposal_not_implemented",
+        "compatible_deployable_ids": [
+          "B03"
+        ],
+        "deployment_socket_type": "lamp",
+        "counts_toward_deployable_cap": true,
+        "maximum_active_deployables": 3,
+        "spawn_lifetime_seconds": 20,
+        "effect_stacking_group": "local_visibility",
+        "stacking_policy": "strongest_only",
+        "recovery_preserves_instance_and_remaining_lifetime": true,
+        "does_not_restore_san": true
+      },
+      "counts_toward_deployable_cap": true,
+      "deployment_socket_type": "lamp",
+      "recovery_preserves_remaining_lifetime": true
     },
     {
       "id": "I17",
@@ -192,7 +287,13 @@
       "tradeoff": "对无形、飞行实体无效",
       "tag": "trace",
       "consumable": true,
-      "design_origin": "original_game_adaptation"
+      "design_origin": "original_game_adaptation",
+      "operational_extension": {
+        "description": "在地面显示已经经过的实体足迹；F13飞行时不留下足迹，不冒充它的定位器。",
+        "shared_primitive": "trace_reveal",
+        "requires_new_item_type": false,
+        "status": "proposal_not_implemented"
+      }
     },
     {
       "id": "I18",
@@ -214,7 +315,13 @@
       "tradeoff": "不能治疗严重伤势，属于游戏道具",
       "tag": "injury",
       "consumable": true,
-      "design_origin": "original_game_adaptation"
+      "design_origin": "original_game_adaptation",
+      "operational_extension": {
+        "description": "处理一次接触造成的轻伤动作限制，为再次搬运留出机会；不会解除追逐。",
+        "shared_primitive": "status_remove",
+        "requires_new_item_type": false,
+        "status": "proposal_not_implemented"
+      }
     },
     {
       "id": "I20",
@@ -258,7 +365,13 @@
       "tradeoff": "可能同时吸引其他听觉型访客",
       "tag": "sound",
       "consumable": true,
-      "design_origin": "original_game_adaptation"
+      "design_origin": "original_game_adaptation",
+      "operational_extension": {
+        "description": "只吸引明确标有声音诱导能力的对象；F12仍按回形针诱饵，F13仍按生肉/玩家状态选目标。",
+        "shared_primitive": "tagged_lure",
+        "requires_new_item_type": false,
+        "status": "proposal_not_implemented"
+      }
     },
     {
       "id": "I24",
@@ -358,5 +471,13 @@
       "nominal_satiety_total": 65,
       "overflow_destination": "job_supply_locker"
     }
+  },
+  "operational_rules": {
+    "world_quick_use": "大地图快捷输入；是否可在搬运或追逐中使用由占手与动作标签判断，不打开会冻结追击的工位特写。",
+    "no_automatic_encounter_completion": true,
+    "inventory_is_not_satiety": "回形针、生肉和用品使用只扣对应库存；未食用商品不直接减少已获得饱腹。",
+    "qte_parameter_changes": "SAN或技能变化影响下一次QTE，已经开始的QTE不突然更改显示判定区。",
+    "task_meat_container_rule": "封口袋、保冷套、速冷包均不能替代F13的冰柜入柜完成条件。",
+    "illumination_changes_san_value": false
   }
 }

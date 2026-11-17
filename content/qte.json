@@ -1,0 +1,126 @@
+{
+  "version": "0.3",
+  "status": "prototype_proposal_not_playtested",
+  "judgment_policy": "visible_region_matches_logical_region_no_hidden_input_error_roll",
+  "snapshot_modifiers_at_attempt_start": true,
+  "telegraph_seconds_min": 1.5,
+  "timing_window_seconds_min": 0.6,
+  "world_clear_radius_tiles_min": 2.6,
+  "world_mask_excludes": [
+    "hud",
+    "cancel",
+    "pause",
+    "telegraphed_danger_direction"
+  ],
+  "ordinary_button_and_grab_areas_shrink": false,
+  "fear_damage_cooldown_uses_balance_config": true,
+  "bands": [
+    {
+      "id": "stable",
+      "san_min": 70,
+      "san_max": 100,
+      "target_multiplier": 1.0,
+      "clear_radius_tiles": 5.0,
+      "outside_opacity": 0.0
+    },
+    {
+      "id": "uneasy",
+      "san_min": 40,
+      "san_max": 69,
+      "target_multiplier": 0.85,
+      "clear_radius_tiles": 4.2,
+      "outside_opacity": 0.3
+    },
+    {
+      "id": "strained",
+      "san_min": 20,
+      "san_max": 39,
+      "target_multiplier": 0.7,
+      "clear_radius_tiles": 3.4,
+      "outside_opacity": 0.55
+    },
+    {
+      "id": "critical",
+      "san_min": 1,
+      "san_max": 19,
+      "target_multiplier": 0.55,
+      "clear_radius_tiles": 2.6,
+      "outside_opacity": 0.8
+    },
+    {
+      "id": "panic",
+      "san_min": 0,
+      "san_max": 0,
+      "target_multiplier": 0.55,
+      "clear_radius_tiles": 2.6,
+      "outside_opacity": 0.8,
+      "new_precision_qte_allowed": false
+    }
+  ],
+  "templates": [
+    {
+      "id": "QT01",
+      "name": "停针校准",
+      "input": "single_tap_on_visible_sweep",
+      "cycle_seconds": 3.0,
+      "base_target_fraction": 0.4,
+      "target_fraction_max": 0.6,
+      "minimum_visible_window_seconds": 0.6,
+      "timeout": "explicit_rework_cost_no_automatic_success"
+    },
+    {
+      "id": "QT02",
+      "name": "条码对准与拖放",
+      "input": "drag_grabbed_item_to_visible_target",
+      "base_target_width_normalized": 0.4,
+      "minimum_target_width_normalized": 0.22,
+      "shrink_visible_target_with_hitbox": true,
+      "keep_grab_handle_size": true
+    },
+    {
+      "id": "QT03",
+      "name": "短序列与稳定保持",
+      "input": "visible_sequence_or_hold_inside_band",
+      "max_steps": 3,
+      "minimum_hold_seconds": 1.5,
+      "san_changes_prompt_truth": false,
+      "failure": "local_step_rework"
+    }
+  ],
+  "world_actions_without_qte": [
+    "take_paperclips",
+    "scatter_clip_pile",
+    "pick_up_raw_meat_crate",
+    "place_meat_in_freezer",
+    "drop_carried_item",
+    "toggle_safe_door",
+    "use_emergency_item"
+  ],
+  "common_modifier_policy": {
+    "event_precision_multiplier_min": 0.85,
+    "max_event_precision_modifiers": 1,
+    "precision_bonus_fraction_max": 0.12,
+    "same_category_buff_stacking": "strongest_only",
+    "illumination_changes_san_value": false,
+    "target_scale_multiplier_max": 1.12,
+    "precision_increase_combination": "strongest_single_increase_not_sum",
+    "pet_multiplier_contribution_capped_at_normal_target": true
+  },
+  "closeup_time_policy": {
+    "world_and_threat_timers_frozen": true,
+    "local_qte_timer_runs": true,
+    "admit_only_if_no_active_chase": true,
+    "admit_only_if_no_pending_hit": true,
+    "admit_only_if_spatial_rules_satisfied": true,
+    "reserve_attempt_cost_before_entry": true,
+    "cancel_and_failure_consume_advertised_attempt_cost": true,
+    "settle_game_clock_and_work_resource_cost_once_on_exit": true,
+    "replay_unseen_enemy_movement_or_damage_on_exit": false,
+    "admit_only_if_attempt_fits_remaining_phase": true,
+    "open_close_loop_grants_work_or_recovery": false,
+    "system_pause_freezes_local_qte_too": true,
+    "read_only_preparation_is_not_started_attempt": true,
+    "press_start_is_first_committed_input": true,
+    "cost_reserved_on_start_charged_once_on_exit": true
+  }
+}

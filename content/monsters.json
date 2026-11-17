@@ -1,9 +1,9 @@
 {
-  "version": "0.2",
+  "version": "0.3",
   "schema_version": 1,
   "total": 60,
   "supersedes": "V0.1 M01-M60 are not adopted; all current candidates use F identifiers.",
-  "status": "design_candidates_not_executable_ai",
+  "status": "folklore_candidates_with_two_interaction_blueprints",
   "adaptation_policy": "来源只支持原型特征；店内动作、证据、弱点、数值与联动为原创改编。不同地方变体分别注明。",
   "identity_policy": "封签可被转交或盗取；它证明物件流转而非人身身份。高风险权限需两类独立证据。",
   "default_excluded_ids": [
@@ -61,7 +61,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F02",
@@ -115,7 +116,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F03",
@@ -142,8 +144,8 @@
         "stamina": "只在暴露区主动屏息时每秒消耗5；安全侧无需屏息、不会继续扣体力，按正常速率回复。耗尽体力不取消安全边界。"
       },
       "synergy_conditions": {
-        "harder": "地面积水或 F12 吞掉铁制临时挡板可压缩绕行路线；只有仍保留普通步行可达的柜台安全侧、且其隔绝呼吸效果有效时才允许联动。",
-        "easier": "F07 的休息角可缩短两次跨越之间的恢复等待，但基础柜台安全侧始终存在；非金属货架不受 F12 影响。"
+        "harder": "F12的诱饵布点可能把怪物引到屏息通路附近，使玩家需要调整绕行与屏息时机；诱饵点本身不形成新碰撞障碍，必须始终保留普通步行可达、能隔绝呼吸追踪的柜台安全侧。",
+        "easier": "F07的休息角可缩短两次跨越之间的恢复等待，但基础柜台安全侧始终存在。F12完成引出后，地面残留诱饵只作清理标记，不再形成金属破坏或额外追逐。"
       },
       "impersonation": {
         "enabled": false,
@@ -163,7 +165,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F04",
@@ -211,7 +214,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F05",
@@ -259,7 +263,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F06",
@@ -312,7 +317,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F07",
@@ -360,7 +366,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F08",
@@ -387,7 +394,7 @@
         "stamina": "无直接改变"
       },
       "synergy_conditions": {
-        "harder": "F12在场且活器具含铁时，食铁兽会追逐它，器具乱跑占据通道。",
+        "harder": "与F12共用办公用品架时，先把待处理旧器具登记并隔离到待办托盘，再取确定的回形针。追逐开始前须完成取物通路整理，或旁边已有可用备用盒；旧器具本体与废铁都不能充当F12诱饵。",
         "easier": "修好一件非金属扫具后，可让它辅助切断F05水路一次。"
       },
       "impersonation": {
@@ -408,7 +415,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F09",
@@ -456,7 +464,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F10",
@@ -504,7 +513,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F11",
@@ -552,7 +562,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F12",
@@ -565,22 +576,22 @@
       "source_ids": [
         "AS09"
       ],
-      "adaptation_notice": "本店原创：店内分级吞铁与废铁引流；不设统一“用火必杀”，避免把争议变体当事实。",
-      "signature_interaction": "金属摄入成长：它先吞回形针，再盯上货架支架；玩家把废铁沿通向回收箱的路径少量投放，超量投喂会让体型升级。",
+      "adaptation_notice": "本作原创：默认追逐、回形针诱饵点与出店解除；保留民俗食铁特征作为灵感，首版不实现吞铁成长或任意金属破坏。",
+      "signature_interaction": "诱饵引出：不可杀伊默认追玩家。玩家从办公用品货架取回形针，在大地图逐点洒落，利用其转追诱饵和短暂停食的窗口，把它引入门外标记区即胜利。",
       "evidence": [
-        "每吞一件铁物体，躯干刻度明显增加；塑料同形物不引起反应。",
-        "空罐堆会留下啃痕，木质搁板保持完整，材质选择可以实测。"
+        "洒落回形针后，它的目标标记从玩家转向地面金属点；未洒落时持续追玩家。",
+        "它追玩家时在门内止步，追门外回形针时会跨过门槛，行为差异可重复观察。"
       ],
-      "safe_response": "封闭金属零件盒，用基础纸箱隔开回收路线；少量废铁引出后关闭回收箱，或放弃一处货架暂时封区。",
+      "safe_response": "预告中确认回形针货架和可用出口，边绕行边铺诱饵；基础回形针由岗位保证。空体力仍能步行与撒落，备用盒可用额外取物时间换一次补救。",
       "resource_effects": {
-        "energy": "搬迁金属库存消耗5。",
-        "san": "体型升级时减4。",
-        "satiety": "无直接改变",
-        "stamina": "推回收箱消耗12。"
+        "energy": "取物与引导使用普通工作成本，不按每枚回形针额外扣精力。",
+        "san": "受击按共享追逐规则结算；没有吞铁成长额外惊吓。",
+        "satiety": "只随统一时间流逝，不因洒回形针额外扣除。",
+        "stamina": "普通走路、取物、撒落不设硬体力门槛；冲刺照常消耗。"
       },
       "synergy_conditions": {
-        "harder": "F08旧铁壶成灵会成为移动诱饵；铁制装备暂时不可在其范围内使用，但不直接销毁玩家永久装备。",
-        "easier": "木质或塑料基础工具不受影响；已修复的非金属付丧神可引导它远离售卖区。"
+        "harder": "办公用品换位、一个出口关闭或预置推车占道会改变诱导路线；至少保留可达补给、另一出口和足够诱饵。",
+        "easier": "P04小仓鼠可把玩家已经撒出的当前诱饵吃食停留延长1秒，不代放或生成回形针；挡板或减速装置争取布点时间，仍须把怪物引出店外。与F13的双追逐首版禁配。"
       },
       "impersonation": {
         "enabled": false,
@@ -600,7 +611,11 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "encounter_blueprint_id": "F12",
+      "interaction_scale": "world_map_only_during_pursuit",
+      "prototype_status": "mapped_to_shared_store_interactions_v03",
+      "interaction_design_stage": "v03_state_blueprint"
     },
     {
       "id": "F13",
@@ -613,22 +628,22 @@
       "source_ids": [
         "AS10"
       ],
-      "adaptation_notice": "本店原创：废弃食物气味路线、双盖垃圾桶与光团化美术；不声称现代电影造型是唯一古老原貌。",
-      "signature_interaction": "厨余追踪：报废熟食产生可见气味轨迹，它追随未封口的垃圾袋进入后门；玩家按内袋封口—外桶闭盖的顺序运送。",
+      "adaptation_notice": "本作原创：库房生肉目标、触肉后转追玩家、搬入冰柜解除。沿用夜间觅食原型作为灵感，不再使用厨余封袋或气味路径作为本怪胜利条件。",
+      "signature_interaction": "生肉抢运：飞头女鬼先追一箱库房任务生肉；若触肉则预告后转追玩家。玩家拿起该箱生肉，送到标明且可用的冰柜，完成存入并关门，即解除本次遭遇；抢先入柜也可直接成功。",
       "evidence": [
-        "后门外光团只在厨余袋打开时靠近，封口后停止。",
-        "垃圾桶边出现自外向内的湿痕，但干净商品区无接触痕迹。"
+        "入场目标标记指向任务生肉，玩家提起箱子后目标随箱子移动。",
+        "触到未入柜生肉后先有变色与蓄势，随后目标改为玩家；放下肉不取消追杀。"
       ],
-      "safe_response": "停止搬运开口垃圾，先封袋再闭盖，最后用外侧投放口转移；未备道具仍可暂停厨余作业至它离开。",
+      "safe_response": "预先开好到冰柜的通路，使用独立任务携带槽搬一箱肉。体力耗尽仍可步行和存入，生肉不会被怪物吃掉而丢失。存入并关门在大地图一步提交，成功后本实例不再因普通开柜或停电复活。",
       "resource_effects": {
-        "energy": "补做一次封袋消耗3。",
-        "san": "光团近身减6。",
-        "satiety": "可安全食用库存不受它影响；丢弃变质食物不直接扣角色饱腹。",
-        "stamina": "无直接改变"
+        "energy": "沿用搬运工作成本，不为触肉另加隐形时间惩罚。",
+        "san": "受击按共享追逐规则结算，触肉升级先有明确预告。",
+        "satiety": "任务肉属于库存；移动、入柜或污染不直接扣主角已获得的饱腹。",
+        "stamina": "普通携带、拾取与入柜无硬体力门槛，重负荷或冲刺按统一行动配置。"
       },
       "synergy_conditions": {
-        "harder": "默认模式仅由腐败食物事件增加后厨封装压力。只有玩家主动开启进阶附身模块且 F14 已生成时，才追加其空间争夺；最多一个主动追击者进入室内，关闭模块时完全排除该联动。",
-        "easier": "F12只吃铁不吃厨余；非金属双盖桶可同时降低两者影响。"
+        "harder": "任务箱换库位、门关闭或少量湿地改变抢运路线；唯一目标冰柜失效且无替代时禁止投放。",
+        "easier": "P02黑犬可在CHASE_PLAYER追逐态将飞头女鬼移动速度降低30%，持续4秒，不回退怒态或直接解除。落地灯、挡板等帮助搬运，保温袋和垃圾封口不能替代入柜目标。F12/F26的第二主动追逐者首版排除。"
       },
       "impersonation": {
         "enabled": false,
@@ -648,7 +663,11 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "encounter_blueprint_id": "F13",
+      "interaction_scale": "world_map_only_during_pursuit",
+      "prototype_status": "mapped_to_shared_store_interactions_v03",
+      "interaction_design_stage": "v03_state_blueprint"
     },
     {
       "id": "F14",
@@ -675,7 +694,7 @@
         "stamina": "无直接改变"
       },
       "synergy_conditions": {
-        "harder": "仅在进阶附身模块已主动开启且 F14 实际生成时，停电与 F13 厨余溢出才增加封装压力；不得同时关闭全部观察灯。默认模式不调度本条或任何 F14 联动。",
+        "harder": "默认禁用，只有玩家主动开启进阶附身模块且F14实际生成时，才允许核验共享生肉库存与F13搬运任务争用时间。F13唯一任务箱必须独立标记，不能被宿主吞掉或销毁；不再使用厨余溢出或封装压力，且保留独立观察渠道。",
         "easier": "仅在进阶模块开启时，已学“附身与伪装辨析”可帮助保留宿主真实记忆作为辅助线索；不得把真记忆或真封签单独当作身体正常的证明。"
       },
       "impersonation": {
@@ -712,7 +731,8 @@
       },
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F15",
@@ -766,7 +786,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F16",
@@ -814,7 +835,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F17",
@@ -862,7 +884,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F18",
@@ -916,7 +939,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F19",
@@ -964,7 +988,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F20",
@@ -1017,7 +1042,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F21",
@@ -1065,7 +1091,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F22",
@@ -1119,7 +1146,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F23",
@@ -1168,7 +1196,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F24",
@@ -1221,7 +1250,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F25",
@@ -1274,7 +1304,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F26",
@@ -1322,7 +1353,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F27",
@@ -1370,7 +1402,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F28",
@@ -1418,7 +1451,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F29",
@@ -1472,7 +1506,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F30",
@@ -1520,7 +1555,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F31",
@@ -1568,7 +1604,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F32",
@@ -1616,7 +1653,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F33",
@@ -1664,7 +1702,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F34",
@@ -1712,7 +1751,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F35",
@@ -1760,7 +1800,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F36",
@@ -1813,7 +1854,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F37",
@@ -1867,7 +1909,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F38",
@@ -1921,7 +1964,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F39",
@@ -1975,7 +2019,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F40",
@@ -2027,7 +2072,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F41",
@@ -2075,7 +2121,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F42",
@@ -2123,7 +2170,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F43",
@@ -2176,7 +2224,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F44",
@@ -2224,7 +2273,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F45",
@@ -2271,7 +2321,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F46",
@@ -2319,7 +2370,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F47",
@@ -2381,7 +2433,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F48",
@@ -2433,7 +2486,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F49",
@@ -2480,7 +2534,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F50",
@@ -2527,7 +2582,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F51",
@@ -2575,7 +2631,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F52",
@@ -2623,7 +2680,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F53",
@@ -2672,7 +2730,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F54",
@@ -2721,7 +2780,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F55",
@@ -2770,7 +2830,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F56",
@@ -2818,7 +2879,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F57",
@@ -2866,7 +2928,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F58",
@@ -2915,7 +2978,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F59",
@@ -2963,7 +3027,8 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     },
     {
       "id": "F60",
@@ -3021,7 +3086,13 @@
       "advanced_optional": false,
       "design_status": "candidate_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
-      "mechanic_origin": "original_convenience_store_adaptation"
+      "mechanic_origin": "original_convenience_store_adaptation",
+      "interaction_design_stage": "pending_store_interaction_mapping"
     }
+  ],
+  "runtime_admission_policy": "enabled_default标识完整候选池；运行时还须完成店务映射、功能实现和可解性验证，不能仅按该标记投放。",
+  "prototype_blueprint_ids": [
+    "F12",
+    "F13"
   ]
 }

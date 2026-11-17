@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "0.3",
   "events": [
     {
       "id": "E001",
@@ -56,7 +56,12 @@
         "mode": "matched_existing_task",
         "task_kind": "收银",
         "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
-      }
+      },
+      "interaction_variant_ids": [
+        "EV05"
+      ],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E002",
@@ -115,7 +120,10 @@
         "mode": "matched_existing_task",
         "task_kind": "收银",
         "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E003",
@@ -174,7 +182,10 @@
         "mode": "matched_existing_task",
         "task_kind": "退货",
         "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E004",
@@ -243,7 +254,10 @@
         ],
         "reserve_before_acceptance": true,
         "may_overlap_E037_only_if_same_work_object": true
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E005",
@@ -299,7 +313,10 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E006",
@@ -357,7 +374,10 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E007",
@@ -415,7 +435,10 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E008",
@@ -472,7 +495,10 @@
         "mode": "matched_existing_task",
         "task_kind": "已接外卖",
         "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E009",
@@ -529,7 +555,10 @@
         "mode": "matched_existing_task",
         "task_kind": "真实团购",
         "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E010",
@@ -585,7 +614,12 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [
+        "EV01"
+      ],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E011",
@@ -643,7 +677,12 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [
+        "EV06"
+      ],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E012",
@@ -699,7 +738,10 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E013",
@@ -755,7 +797,10 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E014",
@@ -811,7 +856,10 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E015",
@@ -867,7 +915,10 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E016",
@@ -925,7 +976,10 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E017",
@@ -983,7 +1037,10 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E018",
@@ -1039,7 +1096,10 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E019",
@@ -1095,7 +1155,12 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [
+        "EV02"
+      ],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E020",
@@ -1152,7 +1217,12 @@
         "mode": "matched_existing_task",
         "task_kind": "冷链维护",
         "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
-      }
+      },
+      "interaction_variant_ids": [
+        "EV03"
+      ],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E021",
@@ -1211,7 +1281,12 @@
         "mode": "matched_existing_task",
         "task_kind": "热食制作",
         "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
-      }
+      },
+      "interaction_variant_ids": [
+        "EV12"
+      ],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E022",
@@ -1270,7 +1345,12 @@
         "mode": "matched_existing_task",
         "task_kind": "真实订单记录",
         "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
-      }
+      },
+      "interaction_variant_ids": [
+        "EV07"
+      ],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E023",
@@ -1329,7 +1409,10 @@
         "mode": "matched_existing_task",
         "task_kind": "真实支付",
         "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E024",
@@ -1387,7 +1470,10 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E025",
@@ -1445,7 +1531,12 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [
+        "EV04"
+      ],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E026",
@@ -1502,7 +1593,12 @@
         "mode": "matched_existing_task",
         "task_kind": "当前清洁",
         "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
-      }
+      },
+      "interaction_variant_ids": [
+        "EV09"
+      ],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E027",
@@ -1561,7 +1657,12 @@
         "mode": "matched_existing_task",
         "task_kind": "验货",
         "rule": "仅同一订单/货物/设备/地面对象的已完成步骤计入对应工作；重试与事件结束标记不重复记功。"
-      }
+      },
+      "interaction_variant_ids": [
+        "EV08"
+      ],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E028",
@@ -1640,7 +1741,10 @@
         "gentle_isolation_relation_penalty": 0,
         "gentle_isolation_rating_penalty": 0,
         "insufficient_evidence": "继续低风险待核，不恢复高风险权限"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E029",
@@ -1724,7 +1828,12 @@
         "gentle_isolation_relation_penalty": 0,
         "gentle_isolation_rating_penalty": 0,
         "insufficient_evidence": "继续低风险待核，不恢复高风险权限"
-      }
+      },
+      "interaction_variant_ids": [
+        "EV11"
+      ],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E030",
@@ -1808,7 +1917,10 @@
         "gentle_isolation_relation_penalty": 0,
         "gentle_isolation_rating_penalty": 0,
         "insufficient_evidence": "继续低风险待核，不恢复高风险权限"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E031",
@@ -1892,7 +2004,10 @@
         "gentle_isolation_relation_penalty": 0,
         "gentle_isolation_rating_penalty": 0,
         "insufficient_evidence": "继续低风险待核，不恢复高风险权限"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E032",
@@ -1976,7 +2091,10 @@
         "gentle_isolation_relation_penalty": 0,
         "gentle_isolation_rating_penalty": 0,
         "insufficient_evidence": "继续低风险待核，不恢复高风险权限"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E033",
@@ -2058,7 +2176,10 @@
         "gentle_isolation_relation_penalty": 0,
         "gentle_isolation_rating_penalty": 0,
         "insufficient_evidence": "继续低风险待核，不恢复高风险权限"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E034",
@@ -2142,7 +2263,10 @@
         "gentle_isolation_relation_penalty": 0,
         "gentle_isolation_rating_penalty": 0,
         "insufficient_evidence": "继续低风险待核，不恢复高风险权限"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E035",
@@ -2226,7 +2350,10 @@
         "gentle_isolation_relation_penalty": 0,
         "gentle_isolation_rating_penalty": 0,
         "insufficient_evidence": "继续低风险待核，不恢复高风险权限"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E036",
@@ -2310,7 +2437,10 @@
         "gentle_isolation_relation_penalty": 0,
         "gentle_isolation_rating_penalty": 0,
         "insufficient_evidence": "继续低风险待核，不恢复高风险权限"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E037",
@@ -2475,8 +2605,16 @@
         "reject_if_effective_work_exceeds_40_seconds": true,
         "reject_if_other_committed_actions_do_not_fit": true,
         "reject_if_other_large_event_reserved_this_night": true,
-        "conservative_mode_must_be_feasible": true
-      }
+        "conservative_mode_must_be_feasible": true,
+        "requires_revised_work_budget_with_qte_retry": true,
+        "not_during_active_pursuit": true,
+        "preserve_existing_monster_win_conditions": true
+      },
+      "interaction_variant_ids": [
+        "EV10"
+      ],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E038",
@@ -2532,7 +2670,10 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E039",
@@ -2588,7 +2729,10 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E040",
@@ -2644,7 +2788,10 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E041",
@@ -2700,7 +2847,10 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E042",
@@ -2755,7 +2905,10 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E043",
@@ -2809,7 +2962,10 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E044",
@@ -2865,7 +3021,10 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E045",
@@ -2937,7 +3096,10 @@
         "merge_keeps_individual_costs": true,
         "unscheduled_random_roll": false,
         "overflow_policy": "签约前另选有容量的到期夜或放弃新合同，不得签约后静默延期"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E046",
@@ -2993,7 +3155,10 @@
       "work_credit": {
         "mode": "day_action_or_modifier",
         "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": false
     },
     {
       "id": "E047",
@@ -3044,7 +3209,10 @@
       "work_credit": {
         "mode": "preparation_only",
         "rule": "从20—22时的共享可选整备预算扣除明示分钟；不新增白天格，也不计夜间店务。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": false
     },
     {
       "id": "E048",
@@ -3099,7 +3267,10 @@
       "work_credit": {
         "mode": "preparation_only",
         "rule": "从20—22时的共享可选整备预算扣除明示分钟；不新增白天格，也不计夜间店务。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": false
     },
     {
       "id": "E049",
@@ -3158,7 +3329,10 @@
       "work_credit": {
         "mode": "day_action_or_modifier",
         "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": false
     },
     {
       "id": "E050",
@@ -3216,7 +3390,10 @@
       "work_credit": {
         "mode": "day_action_or_modifier",
         "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": false
     },
     {
       "id": "E051",
@@ -3267,7 +3444,10 @@
       "work_credit": {
         "mode": "preparation_only",
         "rule": "从20—22时的共享可选整备预算扣除明示分钟；不新增白天格，也不计夜间店务。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": false
     },
     {
       "id": "E052",
@@ -3325,7 +3505,10 @@
       "work_credit": {
         "mode": "day_action_or_modifier",
         "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": false
     },
     {
       "id": "E053",
@@ -3384,7 +3567,10 @@
       "work_credit": {
         "mode": "day_action_or_modifier",
         "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": false
     },
     {
       "id": "E054",
@@ -3440,7 +3626,10 @@
       "work_credit": {
         "mode": "day_action_or_modifier",
         "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": false
     },
     {
       "id": "E055",
@@ -3498,7 +3687,10 @@
       "work_credit": {
         "mode": "day_action_or_modifier",
         "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": false
     },
     {
       "id": "E056",
@@ -3556,7 +3748,10 @@
       "work_credit": {
         "mode": "day_action_or_modifier",
         "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": false
     },
     {
       "id": "E057",
@@ -3608,7 +3803,10 @@
       "work_credit": {
         "mode": "day_action_or_modifier",
         "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": false
     },
     {
       "id": "E058",
@@ -3664,7 +3862,10 @@
       "work_credit": {
         "mode": "day_action_or_modifier",
         "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": false
     },
     {
       "id": "E059",
@@ -3723,7 +3924,10 @@
       "work_credit": {
         "mode": "day_action_or_modifier",
         "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": false
     },
     {
       "id": "E060",
@@ -3779,7 +3983,10 @@
       "work_credit": {
         "mode": "day_action_or_modifier",
         "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": false
     },
     {
       "id": "E061",
@@ -3835,7 +4042,10 @@
       "work_credit": {
         "mode": "day_action_or_modifier",
         "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": false
     },
     {
       "id": "E062",
@@ -3892,7 +4102,10 @@
       "work_credit": {
         "mode": "day_action_or_modifier",
         "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": false
     },
     {
       "id": "E063",
@@ -3950,7 +4163,10 @@
       "work_credit": {
         "mode": "day_action_or_modifier",
         "rule": "标1的选择占用或替换现有一个2小时格；标0的选择保留原计划或仅修正既有活动，不叠加一项完整活动收益。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": false
     },
     {
       "id": "E064",
@@ -4001,7 +4217,10 @@
       "work_credit": {
         "mode": "reward_or_inventory_resolution",
         "rule": "仅结算已经满足条件的奖励、库存或退款；不产生第二次工作进度和完整行动收益。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": false
     },
     {
       "id": "E065",
@@ -4057,7 +4276,10 @@
       "work_credit": {
         "mode": "reward_or_inventory_resolution",
         "rule": "仅结算已经满足条件的奖励、库存或退款；不产生第二次工作进度和完整行动收益。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E066",
@@ -4108,7 +4330,10 @@
       "work_credit": {
         "mode": "reward_or_inventory_resolution",
         "rule": "仅结算已经满足条件的奖励、库存或退款；不产生第二次工作进度和完整行动收益。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": false
     },
     {
       "id": "E067",
@@ -4166,7 +4391,10 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E068",
@@ -4224,7 +4452,10 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E069",
@@ -4282,7 +4513,10 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E070",
@@ -4340,7 +4574,10 @@
       "work_credit": {
         "mode": "additional_handling",
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E071",
@@ -4419,7 +4656,10 @@
         ],
         "no_retroactive_due_date_change": true,
         "no_silent_forgiveness_or_extra_penalty": true
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": true
     },
     {
       "id": "E072",
@@ -4470,7 +4710,10 @@
       "work_credit": {
         "mode": "reward_or_inventory_resolution",
         "rule": "仅结算已经满足条件的奖励、库存或退款；不产生第二次工作进度和完整行动收益。"
-      }
+      },
+      "interaction_variant_ids": [],
+      "selection_alone_completes_night_work": false,
+      "requires_actual_world_or_station_work": false
     }
   ],
   "note": "72项为候选内容池；七天阶段完全一致。所有事件有明确允许小时、处理预算、截止点与工作计入方式；白天结算不增加隐形时间，异常人员事件必须绑定获准F实例。",
@@ -4501,5 +4744,7 @@
     "work_credit": "只有完成实际动作、匹配真实对象并记录验收才抵扣对应工作；同一动作不可重复计进度，事件结束不自动完成店务。",
     "deferred_effects": "天气、空间和库存占用若跨小时，先登记下一阶段负担；不能用本次处理结束来免费消除残留。",
     "runtime_binding": "bound_entity_id模板为null；人员异常必须绑定通过所有硬约束检查且具有对应能力的F系列运行时实例。事件不创建、复制或重新抽样实体。"
-  }
+  },
+  "choices_semantics": "夜间choices是处置计划；必须执行实际工作并产生凭证才完成。白天选择按行动格结算。",
+  "interaction_variants_reference": "event_variants.json"
 }

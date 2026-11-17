@@ -1,0 +1,602 @@
+{
+  "version": "0.3",
+  "status": "design_variants_not_implemented_runtime",
+  "total": 12,
+  "global_policy": {
+    "source_event_catalog": "events.json",
+    "work_catalog": "interactions.json",
+    "rule_component_catalog": "qte.json",
+    "same_fixed_daily_phases": true,
+    "no_new_primary_entity_from_variant": true,
+    "preserve_monster_core_win_predicates": true,
+    "implemented_feature_gates_required": true,
+    "enabled_by_default_means_candidate_only": "默认候选仍须通过所有功能已实现、怪物已启用及可解性检查；当前文件不是可运行调度器。"
+  },
+  "event_variants": [
+    {
+      "id": "EV01",
+      "event_id": "E010",
+      "work_template_ids": [
+        "W08",
+        "W10"
+      ],
+      "monster_ids": [
+        "F05"
+      ],
+      "premise": "暴雨让门口与清洁区产生固定湿格。",
+      "modifier_field": "wet_cells",
+      "player_action": "清理关键连接格，再从干燥路线外运垃圾。",
+      "implementation_note": "湿区列表与一次连通检查；不做真实流体。",
+      "hard_admission_gate": "必须保留至少一条可清出的干燥退路。",
+      "status": "design_case_not_executable_rule",
+      "implementation_stage": "expansion",
+      "enabled_by_default": false,
+      "implementation_gate": {
+        "required_work_templates": [
+          "W08",
+          "W10"
+        ],
+        "required_encounters": [
+          "F05"
+        ],
+        "required_rule_components": [
+          "RC04",
+          "RC08"
+        ],
+        "required_features": [
+          "wet_grid_state",
+          "wet_path_connectivity",
+          "work_object_receipts"
+        ],
+        "all_required_features_must_be_implemented_and_enabled": true,
+        "not_implemented_behavior": "exclude_from_sampling",
+        "requires_admission_validation": true
+      },
+      "victory_contract": {
+        "preserve_monster_core_win_predicate": true,
+        "event_completion_never_substitutes_for_monster_victory": true,
+        "only_declared_parameter_overrides": true,
+        "no_mid_encounter_rewrite_of_goal": true,
+        "parameter_changes_previewed_before_acceptance": true
+      },
+      "work_budget_contract": "将新增路程、操作和一次补救成本计入原阶段120秒工作预算；无法容纳则不投放，不扩大阶段。"
+    },
+    {
+      "id": "EV02",
+      "event_id": "E019",
+      "work_template_ids": [
+        "W03",
+        "W12"
+      ],
+      "monster_ids": [
+        "F02"
+      ],
+      "premise": "停电使验货与维修工位进入暗区。",
+      "modifier_field": "required_light",
+      "player_action": "先部署或开启应急灯，再进入工位特写；朝向锁定不因打开面板取消。",
+      "implementation_note": "灯区标签；暂停世界的特写只允许在当前已安全工位开启。",
+      "hard_admission_gate": "基础应急照明可确定获取，不能把唯一证据和唯一灯一起取消。",
+      "status": "design_case_not_executable_rule",
+      "implementation_stage": "expansion",
+      "enabled_by_default": false,
+      "implementation_gate": {
+        "required_work_templates": [
+          "W03",
+          "W12"
+        ],
+        "required_encounters": [
+          "F02"
+        ],
+        "required_rule_components": [
+          "RC08"
+        ],
+        "required_features": [
+          "light_zones",
+          "safe_closeup_admission",
+          "facing_lock"
+        ],
+        "all_required_features_must_be_implemented_and_enabled": true,
+        "not_implemented_behavior": "exclude_from_sampling",
+        "requires_admission_validation": true
+      },
+      "victory_contract": {
+        "preserve_monster_core_win_predicate": true,
+        "event_completion_never_substitutes_for_monster_victory": true,
+        "only_declared_parameter_overrides": true,
+        "no_mid_encounter_rewrite_of_goal": true,
+        "parameter_changes_previewed_before_acceptance": true
+      },
+      "work_budget_contract": "将新增路程、操作和一次补救成本计入原阶段120秒工作预算；无法容纳则不投放，不扩大阶段。"
+    },
+    {
+      "id": "EV03",
+      "event_id": "E020",
+      "work_template_ids": [
+        "W06",
+        "W11"
+      ],
+      "monster_ids": [
+        "F13"
+      ],
+      "premise": "一个冰柜故障，生肉需要搬至另一台可用冰柜。",
+      "modifier_field": "freezer_id",
+      "player_action": "先确认可用柜位置与容量，再搬运；遭追逐时仍通过大地图存入合盖。",
+      "implementation_note": "有限容器状态、目标替换。",
+      "hard_admission_gate": "首轮默认禁用，属于expansion。只有备用冰柜在投放前已验证可达、可用、已通电且有指定生肉箱的足够容量，且F13核心胜利谓词能原样满足时才可启用；任一条件不满足即不投放。",
+      "status": "design_case_not_executable_rule",
+      "implementation_stage": "expansion",
+      "enabled_by_default": false,
+      "implementation_gate": {
+        "required_work_templates": [
+          "W06",
+          "W11"
+        ],
+        "required_encounters": [
+          "F13"
+        ],
+        "required_rule_components": [
+          "RC05",
+          "RC07",
+          "RC08"
+        ],
+        "required_features": [
+          "verified_backup_freezer",
+          "container_capacity",
+          "powered_container_state",
+          "raw_meat_chase_state_machine"
+        ],
+        "all_required_features_must_be_implemented_and_enabled": true,
+        "not_implemented_behavior": "exclude_from_sampling",
+        "requires_admission_validation": true
+      },
+      "victory_contract": {
+        "preserve_monster_core_win_predicate": true,
+        "event_completion_never_substitutes_for_monster_victory": true,
+        "only_declared_parameter_overrides": true,
+        "no_mid_encounter_rewrite_of_goal": true,
+        "parameter_changes_previewed_before_acceptance": true
+      },
+      "work_budget_contract": "将新增路程、操作和一次补救成本计入原阶段120秒工作预算；无法容纳则不投放，不扩大阶段。",
+      "backup_freezer_requirement": {
+        "verified_before_encounter_admission": true,
+        "reachable": true,
+        "powered_and_usable": true,
+        "capacity_for_bound_meat_object": true,
+        "known_to_player": true,
+        "default_first_prototype_enabled": false
+      }
+    },
+    {
+      "id": "EV04",
+      "event_id": "E025",
+      "work_template_ids": [
+        "W11",
+        "W15"
+      ],
+      "monster_ids": [
+        "F12"
+      ],
+      "premise": "后门锁卡，使引导出口改用前门。",
+      "modifier_field": "exit_zone_id",
+      "player_action": "先验证可走出口，再从货架取回形针，沿可达地格洒放引出店外。",
+      "implementation_note": "共享门状态和诱饵目标点。",
+      "hard_admission_gate": "投放前验证至少一个出口可达，并在F12入场前固定本遭遇的有效出口配置。不能同时锁住两个出口或让诱饵只可摆在怪物不可达格；打开门本身不算驱离成功。",
+      "status": "design_case_not_executable_rule",
+      "implementation_stage": "first_prototype_candidate",
+      "enabled_by_default": true,
+      "implementation_gate": {
+        "required_work_templates": [
+          "W11",
+          "W15"
+        ],
+        "required_encounters": [
+          "F12"
+        ],
+        "required_rule_components": [
+          "RC06",
+          "RC08"
+        ],
+        "required_features": [
+          "door_state",
+          "reachable_exit_precheck",
+          "bait_markers",
+          "bait_target_priority"
+        ],
+        "all_required_features_must_be_implemented_and_enabled": true,
+        "not_implemented_behavior": "exclude_from_sampling",
+        "requires_admission_validation": true
+      },
+      "victory_contract": {
+        "preserve_monster_core_win_predicate": true,
+        "event_completion_never_substitutes_for_monster_victory": true,
+        "only_declared_parameter_overrides": true,
+        "no_mid_encounter_rewrite_of_goal": true,
+        "parameter_changes_previewed_before_acceptance": true
+      },
+      "work_budget_contract": "将新增路程、操作和一次补救成本计入原阶段120秒工作预算；无法容纳则不投放，不扩大阶段。"
+    },
+    {
+      "id": "EV05",
+      "event_id": "E001",
+      "work_template_ids": [
+        "W01",
+        "W02"
+      ],
+      "monster_ids": [
+        "F60"
+      ],
+      "premise": "客流增加，服务窗口出现背影与转身预告。",
+      "modifier_field": "face_constraint",
+      "player_action": "保持角色朝向，处理手边订单，按明确预告调整遮挡。",
+      "implementation_note": "角色朝向检测与有限可见角区；订单面板不自动转头。",
+      "hard_admission_gate": "两个必要动作必须能在同一可用工位完成；不能要求无预告转身。",
+      "status": "design_case_not_executable_rule",
+      "implementation_stage": "expansion",
+      "enabled_by_default": false,
+      "implementation_gate": {
+        "required_work_templates": [
+          "W01",
+          "W02"
+        ],
+        "required_encounters": [
+          "F60"
+        ],
+        "required_rule_components": [
+          "RC01",
+          "RC08"
+        ],
+        "required_features": [
+          "facing_lock",
+          "face_cone_predicate",
+          "telegraphed_turn",
+          "service_slot"
+        ],
+        "all_required_features_must_be_implemented_and_enabled": true,
+        "not_implemented_behavior": "exclude_from_sampling",
+        "requires_admission_validation": true
+      },
+      "victory_contract": {
+        "preserve_monster_core_win_predicate": true,
+        "event_completion_never_substitutes_for_monster_victory": true,
+        "only_declared_parameter_overrides": true,
+        "no_mid_encounter_rewrite_of_goal": true,
+        "parameter_changes_previewed_before_acceptance": true
+      },
+      "work_budget_contract": "将新增路程、操作和一次补救成本计入原阶段120秒工作预算；无法容纳则不投放，不扩大阶段。"
+    },
+    {
+      "id": "EV06",
+      "event_id": "E011",
+      "work_template_ids": [
+        "W04",
+        "W10"
+      ],
+      "monster_ids": [
+        "F42"
+      ],
+      "premise": "浓雾减弱门外信息，哨声不能直接判断安全距离。",
+      "modifier_field": "visibility_radius_tiles",
+      "player_action": "先看门槛状态或影长对照，再搬出或撤回。",
+      "implementation_note": "雾遮罩与固定距离反馈，不模拟音波。",
+      "hard_admission_gate": "SAN黑视与浓雾取较强值或受总下限限制，不能叠至无可见退路。",
+      "status": "design_case_not_executable_rule",
+      "implementation_stage": "expansion",
+      "enabled_by_default": false,
+      "implementation_gate": {
+        "required_work_templates": [
+          "W04",
+          "W10"
+        ],
+        "required_encounters": [
+          "F42"
+        ],
+        "required_rule_components": [
+          "RC02",
+          "RC08"
+        ],
+        "required_features": [
+          "visibility_overlay",
+          "visible_distance_evidence",
+          "combined_visibility_floor"
+        ],
+        "all_required_features_must_be_implemented_and_enabled": true,
+        "not_implemented_behavior": "exclude_from_sampling",
+        "requires_admission_validation": true
+      },
+      "victory_contract": {
+        "preserve_monster_core_win_predicate": true,
+        "event_completion_never_substitutes_for_monster_victory": true,
+        "only_declared_parameter_overrides": true,
+        "no_mid_encounter_rewrite_of_goal": true,
+        "parameter_changes_previewed_before_acceptance": true
+      },
+      "work_budget_contract": "将新增路程、操作和一次补救成本计入原阶段120秒工作预算；无法容纳则不投放，不扩大阶段。"
+    },
+    {
+      "id": "EV07",
+      "event_id": "E022",
+      "work_template_ids": [
+        "W02",
+        "W13"
+      ],
+      "monster_ids": [
+        "F16"
+      ],
+      "premise": "打印纸卡住，同时现金盘中固定面额硬币减少。",
+      "modifier_field": "receipt_channel",
+      "player_action": "临时封闭现金盘，改用本地金额记录与硬币路径交叉核查。",
+      "implementation_note": "纸本通道关闭，但数字记录和世界移动仍可观察。",
+      "hard_admission_gate": "不能同时删除金额记录与硬币移动证据。",
+      "status": "design_case_not_executable_rule",
+      "implementation_stage": "expansion",
+      "enabled_by_default": false,
+      "implementation_gate": {
+        "required_work_templates": [
+          "W02",
+          "W13"
+        ],
+        "required_encounters": [
+          "F16"
+        ],
+        "required_rule_components": [
+          "RC08"
+        ],
+        "required_features": [
+          "cash_ledger",
+          "cash_tray_state",
+          "visible_coin_trace"
+        ],
+        "all_required_features_must_be_implemented_and_enabled": true,
+        "not_implemented_behavior": "exclude_from_sampling",
+        "requires_admission_validation": true
+      },
+      "victory_contract": {
+        "preserve_monster_core_win_predicate": true,
+        "event_completion_never_substitutes_for_monster_victory": true,
+        "only_declared_parameter_overrides": true,
+        "no_mid_encounter_rewrite_of_goal": true,
+        "parameter_changes_previewed_before_acceptance": true
+      },
+      "work_budget_contract": "将新增路程、操作和一次补救成本计入原阶段120秒工作预算；无法容纳则不投放，不扩大阶段。"
+    },
+    {
+      "id": "EV08",
+      "event_id": "E027",
+      "work_template_ids": [
+        "W03",
+        "W05"
+      ],
+      "monster_ids": [
+        "F01"
+      ],
+      "premise": "货物送错验收点，幻货又改变标签所示与真实计量关系。",
+      "modifier_field": "sample_count",
+      "player_action": "把货移到确定计量台，取样并完成称量，异常箱隔离后再补正常货。",
+      "implementation_note": "换目标点、计量参数和箱子状态。",
+      "hard_admission_gate": "计量台与隔离区都可达，不额外写物流系统。",
+      "status": "design_case_not_executable_rule",
+      "implementation_stage": "expansion",
+      "enabled_by_default": false,
+      "implementation_gate": {
+        "required_work_templates": [
+          "W03",
+          "W05"
+        ],
+        "required_encounters": [
+          "F01"
+        ],
+        "required_rule_components": [
+          "RC08"
+        ],
+        "required_features": [
+          "measurement_panel",
+          "quantity_records",
+          "isolation_container"
+        ],
+        "all_required_features_must_be_implemented_and_enabled": true,
+        "not_implemented_behavior": "exclude_from_sampling",
+        "requires_admission_validation": true
+      },
+      "victory_contract": {
+        "preserve_monster_core_win_predicate": true,
+        "event_completion_never_substitutes_for_monster_victory": true,
+        "only_declared_parameter_overrides": true,
+        "no_mid_encounter_rewrite_of_goal": true,
+        "parameter_changes_previewed_before_acceptance": true
+      },
+      "work_budget_contract": "将新增路程、操作和一次补救成本计入原阶段120秒工作预算；无法容纳则不投放，不扩大阶段。"
+    },
+    {
+      "id": "EV09",
+      "event_id": "E026",
+      "work_template_ids": [
+        "W06",
+        "W08"
+      ],
+      "monster_ids": [
+        "F13"
+      ],
+      "premise": "库房漏水在生肉搬运路上增加数格湿区。",
+      "modifier_field": "carry_route_id",
+      "player_action": "先清一条短通路，或接受有限速度损失直接搬运；放下生肉仍保留唯一物件ID。",
+      "implementation_note": "格子移动代价与搬运状态。",
+      "hard_admission_gate": "扩展阶段才启用；携肉基速为2.6格/秒，应用漏水修正后重新检查全程追逐可解性。不能把所有路径减速到无保守逃脱解，不能更换F13的核心冰柜解除条件。",
+      "status": "design_case_not_executable_rule",
+      "implementation_stage": "expansion",
+      "enabled_by_default": false,
+      "implementation_gate": {
+        "required_work_templates": [
+          "W06",
+          "W08"
+        ],
+        "required_encounters": [
+          "F13"
+        ],
+        "required_rule_components": [
+          "RC04",
+          "RC05",
+          "RC07",
+          "RC08"
+        ],
+        "required_features": [
+          "wet_grid_move_cost",
+          "carry_speed_modifiers",
+          "chase_feasibility_check"
+        ],
+        "all_required_features_must_be_implemented_and_enabled": true,
+        "not_implemented_behavior": "exclude_from_sampling",
+        "requires_admission_validation": true
+      },
+      "victory_contract": {
+        "preserve_monster_core_win_predicate": true,
+        "event_completion_never_substitutes_for_monster_victory": true,
+        "only_declared_parameter_overrides": true,
+        "no_mid_encounter_rewrite_of_goal": true,
+        "parameter_changes_previewed_before_acceptance": true
+      },
+      "work_budget_contract": "将新增路程、操作和一次补救成本计入原阶段120秒工作预算；无法容纳则不投放，不扩大阶段。"
+    },
+    {
+      "id": "EV10",
+      "event_id": "E037",
+      "work_template_ids": [
+        "W03",
+        "W07",
+        "W08",
+        "W13"
+      ],
+      "monster_ids": [],
+      "premise": "百鬼夜行与当前固定阶段的工作合并。",
+      "modifier_field": "task_object_ids",
+      "player_action": "仍做实际验货、分装、清洁或盘点，只把来客与限制条件换成巡游版本。",
+      "implementation_note": "复用现有工作模板，特殊订单使用同一凭证体系。",
+      "hard_admission_gate": "扩展阶段且巡游调度已实现才启用；每个阶段实际必需工作仍落入40秒预留预算，额外QTE失败补救不够则缩减可选交易或不投放，不能扩大总工作预算。",
+      "status": "design_case_not_executable_rule",
+      "implementation_stage": "expansion",
+      "enabled_by_default": false,
+      "implementation_gate": {
+        "required_work_templates": [
+          "W03",
+          "W07",
+          "W08",
+          "W13"
+        ],
+        "required_encounters": [],
+        "required_rule_components": [
+          "RC08"
+        ],
+        "required_features": [
+          "parade_slot_reservation",
+          "embedded_phase_work",
+          "receipt_deduplication",
+          "retry_time_reservation"
+        ],
+        "all_required_features_must_be_implemented_and_enabled": true,
+        "not_implemented_behavior": "exclude_from_sampling",
+        "requires_admission_validation": true
+      },
+      "victory_contract": {
+        "preserve_monster_core_win_predicate": true,
+        "event_completion_never_substitutes_for_monster_victory": true,
+        "only_declared_parameter_overrides": true,
+        "no_mid_encounter_rewrite_of_goal": true,
+        "parameter_changes_previewed_before_acceptance": true
+      },
+      "work_budget_contract": "将新增路程、操作和一次补救成本计入原阶段120秒工作预算；无法容纳则不投放，不扩大阶段。"
+    },
+    {
+      "id": "EV11",
+      "event_id": "E029",
+      "work_template_ids": [
+        "W14"
+      ],
+      "monster_ids": [
+        "F38"
+      ],
+      "premise": "同事同时出现在两处，试图接收钥匙或工单。",
+      "modifier_field": "actor_presence",
+      "player_action": "将两者置于不同待核点，对照此前已完成的三步作业，保留高权限冻结。",
+      "implementation_note": "已有轨迹记录加两个实例，不为事件另生无原型怪物。",
+      "hard_admission_gate": "必须已有三步可靠活动；物件与其照片不算两种来源。",
+      "status": "design_case_not_executable_rule",
+      "implementation_stage": "expansion",
+      "enabled_by_default": false,
+      "implementation_gate": {
+        "required_work_templates": [
+          "W14"
+        ],
+        "required_encounters": [
+          "F38"
+        ],
+        "required_rule_components": [
+          "RC08"
+        ],
+        "required_features": [
+          "staff_permissions",
+          "independent_evidence",
+          "three_step_history",
+          "bound_entity_events"
+        ],
+        "all_required_features_must_be_implemented_and_enabled": true,
+        "not_implemented_behavior": "exclude_from_sampling",
+        "requires_admission_validation": true
+      },
+      "victory_contract": {
+        "preserve_monster_core_win_predicate": true,
+        "event_completion_never_substitutes_for_monster_victory": true,
+        "only_declared_parameter_overrides": true,
+        "no_mid_encounter_rewrite_of_goal": true,
+        "parameter_changes_previewed_before_acceptance": true
+      },
+      "work_budget_contract": "将新增路程、操作和一次补救成本计入原阶段120秒工作预算；无法容纳则不投放，不扩大阶段。"
+    },
+    {
+      "id": "EV12",
+      "event_id": "E021",
+      "work_template_ids": [
+        "W07",
+        "W11"
+      ],
+      "monster_ids": [
+        "F58"
+      ],
+      "premise": "微波炉停转，但热食工作与暖食边界同时需要处理。",
+      "modifier_field": "equipment_working",
+      "player_action": "换用已明确可用的另一热食设备，或关闭对应营业区，承担有限收益损失。",
+      "implementation_note": "设备替换或区域关闭；不增加复杂温控模拟。",
+      "hard_admission_gate": "免费保守处理始终存在，不能强迫买稀有设备才能过关。",
+      "status": "design_case_not_executable_rule",
+      "implementation_stage": "expansion",
+      "enabled_by_default": false,
+      "implementation_gate": {
+        "required_work_templates": [
+          "W07",
+          "W11"
+        ],
+        "required_encounters": [
+          "F58"
+        ],
+        "required_rule_components": [
+          "RC04",
+          "RC08"
+        ],
+        "required_features": [
+          "equipment_availability",
+          "verified_alternate_heater",
+          "safe_sales_zone_closure"
+        ],
+        "all_required_features_must_be_implemented_and_enabled": true,
+        "not_implemented_behavior": "exclude_from_sampling",
+        "requires_admission_validation": true
+      },
+      "victory_contract": {
+        "preserve_monster_core_win_predicate": true,
+        "event_completion_never_substitutes_for_monster_victory": true,
+        "only_declared_parameter_overrides": true,
+        "no_mid_encounter_rewrite_of_goal": true,
+        "parameter_changes_previewed_before_acceptance": true
+      },
+      "work_budget_contract": "将新增路程、操作和一次补救成本计入原阶段120秒工作预算；无法容纳则不投放，不扩大阶段。"
+    }
+  ]
+}
