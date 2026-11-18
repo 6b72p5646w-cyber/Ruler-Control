@@ -1,5 +1,5 @@
 {
-  "version": "0.8",
+  "version": "0.9",
   "status": "design_proposal_not_playtested",
   "week_length_days": 7,
   "same_phases_every_day": true,
@@ -759,5 +759,6 @@
     "base_rule_unlocks_still_progressive": true,
     "base_rule_unlock_contract": "content/rules.json#/unlock_policy",
     "free_does_not_mean_all_rules_unlocked_at_new_game": true
-  }
+  },
+  "day_cycle_contract": "content/integration_v09.json#/calendar"
 }

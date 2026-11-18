@@ -1,0 +1,63 @@
+{
+  "version": "0.9",
+  "scope": "Two authored monster practice scenes and finite day/resource/settlement integration. No complete six-wave night, sixty-monster director or WeChat release is implemented.",
+  "production_runtime_enabled": false,
+  "canonical_blueprints_modified": false,
+  "practice": {
+    "encounter_ids": ["F12", "F13"],
+    "map_id": "MAP_STORE",
+    "interior_tiles": [30, 30],
+    "viewport_tiles": [12, 15],
+    "separate_fork_of_personal_resources": true,
+    "awards_official_wage_or_ticket": false,
+    "returns_effects_or_items_to_original_day_state": false,
+    "world_step_seconds_max": 0.05,
+    "budget_seconds_per_practice": 120,
+    "pause_freezes_world_resources_and_panic": true,
+    "ordinary_movement_requires_stamina": false,
+    "sprinting_implemented": false,
+    "door_interactions_read_W11": true,
+    "F12_only_declared_front_exit_zone": true,
+    "F13_reuses_same_meat_atomic_delivery": true,
+    "same_frame_delivery_before_attack": true
+  },
+  "state_ownership": {
+    "night_san_and_panic": "condition_core",
+    "day_san_other_resources_inventory_and_coffee_debt": "day_cycle_core",
+    "world_positions_collisions_actions_and_monster_targets": "world_core",
+    "customer_patience_clock": "actual_world_time_only",
+    "F53_qualification": "consumer_core_same_two_bottles_only",
+    "formal_payments": "campaign_id_and_night_id_ledger",
+    "mirrors_never_award_resources_independently": true,
+    "actual_hit_is_not_passive_fear_cap": true
+  },
+  "calendar": {
+    "clock": "absolute_game_minutes",
+    "night_budget_seconds_per_game_minute": 2,
+    "day_action_slots": 6,
+    "minutes_per_day_action": 120,
+    "sleep_satiety_per_game_hour": 1,
+    "awake_satiety_per_game_hour": 3,
+    "day_energy_uses_only_declared_action_costs": true,
+    "precision_budget_cost_does_not_regenerate_stamina": true,
+    "coffee_due_after_game_minutes": 60,
+    "coffee_debt_survives_day_and_save_boundaries": true,
+    "same_time_due_debts_before_action_rewards": true,
+    "daily_food_claim_survives_save_and_retry": true,
+    "successful_day_to_night_transition_does_not_refill_resources": true,
+    "short_lived_night_statuses_do_not_create_permanent_injury": true
+  },
+  "settlement": {
+    "manager_arrival_budget_seconds": 700,
+    "true_six_budget_seconds": 720,
+    "same_attempt_qte_san_outcome_before_true_six_checks": true,
+    "F53_old_single_object_demo_forbidden_in_integrated_session": true,
+    "F53_payment_after_verified_handover": true,
+    "current_manager_body_requires_actual_arrival_and_bound_observations": true,
+    "two_independent_sources_must_match_saved_baseline": true,
+    "completed_key_and_account_handover_required": true,
+    "wage_and_ticket_dedup_key": ["campaignId", "nightId"],
+    "changing_run_id_does_not_reset_rewards": true,
+    "world_fact_authentication_is_external_to_reference": true
+  }
+}

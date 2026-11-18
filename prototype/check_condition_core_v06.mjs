@@ -7,7 +7,7 @@ import {
   announceBloodEncounter, offerOptionalEncounter, declineOptionalEncounter,
   acceptDawnPromise, advanceConditionWorld, beginPrecisionAttempt,
   advancePrecisionLocal, finishPrecisionAttempt,
-  applyConditionFear, beginPortableStabilization, interruptPortableStabilization
+  applyConditionFear, beginPortableStabilization, interruptPortableStabilization, commitConditionSanDelta
 } from './condition_core_v06.mjs';
 
 const contract = JSON.parse(readFileSync(new URL('../content/condition_lifecycle_v06.json', import.meta.url), 'utf8'));
@@ -604,6 +604,94 @@ test('A trace expiring at the movement endpoint frees one live-mark slot without
   assert.equal(old.live, false); assert.equal(old.expiresAt, expiry);
   assert.equal(Object.values(s.traces).filter(t => t.live).length, 6);
   assert.equal(Object.values(s.traces).filter(t => Math.abs(t.bornAt - expiry) < 1e-8).length, 1);
+});
+
+test('Actual SAN effects use one ledger and bypass only passive-fear caps', () => {
+  const s=fixture({initialSan:60});
+  const a=commitConditionSanDelta(s,{receiptId:'hit-real',delta:-25,sourceKind:'actual_hit'});
+  assert.equal(a.ok,true);assert.equal(a.actualDelta,-25);assert.equal(s.san,35);
+  const repeat=commitConditionSanDelta(s,{receiptId:'hit-real',delta:-25,sourceKind:'actual_hit'});
+  assert.equal(repeat.replayed,true);assert.equal(s.san,35);
+  assert.equal(commitConditionSanDelta(s,{receiptId:'hit-real',delta:-20,sourceKind:'actual_hit'}).ok,false);
+});
+test('Zero from coffee starts panic and real food closes it without spending free stabilization', () => {
+  const s=fixture({initialSan:1});
+  const loss=commitConditionSanDelta(s,{receiptId:'coffee-due',delta:-2,sourceKind:'coffee_due'});
+  assert.equal(loss.panicStarted,true);assert.equal(s.panic.deadline,20);
+  advanceConditionWorld(s,2);
+  const food=commitConditionSanDelta(s,{receiptId:'mint-used',delta:8,sourceKind:'verified_item'});
+  assert.equal(food.panicClosed,true);assert.equal(s.panic.active,false);assert.equal(s.panic.used,false);
+  assert.equal(s.panic.fearImmuneUntil,7);
+  advanceConditionWorld(s,1);commitConditionSanDelta(s,{receiptId:'second-mint',delta:8,sourceKind:'verified_item'});
+  assert.equal(s.panic.fearImmuneUntil,7);
+});
+test('Invalid, paused and wrong-mode SAN receipts do not mutate state', () => {
+  const s=fixture();
+  for(const command of [{receiptId:'x',delta:NaN,sourceKind:'actual_hit'},
+      {receiptId:'x',delta:2,sourceKind:'actual_hit'},{receiptId:'x',delta:-2,sourceKind:'verified_item'},
+      {receiptId:'x',delta:2,sourceKind:'unknown'},{receiptId:'x',delta:5,sourceKind:'earned_shift_reward'}]) {
+    const before=JSON.stringify(s);assert.equal(commitConditionSanDelta(s,command).ok,false);assert.equal(JSON.stringify(s),before);
+  }
+  setConditionPause(s,true);assert.equal(commitConditionSanDelta(s,{receiptId:'p',delta:-2,sourceKind:'actual_hit'}).ok,false);
+  setConditionPause(s,false);advanceConditionWorld(s,720);
+  assert.equal(commitConditionSanDelta(s,{receiptId:'late-food',delta:8,sourceKind:'verified_item'}).ok,false);
+  assert.equal(commitConditionSanDelta(s,{receiptId:'earned',delta:5,sourceKind:'earned_shift_reward'}).ok,true);
+});
+test('A real precision failure at exactly six applies SAN before the safety verdict', () => {
+  const s=fixture({initialSan:5});advanceConditionWorld(s,712);
+  const a=beginPrecisionAttempt(s,{costSeconds:8});assert.equal(a.ok,true);
+  const r=finishPrecisionAttempt(s,{attemptId:a.attemptId,outcome:'failed',
+    sanOutcome:{receiptId:'wake-failure',delta:-6,sourceKind:'rest_failure'}});
+  assert.equal(r.ok,true);assert.equal(s.budget,720);assert.equal(s.san,0);
+  assert.equal(s.panic.active,true);assert.equal(s.mode,'failed_shift');
+  assert.equal(finishPrecisionAttempt(s,{attemptId:a.attemptId,outcome:'failed',
+    sanOutcome:{receiptId:'wake-failure',delta:-6,sourceKind:'rest_failure'}}).ok,false);
+  assert.equal(s.budget,720);assert.equal(s.san,0);
+});
+test('A legitimate precision recovery at exactly six is applied before successful handover mode', () => {
+  const s=fixture({initialSan:1});advanceConditionWorld(s,712);
+  const a=beginPrecisionAttempt(s,{costSeconds:8});
+  const r=finishPrecisionAttempt(s,{attemptId:a.attemptId,outcome:'success',
+    sanOutcome:{receiptId:'prepared-recovery',delta:5,sourceKind:'verified_item'}});
+  assert.equal(r.sanResult.actualDelta,5);assert.equal(s.mode,'handover_only');assert.equal(s.san,6);
+});
+test('An invalid precision SAN outcome neither spends the reserved cost nor consumes the attempt', () => {
+  const s=fixture({initialSan:40});advanceConditionWorld(s,712);
+  const a=beginPrecisionAttempt(s,{costSeconds:8});const before=JSON.stringify(s);
+  assert.equal(finishPrecisionAttempt(s,{attemptId:a.attemptId,outcome:'failed',
+    sanOutcome:{receiptId:'bad',delta:6,sourceKind:'rest_failure'}}).ok,false);
+  assert.equal(JSON.stringify(s),before);
+  assert.equal(finishPrecisionAttempt(s,{attemptId:a.attemptId,outcome:'cancelled'}).ok,true);
+  assert.equal(s.budget,720);assert.equal(s.san,40);
+});
+
+test('A 0.05-second loop completes portable stabilization at exactly eight simulated seconds', () => {
+  const s=fixture({initialSan:0});assert.equal(beginPortableStabilization(s).ok,true);
+  for(let i=0;i<160;i++)advanceConditionWorld(s,0.05);
+  assert.equal(s.panic.active,false);assert.equal(s.panic.progress,8);assert.equal(s.san,15);
+  assert.ok(Math.abs(s.world-8)<1e-8);
+});
+test('The same finite tolerance honors exact twenty-second recovery but rejects a real 0.01-second lateness', () => {
+  const equal=fixture({initialSan:0});advanceConditionWorld(equal,12);beginPortableStabilization(equal);
+  for(let i=0;i<160;i++)advanceConditionWorld(equal,0.05);
+  assert.equal(equal.mode,'night');assert.equal(equal.panic.active,false);
+  const late=fixture({initialSan:0});advanceConditionWorld(late,12.01);beginPortableStabilization(late);
+  for(let i=0;i<160;i++)advanceConditionWorld(late,0.05);
+  assert.equal(late.mode,'failed_shift');assert.equal(late.panic.active,true);
+  assert.ok(Math.abs(late.world-20)<1e-8);
+});
+test('World action completion and hazard readiness use the same small-frame boundary tolerance', () => {
+  const s=fixture();const a=beginRecordedWork(s,{kind:'receive_return',objectId:'glass1'});
+  for(let i=0;i<40;i++)advanceConditionWorld(s,0.05);
+  assert.equal(s.actions[a.actionId].state,'completed');
+  const h=announceGlassHazard(s,{returnReceiptId:s.actions[a.actionId].receiptId,objectId:'glass1'});
+  for(let i=0;i<60;i++)advanceConditionWorld(s,0.05);
+  assert.equal(contactGlassHazard(s,{incidentId:h.incidentId,method:'bare_hand_contact'}).ok,true);
+});
+test('Small-frame accumulation dispatches all fixed phase and true-six boundaries without an extra frame', () => {
+  const s=fixture();for(let i=0;i<14400;i++)advanceConditionWorld(s,0.05);
+  assert.equal(s.mode,'handover_only');assert.equal(s.budget,720);assert.equal(s.managerArrived,true);
+  assert.equal(s.markers.filter(m=>!m.dispatched).length,0);
 });
 
 console.log(JSON.stringify({status: 'PASS', scenarioCount: passed.length, scenarios: passed,

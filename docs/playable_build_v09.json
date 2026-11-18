@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "standalone_html": "prototype/playable_v09.html",
+  "bytes": 520292,
+  "sha256": "521ce74207eff30f0bef3d4d9baabe0a1a035250a382896609434f802c128c34",
+  "module_count": 7,
+  "source_sha256": {
+    "prototype/playable_v09.mjs": "3a218e2b4e46c8ca99b39c47f8800fc0acc13087d11d295a76ca217987c17f54",
+    "prototype/practice_session_core_v09.mjs": "3a7599b0c3b036119c987df08daef37c69ba2e58768f896d58ac3aba5f73c47f",
+    "prototype/world_core_v09.mjs": "7f7ed5d657c73fef401517684dd4973512bf086d77d06039c1e4e21969fc86ab",
+    "prototype/rule_core.mjs": "474acecf2e46948000a19c47dfe58ea1e19776451eea63b8e3107f81be21e12c",
+    "prototype/day_cycle_core_v09.mjs": "1d291ff7a584e26da5fc741ab6e8b59d280a667c3a5dca4749357393d08fd5f7",
+    "prototype/day_knowledge_core_v08.mjs": "8b73eb77a1867f7bb6d2a2784c77c7fdeace6bb81ee94a83e52b017768167939",
+    "prototype/condition_core_v06.mjs": "ad76d678c9dc974e2f4877969c3aff93967175d9510837796120b3476fa8f03d",
+    "content/maps.json": "773e39b35bc16c63e6b4f294e27f8a944072599f21b8ad1bae46527f0a093b9a",
+    "content/encounter_blueprints.json": "e76c13f935738b87e362bb904ec93985b3730cb9c66b85481e1c8ee30f19c266",
+    "content/map_mechanics_v05.json": "d83825248f740035fa7924ff3b6845b127f10453a3ed78a64c7444d3deb2c03d",
+    "content/interactions.json": "dc40b3513869a06125ca7af1188e298788220e6732cda111cb4e421246f12d93",
+    "content/balance.json": "cdce3665e569e64b51a7403f850ff9c221e44f6f4c9e99879aeffbefc7271315",
+    "content/condition_lifecycle_v06.json": "c0d144c40637e8f53a8f1489fe3307c7e709bb3a3c97e4395b479a24f3d53996",
+    "content/items.json": "d622435eff00e24a2bf996edcf31e72d6fb8c23c9f2a4da1768069eef020496f",
+    "content/qte.json": "cc23cea190904e846f5c6b162c7b8f82aefa3aadef3bd581cefe13bc90c5771a",
+    "content/integration_v09.json": "304a0ded5ab4522bb9931a0d90c260354be7cc86b597c95821ff8f196d03b51b",
+    "prototype/playable_v09.css": "6d93c30e9ba681eeea001689cd42996611b969933782e7219c2b04b271537ccb",
+    "prototype/playable_v09.template.html": "6f21516ef96da12646ee7f6865ba02d6f35288b0138a500725d152751dd2c88f"
+  },
+  "scope": "Reproducible single-file build; functionality and rendering are checked separately."
+}

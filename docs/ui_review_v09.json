@@ -1,0 +1,126 @@
+{
+  "review": "V0.9 playable source and finite Node event review",
+  "status": "SOURCE_AND_NODE_REVIEW_COMPLETE",
+  "reviewed_at_utc": "2026-11-18T16:39:19.837231+00:00",
+  "scope": {
+    "source_review": true,
+    "public_api_execution_in_node": true,
+    "extracted_callback_simulation_in_node": true,
+    "real_browser_dom_execution": false,
+    "real_browser_rendering": false,
+    "physical_mobile_touch": false,
+    "real_browser_localStorage": false,
+    "repository_files_modified_by_reviewer": false
+  },
+  "source_sha256": {
+    "prototype/playable_v09.mjs": "3a218e2b4e46c8ca99b39c47f8800fc0acc13087d11d295a76ca217987c17f54",
+    "prototype/playable_v09.template.html": "6f21516ef96da12646ee7f6865ba02d6f35288b0138a500725d152751dd2c88f",
+    "prototype/playable_v09.css": "6d93c30e9ba681eeea001689cd42996611b969933782e7219c2b04b271537ccb",
+    "prototype/day_cycle_core_v09.mjs": "1d291ff7a584e26da5fc741ab6e8b59d280a667c3a5dca4749357393d08fd5f7",
+    "prototype/practice_session_core_v09.mjs": "3a7599b0c3b036119c987df08daef37c69ba2e58768f896d58ac3aba5f73c47f",
+    "prototype/world_core_v09.mjs": "7f7ed5d657c73fef401517684dd4973512bf086d77d06039c1e4e21969fc86ab"
+  },
+  "conclusion": "No remaining startup or ordinary day-flow blocking problem was found within the source/API scope. This does not establish browser rendering, mobile usability or browser storage correctness.",
+  "findings": [
+    {
+      "id": "SRC_BAG_01",
+      "severity": "medium",
+      "state": "FIXED_BY_ROOT_AND_REVIEWED",
+      "source": "prototype/playable_v09.mjs:139-149",
+      "original_problem": "Bag use resumed time and dismissed its dialog before an in-progress world action caused usePracticeItem to reject the item. The original item remained, but the chase resumed with only a generic toast.",
+      "reproduction": "Claim job food; start F12; walk to the stationery shelf; begin the one-second take_clips action; open the bag before completion; attempt food use.",
+      "current_fix": "Only active sessions without a world action expose usable buttons. The callback guards again, commits use synchronously, restores pause and keeps an explanatory bag dialog on failure, and dismisses the dialog only after success.",
+      "evidence": "Original behavior reproduced through public APIs. Current callback body extracted from source and executed against the actual Session API with plain Node element stubs."
+    },
+    {
+      "id": "SRC_BAG_02",
+      "severity": "low",
+      "state": "FIXED_BY_ROOT_AND_REVIEWED",
+      "source": "prototype/playable_v09.mjs:139-149",
+      "original_problem": "Finished exercises displayed apparently usable bag buttons whose callback silently returned.",
+      "current_fix": "Finished exercises show an explicit notice and disabled buttons; the callback retains its terminal-state guard.",
+      "evidence": "Static source inspection and terminal-state callback simulation."
+    },
+    {
+      "id": "SRC_PAUSE_01",
+      "state": "SUSPECTED_ISSUE_NOT_REPRODUCED",
+      "source": "prototype/practice_session_core_v09.mjs:29-32; prototype/playable_v09.mjs:47-48,85-91,133-134",
+      "hypothesis": "Clearing UI keys and pointers without clearing the world direction could cause automatic movement after pause.",
+      "evidence": "Every reviewed UI pause route uses Session.setPracticePaused, which clears both world direction and path when pausing. A pure Node run confirmed no paused time advance and no player movement on resume without new input."
+    }
+  ],
+  "source_checks": [
+    {
+      "kind": "export_contract_match",
+      "result": "MATCHED",
+      "detail": "All 20 distinct Cycle/Session/World functions referenced by the entry module exist as callable exports: 9 Cycle, 10 Session, 1 World."
+    },
+    {
+      "kind": "literal_element_reference_match",
+      "result": "MATCHED",
+      "detail": "All 45 literal element IDs referenced by the entry module are present in the template or dynamically declared markup. This is textual matching, not a browser DOM test."
+    },
+    {
+      "kind": "day_button_parameters",
+      "result": "MATCHED",
+      "detail": "Ordinary actions pass actionId; learning passes A03 and a declared pageId; purchase passes declared itemId; use passes actual item-instance ID; prep and commute use their corresponding calendar APIs."
+    },
+    {
+      "kind": "input_release_paths",
+      "result": "SOURCE_CHECKED",
+      "detail": "D-pad pointerdown sets capture; pointerup, pointercancel and lostpointercapture release direction. Keyup releases keys; blur and hidden-document paths clear keys/pointers and pause through the session adapter."
+    },
+    {
+      "kind": "touch_target_declarations",
+      "result": "SOURCE_CHECKED",
+      "detail": "Latest CSS declares 44px minimums for directional, action, emergency, top action, dialog close, aim-cancel and inventory-use buttons. Computed dimensions and viewport fit were not measured."
+    },
+    {
+      "kind": "save_routes",
+      "result": "SOURCE_CHECKED",
+      "detail": "Successful day actions serialize the day state; visibility hiding saves the parent day state; restore exceptions produce a fresh day and a warning. Practice state is a separate fork and is not written to the day storage key."
+    }
+  ],
+  "node_public_api_observations": [
+    {
+      "flow": "day study/shop/use/restore/preparation",
+      "result": "EXECUTED_AS_EXPECTED",
+      "detail": "08:00 claim food; study K01; complete five sleep slots; reach 20:00 preparation; buy and consume one I05; serialize/restore; finish prep and commute. K01, original objects, daily claim and coffee debt survive restore. Coffee consumed at minute 1200 settles at 1260 during prep; commute ends at minute 1440 with night_ready and zero remaining slots."
+    },
+    {
+      "flow": "pause and movement",
+      "result": "ASSERTIONS_SATISFIED",
+      "detail": "After actual directional movement, pausing cleared direction/path, advancing while paused did not change world time, and resuming without a new input did not move the player."
+    },
+    {
+      "flow": "bag during actual work before fix",
+      "result": "ORIGINAL_REJECTION_REPRODUCED",
+      "detail": "Actual walk to the stationery anchor and take_clips began successfully; the original unpause-then-use sequence returned exercise_not_available_for_item without consuming food and left time unpaused."
+    }
+  ],
+  "node_extracted_callback_simulations": {
+    "method": "The current data-use onclick function body was read from playable_v09.mjs and executed in Node with the real Session module and small plain-object stand-ins for three elements. No browser DOM or event dispatch was used.",
+    "assertions_satisfied": [
+      "In-progress world work guards retain pause, dialog and original item.",
+      "Successful actual consumption occurs before dialog dismissal and unpauses the exercise.",
+      "Repeated use of an already-consumed item keeps the dialog open, restores pause and sets feedback.",
+      "The third mint in one encounter is rejected with the declared reason; the third original mint remains unconsumed and time stays paused.",
+      "A naturally finished exercise retains pause and original inventory when the callback is invoked."
+    ]
+  },
+  "unverified": [
+    "Actual browser execution and visual rendering.",
+    "Real mobile touch/pointer-capture behavior and viewport/scroll fit.",
+    "Real browser storage permissions, persistence across navigation and reload.",
+    "Full-night UI, which is outside this two-exercise slice."
+  ],
+  "notes": "No browser automation, external hosting or access workaround was attempted by this reviewer. No previously frozen documentation or repository source was edited during this review.",
+  "browser_acceptance": {
+    "status": "NOT_COMPLETED",
+    "native_attempt": "Chromium window opened, but the native input interface could not connect to the accessibility provider.",
+    "cloud_attempt": "Local file URL was rejected by the browser URL policy; no alternate protocol or hosting workaround was attempted.",
+    "rendering_pass_claimed": false,
+    "mobile_device_pass_claimed": false,
+    "wechat_pass_claimed": false
+  }
+}

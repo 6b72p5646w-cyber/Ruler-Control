@@ -1,0 +1,103 @@
+{
+  "status": "PASS",
+  "scenarioCount": 18,
+  "scenarios": [
+    {
+      "name": "Practice starts from an isolated day copy and keeps its declared case, SAN and unique instance authority",
+      "status": "PASS"
+    },
+    {
+      "name": "F12 completes through actual shelf pickup and four casts, consuming time and passive resources exactly once",
+      "status": "PASS"
+    },
+    {
+      "name": "F13 completes with the same actual carried crate and a closed functional registered freezer at zero stamina",
+      "status": "PASS"
+    },
+    {
+      "name": "An actual enemy hit changes all SAN copies once and records only one first-hit minor injury",
+      "status": "PASS"
+    },
+    {
+      "name": "Paused action, pursuit, panic, coffee and resource clocks all remain frozen",
+      "status": "PASS"
+    },
+    {
+      "name": "A real preparation coffee debt crossing into a practice settles once at its actual due minute",
+      "status": "PASS"
+    },
+    {
+      "name": "Initial zero SAN can stabilize while really walking, then finish F13 without an invented recovery receipt",
+      "status": "PASS"
+    },
+    {
+      "name": "Only actual started work interrupts portable stabilization; an invalid distant action does not",
+      "status": "PASS"
+    },
+    {
+      "name": "Zero SAN without a recovery ends at the real panic deadline and stops all modules at that instant",
+      "status": "PASS"
+    },
+    {
+      "name": "A real eight-second stabilization ending at the panic deadline succeeds without adding a hidden frame",
+      "status": "PASS"
+    },
+    {
+      "name": "Starting stabilization genuinely 0.01 seconds too late cannot borrow time beyond the panic deadline",
+      "status": "PASS"
+    },
+    {
+      "name": "An actual verified mint restores all SAN copies once and cannot be consumed or credited twice",
+      "status": "PASS"
+    },
+    {
+      "name": "Unknown food and supplies needing their own world action cannot be used as instant practice recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual store completion at an attack endpoint wins before that same-frame hit is applied",
+      "status": "PASS"
+    },
+    {
+      "name": "Objective completion with newly due zero-SAN debt stays active until real stabilization finishes",
+      "status": "PASS"
+    },
+    {
+      "name": "Completing, re-entering pause and repeated ticking never mints a second terminal result or campaign reward",
+      "status": "PASS"
+    },
+    {
+      "name": "An unavailable world setup never advances any of the three clocks or consumes the day inventory",
+      "status": "PASS"
+    },
+    {
+      "name": "Cancelling an actual store retains the original meat and cannot complete either the encounter or exercise",
+      "status": "PASS"
+    }
+  ],
+  "witnesses": [
+    {
+      "id": "integrated_F12",
+      "seconds": 14.050000000000065,
+      "san": 80,
+      "casts": 4,
+      "remainingClips": 2,
+      "officialRewardGranted": false
+    },
+    {
+      "id": "integrated_F13",
+      "seconds": 9.900000000000006,
+      "san": 50,
+      "sameMeat": "practice-test-2:meat",
+      "officialRewardGranted": false
+    },
+    {
+      "id": "actual_store_before_same_endpoint_attack",
+      "seconds": 21.450000000000166,
+      "san": 80,
+      "deliveryReceipts": 1
+    }
+  ],
+  "errors": [],
+  "scope": "Integrated isolated F12/F13 practice with actual world movement/actions, synchronized SAN and panic, exact dated resource debt and no campaign reward writes. Does not prove a full six-wave night, all monsters, mobile UI, production persistence or arbitrary simultaneous events."
+}

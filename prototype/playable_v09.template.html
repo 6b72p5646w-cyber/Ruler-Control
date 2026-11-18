@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#101815"><title>午夜便利店 · 规则实操</title>
+  <style>/* BUILD_CSS */</style>
+</head>
+<body>
+<div class="app">
+  <header class="masthead"><a class="brand" href="#" aria-label="午夜便利店"><span class="brand-mark">夜</span><span>午夜便利店<small>MIDNIGHT MART</small></span></a><span class="edition"><i></i>规则实操 · V0.9</span></header>
+  <main class="layout">
+    <aside class="left-rail">
+      <p class="eyebrow">THE NIGHT SHIFT</p><h1>营业到天亮。<br><em>记住每条规则。</em></h1>
+      <p class="lede">货物要归位，门要关好。<br>来客的要求，需要多看一眼。</p>
+      <nav class="case-list" aria-label="实操场景">
+        <button class="case-button selected" data-case="F12"><span class="case-number">01</span><span><strong>门外的金属声</strong><small>回形针 · 距离 · 诱离</small></span><span>↗</span></button>
+        <button class="case-button" data-case="F13"><span class="case-number">02</span><span><strong>不要碰那箱生肉</strong><small>搬运 · 追逐 · 封存</small></span><span>↗</span></button>
+      </nav>
+      <div class="rail-note"><span>一间店，五屏空间。</span><p>使用真实门店布局。沿过道走近物件，才能取用和交付。</p></div>
+      <button class="text-button" id="day-open">☀ 白天安排与补给 <span>↗</span></button>
+      <div class="rail-bottom">两项独立练习 · 自由重试<br>完成练习不会发放正式工资</div>
+    </aside>
+    <section class="game-panel" aria-label="游戏区域">
+      <div class="shift-bar"><div><span class="live-dot"></span><span id="shift-label">01:00</span><span id="shift-name">验货与补货</span></div><div class="top-actions"><button id="rules-open" title="查看店规并暂停" aria-label="查看店规">规</button><button id="pause" title="暂停" aria-label="暂停">Ⅱ</button></div></div>
+      <div class="resource-strip" id="resources" aria-label="主角四项资源"></div>
+      <div class="stage-wrap" id="stage-wrap">
+        <canvas id="world" width="432" height="540" aria-label="便利店俯瞰地图，点击地面移动"></canvas>
+        <div class="world-caption"><span id="zone-label">商品货架</span><span class="view-label">12 × 15格视野</span></div>
+        <div class="omen" id="omen" role="status">金属碰撞声，正从货架另一侧传来。</div>
+        <div class="aim-note" id="aim-note" hidden>点选1.5格内的空地，洒下回形针 <button id="aim-cancel">取消</button></div>
+        <div class="work-progress" id="work-progress" hidden><span id="work-label"></span><div><i id="work-fill"></i></div></div>
+        <div class="stage-overlay" id="overlay"><div class="overlay-card"><span class="eyebrow" id="overlay-kicker">夜班培训 / 01</span><h2 id="overlay-title">门外的金属声</h2><p id="overlay-text">先到文具架取回形针，再逐点洒向正门外。它追的是地上的金属声。</p><button class="primary" id="overlay-start">开始实操 <span>→</span></button><p class="overlay-hint" id="overlay-hint">点击地面 / 方向键移动 · 靠近后交互</p></div></div>
+        <div class="toast" id="toast" role="status"></div>
+      </div>
+      <div class="carry-bar"><span id="carry">双手空闲</span><span id="remaining">本轮余时 120秒</span></div>
+      <div class="controls">
+        <div class="dpad" aria-label="移动方向"><button data-dir="0,-1" class="up" aria-label="向上移动">↑</button><button data-dir="-1,0" class="left" aria-label="向左移动">←</button><button data-dir="0,1" class="down" aria-label="向下移动">↓</button><button data-dir="1,0" class="right" aria-label="向右移动">→</button><span class="dpad-center">·</span></div>
+        <div class="action-controls"><button id="interact" class="interact">靠近文具架</button><div><button id="secondary">洒回形针</button><button id="facing" aria-pressed="false">锁朝向</button></div></div>
+      </div>
+      <div class="emergency-row"><button id="stabilize" disabled>安定呼吸</button><button id="bag-open">随身补给 <span id="bag-count">0</span></button><button id="retry">↻ 重来</button></div>
+    </section>
+    <aside class="right-rail">
+      <div class="task-paper"><span class="paper-pin"></span><p class="eyebrow">值班备忘</p><h2 id="task-title">让它自己走出去</h2><ol id="task-steps"></ol><div class="task-footer">先看条件，再动手。</div></div>
+      <div class="map-card"><div class="card-heading"><span>门店平面</span><small>你在这里</small></div><canvas id="minimap" width="272" height="300" aria-label="全店地图，仅显示已知位置与玩家"></canvas><div class="map-legend"><i></i>员工 <b></b>目标工位</div></div>
+      <div class="small-note"><strong>练习说明</strong><p>练习使用日间资源与补给的副本。返回白天后，正式资产不受影响。</p><p>移动、撒放、取肉与关柜均在地图中完成，没有选答案代替操作。</p></div>
+    </aside>
+  </main>
+  <footer class="footer"><span>营业时间 00:00—06:00</span><span>两怪验证切片 · 完整夜班仍在开发</span></footer>
+</div>
+<div class="dialog-backdrop" id="dialog-backdrop" hidden><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title"><header><div><p class="eyebrow" id="dialog-kicker">员工手册</p><h2 id="dialog-title">值班规则</h2></div><button id="dialog-close" aria-label="关闭">×</button></header><div id="dialog-body"></div></section></div>
+<script>/* BUILD_DATA */</script><script>/* BUILD_JS */</script>
+</body></html>

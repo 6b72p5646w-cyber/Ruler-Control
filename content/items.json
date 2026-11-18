@@ -1,5 +1,5 @@
 {
-  "version": "0.8",
+  "version": "0.9",
   "items": [
     {
       "id": "I01",
@@ -68,7 +68,10 @@
       "crafting_enabled": false,
       "acquisition_contract": "content/auxiliary_targets_v07.json",
       "food_source_policy": "personal_verified_required_for_ingestion",
-      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification"
+      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification",
+      "resource_deltas": {
+        "stamina": 35
+      }
     },
     {
       "id": "I04",
@@ -104,7 +107,7 @@
       "rarity": "common",
       "shop_price": 18,
       "effect": "精力立即+12",
-      "tradeoff": "下一游戏小时精力-8且SAN-2，债务写入存档",
+      "tradeoff": "从同一份咖啡实际使用时刻起60游戏分钟后，精力−8且SAN−2；跨06:00、白天行动和保存恢复继续计时，同物债务仅结算一次。",
       "tag": "energy",
       "consumable": true,
       "design_origin": "original_game_adaptation",
@@ -115,7 +118,21 @@
       "crafting_enabled": false,
       "acquisition_contract": "content/auxiliary_targets_v07.json",
       "food_source_policy": "personal_verified_required_for_ingestion",
-      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification"
+      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification",
+      "resource_deltas": {
+        "energy": 12
+      },
+      "delayed_effect": {
+        "delay_game_minutes": 60,
+        "resource_deltas": {
+          "energy": -8,
+          "san": -2
+        },
+        "clock": "absolute_game_minutes",
+        "persists_across_days_and_saves": true,
+        "settles_once_per_item_instance": true,
+        "same_time_debts_before_new_action_rewards": true
+      }
     },
     {
       "id": "I06",
@@ -308,7 +325,15 @@
       "crafting_enabled": false,
       "acquisition_contract": "content/auxiliary_targets_v07.json",
       "food_source_policy": "personal_verified_required_for_ingestion",
-      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification"
+      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification",
+      "resource_deltas": {
+        "san": 20
+      },
+      "use_requirements": {
+        "safe_station": true,
+        "world_seconds": 3,
+        "no_active_chase": true
+      }
     },
     {
       "id": "I14",
@@ -327,7 +352,15 @@
       "crafting_enabled": false,
       "acquisition_contract": "content/auxiliary_targets_v07.json",
       "food_source_policy": "personal_verified_required_for_ingestion",
-      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification"
+      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification",
+      "resource_deltas": {
+        "satiety": 35,
+        "energy": 4
+      },
+      "use_requirements": {
+        "safe_station": true,
+        "no_active_chase": true
+      }
     },
     {
       "id": "I15",
@@ -746,5 +779,6 @@
     "all_acquisition_channels_respect_availability": true,
     "food_verification_contract": "content/consumer_closure_v08.json#/food_verification",
     "food_status_is_independent_of_effect_tag": true
-  }
+  },
+  "day_cycle_contract": "content/integration_v09.json#/calendar"
 }

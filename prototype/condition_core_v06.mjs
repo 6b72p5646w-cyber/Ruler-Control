@@ -11,6 +11,10 @@ const WORK_SECONDS = {receive_return: 2, station_work: 2, isolate_station: 2,
 const fail = reason => ({ok: false, reason});
 const ok = value => ({ok: true, ...value});
 const copy = value => JSON.parse(JSON.stringify(value));
+// One finite tolerance for accumulated frame time, far below any authored action.
+const TIME_EPS = 1e-8;
+const reached = (now, deadline) => now + TIME_EPS >= deadline;
+const pending = (now, deadline) => deadline > now + TIME_EPS;
 const nextId = (s, prefix) => `${prefix}-${++s.sequence}`;
 function log(s, type, data = {}) { s.log.push({type, world: s.world, budget: s.budget, ...data}); }
 function record(s, kind, actorId, objectId, sourceActionId, extra = {}) {
@@ -65,9 +69,9 @@ function boundedCarryover(s, slot) {
 function enforceCarryoverDeadline(s) {
   // True 06:00 has its own contractual settlement order. Earlier phase limits
   // are checked only after same-time actions, exits and encounter terminals.
-  if (s.mode !== 'night' || s.budget >= s.contract.end_of_shift.true_six_budget_seconds) return;
+  if (s.mode !== 'night' || reached(s.budget, s.contract.end_of_shift.true_six_budget_seconds)) return;
   const expired = Object.values(s.encounters).filter(e => e.critical && !TERMINAL.has(e.state) &&
-    e.deadlinePolicy === 'bounded_carryover' && s.budget >= e.carryoverDeadlineBudget);
+    e.deadlinePolicy === 'bounded_carryover' && reached(s.budget, e.carryoverDeadlineBudget));
   if (!expired.length) return;
   s.mode = 'failed_shift';
   log(s, 'carryover_deadline_exceeded', {encounterIds: expired.map(e => e.id),
@@ -106,7 +110,7 @@ export function createConditionState(contract, options = {}) {
     sanSettings: options.balance?.resources?.san ? copy(options.balance.resources.san) : null,
     san: initialSan,
     panic: {active: false, deadline: null, progress: 0, stabilizing: false, used: false, episode: 0, fearImmuneUntil: null},
-    fearSources: {},
+    fearSources: {}, sanEffectReceipts: {},
     actors: {PLAYER: {wound: null, minorUntil: null, cutCount: 0, station: null, distanceSinceMark: 0},
       COWORKER: {wound: null, minorUntil: null, cutCount: 0, station: null, distanceSinceMark: 0}},
     inventory: {dressings: contract.wounds.first_aid.night_free_dressings,
@@ -121,12 +125,52 @@ export function createConditionState(contract, options = {}) {
 
 export function setConditionPause(s, paused) { s.paused = Boolean(paused); }
 
+const SAN_SOURCES = new Set(['actual_hit','verified_item','coffee_due','rest_failure','pet_effect','earned_shift_reward']);
+const SAN_LOSS_SOURCES = new Set(['actual_hit','coffee_due','rest_failure']);
+function checkSanDelta(s, command, precisionOutcome = false) {
+  const {receiptId,delta,sourceKind}=command??{};
+  if(!s.sanSettings||typeof receiptId!=='string'||!receiptId||!Number.isFinite(delta)||!SAN_SOURCES.has(sourceKind)||
+      (SAN_LOSS_SOURCES.has(sourceKind)?delta>0:delta<0))return fail('invalid_san_delta_receipt');
+  const old=s.sanEffectReceipts?.[receiptId];
+  if(old)return old.requestedDelta===delta&&old.sourceKind===sourceKind
+    ? ok({replayed:true,receiptId,actualDelta:0,previousSan:s.san,san:s.san,panicStarted:false,panicClosed:false})
+    : fail('san_receipt_reused_with_different_effect');
+  if(s.receipts[receiptId])return fail('san_receipt_id_conflicts_with_existing_world_receipt');
+  if(s.paused||(s.precision&&!precisionOutcome))return fail('san_effect_not_in_active_world');
+  if(s.mode==='handover_only') {
+    if(sourceKind!=='earned_shift_reward')return fail('handover_disallows_new_resource_effect');
+  } else if(s.mode!=='night'||sourceKind==='earned_shift_reward')return fail('san_effect_not_allowed_in_mode');
+  return ok({replayed:false});
+}
+
+/** Completed trusted engine effects share SAN without using passive fear caps.
+ * Scope/authenticity of the source is the caller's responsibility. Repeating the
+ * same receipt cannot restore resources, restart panic, or refresh its grace. */
+export function commitConditionSanDelta(s,command) {
+  const valid=checkSanDelta(s,command);if(!valid.ok||valid.replayed)return valid;
+  const {receiptId,delta,sourceKind}=command,previousSan=s.san;
+  s.san=Math.max(0,Math.min(s.sanSettings.max,previousSan+delta));
+  const panicStarted=startPanicIfNeeded(s,'completed_'+sourceKind);
+  let panicClosed=false;
+  if(s.mode==='night'&&s.san>0&&s.panic.active) {
+    s.panic.active=false;s.panic.stabilizing=false;panicClosed=true;
+    s.panic.fearImmuneUntil=s.world+s.sanSettings.post_stabilization_fear_immunity_seconds;
+    log(s,'panic_closed_by_actual_resource',{receiptId,sourceKind,san:s.san});
+  }
+  const actualDelta=s.san-previousSan;
+  const internal=record(s,'completed_san_delta','PLAYER',receiptId,receiptId,
+    {sourceKind,requestedDelta:delta,actualDelta,previousSan,san:s.san});
+  s.sanEffectReceipts??={};s.sanEffectReceipts[receiptId]={sourceKind,requestedDelta:delta,
+    actualDelta,internalReceiptId:internal.id};
+  return ok({receiptId,actualDelta,previousSan,san:s.san,panicStarted,panicClosed,replayed:false});
+}
+
 export function applyConditionFear(s, {amount, sourceId}) {
   if (!actionAllowed(s) || !s.sanSettings || !sourceId || !Number.isFinite(amount) || amount <= 0) return fail('invalid_fear');
-  if (s.panic.fearImmuneUntil !== null && s.world < s.panic.fearImmuneUntil) return fail('fear_only_grace');
+  if (s.panic.fearImmuneUntil !== null && pending(s.world, s.panic.fearImmuneUntil)) return fail('fear_only_grace');
   const key = `${sourceId}:${Math.floor(s.budget / 120)}`;
   const old = s.fearSources[key] ?? {total: 0, lastAt: -Infinity};
-  if (s.world - old.lastAt < s.sanSettings.repeat_fear_cooldown_seconds) return fail('fear_source_cooldown');
+  if (pending(s.world - old.lastAt, s.sanSettings.repeat_fear_cooldown_seconds)) return fail('fear_source_cooldown');
   const actual = Math.min(amount, Math.max(0, s.sanSettings.per_entity_per_phase_fear_cap - old.total));
   if (!actual) return fail('fear_source_cap');
   s.fearSources[key] = {total: old.total + actual, lastAt: s.world};
@@ -155,7 +199,7 @@ export function beginRecordedWork(s, {kind, actorId = 'PLAYER', objectId}) {
   if (!actionAllowed(s)) return fail('world_not_actionable');
   if (!s.actors[actorId] || actorBusy(s, actorId)) return fail('actor_unavailable');
   if (!(kind in WORK_SECONDS)) return fail('unknown_work_kind');
-  if (s.budget + WORK_SECONDS[kind] > s.contract.end_of_shift.true_six_budget_seconds) return fail('insufficient_shift_budget');
+  if (s.budget + WORK_SECONDS[kind] > s.contract.end_of_shift.true_six_budget_seconds + TIME_EPS) return fail('insufficient_shift_budget');
   const lockKey = objectLock(objectId);
   if (s.actionLocks[lockKey]) return fail('object_reserved_by_action');
   const o = s.objects[objectId];
@@ -277,7 +321,7 @@ export function contactGlassHazard(s, {incidentId, actorId = 'PLAYER', method}) 
     return ok({receiptId: record(s, 'glass_isolated', actorId, i.objectId, i.id).id});
   }
   if (method !== 'bare_hand_contact') return fail('unknown_contact_method');
-  if (s.world < i.readyAt) return fail('warning_not_elapsed');
+  if (pending(s.world, i.readyAt)) return fail('warning_not_elapsed');
   return cutActor(s, i, actorId);
 }
 
@@ -294,7 +338,7 @@ export function beginFirstAid(s, {actorId = 'PLAYER', targetId = actorId, distan
   if (!Number.isFinite(distanceTiles) || distanceTiles < 0) return fail('invalid_distance');
   if (distanceTiles > s.contract.wounds.first_aid.requires_target_distance_tiles_max) return fail('out_of_reach');
   if (s.inventory.dressings < 1) return fail('no_dressing');
-  if (s.budget + s.contract.wounds.first_aid.world_action_seconds > s.contract.end_of_shift.true_six_budget_seconds) return fail('insufficient_shift_budget');
+  if (s.budget + s.contract.wounds.first_aid.world_action_seconds > s.contract.end_of_shift.true_six_budget_seconds + TIME_EPS) return fail('insufficient_shift_budget');
   const lockKey = woundLock(targetId, s.actors[targetId].wound.incidentId);
   if (s.actionLocks[lockKey]) return fail('wound_reserved_by_action');
   s.inventory.dressings--;
@@ -386,7 +430,7 @@ export function walkActor(s, {actorId = 'PLAYER', distanceTiles, gait = 'walk'})
       a.distanceSinceMark = 0;
       // Expiry at this endpoint frees a slot even though processDue has not yet
       // flipped the old trace's cached live flag. Never refresh the old trace.
-      const current = Object.values(s.traces).filter(t => t.live && t.actorId === actorId && t.expiresAt > endedAt);
+      const current = Object.values(s.traces).filter(t => t.live && t.actorId === actorId && pending(endedAt, t.expiresAt));
       if (current.length < s.contract.wounds.blood_trace.max_live_marks_per_actor) {
         const id = nextId(s, 'trace');
         s.traces[id] = {id, actorId, incidentId: wound.incidentId, live: true,
@@ -394,7 +438,7 @@ export function walkActor(s, {actorId = 'PLAYER', distanceTiles, gait = 'walk'})
           actualWalkReceiptId: record(s, 'actual_walk_mark', actorId, id, nextId(s, 'walk')).id};
       }
     }
-    if (wound && endedAt >= wound.endAt) a.distanceSinceMark = 0;
+    if (wound && reached(endedAt, wound.endAt)) a.distanceSinceMark = 0;
   };
   while (remaining > 0 && s.mode === 'night') {
     const step = Math.min(remaining, interval - a.distanceSinceMark);
@@ -423,9 +467,9 @@ export function announceBloodEncounter(s, {id, monsterId, incidentId, slotId}) {
     if (!parent || slot.kind !== 'joint' || slot.parentSlotId !== parent.slotId) return fail('no_pre_reserved_f21_child_slot');
   }
   const c = s.contract.wounds.reactive_consumers, a = s.actors[i.actorId];
-  if (!fresh(s, i.actorId) || a.wound.endAt - s.world < c.minimum_remaining_fresh_blood_world_seconds_at_announcement) return fail('fresh_source_window_missing');
-  if (s.contract.end_of_shift.true_six_budget_seconds - s.budget < c.minimum_remaining_shift_budget_seconds) return fail('insufficient_shift_budget');
-  if (120 - (s.budget % 120) < c.minimum_remaining_current_phase_budget_seconds) return fail('insufficient_phase_budget');
+  if (!fresh(s, i.actorId) || pending(a.wound.endAt - s.world, c.minimum_remaining_fresh_blood_world_seconds_at_announcement)) return fail('fresh_source_window_missing');
+  if (pending(s.contract.end_of_shift.true_six_budget_seconds - s.budget, c.minimum_remaining_shift_budget_seconds)) return fail('insufficient_shift_budget');
+  if (pending(120 - (s.budget % 120), c.minimum_remaining_current_phase_budget_seconds)) return fail('insufficient_phase_budget');
   const traces = Object.values(s.traces).filter(t => t.live && t.incidentId === incidentId).slice(0, 3);
   if (monsterId === 'F26' && traces.length === 0) return fail('no_actual_blood_trace');
   i.consumerId = id; slot.state = 'ANNOUNCED'; slot.encounterId = id;
@@ -450,7 +494,7 @@ function updateBloodEncounter(s, e) {
       e.leaveAt = s.world + 3; e.leaveState = playerCaused ? 'RESOLVED' : 'SAFE_RETURNED';
     }
   }
-  if (e.state === 'ANNOUNCED' && s.world >= e.arrivalAt) {
+  if (e.state === 'ANNOUNCED' && reached(s.world, e.arrivalAt)) {
     if (e.monsterId === 'F26') {
       // Rebind only existing live marks from this same incident. A real later
       // walk may replace an expired mark; no TTL or announcement is refreshed.
@@ -463,7 +507,7 @@ function updateBloodEncounter(s, e) {
     }
     e.state = 'ACTIVE'; log(s, 'encounter_arrived', {id: e.id});
   }
-  if (e.leaveAt !== undefined && s.world >= e.leaveAt) endEncounter(s, e, e.leaveState, 'targetless_exit');
+  if (e.leaveAt !== undefined && reached(s.world, e.leaveAt)) endEncounter(s, e, e.leaveState, 'targetless_exit');
 }
 
 export function offerOptionalEncounter(s, id) {
@@ -506,28 +550,28 @@ function settleSix(s) {
 function processDue(s) {
   if (s.panic.active && s.panic.stabilizing) {
     const target = s.sanSettings.emergency_stabilization_seconds ?? s.sanSettings.safe_zone_stabilization_seconds;
-    if (s.panic.progress >= target) {
+    if (reached(s.panic.progress, target)) {
       s.panic.progress = target; s.panic.active = false; s.panic.stabilizing = false; s.panic.used = true;
       s.san = Math.max(s.san, s.sanSettings.emergency_stabilization_target_san ?? s.sanSettings.safe_zone_stabilization_target_san);
       s.panic.fearImmuneUntil = s.world + s.sanSettings.post_stabilization_fear_immunity_seconds;
       log(s, 'portable_stabilization_completed', {san: s.san});
     }
   }
-  const panicTimedOut = s.panic.active && s.world >= s.panic.deadline;
+  const panicTimedOut = s.panic.active && reached(s.world, s.panic.deadline);
   for (const a of Object.values(s.actors)) {
-    if (a.wound?.state === 'fresh' && s.world >= a.wound.endAt) {
+    if (a.wound?.state === 'fresh' && reached(s.world, a.wound.endAt)) {
       a.wound.state = 'dry'; a.wound.endedAt = s.world; a.wound.endedByPlayer = false;
     }
-    if (a.minorUntil !== null && s.world >= a.minorUntil) a.minorUntil = null;
+    if (a.minorUntil !== null && reached(s.world, a.minorUntil)) a.minorUntil = null;
   }
-  for (const t of Object.values(s.traces)) if (t.live && s.world >= t.expiresAt) t.live = false;
+  for (const t of Object.values(s.traces)) if (t.live && reached(s.world, t.expiresAt)) t.live = false;
   for (const a of Object.values(s.actions)) if (a.state === 'running' &&
-    (s.world >= a.endAt || (a.kind === 'first_aid' && !fresh(s, a.targetId)) ||
+    (reached(s.world, a.endAt) || (a.kind === 'first_aid' && !fresh(s, a.targetId)) ||
       (a.kind === 'wipe_trace' && !s.traces[a.objectId]?.live))) completeWorldAction(s, a);
-  for (const a of Object.values(s.actors)) if (a.pendingStationExitAt !== undefined && s.world >= a.pendingStationExitAt) {
+  for (const a of Object.values(s.actors)) if (a.pendingStationExitAt !== undefined && reached(s.world, a.pendingStationExitAt)) {
     a.station = null; delete a.pendingStationExitAt;
   }
-  for (const i of Object.values(s.incidents)) if (i.type === 'F21_GLASS_FAULT' && i.stage === 'warning' && s.world >= i.readyAt) {
+  for (const i of Object.values(s.incidents)) if (i.type === 'F21_GLASS_FAULT' && i.stage === 'warning' && reached(s.world, i.readyAt)) {
     const parent = s.encounters[i.sourceEncounterId];
     if (!parent || parent.monsterId !== 'F21' || parent.variant !== 'glass_shield_fault' || parent.state !== 'ACTIVE') {
       i.stage = 'cancelled_source_unavailable'; continue;
@@ -550,7 +594,8 @@ function processDue(s) {
   }
   for (const e of Object.values(s.encounters)) if (['F26', 'F32'].includes(e.monsterId)) updateBloodEncounter(s, e);
   enforceCarryoverDeadline(s);
-  for (const m of [...s.markers].sort((a, b) => a.at - b.at)) if (!m.dispatched && s.budget >= m.at) {
+  for (const m of [...s.markers].sort((a, b) => a.at - b.at)) if (!m.dispatched && reached(s.budget, m.at)) {
+    if (Math.abs(s.budget - m.at) <= TIME_EPS) s.budget = m.at;
     m.dispatched = true; log(s, 'schedule_marker', {id: m.id});
     if (m.id === 'manager_arrival') s.managerArrived = true;
     if (m.id === 'true_06_00') settleSix(s);
@@ -572,25 +617,25 @@ function advanceWorldInterval(s, seconds, commitMovement = null) {
   while (remaining > 1e-9 && s.mode === 'night') {
     const deadlines = [remaining];
     if (s.panic.active) {
-      if (s.panic.deadline > s.world) deadlines.push(s.panic.deadline - s.world);
+      if (pending(s.world, s.panic.deadline)) deadlines.push(s.panic.deadline - s.world);
       if (s.panic.stabilizing) {
         const target = s.sanSettings.emergency_stabilization_seconds ?? s.sanSettings.safe_zone_stabilization_seconds;
-        if (target > s.panic.progress) deadlines.push(target - s.panic.progress);
+        if (pending(s.panic.progress, target)) deadlines.push(target - s.panic.progress);
       }
     }
-    for (const m of s.markers) if (!m.dispatched && m.at > s.budget) deadlines.push(m.at - s.budget);
-    for (const a of Object.values(s.actions)) if (a.state === 'running' && a.endAt > s.world) deadlines.push(a.endAt - s.world);
+    for (const m of s.markers) if (!m.dispatched && pending(s.budget, m.at)) deadlines.push(m.at - s.budget);
+    for (const a of Object.values(s.actions)) if (a.state === 'running' && pending(s.world, a.endAt)) deadlines.push(a.endAt - s.world);
     for (const a of Object.values(s.actors)) {
-      if (a.wound?.state === 'fresh' && a.wound.endAt > s.world) deadlines.push(a.wound.endAt - s.world);
-      if (a.minorUntil !== null && a.minorUntil > s.world) deadlines.push(a.minorUntil - s.world);
-      if (a.pendingStationExitAt !== undefined && a.pendingStationExitAt > s.world) deadlines.push(a.pendingStationExitAt - s.world);
+      if (a.wound?.state === 'fresh' && pending(s.world, a.wound.endAt)) deadlines.push(a.wound.endAt - s.world);
+      if (a.minorUntil !== null && pending(s.world, a.minorUntil)) deadlines.push(a.minorUntil - s.world);
+      if (a.pendingStationExitAt !== undefined && pending(s.world, a.pendingStationExitAt)) deadlines.push(a.pendingStationExitAt - s.world);
     }
-    for (const t of Object.values(s.traces)) if (t.live && t.expiresAt > s.world) deadlines.push(t.expiresAt - s.world);
-    for (const i of Object.values(s.incidents)) if (i.type === 'F21_GLASS_FAULT' && i.stage === 'warning' && i.readyAt > s.world) deadlines.push(i.readyAt - s.world);
+    for (const t of Object.values(s.traces)) if (t.live && pending(s.world, t.expiresAt)) deadlines.push(t.expiresAt - s.world);
+    for (const i of Object.values(s.incidents)) if (i.type === 'F21_GLASS_FAULT' && i.stage === 'warning' && pending(s.world, i.readyAt)) deadlines.push(i.readyAt - s.world);
     for (const e of Object.values(s.encounters)) if (!TERMINAL.has(e.state)) {
-      if (e.state === 'ANNOUNCED' && e.arrivalAt > s.world) deadlines.push(e.arrivalAt - s.world);
-      if (e.leaveAt !== undefined && e.leaveAt > s.world) deadlines.push(e.leaveAt - s.world);
-      if (e.deadlinePolicy === 'bounded_carryover' && e.carryoverDeadlineBudget > s.budget) {
+      if (e.state === 'ANNOUNCED' && pending(s.world, e.arrivalAt)) deadlines.push(e.arrivalAt - s.world);
+      if (e.leaveAt !== undefined && pending(s.world, e.leaveAt)) deadlines.push(e.leaveAt - s.world);
+      if (e.deadlinePolicy === 'bounded_carryover' && pending(s.budget, e.carryoverDeadlineBudget)) {
         deadlines.push(e.carryoverDeadlineBudget - s.budget);
       }
     }
@@ -618,7 +663,7 @@ export function beginPrecisionAttempt(s, {costSeconds}) {
   // shift across hours. F53 is a long-lived stock promise, not this guard class.
   if (Object.values(s.encounters).some(e => ['F21', 'F26', 'F32'].includes(e.monsterId) && e.critical && !TERMINAL.has(e.state))) return fail('critical_resolution_reserved');
   const nextMarker = s.markers.filter(m => !m.dispatched).reduce((n, m) => Math.min(n, m.at), Infinity);
-  if (s.budget + costSeconds > nextMarker) return fail('would_cross_schedule_marker');
+  if (s.budget + costSeconds > nextMarker + TIME_EPS) return fail('would_cross_schedule_marker');
   const id = nextId(s, 'precision');
   s.precision = {id, costSeconds, localSeconds: 0};
   return ok({attemptId: id});
@@ -627,12 +672,19 @@ export function advancePrecisionLocal(s, seconds) {
   if (!s.precision || s.paused || !Number.isFinite(seconds) || seconds < 0) return fail('no_running_precision');
   s.precision.localSeconds += seconds; return ok({});
 }
-export function finishPrecisionAttempt(s, {attemptId, outcome}) {
+export function finishPrecisionAttempt(s, {attemptId, outcome, sanOutcome = null}) {
   const p = s.precision;
   if (s.paused || !p || p.id !== attemptId || !['success', 'cancelled', 'failed'].includes(outcome)) return fail('invalid_precision_finish');
+  if(sanOutcome) {
+    const valid=checkSanDelta(s,sanOutcome,true);
+    if(!valid.ok||valid.replayed)return fail(valid.reason??'precision_san_outcome_already_consumed');
+  }
   s.precision = null; s.budget += p.costSeconds;
+  // An already completed local result belongs to this same boundary. Apply its
+  // SAN effect before the true-six critical verdict, never after handover mode.
+  const sanResult=sanOutcome?commitConditionSanDelta(s,sanOutcome):null;
   const receiptId = record(s, 'precision_attempt', 'PLAYER', attemptId, attemptId, {outcome}).id;
   log(s, 'precision_committed', {attemptId, outcome});
   processDue(s); // Commit first, then dispatch exactly reached schedule marker.
-  return ok({receiptId});
+  return ok({receiptId,...(sanResult?{sanResult}: {})});
 }

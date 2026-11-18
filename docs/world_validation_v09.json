@@ -1,0 +1,61 @@
+{
+  "status": "PASS",
+  "scenarioCount": 21,
+  "scenarios": [
+    "The authored five-screen store preserves real walls, fixtures and all 42 reachable anchors",
+    "Manual movement uses swept small steps and cannot tunnel through a fixture or wall",
+    "Facing lock preserves avatar orientation while moving and interaction never rotates it",
+    "Paused world freezes player, monster, action, lure lifetime and clock together",
+    "Pickup and scatter require real proximity, clear ground, actual supply and their own elapsed action",
+    "F12 dynamically follows four actual player baits to the existing outdoor zone with two charges left",
+    "An initially closed but operable front door remains recoverable through a real half-second open",
+    "The slice refuses an inoperable only-declared exit instead of inventing a rear victory zone",
+    "Unbaited F12 chases only inside and cannot be won by simply walking outdoors",
+    "An intermediate outdoor lure can end without victory, return F12 inside, and still be recovered with two real replacement baits",
+    "Outdoor ground beyond the declared exit corridor cannot become a fake alternate victory route",
+    "The primary and backup boxes are finite same-shelf sources, not infinite refills",
+    "A full live-bait set rejects new placement without consuming another charge",
+    "F13 actual pickup, carry route and atomic store can prevent meat contact without sprint or a pet",
+    "F13 touching its real meat telegraphs, keeps the crate, and remains enraged after it is dropped",
+    "A cancelled F13 store retains the original carried crate and creates no delivery receipt",
+    "Freezer unavailable before admission rejects F13, and failure at commit never swallows the meat",
+    "Successful delivery is terminal despite later opening or outage and never pays twice",
+    "An actual chase hit has a visible windup, shared SAN delta and no task destruction",
+    "World motion emits actual walked distance and never drains passive resources or moves while paused",
+    "Serialized world continuation retains exact bait supply, actions, target and terminal receipts"
+  ],
+  "witnesses": [
+    {
+      "id": "F12_normal_actual_route",
+      "seconds": 14.050000000000065,
+      "san": 80,
+      "chargesLeft": 2,
+      "actualScatterReceipts": 4,
+      "monsterPosition": {
+        "x": 14.5,
+        "y": 32.79999999999999
+      }
+    },
+    {
+      "id": "F12_closed_front_recovery",
+      "seconds": 14.050000000000065,
+      "chargesLeft": 2,
+      "san": 80
+    },
+    {
+      "id": "F13_early_actual_delivery",
+      "seconds": 9.900000000000006,
+      "san": 80,
+      "deliveryReceipts": 1,
+      "zeroStamina": true
+    },
+    {
+      "id": "F13_contact_drop_repickup_recovery",
+      "seconds": 20.40000000000015,
+      "san": 70,
+      "meatId": "slice-F13:meat",
+      "deliveryReceipts": 1
+    }
+  ],
+  "scope": "Deterministic authored-map F12/F13 physics and finite actions with moving enemies; no full-night director, all 60 monsters, dynamic multi-enemy combinations, production save system, mobile performance or WeChat runtime."
+}
