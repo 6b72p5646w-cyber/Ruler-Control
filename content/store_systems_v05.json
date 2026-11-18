@@ -1,0 +1,1010 @@
+{
+  "version": "0.5",
+  "status": "reviewed_design_with_partial_headless_contract_reference_not_playable_client",
+  "design_goal": "每个熟悉的工作物件都有正常用途、被怪物利用的方式和玩家可改变的状态；紧张来自行动取舍、可观察的违禁后果与有限注意力。",
+  "authority": {
+    "user_fixed_blueprints": "content/encounter_blueprints.json",
+    "current_store_rules": "content/store_systems_v05.json",
+    "current_monster_gameplay": "content/encounters_v05.json",
+    "geometry_base": "content/maps.json",
+    "geometry_additions": "content/map_mechanics_v05.json",
+    "historical_detail_catalog": "content/encounter_designs.json",
+    "historical_guards_are_executable": false,
+    "precedence": [
+      "user_fixed_blueprints",
+      "current_store_rules",
+      "current_monster_gameplay",
+      "geometry_additions",
+      "geometry_base",
+      "historical_detail_catalog"
+    ],
+    "migration": "V0.4动作卡保留为历史推导与素材，不再直接作为V0.5遭遇加载源。F12/F13的精确蓝图优先级不变。"
+  },
+  "systems": [
+    {
+      "id": "SG01",
+      "name": "门槛与迎宾",
+      "normal_use": "开门、迎客、卸货、门外交接",
+      "monster_use": "把邀请、越线、开门时机变成危险条件",
+      "player_controls": [
+        "改变营业模式",
+        "关闭迎宾语音",
+        "固定台面交付",
+        "开闭门"
+      ],
+      "tradeoff": "服务速度与路线便利发生变化；已在店内的怪不因翻牌消失。",
+      "components": [
+        "MC09",
+        "MC10",
+        "MC12"
+      ],
+      "new_discrete_features": [
+        "store_mode",
+        "greeting_mode",
+        "scoped_invitation"
+      ],
+      "client_implemented": false
+    },
+    {
+      "id": "SG02",
+      "name": "注视与遮挡",
+      "normal_use": "看拐角、看顾客、整理货架",
+      "monster_use": "转身、对视、被观察会改变行为",
+      "player_controls": [
+        "朝向锁定",
+        "侧身移动",
+        "拨镜",
+        "拉实体遮线帘"
+      ],
+      "tradeoff": "保持朝向会慢走；遮断一条视线也遮住那侧信息。",
+      "components": [
+        "MC01",
+        "MC02",
+        "MC10"
+      ],
+      "new_discrete_features": [
+        "attention_condition"
+      ],
+      "client_implemented": false
+    },
+    {
+      "id": "SG03",
+      "name": "光电与设备取舍",
+      "normal_use": "照明、热食、冷藏、监控",
+      "monster_use": "明暗、设备启停与带电工位提供条件",
+      "player_controls": [
+        "开局部灯",
+        "隔离故障设备",
+        "消耗应急储备",
+        "手动维护"
+      ],
+      "tradeoff": "花电买更远观察或更短暴露；基本解不能被电量耗尽取消。",
+      "components": [
+        "MC01",
+        "MC07",
+        "MC12"
+      ],
+      "new_discrete_features": [
+        "emergency_power_ledger"
+      ],
+      "client_implemented": false
+    },
+    {
+      "id": "SG04",
+      "name": "持物与目标诱导",
+      "normal_use": "搬箱、补货、转运生肉",
+      "monster_use": "追持有者、追指定物、追地上诱饵",
+      "player_controls": [
+        "取放",
+        "单独任务携带槽",
+        "分段搬运",
+        "洒回形针"
+      ],
+      "tradeoff": "搬运占手并减速，放下保留物件身份与已有怒态。",
+      "components": [
+        "MC04",
+        "MC08"
+      ],
+      "new_discrete_features": [],
+      "client_implemented": false
+    },
+    {
+      "id": "SG05",
+      "name": "水迹与干路",
+      "normal_use": "拖地、排水、清理漏水",
+      "monster_use": "沿连通湿格拖物或侵入；干侧成为操作位置",
+      "player_controls": [
+        "擦割点",
+        "关支阀",
+        "铺吸水垫",
+        "从干侧取回"
+      ],
+      "tradeoff": "切断一个来源可能中止该工位的水务；不能把所有水怪都绑定总阀。",
+      "components": [
+        "MC03",
+        "MC07",
+        "MC10",
+        "MC12"
+      ],
+      "new_discrete_features": [
+        "wet_profile_binding"
+      ],
+      "client_implemented": false
+    },
+    {
+      "id": "SG06",
+      "name": "声源与动作节拍",
+      "normal_use": "叫号、迎宾、电话、设备提示音",
+      "monster_use": "诱导应声、错误远近感、停拍/强拍危险窗口",
+      "player_controls": [
+        "关指定声音通道",
+        "观察独立机械信号",
+        "按拍停走",
+        "用纸号交付"
+      ],
+      "tradeoff": "关广播省风险却降低远程调度；听觉有字幕，不依赖开声音。",
+      "components": [
+        "MC01",
+        "MC06",
+        "MC07",
+        "MC12"
+      ],
+      "new_discrete_features": [
+        "sound_channel",
+        "cycle_phase"
+      ],
+      "client_implemented": false
+    },
+    {
+      "id": "SG07",
+      "name": "归属与交换",
+      "normal_use": "收银、失物认领、退货、验货",
+      "monster_use": "外观变了但物件没变；看似足量的货离手显真",
+      "player_controls": [
+        "隔离一件实物",
+        "比对连续痕迹",
+        "实际交付",
+        "有限额交换"
+      ],
+      "tradeoff": "多验一次占操作时间；少验可能把自己的物品或承诺交出去。",
+      "components": [
+        "MC04",
+        "MC05",
+        "MC09",
+        "MC11"
+      ],
+      "new_discrete_features": [
+        "authored_item_appearance_state"
+      ],
+      "client_implemented": false
+    },
+    {
+      "id": "SG08",
+      "name": "岗位身份与权限",
+      "normal_use": "同事代班、交钥匙、店长布置工作",
+      "monster_use": "借熟人外形取得钥匙或把真人引走",
+      "player_controls": [
+        "待核限权",
+        "核对两类独立事实",
+        "面对面交岗",
+        "指派固定路线同行"
+      ],
+      "tradeoff": "验证和同行占用唯一同事；待核本身不扣信任。",
+      "components": [
+        "MC01",
+        "MC09",
+        "MC10"
+      ],
+      "new_discrete_features": [
+        "note_provenance",
+        "regular_routine",
+        "escort_waypoints"
+      ],
+      "client_implemented": false
+    },
+    {
+      "id": "SG09",
+      "name": "容器封存与交付",
+      "normal_use": "冰柜、包裹柜、垃圾袋、失物格",
+      "monster_use": "开闭与装入正确对象改变威胁状态",
+      "player_controls": [
+        "装入",
+        "封口",
+        "移到指定槽",
+        "确认一次交付"
+      ],
+      "tradeoff": "封存占容器和手部操作，提前放好可避免追逐。",
+      "components": [
+        "MC04",
+        "MC06",
+        "MC07"
+      ],
+      "new_discrete_features": [],
+      "client_implemented": false
+    },
+    {
+      "id": "SG10",
+      "name": "待客承诺与占位",
+      "normal_use": "留座、叫号、供食、安排维修",
+      "monster_use": "看似空位已有客人；凝视帮手会让工作停下；许诺限制后续行为",
+      "player_controls": [
+        "保留座位",
+        "改队列",
+        "供物分区",
+        "设数量与时限",
+        "离开注视范围"
+      ],
+      "tradeoff": "让出空间、库存或注意力换可选回报，拒绝尚未接受的额外契约不受罚。",
+      "components": [
+        "MC06",
+        "MC07",
+        "MC10",
+        "MC11"
+      ],
+      "new_discrete_features": [
+        "bounded_benefit_token"
+      ],
+      "client_implemented": false
+    }
+  ],
+  "work_contract": {
+    "baseline_action_seconds_range": [
+      1.5,
+      3
+    ],
+    "normal_checkout_seconds": 1.5,
+    "service_window_checkout_seconds": 3.5,
+    "silent_greeting_extra_seconds_per_order": 2,
+    "ordinary_change_is_automatic": true,
+    "ordinary_scan_has_no_qte": true,
+    "maximum_critical_steps_per_encounter": 3,
+    "repeated_station_hold_progress_preserved": true,
+    "hold_cancel_allowed": true,
+    "physical_actions_retained": [
+      "carry",
+      "take",
+      "place",
+      "face_lock",
+      "distance",
+      "toggle",
+      "timed_move",
+      "scatter"
+    ],
+    "work_is_not_completed_by_reading": true,
+    "phase_work_and_encounter_same_action_credit_once": true,
+    "primary_work_ids_are_schedules_not_action_locks": true,
+    "secondary_action_borrowing": "热饮、擦地、交接等已解锁动作可在其他小时被怪物借用；只有常规主工单按固定时段分配，不能对多个W工作时段求交后删掉怪。",
+    "window_silent_cost_stacks": false
+  },
+  "duties": [
+    {
+      "id": "D01",
+      "phase": "N01",
+      "name": "开班与迎客",
+      "normal_actions": [
+        "把班前物件放入柜台槽",
+        "打开接客通道",
+        "结一次普通客单"
+      ],
+      "risk_decision": "先照常迎客，还是先处理门外的异常？",
+      "anchors": [
+        "cashier",
+        "verification_desk",
+        "front_door"
+      ],
+      "work_seconds_target": 24,
+      "includes_travel": true,
+      "systems": [
+        "SG01",
+        "SG08"
+      ]
+    },
+    {
+      "id": "D02",
+      "phase": "N02",
+      "name": "验货与补货",
+      "normal_actions": [
+        "提起一箱货",
+        "沿货架环路搬至空位",
+        "放上货架"
+      ],
+      "risk_decision": "空手去看线索，还是拿着目标物继续走？",
+      "anchors": [
+        "receiving",
+        "goods_shelf",
+        "aisle_loop"
+      ],
+      "work_seconds_target": 28,
+      "includes_travel": true,
+      "systems": [
+        "SG04",
+        "SG07"
+      ]
+    },
+    {
+      "id": "D03",
+      "phase": "N03",
+      "name": "热食与冷链",
+      "normal_actions": [
+        "把一份热食放至交付槽",
+        "将登记生肉入柜",
+        "关柜"
+      ],
+      "risk_decision": "先完成马上有收益的热食，还是先消除暴露的生肉目标？",
+      "anchors": [
+        "hot_food",
+        "warehouse_meat",
+        "freezer_main"
+      ],
+      "work_seconds_target": 26,
+      "includes_travel": true,
+      "systems": [
+        "SG03",
+        "SG09"
+      ]
+    },
+    {
+      "id": "D04",
+      "phase": "N04",
+      "name": "清洁与废弃物",
+      "normal_actions": [
+        "擦断选定湿边",
+        "封一袋垃圾",
+        "按预告窗口送到垃圾箱"
+      ],
+      "risk_decision": "现在开后门，还是等安全声段并承担等待？",
+      "anchors": [
+        "mop_station",
+        "waste_sort",
+        "dumpster"
+      ],
+      "work_seconds_target": 28,
+      "includes_travel": true,
+      "systems": [
+        "SG05",
+        "SG06",
+        "SG09"
+      ]
+    },
+    {
+      "id": "D05",
+      "phase": "N05",
+      "name": "盘点与异常复位",
+      "normal_actions": [
+        "检查本小时指定两处基准物件",
+        "操作真实物件恢复异常或登记隔离"
+      ],
+      "risk_decision": "继续盯着异常求证，还是暂时离开让帮手完成工作？",
+      "anchors": [
+        "goods_shelf",
+        "lost_property",
+        "reserve_seat"
+      ],
+      "work_seconds_target": 24,
+      "includes_travel": true,
+      "systems": [
+        "SG02",
+        "SG07",
+        "SG10"
+      ]
+    },
+    {
+      "id": "D06",
+      "phase": "N06",
+      "name": "收尾与交班",
+      "normal_actions": [
+        "把钥匙放回员工侧槽",
+        "检查休息位后短休或坚持收尾",
+        "核对真实时间与接班人"
+      ],
+      "risk_decision": "疲倦时接受熟人代班，还是先保持权限边界？",
+      "anchors": [
+        "cashier",
+        "verification_desk",
+        "rest_chair"
+      ],
+      "work_seconds_target": 24,
+      "includes_travel": true,
+      "systems": [
+        "SG08",
+        "SG09"
+      ]
+    }
+  ],
+  "service": {
+    "modes": [
+      "open",
+      "window",
+      "shutter"
+    ],
+    "greeting_modes": [
+      "voice",
+      "silent"
+    ],
+    "world_seconds_to_toggle": 1,
+    "base_order_arrival_seconds_per_phase": [
+      10,
+      55
+    ],
+    "normal_order_patience_world_seconds": 24,
+    "window_order_patience_world_seconds": 24,
+    "queue_capacity": 2,
+    "mode_changes_do_not_reset_patience": true,
+    "window_allows_physical_entry": false,
+    "window_allows_order_service": true,
+    "window_blocks_only_new_rule_bound_customer_entries": true,
+    "existing_encounters_cleared_by_mode_change": false,
+    "all_modes_keep_emergency_exit": true,
+    "mandatory_exit_closure_rejected": true,
+    "shutter_duration_world_seconds": 12,
+    "shutter_revert_mode": "window",
+    "shutter_requires_power_action": "brace_door",
+    "shutter_stops_service": true,
+    "shutter_is_not_invulnerability": true,
+    "safety": "门只能阻挡本怪明确依赖的入口；声音、湿路、已在店内者、休息位异常仍按自身条件运作。柜台是可见缓冲区，绝不是通用无敌点。",
+    "toggle_contract": "1秒动作合法完成后提交模式变更；世界中途离开则不提交。headless函数只表达提交时语义，不实现距离/按住动画。",
+    "base_order_mix": {
+      "pickup_per_night": 6,
+      "browse_per_night": 6,
+      "pickup_default_second": 10,
+      "browse_default_second": 55,
+      "browse_requires_observed_physical_entry": true,
+      "special_orders_replace_base_slot": true,
+      "no_extra_orders_to_bypass_mode_tradeoff": true
+    },
+    "service_mode_or_greeting_change_cancels_current_checkout": true,
+    "cancelled_checkout_keeps_original_patience": true,
+    "browser_rules": "入店自选客必须本人穿过门槛后才可结算；已入场者可以最后窗口交付。只翻营业牌、不产生过门事实不能解锁。全夜窗口最多6笔，最高B，A级至少需要2笔有入店事实的交易。"
+  },
+  "emergency_power": {
+    "capacity_units": 12,
+    "starting_units": 12,
+    "unit_is": "离散应急储备，不是整店电费或第5种人体资源",
+    "baseline_fridge_depends_on_reserve": false,
+    "baseline_manual_door_depends_on_reserve": false,
+    "baseline_task_materials_depend_on_reserve": false,
+    "zero_reserve_adds_san_blackout": false,
+    "borrow_from_cold_chain": false,
+    "recharge": {
+      "item_id": "I06",
+      "units": 3,
+      "once_per_night": true,
+      "consumes_item": true,
+      "exclusive_with_item_lamp_recharge": true,
+      "overfill_rejected": false
+    },
+    "actions": [
+      {
+        "id": "snapshot",
+        "units": 1,
+        "world_seconds": 1,
+        "effect": "从当前可用摄像区远程采集一帧；附来源和时刻。",
+        "free_alternative": "到可达现场观察；已有基准与旧快照免费阅读。"
+      },
+      {
+        "id": "side_light",
+        "units": 1,
+        "world_seconds": 1,
+        "duration_world_seconds": 20,
+        "effect": "放大侧轮廓/投影线索，持续到期。",
+        "free_alternative": "基础灯下使用店内手镜/可达物件观察，最多增加3秒操作。"
+      },
+      {
+        "id": "brace_door",
+        "units": 2,
+        "world_seconds": 1,
+        "duration_world_seconds": 12,
+        "effect": "暂缓明确为实体推门的入侵；紧急退出仍可用。",
+        "free_alternative": "手动门、窗口交付、按该怪条件退让。不能代替F12诱离。"
+      },
+      {
+        "id": "route_light",
+        "units": 1,
+        "world_seconds": 1,
+        "duration_world_seconds": 20,
+        "effect": "已选回路临时增强可见范围；不改变SAN数值和QTE。",
+        "free_alternative": "默认灯、免费应急标线和普通行走仍可用。"
+      },
+      {
+        "id": "temperature_hold",
+        "units": 1,
+        "world_seconds": 1,
+        "duration_world_seconds": 20,
+        "effect": "只延长普通热饮/货品的优质交付窗，不影响F13基本入柜。",
+        "free_alternative": "店内保温盖与普通冰柜，按路线及时搬运。"
+      }
+    ],
+    "budget_examples": [
+      {
+        "name": "六次观察双次照明单次加固",
+        "uses": {
+          "snapshot": 6,
+          "side_light": 2,
+          "route_light": 2,
+          "brace_door": 1
+        },
+        "total_units": 12
+      },
+      {
+        "name": "少监控多防护",
+        "uses": {
+          "snapshot": 2,
+          "side_light": 2,
+          "brace_door": 3,
+          "temperature_hold": 2
+        },
+        "total_units": 12
+      }
+    ],
+    "validation_note": "这些是支出算例，不是必须花光的最优策略；不同打法平均耗电与最后两小时剩余量由试玩验证。"
+  },
+  "four_resources": {
+    "canonical_file": "content/balance.json",
+    "retained": [
+      "energy",
+      "san",
+      "satiety",
+      "stamina"
+    ],
+    "san": "常驻；沿用低SAN缩QTE和黑视；不随机改输入，不把预兆本身当扣血。",
+    "energy": "慢变量；夜间仍每游戏小时-4，睡眠/咖啡仍作用；低于25弹提醒而非整夜大条。",
+    "satiety": "全24小时统一结算；夜间仍可吃自带食品，饱腹低影响体力恢复。",
+    "stamina": "冲刺/屏息/重物动作时脚下显示；0体力仍可走路、取关键物、洒诱饵、入柜。",
+    "low_san_forced_hunt_all_monsters": false,
+    "low_san_modifiers_cap_per_task": 2,
+    "perception_changes_fact_records": false,
+    "omen_observation_san_damage": 0,
+    "identification_immediate_san_farm": false
+  },
+  "omens": {
+    "phase_seconds": 120,
+    "arrival_second_in_phase": 20,
+    "far_relative_to_arrival_seconds": -60,
+    "near_relative_to_arrival_seconds": -35,
+    "threshold_relative_to_arrival_seconds": -15,
+    "far_second_previous_phase": 80,
+    "near_second_previous_phase": 105,
+    "threshold_second_current_phase": 5,
+    "opening_omens_in_pre_shift": true,
+    "final_phase_does_not_preview_nonexistent_seventh_encounter": true,
+    "initial_omen_count_range": [
+      2,
+      3
+    ],
+    "unique_solution_cue_may_be_removed_for_difficulty": false,
+    "auto_identify_from_rule_page": false,
+    "tags_are_candidates_not_answers": true,
+    "no_name_required_to_resolve": true,
+    "first_encounter_shows_local_hazard_verb": true,
+    "first_encounter_free_critical_cue_reachable": true,
+    "first_critical_failure_requires_telegraph": true,
+    "environment_false_cue_has_real_source": true,
+    "no_extra_san_hallucination_system_in_first_slice": true,
+    "learning": "班前/白天学习给出原型线索与可行策略；初见时不自动报正确名字，禁令提示写眼前现象和危险动作。玩家可以靠相同物件机制解决未知怪。"
+  },
+  "information": {
+    "canonical_handbook_immutable": true,
+    "facts_grant_permissions": false,
+    "snapshot_rewrites_history": false,
+    "snapshot_sees_through_disguise": false,
+    "snapshot_reveals_true_author": false,
+    "snapshot_stale_after_world_seconds": 8,
+    "schedule_is_presence_proof": false,
+    "independent_evidence_required_for_high_risk_permission": 2,
+    "evidence_from_same_capture_counts_once": true,
+    "false_notes_have_observable_fault": true,
+    "visual_stamp_is_sufficient_authentication": false,
+    "trusted_order_source": "自己的已确认交班记录与本班任务夹；世界里一张盖章纸仍可能来自冒名者。",
+    "truth_layers": [
+      {
+        "kind": "canonical",
+        "meaning": "已确认店规与本班个人记录稳定；定义边界，不等于提示全部解法。"
+      },
+      {
+        "kind": "observation",
+        "meaning": "观察保留来源、时刻、范围；看到伪装也是一次真实观察，并不知其本体。"
+      },
+      {
+        "kind": "claim",
+        "meaning": "口头、便签、署名、外貌都是待核主张；与可观察事实核对。"
+      }
+    ],
+    "rule_zero": "先核对要求针对谁、在哪里、持续多久；无法确认来源的便签不能扩大权限。看到的现象用来判断条件，不能擅自改写已确认店规。",
+    "note_fields": [
+      "id",
+      "claimed_author",
+      "claimed_time",
+      "placement_anchor",
+      "instruction_key",
+      "visible_fault_cues",
+      "player_verified_facts"
+    ],
+    "note_hidden_fields_never_in_player_payload": [
+      "true_author",
+      "is_fake",
+      "correct_monster_id"
+    ],
+    "fake_note_start_night": 3,
+    "fake_notes_max_per_night": 1,
+    "ignore_unaccepted_request_is_safe": true,
+    "independence_domain_required": true,
+    "independence_contract": "两条证明须有不同原始记录和不同证据域；同一伪装外观的两帧监控不算两路独立证据。域由已实现的观测规则定义，不由用户输入或怪物声称定义。"
+  },
+  "attention_and_pause": {
+    "read_handbook_pauses_all": true,
+    "read_existing_records_pauses_all": true,
+    "quick_rule_overlay_pauses": false,
+    "live_camera_observation_pauses": false,
+    "live_camera_fullscreen_during_chase_allowed": false,
+    "live_camera_cancel_always_visible": true,
+    "capture_requires_world_time": true,
+    "new_information_generated_while_paused": false,
+    "resource_recovery_while_paused": false,
+    "safe_precision_closeup_policy": "沿用V0.3安全准入、本地QTE、明示成本一次结算；不得在追逐中靠特写冻结后拾物/入柜。",
+    "app_background_pauses_all": true
+  },
+  "failure": {
+    "global_three_strikes_ends_night": false,
+    "scope": "encounter_instance",
+    "default_reaction": [
+      "first_warning",
+      "local_consequence",
+      "escalated_local_consequence"
+    ],
+    "same_episode_counts_once": true,
+    "reset_condition_required_between_episodes": true,
+    "inter_instance_collision_grace_seconds": 2,
+    "no_unbudgeted_new_pursuer_on_violation": true,
+    "world_warning_default_seconds": 3,
+    "canonical_f12_f13_timings_override_default": true,
+    "max_default_san_loss_per_entity_phase": 15,
+    "not_all_monsters_use_damage": "追逐接触、错交物件、引水、坏承诺、帮手离开各用自己的局部后果；默认阶梯不是强迫友好怪第三次攻击。",
+    "safe_retreat_does_not_autocomplete_duty": true,
+    "shift_loss_causes": [
+      "unresolved_panic_window",
+      "explicit_irrecoverable_core_breach",
+      "player_chooses_withdrawal"
+    ],
+    "ordinary_work_errors_are_not_core_breaches": true
+  },
+  "work_debt": {
+    "max_carryover_tasks": 1,
+    "expires_after_phases": 1,
+    "extra_cleanup_operation_seconds_max": 6,
+    "travel_must_also_be_reserved": true,
+    "wage_deduction_per_expired_task": 5,
+    "wage_deduction_night_cap": 20,
+    "adds_new_primary_monster": false,
+    "task_cannot_spawn_another_debt": true,
+    "visual_effect": "留下封箱、脏槽或未撤牌之一，最多一个；补救是操作该物件，不叠满次小时工单。"
+  },
+  "completion": {
+    "six_am_verified_handover_required": true,
+    "unresolved_critical_threat_prevents_completion": true,
+    "minimum_orders_to_survive_shift": 0,
+    "order_target_for_top_grade": 8,
+    "planned_orders_per_night": 12,
+    "all_ordinary_duties_required_for_survival": false,
+    "duty_quality_affects_pay": true,
+    "base_wage": 80,
+    "bonus_max": 40,
+    "debt_deduction_cap": 20,
+    "attendance_only_ticket": false,
+    "reward_ticket_requirements": "安全交班，至少4张主工单完成，至少6笔实际交易；经营不足仍有完成标记与扣减后工资，不发奖券。",
+    "formal_handover_after_six_is_not_extra_work_time": true,
+    "bonus_formula": "min(40, 4 * completed_duties + 2 * min(8, unique_valid_orders))"
+  },
+  "regulars": [
+    {
+      "id": "RG01",
+      "name": "出租车司机老周",
+      "phase": "N02",
+      "arrival_second": 20,
+      "large_visual_cue": "橙色外套与保温杯",
+      "routine": "喜欢等热食时落座",
+      "uncertain_trait_is_not_identity_verdict": true,
+      "replaces_order_kind": "browse"
+    },
+    {
+      "id": "RG02",
+      "name": "夜校生小林",
+      "phase": "N03",
+      "arrival_second": 55,
+      "large_visual_cue": "蓝书包",
+      "routine": "把饭团和饮品放到同一个购物篮",
+      "uncertain_trait_is_not_identity_verdict": true,
+      "replaces_order_kind": "browse"
+    },
+    {
+      "id": "RG03",
+      "name": "外卖骑手阿杰",
+      "phase": "N04",
+      "arrival_second": 55,
+      "large_visual_cue": "黄色头盔与外卖箱",
+      "routine": "习惯在服务窗领饮料",
+      "uncertain_trait_is_not_identity_verdict": true,
+      "replaces_order_kind": "pickup"
+    },
+    {
+      "id": "RG04",
+      "name": "清洁工陈姨",
+      "phase": "N06",
+      "arrival_second": 20,
+      "large_visual_cue": "绿色清洁车",
+      "routine": "把报纸铺在柜台一角后付款",
+      "uncertain_trait_is_not_identity_verdict": true,
+      "replaces_order_kind": "browse"
+    }
+  ],
+  "regular_rules": {
+    "replace_planned_order_not_extra_unbudgeted_customer": true,
+    "baseline_may_change_if_observably_explained": true,
+    "mismatch_means_investigate_not_kill_or_eject": true,
+    "F07_seat_conflict_customer_is_scheduled_in_same_encounter_phase": true,
+    "max_rewards_per_regular_per_night": 1,
+    "maximum_small_talk_san_recovery_per_night": 4,
+    "arrival_time_replaces_selected_base_order_time": true,
+    "replacement": "替换同类基础订单的到店时刻，不新增订单；座位系绑定本阶段尚未入场的一位浏览客。"
+  },
+  "friendly_rewards": {
+    "per_encounter_settles_once": true,
+    "tokens_max_held": 1,
+    "duration_max_nights": 1,
+    "stack_rule": "同类取较强效果；不叠加到全周免疫设备故障/水怪/追逐。",
+    "refusing_optional_unaccepted_bargain_penalized": false,
+    "examples": [
+      {
+        "monster_id": "F07",
+        "reward": "下一夜一名有额外小费的熟客；最多+8币，不改变怪物准入。"
+      },
+      {
+        "monster_id": "F22",
+        "reward": "同阶段代做一个已存在工单点，进度只记一次。"
+      },
+      {
+        "monster_id": "F29",
+        "reward": "一次普通货品损耗免除，不覆盖任务目标或安全事故。"
+      },
+      {
+        "monster_id": "F21",
+        "reward": "救援回报SAN+5一次；不因试图核验或不使用驱邪道具强行惩罚。"
+      },
+      {
+        "monster_id": "F23",
+        "reward": "下一次水系局部危险预告+2秒一次；不自动解除。"
+      },
+      {
+        "monster_id": "F59",
+        "reward": "修好已损坏的普通设施一次；不免费新增永久付费装备。"
+      }
+    ]
+  },
+  "pets_and_deployables": {
+    "pet_catalog": "content/pets.json",
+    "deployable_catalog": "content/deployables.json",
+    "retain_general_and_named_monster_skills": true,
+    "omens_only_redesign": false,
+    "no_auto_resolution": true,
+    "max_active_deployables": 3,
+    "same_type_limit": 1,
+    "fixed_sockets_only": true,
+    "no_navmesh_rebuild": true,
+    "no_free_recharge_on_upgrade_or_pickup": true,
+    "starter_help": "免费基础工具与关键任务物保证解题；抽奖物用来减小暴露、保住收益、争取一次补救，不能成为抽不到就无法通关的钥匙。"
+  },
+  "director": {
+    "usual_new_primary_per_phase": 1,
+    "friendly_visitors_count_as_primary": true,
+    "major_event_replaces_primary": true,
+    "max_active_player_pursuers": 1,
+    "f12_f13_simultaneous": false,
+    "same_unique_asset_conflict_rejected": true,
+    "two_mechanisms_can_mix_without_two_monster_brains": true,
+    "budget_example_seconds": {
+      "normal_duty_with_travel": 26,
+      "two_basic_orders": 3,
+      "encounter_incremental_actions_and_travel": 44,
+      "one_recovery": 18,
+      "next_omen_preparation": 10,
+      "slack": 19
+    },
+    "budget_total_seconds": 120,
+    "example_is_not_all_encounter_guarantee": true,
+    "admission_order": [
+      "implemented feature gates",
+      "unlocked action grammar and visible warning",
+      "phase/event compatibility",
+      "reachable objects and spawn safety",
+      "combined unique action+travel budget",
+      "resource/actor reservations",
+      "spatial constraints",
+      "pressure cap"
+    ],
+    "difficulty_changes": [
+      "让已学两种机制争同一扇门但可分时解决",
+      "加入可解释的环境干扰",
+      "要求在两项有收益准备中取舍",
+      "逐步让怪改变工作顺序"
+    ],
+    "difficulty_forbids": [
+      "删掉唯一识别线索",
+      "任意加速追逐违背蓝图",
+      "基础冰柜无保底",
+      "未知规则首次无预警重罚",
+      "违反规则生成未占预算的第二追逐者"
+    ],
+    "max_constraints_per_action_including_san": 2,
+    "visual_impairment_stack": "同类黑暗/雾/黑视取较强受限效果，不相加吞掉最低可读范围。"
+  },
+  "conditional_examples": [
+    {
+      "ids": [
+        "F12",
+        "E001"
+      ],
+      "condition": "同事已核验且可守柜台；诱饵出口仍空",
+      "effect": "补货与排队争玩家注意力，先暂停/交岗再诱离",
+      "reject_if": "排队实体阻塞唯一诱饵出口"
+    },
+    {
+      "ids": [
+        "F13",
+        "E019"
+      ],
+      "condition": "应急路线可见且登记冰柜/备用柜可用",
+      "effect": "观察距离变差，搬肉与入柜条件不变",
+      "reject_if": "两柜均不可用或可见警示被吞"
+    },
+    {
+      "ids": [
+        "F05",
+        "E010"
+      ],
+      "condition": "雨水与怪物湿路有不同来源标记",
+      "effect": "雨水干扰判断，拖物只沿自己的连通图",
+      "reject_if": "全图湿化取消干侧解"
+    },
+    {
+      "ids": [
+        "F07",
+        "E009"
+      ],
+      "condition": "相同小时有排队者且第二队列可用",
+      "effect": "保留空椅与接大单争位置",
+      "reject_if": "第二排队位不可达"
+    },
+    {
+      "ids": [
+        "F43",
+        "E025"
+      ],
+      "condition": "真同事固定同行路线或公共垫核验均可用",
+      "effect": "后门故障给假便签的改路请求增加说服力",
+      "reject_if": "侧巷行走+核验+主工作超预算"
+    },
+    {
+      "ids": [
+        "F21",
+        "F32"
+      ],
+      "condition": "第二实体已预留、警告与包扎窗口不冲突",
+      "effect": "未及时移岗导致伤口才成为吸血鬼目标；挽救事故切断联动",
+      "reject_if": "单实体教学夜或需要新增未预算追逐者"
+    },
+    {
+      "ids": [
+        "F49",
+        "F58"
+      ],
+      "condition": "废物余热与合规热食是两个明确标签",
+      "effect": "垃圾冷却与热食保温可同时成立",
+      "reject_if": "实现把所有热源当成同一全局开关"
+    },
+    {
+      "ids": [
+        "F05",
+        "F57"
+      ],
+      "condition": "各绑定独立水源/不同湿区",
+      "effect": "需要分清应该断哪一支而非关总水",
+      "reject_if": "同一必需边同时要求湿和干"
+    }
+  ],
+  "implementation": {
+    "headless_reference_file": "prototype/store_core_v05.mjs",
+    "headless_reference_scope": [
+      "power ledger",
+      "service modes",
+      "order patience",
+      "local breach episodes",
+      "work debt",
+      "shift grading",
+      "redacted evidence",
+      "feature admission"
+    ],
+    "component_composition_is_not_monster_runtime": true,
+    "dsl_scope": "先用有类型的字段与白名单能力；不通过eval运行自然语言或字符串guard。完整通用状态机要由可玩切片的实际重复逻辑决定。",
+    "slice_monster_ids": [
+      "F12",
+      "F13",
+      "F32",
+      "F05",
+      "F07",
+      "F43"
+    ],
+    "first_slice_all_new_features_default_false": true,
+    "slice_steps": [
+      "世界取放/朝向/门/物件状态与工单",
+      "已有F12/F13接移动输入",
+      "湿路/座位/迎宾/身份可观察反馈",
+      "预兆和6只各自结束条件",
+      "临时道具宠物并入",
+      "真机试玩后扩族群"
+    ],
+    "unimplemented": [
+      "2D client movement and collision",
+      "world clock integration",
+      "continuous pathfinding with actors",
+      "WeChat packaging and performance",
+      "all sixty monster runtime adapters",
+      "touch QTE usability",
+      "playtesting"
+    ],
+    "registered_monster_feature_requirements": [
+      "aisle_water_binding",
+      "attention_condition",
+      "authored_item_appearance_state",
+      "batch_slot_receipt",
+      "bounded_benefit_token",
+      "bounded_discount_token",
+      "bounded_escort",
+      "bounded_escort_route",
+      "bounded_flow_maintenance",
+      "bounded_help_receipt",
+      "bounded_renewal",
+      "chair_underlight_check",
+      "curtain_sight_segment",
+      "cycle_phase",
+      "discrete_depth_probe",
+      "fixed_bridge_receipt",
+      "fixed_three_item_stack",
+      "fixed_two_window_group",
+      "fixed_wheel_trace_chain",
+      "greeting_mode",
+      "inverse_sound_cycle",
+      "lid_exposure_state",
+      "manual_gate_phase",
+      "mirror_view_exempt_from_direct_gaze",
+      "next_night_warning_token",
+      "note_provenance",
+      "ordered_rope_retrieval",
+      "persistent_bounded_quota",
+      "physical_section_closure",
+      "preplaced_sieve",
+      "reflective_boundary_warning",
+      "reserved_water_container",
+      "retreating_trace_nodes",
+      "scoped_invitation",
+      "sealed_reward_cashout",
+      "separate_sale_and_access",
+      "single_fault_repair",
+      "single_rest_receipt",
+      "song_order_binding",
+      "sound_channel",
+      "store_mode",
+      "story_receipt_slots",
+      "telegraphed_board_retreat",
+      "three_song_qte_profile",
+      "three_stop_wind_cycle",
+      "unobserved_construction",
+      "visitor_work_hat_boundary",
+      "warm_food_boundary",
+      "waste_heat_tags",
+      "wet_profile_binding",
+      "wooden_foot_trace"
+    ],
+    "all_registered_monster_features_implemented": false,
+    "extension_requirement_count": 51,
+    "extension_scope": "51个标签是具体内容扩展需求，包含同类变体和参数配置；不是已经实现的51个引擎模块，也不能因为有10个SG就省略逐条适配和验收。实现后再从实测重复代码提取共享组件。"
+  }
+}

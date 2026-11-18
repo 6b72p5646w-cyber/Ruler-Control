@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate V0.4 design references and configuration invariants, not gameplay balance."""
+"""Validate shared catalogs and preserved V0.4 details; current V0.5 has a separate validator."""
 
 from collections import Counter
 import json
@@ -234,7 +234,10 @@ def main():
         require(design['implementation']['client_implemented'] is False, f'{fid}: design falsely labeled implemented')
         require(design['implementation']['tier'] in {'low', 'medium', 'high'}, f'{fid}: missing relative implementation tier')
         require(bool(design['implementation']['feature_gate']), f'{fid}: runtime feature gate missing')
-        require(monsters[fid]['interaction_design_stage'] == 'v04_complete_design', f'{fid}: stale design stage')
+        # The old card remains auditable history. Current catalog references are
+        # independently checked by validate_design_v05.py after migration.
+        legacy_stage = monsters[fid].get('legacy_interaction_design_stage', monsters[fid]['interaction_design_stage'])
+        require(legacy_stage == 'v04_complete_design', f'{fid}: missing historical design provenance')
         require(all(design['counterplay'].get(k) for k in ['free_baseline','optional_support','does_not_solve']), f'{fid}: free response/support boundary missing')
         require(all(design['failure_and_recovery'].get(k) for k in ['trigger','consequence','recovery','escape']), f'{fid}: recovery path missing')
         require(set(design['resource_pressure']) == {'energy','san','satiety','stamina'}, f'{fid}: resource contract changed')
@@ -296,9 +299,9 @@ def main():
                          'shared_verbs': len(verbs), 'work_templates': len(work), 'qte_templates': len(qtes),
                          'rule_components': len(components), 'event_variants': len(variants),
                          'encounter_blueprints': len(encounters), 'deployables': len(deployables),
-                         'complete_encounter_designs': len(designs), 'encounter_event_variants': len(design_variants),
+                         'legacy_complete_encounter_designs': len(designs), 'legacy_encounter_event_variants': len(design_variants),
                          'mechanism_modules': len(systems), 'map_scenes': len(map_scenes)},
-              'scope': 'Content integrity and declared configuration only. Separate headless checks do not validate navigation, touch UI, phone performance or play balance.',
+              'scope': 'Shared catalogs and preserved V0.4 history only; run validate_design_v05.py for current gameplay. Static/headless checks do not validate navigation, touch UI, phone performance or play balance.',
               'errors': errors}
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 1 if errors else 0

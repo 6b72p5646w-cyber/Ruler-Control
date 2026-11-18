@@ -1,0 +1,1605 @@
+{
+  "version": "0.5",
+  "status": "authored_overlay_not_client_implemented",
+  "client_implemented": false,
+  "base_map": "content/maps.json",
+  "scene_id": "MAP_STORE",
+  "authority": "V0.5机制附件与具名槽覆盖同名旧附件的操作绑定；底图轮廓、静态fixtures、五屏面积保持不变。旧floor_markers仅供F40，不得再表示任意怪的无坐标地标。",
+  "objects": [
+    {
+      "id": "OBJ_VERIFY_READER",
+      "name": "前场快照读屏与远程采集键",
+      "owner_anchor": "verification_desk",
+      "player_position": [
+        24.5,
+        27.5
+      ],
+      "object_position": [
+        25.5,
+        26.5
+      ],
+      "blocks_navigation": false,
+      "interaction_radius_tiles": 1.5,
+      "states": [
+        "idle",
+        "capturing",
+        "read_only"
+      ],
+      "capture_world_seconds": 1,
+      "observation_policy": "只能采集已登记CAM的当刻画面；时间戳、视域和遮挡随证据保留。免费开场快照/物理核验不依赖可选电力；额外远程快照成本由V0.5共享商店电力规则规定。",
+      "not_identity_oracle": true
+    },
+    {
+      "id": "OBJ_VERIFY_KEYS",
+      "name": "核验台权限钥匙槽",
+      "owner_anchor": "verification_desk",
+      "player_position": [
+        27.5,
+        27.5
+      ],
+      "object_position": [
+        27.5,
+        26.5
+      ],
+      "blocks_navigation": false,
+      "interaction_radius_tiles": 1.5,
+      "states": [
+        "sealed",
+        "visitor_only",
+        "staff_verified"
+      ]
+    },
+    {
+      "id": "OBJ_VERIFY_LAMP",
+      "name": "核验侧灯与手压观察镜",
+      "owner_anchor": "verification_desk",
+      "player_position": [
+        25.5,
+        27.5
+      ],
+      "object_position": [
+        26.5,
+        26.5
+      ],
+      "blocks_navigation": false,
+      "interaction_radius_tiles": 1.5,
+      "states": [
+        "off",
+        "manual_local",
+        "powered"
+      ],
+      "free_manual_mode": true,
+      "proof_policy": "观察物理轮廓只是一条证据，不自动确认员工身份。"
+    },
+    {
+      "id": "OBJ_COUNTER_ROSTER",
+      "name": "柜台班表与交接本副本",
+      "owner_anchor": "cashier",
+      "player_position": [
+        6.5,
+        26.5
+      ],
+      "object_position": [
+        6.5,
+        25.5
+      ],
+      "blocks_navigation": false,
+      "interaction_radius_tiles": 1.5,
+      "states": [
+        "sealed_roster",
+        "pending_note"
+      ],
+      "record_policy": "已盖章班表与可疑手写便签分载体显示，副本不能自动包含未采集的连续监控。"
+    },
+    {
+      "id": "OBJ_REAR_EVIDENCE",
+      "name": "后门工作证据卡槽",
+      "owner_anchor": "rear_door",
+      "player_position": [
+        27.5,
+        2.5
+      ],
+      "object_position": [
+        26.5,
+        2.5
+      ],
+      "blocks_navigation": false,
+      "interaction_radius_tiles": 1.5,
+      "states": [
+        "stored",
+        "selected",
+        "presented"
+      ],
+      "item_policy": "只提供本班已经生成的工作回执；开场的验岗回执可作最小实例。不会伪造尚未完成的工作。"
+    },
+    {
+      "id": "OBJ_REAR_GATE",
+      "name": "后门手动验货闸控制",
+      "owner_anchor": "rear_door",
+      "player_position": [
+        27.5,
+        1.5
+      ],
+      "object_position": [
+        27.5,
+        0.5
+      ],
+      "blocks_navigation": false,
+      "interaction_radius_tiles": 1.5,
+      "states": [
+        "shut",
+        "slit",
+        "open"
+      ],
+      "bind_existing_door": "DOOR_REAR",
+      "state_policy": "只切换原有门边或服务缝；活动追逐时不得关死唯一逃生路径。"
+    },
+    {
+      "id": "OBJ_REAR_GAUGE",
+      "name": "后门机械压力牌",
+      "owner_anchor": "rear_door",
+      "player_position": [
+        27.5,
+        1.5
+      ],
+      "object_position": [
+        26.5,
+        1.5
+      ],
+      "blocks_navigation": false,
+      "interaction_radius_tiles": 1.5,
+      "states": [
+        "near",
+        "far"
+      ],
+      "powered": false,
+      "proof_policy": "显示本地压力档，不显示怪名；与听觉形成可核对的物理差异。"
+    },
+    {
+      "id": "OBJ_MIRROR_CURTAIN",
+      "name": "凸镜近侧遮线帘",
+      "owner_anchor": "convex_mirror",
+      "player_position": [
+        19.5,
+        23.5
+      ],
+      "object_position": [
+        19.5,
+        22.5
+      ],
+      "blocks_navigation": false,
+      "interaction_radius_tiles": 1.5,
+      "states": [
+        "open",
+        "closed"
+      ],
+      "affects_rule_sight": true,
+      "mirror_triggers_by_encounter": true,
+      "not_optional_purchase": true,
+      "rule_occlusion_segment": [
+        [
+          18.5,
+          23.0
+        ],
+        [
+          20.5,
+          23.0
+        ]
+      ],
+      "sight_test_player": [
+        19.5,
+        23.5
+      ],
+      "sight_test_monster": [
+        19.5,
+        21.5
+      ],
+      "sight_policy": "闭合帘仅遮断实际穿过此线段的玩家—实体视线；镜面观察与直接对视分别判断。实体绕到帘同侧时不能沿用遮挡结果，改用背向移动。"
+    },
+    {
+      "id": "OBJ_FRONT_SERVICE",
+      "name": "正门外窗内侧服务位",
+      "owner_anchor": "front_door",
+      "player_position": [
+        22.5,
+        28.5
+      ],
+      "object_position": [
+        22.5,
+        29.5
+      ],
+      "blocks_navigation": false,
+      "interaction_radius_tiles": 1.5,
+      "states": [
+        "shut",
+        "trade_slit",
+        "curtained"
+      ],
+      "reuses_attachment": "ATT01",
+      "guest_wait_position": [
+        22.5,
+        31.5
+      ],
+      "window_take_position": [
+        22.5,
+        30.5
+      ],
+      "gate_policy": "营业牌和物理门分开；窗口的邀请/声/视线语义按怪注册，不自动挡全部顾客壳。"
+    },
+    {
+      "id": "OBJ_SECOND_QUEUE",
+      "name": "第二等候格",
+      "owner_anchor": "customer_wait",
+      "player_position": [
+        3.5,
+        22.5
+      ],
+      "object_position": [
+        3.5,
+        22.5
+      ],
+      "blocks_navigation": false,
+      "interaction_radius_tiles": 1.5,
+      "states": [
+        "available",
+        "reserved",
+        "occupied"
+      ],
+      "actor_occupancy_requires_runtime_gate": true
+    },
+    {
+      "id": "OBJ_HANDOFF_MAT",
+      "name": "前门内侧交接与粉印垫",
+      "owner_anchor": "front_door",
+      "player_position": [
+        15.5,
+        26.5
+      ],
+      "object_position": [
+        15.5,
+        27.5
+      ],
+      "blocks_navigation": false,
+      "interaction_radius_tiles": 1.5,
+      "states": [
+        "dry",
+        "powdered",
+        "marked"
+      ],
+      "proof_policy": "物件放到垫上只产生交接收据，不等同走出门槛或授予员工权限。"
+    },
+    {
+      "id": "OBJ_REAR_POWDER",
+      "name": "后门内侧粉印垫",
+      "owner_anchor": "rear_door",
+      "player_position": [
+        26.5,
+        2.5
+      ],
+      "object_position": [
+        26.5,
+        1.5
+      ],
+      "blocks_navigation": false,
+      "interaction_radius_tiles": 1.5,
+      "states": [
+        "clear",
+        "powdered",
+        "trace"
+      ]
+    },
+    {
+      "id": "OBJ_ENTRY_TALLY",
+      "name": "公开入口计数与时间卡",
+      "owner_anchor": "rear_door",
+      "player_position": [
+        26.5,
+        2.5
+      ],
+      "object_position": [
+        26.5,
+        2.5
+      ],
+      "blocks_navigation": false,
+      "interaction_radius_tiles": 1.5,
+      "states": [
+        "recording",
+        "read_only"
+      ],
+      "proof_policy": "只证明经过该入口的事件，不能证明人物全程不在别处；不能单独证明身份。"
+    },
+    {
+      "id": "OBJ_PUBLIC_PARCEL",
+      "name": "公共长台包裹近侧槽",
+      "owner_anchor": "pickup_shelf",
+      "player_position": [
+        19.5,
+        25.5
+      ],
+      "object_position": [
+        20.5,
+        25.5
+      ],
+      "blocks_navigation": false,
+      "interaction_radius_tiles": 1.5,
+      "states": [
+        "received",
+        "untied",
+        "ready"
+      ],
+      "guest_wait_position": [
+        23.5,
+        25.5
+      ],
+      "min_guest_distance_tiles": 2.5,
+      "claim_policy": "访客在公共区等候；玩家离开包裹至少2.5格后访客才能靠近领取，未领取前包裹不消失。"
+    },
+    {
+      "id": "OBJ_COUNTER_BOUNDARY",
+      "name": "柜台护栏与可见规则线",
+      "owner_anchor": "safe_counter",
+      "player_position": [
+        9.5,
+        26.5
+      ],
+      "object_position": [
+        9.5,
+        25.5
+      ],
+      "blocks_navigation": false,
+      "interaction_radius_tiles": 1.5,
+      "states": [
+        "open",
+        "marked"
+      ],
+      "barrier_policy": "仅提供清楚的边界视觉；是否阻拦必须由怪物契约注册，默认不阻拦。F12不获永久柜台免疫。",
+      "no_global_safe_zone": true
+    },
+    {
+      "id": "OBJ_TREE_RETURN",
+      "name": "门内树苗归还槽",
+      "owner_anchor": "front_door",
+      "player_position": [
+        15.5,
+        27.5
+      ],
+      "object_position": [
+        14.5,
+        27.5
+      ],
+      "blocks_navigation": false,
+      "interaction_radius_tiles": 1.5,
+      "states": [
+        "empty",
+        "returned"
+      ]
+    },
+    {
+      "id": "OBJ_LEASE_MARKER",
+      "name": "库房限域借用标牌",
+      "owner_anchor": "storage_shelf",
+      "player_position": [
+        18.5,
+        5.5
+      ],
+      "object_position": [
+        18.5,
+        5.5
+      ],
+      "blocks_navigation": false,
+      "interaction_radius_tiles": 1.5,
+      "states": [
+        "unassigned",
+        "bounded",
+        "expired"
+      ],
+      "leased_rect": [
+        18,
+        4,
+        3,
+        2
+      ]
+    },
+    {
+      "id": "OBJ_COLD_SECTION_SIGN",
+      "name": "冷区暂停与保温边界牌",
+      "owner_anchor": "hot_food",
+      "player_position": [
+        24.5,
+        15.5
+      ],
+      "object_position": [
+        24.5,
+        15.5
+      ],
+      "blocks_navigation": false,
+      "interaction_radius_tiles": 1.5,
+      "states": [
+        "open",
+        "cold_section_closed",
+        "warm_boundary"
+      ],
+      "boundary_only": true
+    },
+    {
+      "id": "OBJ_OFFER_TABLE",
+      "name": "保留座旁供物小台",
+      "owner_anchor": "reserve_seat",
+      "player_position": [
+        1.5,
+        22.5
+      ],
+      "object_position": [
+        2.5,
+        21.5
+      ],
+      "blocks_navigation": false,
+      "interaction_radius_tiles": 1.5,
+      "states": [
+        "empty",
+        "offering"
+      ],
+      "offering_uses_actual_inventory": true
+    }
+  ],
+  "spatial_groups": [
+    {
+      "id": "GRP_CASH_TRACE",
+      "owner_anchor": "cashier",
+      "purpose": "F16三处现金示踪候选",
+      "positions": [
+        [
+          9.5,
+          23.5
+        ],
+        [
+          10.5,
+          23.5
+        ],
+        [
+          12.5,
+          24.5
+        ]
+      ],
+      "blocks_navigation": false
+    },
+    {
+      "id": "GRP_RED_TRACE",
+      "owner_anchor": "customer_wait",
+      "purpose": "F26三处伤迹",
+      "positions": [
+        [
+          6.5,
+          23.5
+        ],
+        [
+          9.5,
+          23.5
+        ],
+        [
+          14.5,
+          24.5
+        ]
+      ],
+      "blocks_navigation": false
+    },
+    {
+      "id": "GRP_LURE_RETREAT",
+      "owner_anchor": "front_door",
+      "purpose": "F37可见门外后退点，玩家无须踏入",
+      "positions": [
+        [
+          15.5,
+          32.5
+        ],
+        [
+          15.5,
+          34.5
+        ],
+        [
+          15.5,
+          36.5
+        ]
+      ],
+      "blocks_navigation": false
+    },
+    {
+      "id": "GRP_BATCH_TRACE",
+      "owner_anchor": "receiving",
+      "purpose": "F45三处批次轮迹候选",
+      "positions": [
+        [
+          17.5,
+          3.5
+        ],
+        [
+          20.5,
+          3.5
+        ],
+        [
+          23.5,
+          3.5
+        ]
+      ],
+      "blocks_navigation": false
+    },
+    {
+      "id": "GRP_TOOL_TRACE",
+      "owner_anchor": "storage_shelf",
+      "purpose": "F46三个固定风迹/失物候选槽",
+      "positions": [
+        [
+          17.5,
+          4.5
+        ],
+        [
+          20.5,
+          4.5
+        ],
+        [
+          23.5,
+          4.5
+        ]
+      ],
+      "blocks_navigation": false
+    },
+    {
+      "id": "GRP_GIANT_BUFFERS",
+      "owner_anchor": "forecourt_handoff",
+      "purpose": "F54三件取回物暂存槽",
+      "positions": [
+        [
+          19.5,
+          32.5
+        ],
+        [
+          20.5,
+          32.5
+        ],
+        [
+          21.5,
+          32.5
+        ]
+      ],
+      "blocks_navigation": false
+    },
+    {
+      "id": "GRP_ESCORT_ROUTE",
+      "owner_anchor": "front_door",
+      "purpose": "F55单段护送路线",
+      "positions": [
+        [
+          15.5,
+          31.5
+        ],
+        [
+          15.5,
+          34.5
+        ],
+        [
+          15.5,
+          37.5
+        ]
+      ],
+      "max_adjacent_distance_tiles": 3,
+      "blocks_navigation": false
+    },
+    {
+      "id": "GRP_CONSTRUCTION_SLOTS",
+      "owner_anchor": "construction_zone",
+      "purpose": "F59三份施工物料固定槽",
+      "positions": [
+        [
+          9.5,
+          21.5
+        ],
+        [
+          10.5,
+          21.5
+        ],
+        [
+          11.5,
+          21.5
+        ]
+      ],
+      "blocks_navigation": false
+    },
+    {
+      "id": "GRP_LESHY_MARKERS",
+      "owner_anchor": "floor_markers",
+      "purpose": "F40既有三枚物理路标；该组是floor_markers唯一新依赖",
+      "positions": [
+        [
+          14.5,
+          19.5
+        ],
+        [
+          10.5,
+          19.5
+        ],
+        [
+          8.5,
+          22.5
+        ]
+      ],
+      "reuses_attachment": "ATT09",
+      "max_adjacent_distance_tiles": 4,
+      "blocks_navigation": false
+    },
+    {
+      "id": "GRP_FRONT_SAFE_LINE",
+      "owner_anchor": "front_door",
+      "purpose": "F24/F37/F43门内规则线；不强迫站到门外",
+      "positions": [
+        [
+          14.5,
+          28.5
+        ],
+        [
+          15.5,
+          28.5
+        ],
+        [
+          16.5,
+          28.5
+        ]
+      ],
+      "blocks_navigation": false
+    },
+    {
+      "id": "GRP_REAR_SAFE_LINE",
+      "owner_anchor": "rear_door",
+      "purpose": "后门验收边界与安全侧",
+      "positions": [
+        [
+          26.5,
+          1.5
+        ],
+        [
+          27.5,
+          1.5
+        ]
+      ],
+      "blocks_navigation": false
+    },
+    {
+      "id": "GRP_DRY_HANDOFF",
+      "owner_anchor": "front_door",
+      "purpose": "F24门外交付干侧，仅在当前湿区不覆盖时启用",
+      "positions": [
+        [
+          15.5,
+          31.5
+        ],
+        [
+          16.5,
+          31.5
+        ]
+      ],
+      "blocks_navigation": false
+    }
+  ],
+  "wet_regions": [
+    {
+      "id": "WET_FRONT",
+      "name": "前门左侧雨线",
+      "wet_cells": [
+        [
+          13,
+          27
+        ],
+        [
+          13,
+          28
+        ],
+        [
+          13,
+          29
+        ],
+        [
+          13,
+          30
+        ],
+        [
+          13,
+          31
+        ],
+        [
+          14,
+          27
+        ]
+      ],
+      "source_cell": [
+        13,
+        31
+      ],
+      "target_cell": [
+        14,
+        27
+      ],
+      "cut_cell": [
+        13,
+        29
+      ],
+      "dry_interact_position": [
+        14.5,
+        29.5
+      ],
+      "dry_safe_position": [
+        15.5,
+        28.5
+      ],
+      "cut_action_seconds": 2,
+      "cut_interaction_max_tiles": 1.5,
+      "drain_detached_component": true,
+      "blocks_navigation": false,
+      "preferred_monsters": [
+        "F24",
+        "F34",
+        "F41"
+      ],
+      "dry_required_roles": [
+        "cashier",
+        "front_door",
+        "verification_desk"
+      ]
+    },
+    {
+      "id": "WET_COLD",
+      "name": "水槽西侧短漏水线",
+      "wet_cells": [
+        [
+          23,
+          10
+        ],
+        [
+          24,
+          10
+        ],
+        [
+          25,
+          10
+        ],
+        [
+          26,
+          10
+        ],
+        [
+          23,
+          11
+        ],
+        [
+          23,
+          12
+        ]
+      ],
+      "source_cell": [
+        26,
+        10
+      ],
+      "target_cell": [
+        23,
+        12
+      ],
+      "cut_cell": [
+        24,
+        10
+      ],
+      "dry_interact_position": [
+        24.5,
+        11.5
+      ],
+      "dry_safe_position": [
+        25.5,
+        11.5
+      ],
+      "cut_action_seconds": 2,
+      "cut_interaction_max_tiles": 1.5,
+      "drain_detached_component": true,
+      "blocks_navigation": false,
+      "preferred_monsters": [
+        "F05",
+        "F28",
+        "F47"
+      ],
+      "dry_required_roles": [
+        "sink",
+        "water_valve",
+        "freezer_main",
+        "rear_door"
+      ],
+      "control_anchor": "water_valve"
+    },
+    {
+      "id": "WET_REAR",
+      "name": "后院东侧沟到门内渗水",
+      "wet_cells": [
+        [
+          28,
+          -6
+        ],
+        [
+          28,
+          -5
+        ],
+        [
+          28,
+          -4
+        ],
+        [
+          28,
+          -3
+        ],
+        [
+          28,
+          -2
+        ],
+        [
+          28,
+          -1
+        ],
+        [
+          28,
+          0
+        ],
+        [
+          28,
+          1
+        ],
+        [
+          28,
+          2
+        ]
+      ],
+      "source_cell": [
+        28,
+        -6
+      ],
+      "target_cell": [
+        28,
+        2
+      ],
+      "cut_cell": [
+        28,
+        -1
+      ],
+      "dry_interact_position": [
+        27.5,
+        -0.5
+      ],
+      "dry_safe_position": [
+        27.5,
+        1.5
+      ],
+      "cut_action_seconds": 2,
+      "cut_interaction_max_tiles": 1.5,
+      "drain_detached_component": true,
+      "blocks_navigation": false,
+      "preferred_monsters": [
+        "F10",
+        "F24",
+        "F57"
+      ],
+      "dry_required_roles": [
+        "rear_door",
+        "dumpster",
+        "waste_sort"
+      ],
+      "protected_source_cells": [
+        [
+          28,
+          -6
+        ],
+        [
+          28,
+          -5
+        ],
+        [
+          28,
+          -4
+        ],
+        [
+          28,
+          -3
+        ],
+        [
+          28,
+          -2
+        ]
+      ],
+      "source_must_remain_flowing_for": [
+        "F57"
+      ],
+      "protected_flow_maintenance_exception": {
+        "monster_id": "F57",
+        "attachment": "ATT15",
+        "max_world_seconds": 8,
+        "restore_before_receipt": true,
+        "permanent_source_cut_allowed": false
+      }
+    },
+    {
+      "id": "WET_AISLE",
+      "name": "货架环路积水片",
+      "wet_cells": [
+        [
+          8,
+          14
+        ],
+        [
+          8,
+          15
+        ],
+        [
+          8,
+          16
+        ],
+        [
+          8,
+          17
+        ],
+        [
+          8,
+          18
+        ],
+        [
+          8,
+          19
+        ]
+      ],
+      "source_cell": [
+        8,
+        14
+      ],
+      "target_cell": [
+        8,
+        19
+      ],
+      "cut_cell": [
+        8,
+        17
+      ],
+      "dry_interact_position": [
+        7.5,
+        17.5
+      ],
+      "dry_safe_position": [
+        7.5,
+        19.5
+      ],
+      "cut_action_seconds": 2,
+      "cut_interaction_max_tiles": 1.5,
+      "drain_detached_component": true,
+      "blocks_navigation": false,
+      "preferred_monsters": [
+        "F56"
+      ],
+      "dry_required_roles": [
+        "goods_shelf",
+        "metal_shelf",
+        "front_door"
+      ]
+    },
+    {
+      "id": "WET_CHAIR",
+      "name": "员工椅南侧短水线",
+      "wet_cells": [
+        [
+          1,
+          8
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          3,
+          7
+        ]
+      ],
+      "source_cell": [
+        1,
+        8
+      ],
+      "target_cell": [
+        3,
+        7
+      ],
+      "cut_cell": [
+        3,
+        8
+      ],
+      "dry_interact_position": [
+        4.5,
+        8.5
+      ],
+      "dry_safe_position": [
+        4.5,
+        7.5
+      ],
+      "cut_action_seconds": 2,
+      "cut_interaction_max_tiles": 1.5,
+      "drain_detached_component": true,
+      "blocks_navigation": false,
+      "preferred_monsters": [
+        "F52"
+      ],
+      "dry_required_roles": [
+        "staff_desk",
+        "rest_chair",
+        "monitor_terminal"
+      ],
+      "overrides_attachment": "ATT16",
+      "forbidden_wet_cells": [
+        [
+          4,
+          3
+        ]
+      ]
+    }
+  ],
+  "defense_groups": [
+    {
+      "id": "DEF_FRONT_PAIR",
+      "replaces_attachment_group": "ATT14.front_pair",
+      "window_objects": [
+        [
+          22.5,
+          29.5
+        ],
+        [
+          24.5,
+          29.5
+        ]
+      ],
+      "player_positions": [
+        [
+          22.5,
+          28.5
+        ],
+        [
+          24.5,
+          28.5
+        ]
+      ],
+      "board_pickup_position": [
+        23.5,
+        28.5
+      ],
+      "safe_position": [
+        23.5,
+        25.5
+      ],
+      "dive_strips": [
+        [
+          22,
+          30,
+          1,
+          2
+        ],
+        [
+          24,
+          30,
+          1,
+          2
+        ]
+      ],
+      "warning_seconds": 8,
+      "push_board_seconds": 2,
+      "max_player_to_board_to_target_tiles": 12,
+      "interior_impact_cells": [
+        [
+          22,
+          28
+        ],
+        [
+          24,
+          28
+        ]
+      ],
+      "hands_release_seconds_max": 0.25,
+      "impact_policy": "8秒预告结束时，怪物俯冲仍在店外；同一目标窗内侧登记两格承受离散冲击，玩家必须退到safe_position。只画店外俯冲带不代表店内窗前自动安全。"
+    },
+    {
+      "id": "DEF_REAR_PAIR",
+      "replaces_attachment_group": "ATT14.rear_pair",
+      "window_objects": [
+        [
+          20.5,
+          0.5
+        ],
+        [
+          21.5,
+          0.5
+        ]
+      ],
+      "player_positions": [
+        [
+          20.5,
+          1.5
+        ],
+        [
+          21.5,
+          1.5
+        ]
+      ],
+      "board_pickup_position": [
+        21.5,
+        2.5
+      ],
+      "safe_position": [
+        21.5,
+        3.5
+      ],
+      "dive_strips": [
+        [
+          20,
+          -2,
+          1,
+          2
+        ],
+        [
+          21,
+          -2,
+          1,
+          2
+        ]
+      ],
+      "warning_seconds": 8,
+      "push_board_seconds": 2,
+      "max_player_to_board_to_target_tiles": 12,
+      "interior_impact_cells": [
+        [
+          20,
+          1
+        ],
+        [
+          21,
+          1
+        ]
+      ],
+      "hands_release_seconds_max": 0.25,
+      "impact_policy": "8秒预告结束时，怪物俯冲仍在店外；同一目标窗内侧登记两格承受离散冲击，玩家必须退到safe_position。只画店外俯冲带不代表店内窗前自动安全。"
+    }
+  ],
+  "entry_profiles": [
+    {
+      "id": "EP_FRONT_VISITOR",
+      "kind": "public_arrival",
+      "positions": [
+        [
+          15.5,
+          32.5
+        ],
+        [
+          15.5,
+          30.5
+        ],
+        [
+          15.5,
+          28.5
+        ],
+        [
+          16.5,
+          25.5
+        ]
+      ],
+      "requires_open_door": "DOOR_FRONT",
+      "public_only": true,
+      "activation_min_distance_tiles": 5,
+      "too_close_policy": "先在屏外/挂件发出方向明确预兆，延迟激活；距离未满足且无安全路线则更换入口或延期，不瞬移到玩家身边。",
+      "runtime_gate": [
+        "player_distance",
+        "doors_current",
+        "not_cut_only_required_route",
+        "work_and_escape_budget",
+        "active_pursuer_cap"
+      ]
+    },
+    {
+      "id": "EP_REAR_DELIVERY",
+      "kind": "bounded_delivery",
+      "positions": [
+        [
+          27.5,
+          -3.5
+        ],
+        [
+          27.5,
+          -1.5
+        ],
+        [
+          27.5,
+          1.5
+        ],
+        [
+          27.5,
+          3.5
+        ]
+      ],
+      "requires_open_door": "DOOR_REAR",
+      "public_only": false,
+      "permission_policy": "停在公共验收边界；入员工区必须另授当前任务范围的有限许可。",
+      "activation_min_distance_tiles": 5,
+      "too_close_policy": "先在屏外/挂件发出方向明确预兆，延迟激活；距离未满足且无安全路线则更换入口或延期，不瞬移到玩家身边。",
+      "runtime_gate": [
+        "player_distance",
+        "doors_current",
+        "not_cut_only_required_route",
+        "work_and_escape_budget",
+        "active_pursuer_cap"
+      ]
+    },
+    {
+      "id": "EP_AISLE_MANIFEST",
+      "kind": "telegraphed_manifest",
+      "positions": [
+        [
+          14.5,
+          19.5
+        ],
+        [
+          14.5,
+          18.5
+        ]
+      ],
+      "requires_open_door": null,
+      "activation_min_distance_tiles": 5,
+      "too_close_policy": "先在屏外/挂件发出方向明确预兆，延迟激活；距离未满足且无安全路线则更换入口或延期，不瞬移到玩家身边。",
+      "runtime_gate": [
+        "player_distance",
+        "doors_current",
+        "not_cut_only_required_route",
+        "work_and_escape_budget",
+        "active_pursuer_cap"
+      ]
+    },
+    {
+      "id": "EP_OBJECT_MANIFEST",
+      "kind": "object_bound",
+      "positions": [
+        [
+          19.5,
+          25.5
+        ]
+      ],
+      "requires_open_door": null,
+      "position_policy": "由登记owner_anchor实例化；此坐标为公共提货测试档，其他位置必须再次运行placement gate。",
+      "activation_min_distance_tiles": 5,
+      "too_close_policy": "先在屏外/挂件发出方向明确预兆，延迟激活；距离未满足且无安全路线则更换入口或延期，不瞬移到玩家身边。",
+      "runtime_gate": [
+        "player_distance",
+        "doors_current",
+        "not_cut_only_required_route",
+        "work_and_escape_budget",
+        "active_pursuer_cap"
+      ]
+    },
+    {
+      "id": "EP_F12_RESERVED",
+      "kind": "chase_blueprint",
+      "positions": [
+        [
+          8.5,
+          22.5
+        ]
+      ],
+      "requires_open_door": null,
+      "preserve_blueprint": "F12",
+      "activation_min_distance_tiles": 5,
+      "too_close_policy": "先在屏外/挂件发出方向明确预兆，延迟激活；距离未满足且无安全路线则更换入口或延期，不瞬移到玩家身边。",
+      "runtime_gate": [
+        "player_distance",
+        "doors_current",
+        "not_cut_only_required_route",
+        "work_and_escape_budget",
+        "active_pursuer_cap"
+      ]
+    },
+    {
+      "id": "EP_F13_REAR",
+      "kind": "quest_target_approach",
+      "positions": [
+        [
+          27.5,
+          -3.5
+        ],
+        [
+          27.5,
+          1.5
+        ],
+        [
+          21.5,
+          3.5
+        ],
+        [
+          16.5,
+          4.5
+        ]
+      ],
+      "requires_open_door": "DOOR_REAR",
+      "preserve_blueprint": "F13",
+      "target_policy": "目标始终是登记任务肉箱的当前坐标；这些是可达入场节点，不把肉箱固定在原位。",
+      "activation_min_distance_tiles": 5,
+      "too_close_policy": "先在屏外/挂件发出方向明确预兆，延迟激活；距离未满足且无安全路线则更换入口或延期，不瞬移到玩家身边。",
+      "runtime_gate": [
+        "player_distance",
+        "doors_current",
+        "not_cut_only_required_route",
+        "work_and_escape_budget",
+        "active_pursuer_cap"
+      ]
+    }
+  ],
+  "runtime_contract": {
+    "static_checks_do_not_prove": [
+      "dynamic_actor_collision",
+      "per_frame_attack_timing",
+      "arbitrary_event_combinations",
+      "mobile_readability",
+      "user_fun"
+    ],
+    "objects_add_navigation_obstacles": false,
+    "warnings_visible_during_blackout": true,
+    "default_wet_active_cap": 1,
+    "interaction_position_policy": "object_position可在桌面/墙上；player_position必须位于可达空地。",
+    "no_universal_safe_area": true,
+    "immutable_encounter_receipts": true,
+    "free_critical_actions_require_power": false,
+    "authored_core_chase_radius_tiles": 0.3,
+    "size_growth_enabled": false
+  },
+  "main_corridors": [
+    {
+      "id": "COR_WEST_SHELVES",
+      "rect": [
+        6,
+        12,
+        4,
+        6
+      ],
+      "orientation": "vertical",
+      "min_width": 3
+    },
+    {
+      "id": "COR_CENTER_SHELVES",
+      "rect": [
+        13,
+        12,
+        3,
+        6
+      ],
+      "orientation": "vertical",
+      "min_width": 3
+    },
+    {
+      "id": "COR_CROSS_AISLE",
+      "rect": [
+        6,
+        18,
+        20,
+        3
+      ],
+      "orientation": "horizontal",
+      "min_width": 3
+    },
+    {
+      "id": "COR_FRONT_SPINE",
+      "rect": [
+        13,
+        20,
+        4,
+        10
+      ],
+      "orientation": "vertical",
+      "min_width": 3
+    }
+  ],
+  "clearance_probes": [
+    {
+      "id": "PROBE_WIDE_EXTERNAL_ROUTE",
+      "start": [
+        15.5,
+        28.5
+      ],
+      "end": [
+        27.5,
+        1.5
+      ],
+      "radius_tiles": 0.75,
+      "scope": "whole_scene",
+      "requires_runtime_doors_open": [
+        "DOOR_FRONT",
+        "DOOR_REAR"
+      ]
+    },
+    {
+      "id": "PROBE_SHELF_LOOP",
+      "start": [
+        7.5,
+        15.5
+      ],
+      "end": [
+        14.5,
+        19.5
+      ],
+      "radius_tiles": 0.75,
+      "scope": "interior"
+    },
+    {
+      "id": "PROBE_PLAYER_INTERIOR",
+      "start": [
+        15.5,
+        28.5
+      ],
+      "end": [
+        27.5,
+        1.5
+      ],
+      "radius_tiles": 0.3,
+      "scope": "interior"
+    }
+  ],
+  "service_recesses": [
+    {
+      "id": "RECESS_FRONT_PICKUP",
+      "cells": [
+        [
+          18,
+          28
+        ],
+        [
+          19,
+          28
+        ],
+        [
+          20,
+          28
+        ],
+        [
+          21,
+          28
+        ]
+      ],
+      "policy": "窄格是服务靠近位，非主动追逐必经路；F50改用22/24内窗。"
+    },
+    {
+      "id": "RECESS_SINK",
+      "cells": [
+        [
+          27,
+          11
+        ],
+        [
+          28,
+          11
+        ]
+      ],
+      "policy": "水阀1格凹位，开水怪前保证干侧操作；主动追逐不强迫在此开面板。"
+    },
+    {
+      "id": "RECESS_HOT_FREEZER",
+      "cells": [
+        [
+          24,
+          13
+        ],
+        [
+          24,
+          14
+        ]
+      ],
+      "policy": "两设备间短缝，不作需要3格宽的主路证明。"
+    }
+  ],
+  "route_checks": [
+    {
+      "id": "OV_F21_ROSTER",
+      "start": "cashier",
+      "via": [
+        "OBJ_COUNTER_ROSTER"
+      ],
+      "end": "safe_counter",
+      "max_seconds": 3,
+      "speed": 3
+    },
+    {
+      "id": "OV_F10_EVIDENCE",
+      "start": "rear_door",
+      "via": [
+        "OBJ_REAR_EVIDENCE"
+      ],
+      "end": "rear_door",
+      "max_seconds": 2,
+      "speed": 3
+    },
+    {
+      "id": "OV_VERIFY_READER",
+      "start": "verification_desk",
+      "via": [
+        "OBJ_VERIFY_READER",
+        "OBJ_VERIFY_KEYS"
+      ],
+      "end": "verification_desk",
+      "max_seconds": 4,
+      "speed": 3
+    },
+    {
+      "id": "OV_F60_CURTAIN",
+      "start": "convex_mirror",
+      "via": [
+        "OBJ_MIRROR_CURTAIN"
+      ],
+      "end": "convex_mirror",
+      "max_seconds": 1,
+      "speed": 3
+    },
+    {
+      "id": "OV_F17_PARCEL",
+      "start": "pickup_shelf",
+      "via": [
+        "OBJ_PUBLIC_PARCEL"
+      ],
+      "end": "pickup_shelf",
+      "max_seconds": 1,
+      "speed": 3
+    }
+  ],
+  "evidence_contract": {
+    "snapshot_proves": "capture_time、camera_id、可见范围内物理状态",
+    "snapshot_does_not_prove": [
+      "图外状态",
+      "未录制时段连续在场",
+      "外貌对应真实身份",
+      "授权资格"
+    ],
+    "note_check": "同刻地点矛盾须引用覆盖写入时刻的记录，note_author_on_shift不能替代位置核验。",
+    "trusted_rules_are_not_evidence": "规则决定允许什么；物理证据证明发生什么，两者不作单一优先级排序。"
+  },
+  "validation_scope": "仅静态格网、具名位置、局部路线、湿区割点、宽通道段和半径探针；不宣称客户端、60怪AI或所有事件组合已完成。",
+  "known_geometry_limits": [
+    {
+      "id": "LIM_WIDE_INTERIOR_TO_REAR",
+      "start": [
+        15.5,
+        28.5
+      ],
+      "end": [
+        27.5,
+        1.5
+      ],
+      "radius_tiles": 0.75,
+      "scope": "interior",
+      "expected_reachable": false,
+      "likely_neck_cells": [
+        [
+          25,
+          3
+        ],
+        [
+          26,
+          3
+        ]
+      ],
+      "admission_gate": "需要店内前后通行的追逐使用现版0.3格半径；未重做地图与动态验证前禁止体型成长或宽体怪强占此路线。外部宽路线另需双门可通及59格行程预算。"
+    }
+  ],
+  "station_local_panels": [
+    {
+      "id": "PANEL_WATER_BRANCHES",
+      "anchor": "water_valve",
+      "selector_ids": [
+        "branch_a",
+        "branch_b",
+        "branch_c"
+      ],
+      "uses_same_interaction_position": true,
+      "new_world_positions": false,
+      "purpose": "F28三支阀/源槽在同一水阀工位的局部面板读取；只切换离散源状态，不增三张地图或流体模拟。"
+    }
+  ]
+}

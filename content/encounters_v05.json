@@ -1,0 +1,5770 @@
+{
+  "version": "0.5",
+  "schema_version": "0.5-design",
+  "status": "complete_design_proposal_not_playtested",
+  "client_implemented": false,
+  "total": 60,
+  "schema": "每卡是可审阅玩法设计，不是可运行状态机。10个SG是组合能力；最多3步关键行动。F12/F13精确蓝图优先。",
+  "encounters": [
+    {
+      "id": "F01",
+      "name": "狐精",
+      "primary_system": "SG07",
+      "secondary_systems": [
+        "SG09",
+        "SG04"
+      ],
+      "allowed_phases": [
+        "N02",
+        "N05"
+      ],
+      "work_hook": "验收台上的满箱货物一离手就显出空位；补货变成辨认哪些货能真正留下。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "它持箱时的满箱影像与放秤后固定重量不符，时间戳不会回改。"
+        },
+        {
+          "kind": "physical",
+          "scale": "closeup",
+          "text": "透明量杯可复核同标量饮料液面差异；计量工具提前陈列。"
+        }
+      ],
+      "taboo": "没离手显真的货，不要送上售货架。",
+      "critical_action": "把真货交入上架槽，幻货放退回槽",
+      "action_steps": [
+        "把幻货箱放秤并退手，观察重量与满箱影像分离",
+        "将一瓶移入量杯槽，封存显真的货；不算找零和利润",
+        "把真货交入上架槽，幻货放退回槽"
+      ],
+      "pressure_tradeoff": "看着满箱很想直接补完；复核占一次绕路，贸然上架会出现空货格。",
+      "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+      "resolution_condition": "本箱全部分入已验货槽或整箱退回，假货不再占据待售槽。",
+      "failure_recovery": "错上架时该格先闪出狐影而暂停售卖；把同一箱撤回隔离盘重测，不扣整夜收入。",
+      "variants": [
+        {
+          "event_id": "E027",
+          "change": "未验箱改放后门收货位。",
+          "counterplay": "先搬回验收台再计量。",
+          "admission_gate": "额外路线仍在26秒预留内且后门可达",
+          "id": "F01-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E002",
+          "change": "现金交易无法足额找零。",
+          "counterplay": "先用已有店内记账券结算，实物数量校正照常。",
+          "admission_gate": "店内记账券可用；不要求抽奖道具",
+          "id": "F01-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC01",
+          "MC04",
+          "MC05",
+          "MC09"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "AS01"
+      ],
+      "map_anchor_roles": [
+        "receiving",
+        "packing",
+        "goods_shelf",
+        "verification_desk"
+      ],
+      "legacy_detail_policy": "仅复用民俗来源与未冲突空间组件；V0.5三步玩法优先，F12/F13精确蓝图例外。",
+      "default_enabled": true,
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "receiving",
+          "packing",
+          "goods_shelf",
+          "verification_desk"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F02",
+      "name": "画皮鬼",
+      "primary_system": "SG08",
+      "secondary_systems": [
+        "SG03",
+        "SG02"
+      ],
+      "allowed_phases": [
+        "N01",
+        "N06"
+      ],
+      "work_hook": "换班时一个同事要你脱下围裙休息，侧光却照出第二层皮缘。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "侧灯照出颈边与衣领不同步的双轮廓。"
+        },
+        {
+          "kind": "physical",
+          "scale": "closeup",
+          "text": "同一腕扣和站位在围裙遮挡前后不变，面容却变化；入口记录没有第二人。"
+        }
+      ],
+      "taboo": "没核实身份，不要交出钥匙和围裙。",
+      "critical_action": "将其留在访客权限并把围裙交给已核实真人",
+      "action_steps": [
+        "把交接钥匙留在员工侧，来者停在公开核验位",
+        "从基础侧光看皮缘，再读公开围裙领取与本班作业的连续记录，两个来源分别核验",
+        "将其留在访客权限并把围裙交给已核实真人"
+      ],
+      "pressure_tradeoff": "去核验台会离开柜台，保持待核可以继续低风险营业；不靠不停扣SAN逼迫误判。",
+      "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+      "resolution_condition": "异常来者未获员工权限，交接物仍由真实员工保管，事件收场。",
+      "failure_recovery": "误递围裙先给可见越线预告；撤回权限并把钥匙收柜可止损，未核实就等待不罚真人关系。",
+      "variants": [
+        {
+          "event_id": "E032",
+          "change": "来者带真工牌要求免检。",
+          "counterplay": "工牌放物件槽，按原流程采集皮缘与连续换貌。",
+          "admission_gate": "E032绑定本F02实例，不额外生成假扮者",
+          "id": "F02-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E019",
+          "change": "固定侧灯失电。",
+          "counterplay": "在核验台启用基础应急灯后采集。",
+          "admission_gate": "应急灯独立可用，记录器电池可支撑采集",
+          "id": "F02-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC01",
+          "MC09",
+          "MC12"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "AS02"
+      ],
+      "map_anchor_roles": [
+        "receiving",
+        "monitor_terminal",
+        "staff_locker",
+        "power_panel",
+        "verification_desk"
+      ],
+      "legacy_detail_policy": "仅复用民俗来源与未冲突空间组件；V0.5三步玩法优先，F12/F13精确蓝图例外。",
+      "default_enabled": true,
+      "privacy_boundary": "记录公共衣帽架的围裙领取与公开作业，不在换衣或休息私密区域设置摄像。",
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "receiving",
+          "monitor_terminal",
+          "staff_locker",
+          "power_panel",
+          "verification_desk"
+        ],
+        "object_ids": [
+          "OBJ_VERIFY_READER",
+          "OBJ_VERIFY_KEYS",
+          "OBJ_VERIFY_LAMP"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F03",
+      "name": "僵尸",
+      "primary_system": "SG06",
+      "secondary_systems": [
+        "SG04",
+        "SG02"
+      ],
+      "allowed_phases": [
+        "N02",
+        "N04"
+      ],
+      "work_hook": "补货通道出现呼吸白雾，僵尸只朝最后一次吐气的位置跳。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "暴露格吐气产生短暂雾点，下一跳指向最后有效点；安全侧雾点不传出。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "起跳前地面标记1.5秒，落地后停顿1秒才能转向。"
+        }
+      ],
+      "taboo": "僵尸蓄跳时，别在暴露通道急喘冲刺。",
+      "critical_action": "分两段送完货，退到已有遮挡线后让最后雾点失效",
+      "action_steps": [
+        "在干侧看起跳标记，把一次吐气留在远离搬货路线的格",
+        "用最多4秒游戏内屏息穿过短通道并放下一箱，离开再正常呼吸",
+        "分两段送完货，退到已有遮挡线后让最后雾点失效"
+      ],
+      "pressure_tradeoff": "短屏息限制迫使你分段搬货；安全点只屏蔽呼吸目标，不是所有怪的无敌格。",
+      "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+      "resolution_condition": "两个本阶段货箱到槽，最后外部雾点失效，僵尸退回入口。",
+      "failure_recovery": "被扑到只掉当前箱并产生一次轻伤；箱留在可达点，落地停顿足够退回重新规划。",
+      "variants": [
+        {
+          "event_id": "E018",
+          "change": "暴露格屏息后的体力恢复延迟增加2秒。",
+          "counterplay": "把两次搬运拆开，在安全侧喘息。",
+          "admission_gate": "0体力普通步行仍有退路",
+          "id": "F03-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E025",
+          "change": "后门不能作为绕行捷径。",
+          "counterplay": "使用已标记货架内回路分段搬运。",
+          "admission_gate": "主回路可通，累计路线不超30秒预算",
+          "id": "F03-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC01",
+          "MC02",
+          "MC03",
+          "MC07",
+          "MC08"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "AS03"
+      ],
+      "map_anchor_roles": [
+        "aisle_loop",
+        "goods_shelf",
+        "safe_counter",
+        "front_door"
+      ],
+      "legacy_detail_policy": "仅复用民俗来源与未冲突空间组件；V0.5三步玩法优先，F12/F13精确蓝图例外。",
+      "default_enabled": true,
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_AISLE_MANIFEST",
+        "base_anchors": [
+          "aisle_loop",
+          "goods_shelf",
+          "safe_counter",
+          "front_door"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F04",
+      "name": "鲛人",
+      "primary_system": "SG09",
+      "secondary_systems": [
+        "SG07",
+        "SG04"
+      ],
+      "allowed_phases": [
+        "N02",
+        "N03"
+      ],
+      "work_hook": "湿纱离开水盘后自己收紧，拿得越久越想变成一团。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "纱线在手中自行织出连续纹理，不是普通湿布。"
+        },
+        {
+          "kind": "physical",
+          "scale": "closeup",
+          "text": "物件卡显示保持湿润的蓝色刻度；封闭托盘可止住下降。"
+        }
+      ],
+      "taboo": "湿纱没有合盖保湿前，不要一路抱着它去结账。",
+      "critical_action": "端封盘到寄售槽，交出有真实长度的纱",
+      "action_steps": [
+        "先给店配透明保湿盘加水",
+        "在安全特写展开湿纱对齐一次量尺，立刻放回盘中合盖",
+        "端封盘到寄售槽，交出有真实长度的纱"
+      ],
+      "pressure_tradeoff": "要先准备容器再取货；照普通干货顺序做会被纱缠住，不能用更多力气硬拉。",
+      "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+      "resolution_condition": "湿纱已量过、保湿盘已合盖并放入寄售槽。",
+      "failure_recovery": "纱收紧时把盘放回湿台即可松开重试，已验长度保留；不要求制造眼泪。",
+      "variants": [
+        {
+          "event_id": "E015",
+          "change": "水槽无供水。",
+          "counterplay": "使用店配应急清水瓶灌盘。",
+          "admission_gate": "应急清水保证一份，不消耗个人救急饮食",
+          "id": "F04-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E010",
+          "change": "地面湿连接已激活。",
+          "counterplay": "在隔离台合盖后再移动，避免形成新连接。",
+          "admission_gate": "台面可达且保留干路",
+          "id": "F04-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC04",
+          "MC05",
+          "MC07"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "AS04"
+      ],
+      "map_anchor_roles": [
+        "receiving",
+        "packing",
+        "sink",
+        "isolation_cage"
+      ],
+      "legacy_detail_policy": "仅复用民俗来源与未冲突空间组件；V0.5三步玩法优先，F12/F13精确蓝图例外。",
+      "default_enabled": true,
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_REAR_DELIVERY",
+        "base_anchors": [
+          "receiving",
+          "packing",
+          "sink",
+          "isolation_cage"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      },
+      "qte_binding": {
+        "template_id": "QT02",
+        "task_tags": [
+          "fine_alignment"
+        ],
+        "operation": "安全特写中把湿纱真实边缘拖到已确认量尺刻线",
+        "general_pet_id": "P03",
+        "freeze_policy_file": "content/qte.json"
+      }
+    },
+    {
+      "id": "F05",
+      "name": "河童",
+      "primary_system": "SG05",
+      "secondary_systems": [
+        "SG04",
+        "SG09"
+      ],
+      "allowed_phases": [
+        "N03",
+        "N04"
+      ],
+      "work_hook": "拖地时购物篮沿逆流水痕自己滑向水槽。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "只在与水槽来源连通的湿格中出现逆流波纹，孤立湿点无波纹。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "篮子移动前2秒出现湿手印，方向沿水路。"
+        }
+      ],
+      "taboo": "与水源相连时，不要伸手抢正在滑动的篮子。",
+      "critical_action": "从干侧拖回篮子放到干货槽",
+      "action_steps": [
+        "沿干路关漏水阀，看到哪一条湿边仍在牵篮",
+        "用常备干布擦断标出的连接格",
+        "从干侧拖回篮子放到干货槽"
+      ],
+      "pressure_tradeoff": "越急着抢回货越接近水；关阀会暂时停一处水务，但必要食物和出口不断。",
+      "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+      "resolution_condition": "被拖篮与水源断开并回到干槽，断点保持到短结算完成。",
+      "failure_recovery": "误抓先被牵一步并给挣脱预告；松手退干地再断水，物件不销毁。",
+      "variants": [
+        {
+          "event_id": "E026",
+          "change": "库房普通漏水声掩盖篮子滑动声；河童仍只沿WET_COLD的既有水路牵引。",
+          "counterplay": "看篮前2秒湿手印与逆流波纹，沿冷区干侧关闭既有水阀、擦断同一割点。",
+          "admission_gate": "WET_COLD割点与干侧站位可达；保留可见预告，不生成库房水阀或额外水路",
+          "id": "F05-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E016",
+          "change": "门前出现普通雨水WET_FRONT，容易与冷区的怪异逆流混淆；两片湿区没有连接边。",
+          "counterplay": "用是否出现逆流和湿手印区分水迹；先处理冷区断点，再按普通店务擦门前积水。",
+          "admission_gate": "前场积水不封唯一出口，WET_COLD免费干路保持；两湿区不合并成新图",
+          "id": "F05-V05-2",
+          "preserve_core_resolution": true,
+          "environment_wet_region_ids": [
+            "WET_FRONT"
+          ]
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC03",
+          "MC04",
+          "MC07",
+          "MC08"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "AS05"
+      ],
+      "map_anchor_roles": [
+        "sink",
+        "water_valve",
+        "mop_station"
+      ],
+      "legacy_detail_policy": "仅复用民俗来源与未冲突空间组件；V0.5三步玩法优先，F12/F13精确蓝图例外。",
+      "default_enabled": true,
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_AISLE_MANIFEST",
+        "base_anchors": [
+          "sink",
+          "water_valve",
+          "mop_station"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [
+          "WET_COLD"
+        ],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F06",
+      "name": "雪女",
+      "primary_system": "SG06",
+      "secondary_systems": [
+        "SG10",
+        "SG09"
+      ],
+      "allowed_phases": [
+        "N03"
+      ],
+      "work_hook": "热饮订单很普通，叫号广播却会把客人不愿公开的到访传遍全店。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "杯霜随她指尖离开停止，独立墙上温片沿她路径依次降温。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "订单卡把允许的纸条/本地屏与禁止的全店广播分别标明。"
+        }
+      ],
+      "taboo": "这一单未交完前，不要公开广播她的订单。",
+      "critical_action": "投入纸单并放下饮料完成无声交付",
+      "action_steps": [
+        "关闭订单广播并拿纸单，先备好保温套",
+        "做一份热饮封装，沿干路走到距客人2.5格外的交付位",
+        "投入纸单并放下饮料完成无声交付"
+      ],
+      "pressure_tradeoff": "不能远程叫同事，玩家要自己走一趟；保持距离与保温窗口构成实际操作。",
+      "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+      "resolution_condition": "登记热饮与纸单进入同一交付槽，保密限制解除。",
+      "failure_recovery": "误广播先结霜预告；关广播、封住订单并回到交付点补救，至多冻结一个非唯一工位。",
+      "variants": [
+        {
+          "event_id": "E013",
+          "change": "基础保温有效窗口从30降为22世界秒。",
+          "counterplay": "先备杯套再制作，缩短裸杯时间。",
+          "admission_gate": "正常路径加操作≤22秒且保留重做材料",
+          "id": "F06-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E022",
+          "change": "本单不能即时打印。",
+          "counterplay": "在基础预印空白票填写三个固定字段后投槽。",
+          "admission_gate": "空白票保证提供；不额外增加一种QTE",
+          "id": "F06-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC03",
+          "MC04",
+          "MC05",
+          "MC11"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "AS06"
+      ],
+      "map_anchor_roles": [
+        "hot_food",
+        "pickup_shelf",
+        "cashier",
+        "packing"
+      ],
+      "legacy_detail_policy": "仅复用民俗来源与未冲突空间组件；V0.5三步玩法优先，F12/F13精确蓝图例外。",
+      "default_enabled": true,
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "hot_food",
+          "pickup_shelf",
+          "cashier",
+          "packing"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F07",
+      "name": "座敷童子",
+      "primary_system": "SG10",
+      "secondary_systems": [
+        "SG07",
+        "SG08"
+      ],
+      "allowed_phases": [
+        "N01",
+        "N03",
+        "N05"
+      ],
+      "work_hook": "一张空椅坐垫下陷，而本小时恰有一名顾客正准备坐下。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "无人椅面持续下陷，放纸片可复核。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "小脚步来自墙边，开门记录没有对应顾客。"
+        }
+      ],
+      "taboo": "椅子已有看不见的客人时，不要把它再让出去。",
+      "critical_action": "保持短观察期不占椅；可选把一份零食放独立供物台",
+      "action_steps": [
+        "把保留牌挂在下陷椅，移走上面的货箱",
+        "将本小时坐座顾客引向第二等候格，继续正常接待",
+        "保持短观察期不占椅；可选把一份零食放独立供物台"
+      ],
+      "pressure_tradeoff": "留位会挤占一处等候空间；引导同一批顾客比简单关店更合算。",
+      "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+      "resolution_condition": "自到场起保留45秒，期间无人占椅且本阶段冲突浏览客已改道；完成后本实例结束，回报至多一次。",
+      "failure_recovery": "顾客触椅先出现哭声与坐垫回弹警告，及时改道仍可挽回；离开只失本次有限回报，不永久封故障池。",
+      "variants": [
+        {
+          "event_id": "E001",
+          "change": "排队更长，空椅不能给顾客使用。",
+          "counterplay": "把队列导向另一固定排队格。",
+          "admission_gate": "至少2个普通等候格保持连通",
+          "id": "F07-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E028",
+          "change": "同事开班短暂迟到，玩家暂时独自应付椅旁顾客。",
+          "counterplay": "先挂保留牌，再把本小时的坐座顾客导向第二等候格；不强制短休或使用尚未到岗同事。",
+          "admission_gate": "仅 N01；第二等候格可达，本小时顾客与座位冲突事先绑定。",
+          "id": "F07-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC03",
+          "MC07",
+          "MC10"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "AS07"
+      ],
+      "map_anchor_roles": [
+        "reserve_seat",
+        "break_table",
+        "rest_chair",
+        "customer_wait"
+      ],
+      "legacy_detail_policy": "仅复用民俗来源与未冲突空间组件；V0.5三步玩法优先，F12/F13精确蓝图例外。",
+      "default_enabled": true,
+      "runtime_parameters": {
+        "reserved_world_seconds": 45,
+        "conflict_customer": "same_phase_pending_browse_order",
+        "no_customer_added_outside_base_slots": true
+      },
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_OBJECT_MANIFEST",
+        "base_anchors": [
+          "reserve_seat",
+          "break_table",
+          "rest_chair",
+          "customer_wait"
+        ],
+        "object_ids": [
+          "OBJ_SECOND_QUEUE",
+          "OBJ_OFFER_TABLE"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F08",
+      "name": "付丧神",
+      "primary_system": "SG07",
+      "secondary_systems": [
+        "SG03",
+        "SG09"
+      ],
+      "allowed_phases": [
+        "N05"
+      ],
+      "work_hook": "打扫时旧工具断电后仍敲击，不肯进入垃圾袋。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "工具离电后仍敲固定节奏，裂纹处回应最明显。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "修对位置后只有对应裂纹停止敲击；断电重启无效。"
+        }
+      ],
+      "taboo": "还在敲击的旧工具，不要当普通垃圾直接丢掉。",
+      "critical_action": "把工具从混合垃圾中取出并交入修好或退役槽",
+      "action_steps": [
+        "将工具放维修托盘，找敲击最明显的裂位",
+        "用基础修补片贴合后试作一次，或放进独立退役架",
+        "把工具从混合垃圾中取出并交入修好或退役槽"
+      ],
+      "pressure_tradeoff": "修好能保住工具，退役更快但当夜少一件辅助；没有唯一购买门槛。",
+      "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+      "resolution_condition": "同一工具完成试作或已放入退役槽，停止返回垃圾口。",
+      "failure_recovery": "错丢会从垃圾口回到托盘，打断当前整理一次；取回后仍可选择两条基础解。",
+      "variants": [
+        {
+          "event_id": "E021",
+          "change": "成灵对象改为可拆旧旋钮，不把普通故障自动当妖怪。",
+          "counterplay": "先验离电敲击再拆旋钮维修或退役。",
+          "admission_gate": "必须先有两条异常线索；普通故障仍走E021",
+          "id": "F08-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E022",
+          "change": "旧打印纸压夹裂开并敲击。",
+          "counterplay": "改用基础空白票维持结账，再修夹并试送一页。",
+          "admission_gate": "票夹可独立拆换，不锁唯一收银能力",
+          "id": "F08-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC01",
+          "MC04",
+          "MC05",
+          "MC06"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "AS05"
+      ],
+      "map_anchor_roles": [
+        "metal_shelf",
+        "packing",
+        "isolation_cage",
+        "waste_sort"
+      ],
+      "legacy_detail_policy": "仅复用民俗来源与未冲突空间组件；V0.5三步玩法优先，F12/F13精确蓝图例外。",
+      "default_enabled": true,
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_OBJECT_MANIFEST",
+        "base_anchors": [
+          "metal_shelf",
+          "packing",
+          "isolation_cage",
+          "waste_sort"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F09",
+      "name": "轆轤首",
+      "primary_system": "SG07",
+      "secondary_systems": [
+        "SG04",
+        "SG02"
+      ],
+      "allowed_phases": [
+        "N01",
+        "N05"
+      ],
+      "work_hook": "高货架上的头指商品，身体却带着购物篮站在另一侧。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "身体与货架头部之间有连续颈线，顶部图标显示同一顾客ID。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "篮号与付款票只在身体侧，头部不能另开一单。"
+        }
+      ],
+      "taboo": "商品交给篮子，不要递给货架上的头。",
+      "critical_action": "身体到柜台后结算这一篮一次",
+      "action_steps": [
+        "给身体购物篮挂可见篮号",
+        "顺头部指向拿货，避开伸长颈线把货放回同一身体的篮里",
+        "身体到柜台后结算这一篮一次"
+      ],
+      "pressure_tradeoff": "注意会被高处头吸走；身体还随队列移动，玩家必须追踪物件归属。",
+      "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+      "resolution_condition": "指定货物都进身体篮且本单结清。",
+      "failure_recovery": "递向头时商品被顶回可达低层槽，取回送篮即可，头不会再开一单。",
+      "variants": [
+        {
+          "event_id": "E009",
+          "change": "订单变为三件而非两件，总操作增加2秒。",
+          "counterplay": "按身体篮统一装好后合并扫码。",
+          "admission_gate": "总路线和操作仍≤90秒，其他长单不再叠加",
+          "id": "F09-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E001",
+          "change": "身体随普通队列在两个已标记等待格间移动。",
+          "counterplay": "跟随篮号标记送货，而非依赖原坐标。",
+          "admission_gate": "篮号HUD持续可读；不与身份核验同时强制限时",
+          "id": "F09-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC01",
+          "MC04",
+          "MC05",
+          "MC10"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "AS05"
+      ],
+      "map_anchor_roles": [
+        "goods_shelf",
+        "customer_wait",
+        "cashier",
+        "pickup_shelf"
+      ],
+      "legacy_detail_policy": "仅复用民俗来源与未冲突空间组件；V0.5三步玩法优先，F12/F13精确蓝图例外。",
+      "default_enabled": true,
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "goods_shelf",
+          "customer_wait",
+          "cashier",
+          "pickup_shelf"
+        ],
+        "object_ids": [
+          "OBJ_SECOND_QUEUE"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F10",
+      "name": "海坊主",
+      "primary_system": "SG05",
+      "secondary_systems": [
+        "SG06",
+        "SG09"
+      ],
+      "allowed_phases": [
+        "N04"
+      ],
+      "work_hook": "后门验货小窗外的巨影问你怕不怕，回答前水位已在上升。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "玻璃水影巨大，门口记录却没有可通行的普通身体。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "空白敷衍牌令刻度涨一档；贴有真实本班记录的证据卡使涨水暂停。"
+        }
+      ],
+      "taboo": "别为看清巨影而把小窗完全打开。",
+      "critical_action": "排回一档后关小窗，封好窗下吸水布",
+      "action_steps": [
+        "保持交单缝，把本班已发生故障的小票夹到窗槽，代替口头逞强",
+        "巨影读票停水时在干侧操作旁边排水杆",
+        "排回一档后关小窗，封好窗下吸水布"
+      ],
+      "pressure_tradeoff": "不是选一句勇敢台词；玩家要把日常遗留的物件带到危险窗前争取排水时机。",
+      "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+      "resolution_condition": "本班实物记录已展示、水位回落且小窗关闭。",
+      "failure_recovery": "误开先喷出一格水并停止本地任务；关回交单缝、取回小票再排水，有干侧保底位。 若缺少本班真实问题记录则导演不应投放；运行态丢失引用时撤销本场且不罚玩家。",
+      "variants": [
+        {
+          "event_id": "E010",
+          "change": "初始水位高一档，读卡后仍保证6秒疏排。",
+          "counterplay": "先放吸水布，再投卡开槽。",
+          "admission_gate": "干侧位置与手动关窗始终有效",
+          "id": "F10-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E016",
+          "change": "排水接到已有门外湿区。",
+          "counterplay": "确认吸水布割点后只排一档，立即关窗。",
+          "admission_gate": "最多激活一条湿连接，不叠加F05额外强制扩张",
+          "id": "F10-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC01",
+          "MC03",
+          "MC05",
+          "MC07"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "AS05"
+      ],
+      "map_anchor_roles": [
+        "monitor_terminal",
+        "receiving",
+        "rear_door",
+        "rear_threshold",
+        "drain_channel",
+        "mop_station"
+      ],
+      "legacy_detail_policy": "仅复用民俗来源与未冲突空间组件；V0.5三步玩法优先，F12/F13精确蓝图例外。",
+      "default_enabled": true,
+      "admission_requirements": [
+        "real_same_shift_problem_receipt_exists",
+        "receipt_reachable_at_OBJ_REAR_EVIDENCE"
+      ],
+      "admission_note": "只在本班已有真实故障/损耗等可展示记录时入池；若没有，不生成假记录也不把无证据的来客强塞进阶段。",
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_REAR_DELIVERY",
+        "base_anchors": [
+          "monitor_terminal",
+          "receiving",
+          "rear_door",
+          "rear_threshold",
+          "drain_channel",
+          "mop_station"
+        ],
+        "object_ids": [
+          "OBJ_REAR_EVIDENCE",
+          "OBJ_REAR_GATE"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [
+          "WET_REAR"
+        ],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F11",
+      "name": "韩国鬼怪",
+      "primary_system": "SG04",
+      "secondary_systems": [
+        "SG10",
+        "SG07"
+      ],
+      "allowed_phases": [
+        "N05"
+      ],
+      "work_hook": "店前来客摆好奖品，邀请把你的重心也当作货物压到圈内。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "奖品与赌注放在圈内，圈外货物明确不属于赌局。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "荞麦食品拿到交付格时来者主动停止邀战，替代路线可见。"
+        }
+      ],
+      "taboo": "没看清圈内赌注前，不要站进去。",
+      "critical_action": "将完成的结果交入圈边托盘，拿走一次奖励",
+      "action_steps": [
+        "移走比赛槽杂物并看明已摆出的赌注",
+        "可选两次共享重心对齐，或直接封装一份店配可交换荞麦食物",
+        "将完成的结果交入圈边托盘，拿走一次奖励"
+      ],
+      "pressure_tradeoff": "挑战耗体力和操作时间，食物路线耗一份公开库存；拒绝可退出不受追罚。",
+      "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+      "resolution_condition": "两轮平衡完成或荞麦食品交付，奖励只领取一次。",
+      "failure_recovery": "失衡退出圈外重整，最多丢本次可选奖品；体力不足自动保留食品路线和无损拒绝。",
+      "variants": [
+        {
+          "event_id": "E012",
+          "change": "世界中比赛前整场准备多需一杯店配水，不提高QTE速度。",
+          "counterplay": "先放水杯再布圈，或走食品路线。",
+          "admission_gate": "饮水不挪用主角保底餐，且准备≤8秒",
+          "id": "F11-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E001",
+          "change": "普通队列催单，比赛占用连续12秒承诺。",
+          "counterplay": "先交岗或封装荞麦快速交割。",
+          "admission_gate": "真实同事可交岗或允许无损拒绝",
+          "id": "F11-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC04",
+          "MC06",
+          "MC10",
+          "MC11"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "AS08"
+      ],
+      "map_anchor_roles": [
+        "forecourt_handoff",
+        "goods_shelf",
+        "packing"
+      ],
+      "legacy_detail_policy": "仅复用民俗来源与未冲突空间组件；V0.5三步玩法优先，F12/F13精确蓝图例外。",
+      "default_enabled": true,
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "forecourt_handoff",
+          "goods_shelf",
+          "packing"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F12",
+      "name": "不可杀伊",
+      "primary_system": "SG04",
+      "secondary_systems": [
+        "SG01",
+        "SG09"
+      ],
+      "allowed_phases": [
+        "N02",
+        "N04"
+      ],
+      "work_hook": "正在补货时不可杀伊默认追玩家，办公用品架上的回形针是改变其目标的工具。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "无诱饵时目标标记指玩家；撒落后切到可达金属点。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "追玩家在门内止步，追门外回形针则能过门；两种目标状态有独立颜色。"
+        }
+      ],
+      "taboo": "别举着回形针等它来吃；只有撒到可达地面上的回形针才是诱饵。",
+      "critical_action": "利用每点1.5秒停食铺向门外，整个碰撞体进入标记区0.25秒即完成",
+      "action_steps": [
+        "从货架实际取一盒6次回形针，确认本次可用门外区",
+        "边绕行边手撒诱饵，单次0.25秒、距离≤1.5格、最多3点同时存在",
+        "利用每点1.5秒停食铺向门外，整个碰撞体进入标记区0.25秒即完成"
+      ],
+      "pressure_tradeoff": "要在被追与取工具间做路线选择；不加吃铁长大、持金属加速、啃门或动态体型寻路。",
+      "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+      "resolution_condition": "完全按 encounter_blueprints F12：诱饵锁定规则有效，整身诱至门外0.25秒，立即锁定本实例成功，不要求关门。",
+      "failure_recovery": "命中按旧蓝图只造成一次轻伤与2秒保护；掉点仍可补撒，保底盒与可达出口先准入，终态不复活。",
+      "variants": [
+        {
+          "event_id": "E027",
+          "change": "E027错点到货使回形针盒移到已标明的相邻备用领取槽，仍属于metal_shelf岗位。",
+          "counterplay": "先按预告去实际领取槽取盒，再沿已验证路线撒点。",
+          "admission_gate": "位置变体使用预制锚点；一盒6次且≤4点有效链仍成立。",
+          "id": "F12-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E025",
+          "change": "后门退出区本次禁用。",
+          "counterplay": "把诱饵链改向正门标记外区。",
+          "admission_gate": "预警时即显示正门可用，前出口不与其他怪独占",
+          "id": "F12-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC02",
+          "MC04",
+          "MC07",
+          "MC08"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": "fixed_F12_F13",
+      "source_ids": [
+        "AS09"
+      ],
+      "map_anchor_roles": [
+        "metal_shelf",
+        "aisle_loop",
+        "front_door",
+        "rear_door",
+        "front_exit",
+        "rear_exit"
+      ],
+      "legacy_detail_policy": "仅复用民俗来源与未冲突空间组件；V0.5三步玩法优先，F12/F13精确蓝图例外。",
+      "default_enabled": true,
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "canonical_blueprint_file": "content/encounter_blueprints.json",
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_F12_RESERVED",
+        "base_anchors": [
+          "metal_shelf",
+          "aisle_loop",
+          "front_door",
+          "rear_door",
+          "front_exit",
+          "rear_exit"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F13",
+      "name": "飞头女鬼",
+      "primary_system": "SG09",
+      "secondary_systems": [
+        "SG04",
+        "SG03"
+      ],
+      "allowed_phases": [
+        "N03"
+      ],
+      "work_hook": "库房登记生肉成为飞头女鬼目标，肉被拿起时目标箭头也跟着人走。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "入场箭头只指登记任务生肉，玩家拿起时箭头跟箱走。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "触肉后1.5秒蓄势与变色预告，随后箭头改指玩家；丢肉不回退。"
+        }
+      ],
+      "taboo": "触肉激怒后，不要指望把肉丢地上就能让她停止追你。",
+      "critical_action": "在冰柜1格内用0.6秒存入并关门，早到与追逐中到达都有效",
+      "action_steps": [
+        "确认登记肉箱与可用冰柜，用0.6秒拿肉到独立双手任务槽",
+        "携肉走干路；若她先触肉，1.5秒预告后改追玩家，肉不被吃掉或销毁",
+        "在冰柜1格内用0.6秒存入并关门，早到与追逐中到达都有效"
+      ],
+      "pressure_tradeoff": "为拿肉你必须靠近她的目标；提前准备短路比等发怒后奔跑更好。基础冰柜不消耗应急电。",
+      "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+      "resolution_condition": "完全按 encounter_blueprints F13：本实例登记肉存入有效柜并关门原子提交；同帧胜利优先，之后开柜/停电不复活。",
+      "failure_recovery": "触肉进入追逐而非肉被偷走；受击保护与旧蓝图一致，松手能暂放但不重置怒态，重新拿同一肉完成即可。",
+      "variants": [
+        {
+          "event_id": "E027",
+          "change": "登记肉箱放在另一可达库位。",
+          "counterplay": "按任务物件ID取肉，避免拿普通商品肉。",
+          "admission_gate": "预告即显示实际箱位，路线不超36秒",
+          "id": "F13-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E026",
+          "change": "激活有限预设湿格，不改变任务箱。",
+          "counterplay": "走干线或先开已标门，再搬肉入柜。",
+          "admission_gate": "有足够宽的干燥替代，不能与唯一冰柜失效叠加",
+          "id": "F13-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC04",
+          "MC07",
+          "MC08",
+          "MC12"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": "fixed_F12_F13",
+      "source_ids": [
+        "AS10"
+      ],
+      "map_anchor_roles": [
+        "warehouse_meat",
+        "freezer_main",
+        "freezer_backup",
+        "aisle_loop"
+      ],
+      "legacy_detail_policy": "仅复用民俗来源与未冲突空间组件；V0.5三步玩法优先，F12/F13精确蓝图例外。",
+      "default_enabled": true,
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "canonical_blueprint_file": "content/encounter_blueprints.json",
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_F13_REAR",
+        "base_anchors": [
+          "warehouse_meat",
+          "freezer_main",
+          "freezer_backup",
+          "aisle_loop"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F14",
+      "name": "饕食附身灵",
+      "primary_system": "SG04",
+      "secondary_systems": [
+        "SG08",
+        "SG09"
+      ],
+      "allowed_phases": [
+        "N03",
+        "N05"
+      ],
+      "work_hook": "真同事没有被换人，独立影手却从其身后伸进封闭食盒。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "封闭透明食品盒的封条未动，影子却从独立方向伸进盒里。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "两份等重测试餐中，仅宿主近侧那份在秤上减少，过程记录无人取食。"
+        }
+      ],
+      "taboo": "别把附着的影子当成同事本人赶出店。",
+      "critical_action": "影子完全入盒时合盖，搬到门外槽后恢复同事岗位",
+      "action_steps": [
+        "暂停真同事食品岗位，在应急台观察影手与独立两盒重量变化",
+        "把带影的登记食盒沿三个固定台面逐点移向透明封盒位",
+        "影子完全入盒时合盖，搬到门外槽后恢复同事岗位"
+      ],
+      "pressure_tradeoff": "需要暂时失去一个帮手；身份与附着物分开处理，不能套用假扮者驱逐流程。",
+      "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+      "resolution_condition": "同一影子被封入登记盒并送出，同事留店且权限恢复。",
+      "failure_recovery": "合盖过早只退回上一台面，盒与影可重定位；被误暂停的真人不扣信任。默认关闭，影子组件完成后才开放。",
+      "variants": [
+        {
+          "event_id": "E004",
+          "change": "同一时段有真实鲜食预约。",
+          "counterplay": "先交付预约，测试餐使用独立登记备用盒。",
+          "admission_gate": "主动开启模块，且不影响已承诺预约容量",
+          "id": "F14-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E019",
+          "change": "室内主灯熄灭，影子证据只能在应急台看清。",
+          "counterplay": "把同事和测试盒移到基础应急灯台。",
+          "admission_gate": "独立应急灯可用；不得同时关掉所有物理证据",
+          "id": "F14-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "high",
+        "required_components": [
+          "MC01",
+          "MC04",
+          "MC07",
+          "MC09"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "AS11"
+      ],
+      "map_anchor_roles": [
+        "verification_desk",
+        "isolation_cage",
+        "break_table",
+        "forecourt_handoff"
+      ],
+      "legacy_detail_policy": "仅复用民俗来源与未冲突空间组件；V0.5三步玩法优先，F12/F13精确蓝图例外。",
+      "default_enabled": false,
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": false,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_OBJECT_MANIFEST",
+        "base_anchors": [
+          "verification_desk",
+          "isolation_cage",
+          "break_table",
+          "forecourt_handoff"
+        ],
+        "object_ids": [
+          "OBJ_VERIFY_KEYS"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F15",
+      "name": "蓬蒂雅娜",
+      "primary_system": "SG09",
+      "secondary_systems": [
+        "SG06",
+        "SG03"
+      ],
+      "allowed_phases": [
+        "N05"
+      ],
+      "work_hook": "服务铃无人按却开合，灯箱里的影子指着一块未盖好的布。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "第一片段显示灯亮后影子才指向布片，字幕明确先后。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "布未盖好时铃盒自己弹开，布到位后才保持闭合。"
+        }
+      ],
+      "taboo": "铃盒还在弹开时，不要直接关灯送客。",
+      "critical_action": "合上铃盒并保持3秒，等影子归位再收台",
+      "action_steps": [
+        "查看可重播的两个短片段，点亮已有记忆灯箱",
+        "按影子指向取布盖住指定槽",
+        "合上铃盒并保持3秒，等影子归位再收台"
+      ],
+      "pressure_tradeoff": "玩家以摆放和顺序复原记忆；不答人物身世选择题，听不清也有等价图示。",
+      "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+      "resolution_condition": "灯、布、铃盒按因果顺序完成，稳定3秒后影子离开。",
+      "failure_recovery": "错序只让铃盒重开，已正确的前置动作保留；回看片段后补下一步。",
+      "variants": [
+        {
+          "event_id": "E001",
+          "change": "队列遮住音效，保持等价字幕。",
+          "counterplay": "先把普通购物篮移出记忆槽，再做三步。",
+          "admission_gate": "记忆台不占唯一收银格",
+          "id": "F15-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E019",
+          "change": "主电失效，记忆灯箱改用任务附带电池。",
+          "counterplay": "实际装电池再点灯，其余顺序相同。",
+          "admission_gate": "电池随事件保证，不从抽奖索取",
+          "id": "F15-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC01",
+          "MC06",
+          "MC07"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "AS12"
+      ],
+      "map_anchor_roles": [
+        "packing",
+        "pickup_shelf",
+        "power_panel"
+      ],
+      "legacy_detail_policy": "仅复用民俗来源与未冲突空间组件；V0.5三步玩法优先，F12/F13精确蓝图例外。",
+      "default_enabled": true,
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_OBJECT_MANIFEST",
+        "base_anchors": [
+          "packing",
+          "pickup_shelf",
+          "power_panel"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F16",
+      "name": "图尤尔",
+      "primary_system": "SG04",
+      "secondary_systems": [
+        "SG07",
+        "SG09"
+      ],
+      "allowed_phases": [
+        "N01",
+        "N05"
+      ],
+      "work_hook": "找零盘每隔几秒少一枚硬币，顾客的双手却始终在柜台上。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "现金盘每4秒少一枚相同面额，日志显示小币转移而非收入消失。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "涂显色点的测试币沿同一底层路线移动，抽屉下沿手印与顾客双手位置分开。"
+        }
+      ],
+      "taboo": "别一边追看不见的手，一边继续敞着零钱盘。",
+      "critical_action": "从出口收集槽取回同一批钱，带回封袋",
+      "action_steps": [
+        "先封好零钱袋停止新损失",
+        "在桌边放店配显色诱饵币，沿最多三个底层痕迹跟随",
+        "从出口收集槽取回同一批钱，带回封袋"
+      ],
+      "pressure_tradeoff": "先保护库存还是马上追踪形成次序选择；不用计算找零或怀疑每个普通顾客。",
+      "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+      "resolution_condition": "本实例转移的钱已回袋且诱饵币收回，偷取路径封闭。",
+      "failure_recovery": "跟错痕迹只多一次绕行，封袋已阻止损失；被偷钱留在可达收集槽，不越跑越少。",
+      "variants": [
+        {
+          "event_id": "E002",
+          "change": "可用找零少，不能继续敞盘找零。",
+          "counterplay": "封袋后启用基础记账券，追踪显色币。",
+          "admission_gate": "记账券交易可正常计营业完成",
+          "id": "F16-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E023",
+          "change": "在线账目不可读，使用店内离线流水。",
+          "counterplay": "在封袋标签写原余额并比对三次实际转移。",
+          "admission_gate": "离线不可篡改流水存在，不额外强制联网",
+          "id": "F16-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC01",
+          "MC04",
+          "MC05",
+          "MC08"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "AS13"
+      ],
+      "map_anchor_roles": [
+        "cashier",
+        "safe_counter",
+        "front_exit"
+      ],
+      "legacy_detail_policy": "仅复用民俗来源与未冲突空间组件；V0.5三步玩法优先，F12/F13精确蓝图例外。",
+      "default_enabled": true,
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_AISLE_MANIFEST",
+        "base_anchors": [
+          "cashier",
+          "safe_counter",
+          "front_exit"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [
+          "GRP_CASH_TRACE"
+        ],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F17",
+      "name": "裹尸鬼",
+      "primary_system": "SG09",
+      "secondary_systems": [
+        "SG07",
+        "SG02"
+      ],
+      "allowed_phases": [
+        "N05"
+      ],
+      "work_hook": "包裹上的绳一收紧，远处裹尸来客也跟着缩起身体。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "包裹绳纹与身上束带同时收紧，旁边普通包裹不动。"
+        },
+        {
+          "kind": "physical",
+          "scale": "closeup",
+          "text": "来客整躯挪动，无法自行越过束带拿包裹。"
+        }
+      ],
+      "taboo": "没看清同一条绳的走向，不要直接剪断。",
+      "critical_action": "物件放交付槽后退，让它自己取走",
+      "action_steps": [
+        "把包裹置于公共长台近端，来客留远端保持距离",
+        "在安全特写沿发光绳路依次松开三个结",
+        "物件放交付槽后退，让它自己取走"
+      ],
+      "pressure_tradeoff": "靠近核绳要暂离柜台，但细节由特写清晰呈现；不是识别一个小像素结。",
+      "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+      "resolution_condition": "同一束带的三个结已松开，包裹到公共交付槽。",
+      "failure_recovery": "错步只重紧当前结，已松开的结保留进度；可退出特写、退到远端再回来继续。暂放包裹不会自动清除遭遇，也不生成未登记的晨班待办柜。",
+      "variants": [
+        {
+          "event_id": "E009",
+          "change": "团购物件占去包裹近侧槽。",
+          "counterplay": "先将普通订单移到取货架，再摆包裹。",
+          "admission_gate": "取货架有空槽且不破坏现有订单归属",
+          "id": "F17-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E019",
+          "change": "台灯失电，但基础应急灯可用。",
+          "counterplay": "在开特写前实际打开应急灯。",
+          "admission_gate": "绳路颜色还有形状编码，不只靠色觉",
+          "id": "F17-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC02",
+          "MC04",
+          "MC06"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "AS13"
+      ],
+      "map_anchor_roles": [
+        "pickup_shelf",
+        "front_door",
+        "verification_desk"
+      ],
+      "legacy_detail_policy": "仅复用民俗来源与未冲突空间组件；V0.5三步玩法优先，F12/F13精确蓝图例外。",
+      "default_enabled": true,
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "pickup_shelf",
+          "front_door",
+          "verification_desk"
+        ],
+        "object_ids": [
+          "OBJ_PUBLIC_PARCEL"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F18",
+      "name": "阿斯旺",
+      "primary_system": "SG08",
+      "secondary_systems": [
+        "SG01",
+        "SG05"
+      ],
+      "allowed_phases": [
+        "N01",
+        "N02"
+      ],
+      "work_hook": "后门地垫上同一条爪印走着走着变成鞋印，屋内却多了一名大人。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "同一粉垫路径从爪印逐格变为鞋印，路径没有第二人插入。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "已确认无人区域只录到一次小体型穿过，成人门框未响却出现成人轮廓。"
+        }
+      ],
+      "taboo": "别为让门口显得干净，先擦掉还没核实的连续足迹。",
+      "critical_action": "关闭员工内门，只保留普通访客出口与门外动物避雨位",
+      "action_steps": [
+        "钥匙留员工侧，沿粉垫边保留爪印变鞋印的连续路径",
+        "读取独立门框计数，核对是否真有成人从门口进来",
+        "关闭员工内门，只保留普通访客出口与门外动物避雨位"
+      ],
+      "pressure_tradeoff": "清洁任务的正确本能会毁掉线索；先留痕后清洁才能保住一次核验机会。",
+      "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+      "resolution_condition": "连续变形证据与独立过门记录完成，异常访客未取得员工权限。",
+      "failure_recovery": "误擦时先封存剩余末段并等一次已预告的新过垫机会；不足证据保持待核，不凭动物脚印宣判。",
+      "variants": [
+        {
+          "event_id": "E017",
+          "change": "出现一条普通动物轨迹作干扰，但没有爪鞋转化。",
+          "counterplay": "按同一条连续轨迹和一次入口计数核对。",
+          "admission_gate": "普通动物走救助区；不扣分惩罚善意安置",
+          "id": "F18-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E024",
+          "change": "声音门铃失效，光电计数仍有本地电池。",
+          "counterplay": "去内侧计数器读日志，不依赖铃声。",
+          "admission_gate": "明确区分门铃故障与计数证据，至少两路可得",
+          "id": "F18-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC01",
+          "MC03",
+          "MC09"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "AS14",
+        "AS17"
+      ],
+      "map_anchor_roles": [
+        "rear_threshold",
+        "verification_desk",
+        "staff_locker",
+        "monitor_terminal"
+      ],
+      "legacy_detail_policy": "仅复用民俗来源与未冲突空间组件；V0.5三步玩法优先，F12/F13精确蓝图例外。",
+      "default_enabled": true,
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_REAR_DELIVERY",
+        "base_anchors": [
+          "rear_threshold",
+          "verification_desk",
+          "staff_locker",
+          "monitor_terminal"
+        ],
+        "object_ids": [
+          "OBJ_REAR_POWDER",
+          "OBJ_ENTRY_TALLY",
+          "OBJ_VERIFY_KEYS"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F19",
+      "name": "吠陀罗尸鬼",
+      "primary_system": "SG04",
+      "secondary_systems": [
+        "SG06",
+        "SG09"
+      ],
+      "allowed_phases": [
+        "N02",
+        "N05"
+      ],
+      "work_hook": "寄存包裹在你抱着它时讲述纠纷，每当你停下接话它就跳回上一处架子。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "同一封签的包裹讲述刚发生的本店订单，并指向具体缺失凭据。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "错误挂票后物件回到上一标记站，封签ID不变，只有一个实物。"
+        }
+      ],
+      "taboo": "搬运中不要停下来口答它的问题。",
+      "critical_action": "抱起送入匹配寄存柜并关门",
+      "action_steps": [
+        "拿同一寄存件走向两处既有停放台，路上忽略问话气泡",
+        "到台面放下包裹，再将对应现成订单小票挂入票袋，代替口答",
+        "抱起送入匹配寄存柜并关门"
+      ],
+      "pressure_tradeoff": "器物持续说话诱你停步，真正解是安排放下的节点；答题变为带物穿行。",
+      "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+      "resolution_condition": "两个停放节点的实体凭据已挂好，同一包裹入柜。",
+      "failure_recovery": "忍不住回应仅让包裹退回上一节点，已挂凭据保留；重新搬最后一段即可。",
+      "variants": [
+        {
+          "event_id": "E003",
+          "change": "案件从付款变为退款，需要退款单和原销售票。",
+          "counterplay": "取两份同订单ID票据再投退款寄存柜。",
+          "admission_gate": "原票与退款票均可查，不能只提供一个答案按钮",
+          "id": "F19-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E022",
+          "change": "所需票未打印，日志已存在。",
+          "counterplay": "在基础空白票上补开同ID凭据再挂袋。",
+          "admission_gate": "补开不引入新QTE，耗时计入恢复预留",
+          "id": "F19-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC01",
+          "MC04",
+          "MC05",
+          "MC06"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "AS15"
+      ],
+      "map_anchor_roles": [
+        "receiving",
+        "goods_shelf",
+        "packing",
+        "pickup_shelf"
+      ],
+      "legacy_detail_policy": "仅复用民俗来源与未冲突空间组件；V0.5三步玩法优先，F12/F13精确蓝图例外。",
+      "default_enabled": true,
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "receiving",
+          "goods_shelf",
+          "packing",
+          "pickup_shelf"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F20",
+      "name": "罗刹访客",
+      "primary_system": "SG10",
+      "secondary_systems": [
+        "SG01",
+        "SG09"
+      ],
+      "allowed_phases": [
+        "N01",
+        "N03"
+      ],
+      "work_hook": "访客只讨一份食物，柜台外的取货影子却一伸再伸，想接过整排库存。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "透明单份盒内的食品保持一份，盒外的取货影手却沿着整排货架伸长。"
+        },
+        {
+          "kind": "behavior",
+          "scale": "world",
+          "text": "你收回额外托盘时它的影手也缩回，只有已经答应的单份盒仍被指出。"
+        }
+      ],
+      "taboo": "你答应的一份食物，不要换成整柜都由它拿。",
+      "critical_action": "来客伸向别处时收回多余托盘并关交单缝",
+      "action_steps": [
+        "从店配交换份取一件封装，放进只容一份的透明交付盒",
+        "钥匙与其余货留员工侧，隔服务窗推出这一盒",
+        "来客伸向别处时收回多余托盘并关交单缝"
+      ],
+      "pressure_tradeoff": "善意可以履行，但交付边界必须亲手保持；无需读长篇授权协议。",
+      "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+      "resolution_condition": "承诺的单份食品已交付，额外库存和钥匙未出边界。",
+      "failure_recovery": "多推一盘先出现越线影手；及时收回多余盘与关内侧挡板可止损，仍可完成原承诺。",
+      "variants": [
+        {
+          "event_id": "E031",
+          "change": "来者把有限送餐授权改成全库查账。",
+          "counterplay": "把新增页抽入撤回槽，按白天原本恢复有限范围。",
+          "admission_gate": "E031绑定本实例，不产生第二个店长怪",
+          "id": "F20-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E035",
+          "change": "它另带一个无独立AI的剪影要求进员工区。",
+          "counterplay": "食品只交窗口，访客牌仍停留普通区。",
+          "admission_gate": "剪影不占额外攻击/拟态槽，不是第二怪物",
+          "id": "F20-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC01",
+          "MC04",
+          "MC05",
+          "MC09",
+          "MC11"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "AS16"
+      ],
+      "map_anchor_roles": [
+        "verification_desk",
+        "safe_counter",
+        "pickup_shelf",
+        "staff_locker",
+        "monitor_terminal"
+      ],
+      "legacy_detail_policy": "仅复用民俗来源与未冲突空间组件；V0.5三步玩法优先，F12/F13精确蓝图例外。",
+      "default_enabled": true,
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "verification_desk",
+          "safe_counter",
+          "pickup_shelf",
+          "staff_locker",
+          "monitor_terminal"
+        ],
+        "object_ids": [
+          "OBJ_FRONT_SERVICE"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F21",
+      "name": "报丧女妖",
+      "primary_system": "SG08",
+      "secondary_systems": [
+        "SG03",
+        "SG06"
+      ],
+      "allowed_phases": [
+        "N03",
+        "N04"
+      ],
+      "work_hook": "危险工位的哭声预告打断正常排班；女妖报信而不攻击。",
+      "omens": [
+        {
+          "kind": "sound",
+          "scale": "world",
+          "text": "哭声方向指向一个设备工位。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "柜台位置卡被水洇湿，对应工位机械旗升起。"
+        }
+      ],
+      "taboo": "被点到名字的人，不要留在升旗的工位。",
+      "critical_action": "让实际人员离开危险位，再从安全侧停机。",
+      "action_steps": [
+        "核对柜台副本与工位旗，确认被预警者。",
+        "指派已核验同事调岗，或自己放下工作离位。",
+        "看见目标实际到安全点后停机并挂待修牌。"
+      ],
+      "pressure_tradeoff": "救人会暂停该工位产出；预告须覆盖实际调岗与关机路程。",
+      "free_solution": "纸位置卡、机械旗、手动关机和基本调岗不耗电。",
+      "failure_recovery": "错过预告造成局部故障与一次恐惧；仍可转移人员、隔离工位。核验报信不受罚。",
+      "resolution_condition": "目标离开危险区且设备安全停机，救援回报只结算一次。",
+      "variants": [
+        {
+          "event_id": "E001",
+          "change": "现有订单袋占一侧安全点。",
+          "counterplay": "先移到提货槽再调岗，不新增顾客。",
+          "id": "F21-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E019",
+          "change": "屏幕与普通灯失效。",
+          "counterplay": "用纸卡、机械旗及独立关机杆；关键路径不可全黑。",
+          "id": "F21-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC01",
+          "MC06",
+          "MC07",
+          "MC09",
+          "MC12"
+        ],
+        "new_discrete_features": [
+          "bounded_benefit_token"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "EU01"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "staff_desk",
+          "cashier",
+          "power_panel",
+          "safe_counter"
+        ],
+        "object_ids": [
+          "OBJ_COUNTER_ROSTER"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      },
+      "runtime_parameters": {
+        "accident_warning_world_seconds": 40,
+        "requires_actual_departure_before_station_shutdown": true
+      }
+    },
+    {
+      "id": "F22",
+      "name": "布朗尼家务精",
+      "primary_system": "SG02",
+      "secondary_systems": [
+        "SG10"
+      ],
+      "allowed_phases": [
+        "N04",
+        "N05"
+      ],
+      "work_hook": "一项未完杂务出现小脚印，帮手只在无人看见时工作。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "扫帚在指定工区自行立起，脏槽边出现小脚印。"
+        },
+        {
+          "kind": "behavior",
+          "scale": "world",
+          "text": "角色朝向工区时扫帚停住，背开后又响起。"
+        }
+      ],
+      "taboo": "请它帮忙以后，不要盯着工区，也不要把工钱塞进去。",
+      "critical_action": "留一份普通供物，背向或离开视线去做另一件事。",
+      "action_steps": [
+        "在指定槽放一份可用奶或粥，登记一个现有工单点。",
+        "离开注视范围，完成别处正常工作。",
+        "看见完成标记后再返回验收。"
+      ],
+      "pressure_tradeoff": "少一个可看方向，换一次代工；不能让同事同时重复做该点。",
+      "free_solution": "使用店内免费基础供食和现有工区，不必购买宠物或设备。",
+      "failure_recovery": "回头只暂停当前进度；塞工钱会让帮手离开，此点仍能自己做，不取消整周机会。",
+      "resolution_condition": "登记点由帮手完成且玩家实际验收，原工单只记一次。",
+      "variants": [
+        {
+          "event_id": "E009",
+          "change": "同区多一袋已登记团购。",
+          "counterplay": "先把袋移离工作槽，其他订单数量不变。",
+          "id": "F22-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E024",
+          "change": "门铃不能提示完工。",
+          "counterplay": "看工区固定完成标记，不能靠猜声强制结算。",
+          "id": "F22-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC02",
+          "MC04",
+          "MC06",
+          "MC07",
+          "MC10"
+        ],
+        "new_discrete_features": [
+          "attention_condition",
+          "bounded_benefit_token"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "EU02"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_OBJECT_MANIFEST",
+        "base_anchors": [
+          "receiving",
+          "packing",
+          "goods_shelf",
+          "monitor_terminal"
+        ],
+        "object_ids": [
+          "OBJ_OFFER_TABLE"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F23",
+      "name": "塞尔基海豹人",
+      "primary_system": "SG07",
+      "secondary_systems": [
+        "SG09"
+      ],
+      "allowed_phases": [
+        "N05"
+      ],
+      "work_hook": "失物柜里的一件湿皮衣引来两名认领者。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "湿皮衣持续向门边滴水，柜门又自行弹开。"
+        },
+        {
+          "kind": "physical",
+          "scale": "closeup",
+          "text": "皮衣边缘有可比对的缺口；一名认领者先指出了内侧补缝。"
+        }
+      ],
+      "taboo": "只有小票而说不清缺口的人，不能领走这件皮衣。",
+      "critical_action": "核对物件特征后，把皮衣交到中立台并留出离店线。",
+      "action_steps": [
+        "隔离这件皮衣，查看缺口与补缝。",
+        "分别收取认领特征，核对独立物件细节。",
+        "把匹配皮衣放中立台交还，清空离店路径。"
+      ],
+      "pressure_tradeoff": "中立台与普通提货争位置；怪可能是受害者，不能凭外貌驱赶。",
+      "free_solution": "查看皮衣、纸质认领格与中立交付均免费。",
+      "failure_recovery": "错交先出现可见拉扯与水线预告；可叫停交付取回重核，不让普通人瞬移带走关键物。",
+      "resolution_condition": "皮衣交还匹配认领者并离店；一次水系预告帮助只结算一次。",
+      "variants": [
+        {
+          "event_id": "E007",
+          "change": "架上有两件相似衣物。",
+          "counterplay": "分别挂实物号，比较缺口而非标签颜色。",
+          "id": "F23-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E008",
+          "change": "迟到取货袋占中立台。",
+          "counterplay": "移入已登记待取槽再归还，不把袋当供物。",
+          "id": "F23-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC02",
+          "MC04",
+          "MC05",
+          "MC10"
+        ],
+        "new_discrete_features": [
+          "bounded_benefit_token"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "EU03",
+        "EU19"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "lost_property",
+          "pickup_shelf",
+          "front_door"
+        ],
+        "object_ids": [
+          "OBJ_PUBLIC_PARCEL"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F24",
+      "name": "凯尔皮水马",
+      "primary_system": "SG05",
+      "secondary_systems": [
+        "SG01",
+        "SG04"
+      ],
+      "allowed_phases": [
+        "N02",
+        "N04"
+      ],
+      "work_hook": "滴水送货人要求把手推车再往侧巷推一步。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "来客停过的位置留下蹄形湿印，湿路连向外沟。"
+        },
+        {
+          "kind": "behavior",
+          "scale": "world",
+          "text": "它不断把收货点移向湿地，却不踏上擦干的格。"
+        }
+      ],
+      "taboo": "车轮已被湿路牵住时，不要跟着来客继续推。",
+      "critical_action": "擦出本卡干交接格，把货与车退回干线内交付。",
+      "action_steps": [
+        "确认本卡水源与连通湿边，放下当前重物。",
+        "从干侧擦断指定割点，切出安全交接格。",
+        "把登记货物移至干线内固定台，停止追随移动终点。"
+      ],
+      "pressure_tradeoff": "需要额外搬运与清洁，省下越线风险；暂停迎宾不能擦掉湿路。",
+      "free_solution": "拖把与固定干侧取物位可用，不要求吸水垫。",
+      "failure_recovery": "越线会把车拖向下一预设点；退到干侧断边后仍可取回，不模拟任意拉扯。",
+      "resolution_condition": "任务物回到干侧登记槽，与怪物水源不再连通。",
+      "variants": [
+        {
+          "event_id": "E016",
+          "change": "一个外侧交接格变湿。",
+          "counterplay": "改用已登记备用干格，普通雨水不加入怪物图。",
+          "id": "F24-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E027",
+          "change": "货箱到了错误门线。",
+          "counterplay": "先核实物号，从店内安全路线搬到本卡交付点。",
+          "id": "F24-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC01",
+          "MC03",
+          "MC04",
+          "MC09"
+        ],
+        "new_discrete_features": [
+          "wet_profile_binding"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "EU02",
+        "EU19"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_REAR_DELIVERY",
+        "base_anchors": [
+          "loading_bay",
+          "forecourt_handoff",
+          "mop_station"
+        ],
+        "object_ids": [
+          "OBJ_HANDOFF_MAT",
+          "OBJ_REAR_POWDER"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [
+          "WET_REAR"
+        ],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F25",
+      "name": "普卡变形精",
+      "primary_system": "SG07",
+      "secondary_systems": [
+        "SG09"
+      ],
+      "allowed_phases": [
+        "N01",
+        "N06"
+      ],
+      "work_hook": "退货客每次转身就换外貌，却始终递出同一件商品。",
+      "omens": [
+        {
+          "kind": "behavior",
+          "scale": "world",
+          "text": "排队者换了轮廓，手里的包装破口位置不变。"
+        },
+        {
+          "kind": "physical",
+          "scale": "closeup",
+          "text": "商品折痕与第一张退款回执的实物记录完全对应。"
+        }
+      ],
+      "taboo": "同一件退货，换了人也不能再退一次钱。",
+      "critical_action": "先把实物收进隔离格，再对本物件的一次退款回执。",
+      "action_steps": [
+        "接回商品，放入透明退货槽固定身份。",
+        "核折痕与原单，锁定实际物件而非顾客名字。",
+        "退一次并关槽；再来时只出已处理回执。"
+      ],
+      "pressure_tradeoff": "占用退货槽与收银时间；检查一次可避免不断补钱。",
+      "free_solution": "纸回执、透明槽与肉眼折痕可完成，联网只是便利。",
+      "failure_recovery": "误开第二次退款会先出现重复确认；已错付可收回尚未交出的退款袋，超出部分只计本次店损。",
+      "resolution_condition": "实物收回且退款回执只提交一次，变形不会重置记录。",
+      "variants": [
+        {
+          "event_id": "E003",
+          "change": "旁边同时有一件正常退货。",
+          "counterplay": "一物一槽核号，不能因见变形拒绝所有退货。",
+          "id": "F25-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E023",
+          "change": "收银网络离线。",
+          "counterplay": "在纸联单上登记物件标记，恢复后不重复结算。",
+          "id": "F25-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC01",
+          "MC04",
+          "MC05",
+          "MC09"
+        ],
+        "new_discrete_features": [
+          "authored_item_appearance_state"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "EU04"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "cashier",
+          "pickup_shelf",
+          "rear_threshold",
+          "monitor_terminal"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F26",
+      "name": "红帽妖",
+      "primary_system": "SG04",
+      "secondary_systems": [
+        "SG05",
+        "SG09"
+      ],
+      "allowed_phases": [
+        "N04"
+      ],
+      "work_hook": "清洁时的一处擦伤让垃圾路线出现被追踪的红迹。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "地上最多三处红迹连向废物袋，区别于普通漏水。"
+        },
+        {
+          "kind": "behavior",
+          "scale": "world",
+          "text": "红帽影沿红迹停走，目光转向未包扎伤者。"
+        }
+      ],
+      "taboo": "伤口还在滴时，不要拖着沾染袋穿过全店。",
+      "critical_action": "先包扎，再从近到远擦断红迹并封袋。",
+      "action_steps": [
+        "让伤者停在安全干位，用基础急救物止血。",
+        "按可见连接擦掉登记红迹，不扩散拖行。",
+        "把沾染物装入袋并封口，存入指定废物格。"
+      ],
+      "pressure_tradeoff": "先止血会延迟外运，却避免追踪继续连到队列。",
+      "free_solution": "基础绷带、拖把与普通垃圾袋均由店内提供。",
+      "failure_recovery": "拖袋会激活已预告追踪，先放袋退离再包扎断线；不额外生成第二追逐者。",
+      "resolution_condition": "伤口处理，追踪红迹断开，沾染物封袋进入登记槽。",
+      "variants": [
+        {
+          "event_id": "E026",
+          "change": "漏水将一处红迹连到邻格。",
+          "counterplay": "按本卡最多三处红迹处理，普通湿格不一律当血。",
+          "id": "F26-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E025",
+          "change": "后门暂时无法外运。",
+          "counterplay": "把封袋放到室内隔离废物位即可解除追踪，外运另记店务。",
+          "id": "F26-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC03",
+          "MC04",
+          "MC06",
+          "MC08"
+        ],
+        "new_discrete_features": [
+          "wet_profile_binding"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "EU05"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_AISLE_MANIFEST",
+        "base_anchors": [
+          "mop_station",
+          "waste_sort",
+          "safe_counter",
+          "aisle_loop"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [
+          "GRP_RED_TRACE"
+        ],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F27",
+      "name": "山林巨魔",
+      "primary_system": "SG04",
+      "secondary_systems": [
+        "SG07",
+        "SG01"
+      ],
+      "allowed_phases": [
+        "N02"
+      ],
+      "work_hook": "巨大的顾客点了长单，入店会堵住主要通道。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "门楣被巨大手掌按弯，货物需求牌分成两个重量段。"
+        },
+        {
+          "kind": "behavior",
+          "scale": "world",
+          "text": "它向室内挤时普通排队者开始后退。"
+        }
+      ],
+      "taboo": "交付区没腾开时，不要把大个子请进来。",
+      "critical_action": "在门前大件槽分两批称交，始终保住通道。",
+      "action_steps": [
+        "挂门外交付标记，把现有杂袋移离大件槽。",
+        "搬第一批到秤台，实际交给门外来客。",
+        "清空槽位后搬第二批，完成同一订单的回执。"
+      ],
+      "pressure_tradeoff": "多跑一趟且重物减速，换取店内道路保持畅通；两批仍只算一个名额。",
+      "free_solution": "基本秤、搬运与门前槽足够；路线超预算就不投放该组合。",
+      "failure_recovery": "过早邀请先压缩门口空间并提示；撤掉邀请、把未交货移回槽可退到门外，不永久封死逃路。",
+      "resolution_condition": "两批实物交付且主通路清空，一笔订单只计一次。",
+      "variants": [
+        {
+          "event_id": "E009",
+          "change": "大件台旁有普通团购袋。",
+          "counterplay": "先分槽放置，巨魔单替同类既定名额不添新单。",
+          "id": "F27-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E027",
+          "change": "货到后门而来客在前场。",
+          "counterplay": "按已验算搬运路线分两批；无余量时拒绝该变体准入。",
+          "id": "F27-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC04",
+          "MC05",
+          "MC06",
+          "MC10"
+        ],
+        "new_discrete_features": [],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "EU06"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "receiving",
+          "forecourt_handoff",
+          "loading_bay",
+          "front_door"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F28",
+      "name": "诺肯水乐灵",
+      "primary_system": "SG06",
+      "secondary_systems": [
+        "SG05",
+        "SG03"
+      ],
+      "allowed_phases": [
+        "N03"
+      ],
+      "work_hook": "水槽漏出的乐曲让普通关水动作变成声源定位。",
+      "omens": [
+        {
+          "kind": "sound",
+          "scale": "world",
+          "text": "乐声字幕在两个水点间摇摆，强弱与水声不完全相同。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "真正源点的水面纹路按乐曲拍点变化。"
+        }
+      ],
+      "taboo": "没有确认乐声源前，不要伸手拨动水中的倒影。",
+      "critical_action": "逐支短暂开闭，找出随音乐变化的源点后从干侧封盖。",
+      "action_steps": [
+        "在同一水阀工位的三支路局部面板逐一试阀，从干侧观察对应拍点水纹。",
+        "锁定实际源点，关对应支路而非盲目总停水。",
+        "在干侧盖住源槽，确认乐曲和水纹同时停止。"
+      ],
+      "pressure_tradeoff": "测试会短停对应水务；关错总阀虽安全却失去定位信息，需要恢复再试。",
+      "free_solution": "手动支阀、水纹与基础槽盖不耗应急电，怪名不必填对。",
+      "failure_recovery": "触倒影后局部拖近有预告；退回干侧重新关支路，错误测试不立即判整夜失败。",
+      "resolution_condition": "本卡源点已隔离并封盖，普通漏水可作为其他工作继续处理。",
+      "variants": [
+        {
+          "event_id": "E015",
+          "change": "正常自来水停供。",
+          "counterplay": "依然观察异常水纹与可用支路测试，不把无水等于没怪。",
+          "id": "F28-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E026",
+          "change": "另一处普通漏水制造声音干扰。",
+          "counterplay": "按水纹节拍与开闭反应判断，不能靠总音量。",
+          "id": "F28-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC01",
+          "MC03",
+          "MC07",
+          "MC12"
+        ],
+        "new_discrete_features": [
+          "sound_channel",
+          "cycle_phase",
+          "wet_profile_binding"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "EU07"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_AISLE_MANIFEST",
+        "base_anchors": [
+          "sink",
+          "water_valve",
+          "drain_channel",
+          "mop_station"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [
+          "WET_COLD"
+        ],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      },
+      "station_panel_id": "PANEL_WATER_BRANCHES"
+    },
+    {
+      "id": "F29",
+      "name": "托姆特家园精灵",
+      "primary_system": "SG10",
+      "secondary_systems": [
+        "SG09"
+      ],
+      "allowed_phases": [
+        "N03"
+      ],
+      "work_hook": "库存旁的小碗敲响，家园精灵等一份按约摆好的粥。",
+      "omens": [
+        {
+          "kind": "sound",
+          "scale": "world",
+          "text": "粮食架附近传来规律敲碗声。"
+        },
+        {
+          "kind": "physical",
+          "scale": "closeup",
+          "text": "空碗旁的小图清楚指向粥表面的一块黄油。"
+        }
+      ],
+      "taboo": "答应给它的黄油，不要藏到粥底当作已经交付。",
+      "critical_action": "将可用黄油放在热粥表面，端到独立供食台。",
+      "action_steps": [
+        "从本夜基础供食中分出一小份粥与可用黄油。",
+        "实际把黄油放到可见表层，盖上运输盖。",
+        "放到供食槽再揭盖，保留正常客人的订单份。"
+      ],
+      "pressure_tradeoff": "占用食物和一次搬运，换一次普通库存损耗缓冲；未接额外承诺可以拒绝。",
+      "free_solution": "入场前必须保证基础粥与黄油可取，不依赖购买或抽奖。",
+      "failure_recovery": "摆错时碗退回并出现不满提示，可重新摆放；不会永久打乱全店或没收玩家食物。",
+      "resolution_condition": "约定份量在正确供食位交付，库存保护令牌只发一次且不覆盖任务物。",
+      "variants": [
+        {
+          "event_id": "E020",
+          "change": "一批黄油需要隔离。",
+          "counterplay": "取已登记正常备用份；没有健康基础份就不投放。",
+          "id": "F29-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E004",
+          "change": "预约配餐占热食台。",
+          "counterplay": "先分清供食与客户份，借用备用摆放槽不侵占已承诺订单。",
+          "id": "F29-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC04",
+          "MC05",
+          "MC06",
+          "MC11"
+        ],
+        "new_discrete_features": [
+          "bounded_benefit_token"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "EU08"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_OBJECT_MANIFEST",
+        "base_anchors": [
+          "hot_food",
+          "break_table",
+          "reserve_seat"
+        ],
+        "object_ids": [
+          "OBJ_OFFER_TABLE"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F30",
+      "name": "海亡灵",
+      "primary_system": "SG07",
+      "secondary_systems": [
+        "SG04",
+        "SG09"
+      ],
+      "allowed_phases": [
+        "N02"
+      ],
+      "work_hook": "海水味货箱看似正常，却压着一块不在货单上的石头。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "箱底拖出湿线，秤针超过本批货的标记。"
+        },
+        {
+          "kind": "physical",
+          "scale": "closeup",
+          "text": "移开商品后露出带旧海纹的压箱石，单上无此项。"
+        }
+      ],
+      "taboo": "别把来历不明的压箱石留下来当门挡。",
+      "critical_action": "把额外石头从商品中分出，送到门外封存托盘。",
+      "action_steps": [
+        "放箱过秤，按实物拆出额外重量。",
+        "把货与石分槽，先收好合法商品。",
+        "携石到登记封存托盘，放入并退回干线。"
+      ],
+      "pressure_tradeoff": "搬重物速度慢且要占一趟外侧交付，直接拿来压门虽省事却扩大潮水入口。",
+      "free_solution": "秤、普通分槽和门外托盘免费可用。",
+      "failure_recovery": "错用门挡会出现局部水线与预告；拿开石头封存后水线退去，普通损耗按上限结算。",
+      "resolution_condition": "压箱石与商品分离并入外侧封存位，未被用作任何门挡。",
+      "variants": [
+        {
+          "event_id": "E010",
+          "change": "暴雨掩盖普通渗水外观。",
+          "counterplay": "以实际超重与石头为依据，雨水不是来源判断。",
+          "id": "F30-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E025",
+          "change": "后门原封存点暂不可达。",
+          "counterplay": "使用预登记的前场托盘；替代路线不可用就不准入。",
+          "id": "F30-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC01",
+          "MC04",
+          "MC05",
+          "MC10"
+        ],
+        "new_discrete_features": [],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "EU09"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_REAR_DELIVERY",
+        "base_anchors": [
+          "receiving",
+          "forecourt_handoff",
+          "front_door",
+          "isolation_cage"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F31",
+      "name": "马拉梦魇",
+      "primary_system": "SG09",
+      "secondary_systems": [
+        "SG02",
+        "SG06"
+      ],
+      "allowed_phases": [
+        "N06"
+      ],
+      "work_hook": "交班前的休息椅格外诱人，坐下后店内景象会进入局部梦境特写。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "空椅出现压痕，椅边杯子倒影与实际摆位不同。"
+        },
+        {
+          "kind": "sound",
+          "scale": "world",
+          "text": "电子提示重复同一声，机械钟滴答仍按正常节拍。"
+        }
+      ],
+      "taboo": "杯子与机械闹钟没摆好前，不要直接坐下。",
+      "critical_action": "先摆真实参照物与唤醒计时器，再用已设节拍结束短休。",
+      "action_steps": [
+        "将杯子放椅边固定槽，设置机械闹钟并确认接岗。",
+        "安全坐下，在局部特写比较杯位与真实锚点。",
+        "按预设唤醒刻度完成QTE，返回同一休息位。"
+      ],
+      "pressure_tradeoff": "短休能恢复状态却占交班时间；本地QTE沿用安全特写与一次成本结算，不另建可走梦地图。",
+      "free_solution": "店内杯与机械闹钟保证基础解；P08只按既有次数增加唤醒容错，不是必需钥匙。",
+      "failure_recovery": "未准备会先收到压迫警告；可取消落座补摆。梦里误按保留正确步骤并给下一节拍，不随机改输入。",
+      "resolution_condition": "真实参照物保留，唤醒动作完成并离开梦境；休息收益仅结算一次。",
+      "variants": [
+        {
+          "event_id": "E033",
+          "change": "同事不在可见工位。",
+          "counterplay": "先暂停入店并确认覆盖，再进行短休，不默认远程口头接岗有效。",
+          "id": "F31-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E019",
+          "change": "电子钟与主灯熄灭。",
+          "counterplay": "用机械钟与杯位，基础唤醒不要求电池或快照。",
+          "id": "F31-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC01",
+          "MC04",
+          "MC06",
+          "MC07",
+          "MC10"
+        ],
+        "new_discrete_features": [
+          "attention_condition",
+          "cycle_phase"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "EU10"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_OBJECT_MANIFEST",
+        "base_anchors": [
+          "rest_chair",
+          "break_table",
+          "staff_desk",
+          "safe_counter"
+        ],
+        "object_ids": [
+          "OBJ_COUNTER_ROSTER"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F32",
+      "name": "夜返吸血鬼",
+      "primary_system": "SG01",
+      "secondary_systems": [
+        "SG06",
+        "SG08"
+      ],
+      "allowed_phases": [
+        "N03",
+        "N04"
+      ],
+      "work_hook": "门口苍白来客盯着受伤员工，自动门的迎宾语音可能构成邀请。",
+      "omens": [
+        {
+          "kind": "behavior",
+          "scale": "world",
+          "text": "来客停在门外，朝伤者方向转身却不跨门。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "同事伤口标记与门框迎宾灯同时亮起。"
+        }
+      ],
+      "taboo": "店里有人流血时，不要让门对这位来客说欢迎。",
+      "critical_action": "先关迎宾声道或转窗口，再亲手为伤者包扎。",
+      "action_steps": [
+        "关闭迎宾语音，保留受控通行或改为窗口服务。",
+        "让已核验伤者停在安全位，取基础急救物。",
+        "完成包扎，确认目标条件解除后恢复营业安排。"
+      ],
+      "pressure_tradeoff": "open+silent每单3.5秒，可继续让浏览客入店；全窗口会失去未入店浏览单，不能白拿A。",
+      "free_solution": "语音开关、固定缓冲区与基础绷带免费；门加固只是可选延时。",
+      "failure_recovery": "邀请且有伤者才转入预告后的追踪；引伤者到缓冲区包扎仍能补救，关门不抹掉已入场实体。",
+      "resolution_condition": "登记伤口均处理、来客失去目标并离开；不能仅靠切门牌宣布清除。",
+      "variants": [
+        {
+          "event_id": "E001",
+          "change": "已有待取袋占安全位。",
+          "counterplay": "移袋到正常提货槽再安置伤者，不额外生成订单。",
+          "id": "F32-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E019",
+          "change": "普通照明失效。",
+          "counterplay": "伤口和迎宾状态保留可读标记，手动开关与包扎不耗应急电。",
+          "id": "F32-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC01",
+          "MC02",
+          "MC04",
+          "MC07",
+          "MC08",
+          "MC09"
+        ],
+        "new_discrete_features": [
+          "store_mode",
+          "greeting_mode",
+          "scoped_invitation",
+          "sound_channel"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "EU11"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "cashier",
+          "safe_counter",
+          "goods_shelf"
+        ],
+        "object_ids": [
+          "OBJ_FRONT_SERVICE",
+          "OBJ_COUNTER_BOUNDARY"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F33",
+      "name": "狼人",
+      "primary_system": "SG07",
+      "secondary_systems": [
+        "SG08",
+        "SG01"
+      ],
+      "allowed_phases": [
+        "N01",
+        "N06"
+      ],
+      "work_hook": "一位受伤来客在人形与狼形间变化，请求取药后离开。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "门垫先有爪印，随后同方向出现脚印，路线连续。"
+        },
+        {
+          "kind": "physical",
+          "scale": "closeup",
+          "text": "人形腕伤与之前看见的狼爪伤在同侧，包扎痕也连续。"
+        }
+      ],
+      "taboo": "认出同一个受伤来客后，不要因外形变化堵住他的退路。",
+      "critical_action": "按伤迹连续性核对，隔台递包扎物并清空离店线。",
+      "action_steps": [
+        "对照本人见过的伤迹与门垫轨迹，不凭一张照片判身份。",
+        "把急救物放公共交付位，保持员工权限边界。",
+        "移开离店线上现有货袋，让同一实体沿原路离开。"
+      ],
+      "pressure_tradeoff": "腾路暂占交付时间；救助不等于给钥匙，变形也不自动证明恶意。",
+      "free_solution": "基础绷带、可近看的伤迹与现有干线足够，不依赖银器装备。",
+      "failure_recovery": "堵路使来客焦躁并预告冲撞；退开并清路可恢复，不强制新增第二追逐。",
+      "resolution_condition": "包扎物交给连续轨迹对应来客，路线恢复并实际离店。",
+      "variants": [
+        {
+          "event_id": "E008",
+          "change": "一袋外卖挡在出口固定槽。",
+          "counterplay": "把同一袋移入待取位，保留其订单归属。",
+          "id": "F33-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E014",
+          "change": "雷暴干扰远处外形观察。",
+          "counterplay": "靠近公共核验位看伤迹，不能仅凭闪电一帧判断。",
+          "id": "F33-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC01",
+          "MC04",
+          "MC06",
+          "MC07",
+          "MC10"
+        ],
+        "new_discrete_features": [],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "EU12"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "monitor_terminal",
+          "forecourt_handoff",
+          "front_door",
+          "pickup_shelf"
+        ],
+        "object_ids": [
+          "OBJ_FRONT_SERVICE",
+          "OBJ_VERIFY_READER"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F34",
+      "name": "鲁萨尔卡水灵",
+      "primary_system": "SG06",
+      "secondary_systems": [
+        "SG05"
+      ],
+      "allowed_phases": [
+        "N01",
+        "N04"
+      ],
+      "work_hook": "门槛水迹随着歌声拍点推进，拖地必须配合停走节奏。",
+      "omens": [
+        {
+          "kind": "sound",
+          "scale": "world",
+          "text": "歌声字幕给出强拍与休拍，节奏稳定可预读。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "强拍时指定湿边亮起，干格边缘保持清楚。"
+        }
+      ],
+      "taboo": "强拍到来前，要站回干格，别抱货停在湿边上。",
+      "critical_action": "利用休拍擦断湿边，再把货物从干侧移走。",
+      "action_steps": [
+        "在干侧观察一轮拍点，确认本卡湿边与可退格。",
+        "休拍进入擦地操作，强拍前停止并退回干格。",
+        "连通切断后把登记货袋移到干侧交付槽。"
+      ],
+      "pressure_tradeoff": "抢一个完整擦地窗口省路程，提前退回更稳；不是随机节拍按键题。",
+      "free_solution": "普通拖把、地面图形与节拍字幕足够，静音也可玩。",
+      "failure_recovery": "强拍踩湿边先预告拖拽；退干侧可停止并保留已擦割点，不把全地面重湿。",
+      "resolution_condition": "目标湿边切断且任务货位于干侧，不再受该声段拖动。",
+      "variants": [
+        {
+          "event_id": "E001",
+          "change": "普通客流声音遮住歌声。",
+          "counterplay": "用同拍视觉标记，队列不能占唯一退回格。",
+          "id": "F34-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E016",
+          "change": "旁边多一个普通湿格。",
+          "counterplay": "辨认本卡连通标记，不把所有水都当强拍范围。",
+          "id": "F34-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC01",
+          "MC03",
+          "MC07"
+        ],
+        "new_discrete_features": [
+          "cycle_phase",
+          "wet_profile_binding"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "EU13"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "front_door",
+          "drain_channel",
+          "mop_station"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [
+          "WET_FRONT"
+        ],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F35",
+      "name": "芭芭雅嘎",
+      "primary_system": "SG10",
+      "secondary_systems": [
+        "SG02",
+        "SG04"
+      ],
+      "allowed_phases": [
+        "N05"
+      ],
+      "work_hook": "来客借你一把会自己扫动的工具，报酬取决于有没有守住有限委托。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "小票上的工区印记与扫帚柄刻痕对应。"
+        },
+        {
+          "kind": "behavior",
+          "scale": "world",
+          "text": "扫帚在你背向时移动，靠近未标记物也想继续扫。"
+        }
+      ],
+      "taboo": "没限定工区就别松手；约定的垃圾扫完后，别让它继续。",
+      "critical_action": "亲手限定一处脏槽，让扫帚在不被注视时工作，完工后收回。",
+      "action_steps": [
+        "把约定垃圾放入现有工作格，摆边界牌限定对象与一次作业。",
+        "将扫帚放入工位，背向去做别处工作并留意完工标记。",
+        "已标垃圾清空后回到干侧收起工具，交付本次成果。"
+      ],
+      "pressure_tradeoff": "离开注视换自动清扫，却要及时收工具保护旁边商品；拒绝尚未接受的委托不罚。",
+      "free_solution": "来客提供本次扫帚与边界牌，玩家只需基础取放；不以稀有供物换解法。",
+      "failure_recovery": "边界漏放先推动邻物并警示，可拿起扫帚停工、补边界继续；不随机增加第四个任务。",
+      "resolution_condition": "指定垃圾处理完成、工具归还且未超出承诺范围，有限帮助只给一次。",
+      "variants": [
+        {
+          "event_id": "E022",
+          "change": "小票机卡纸。",
+          "counterplay": "用工具刻痕与柜台登记的委托范围核对，不能听口头无限加项。",
+          "id": "F35-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E019",
+          "change": "主灯熄灭。",
+          "counterplay": "基础标线与完成旗仍可读，不花电也能收回工具。",
+          "id": "F35-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC02",
+          "MC04",
+          "MC06",
+          "MC07",
+          "MC10",
+          "MC11"
+        ],
+        "new_discrete_features": [
+          "attention_condition",
+          "bounded_benefit_token"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "EU14"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_OBJECT_MANIFEST",
+        "base_anchors": [
+          "packing",
+          "receiving",
+          "mop_station",
+          "hot_food"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F36",
+      "name": "精灵访客",
+      "primary_system": "SG10",
+      "secondary_systems": [
+        "SG08"
+      ],
+      "allowed_phases": [
+        "N02"
+      ],
+      "work_hook": "精灵要借仓库一格，模糊的好客话会把临时借用变成长期占位。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "空仓位边缘浮出光圈，只停在边界牌内。"
+        },
+        {
+          "kind": "behavior",
+          "scale": "world",
+          "text": "来客反复问还能不能再往旁边挪一点。"
+        }
+      ],
+      "taboo": "没有摆明范围和期限，不要把员工通行权一并交出去。",
+      "critical_action": "给一个固定槽和20秒访问，到期收回通行条。",
+      "action_steps": [
+        "先清出登记槽，摆实体边界牌并设置机械期限。",
+        "交仅覆盖此槽的访客条，让它在圈内使用。",
+        "到期到边界收回通行条并确认槽位清空。"
+      ],
+      "pressure_tradeoff": "短时占仓位换一次可选帮助；给无限区域虽省摆牌却会挡工作。",
+      "free_solution": "基础边界牌、机械计时与临时纸条免费；未接受前可拒绝。",
+      "failure_recovery": "越界先出现圈向外延伸，收回条再缩回边界可补救；不靠猜名字驱逐。",
+      "resolution_condition": "限定访问结束，访客权限撤回且任务槽复位。",
+      "variants": [
+        {
+          "event_id": "E009",
+          "change": "团购袋占预定仓位。",
+          "counterplay": "先移同一订单到合法备用槽，不能把仓位借给两者。",
+          "id": "F36-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E030",
+          "change": "另有假店长电话要求放宽。",
+          "counterplay": "核自己的本班任务记录，不因声音或盖章外观改权限。",
+          "id": "F36-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC01",
+          "MC09",
+          "MC10",
+          "MC11"
+        ],
+        "new_discrete_features": [
+          "scoped_invitation",
+          "bounded_benefit_token"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "EU15"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "verification_desk",
+          "storage_shelf",
+          "staff_desk"
+        ],
+        "object_ids": [
+          "OBJ_LEASE_MARKER"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F37",
+      "name": "古尔荒野妖",
+      "primary_system": "SG01",
+      "secondary_systems": [
+        "SG06",
+        "SG08"
+      ],
+      "allowed_phases": [
+        "N01",
+        "N04"
+      ],
+      "work_hook": "门外熟悉声音催你取件，交接地点随着你的接近不断后退。",
+      "omens": [
+        {
+          "kind": "sound",
+          "scale": "world",
+          "text": "自称店长的声音在门外呼唤，方向逐次远离固定交接台。"
+        },
+        {
+          "kind": "behavior",
+          "scale": "world",
+          "text": "来者始终不把物件放到正常交接格，反复示意跟上。"
+        }
+      ],
+      "taboo": "交接点一直后退时，不要越过固定安全线追声源。",
+      "critical_action": "把正常交接落实在店内固定台与回执，停止跟随。",
+      "action_steps": [
+        "核本班真实取件记录，停用未核实的口头改址。",
+        "把要交付的登记物放固定台并留下对应回执。",
+        "退回店内操作侧，保持不跨诱离线直到来者退去。"
+      ],
+      "pressure_tradeoff": "固定交接较慢，可能放弃这一单收益；店内朝门移动本身不算违禁。",
+      "free_solution": "纸任务夹、固定台与手动语音开关免费，不要求锁门耗电。",
+      "failure_recovery": "越过第一条线先出现拉远警告；退回可见标记再固定交接。错误电话不自动改任务。",
+      "resolution_condition": "合法交付固定在安全线内，玩家未继续追随，诱离请求结束。",
+      "variants": [
+        {
+          "event_id": "E008",
+          "change": "声音冒称迟到骑手来取袋。",
+          "counterplay": "核袋号和真实待取记录，物品不交到移动位置。",
+          "id": "F37-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E025",
+          "change": "后门故障使绕路话术更可信。",
+          "counterplay": "只沿已登记侧巷路线，超出标线的带路请求无权更改路径。",
+          "id": "F37-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC01",
+          "MC02",
+          "MC06",
+          "MC09",
+          "MC10"
+        ],
+        "new_discrete_features": [
+          "sound_channel",
+          "note_provenance"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "EU16",
+        "EU20"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "rear_threshold",
+          "forecourt_handoff",
+          "street_boundary",
+          "staff_desk"
+        ],
+        "object_ids": [
+          "OBJ_HANDOFF_MAT",
+          "OBJ_FRONT_SERVICE"
+        ],
+        "spatial_group_ids": [
+          "GRP_LURE_RETREAT"
+        ],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F38",
+      "name": "双重身",
+      "primary_system": "SG08",
+      "secondary_systems": [
+        "SG07"
+      ],
+      "allowed_phases": [
+        "N05",
+        "N06"
+      ],
+      "work_hook": "两个同事同时要求交钥匙，只有异常前实际完成的工作能接回身份连续性。",
+      "omens": [
+        {
+          "kind": "behavior",
+          "scale": "world",
+          "text": "两名相同外貌者在不同区域同时请求高权限。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "刚完成的封箱、清洁痕迹与工具归位组成三段连续工作痕迹。"
+        }
+      ],
+      "taboo": "两个人都说自己刚做完工作时，不要先把钥匙交给说得快的。",
+      "critical_action": "先收权限，再亲查三处已登记实物结果，接回异常前轨迹。",
+      "action_steps": [
+        "将两者都留在公共待核区，把钥匙放员工侧槽。",
+        "亲查三处已发生作业痕迹，对照本人已确认的先后记录。",
+        "两类独立事实与连续轨迹一致后，仅向对应实体恢复授权。"
+      ],
+      "pressure_tradeoff": "同时限权暂失同事代工；检查走位占时间，照片只能辅助记录不能自动标真伪。",
+      "free_solution": "真实工作痕迹与本班个人回执可免费观察；缺少完整前史就不投放。",
+      "failure_recovery": "误授权先暴露一处权限异常；撤回钥匙、封停相关工位并重核可补救，不凭空永久丢装备。",
+      "resolution_condition": "高权限仅回到与真实连续轨迹对应的员工，冒名者保持无权并退出。",
+      "variants": [
+        {
+          "event_id": "E029",
+          "change": "两个请求来自不同可见区域。",
+          "counterplay": "先统一冻结高权限再逐点核验，事件不能额外生成第三个同事。",
+          "id": "F38-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E019",
+          "change": "一个监控区不可用。",
+          "counterplay": "依赖已登记实物与本人回执；前史不足则拒绝该变体。",
+          "id": "F38-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "high",
+        "required_components": [
+          "MC01",
+          "MC04",
+          "MC05",
+          "MC06",
+          "MC09"
+        ],
+        "new_discrete_features": [
+          "note_provenance"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "EU17"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_OBJECT_MANIFEST",
+        "base_anchors": [
+          "staff_desk",
+          "monitor_terminal",
+          "receiving",
+          "storage_shelf",
+          "cashier",
+          "verification_desk"
+        ],
+        "object_ids": [
+          "OBJ_VERIFY_READER",
+          "OBJ_VERIFY_KEYS",
+          "OBJ_COUNTER_ROSTER"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F39",
+      "name": "多莫沃伊家宅灵",
+      "primary_system": "SG10",
+      "secondary_systems": [
+        "SG03",
+        "SG04"
+      ],
+      "allowed_phases": [
+        "N03"
+      ],
+      "work_hook": "换热食设备时，旧灶里的家宅灵不肯跟一份没有落脚点的搬家安排走。",
+      "omens": [
+        {
+          "kind": "sound",
+          "scale": "world",
+          "text": "旧灶传来敲碗声，关灯时明显急促。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "旧木牌投影留在原灶，备用灶灯旁出现空轮廓。"
+        }
+      ],
+      "taboo": "新落脚点没亮起来之前，不要关掉旧灶的灯。",
+      "critical_action": "先亮新位、再搬木牌，最后关闭旧位。",
+      "action_steps": [
+        "启用已登记备用灶位的基础灯，留出木牌槽。",
+        "把旧木牌实际搬到新槽，确认灰影跟随安定。",
+        "关闭旧位设备并恢复新工位的正常工作。"
+      ],
+      "pressure_tradeoff": "搬家期间占用两个短时工位；一次有序搬运换有限设备帮助，不获得整周免疫。",
+      "free_solution": "基本指示灯与木牌不依赖应急储备，停电时有手动标记替代。",
+      "failure_recovery": "先关旧位会敲碗并暂时停工；重新亮起旧标记，再按顺序搬迁即可。",
+      "resolution_condition": "木牌与灰影在新槽安定，旧工位停用，搬迁回执提交一次。",
+      "variants": [
+        {
+          "event_id": "E021",
+          "change": "旧设备故障必须搬迁。",
+          "counterplay": "从安全侧隔离故障，基础落脚标记独立可用。",
+          "id": "F39-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E019",
+          "change": "主回路断电。",
+          "counterplay": "按登记应急标记完成先新后旧，不强迫花电恢复设备。",
+          "id": "F39-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC01",
+          "MC04",
+          "MC06",
+          "MC10",
+          "MC12"
+        ],
+        "new_discrete_features": [
+          "bounded_benefit_token"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "EU18"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_OBJECT_MANIFEST",
+        "base_anchors": [
+          "hot_food",
+          "break_table",
+          "rest_chair"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F40",
+      "name": "列希森林灵",
+      "primary_system": "SG02",
+      "secondary_systems": [
+        "SG04",
+        "SG07"
+      ],
+      "allowed_phases": [
+        "N02",
+        "N05"
+      ],
+      "work_hook": "树苗被误收后，货架装饰像林间回环，真实通道并没有移动。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "相邻货架出现重复树影，自己的实物贴标保持原位。"
+        },
+        {
+          "kind": "behavior",
+          "scale": "world",
+          "text": "远处招手影子总出现在错误的货架转角。"
+        }
+      ],
+      "taboo": "看到重复货架时，不要丢掉自己的路标去追远处背影。",
+      "critical_action": "沿亲手留下的三个固定路标返回，把树苗送到门内归还格。",
+      "action_steps": [
+        "在登记路线的三个可达槽贴上自有标记。",
+        "拿起误收树苗，按实际贴标次序沿干路返回。",
+        "把树苗放门内归还槽，退开等待装饰恢复。"
+      ],
+      "pressure_tradeoff": "持苗绕行与看标记占时间；镜头装饰能迷惑观察，但不能偷偷改碰撞或传送人。",
+      "free_solution": "普通贴纸、固定槽和可见通路免费；低SAN仍保留关键方向提示。",
+      "failure_recovery": "走错仅进入预设绕路并预告重复，回最近实物标记可继续，不无限重置已走路线。",
+      "resolution_condition": "登记树苗归还，玩家回到真实柜台路径，林影退去。",
+      "variants": [
+        {
+          "event_id": "E011",
+          "change": "雾让远处装饰更像。",
+          "counterplay": "只按近处实物标记与连续路线走，不要求远距离辨脸。",
+          "id": "F40-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E027",
+          "change": "树苗到了验收区而非原货架。",
+          "counterplay": "先核实物身份，再用该入口的登记标记路线归还。",
+          "id": "F40-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC01",
+          "MC03",
+          "MC04",
+          "MC06",
+          "MC09",
+          "MC10"
+        ],
+        "new_discrete_features": [
+          "attention_condition",
+          "authored_item_appearance_state"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "EU18"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_AISLE_MANIFEST",
+        "base_anchors": [
+          "goods_shelf",
+          "aisle_loop",
+          "cashier",
+          "front_door"
+        ],
+        "object_ids": [
+          "OBJ_TREE_RETURN"
+        ],
+        "spatial_group_ids": [
+          "GRP_LESHY_MARKERS"
+        ],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F41",
+      "name": "哭泣女",
+      "primary_system": "SG01",
+      "secondary_systems": [
+        "SG05",
+        "SG07"
+      ],
+      "allowed_phases": [
+        "N04",
+        "N05",
+        "N06"
+      ],
+      "work_hook": "整理失物袋时，门外哭泣者要你把疑似孩子的东西拿近一点；服务窗和门槛水线成为真正边界。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "交接垫上留下朝向门外的湿手印，袋子每次放近门线，水印便退后一格。"
+        },
+        {
+          "kind": "sound",
+          "scale": "world",
+          "text": "哭声称东西就在前面；字幕显示声源后退，门内电话旁的求助指示仍可见。"
+        }
+      ],
+      "taboo": "可以帮助她，不要拿着寻人物越过水线。",
+      "critical_action": "在门内固定槽交付核对过的寻人物，并从店内完成求助联系。",
+      "action_steps": [
+        "将寻物袋放到门内交接垫，对照封袋时间和认领描述。",
+        "留在服务位打求助电话，把袋移至窗口托盘；不跟随后退水印。",
+        "关交付缝，保留已完成的求助回执。"
+      ],
+      "pressure_tradeoff": "求助占电话和手持槽；绕过她能继续收银，却会让交接位持续被占。",
+      "free_solution": "免费电话、现有袋和内侧服务窗即可；无需判断她是否善良。",
+      "failure_recovery": "越线先出现拉扯预告；放下袋、退回干侧可解除牵引，已核对的物件不用重查。",
+      "resolution_condition": "求助联系与正确袋的门内交付均留下回执；玩家未被引出登记服务边界。",
+      "variants": [
+        {
+          "event_id": "E005",
+          "change": "真人求助与怪客各有一袋。",
+          "counterplay": "按各自时间与封签分槽，交付错袋可在窗口关闭前撤回。",
+          "id": "F41-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E010",
+          "change": "雨水掩盖普通湿痕。",
+          "counterplay": "依固定水线标记和袋的移动记录，不用声量判断距离。",
+          "id": "F41-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC01",
+          "MC02",
+          "MC04",
+          "MC05"
+        ],
+        "new_discrete_features": [
+          "bounded_help_receipt",
+          "retreating_trace_nodes"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "WO01"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "cashier",
+          "lost_property",
+          "forecourt_handoff",
+          "front_door",
+          "street_boundary"
+        ],
+        "object_ids": [
+          "OBJ_FRONT_SERVICE",
+          "OBJ_HANDOFF_MAT"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [
+          "WET_FRONT"
+        ],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F42",
+      "name": "哨声亡灵",
+      "primary_system": "SG06",
+      "secondary_systems": [
+        "SG01",
+        "SG04"
+      ],
+      "allowed_phases": [
+        "N02",
+        "N04"
+      ],
+      "work_hook": "卸货或倒垃圾必须开后门，哨声却把远近颠倒；后门机械压力牌成为开闸时机。",
+      "omens": [
+        {
+          "kind": "sound",
+          "scale": "world",
+          "text": "哨声听来远时门板震动更明显，字幕只标听觉远近。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "OBJ_REAR_GAUGE压力档与声音相反；门缝影在压力高时贴近。"
+        }
+      ],
+      "taboo": "哨声听着远、压力牌升高时，不要开后门。",
+      "critical_action": "等压力落到远档，再分批拉开手闸搬一箱。",
+      "action_steps": [
+        "把待搬物放到门内候运格，观察一个完整声段与压力变化。",
+        "压力牌低位、哨声听来近（实体实际远）时开闸搬一箱，回到干侧关闸。",
+        "重复必要批次，提交同一批货的实际搬运回执。"
+      ],
+      "pressure_tradeoff": "等待安全声段延后工单；一次想搬完更省走位，却可能在近档仍占着门。",
+      "free_solution": "机械闸、压力牌和字幕均不耗电；不能通过一直锁门完成必要搬运。",
+      "failure_recovery": "错期开闸先敲门预警；关闸退回可保留已搬批次，只有暴露的这一箱需重新候运。",
+      "resolution_condition": "登记批次全部经过安全开闸窗口，后门重新关闭；不要求击退实体。",
+      "variants": [
+        {
+          "event_id": "E027",
+          "change": "错点送货增加一箱，但仍留在已登记后门。",
+          "counterplay": "先挂待运号，按同一机械压力窗口分批，超预算则延后额外货。",
+          "id": "F42-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E019",
+          "change": "电动门与监控离线。",
+          "counterplay": "直接使用OBJ_REAR_GATE手闸和机械压力牌，规则不变。",
+          "id": "F42-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC01",
+          "MC02",
+          "MC04",
+          "MC07"
+        ],
+        "new_discrete_features": [
+          "inverse_sound_cycle",
+          "manual_gate_phase"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "WO02",
+        "WO03"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_REAR_DELIVERY",
+        "base_anchors": [
+          "receiving",
+          "loading_bay",
+          "rear_threshold",
+          "rear_door",
+          "monitor_terminal",
+          "forecourt_handoff",
+          "front_door"
+        ],
+        "object_ids": [
+          "OBJ_REAR_GATE",
+          "OBJ_REAR_GAUGE"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F43",
+      "name": "图恩达",
+      "primary_system": "SG08",
+      "secondary_systems": [
+        "SG01",
+        "SG07"
+      ],
+      "allowed_phases": [
+        "N01",
+        "N04",
+        "N06"
+      ],
+      "work_hook": "倒垃圾或交班时，假便签要求独自去后院帮忙；木足伪装者借正当店务引你改路。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "OBJ_HANDOFF_MAT留下单侧木纹方印，另一脚是正常鞋印。"
+        },
+        {
+          "kind": "physical",
+          "scale": "closeup",
+          "text": "便签要求的地点与玩家亲见并记录的同刻同事作业连续性不符；没有覆盖时刻的记录就标待核。"
+        }
+      ],
+      "taboo": "未核实的便签不能让你独自改变交接路线。",
+      "critical_action": "让来者在公共粉印垫交物，结合真实作业连续性保留权限边界。",
+      "action_steps": [
+        "把新便签夹入待核槽，物资仍放公共交接垫。",
+        "观察木足痕，再核对覆盖写入时刻的真实工作记录或玩家连续见证。",
+        "将钥匙留在员工侧；走原登记垃圾路线，或与已核验真人沿固定路线同行。"
+      ],
+      "pressure_tradeoff": "同行占用唯一同事，需调整接客；核验花时间，但普通班表本身不能证明人在何处。",
+      "free_solution": "免费粉印垫与已发生的工作记录即可；缺证据时保留待核并照原路做工，不必追人。",
+      "failure_recovery": "误跟随先给越界预告；退回交接垫可中止。已交钥匙可封停对应权限，补核后恢复。",
+      "resolution_condition": "真同事权限未交给伪装者，当前交接在登记边界内完成；假便签只在证据成立后归档。",
+      "variants": [
+        {
+          "event_id": "E029",
+          "change": "真人与图恩达同时以同事外观出现，只增加一个怪实体。",
+          "counterplay": "两者先分开等候，用木足痕与同刻实际工作核验，不选声音像的。",
+          "id": "F43-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E022",
+          "change": "新纸回执打印不出。",
+          "counterplay": "使用已封存记录和玩家连续见证；没有覆盖证据就继续待核，不用空白纸证明身份。",
+          "id": "F43-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC01",
+          "MC04",
+          "MC09"
+        ],
+        "new_discrete_features": [
+          "note_provenance",
+          "wooden_foot_trace",
+          "bounded_escort"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "WO04"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "verification_desk",
+          "cashier",
+          "staff_desk",
+          "staff_locker"
+        ],
+        "object_ids": [
+          "OBJ_HANDOFF_MAT",
+          "OBJ_VERIFY_READER",
+          "OBJ_COUNTER_ROSTER"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F44",
+      "name": "巨帽夜曲客",
+      "primary_system": "SG10",
+      "secondary_systems": [
+        "SG06",
+        "SG07"
+      ],
+      "allowed_phases": [
+        "N01",
+        "N05"
+      ],
+      "work_hook": "夜曲客把结账提示当成再来一首的邀请，收银台因此永远无法空出。",
+      "omens": [
+        {
+          "kind": "sound",
+          "scale": "world",
+          "text": "每次确认铃响，刚结束的前奏都会重新开始。"
+        },
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "小票上同一交易号拉出重复空格，帽影始终挡着下一位顾客的托盘。"
+        }
+      ],
+      "taboo": "最后一拍响过后，不要再替同一首歌续单。",
+      "critical_action": "用一块实体价牌把一首歌绑定一单，交货后封住该单。",
+      "action_steps": [
+        "将一曲一单价牌放到当前托盘，未接受前可礼貌拒绝。",
+        "按明示价格收一单，最后一拍把商品推到交付槽。",
+        "关该交易托盘并切到下一单，续曲声不生成新欠款。"
+      ],
+      "pressure_tradeoff": "提前收尾少拿小费，继续应和会占用收银窗口；选择作用于实物托盘和单号。",
+      "free_solution": "店内价牌、纸票和交付槽都免费；不要求完成音乐问答。",
+      "failure_recovery": "误续单只新增一个可见待确认段；合上该托盘可撤销未接受续约，已交货不追回。",
+      "resolution_condition": "单次歌曲绑定的实际交易已交付，续曲未获新许可。",
+      "variants": [
+        {
+          "event_id": "E001",
+          "change": "顾客队列挤到歌者旁。",
+          "counterplay": "把其他订单移到第二队列，保留歌者唯一交易号。",
+          "id": "F44-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E023",
+          "change": "电子收银离线。",
+          "counterplay": "使用编号纸票与实体价牌，最后交货同样能封单。",
+          "id": "F44-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC05",
+          "MC06",
+          "MC07",
+          "MC11"
+        ],
+        "new_discrete_features": [
+          "song_order_binding",
+          "bounded_renewal"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "WO05"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "cashier",
+          "customer_wait",
+          "pickup_shelf"
+        ],
+        "object_ids": [
+          "OBJ_SECOND_QUEUE"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F45",
+      "name": "逆足林守",
+      "primary_system": "SG07",
+      "secondary_systems": [
+        "SG04"
+      ],
+      "allowed_phases": [
+        "N02",
+        "N05"
+      ],
+      "work_hook": "收货环节出现朝反方向的足印；真正来货路线藏在箱轮的连续擦痕里。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "脚尖朝出店方向，箱轮的新擦痕却连续通向GRP_BATCH_TRACE的一个货格。"
+        },
+        {
+          "kind": "physical",
+          "scale": "closeup",
+          "text": "箱角缺口与该批封签能对上，旁边的脚印无法解释轮痕终点。"
+        }
+      ],
+      "taboo": "不要沿脚尖的方向推走未核验的货箱。",
+      "critical_action": "沿连续轮痕把对应批次推回正确货格。",
+      "action_steps": [
+        "在三处具名候选格中找连续轮痕，不用脚尖箭头导航。",
+        "拿该批箱角封签与终点货格核对，再实际推箱入槽。",
+        "封住错向退货槽，生成一次入架回执。"
+      ],
+      "pressure_tradeoff": "空手先查更稳，带箱跟错痕会多一次搬运；无需逐箱填写新表格。",
+      "free_solution": "轮痕、箱角和固定货格都是现有物件，不依赖探测装备。",
+      "failure_recovery": "错误格先出现反向脚印封边；撤回箱子可重走，批次身份与已查痕迹保留。",
+      "resolution_condition": "登记货箱放入与连续轮痕相符的正确货格，而非仅在面板选对方向。",
+      "variants": [
+        {
+          "event_id": "E027",
+          "change": "送货先停在后门候验格。",
+          "counterplay": "从实际轮痕起点追到本批货格，再搬入，不凭旧约定位置。",
+          "id": "F45-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E003",
+          "change": "两批退货形成交叉痕迹。",
+          "counterplay": "先隔离非本批箱，按封签对应的连续轮痕逐批推回。",
+          "id": "F45-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC01",
+          "MC04",
+          "MC05"
+        ],
+        "new_discrete_features": [
+          "fixed_wheel_trace_chain",
+          "batch_slot_receipt"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "WO06"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_REAR_DELIVERY",
+        "base_anchors": [
+          "receiving",
+          "storage_shelf",
+          "goods_shelf",
+          "isolation_cage"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [
+          "GRP_BATCH_TRACE"
+        ],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F46",
+      "name": "红帽萨西",
+      "primary_system": "SG04",
+      "secondary_systems": [
+        "SG06",
+        "SG07"
+      ],
+      "allowed_phases": [
+        "N02",
+        "N04",
+        "N05"
+      ],
+      "work_hook": "正要用的拖把或轻工具被小旋风带到三处固定停点；追着拿会让它继续换位。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "GRP_TOOL_TRACE地面依次亮出旋风环；工具在当前候选槽露出轮廓，停留4秒后再随风换位。"
+        },
+        {
+          "kind": "sound",
+          "scale": "world",
+          "text": "下一停点先传来一声短笑，方向字幕保留；风移动顺序可观察。"
+        }
+      ],
+      "taboo": "旋风还在转时，不要跟在它后面抢工具。",
+      "critical_action": "提前把筛罩放到下一预告停点，等风入罩后取回工具。",
+      "action_steps": [
+        "停下来观察一轮三个停点，确认下一处预告与已显露的工具槽。",
+        "拿免费筛罩放到预告槽，自己退开一格。",
+        "旋风入罩后取回已登记工具，再把筛罩收走。"
+      ],
+      "pressure_tradeoff": "耐心等一轮会延后清洁；盲追更快移动却可能再丢工具。",
+      "free_solution": "固定筛罩与三个候选槽免费。P06可用3秒搬回已揭示槽中的同一件轻工具；工具转移不清除旋风，玩家仍须布筛截住它。",
+      "failure_recovery": "放早或放错只让旋风绕过一次；工具不删除，可再等一轮，关键任务工具有替用件。",
+      "resolution_condition": "工具物件回到玩家或原工具槽，旋风在固定槽被截住一次。",
+      "variants": [
+        {
+          "event_id": "E022",
+          "change": "纸质缺件单无法打印。",
+          "counterplay": "直接对照原工具槽与地面风迹，口头猜测不计归还。",
+          "id": "F46-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E069",
+          "change": "宠物也藏起一件普通小物。",
+          "counterplay": "先分清旋风工具和宠物藏物的物件ID；两者归还不重复领奖。",
+          "id": "F46-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC01",
+          "MC04",
+          "MC06",
+          "MC07",
+          "MC10"
+        ],
+        "new_discrete_features": [
+          "three_stop_wind_cycle",
+          "preplaced_sieve"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "WO06"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_REAR_DELIVERY",
+        "base_anchors": [
+          "storage_shelf",
+          "goods_shelf",
+          "mop_station",
+          "packing"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [
+          "GRP_TOOL_TRACE"
+        ],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      },
+      "pet_binding": {
+        "pet_id": "P06",
+        "ability": "special_help",
+        "source_group_id": "GRP_TOOL_TRACE",
+        "item_tag": "hidden_light_tool",
+        "candidate_dwell_world_seconds": 4,
+        "source_must_be_revealed": true,
+        "transfer_world_seconds": 3,
+        "transfer_same_existing_instance": true,
+        "reserve_source_and_destination_before_commit": true,
+        "wind_cannot_relocate_reserved_item": true,
+        "release_reservation_on_cancel_without_duplicate": true,
+        "does_not_satisfy_wind_interception": true
+      }
+    },
+    {
+      "id": "F47",
+      "name": "水歌伊阿拉",
+      "primary_system": "SG06",
+      "secondary_systems": [
+        "SG10",
+        "SG07"
+      ],
+      "allowed_phases": [
+        "N03",
+        "N05"
+      ],
+      "work_hook": "水槽旁的歌声每结束一段都给一份奖物，继续听会缩短封袋离开的时机。",
+      "omens": [
+        {
+          "kind": "sound",
+          "scale": "world",
+          "text": "每段末尾有清楚停拍与字幕；下一段开始前先询问是否继续。"
+        },
+        {
+          "kind": "physical",
+          "scale": "closeup",
+          "text": "奖励盘随歌段逐层亮起，封袋刻线分别显示1.2、1.0、0.8秒基础窗口。"
+        }
+      ],
+      "taboo": "已经能兑现时，不要因未入袋的奖励一直追听下去。",
+      "critical_action": "在一段停拍内封好当前奖袋并实际拿离交付槽。",
+      "action_steps": [
+        "选择是否接下一段；每段用同一封袋QTE，最多三段。",
+        "在停拍窗口封袋，实际取回已兑现的奖励。",
+        "离开水槽即结束；已兑现物不会因后来拒听而消失。"
+      ],
+      "pressure_tradeoff": "追加奖励换更窄窗口与更多时间，每次尝试明示结算8秒；低SAN仍按已有QTE档收窄。",
+      "free_solution": "可不接受歌约或在第一段收手；P03专属仍是当前合法窗口额外+0.4秒，按既有上限结算。",
+      "failure_recovery": "错过窗口先停止下一段；只失去尚未兑现的加码，回到干侧可封存基础所得，不撤销既有回执。",
+      "resolution_condition": "完成一至三段之一的实际封袋与领取，或在接受前拒绝；只有已完成回执发奖励。",
+      "variants": [
+        {
+          "event_id": "E011",
+          "change": "窗外浓雾使歌者方向不清。",
+          "counterplay": "停拍字幕、袋口刻线和干侧站位仍可见，不能缩掉必需窗口。",
+          "id": "F47-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E065",
+          "change": "额外奖励改为奖券碎片。",
+          "counterplay": "按实际封袋回执结算碎片，重复读奖励页不再发券。",
+          "id": "F47-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC01",
+          "MC05",
+          "MC06",
+          "MC07",
+          "MC11"
+        ],
+        "new_discrete_features": [
+          "three_song_qte_profile",
+          "sealed_reward_cashout"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "WO07"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_OBJECT_MANIFEST",
+        "base_anchors": [
+          "sink",
+          "water_valve",
+          "cold_cabinet"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [
+          "WET_COLD"
+        ],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      },
+      "qte_binding": {
+        "template_id": "QT01",
+        "task_profile_id": "F47_song",
+        "task_tags": [
+          "precision_packing",
+          "end_song_trade"
+        ],
+        "operation": "在当前已确认歌段的停拍窗封袋",
+        "general_pet_id": "P03",
+        "special_pet_id": "P03",
+        "pet_combination": "strongest_single_increase_not_sum_shared_charge_pool",
+        "freeze_policy_file": "content/qte.json"
+      }
+    },
+    {
+      "id": "F48",
+      "name": "河海豚化人客",
+      "primary_system": "SG08",
+      "secondary_systems": [
+        "SG01",
+        "SG07"
+      ],
+      "allowed_phases": [
+        "N01",
+        "N03",
+        "N06"
+      ],
+      "work_hook": "戴帽访客热情地想替你把热食送进员工区；普通购物与借工作帽进门是两件事。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "closeup",
+          "text": "帽檐下可见与人形不符的呼吸细节，只提示原型，不自动判定敌意。"
+        },
+        {
+          "kind": "behavior",
+          "scale": "world",
+          "text": "它已拿到商品仍伸手去取员工槽的工作帽，并绕过公共交付位。"
+        }
+      ],
+      "taboo": "能在店里购物的人，不等于能戴上工作帽穿过员工门。",
+      "critical_action": "把商品交到访客托盘，把工作帽和钥匙留在员工侧槽。",
+      "action_steps": [
+        "完成正常交易，把商品实际放公共交付位。",
+        "来客要求帮忙时先保留访客权限；只查真实授权链，不因帽子怪异拒售。",
+        "把工作帽归回员工槽，关有限通行门后让来客从前门离店。"
+      ],
+      "pressure_tradeoff": "接受陌生人代搬可以省一次跑动，却会暴露员工区；自己交货或请真同事更耗岗位时间。",
+      "free_solution": "公开托盘、员工槽和手动门免费，不需要照出真身才能安全卖货。",
+      "failure_recovery": "帽子被拿起先触发门禁预告；回收帽子或撤销该次通行后可继续普通交易。",
+      "resolution_condition": "商品已交付，员工权限未被购物凭证替代；访客留在公开路径并离店。",
+      "variants": [
+        {
+          "event_id": "E035",
+          "change": "自称店长的人带访客来帮忙。",
+          "counterplay": "核验带人者本人的授权，不把同行外貌当作许可。",
+          "id": "F48-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E031",
+          "change": "查账要求同时占用核验台。",
+          "counterplay": "账册先封入员工侧，访客购物仍走公共托盘，延期高权限操作。",
+          "id": "F48-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC01",
+          "MC04",
+          "MC05",
+          "MC09"
+        ],
+        "new_discrete_features": [
+          "visitor_work_hat_boundary",
+          "separate_sale_and_access"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "WO08"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "cashier",
+          "verification_desk",
+          "staff_locker",
+          "hot_food",
+          "staff_desk"
+        ],
+        "object_ids": [
+          "OBJ_VERIFY_KEYS",
+          "OBJ_VERIFY_READER"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F49",
+      "name": "火蛇博伊塔塔",
+      "primary_system": "SG09",
+      "secondary_systems": [
+        "SG03",
+        "SG05"
+      ],
+      "allowed_phases": [
+        "N03",
+        "N04"
+      ],
+      "work_hook": "火蛇围着发热垃圾盘旋，开盖检查会把余热暴露成目标；正常热食不在它的惩戒范围。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "热垃圾袋的温标转橙，火蛇只沿该袋外沿亮起，不追热食台。"
+        },
+        {
+          "kind": "behavior",
+          "scale": "world",
+          "text": "袋盖打开时蛇影靠近，盖合后退到封口边等候。"
+        }
+      ],
+      "taboo": "有余热的垃圾，不要敞口投进垃圾箱。",
+      "critical_action": "先合盖封住余热，再从袋外温标确认冷却后投放。",
+      "action_steps": [
+        "把热垃圾放到封袋位，合上现成隔热盖。",
+        "在不掀盖的情况下等温标降档；将合规热食留在原工位。",
+        "把已冷却封袋搬到垃圾箱，保留投放回执。"
+      ],
+      "pressure_tradeoff": "等降温会占一个容器和时间；立即倾倒能赶工，却把危险带到后院。",
+      "free_solution": "固定盖与袋外温标免费；不必熄灭全店热源，也不需要购买灭火器才能解。",
+      "failure_recovery": "误开盖先出现橙色警戒圈；立即重新合盖可撤出，未冷却袋仍留在原位，不凭空焚毁库存。",
+      "resolution_condition": "登记废物保持封闭并降到允许热档后实际投入垃圾箱。",
+      "variants": [
+        {
+          "event_id": "E018",
+          "change": "闷热让冷却档多停一轮。",
+          "counterplay": "先封盖，再处理另一项短店务；导演预留额外等待预算。",
+          "id": "F49-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E025",
+          "change": "后门锁卡。",
+          "counterplay": "冷却袋暂存封闭位，走已确认侧巷路线；路线超预算则合法延期投放。",
+          "id": "F49-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC01",
+          "MC03",
+          "MC04",
+          "MC07",
+          "MC12"
+        ],
+        "new_discrete_features": [
+          "waste_heat_tags",
+          "lid_exposure_state"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "WO08"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_REAR_DELIVERY",
+        "base_anchors": [
+          "waste_sort",
+          "dumpster",
+          "rear_threshold",
+          "hot_food",
+          "power_panel"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F50",
+      "name": "泽西恶魔",
+      "primary_system": "SG02",
+      "secondary_systems": [
+        "SG03",
+        "SG04"
+      ],
+      "allowed_phases": [
+        "N02",
+        "N04",
+        "N05"
+      ],
+      "work_hook": "外窗两次掠影指向下一处撞击，玩家从室内推板并离开对应条带。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "同组两扇窗中一扇连续出现爪痕与掠影，下一击目标锁定后不暗换。"
+        },
+        {
+          "kind": "sound",
+          "scale": "world",
+          "text": "第二声尖啸启动8秒窗口，方向字幕与窗沿轮廓同步。"
+        }
+      ],
+      "taboo": "看清俯冲目标后，不要留在那扇窗正前方确认第三次。",
+      "critical_action": "把遮板推入目标窗固定槽，立即退到同组安全点。",
+      "action_steps": [
+        "观察两次掠影，确认当前只启用DEF_FRONT_PAIR或DEF_REAR_PAIR一组。",
+        "取板沿固定轨道入槽，2秒操作后离开窗边条带。",
+        "等撞击结束，验看固定扣；只在有预算时开启第二轮。"
+      ],
+      "pressure_tradeoff": "盯窗能获取目标，但也耽误搬货；花灯电可早看，机械遮板与轮廓仍是免费解。",
+      "free_solution": "店内固定板、近侧帘和预告都免费；启动前当前到板再到窗须不超过12格。",
+      "failure_recovery": "错窗先留下破裂预告，可拉近帘保守撤出，停止该窗业务；不瞬间从窗外传送追人。",
+      "resolution_condition": "当前目标窗被正确防护且玩家已离开条带，撞击结算一次；防护不改变全店导航。",
+      "variants": [
+        {
+          "event_id": "E019",
+          "change": "普通外窗灯熄灭。",
+          "counterplay": "保留掠影轮廓、振动和字幕，用手动板槽完成。",
+          "id": "F50-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E014",
+          "change": "雷光制造一次无爪痕假影。",
+          "counterplay": "只在两次对应爪痕确认后选窗；假影不缩短8秒有效预告。",
+          "id": "F50-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC01",
+          "MC02",
+          "MC06",
+          "MC07",
+          "MC10"
+        ],
+        "new_discrete_features": [
+          "fixed_two_window_group",
+          "telegraphed_board_retreat"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "WO09"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "forecourt_handoff",
+          "loading_bay",
+          "front_door",
+          "rear_door"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [
+          "DEF_FRONT_PAIR",
+          "DEF_REAR_PAIR"
+        ],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      },
+      "runtime_parameters": {
+        "warning_seconds": 8,
+        "empty_hands_or_release_budget_seconds": 0.25,
+        "interior_impact_cells_from": "defense_groups",
+        "take_push_and_retreat_must_fit": true
+      }
+    },
+    {
+      "id": "F51",
+      "name": "蜘蛛故事商",
+      "primary_system": "SG07",
+      "secondary_systems": [
+        "SG10",
+        "SG06"
+      ],
+      "allowed_phases": [
+        "N01",
+        "N05"
+      ],
+      "work_hook": "故事商一边讲述一边替你扩写折扣；小票与商品在柜台上构成能被实际钉住的事实。",
+      "omens": [
+        {
+          "kind": "sound",
+          "scale": "world",
+          "text": "同一笔交易被讲成两种数量，讲到矛盾处收银铃自行响一下。"
+        },
+        {
+          "kind": "physical",
+          "scale": "closeup",
+          "text": "故事纸条的交易号与本班实物回执对应，但有一处商品轮廓多了一件重影。"
+        }
+      ],
+      "taboo": "故事还没说完，不要把空白折扣牌交给他。",
+      "critical_action": "用真实回执压住矛盾段，把有限折扣牌和对应商品一起封单。",
+      "action_steps": [
+        "将本班已有回执放上柜台，对照三个短句槽中的同一笔交易。",
+        "把回执压到矛盾槽，实体折扣牌只留明示的一档。",
+        "实际交付谈妥的一件商品并合上托盘；未接受前可退出交易。"
+      ],
+      "pressure_tradeoff": "多听一段可能提高小费，也给对方续写条款的机会；复核占注意力，不要求新算术小游戏。",
+      "free_solution": "免费基础回执与固定折扣牌足够；没有可用本班记录时导演不投放。",
+      "failure_recovery": "压错只让本轮优惠暂停，原收据不改写；可收回未签牌重摆，拒绝未接受的续约不受罚。",
+      "resolution_condition": "真实回执对应的有限折扣和实物交付同时结算，未生成无限次折扣义务。",
+      "variants": [
+        {
+          "event_id": "E022",
+          "change": "新收据打印卡住。",
+          "counterplay": "使用已存在的存档联；没有旧回执就延期该遭遇。",
+          "id": "F51-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E067",
+          "change": "无署名礼盒被说成你已同意收下的赠品。",
+          "counterplay": "礼盒先放隔离槽，只让真实回执中的物品进入本单。",
+          "id": "F51-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC01",
+          "MC04",
+          "MC05",
+          "MC11"
+        ],
+        "new_discrete_features": [
+          "story_receipt_slots",
+          "bounded_discount_token"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "WO10"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "cashier",
+          "staff_desk",
+          "pickup_shelf"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F52",
+      "name": "矮水灵托科洛舍",
+      "primary_system": "SG05",
+      "secondary_systems": [
+        "SG02",
+        "SG10"
+      ],
+      "allowed_phases": [
+        "N05",
+        "N06"
+      ],
+      "work_hook": "疲倦时休息椅看似空着，椅脚却有水印；能恢复资源的座位也会成为诱惑。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "WET_CHAIR椅南水线连到椅脚，班表位和站立恢复点保持干燥。"
+        },
+        {
+          "kind": "physical",
+          "scale": "closeup",
+          "text": "从低处看能见到椅底小影；只从上方看坐垫读不到这条证据。"
+        }
+      ],
+      "taboo": "椅脚还连着水线时，不要坐下。",
+      "critical_action": "从干侧擦断椅南割点，再用低位手压灯查椅底。",
+      "action_steps": [
+        "先交岗或暂缓接客，从干侧够到WET_CHAIR割点。",
+        "擦断该格，按固定手压检查灯，确认椅底影子离开。",
+        "坐下完成一次6秒世界短休，再起身领绑定本次的恢复回执。"
+      ],
+      "pressure_tradeoff": "检查会推迟休息；急着恢复SAN却可能先损失SAN，留下不受影响的站立稳定解。",
+      "free_solution": "固定拖把和手压检查灯免费；可先在干站点稳定，无需购买电池。",
+      "failure_recovery": "误坐先出现抓脚预告，起身退到干站点可挣脱；重查后仍能短休，不抹去先前工作。",
+      "resolution_condition": "椅线已断、低位检查通过，实际短休回执只提交一次。",
+      "variants": [
+        {
+          "event_id": "E026",
+          "change": "普通仓库漏水也在场，但来源不同。",
+          "counterplay": "只切椅南独立短线，不能把关仓库总阀当成椅底已安全。",
+          "id": "F52-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E019",
+          "change": "顶灯断电。",
+          "counterplay": "手压低灯与椅脚标记仍可读，基础检查不用池电。",
+          "id": "F52-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC01",
+          "MC03",
+          "MC07",
+          "MC10"
+        ],
+        "new_discrete_features": [
+          "chair_underlight_check",
+          "single_rest_receipt"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "WO11"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_OBJECT_MANIFEST",
+        "base_anchors": [
+          "rest_chair",
+          "break_table",
+          "mop_station",
+          "drain_channel"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [
+          "WET_CHAIR"
+        ],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F53",
+      "name": "水之母来访",
+      "primary_system": "SG10",
+      "secondary_systems": [
+        "SG09",
+        "SG07"
+      ],
+      "allowed_phases": [
+        "N01",
+        "N02"
+      ],
+      "work_hook": "补饮用水时，水之母提出保留几瓶换本夜营业回报；两只箱之间出现镜面水纹界。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "保留箱的瓶影朝水纹界内倒映，售货箱的瓶影仍朝货架。"
+        },
+        {
+          "kind": "behavior",
+          "scale": "world",
+          "text": "一旦把保留瓶抬向售货侧，来客会按住箱沿，水纹先明显越界警告。"
+        }
+      ],
+      "taboo": "已经答应留在水界内的饮水，不要拿去补售货架。",
+      "critical_action": "把承诺瓶实际放入封签保留槽，售货只从另一箱拿。",
+      "action_steps": [
+        "接受前看清保留数量、每单上限与06:00终期；也可不接契约。",
+        "亲手将承诺瓶分入保留槽封好，剩余瓶放可售槽。",
+        "接单时搬可售瓶，整夜保留封签；交班后再解除占用。"
+      ],
+      "pressure_tradeoff": "回报换真实库存和一个槽位；热浪时宁愿少卖，也不能把同一瓶同时计作保留和售出。",
+      "free_solution": "基础饮水与双槽容器免费，接受前保证数量够；不强迫购买道具或让玩家挨饿补契约。",
+      "failure_recovery": "误移先显水纹警告，可把尚未交出的瓶退回。已售不能复制补回，可结算一次明示损耗结束契约，不直接判整夜失败。",
+      "resolution_condition": "至06:00保留槽数量与封签有效，或实际结清违约损耗；跨小时占槽持续计入导演。",
+      "variants": [
+        {
+          "event_id": "E012",
+          "change": "热浪增加普通饮水需求。",
+          "counterplay": "继续用可售槽分单，需求超过明示配额则拒绝额外销量。",
+          "id": "F53-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E015",
+          "change": "普通自来水停供。",
+          "counterplay": "饮用瓶与清洁水分开记，不能把保留瓶自动消耗为清洁补水。",
+          "id": "F53-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC04",
+          "MC05",
+          "MC11"
+        ],
+        "new_discrete_features": [
+          "reserved_water_container",
+          "reflective_boundary_warning",
+          "persistent_bounded_quota"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "WO12",
+        "WO13"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "goods_shelf",
+          "storage_shelf",
+          "cashier",
+          "pickup_shelf"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F54",
+      "name": "吞世巨兽",
+      "primary_system": "SG04",
+      "secondary_systems": [
+        "SG09",
+        "SG10"
+      ],
+      "allowed_phases": [
+        "N02",
+        "N04"
+      ],
+      "work_hook": "店前巨口吞入三件登记货物，门外交接从搬货变成有次序的回收。吞人分支本版关闭。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "三件物品的编号依次消失，嘴边三条绳槽留下同样顺序的发光结。"
+        },
+        {
+          "kind": "sound",
+          "scale": "world",
+          "text": "每次吞入有独立咔嗒声与编号字幕；最后一个绳结会回弹。"
+        }
+      ],
+      "taboo": "最先被吞进去的东西，不要先拉。",
+      "critical_action": "从最后吞入的一件开始，逐件逆序拉到外部暂存槽。",
+      "action_steps": [
+        "看清三次吞入和对应绳槽，将外部三个暂存格清空。",
+        "从最后一结开始拉回物件，实际放入GRP_GIANT_BUFFERS。",
+        "依逆序取完三件并收绳；不进入巨兽体内。"
+      ],
+      "pressure_tradeoff": "拉回每件时要占手和一格暂存位；急着抢最贵的货会打乱绳序。",
+      "free_solution": "固定三绳和三个暂存槽免费；只处理登记三物，不能吞掉玩家全部背包或生成腹内地图。",
+      "failure_recovery": "错拉先让该结绷紧，松手可重试；已取回物不重新吞入，不因一次错误把全部成果抹掉。",
+      "resolution_condition": "三件物品均按逆序进入实际暂存槽，吞入队列为空；吞同事和救人功能门槛保持关闭。",
+      "variants": [
+        {
+          "event_id": "E009",
+          "change": "三件都是团购中的登记货。",
+          "counterplay": "以吞入顺序回收，不按售价排序；回收与团购交付是两个不同收据。",
+          "id": "F54-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E025",
+          "change": "后门不能用。",
+          "counterplay": "全过程只用前场与已有暂存格，不暗加必须从后门取的专属工具。",
+          "id": "F54-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC01",
+          "MC04",
+          "MC06",
+          "MC07",
+          "MC10"
+        ],
+        "new_discrete_features": [
+          "fixed_three_item_stack",
+          "ordered_rope_retrieval"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "WO14",
+        "WO15"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "forecourt_handoff",
+          "loading_bay",
+          "receiving"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [
+          "GRP_GIANT_BUFFERS"
+        ],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F55",
+      "name": "护夜犬卡德霍",
+      "primary_system": "SG10",
+      "secondary_systems": [
+        "SG04",
+        "SG01"
+      ],
+      "allowed_phases": [
+        "N04",
+        "N06"
+      ],
+      "work_hook": "门前交接时，一只护夜犬愿意陪你走一段标线；标线外的相似脚步会诱你拐走。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "犬足印只在GRP_ESCORT_ROUTE登记节点亮起，边界外没有连续实体痕迹。"
+        },
+        {
+          "kind": "sound",
+          "scale": "world",
+          "text": "另一侧有模仿犬步的声响，但护送犬身体仍停在下一个亮点。"
+        }
+      ],
+      "taboo": "已经走上护送线，不要为了旁边的脚步离开亮点。",
+      "critical_action": "交出一份未吃过的实际食物，沿限定节点完成交接并返回。",
+      "action_steps": [
+        "从可赠库存取一份食物放到犬前，不能重复使用已吃掉的口粮。",
+        "拿本次交接物沿登记节点行走，不跟线外脚步。",
+        "在终点交物后返回店内，结清本段护送；这不算提前下班。"
+      ],
+      "pressure_tradeoff": "赠食减少可售或可吃库存，护送占用玩家行程；可以在接受前拒绝。",
+      "free_solution": "店内有一份免费基础赠食可用；不依赖宠物购买或抽奖，也不承诺店外无限无敌。",
+      "failure_recovery": "踩出线先让犬停步示警，返回最近节点可续行；离开过久则本次庇护结束，交接物仍保留。",
+      "resolution_condition": "食物交付和本段交接均完成。回报只作用本次护送，或下一夜一次提前预警；N06不生成第七小时怪。",
+      "variants": [
+        {
+          "event_id": "E008",
+          "change": "骑手迟到，交接物需在终点等候。",
+          "counterplay": "限定等候时间后带物返回，护送不无限延长。",
+          "id": "F55-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E016",
+          "change": "门前普通积水靠近标线。",
+          "counterplay": "在投放前验证干路可达，否则换已登记干档或延期，不临时强迫越界。",
+          "id": "F55-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC01",
+          "MC04",
+          "MC07",
+          "MC10",
+          "MC11"
+        ],
+        "new_discrete_features": [
+          "bounded_escort_route",
+          "next_night_warning_token"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "WO05"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_FRONT_VISITOR",
+        "base_anchors": [
+          "front_door",
+          "rear_door",
+          "forecourt_handoff",
+          "loading_bay",
+          "street_boundary"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [
+          "GRP_ESCORT_ROUTE"
+        ],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F56",
+      "name": "深水邦耶普",
+      "primary_system": "SG05",
+      "secondary_systems": [
+        "SG02",
+        "SG04"
+      ],
+      "allowed_phases": [
+        "N02",
+        "N04"
+      ],
+      "work_hook": "货架之间一摊浅水倒映出深井，玩家必须确认边界后从干路抢救低层货。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "WET_AISLE的表面像普通积水，量尺落入边缘却显出异常深度档。"
+        },
+        {
+          "kind": "sound",
+          "scale": "world",
+          "text": "货架下有深水回响，字幕显示局部来源；相邻干格并不产生回声。"
+        }
+      ],
+      "taboo": "看起来只湿了鞋底的地方，不要直接踩进去捡货。",
+      "critical_action": "从干侧测深划界，再擦断供水割点取回目标物。",
+      "action_steps": [
+        "在货架积水干侧插固定测深尺，标出实际湿格边缘。",
+        "沿仍可达的干路到WET_AISLE割点，擦断与源相连的一格。",
+        "目标分支排干后取回物件，把它放回原货格。"
+      ],
+      "pressure_tradeoff": "先探边界多走几步；直接取近处货物看似更快，却会进入拖拽区。",
+      "free_solution": "固定尺、拖把与干侧路线免费；不把量尺做成连续物理深度模拟。",
+      "failure_recovery": "误入边缘先给下沉预告，退到刚登记的干格可中止；目标货仅滑到下一固定格，不随机沉没消失。",
+      "resolution_condition": "测深记录和湿区割断都已发生，登记物从干格实际取回。",
+      "variants": [
+        {
+          "event_id": "E010",
+          "change": "门前雨水同时出现。",
+          "counterplay": "雨水与货架深水有不同来源标记，只处理本次WET_AISLE。",
+          "id": "F56-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E026",
+          "change": "普通库房水源漏水。",
+          "counterplay": "先核来源，不把仓库阀的关闭当成货架幻境已解除；干路无解则拒投放。",
+          "id": "F56-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC01",
+          "MC03",
+          "MC07",
+          "MC10",
+          "MC12"
+        ],
+        "new_discrete_features": [
+          "discrete_depth_probe",
+          "aisle_water_binding"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "WO16",
+        "WO17"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_AISLE_MANIFEST",
+        "base_anchors": [
+          "drain_channel",
+          "water_valve",
+          "mop_station",
+          "aisle_loop"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [
+          "WET_AISLE"
+        ],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F57",
+      "name": "水路守护塔尼瓦",
+      "primary_system": "SG05",
+      "secondary_systems": [
+        "SG04",
+        "SG10"
+      ],
+      "allowed_phases": [
+        "N02",
+        "N04"
+      ],
+      "work_hook": "后院水路被当作过货捷径；塔尼瓦要求水渠连通，玩家只能短暂停流搭固定踏板。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "保护水沟的三段标记相继亮起，堆在沟上的箱会截断最后一段。"
+        },
+        {
+          "kind": "behavior",
+          "scale": "world",
+          "text": "清走箱子后水影退开；把沟永久堵住时它重新挡住垃圾交接位。"
+        }
+      ],
+      "taboo": "不要为了省搬货距离把守护水渠永久堵死。",
+      "critical_action": "在本地8秒维护窗口里搭板过一箱，随后撤板恢复水流。",
+      "action_steps": [
+        "清掉保护水沟上的杂物，将待过箱放到ATT15交叉起点。",
+        "拉本地维护杆，按固定槽放踏板，把箱移到另一侧缓冲格。",
+        "撤板并恢复流动，确认三段重新连通后交货。"
+      ],
+      "pressure_tradeoff": "绕过水渠要多走，过板要服从窗口；这里保护的是水路，与其他水怪的断支流不矛盾。",
+      "free_solution": "ATT15踏板、拉杆与缓冲槽免费；8秒内的完整动作已静态预算，跨过并不重建寻路网格。",
+      "failure_recovery": "窗口将结束先提示归位，可放箱到缓冲槽退回；仅本轮未完成，已移箱不回传、不整片倒灌。",
+      "resolution_condition": "登记箱到另一侧、踏板已撤、主渠连接和流动恢复；只允许登记维护期短暂停流。",
+      "variants": [
+        {
+          "event_id": "E026",
+          "change": "普通旁支漏水同时发生。",
+          "counterplay": "关普通旁支阀，保护主渠仍按三段连通契约处理。",
+          "id": "F57-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E009",
+          "change": "跨线物改为重箱。",
+          "counterplay": "先把重箱搬到起点再开8秒窗；实际完整动作超预算就用外绕路线。",
+          "id": "F57-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC03",
+          "MC04",
+          "MC07",
+          "MC10",
+          "MC11",
+          "MC12"
+        ],
+        "new_discrete_features": [
+          "bounded_flow_maintenance",
+          "fixed_bridge_receipt"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "WO18"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_REAR_DELIVERY",
+        "base_anchors": [
+          "rear_threshold",
+          "drain_channel",
+          "water_valve",
+          "storage_shelf",
+          "aisle_loop"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [],
+        "wet_region_ids": [
+          "WET_REAR"
+        ],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      },
+      "runtime_parameters": {
+        "maintenance_pause_max_world_seconds": 8,
+        "must_restore_source": true,
+        "canonical_local_attachment": "ATT15"
+      }
+    },
+    {
+      "id": "F58",
+      "name": "雾笛访客",
+      "primary_system": "SG03",
+      "secondary_systems": [
+        "SG06",
+        "SG10"
+      ],
+      "allowed_phases": [
+        "N03",
+        "N05"
+      ],
+      "work_hook": "热食交付时雾停在保温边界外；把最后一份热食卖掉，会让冷区雾跨进营业区。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "一份真实热食所在槽外侧保持清楚，空槽对应的边界开始结露。"
+        },
+        {
+          "kind": "sound",
+          "scale": "world",
+          "text": "雾笛从冷区传来，声源靠近随边界前移；字幕与边界刻线同步。"
+        }
+      ],
+      "taboo": "雾还贴着边界时，不要把唯一的保温热食拿去售卖。",
+      "critical_action": "留一份真实热食在保温槽维持边界，或实际封闭冷区。",
+      "action_steps": [
+        "确认保温槽内有一份已验热食，优先把普通订单改用另一份。",
+        "维持局部保温灯与热食，沿暖区工作；不必把全店灯都开满。",
+        "物资不足就挂OBJ_COLD_SECTION_SIGN并停止该区接单，等本次雾退。"
+      ],
+      "pressure_tradeoff": "留食少一份销量，供电延长便利；封区保守解放弃一段服务但不会取消整夜基础目标。",
+      "free_solution": "免费基础热食或手动封区均可完成，不要求用最后一格电救命。",
+      "failure_recovery": "误取最后热食先给边界收缩预告，放回或封区可补救；HUD和撤离方向不被雾覆盖。",
+      "resolution_condition": "热食边界守到本次退场，或冷区已明确停用且玩家退出边界；两者只发一次回执。",
+      "variants": [
+        {
+          "event_id": "E021",
+          "change": "微波炉停转。",
+          "counterplay": "独立保温槽有热食则继续，无食或设备不可用就实际封区。",
+          "id": "F58-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E011",
+          "change": "外部浓雾加重普通能见度。",
+          "counterplay": "保留暖区边界和货架编号，两个雾来源不叠加吞掉全部提示。",
+          "id": "F58-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC01",
+          "MC03",
+          "MC04",
+          "MC07",
+          "MC12"
+        ],
+        "new_discrete_features": [
+          "warm_food_boundary",
+          "physical_section_closure"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "WO19"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_OBJECT_MANIFEST",
+        "base_anchors": [
+          "hot_food",
+          "cold_cabinet",
+          "front_door",
+          "goods_shelf"
+        ],
+        "object_ids": [
+          "OBJ_COLD_SECTION_SIGN"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F59",
+      "name": "梅内胡内工队",
+      "primary_system": "SG10",
+      "secondary_systems": [
+        "SG02",
+        "SG03"
+      ],
+      "allowed_phases": [
+        "N05"
+      ],
+      "work_hook": "盘点时出现小型施工队，愿意修一处设施；开灯盯工会让它们停手。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "GRP_CONSTRUCTION_SLOTS出现三处材料轮廓，工具声响起时缺口依次被补齐。"
+        },
+        {
+          "kind": "behavior",
+          "scale": "world",
+          "text": "玩家或手持强光朝向施工位时锤子停下，转开朝向后才继续。"
+        }
+      ],
+      "taboo": "供料后，不要开着施工灯盯着它们做。",
+      "critical_action": "把所需材料放到固定槽，再关局部施工灯、离开注视。",
+      "action_steps": [
+        "按三槽轮廓放基础材料，摆绕行牌保留工作通路。",
+        "关施工局部灯并把视线转向别处，照常做另一项短工作。",
+        "完成铃响后回去按一次设施测试键，验收有限修复。"
+      ],
+      "pressure_tradeoff": "等待时必须让出注意力与一段位置；关的只是局部灯，不切冷链任务柜。",
+      "free_solution": "基础材料与绕行牌免费；没有损坏设施就不给无意义维修任务。",
+      "failure_recovery": "误看或开灯只暂停进度，转开可继续；材料不重扣，不因一眼抹掉所有已做工。",
+      "resolution_condition": "材料已实际交付、施工完成且目标设施测试通过；最多修该登记故障一次。",
+      "variants": [
+        {
+          "event_id": "E001",
+          "change": "普通排队可能靠近工区。",
+          "counterplay": "先导向第二队列或让真同事接台，再让工队继续。",
+          "id": "F59-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E024",
+          "change": "坏门铃成为修理对象。",
+          "counterplay": "施工后由玩家按测试键确认，只恢复普通提醒，不获得识破怪物能力。",
+          "id": "F59-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "low",
+        "required_components": [
+          "MC04",
+          "MC05",
+          "MC06",
+          "MC07",
+          "MC10",
+          "MC11"
+        ],
+        "new_discrete_features": [
+          "unobserved_construction",
+          "single_fault_repair"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "WO20"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_OBJECT_MANIFEST",
+        "base_anchors": [
+          "construction_zone",
+          "storage_shelf",
+          "aisle_loop",
+          "receiving"
+        ],
+        "object_ids": [],
+        "spatial_group_ids": [
+          "GRP_CONSTRUCTION_SLOTS"
+        ],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    },
+    {
+      "id": "F60",
+      "name": "马面引路者",
+      "primary_system": "SG02",
+      "secondary_systems": [
+        "SG01",
+        "SG03"
+      ],
+      "allowed_phases": [
+        "N01",
+        "N05",
+        "N06"
+      ],
+      "work_hook": "服务位外的引路者总背对你；凸镜能看到它的真面，实体转身时直视却危险。",
+      "omens": [
+        {
+          "kind": "physical",
+          "scale": "world",
+          "text": "实体还未回头，凸镜里已出现另一张面孔；镜证据采用预制三档画面。"
+        },
+        {
+          "kind": "behavior",
+          "scale": "world",
+          "text": "头影先偏转再真正回身，方向标和转身预告始终可见。"
+        }
+      ],
+      "taboo": "它转身时，不要与实体正面视线相接；从镜里观察是允许的。",
+      "critical_action": "在转身预告内拉OBJ_MIRROR_CURTAIN，或锁朝向退离实体视线。",
+      "action_steps": [
+        "在登记观察点锁住身体朝向，可选拨镜看一秒取得识破证据。",
+        "出现转身预告后拉近帘遮断实体视线，或侧身退到登记遮线见证点。",
+        "关闭该服务位并在遮挡后等2秒退场；没有镜证据只失去精准识破奖励。"
+      ],
+      "pressure_tradeoff": "多看一秒能认清原型，晚退一步会暴露；帘同时挡住该侧信息，需换服务位。",
+      "free_solution": "固定帘与朝向锁定都免费；镜面查看不触发直视禁令，不能将二者都按facing判罚。",
+      "failure_recovery": "误转头先给可见的惊惧警告，拉帘或侧退可恢复；帘不得在同一遭遇里无预告失效。",
+      "resolution_condition": "转身危险窗口内实体视线被遮断或玩家未朝向，服务位实际停用并完成退场等待。",
+      "variants": [
+        {
+          "event_id": "E011",
+          "change": "雾让镜位提示只能在观察点附近读到。",
+          "counterplay": "先站到固定脚点，保留转身预告与近帘；可放弃镜证据直接锁朝向退出。",
+          "id": "F60-V05-1",
+          "preserve_core_resolution": true
+        },
+        {
+          "event_id": "E019",
+          "change": "普通灯熄灭。",
+          "counterplay": "镜中预制轮廓、头影警示与机械帘仍可用；免费朝向退离不变。",
+          "id": "F60-V05-2",
+          "preserve_core_resolution": true
+        }
+      ],
+      "implementation": {
+        "tier": "medium",
+        "required_components": [
+          "MC01",
+          "MC02",
+          "MC06",
+          "MC07",
+          "MC09",
+          "MC10",
+          "RC01"
+        ],
+        "new_discrete_features": [
+          "mirror_view_exempt_from_direct_gaze",
+          "curtain_sight_segment"
+        ],
+        "client_implemented": false
+      },
+      "canonical_override": null,
+      "source_ids": [
+        "WO05"
+      ],
+      "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
+      "candidate_enabled": true,
+      "runtime_enabled": false,
+      "map_binding": {
+        "scene": "MAP_STORE",
+        "entry_profile": "EP_AISLE_MANIFEST",
+        "base_anchors": [
+          "safe_counter",
+          "convex_mirror",
+          "customer_wait"
+        ],
+        "object_ids": [
+          "OBJ_MIRROR_CURTAIN"
+        ],
+        "spatial_group_ids": [],
+        "wet_region_ids": [],
+        "defense_group_ids": [],
+        "authority_file": "content/map_mechanics_v05.json",
+        "dynamic_admission_required": true,
+        "static_binding_is_not_route_timing_proof": true
+      }
+    }
+  ],
+  "authority": "当前交互设计；F12/F13精确蓝图最高优先，四资源/奖励/预算/证据/经营规则按store_systems_v05，不从本表短文重新推断。",
+  "runtime_loading_contract": "全部runtime_enabled为false。先完成组件及逐怪适配，并在客户端从当前站位验证路线、预警、预算和占位，才可启用。此表不是可eval的状态机。",
+  "event_variant_total": 120
+}

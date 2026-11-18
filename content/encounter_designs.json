@@ -1,7 +1,7 @@
 {
   "version": "0.4",
   "schema_version": 1,
-  "status": "60_complete_design_proposals_not_playtested",
+  "status": "historical_v04_detail_reference_superseded_for_current_gameplay",
   "total": 60,
   "event_variant_total": 120,
   "all_clients_implemented": false,
@@ -9,7 +9,7 @@
     "F12",
     "F13"
   ],
-  "authority_policy": "F12/F13 exact user requirements and detailed blueprints take precedence. Other new interactions, numbers and map geometry are proposals, not previously approved final specifications.",
+  "authority_policy": "V0.5店铺与怪物交互以store_systems_v05/encounters_v05为准；本文件保留旧推导、资料与未迁移详细参数，不是新客户端加载入口。F12/F13详细蓝图继续最高优先。",
   "shared_systems_file": "content/systems_v04.json",
   "map_file": "content/maps.json",
   "retained_candidate_disabled_ids": [
@@ -11482,5 +11482,7 @@
       "map_scene_id": "MAP_STORE",
       "runtime_admission_note": "先从当前玩家位置计算真实所需路线，再加动作、订单和补救预算；卡片预留不是对任意位置/组合的通关保证。所有所需模块启用后方可投放。"
     }
-  ]
+  ],
+  "current_catalog": "content/encounters_v05.json",
+  "runtime_loading_allowed": false
 }

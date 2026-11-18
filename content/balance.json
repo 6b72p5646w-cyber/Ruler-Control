@@ -1,6 +1,6 @@
 {
-  "version": "0.4",
-  "status": "proposal_not_playtested",
+  "version": "0.5",
+  "status": "design_proposal_not_playtested",
   "week_length_days": 7,
   "same_phases_every_day": true,
   "daily_phases": [
@@ -105,7 +105,9 @@
       "visible_qte_target_shrinks": true,
       "blackout_affects_world_and_closeup_periphery": true,
       "hidden_correct_input_failure_probability": 0,
-      "hud_and_emergency_buttons_masked": false
+      "hud_and_emergency_buttons_masked": false,
+      "omen_observation_damage": 0,
+      "new_global_hunt_threshold_system_enabled": false
     },
     "satiety": {
       "min": 0,
@@ -134,7 +136,9 @@
     "performance_bonus_max": 40,
     "normal_lottery_ticket_per_completed_night": 1,
     "starting_tickets": 1,
-    "daily_free_job_food_bundle_id": "daily_job_food"
+    "daily_free_job_food_bundle_id": "daily_job_food",
+    "lottery_ticket_is_conditional_on_work_and_orders": true,
+    "work_debt_deduction_max": 20
   },
   "director": {
     "max_new_primary_per_hour": 1,
@@ -174,10 +178,12 @@
     "requires_feature_gate_before_sampling": true,
     "includes_qte_retry_and_san_in_budget": true,
     "new_forced_event_during_active_chase": false,
-    "detailed_design_catalog": "content/encounter_designs.json",
+    "detailed_design_catalog": "content/encounters_v05.json",
     "map_contract": "content/maps.json",
-    "admission_contract": "content/systems_v04.json",
-    "design_completeness_is_runtime_enablement": false
+    "admission_contract": "content/store_systems_v05.json",
+    "design_completeness_is_runtime_enablement": false,
+    "map_mechanics_contract": "content/map_mechanics_v05.json",
+    "legacy_pressure_catalog": "content/systems_v04.json"
   },
   "day_actions": [
     {
@@ -257,14 +263,31 @@
   "night_completion": {
     "planned_base_orders_per_hour": 2,
     "planned_base_orders_per_night": 12,
-    "minimum_valid_transactions": 8,
-    "all_phase_critical_work_required": true,
+    "minimum_valid_transactions": 0,
+    "all_phase_critical_work_required": false,
     "verified_colleague_transactions_count": true,
     "matching_special_transactions_count": true,
     "receipt_counts_once": true,
     "admission_checks_remaining_service_capacity": true,
-    "survive_without_completion": "safe_withdrawal_no_completion_reward",
-    "daily_basic_food_independent_of_completion": true
+    "survive_without_completion": "only_if_critical_threat_or_handover_unresolved_or_voluntary_withdrawal",
+    "daily_basic_food_independent_of_completion": true,
+    "ordinary_work_not_safety_gate": true,
+    "top_grade_transaction_target": 8,
+    "top_grade_duties_target": 6,
+    "completion_requires": [
+      "true_06_00",
+      "verified_handover",
+      "no_unresolved_critical_threat"
+    ],
+    "work_debt_policy": "content/store_systems_v05.json#/work_debt",
+    "grading_policy": "content/store_systems_v05.json#/completion",
+    "lottery_ticket_min_completed_duties": 4,
+    "lottery_ticket_min_unique_valid_orders": 6,
+    "base_order_mix": {
+      "pickup": 6,
+      "requires_physical_entry": 6,
+      "special_replaces_base_slot": true
+    }
   },
   "time_budget_semantics": {
     "night_hour_seconds": 120,

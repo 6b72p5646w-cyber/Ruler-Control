@@ -1,5 +1,5 @@
 {
-  "version": "0.3",
+  "version": "0.5",
   "max_active": 1,
   "baseline_uses_per_night": 2,
   "permanent_death": false,
@@ -141,7 +141,7 @@
       "id": "P03",
       "name": "鹦鹉",
       "purchase_price": 180,
-      "ability": "按已确认订单复述下一件商品；下一次扫码或配货QTE的判定区域乘1.12，最多恢复到正常SAN时的大小。 专属F47：在该段结尾播放玩家已经确认的收尾拍，让一次中止交易的操作窗口增加0.4秒。",
+      "ability": "复述玩家已确认的工序；下一次精细对齐或封装QTE的判定区域乘1.12，最多恢复到正常SAN时的大小。普通扫码和自动找零不触发。 专属F47：在该段结尾播放玩家已经确认的收尾拍，让一次中止交易的操作窗口增加0.4秒。",
       "limitation": "普通与专属共用每夜2次；只复述已确认记录，不知道未核实信息；QTE开始后不突然改变其判定区。 不自动中止交易，不退还已接受的代价；玩家仍决定继续或收手。",
       "tag": "qte_support",
       "acquisition": [
@@ -152,10 +152,10 @@
       "uses_per_night": 2,
       "care_supply_id": "PC03",
       "general_help": {
-        "name": "复述已确认订单",
-        "trigger": "在开始扫码或配货QTE之前短按",
+        "name": "提醒已确认工序",
+        "trigger": "开始已确认的精细对齐或封装QTE之前短按",
         "effect_type": "qte_modifier",
-        "description": "按已确认订单复述下一件商品；下一次扫码或配货QTE的判定区域乘1.12，最多恢复到正常SAN时的大小。",
+        "description": "复述玩家已确认的工序；下一次精细对齐或封装QTE的判定区域乘1.12，最多恢复到正常SAN时的大小。普通扫码和自动找零不触发。",
         "range_tiles": 2,
         "duration_seconds": 10,
         "shared_charge_cost": 1,
@@ -165,8 +165,8 @@
             "value": 1.12,
             "max_normal_scale": 1.0,
             "task_tags": [
-              "scan",
-              "order_pack"
+              "fine_alignment",
+              "precision_packing"
             ],
             "max_qtes": 1,
             "value_units": "multiplier_not_absolute_fraction",
@@ -175,7 +175,11 @@
           }
         ],
         "target_monster_ids": [],
-        "limitation": "只复述已确认记录，不知道未核实信息；QTE开始后不突然改变其判定区。"
+        "limitation": "只复述已确认记录，不知道未核实信息；QTE开始后不突然改变其判定区。",
+        "current_example_encounter_ids": [
+          "F04",
+          "F47"
+        ]
       },
       "special_help": [
         {

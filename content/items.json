@@ -1,5 +1,5 @@
 {
-  "version": "0.3",
+  "version": "0.5",
   "items": [
     {
       "id": "I01",
@@ -79,19 +79,25 @@
       "name": "备用电池",
       "rarity": "common",
       "shop_price": 12,
-      "effect": "一件兼容照明恢复25电量",
-      "tradeoff": "不修理损坏回路",
+      "effect": "一件兼容照明恢复25电量，或应急储备恢复3格；二选一消耗本件。",
+      "tradeoff": "不修理损坏回路；应急储备每夜最多用1次电池，不超过12格。",
       "tag": "light",
       "consumable": true,
       "design_origin": "original_game_adaptation",
       "operational_extension": {
-        "description": "给D03兼容台灯补25电量，不超过容量；不复活已经损坏的设施。",
+        "description": "给B03兼容台灯补25电量，或给全店应急储备补3格；同一电池实例仅消费一次，不能同时给两处充电。",
         "shared_primitive": "battery_restore",
         "requires_new_item_type": false,
         "status": "proposal_not_implemented",
         "compatible_deployable_ids": [
           "B03"
         ]
+      },
+      "reserve_recharge_v05": {
+        "units": 3,
+        "max_uses_per_night": 1,
+        "same_item_exclusive_with_lamp": true,
+        "ref": "content/store_systems_v05.json#/emergency_power"
       }
     },
     {

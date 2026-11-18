@@ -1,5 +1,5 @@
 {
-  "version": "0.4",
+  "version": "0.5",
   "schema_version": 1,
   "total": 60,
   "supersedes": "V0.1 M01-M60 are not adopted; all current candidates use F identifiers.",
@@ -22,12 +22,12 @@
         "AS01"
       ],
       "adaptation_notice": "本店原创：复制员工外貌、商品幻相、计量破绽均为游戏改编；不把狐精全部设为邪恶。",
-      "signature_interaction": "把幻相货箱离手称重，再抽一瓶实测容量，按真实数量分装或退回。",
+      "signature_interaction": "把真货交入上架槽，幻货放退回槽",
       "evidence": [
         "它持箱时的满箱影像与放秤后固定重量不符，时间戳不会回改。",
         "透明量杯可复核同标量饮料液面差异；计量工具提前陈列。"
       ],
-      "safe_response": "店内基础量杯、秤、退货托盘即可完成。 补救：搬回验收台重测，已明确的两份证据保留。 安全退出：把未结算箱子归还退货槽可安全退出，仅放弃利润。",
+      "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
         "energy": "完整复核精力-4，学习计量后-2。",
         "san": "错签SAN-6一次；正确交涉+2。",
@@ -35,8 +35,14 @@
         "stamina": "普通搬放无硬体力门槛。"
       },
       "synergy_conditions": {
-        "harder": "F16现金盘同时开放时必须分别封现金和重算货值，多一次封袋；两次独占收银任务不得同时起算。",
-        "easier": "预留已验样品减少一次往返，不能跳过离手称重。"
+        "harder": [
+          "未验箱改放后门收货位。",
+          "现金交易无法足额找零。"
+        ],
+        "easier": [
+          "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+          "看着满箱很想直接补完；复核占一次绕路，贸然上架会出现空货格。"
+        ]
       },
       "impersonation": {
         "enabled": true,
@@ -62,11 +68,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F01",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "本箱全部分入已验货槽或整箱退回，假货不再占据待售槽。"
     },
     {
       "id": "F02",
@@ -80,12 +88,12 @@
         "AS02"
       ],
       "adaptation_notice": "本店原创：皮缘、换装过程回放和员工权限限制；不沿用影视人物关系或爱情设定。",
-      "signature_interaction": "在侧灯和连续换装记录下交接围裙，把假扮者留在访客区。",
+      "signature_interaction": "将其留在访客权限并把围裙交给已核实真人",
       "evidence": [
         "侧灯照出颈边与衣领不同步的双轮廓。",
         "同一腕扣和站位在围裙遮挡前后不变，面容却变化；入口记录没有第二人。"
       ],
-      "safe_response": "基础侧灯、核验台记录器、锁柜，无需付费设备。 补救：从柜台撤销权限，重新采集未完成证据，已锁定证据保留。 安全退出：不确定时保持访客权限并完成钥匙入柜，可转人工晨班复核，奖励延后。",
+      "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
         "energy": "复核精力-3。",
         "san": "惊吓按单遭遇上限结算；不连续刷皮扣SAN。",
@@ -93,8 +101,14 @@
         "stamina": "开关和限权无体力门槛。"
       },
       "synergy_conditions": {
-        "harder": "F09分头取货使视线分散，需先让身体篮号归位；最多一项身份核验独占台。",
-        "easier": "提前开侧灯并挂好围裙可省2秒布置。"
+        "harder": [
+          "来者带真工牌要求免检。",
+          "固定侧灯失电。"
+        ],
+        "easier": [
+          "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+          "去核验台会离开柜台，保持待核可以继续低风险营业；不靠不停扣SAN逼迫误判。"
+        ]
       },
       "impersonation": {
         "enabled": true,
@@ -121,11 +135,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F02",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "异常来者未获员工权限，交接物仍由真实员工保管，事件收场。"
     },
     {
       "id": "F03",
@@ -139,12 +155,12 @@
         "AS03"
       ],
       "adaptation_notice": "本店原创：呼吸诱导、“屏息”按键及柜台安全侧隔绝呼吸信号；跳跃与清装不是全部古代尸变故事共有。",
-      "signature_interaction": "利用呼吸雾点诱导跳跃，分段把补货箱送过暴露通道，再退入柜台安全侧。",
+      "signature_interaction": "分两段送完货，退到已有遮挡线后让最后雾点失效",
       "evidence": [
         "暴露格吐气产生短暂雾点，下一跳指向最后有效点；安全侧雾点不传出。",
         "起跳前地面标记1.5秒，落地后停顿1秒才能转向。"
       ],
-      "safe_response": "可见落点、基础柜台安全侧和普通步行回路足够；屏息为缩短路线的选项。 补救：退入隔绝呼吸的柜台侧恢复体力，已完成补货保留。 安全退出：玩家可先退入安全侧等待其走开，未完成工作另补，不发额外遭遇奖励。",
+      "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
         "energy": "按常规工作疲劳，无跳跃次数税。",
         "san": "接触最多按共享恐惧上限结算。",
@@ -152,8 +168,14 @@
         "stamina": "游戏内屏息每秒-5，最多4秒；0体力仍可走到安全侧。"
       },
       "synergy_conditions": {
-        "harder": "E018闷热使暴露区屏息后恢复等待增加2秒；不能把唯一退路同时变为暴露区。",
-        "easier": "清空货架回路减少暴露段；已安置F07只给休息收益。"
+        "harder": [
+          "暴露格屏息后的体力恢复延迟增加2秒。",
+          "后门不能作为绕行捷径。"
+        ],
+        "easier": [
+          "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+          "短屏息限制迫使你分段搬货；安全点只屏蔽呼吸目标，不是所有怪的无敌格。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -174,11 +196,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F03",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "两个本阶段货箱到槽，最后外部雾点失效，僵尸退回入口。"
     },
     {
       "id": "F04",
@@ -192,12 +216,12 @@
         "AS04"
       ],
       "adaptation_notice": "本店原创：织布订单、保湿托盘与奖励；泪珠不会成为可以反复折磨刷取的货币。",
-      "signature_interaction": "把非标湿纱沿量尺展开，对齐长度后装入封口保湿盘，再完成寄售。",
+      "signature_interaction": "端封盘到寄售槽，交出有真实长度的纱",
       "evidence": [
         "纱线在手中自行织出连续纹理，不是普通湿布。",
         "物件卡显示保持湿润的蓝色刻度；封闭托盘可止住下降。"
       ],
-      "safe_response": "基础清水、量尺、可重用封盘均随岗位提供。 补救：取回隔离盘、补水和贴正确标签。 安全退出：将原物连盘退回，安全撤回交易。",
+      "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
         "energy": "完整整理精力-3。",
         "san": "公平交易SAN+3。",
@@ -205,8 +229,14 @@
         "stamina": "轻物操作无硬体力需求。"
       },
       "synergy_conditions": {
-        "harder": "E010或F05在场时，开盘只能放隔离台；若在地面打翻才激活一条预设湿连接。",
-        "easier": "预先准备闭合清水盘省一次取水。"
+        "harder": [
+          "水槽无供水。",
+          "地面湿连接已激活。"
+        ],
+        "easier": [
+          "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+          "要先准备容器再取货；照普通干货顺序做会被纱缠住，不能用更多力气硬拉。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -227,11 +257,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F04",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "湿纱已量过、保湿盘已合盖并放入寄售槽。"
     },
     {
       "id": "F05",
@@ -245,12 +277,12 @@
         "AS05"
       ],
       "adaptation_notice": "本店原创：只沿连通水面移动、拖把形成路径及干燥门槛；不把这些店内规则说成通行民俗。",
-      "signature_interaction": "先关水源、擦断一段水路，再把被牵走的购物篮拖回干区。",
+      "signature_interaction": "从干侧拖回篮子放到干货槽",
       "evidence": [
-        "只在连通门外的湿格中出现逆流波纹，孤立湿点无波纹。",
+        "只在与水槽来源连通的湿格中出现逆流波纹，孤立湿点无波纹。",
         "篮子移动前2秒出现湿手印，方向沿水路。"
       ],
-      "safe_response": "关水阀和基础抹布永远可用；低体力分段拉4秒无需门槛。 补救：关源后重新擦断同一割点，篮子与擦拭进度保留。 安全退出：可封闭该货格并改用备用篮，安全退出但该篮回收任务未完成。",
+      "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
         "energy": "分段清扫精力-4。",
         "san": "首次拖拽SAN-4，重复惊吓按共享冷却。",
@@ -258,8 +290,14 @@
         "stamina": "完整快速拉回耗12；不足时改慢拉不耗体力，额外2秒纳入恢复预留。"
       },
       "synergy_conditions": {
-        "harder": "F10水位升档激活一个额外连接，需多擦一个节点；最多增加一次，仍保留干侧取篮。",
-        "easier": "F06霜冻可关闭一个湿连接，冰面走速代价另显示。"
+        "harder": [
+          "库房普通漏水声掩盖篮子滑动声；河童仍只沿WET_COLD的既有水路牵引。",
+          "门前出现普通雨水WET_FRONT，容易与冷区的怪异逆流混淆；两片湿区没有连接边。"
+        ],
+        "easier": [
+          "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+          "越急着抢回货越接近水；关阀会暂时停一处水务，但必要食物和出口不断。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -280,11 +318,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F05",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "被拖篮与水源断开并回到干槽，断点保持到短结算完成。"
     },
     {
       "id": "F06",
@@ -298,12 +338,12 @@
         "AS06"
       ],
       "adaptation_notice": "本店原创：夜班保密订单与店员幻形；“守密”严格限定订单外传，玩家查规则不算泄密。",
-      "signature_interaction": "在禁广播时段用纸质小票完成热饮、保温和密封交付。",
+      "signature_interaction": "投入纸单并放下饮料完成无声交付",
       "evidence": [
         "杯霜随她指尖离开停止，独立墙上温片沿她路径依次降温。",
         "订单卡把允许的纸条/本地屏与禁止的全店广播分别标明。"
       ],
-      "safe_response": "纸质订单、基础杯套及热饮设备为岗位配置。 补救：停广播并完成一杯基础补热饮，原订单库存只计一次已交付物件。 安全退出：未签约时退回订单；签约后可关闭专用取货窗并取消订单，失去利润不扣额外SAN。",
+      "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
         "energy": "保温准备精力-3。",
         "san": "按已提示违约处理，存在一次补救。",
@@ -311,8 +351,14 @@
         "stamina": "局部冷区恢复速度降低20%，离开恢复；步行无门槛。"
       },
       "synergy_conditions": {
-        "harder": "F19同场必须采用纸凭据答复，多一次夹单；不能强制语音回答。",
-        "easier": "冷区恰好跨F05湿割点时可暂断一边，需提示冰面慢行。"
+        "harder": [
+          "基础保温有效窗口从30降为22世界秒。",
+          "本单不能即时打印。"
+        ],
+        "easier": [
+          "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+          "不能远程叫同事，玩家要自己走一趟；保持距离与保温窗口构成实际操作。"
+        ]
       },
       "impersonation": {
         "enabled": true,
@@ -338,11 +384,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F06",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "登记热饮与纸单进入同一交付槽，保密限制解除。"
     },
     {
       "id": "F07",
@@ -356,12 +404,12 @@
         "AS07"
       ],
       "adaptation_notice": "本店原创：保留一个座位换取经营增益；绝不把普通儿童无理由当怪物拦截。",
-      "signature_interaction": "给空椅挂保留牌，把排队带改到另一条固定槽，再完成正常小休。",
+      "signature_interaction": "保持短观察期不占椅；可选把一份零食放独立供物台",
       "evidence": [
         "无人椅面持续下陷，放纸片可复核。",
         "小脚步来自墙边，开门记录没有对应顾客。"
       ],
-      "safe_response": "店配保留牌与两张固定椅即可；无可用同事时可保留座位而延后小休，不强制投放完成目标。 补救：归还物品、重挂牌，依旧可用另一基础安全椅。 安全退出：通过归还玩具撤牌收回座位，不扣关系或SAN。",
+      "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
         "energy": "一次完整小休额外精力+3，不能超上限。",
         "san": "安静互动SAN+2一次。",
@@ -369,8 +417,14 @@
         "stamina": "小休按已有恢复规则，不额外重复叠加体力奖励。"
       },
       "synergy_conditions": {
-        "harder": "E001拥挤队列占一个等候槽，需移导向牌一次；若无替代等候格则不给该组合。",
-        "easier": "柜台旁已有空椅，无需搬箱。"
+        "harder": [
+          "排队更长，空椅不能给顾客使用。",
+          "同事开班短暂迟到，玩家暂时独自应付椅旁顾客。"
+        ],
+        "easier": [
+          "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+          "留位会挤占一处等候空间；引导同一批顾客比简单关店更合算。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -391,11 +445,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F07",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "自到场起保留45秒，期间无人占椅且本阶段冲突浏览客已改道；完成后本实例结束，回报至多一次。"
     },
     {
       "id": "F08",
@@ -409,12 +465,12 @@
         "AS05"
       ],
       "adaptation_notice": "本店原创：旧秤、扫帚和茶壶组成一个器物群机制，不把多个外形当成多个怪物凑数；不是设备故障。",
-      "signature_interaction": "辨认旧工具的具体裂位，修好后试作业，或贴退役单送回收架。",
+      "signature_interaction": "把工具从混合垃圾中取出并交入修好或退役槽",
       "evidence": [
         "工具离电后仍敲固定节奏，裂纹处回应最明显。",
         "修对位置后只有对应裂纹停止敲击；断电重启无效。"
       ],
-      "safe_response": "免费退役登记永远可完成；基本补修材料随任务发放。 补救：检查裂位后再贴一次；嫌耗时可转免费退役。 安全退出：把工具登记待办并放隔离架，延后奖励而不保留追逐。",
+      "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
         "energy": "退役精力-2，修理-6；修好后三次对应工作各省1。",
         "san": "妥善安置SAN+2一次。",
@@ -422,8 +478,14 @@
         "stamina": "轻工具拿放不设门槛。"
       },
       "synergy_conditions": {
-        "harder": "F12纸夹位被旧工具占用时，必须在追逐开始前先隔离；追逐中不得锁取物点。",
-        "easier": "先清空隔离托盘省整理步骤。"
+        "harder": [
+          "成灵对象改为可拆旧旋钮，不把普通故障自动当妖怪。",
+          "旧打印纸压夹裂开并敲击。"
+        ],
+        "easier": [
+          "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+          "修好能保住工具，退役更快但当夜少一件辅助；没有唯一购买门槛。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -444,11 +506,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F08",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "同一工具完成试作或已放入退役槽，停止返回垃圾口。"
     },
     {
       "id": "F09",
@@ -462,12 +526,12 @@
         "AS05"
       ],
       "adaptation_notice": "本店原创：收银区身体／高货架头部双位置服务；不混同分离飞头的其他版本。",
-      "signature_interaction": "按身体篮号取货，把高处头部挑选的商品送到身体篮子完成一次结账。",
+      "signature_interaction": "身体到柜台后结算这一篮一次",
       "evidence": [
         "身体与货架头部之间有连续颈线，顶部图标显示同一顾客ID。",
         "篮号与付款票只在身体侧，头部不能另开一单。"
       ],
-      "safe_response": "篮号挂牌、货架高亮和普通扫码即可。 补救：撤销未付款重复单，按身体篮号重新放货。 安全退出：把未结算商品放退回货格并取消可选订单。",
+      "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
         "energy": "额外送货精力-3。",
         "san": "首次伸颈SAN-3一次。",
@@ -475,8 +539,14 @@
         "stamina": "误追头部的冲刺按普通成本；步行完成不需冲刺。"
       },
       "synergy_conditions": {
-        "harder": "F02核验与头部挑货争注意力；把货先放身体篮，可中断并保留进度。",
-        "easier": "预先给篮编号避免重复开单。"
+        "harder": [
+          "订单变为三件而非两件，总操作增加2秒。",
+          "身体随普通队列在两个已标记等待格间移动。"
+        ],
+        "easier": [
+          "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+          "注意会被高处头吸走；身体还随队列移动，玩家必须追踪物件归属。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -497,11 +567,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F09",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "指定货物都进身体篮且本单结清。"
     },
     {
       "id": "F10",
@@ -515,12 +587,12 @@
         "AS05"
       ],
       "adaptation_notice": "本店原创：暴雨配送窗、恐惧问答与显示选项；不要求玩家背诵民俗台词。",
-      "signature_interaction": "从本班真实问题生成证据卡，贴到后门验货小窗并疏通出水槽，使巨影停止涨水。",
+      "signature_interaction": "排回一档后关小窗，封好窗下吸水布",
       "evidence": [
         "玻璃水影巨大，门口记录却没有可通行的普通身体。",
         "空白敷衍牌令刻度涨一档；贴有真实本班记录的证据卡使涨水暂停。"
       ],
-      "safe_response": "基础记录、纸卡、吸水布与可手动关闭窗口均保证。 补救：贴正确记录卡，干侧疏水并关窗；无需进入雨中。 安全退出：直接关窗并实体撤下外卖营业牌，取消一次订单即可安全退出。",
+      "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
         "energy": "整理证据精力-3。",
         "san": "无效回复最多SAN-6总计。",
@@ -528,8 +600,14 @@
         "stamina": "疏排为基本操作，不设体力门槛。"
       },
       "synergy_conditions": {
-        "harder": "F05同场时上涨一档可接通一个湿节点，需先放布再开窗；不得生成第二条无解水路。",
-        "easier": "现成故障工单就在柜台，可减少去记录器一次路程。"
+        "harder": [
+          "初始水位高一档，读卡后仍保证6秒疏排。",
+          "排水接到已有门外湿区。"
+        ],
+        "easier": [
+          "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+          "不是选一句勇敢台词；玩家要把日常遗留的物件带到危险窗前争取排水时机。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -550,11 +628,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F10",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "本班实物记录已展示、水位回落且小窗关闭。"
     },
     {
       "id": "F11",
@@ -568,12 +648,12 @@
         "AS08"
       ],
       "adaptation_notice": "本店原创：值班间隙摔跤挑战、赔率、食物交换；不使用影视男主设定。",
-      "signature_interaction": "在店前摆好比赛圈完成两次重心对齐，或把荞麦食品封装交给来客。",
+      "signature_interaction": "将完成的结果交入圈边托盘，拿走一次奖励",
       "evidence": [
         "奖品与赌注放在圈内，圈外货物明确不属于赌局。",
         "荞麦食品拿到交付格时来者主动停止邀战，替代路线可见。"
       ],
-      "safe_response": "拒绝并继续工作始终可行；食品仅在已有库存时提供，不要求先购买关键道具。 补救：可放弃第二轮保留剩余体力；包装错误可重封。 安全退出：把赌注牌放回托盘即可退场，没有攻击或追逐。",
+      "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
         "energy": "参赛精力-2；包装走普通工作成本。",
         "san": "公平输赢不扣SAN，QTE依当前SAN缩区。",
@@ -581,8 +661,14 @@
         "stamina": "参赛20，败方再5；门槛25，非强制。"
       },
       "synergy_conditions": {
-        "harder": "F03脚步已预告时主动参赛会压缩屏息余量，界面须显示赛后体力；不得强制两者连入。",
-        "easier": "荞麦食品可用且已封装，少一次制作。"
+        "harder": [
+          "世界中比赛前整场准备多需一杯店配水，不提高QTE速度。",
+          "普通队列催单，比赛占用连续12秒承诺。"
+        ],
+        "easier": [
+          "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+          "挑战耗体力和操作时间，食物路线耗一份公开库存；拒绝可退出不受追罚。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -603,11 +689,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F11",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "两轮平衡完成或荞麦食品交付，奖励只领取一次。"
     },
     {
       "id": "F12",
@@ -621,12 +709,12 @@
         "AS09"
       ],
       "adaptation_notice": "本作原创：默认追逐、回形针诱饵点与出店解除；保留民俗食铁特征作为灵感，首版不实现吞铁成长或任意金属破坏。",
-      "signature_interaction": "从办公用品架取回形针，逐点撒在地面，把默认追玩家的不可杀伊引出标记门外区。",
+      "signature_interaction": "利用每点1.5秒停食铺向门外，整个碰撞体进入标记区0.25秒即完成",
       "evidence": [
         "无诱饵时目标标记指玩家；撒落后切到可达金属点。",
         "追玩家在门内止步，追门外回形针则能过门；两种目标状态有独立颜色。"
       ],
-      "safe_response": "岗位保证一盒6次与一盒备用；验证路线最多需4点，留2点纠错。 补救：备用盒提供再6次用量，取用2秒；已存在诱饵不因取盒刷新寿命。 安全退出：玩家可先退门外，怪物追人止于门内；仍须重新撒点引出才能CLEARED。",
+      "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
         "energy": "沿用取物工作成本，不按每枚额外扣精力。",
         "san": "只按共享受击与预警结算。",
@@ -634,8 +722,14 @@
         "stamina": "普通步行、取物、撒点始终可用；冲刺可选。"
       },
       "synergy_conditions": {
-        "harder": "一出口关闭或推车预置占道改变点位，需要多看一次目标链；只能采用已验证≤4点路线。",
-        "easier": "P04/B05提供窗口，最终仍须玩家铺到门外。"
+        "harder": [
+          "E027错点到货使回形针盒移到已标明的相邻备用领取槽，仍属于metal_shelf岗位。",
+          "后门退出区本次禁用。"
+        ],
+        "easier": [
+          "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+          "要在被追与取工具间做路线选择；不加吃铁长大、持金属加速、啃门或动态体型寻路。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -659,11 +753,13 @@
       "encounter_blueprint_id": "F12",
       "interaction_scale": "world_map_only_during_pursuit",
       "prototype_status": "mapped_to_shared_store_interactions_v03",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F12",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "完全按 encounter_blueprints F12：诱饵锁定规则有效，整身诱至门外0.25秒，立即锁定本实例成功，不要求关门。"
     },
     {
       "id": "F13",
@@ -677,12 +773,12 @@
         "AS10"
       ],
       "adaptation_notice": "本作原创：库房生肉目标、触肉后转追玩家、搬入冰柜解除。沿用夜间觅食原型作为灵感，不再使用厨余封袋或气味路径作为本怪胜利条件。",
-      "signature_interaction": "抢先把登记生肉运入工作冰柜；若女鬼先触肉，则在追逐中完成同一入柜动作。",
+      "signature_interaction": "在冰柜1格内用0.6秒存入并关门，早到与追逐中到达都有效",
       "evidence": [
         "入场箭头只指登记任务生肉，玩家拿起时箭头跟箱走。",
         "触肉后1.5秒蓄势与变色预告，随后箭头改指玩家；丢肉不回退。"
       ],
-      "safe_response": "保证登记箱、任务槽、有效冰柜与普通携带可生存路线。 补救：重取同一箱并运到可用目标冰柜，已有路线标记保留。 安全退出：可退至安全回路争距离；只有正式撤离整班可放弃，不能靠扔肉直接清怪。",
+      "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
         "energy": "使用基础搬运成本，不额外隐扣触肉税。",
         "san": "共享受击规则，不因每帧触肉重复扣SAN。",
@@ -690,8 +786,14 @@
         "stamina": "0体力仍可拾取、2.6格/秒携带、存入；不强迫冲刺。"
       },
       "synergy_conditions": {
-        "harder": "肉箱换库位、可开启门关闭或少量湿格增加路程；必须预验证携肉速度仍可避追。",
-        "easier": "提早送入柜可直接成功；P02/P07/B06只增加余量。"
+        "harder": [
+          "登记肉箱放在另一可达库位。",
+          "激活有限预设湿格，不改变任务箱。"
+        ],
+        "easier": [
+          "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+          "为拿肉你必须靠近她的目标；提前准备短路比等发怒后奔跑更好。基础冰柜不消耗应急电。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -715,11 +817,13 @@
       "encounter_blueprint_id": "F13",
       "interaction_scale": "world_map_only_during_pursuit",
       "prototype_status": "mapped_to_shared_store_interactions_v03",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F13",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "完全按 encounter_blueprints F13：本实例登记肉存入有效柜并关门原子提交；同帧胜利优先，之后开柜/停电不复活。"
     },
     {
       "id": "F14",
@@ -733,12 +837,12 @@
         "AS11"
       ],
       "adaptation_notice": "本店原创：安全驱离、库存异常和影子证据。此条是默认关闭的进阶附身模块，不是外貌假扮；不能把食量大或生病当作证据。",
-      "signature_interaction": "保留同事真实身份，暂停食品权限，用透明食盒引出独立影子再封盒送出。",
+      "signature_interaction": "影子完全入盒时合盖，搬到门外槽后恢复同事岗位",
       "evidence": [
         "封闭透明食品盒的封条未动，影子却从独立方向伸进盒里。",
         "两份等重测试餐中，仅宿主近侧那份在秤上减少，过程记录无人取食。"
       ],
-      "safe_response": "模块启用后保证透明盒、测试餐与独立应急灯，基础解法不购买驱魔物。 补救：把盒放回前一台面等下一完整入盒预告；试餐保证一份补救量。 安全退出：保持临时食品限权并交可信店长接手，可安全终止可选模块，不永久失去同事。",
+      "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
         "energy": "协助精力-5。",
         "san": "目睹独立影手SAN-5，救回+3。",
@@ -746,8 +850,14 @@
         "stamina": "普通盒搬运无硬门槛。"
       },
       "synergy_conditions": {
-        "harder": "鲜食预约使测试台与制作台争时间，需先交完已熟订单再测试；不暂停真实食物交付承诺。",
-        "easier": "已布置透明测试台可少一次搬放。"
+        "harder": [
+          "同一时段有真实鲜食预约。",
+          "室内主灯熄灭，影子证据只能在应急台看清。"
+        ],
+        "easier": [
+          "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+          "需要暂时失去一个帮手；身份与附着物分开处理，不能套用假扮者驱逐流程。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -784,11 +894,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F14",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "同一影子被封入登记盒并送出，同事留店且权限恢复。"
     },
     {
       "id": "F15",
@@ -802,12 +914,12 @@
         "AS12"
       ],
       "adaptation_notice": "本店原创：用记忆灯箱、布片和铃盒复原回忆次序、安抚来客的流程；它不是传统禁忌或现实仪式。保留原型事实栏，不把普通孕妇、母亲或长发女性列为可疑对象。",
-      "signature_interaction": "在服务台按回忆因果点灯、盖布、合铃，用三次具体动作复原一段片段。",
+      "signature_interaction": "合上铃盒并保持3秒，等影子归位再收台",
       "evidence": [
         "第一片段显示灯亮后影子才指向布片，字幕明确先后。",
         "布未盖好时铃盒自己弹开，布到位后才保持闭合。"
       ],
-      "safe_response": "三件物品随服务台任务提供；两次错误后出现直接顺序引导。 补救：回看同一片段再操作，已确认线索永久保留。 安全退出：将三物件回收盒合上，结束本次安抚不追出店外，仅放弃奖励。",
+      "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
         "energy": "完整精力-4，重复操作最多额外-2。",
         "san": "成功+4；错误最多-2总计。",
@@ -815,8 +927,14 @@
         "stamina": "基础拿放开合无需体力。"
       },
       "synergy_conditions": {
-        "harder": "暴单杂音影响演出辨认，但字幕与静态次序图仍可读；需先收开台面一件普通物。",
-        "easier": "预清台面使三步连做，中断仍保留已完成步骤。"
+        "harder": [
+          "队列遮住音效，保持等价字幕。",
+          "主电失效，记忆灯箱改用任务附带电池。"
+        ],
+        "easier": [
+          "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+          "玩家以摆放和顺序复原记忆；不答人物身世选择题，听不清也有等价图示。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -843,11 +961,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F15",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "灯、布、铃盒按因果顺序完成，稳定3秒后影子离开。"
     },
     {
       "id": "F16",
@@ -861,12 +981,12 @@
         "AS13"
       ],
       "adaptation_notice": "本店原创：小额零钱流向、诱饵硬币与抽屉封袋；不把儿童顾客当偷窃者。",
-      "signature_interaction": "先封找零袋，再跟显色诱饵币找到下层出口槽，收回已丢零钱。",
+      "signature_interaction": "从出口收集槽取回同一批钱，带回封袋",
       "evidence": [
         "现金盘每4秒少一枚相同面额，日志显示小币转移而非收入消失。",
         "涂显色点的测试币沿同一底层路线移动，抽屉下沿手印与顾客双手位置分开。"
       ],
-      "safe_response": "基础封袋、显色诱饵币与记账券保证可用。 补救：先回来封袋再循显色线取回，同一币不重复生成。 安全退出：保持封袋并暂停现金支付，改用店内记账券可继续营业；回收任务待晨班。",
+      "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
         "energy": "现金复盘精力-3。",
         "san": "首次识别SAN-2。",
@@ -874,8 +994,14 @@
         "stamina": "普通跟踪与拿放无门槛。"
       },
       "synergy_conditions": {
-        "harder": "F01幻货同场形成现金差与货值差两种原因，需先封袋再核货；不可合用一个未知总差值。",
-        "easier": "已封零钱袋时立即进入追踪准备，仍需显色币证据和回收。"
+        "harder": [
+          "可用找零少，不能继续敞盘找零。",
+          "在线账目不可读，使用店内离线流水。"
+        ],
+        "easier": [
+          "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+          "先保护库存还是马上追踪形成次序选择；不用计算找零或怀疑每个普通顾客。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -896,11 +1022,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F16",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "本实例转移的钱已回袋且诱饵币收回，偷取路径封闭。"
     },
     {
       "id": "F17",
@@ -914,12 +1042,12 @@
         "AS13"
       ],
       "adaptation_notice": "本店原创：安全距离的丝带解结谜题与代办寄送；不把某一流传的葬仪故事当作现实宗教教义。",
-      "signature_interaction": "把连着束带的包裹放长台一端，沿发光绳路依次松开三个结。",
+      "signature_interaction": "物件放交付槽后退，让它自己取走",
       "evidence": [
         "包裹绳纹与身上束带同时收紧，旁边普通包裹不动。",
         "来客整躯挪动，无法自行越过束带拿包裹。"
       ],
-      "safe_response": "基础长台、绳路提示和代办柜；无工具购买门槛。 补救：撤掉遮挡物，重做当前结；两次错误后高亮下一正确结。 安全退出：登记进入晨班代办柜，奖励延迟，基础包裹保留。",
+      "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
         "energy": "解结精力-4，学过辨识则-2。",
         "san": "成功SAN+3。",
@@ -927,8 +1055,14 @@
         "stamina": "搬上台快速方式-8，不足时慢搬多2秒不扣体力。"
       },
       "synergy_conditions": {
-        "harder": "F09篮与包裹同台时需先把篮移至旁槽；不会让长颈遮住所有绳路。",
-        "easier": "台面预清理且长台两端已有标记，少一次摆位。"
+        "harder": [
+          "团购物件占去包裹近侧槽。",
+          "台灯失电，但基础应急灯可用。"
+        ],
+        "easier": [
+          "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+          "靠近核绳要暂离柜台，但细节由特写清晰呈现；不是识别一个小像素结。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -949,11 +1083,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F17",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "同一束带的三个结已松开，包裹到公共交付槽。"
     },
     {
       "id": "F18",
@@ -968,12 +1104,12 @@
         "AS17"
       ],
       "adaptation_notice": "本店原创：员工复制、足迹连续性和宠物识别限制；并非宣称所有Aswang均能复制具体熟人。",
-      "signature_interaction": "封存爪印变鞋印的连续路径，与独立门框计数对照，再把钥匙留在员工侧。",
+      "signature_interaction": "关闭员工内门，只保留普通访客出口与门外动物避雨位",
       "evidence": [
         "同一粉垫路径从爪印逐格变为鞋印，路径没有第二人插入。",
         "已确认无人区域只录到一次小体型穿过，成人门框未响却出现成人轮廓。"
       ],
-      "safe_response": "基础粉垫、门框计数、内门与钥匙抽屉；证据不靠宠物。 补救：保留钥匙限制，请在已清走廊重走；不需购买新粉垫。 安全退出：证据不足时继续访客级等待，保持内门关闭，交晨班复核。",
+      "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
         "energy": "复核精力-4。",
         "san": "确认变形SAN-7一次。",
@@ -981,8 +1117,14 @@
         "stamina": "绕行关门正常步行；不强制消耗8体力。"
       },
       "synergy_conditions": {
-        "harder": "动物避雨多了普通爪印，需按连续同一路径匹配计数，不按动物数量猜。",
-        "easier": "先铺粉垫与空区记录使证据完整，减少重走。"
+        "harder": [
+          "出现一条普通动物轨迹作干扰，但没有爪鞋转化。",
+          "声音门铃失效，光电计数仍有本地电池。"
+        ],
+        "easier": [
+          "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+          "清洁任务的正确本能会毁掉线索；先留痕后清洁才能保住一次核验机会。"
+        ]
       },
       "impersonation": {
         "enabled": true,
@@ -1008,11 +1150,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F18",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "连续变形证据与独立过门记录完成，异常访客未取得员工权限。"
     },
     {
       "id": "F19",
@@ -1026,12 +1170,12 @@
         "AS15"
       ],
       "adaptation_notice": "本店原创：包裹寄送与订单逻辑题；不给玩家真实尸体处理任务，不要求印度神话冷知识。",
-      "signature_interaction": "把会发问的寄存件运过两个货架站，实际挂上对应小票，再按证据投入正确寄存柜。",
+      "signature_interaction": "抱起送入匹配寄存柜并关门",
       "evidence": [
         "同一封签的包裹讲述刚发生的本店订单，并指向具体缺失凭据。",
         "错误挂票后物件回到上一标记站，封签ID不变，只有一个实物。"
       ],
-      "safe_response": "本班任务自带全部必要小票或确定可补开的记录；不需要玩家知道神话答案。 补救：从待查槽补取票；两次回返后直接高亮需要的凭据和柜类。 安全退出：把物件登记入待查代办柜，停止可选纠纷处理，不拿虚假收益。",
+      "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
         "energy": "完整核对精力-3，回返额外-2最多两次。",
         "san": "正确推理+2，错误最多-4。",
@@ -1039,8 +1183,14 @@
         "stamina": "每段普通搬运可慢走无门槛；推车仅省时。"
       },
       "synergy_conditions": {
-        "harder": "F06保密单混入案件时必须改用本地纸票，无广播；多一次把票放保密夹的动作。",
-        "easier": "已整理票夹可少一次走回收银。"
+        "harder": [
+          "案件从付款变为退款，需要退款单和原销售票。",
+          "所需票未打印，日志已存在。"
+        ],
+        "easier": [
+          "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+          "器物持续说话诱你停步，真正解是安排放下的节点；答题变为带物穿行。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -1061,11 +1211,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F19",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "两个停放节点的实体凭据已挂好，同一包裹入柜。"
     },
     {
       "id": "F20",
@@ -1079,12 +1231,12 @@
         "AS16"
       ],
       "adaptation_notice": "本店原创：借同情和职权索要授权，不复制原作人物情节；访客职业、宗教服饰不是危险证据。",
-      "signature_interaction": "把一份食物锁定在透明授权夹里，通过服务窗口交付，同时把越权条款实体撤回。",
+      "signature_interaction": "来客伸向别处时收回多余托盘并关交单缝",
       "evidence": [
-        "透明夹外的申请从“一份”自行变成“全部”，夹内原本不变。",
-        "以店长外貌提出的权限超过白天保存原本，固定回拨渠道独立否认新增授权。"
+        "透明单份盒内的食品保持一份，盒外的取货影手却沿着整排货架伸长。",
+        "你收回额外托盘时它的影手也缩回，只有已经答应的单份盒仍被指出。"
       ],
-      "safe_response": "基础透明夹、固定回拨与一份店内公益库存；若无库存允许安全拒绝。 补救：通过柜台紧急限权取消尚未交付授权，把条款移回透明夹再完成有限交付。 安全退出：不想提供食品时把未签申请放退回槽并关服务窗，安全拒绝不惩罚饱腹。",
+      "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
         "energy": "逐项核验精力-4。",
         "san": "越权后撤回SAN-6；正确守界不扣。",
@@ -1092,8 +1244,14 @@
         "stamina": "操作无体力门槛。"
       },
       "synergy_conditions": {
-        "harder": "F19案件会多一次核对授权前提，必须以纸票表述；F02等拟态不得同时占用身份槽。",
-        "easier": "可信店长已在固定渠道在线可省一次等待。"
+        "harder": [
+          "来者把有限送餐授权改成全库查账。",
+          "它另带一个无独立AI的剪影要求进员工区。"
+        ],
+        "easier": [
+          "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
+          "善意可以履行，但交付边界必须亲手保持；无需读长篇授权协议。"
+        ]
       },
       "impersonation": {
         "enabled": true,
@@ -1119,11 +1277,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F20",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "承诺的单份食品已交付，额外库存和钥匙未出边界。"
     },
     {
       "id": "F21",
@@ -1137,12 +1297,12 @@
         "EU01"
       ],
       "adaptation_notice": "店内交互、可见线索、资源数值及联动是依据母题创作的游戏规则，不是传统文献中的禁忌原文。",
-      "signature_interaction": "用两条预警定位危险工位，将被点名员工调离后完成该工位的安全停机。",
+      "signature_interaction": "让实际人员离开危险位，再从安全侧停机。",
       "evidence": [
-        "哭声方位字幕指向一个已登记工位；靠近该工位时强度图标增加。",
-        "值班板上一个员工位置卡出现水痕，工位危险灯独立开始18秒预告。"
+        "哭声方向指向一个设备工位。",
+        "柜台位置卡被水洇湿，对应工位机械旗升起。"
       ],
-      "safe_response": "值班板、危险灯、基本调岗与关机均为店内免费功能。 补救：从安全侧停机并迁移该工作单；消耗额外最多8秒操作。 安全退出：可接受封站，把必要工作迁到预先保留的备用点；女妖不追杀。",
+      "safe_response": "纸位置卡、机械旗、手动关机和基本调岗不耗电。",
       "resource_effects": {
         "energy": "调岗与复位额外精力−2。",
         "san": "成功无SAN损失；错过预告SAN−4一次。",
@@ -1150,8 +1310,14 @@
         "stamina": "步行调岗可在0体力完成。"
       },
       "synergy_conditions": {
-        "harder": "E001人流占用柜台时，需先把一单放入待结区再腾出安全点。",
-        "easier": "已验证同事空闲时可直接接岗，省去一次柜台往返。"
+        "harder": [
+          "现有订单袋占一侧安全点。",
+          "屏幕与普通灯失效。"
+        ],
+        "easier": [
+          "纸位置卡、机械旗、手动关机和基本调岗不耗电。",
+          "救人会暂停该工位产出；预告须覆盖实际调岗与关机路程。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -1172,11 +1338,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F21",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "目标离开危险区且设备安全停机，救援回报只结算一次。"
     },
     {
       "id": "F22",
@@ -1190,12 +1358,12 @@
         "EU02"
       ],
       "adaptation_notice": "店内交互、可见线索、资源数值及联动是依据母题创作的游戏规则，不是传统文献中的禁忌原文。",
-      "signature_interaction": "布朗尼只在无人直视的固定工区做一项杂务；玩家离场做别的工作，最后亲自验收。",
+      "signature_interaction": "留一份普通供物，背向或离开视线去做另一件事。",
       "evidence": [
-        "委托篮标签只有在玩家离开4格可视范围且无实时巡看时翻面。",
-        "扫地声与工区进度旗同步；走回观察时进度停住，不倒扣。"
+        "扫帚在指定工区自行立起，脏槽边出现小脚印。",
+        "角色朝向工区时扫帚停住，背开后又响起。"
       ],
-      "safe_response": "小食由明确普通库存提供；没有可供食物可不接，此怪不强制侵犯基础口粮。 补救：离开观察范围继续，进度不回退。 安全退出：撤销委托，拿回未食用小食并亲自补完该工单；不算怪物额外营业收益。",
+      "safe_response": "使用店内免费基础供食和现有工区，不必购买宠物或设备。",
       "resource_effects": {
         "energy": "委托布置精力−1；可省原清洁工单的精力。",
         "san": "被看到无SAN罚；恐惧仅由现有规则累计。",
@@ -1203,8 +1371,14 @@
         "stamina": "往返步行；0体力仍可完成。"
       },
       "synergy_conditions": {
-        "harder": "E009团购使同事频繁穿过工区，玩家须把待拣袋放到另一个固定架以腾出12秒无人窗口。",
-        "easier": "提前把工区清空，12秒期间可处理柜台单。"
+        "harder": [
+          "同区多一袋已登记团购。",
+          "门铃不能提示完工。"
+        ],
+        "easier": [
+          "使用店内免费基础供食和现有工区，不必购买宠物或设备。",
+          "少一个可看方向，换一次代工；不能让同事同时重复做该点。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -1231,11 +1405,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F22",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "登记点由帮手完成且玩家实际验收，原工单只记一次。"
     },
     {
       "id": "F23",
@@ -1250,12 +1426,12 @@
         "EU19"
       ],
       "adaptation_notice": "店内交互、可见线索、资源数值及联动是依据母题创作的游戏规则，不是传统文献中的禁忌原文。",
-      "signature_interaction": "翻看皮衣缺口、对齐候领轮廓，再把正确皮衣放到中立取物台并留出离店通道。",
+      "signature_interaction": "核对物件特征后，把皮衣交到中立台并留出离店线。",
       "evidence": [
-        "候领者视线始终追随同一件皮衣；拿错普通衣物不会使其转向。",
-        "皮衣内侧缺口与候领者提供的轮廓一致；内衬展示不受SAN伪造。"
+        "湿皮衣持续向门边滴水，柜门又自行弹开。",
+        "皮衣边缘有可比对的缺口；一名认领者先指出了内侧补缝。"
       ],
-      "safe_response": "失物架内免费翻看、通用轮廓比对、中立台与退后操作。 补救：撤回未落定销售，解锁并返还同一实例；错误候选归位。 安全退出：保留全部衣物并挂“待复核”牌，访客离开为WITHDRAWN；不解锁出售权。",
+      "safe_response": "查看皮衣、纸质认领格与中立交付均免费。",
       "resource_effects": {
         "energy": "展开核对精力−2。",
         "san": "错误保管SAN−4一次。",
@@ -1263,8 +1439,14 @@
         "stamina": "轻衣物不占大件任务槽。"
       },
       "synergy_conditions": {
-        "harder": "E007增加一件外形相似皮衣，需多翻一次内衬。",
-        "easier": "已在白天整理过失物记录可直接定位货格，仍要实物核对。"
+        "harder": [
+          "架上有两件相似衣物。",
+          "迟到取货袋占中立台。"
+        ],
+        "easier": [
+          "查看皮衣、纸质认领格与中立交付均免费。",
+          "中立台与普通提货争位置；怪可能是受害者，不能凭外貌驱赶。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -1285,11 +1467,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F23",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "皮衣交还匹配认领者并离店；一次水系预告帮助只结算一次。"
     },
     {
       "id": "F24",
@@ -1304,12 +1488,12 @@
         "EU19"
       ],
       "adaptation_notice": "店内交互、可见线索、资源数值及联动是依据母题创作的游戏规则，不是传统文献中的禁忌原文。",
-      "signature_interaction": "擦出干燥交接格，把货物留在干线内，拒绝跟随持续滴水的“同事”走向湿区。",
+      "signature_interaction": "擦出本卡干交接格，把货与车退回干线内交付。",
       "evidence": [
-        "擦干后出现新的成对蹄印，来源与来者脚部连续。",
-        "头发水草在灯下可见，来者始终不跨预先标出的干线。"
+        "来客停过的位置留下蹄形湿印，湿路连向外沟。",
+        "它不断把收货点移向湿地，却不踏上擦干的格。"
       ],
-      "safe_response": "免费拖把、干线、货台和放下键。 补救：放下车即解除粘附，步行回干区，再从安全侧取回。 安全退出：放弃可选装车收益、在干台封存货箱后退回店内。",
+      "safe_response": "拖把与固定干侧取物位可用，不要求吸水垫。",
       "resource_effects": {
         "energy": "擦一个格精力−2。",
         "san": "跨湿区失误SAN−5；反复接触受共享恐惧上限约束。",
@@ -1317,8 +1501,14 @@
         "stamina": "拖车耗体力；放下后正常步行不受0体力禁用。"
       },
       "synergy_conditions": {
-        "harder": "E016门外积水使一个候选交接格失效，玩家需先擦备用格。",
-        "easier": "先完成普通清洁，蹄印产生位置更易看见。"
+        "harder": [
+          "一个外侧交接格变湿。",
+          "货箱到了错误门线。"
+        ],
+        "easier": [
+          "拖把与固定干侧取物位可用，不要求吸水垫。",
+          "需要额外搬运与清洁，省下越线风险；暂停迎宾不能擦掉湿路。"
+        ]
       },
       "impersonation": {
         "enabled": true,
@@ -1343,11 +1533,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F24",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "任务物回到干侧登记槽，与怪物水源不再连通。"
     },
     {
       "id": "F25",
@@ -1361,12 +1553,12 @@
         "EU04"
       ],
       "adaptation_notice": "店内交互、可见线索、资源数值及联动是依据母题创作的游戏规则，不是传统文献中的禁忌原文。",
-      "signature_interaction": "人形反复变化，退货商品始终是同一件：收回物品、注销原单后只允许一次退款。",
+      "signature_interaction": "先把实物收进隔离格，再对本物件的一次退款回执。",
       "evidence": [
-        "三个外貌轮流拿出同一件缺角商品，同一缺口和旧票号保持不变。",
-        "跨一个已观察门框时外形变化；已锁定过门快照不会被SAN重绘。"
+        "排队者换了轮廓，手里的包装破口位置不变。",
+        "商品折痕与第一张退款回执的实物记录完全对应。"
       ],
-      "safe_response": "基本扫码、退款账本与核销标签。 补救：回收可见封包并用原单冲正。 安全退出：暂停退款窗、保留实物与单据，改做普通订单；未完成合法退款仍保留待办。",
+      "safe_response": "纸回执、透明槽与肉眼折痕可完成，联网只是便利。",
       "resource_effects": {
         "energy": "核单精力−2。",
         "san": "重复付款SAN−3一次。",
@@ -1374,8 +1566,14 @@
         "stamina": "轻商品取放无需体力门槛。"
       },
       "synergy_conditions": {
-        "harder": "E003多笔真实退货使排序更难，需按物件ID归档两份正常小票后再核销。",
-        "easier": "已整理订单的物件标签可直接定位原单。"
+        "harder": [
+          "旁边同时有一件正常退货。",
+          "收银网络离线。"
+        ],
+        "easier": [
+          "纸回执、透明槽与肉眼折痕可完成，联网只是便利。",
+          "占用退货槽与收银时间；检查一次可避免不断补钱。"
+        ]
       },
       "impersonation": {
         "enabled": true,
@@ -1401,11 +1599,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F25",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "实物收回且退款回执只提交一次，变形不会重置记录。"
     },
     {
       "id": "F26",
@@ -1419,12 +1619,12 @@
         "EU05"
       ],
       "adaptation_notice": "店内交互、可见线索、资源数值及联动是依据母题创作的游戏规则，不是传统文献中的禁忌原文。",
-      "signature_interaction": "先处理现有擦伤，再按血迹连接清洁地面，把沾染废物封袋，断开红帽妖的追踪线。",
+      "signature_interaction": "先包扎，再从近到远擦断红迹并封袋。",
       "evidence": [
-        "红帽妖只沿三处已登记伤迹移动，红饮料和红标签不会吸引它。",
-        "帽子颜色在与伤迹连通时加深，断开的干净格会使其原地停顿。"
+        "地上最多三处红迹连向废物袋，区别于普通漏水。",
+        "红帽影沿红迹停走，目光转向未包扎伤者。"
       ],
-      "safe_response": "该遭遇只在基础包扎、拖把和普通袋可取得时入场；不能要求抽奖急救包。 补救：先放下布切断路径，回到安全侧包扎，再封袋；0体力仍能步行取放。 安全退出：隔离受影响工位并把工作迁到备用工位；现场留待安全处理，不授予已清洁工作积分。",
+      "safe_response": "基础绷带、拖把与普通垃圾袋均由店内提供。",
       "resource_effects": {
         "energy": "包扎与清理精力−3。",
         "san": "接触伤害按共享SAN−10与伤情规则，无额外叠同类惊吓。",
@@ -1432,8 +1632,14 @@
         "stamina": "持续擦地耗体力−6分摊；耗尽可停顿后继续，关键封袋不锁死。"
       },
       "synergy_conditions": {
-        "harder": "E026漏水使一格伤迹分叉到第二条固定边，需要先断靠近柜台的连接。",
-        "easier": "已完成基础清洁时，最多三格标记更容易辨认。"
+        "harder": [
+          "漏水将一处红迹连到邻格。",
+          "后门暂时无法外运。"
+        ],
+        "easier": [
+          "基础绷带、拖把与普通垃圾袋均由店内提供。",
+          "先止血会延迟外运，却避免追踪继续连到队列。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -1454,11 +1660,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F26",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "伤口处理，追踪红迹断开，沾染物封袋进入登记槽。"
     },
     {
       "id": "F27",
@@ -1472,12 +1680,12 @@
         "EU06"
       ],
       "adaptation_notice": "店内交互、可见线索、资源数值及联动是依据母题创作的游戏规则，不是传统文献中的禁忌原文。",
-      "signature_interaction": "巨魔留在门外；玩家腾出大件槽，把长单拆成两批称重交货，避免占满通路。",
+      "signature_interaction": "在门前大件槽分两批称交，始终保住通道。",
       "evidence": [
-        "门外剪影高于门框，收银口出现明确“超大件请走交接台”图标。",
-        "它只朝空的大件交接槽伸手，满槽时停住而不是追逐玩家。"
+        "门楣被巨大手掌按弯，货物需求牌分成两个重量段。",
+        "它向室内挤时普通排队者开始后退。"
       ],
-      "safe_response": "固定交接台与普通搬箱；无需购买手推车。 补救：移回多余箱并核销错误标签，继续相应批次。 安全退出：把未交批次退回接收台并撤销未完成订单；已交付批次按公开条款结清。",
+      "safe_response": "基本秤、搬运与门前槽足够；路线超预算就不投放该组合。",
       "resource_effects": {
         "energy": "两次搬运精力−4。",
         "san": "错误挤占SAN−2一次。",
@@ -1485,8 +1693,14 @@
         "stamina": "搬运耗体力；最低仍可2.4格/秒基础负重走路。"
       },
       "synergy_conditions": {
-        "harder": "E009团购占交接槽时，一次额外移袋须包含在13秒世界动作内；路线若增加则必须重算85秒总预算，最多90秒。",
-        "easier": "已完成空箱回收可省一次腾槽。"
+        "harder": [
+          "大件台旁有普通团购袋。",
+          "货到后门而来客在前场。"
+        ],
+        "easier": [
+          "基本秤、搬运与门前槽足够；路线超预算就不投放该组合。",
+          "多跑一趟且重物减速，换取店内道路保持畅通；两批仍只算一个名额。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -1507,11 +1721,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F27",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "两批实物交付且主通路清空，一笔订单只计一次。"
     },
     {
       "id": "F28",
@@ -1525,12 +1741,12 @@
         "EU07"
       ],
       "adaptation_notice": "店内交互、可见线索、资源数值及联动是依据母题创作的游戏规则，不是传统文献中的禁忌原文。",
-      "signature_interaction": "逐个测试水点找到真实乐声源，站在干侧关闭该支路并盖住源点；叫名仅提供额外图鉴情报。",
+      "signature_interaction": "逐支短暂开闭，找出随音乐变化的源点后从干侧封盖。",
       "evidence": [
-        "切断扬声器后乐声仍在；关闭真实水支路才使音符幅度降低。",
-        "源水面映出演奏动作，干地上的人影动作不同步；字幕显示声源方位。"
+        "乐声字幕在两个水点间摇摆，强弱与水声不完全相同。",
+        "真正源点的水面纹路按乐曲拍点变化。"
       ],
-      "safe_response": "关阀、两块普通池盖和拖把。 补救：重新开非源支路，按已记录波形缩小候选。 安全退出：关总阀并盖两个水点可保守隔离，但付出额外4秒和暂缓用水工单。",
+      "safe_response": "手动支阀、水纹与基础槽盖不耗应急电，怪名不必填对。",
       "resource_effects": {
         "energy": "排查与擦地精力−2。",
         "san": "近水失误SAN−3一次。",
@@ -1538,8 +1754,14 @@
         "stamina": "安全侧拿盖不需冲刺或高体力。"
       },
       "synergy_conditions": {
-        "harder": "E015停水使水龙头表面变化不明显，需要观察独立倒影与支路余压灯。",
-        "easier": "之前完成漏水处理时，候选水点只有一个。"
+        "harder": [
+          "正常自来水停供。",
+          "另一处普通漏水制造声音干扰。"
+        ],
+        "easier": [
+          "手动支阀、水纹与基础槽盖不耗应急电，怪名不必填对。",
+          "测试会短停对应水务；关错总阀虽安全却失去定位信息，需要恢复再试。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -1560,11 +1782,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F28",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "本卡源点已隔离并封盖，普通漏水可作为其他工作继续处理。"
     },
     {
       "id": "F29",
@@ -1578,12 +1802,12 @@
         "EU08"
       ],
       "adaptation_notice": "店内交互、可见线索、资源数值及联动是依据母题创作的游戏规则，不是传统文献中的禁忌原文。",
-      "signature_interaction": "分出一小份热粥，把黄油真实放在表层再送上独立小台，换取一次明确的食品库存保护。",
+      "signature_interaction": "将可用黄油放在热粥表面，端到独立供食台。",
       "evidence": [
-        "它只指粥表面，不看价格标签；要求卡明确写“黄油在上”。",
-        "普通顾客餐位无人接取，独立小台的碗印会发亮。"
+        "粮食架附近传来规律敲碗声。",
+        "空碗旁的小图清楚指向粥表面的一块黄油。"
       ],
-      "safe_response": "已验普通粥与一小份黄油可由普通采购获得；库存不足则此怪保持可选，不强制发生。 补救：移开遮盖配料或端回正确小台。 安全退出：接单前拒绝免费；接单后未取食可撤回原碗，按正常食品规则处理。",
+      "safe_response": "入场前必须保证基础粥与黄油可取，不依赖购买或抽奖。",
       "resource_effects": {
         "energy": "分餐精力−2。",
         "san": "纠错不额外SAN损失。",
@@ -1591,8 +1815,14 @@
         "stamina": "端小碗按轻物，体力0仍可完成。"
       },
       "synergy_conditions": {
-        "harder": "E020冷柜报警使可供黄油需先从合规备用盒取出，增加一次库存选择与搬运。",
-        "easier": "白天采购额外食品让交换不占玩家基础餐。"
+        "harder": [
+          "一批黄油需要隔离。",
+          "预约配餐占热食台。"
+        ],
+        "easier": [
+          "入场前必须保证基础粥与黄油可取，不依赖购买或抽奖。",
+          "占用食物和一次搬运，换一次普通库存损耗缓冲；未接额外承诺可以拒绝。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -1619,11 +1849,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F29",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "约定份量在正确供食位交付，库存保护令牌只发一次且不覆盖任务物。"
     },
     {
       "id": "F30",
@@ -1637,12 +1869,12 @@
         "EU09"
       ],
       "adaptation_notice": "店内交互、可见线索、资源数值及联动是依据母题创作的游戏规则，不是传统文献中的禁忌原文。",
-      "signature_interaction": "称出货单之外的压箱石，把它与商品拆分，移到门外封存托盘，不能用来压门。",
+      "signature_interaction": "把额外石头从商品中分出，送到门外封存托盘。",
       "evidence": [
-        "实测重量比货单多一块明确压箱石，商业货物标签无此项。",
-        "石头持续渗出海草水痕，送货剪影只见半船，划桨声有字幕。"
+        "箱底拖出湿线，秤针超过本批货的标记。",
+        "移开商品后露出带旧海纹的压箱石，单上无此项。"
       ],
-      "safe_response": "秤、空托盘、普通封存罩均为店内基础设施。 补救：将异物拆出并恢复门槽，再走原封存流程。 安全退出：封闭该批货物并挂异常来源牌可暂缓入库；原补货工作需使用已预留正常批次。",
+      "safe_response": "秤、普通分槽和门外托盘免费可用。",
       "resource_effects": {
         "energy": "搬运精力−3。",
         "san": "压门失误SAN−4一次。",
@@ -1650,8 +1882,14 @@
         "stamina": "重物基础移动2.4格/秒，体力耗尽可继续慢搬而非卡死。"
       },
       "synergy_conditions": {
-        "harder": "E010雨水遮住石头渗水，必须依靠重量差和半船影两条保留线索。",
-        "easier": "逐箱验收流程已建立时，异常可在入店前发现。"
+        "harder": [
+          "暴雨掩盖普通渗水外观。",
+          "后门原封存点暂不可达。"
+        ],
+        "easier": [
+          "秤、普通分槽和门外托盘免费可用。",
+          "搬重物速度慢且要占一趟外侧交付，直接拿来压门虽省事却扩大潮水入口。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -1672,11 +1910,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F30",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "压箱石与商品分离并入外侧封存位，未被用作任何门挡。"
     },
     {
       "id": "F31",
@@ -1690,12 +1930,12 @@
         "EU10"
       ],
       "adaptation_notice": "店内交互、可见线索、资源数值及联动是依据母题创作的游戏规则，不是传统文献中的禁忌原文。",
-      "signature_interaction": "先摆杯子与机械计时器，再短休；梦里比对真实锚点并按已设唤醒节拍醒来。",
+      "signature_interaction": "先摆真实参照物与唤醒计时器，再用已设节拍结束短休。",
       "evidence": [
-        "入睡前杯子摆在一个固定槽，梦中装饰杯位置与已锁定小照片矛盾。",
-        "虚假的墙钟跳变，但机械计时器图标按玩家设定的节拍提示。"
+        "空椅出现压痕，椅边杯子倒影与实际摆位不同。",
+        "电子提示重复同一声，机械钟滴答仍按正常节拍。"
       ],
-      "safe_response": "杯子、机械计时器与取消键均免费。 补救：常驻取消键让玩家主动醒来；已预置P08可多一次1.5秒输入并保留50%已得收益。 安全退出：随时取消短休，已承诺12秒仍扣一次；不会无限重进刷恢复。",
+      "safe_response": "店内杯与机械闹钟保证基础解；P08只按既有次数增加唤醒容错，不是必需钥匙。",
       "resource_effects": {
         "energy": "成功短休精力+4建议值；失败无收益；不额外产生日间睡眠收益。",
         "san": "失败SAN−6一次；SAN0不可新开本精度特写，仍允许世界安定。",
@@ -1703,8 +1943,14 @@
         "stamina": "特写冻结体力恢复，返回世界才恢复正常规则。"
       },
       "synergy_conditions": {
-        "harder": "低SAN缩小本地输入区域，但不遮计时器与取消键；E033同事失联时必须先暂停接新客才能休息。",
-        "easier": "已验证同事接岗、锚点提前摆好时减少布置时间。"
+        "harder": [
+          "同事不在可见工位。",
+          "电子钟与主灯熄灭。"
+        ],
+        "easier": [
+          "店内杯与机械闹钟保证基础解；P08只按既有次数增加唤醒容错，不是必需钥匙。",
+          "短休能恢复状态却占交班时间；本地QTE沿用安全特写与一次成本结算，不另建可走梦地图。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -1725,11 +1971,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F31",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "真实参照物保留，唤醒动作完成并离开梦境；休息收益仅结算一次。"
     },
     {
       "id": "F32",
@@ -1743,12 +1991,12 @@
         "EU11"
       ],
       "adaptation_notice": "保留夜返、取血母题；气味箱、柜台安全线与具体对策是原创。镜子、尖牙、邀请、银器均不设为全体吸血鬼的通用史实。",
-      "signature_interaction": "吸血鬼盯住受伤员工；先让员工退到柜台后包扎，再以空交接窗口掩护撤岗并关闭服务。",
+      "signature_interaction": "先关迎宾声道或转窗口，再亲手为伤者包扎。",
       "evidence": [
-        "它的排队目标随受伤实体移动，不随商品移动。",
-        "密封伤口处理箱打开时它转头，红饮料开瓶不会引发同样反应。"
+        "来客停在门外，朝伤者方向转身却不跨门。",
+        "同事伤口标记与门框迎宾灯同时亮起。"
       ],
-      "safe_response": "基础包扎、固定挡板和空处理箱由店内提供。 补救：退回安全侧先封伤，保留关服务操作，不要求QTE。 安全退出：直接关闭暴露窗口并撤岗可保守退出，放弃本次怪物交易；普通订单迁备用窗。",
+      "safe_response": "语音开关、固定缓冲区与基础绷带免费；门加固只是可选延时。",
       "resource_effects": {
         "energy": "包扎撤岗精力−3。",
         "san": "接触按共享上限结算，窥视压力不叠无限扣SAN。",
@@ -1756,8 +2004,14 @@
         "stamina": "不用冲刺也有撤到安全柜台的可行路线。"
       },
       "synergy_conditions": {
-        "harder": "E001普通客流使备用窗口占用，需要先移走两件待取商品。",
-        "easier": "在其入场前已包扎，直接进入有限服务关闭流程。"
+        "harder": [
+          "已有待取袋占安全位。",
+          "普通照明失效。"
+        ],
+        "easier": [
+          "语音开关、固定缓冲区与基础绷带免费；门加固只是可选延时。",
+          "open+silent每单3.5秒，可继续让浏览客入店；全窗口会失去未入店浏览单，不能白拿A。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -1778,11 +2032,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F32",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "登记伤口均处理、来客失去目标并离开；不能仅靠切门牌宣布清除。"
     },
     {
       "id": "F33",
@@ -1796,12 +2052,12 @@
         "EU12"
       ],
       "adaptation_notice": "店内交互、可见线索、资源数值及联动是依据母题创作的游戏规则，不是传统文献中的禁忌原文。",
-      "signature_interaction": "用既有爪伤对应人形腕伤，提前空出离店线，隔窗交付包扎物，变形后仍按同一访客轨迹放行。",
+      "signature_interaction": "按伤迹连续性核对，隔台递包扎物并清空离店线。",
       "evidence": [
-        "刚采集的门外快照中狼爪伤侧，与眼前腕伤侧一致；不用主动制造伤害。",
-        "衣料与影子变化给出6秒变形预告，方向图标持续显示。"
+        "门垫先有爪印，随后同方向出现脚印，路线连续。",
+        "人形腕伤与之前看见的狼爪伤在同侧，包扎痕也连续。"
       ],
-      "safe_response": "已存在伤痕与普通急救补给，不需要购买银武器。 补救：撤离固定路线，关闭员工权限并重新开前门。 安全退出：拒绝入内、把免费补给放门外台并退回柜台，同样保守离场但无额外交易收益。",
+      "safe_response": "基础绷带、可近看的伤迹与现有干线足够，不依赖银器装备。",
       "resource_effects": {
         "energy": "查看与搬袋精力−2。",
         "san": "堵出口SAN−4一次。",
@@ -1809,8 +2065,14 @@
         "stamina": "路线退让可普通步行，不能要求低体力冲刺。"
       },
       "synergy_conditions": {
-        "harder": "E008迟到骑手使出口旁有待取袋，要先清场。",
-        "easier": "F21预警过相同工位且玩家已迁走普通顾客，可直接留出出口。"
+        "harder": [
+          "一袋外卖挡在出口固定槽。",
+          "雷暴干扰远处外形观察。"
+        ],
+        "easier": [
+          "基础绷带、可近看的伤迹与现有干线足够，不依赖银器装备。",
+          "腾路暂占交付时间；救助不等于给钥匙，变形也不自动证明恶意。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -1831,11 +2093,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F33",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "包扎物交给连续轨迹对应来客，路线恢复并实际离店。"
     },
     {
       "id": "F34",
@@ -1849,12 +2113,12 @@
         "EU13"
       ],
       "adaptation_notice": "店内交互、可见线索、资源数值及联动是依据母题创作的游戏规则，不是传统文献中的禁忌原文。",
-      "signature_interaction": "水灵的拍点激活一段湿边；玩家在休拍时擦地和移货，强拍前站回干格，完成断水边界。",
+      "signature_interaction": "利用休拍擦断湿边，再把货物从干侧移走。",
       "evidence": [
-        "舞步地面箭头和文字拍点同步，强拍时仅一段湿边亮起。",
-        "反拍休止2秒期间，苇草圈收缩，擦地工作可安全推进。"
+        "歌声字幕给出强拍与休拍，节奏稳定可预读。",
+        "强拍时指定湿边亮起，干格边缘保持清楚。"
       ],
-      "safe_response": "免费拖把、固定干格与方向锁定。 补救：退回相邻干格，已完成清洁进度保留，等下个休拍。 安全退出：放弃额外边缘商品，先断最内侧一格再挂封区牌；普通货物损耗明确。",
+      "safe_response": "普通拖把、地面图形与节拍字幕足够，静音也可玩。",
       "resource_effects": {
         "energy": "清洁精力−3。",
         "san": "强拍失误SAN−5，遵守重复惊吓冷却。",
@@ -1862,8 +2126,14 @@
         "stamina": "短清洁可分段恢复，基本退格步行无体力门槛。"
       },
       "synergy_conditions": {
-        "harder": "E001店内正常人声/促销声干扰听觉，玩家仍可看地面4秒拍点。",
-        "easier": "之前已擦掉相邻湿格，唯一剩余连接位置清楚。"
+        "harder": [
+          "普通客流声音遮住歌声。",
+          "旁边多一个普通湿格。"
+        ],
+        "easier": [
+          "普通拖把、地面图形与节拍字幕足够，静音也可玩。",
+          "抢一个完整擦地窗口省路程，提前退回更稳；不是随机节拍按键题。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -1884,11 +2154,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F34",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "目标湿边切断且任务货位于干侧，不再受该声段拖动。"
     },
     {
       "id": "F35",
@@ -1902,12 +2174,12 @@
         "EU14"
       ],
       "adaptation_notice": "店内交互、可见线索、资源数值及联动是依据母题创作的游戏规则，不是传统文献中的禁忌原文。",
-      "signature_interaction": "看清三项委托后，用分拣、称重和清洁组成可调整顺序的工作计划，换一盏应急灯。",
+      "signature_interaction": "亲手限定一处脏槽，让扫帚在不被注视时工作，完工后收回。",
       "evidence": [
-        "委托封面有鸡脚屋标识，访客器具呈臼形；这只是原型线索。",
-        "三项验收、报酬、截止与退出成本在签署前完整可见，不在后续对话补条款。"
+        "小票上的工区印记与扫帚柄刻痕对应。",
+        "扫帚在你背向时移动，靠近未标记物也想继续扫。"
       ],
-      "safe_response": "清单所需豆包、秤和清洁工具随合法任务提供；基础应急照明不依赖赢得奖励。 补救：局部纠正或在明示退出窗履约退出。 安全退出：未签可拒绝；已签按固定公开退出条款，金币不足时始终允许放弃报酬且返还剩料。",
+      "safe_response": "来客提供本次扫帚与边界牌，玩家只需基础取放；不以稀有供物换解法。",
       "resource_effects": {
         "energy": "完整劳动额外精力−5，但替换同阶段对应普通杂务，不重复收成本。",
         "san": "正常错步无SAN；失约按公开条款可SAN−3一次。",
@@ -1915,8 +2187,14 @@
         "stamina": "清洁分段耗体力−5，搬动轻豆包可低体力完成。"
       },
       "synergy_conditions": {
-        "harder": "E022打印卡纸要求用现成纸签记录三回执，增加2秒书写但不改变任务条目。",
-        "easier": "接单前已清出工作台，可在同一区连续分拣和称重。"
+        "harder": [
+          "小票机卡纸。",
+          "主灯熄灭。"
+        ],
+        "easier": [
+          "来客提供本次扫帚与边界牌，玩家只需基础取放；不以稀有供物换解法。",
+          "离开注视换自动清扫，却要及时收工具保护旁边商品；拒绝尚未接受的委托不罚。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -1937,11 +2215,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F35",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "指定垃圾处理完成、工具归还且未超出承诺范围，有限帮助只给一次。"
     },
     {
       "id": "F36",
@@ -1955,12 +2235,12 @@
         "EU15"
       ],
       "adaptation_notice": "变形与多样社会关系来自传统；角色伪装、限定授权合同及资源收益均为原创，不代表宗教教义或所有 jinn 的行为。",
-      "signature_interaction": "把仓库借用限定在一个标记槽和20秒世界时间：亲手摆边界、发访客通行条、到期收回占位。",
+      "signature_interaction": "给一个固定槽和20秒访问，到期收回通行条。",
       "evidence": [
-        "自称店长者曾在已采集快照里变猫，携带同一印记。",
-        "入店底册与其自称的考勤不符；印记只证明同一交易者，不证明店长身份。"
+        "空仓位边缘浮出光圈，只停在边界牌内。",
+        "来客反复问还能不能再往旁边挪一点。"
       ],
-      "safe_response": "基础边界牌和限定授权模板；允许免费拒绝，学习只是预览效率。 补救：补齐最小范围或把货移回合法槽；不得扩大授权来绕过规则。 安全退出：不交易时收回边界牌并挂不外借标识，访客离开，不计合约收益。",
+      "safe_response": "基础边界牌、机械计时与临时纸条免费；未接受前可拒绝。",
       "resource_effects": {
         "energy": "布置与回收精力−2。",
         "san": "证据冲突初见SAN−3一次，拒绝不罚SAN。",
@@ -1968,8 +2248,14 @@
         "stamina": "空槽搬运按普通负重规则，不需冲刺。"
       },
       "synergy_conditions": {
-        "harder": "E009团购占仓位，提高腾槽动作与库存机会成本，必须保留可出租空槽。",
-        "easier": "白天定好租借模板可省整理时间但不省实体布置。"
+        "harder": [
+          "团购袋占预定仓位。",
+          "另有假店长电话要求放宽。"
+        ],
+        "easier": [
+          "基础边界牌、机械计时与临时纸条免费；未接受前可拒绝。",
+          "短时占仓位换一次可选帮助；给无限区域虽省摆牌却会挡工作。"
+        ]
       },
       "impersonation": {
         "enabled": true,
@@ -1995,11 +2281,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F36",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "限定访问结束，访客权限撤回且任务槽复位。"
     },
     {
       "id": "F37",
@@ -2014,12 +2302,12 @@
         "EU20"
       ],
       "adaptation_notice": "本条使用 Iranica 明确记录的伊朗地方变体；门内交接、电话核验和距离阈值为原创。避免用西方现代墓地食尸怪概括全部 ghoul 传统。",
-      "signature_interaction": "门外“店长”不断后退；玩家把催促落实成固定交接格上的物品和回执，始终不走向移动终点。",
+      "signature_interaction": "把正常交接落实在店内固定台与回执，停止跟随。",
       "evidence": [
-        "玩家只在安全线内向前一步，它就退到下一个固定外侧点，交接距离未缩短。",
-        "它只叫名字催促却不给任务物件；既有值班底册能显示真实店长先前所在位置。"
+        "自称店长的声音在门外呼唤，方向逐次远离固定交接台。",
+        "来者始终不把物件放到正常交接格，反复示意跟上。"
       ],
-      "safe_response": "固定交接牌、实体标记与柜台工单。 补救：沿自己固定标记后退，撤回临时权限。 安全退出：一开始直接挂“只在固定台交接”牌并退回工作也可保守退出，不计额外营业。",
+      "safe_response": "纸任务夹、固定台与手动语音开关免费，不要求锁门耗电。",
       "resource_effects": {
         "energy": "放牌与回收精力−1。",
         "san": "越合法警戒SAN−4一次。",
@@ -2027,8 +2315,14 @@
         "stamina": "只要求安全线内一步与普通退行。"
       },
       "synergy_conditions": {
-        "harder": "E008迟到骑手的催单给出相似外出理由，必须把真实袋ID放固定台后独立关闭假请求。",
-        "easier": "已放好的普通垃圾路线标记可直接使用。"
+        "harder": [
+          "声音冒称迟到骑手来取袋。",
+          "后门故障使绕路话术更可信。"
+        ],
+        "easier": [
+          "纸任务夹、固定台与手动语音开关免费，不要求锁门耗电。",
+          "固定交接较慢，可能放弃这一单收益；店内朝门移动本身不算违禁。"
+        ]
       },
       "impersonation": {
         "enabled": true,
@@ -2054,11 +2348,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F37",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "合法交付固定在安全线内，玩家未继续追随，诱离请求结束。"
     },
     {
       "id": "F38",
@@ -2072,12 +2368,12 @@
         "EU17"
       ],
       "adaptation_notice": "店内交互、可见线索、资源数值及联动是依据母题创作的游戏规则，不是传统文献中的禁忌原文。",
-      "signature_interaction": "两个人同时长着同事的脸；冻结高权限后，亲查三处既有作业结果，将回执接回异象前的真实轨迹。",
+      "signature_interaction": "先收权限，再亲查三处已登记实物结果，接回异常前轨迹。",
       "evidence": [
-        "两个位置在同一可信时刻显示同一外观；通行计数不可能支持同一人同时在场。",
-        "异象前锁定的称重回执、箱子落点、工位标记形成三步因果链，只有一人的现有行动能接上。"
+        "两名相同外貌者在不同区域同时请求高权限。",
+        "刚完成的封箱、清洁痕迹与工具归位组成三段连续工作痕迹。"
       ],
-      "safe_response": "纸面作业标记、机械时钟和现场物件提供免费证据，不必买摄像设备。 补救：继续走到遗漏工位实查，保留已收集记录。 安全退出：把两人保留访客权限，玩家接手普通工作并等异常退去；身份未证实前高权限不自动开放。",
+      "safe_response": "真实工作痕迹与本班个人回执可免费观察；缺少完整前史就不投放。",
       "resource_effects": {
         "energy": "查三站精力−4，低精力可使整理增加2秒但预算已预留。",
         "san": "双身初见SAN−5一次，反复点错不无限扣。",
@@ -2085,8 +2381,14 @@
         "stamina": "巡查可普通步行，0体力不锁证据。"
       },
       "synergy_conditions": {
-        "harder": "E019停电需亲访现场替代某个旧监控快照；三处证据仍可读。",
-        "easier": "白天/此前整理过回执则排序更快，但必须保留实物核验。"
+        "harder": [
+          "两个请求来自不同可见区域。",
+          "一个监控区不可用。"
+        ],
+        "easier": [
+          "真实工作痕迹与本班个人回执可免费观察；缺少完整前史就不投放。",
+          "同时限权暂失同事代工；检查走位占时间，照片只能辅助记录不能自动标真伪。"
+        ]
       },
       "impersonation": {
         "enabled": true,
@@ -2113,11 +2415,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F38",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 1
+      "complexity_surcharge": 1,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "高权限仅回到与真实连续轨迹对应的员工，冒名者保持无权并退出。"
     },
     {
       "id": "F39",
@@ -2131,12 +2435,12 @@
         "EU18"
       ],
       "adaptation_notice": "家宅守护、炉灶与搬迁邀请来自传统；便利店工位、木牌迁移和休息增益为原创。",
-      "signature_interaction": "换熟食灶位之前，先点亮新工位灯、把旧木牌搬过去，再关闭旧灯，等灰影安定后恢复工作。",
+      "signature_interaction": "先亮新位、再搬木牌，最后关闭旧位。",
       "evidence": [
-        "灰影只绕旧电子灶位，不追其他商品或员工。",
-        "旧木牌放进垃圾槽会回到原固定位置；放到点亮的新灶位后灰影才移动。"
+        "旧灶传来敲碗声，关灯时明显急促。",
+        "旧木牌投影留在原灶，备用灶灯旁出现空轮廓。"
       ],
-      "safe_response": "原木牌与两处预置电子灶位，无需供食或明火。 补救：恢复旧灯，再按新位→木牌→旧灯顺序继续。 安全退出：撤销迁移、恢复旧工位并把木牌归位；该小时不获新休息保护。",
+      "safe_response": "基本指示灯与木牌不依赖应急储备，停电时有手动标记替代。",
       "resource_effects": {
         "energy": "迁移精力−2。",
         "san": "错序SAN−3一次。",
@@ -2144,8 +2448,14 @@
         "stamina": "木牌轻便，可低体力搬动。"
       },
       "synergy_conditions": {
-        "harder": "E021原微波炉停转迫使工作改到备用点，迁移木牌需先于工单切换。",
-        "easier": "已经预留备用灶位时可直接开示意灯。"
+        "harder": [
+          "旧设备故障必须搬迁。",
+          "主回路断电。"
+        ],
+        "easier": [
+          "基本指示灯与木牌不依赖应急储备，停电时有手动标记替代。",
+          "搬家期间占用两个短时工位；一次有序搬运换有限设备帮助，不获得整周免疫。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -2172,11 +2482,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F39",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "木牌与灰影在新槽安定，旧工位停用，搬迁回执提交一次。"
     },
     {
       "id": "F40",
@@ -2190,12 +2502,12 @@
         "EU18"
       ],
       "adaptation_notice": "森林守护、变形与诱人迷路属于母题；货架森林、树苗归还、标记不动及员工伪装为原创。",
-      "signature_interaction": "货架装饰像森林回环，物理通路不变；玩家沿亲手贴下的三个路标返回柜台，把误入店的树苗送回门内归还格。",
+      "signature_interaction": "沿亲手留下的三个固定路标返回，把树苗送到门内归还格。",
       "evidence": [
-        "同一掉角叶片在多处装饰中重复，假同事高度随位置变而声音始终来自绿植。",
-        "玩家贴在三个固定路标槽的封签编号保持不变，真实碰撞与门线也不移动。"
+        "相邻货架出现重复树影，自己的实物贴标保持原位。",
+        "远处招手影子总出现在错误的货架转角。"
       ],
-      "safe_response": "三个免费实体封签与真实碰撞图；不要求额外罗盘装备。 补救：重新找最近可见真实标记，按原路线返回，不必购买指南针。 安全退出：放下树苗走真实标记回柜台并封闭该货架可安全搁置；补货任务暂不计完成。",
+      "safe_response": "普通贴纸、固定槽和可见通路免费；低SAN仍保留关键方向提示。",
       "resource_effects": {
         "energy": "贴标与搬苗精力−3。",
         "san": "迷失初次SAN−4，共享惊吓冷却。",
@@ -2203,8 +2515,14 @@
         "stamina": "树苗按普通重物2.4格/秒，0体力仍能走实体路径。"
       },
       "synergy_conditions": {
-        "harder": "E011浓雾缩远处装饰可见范围，需要更靠近下一个真实标记；标记本身受HUD保护。",
-        "easier": "上一阶段清洁完成时视觉岔路少，路线记忆更容易。"
+        "harder": [
+          "雾让远处装饰更像。",
+          "树苗到了验收区而非原货架。"
+        ],
+        "easier": [
+          "普通贴纸、固定槽和可见通路免费；低SAN仍保留关键方向提示。",
+          "持苗绕行与看标记占时间；镜头装饰能迷惑观察，但不能偷偷改碰撞或传送人。"
+        ]
       },
       "impersonation": {
         "enabled": true,
@@ -2229,11 +2547,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F40",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "登记树苗归还，玩家回到真实柜台路径，林影退去。"
     },
     {
       "id": "F41",
@@ -2248,12 +2568,12 @@
         "WO01"
       ],
       "adaptation_notice": "便利店情节、证据、解法、资源数值及联动均为原创游戏改编；不主张这些操作是传统民俗中的真实禁忌或仪式。",
-      "signature_interaction": "在有边界的服务区完成寻人协助，帮助来客但不沿哭声越过水线。",
+      "signature_interaction": "在门内固定槽交付核对过的寻人物，并从店内完成求助联系。",
       "evidence": [
-        "来客报出的地点在门外水线之外，而湿足迹停在服务窗前。",
-        "口述时间与寻人卡的盖时不同；固定门框灯和纸本记录在黑视时仍可读。"
+        "交接垫上留下朝向门外的湿手印，袋子每次放近门线，水印便退后一格。",
+        "哭声称东西就在前面；字幕显示声源后退，门内电话旁的求助指示仍可见。"
       ],
-      "safe_response": "登记纸、透明袋、墙上服务呼叫键是常备设施。 补救：在8秒返店窗口沿门框灯返回，保留线索和袋子位置。 安全退出：若不承接额外寻人收益，把未提交卡退回值班柜并关闭此服务窗，登记为WITHDRAWN；不是完成阶段工作。",
+      "safe_response": "免费电话、现有袋和内侧服务窗即可；无需判断她是否善良。",
       "resource_effects": {
         "energy": "完成流程额外精力-4。",
         "san": "完成+2，首次越线-8。",
@@ -2261,8 +2581,14 @@
         "stamina": "搬轻袋不要求体力；跑回去可按普通冲刺消耗。"
       },
       "synergy_conditions": {
-        "harder": "暴雨加上F42声距残留使声音不能作距离依据，增加一次纸本时间核对，额外4秒；保留门框灯。",
-        "easier": "先整理失物柜可少一次查找，正确候选直接位于第一公开槽。"
+        "harder": [
+          "真人求助与怪客各有一袋。",
+          "雨水掩盖普通湿痕。"
+        ],
+        "easier": [
+          "免费电话、现有袋和内侧服务窗即可；无需判断她是否善良。",
+          "求助占电话和手持槽；绕过她能继续收银，却会让交接位持续被占。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -2283,11 +2609,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F41",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "求助联系与正确袋的门内交付均留下回执；玩家未被引出登记服务边界。"
     },
     {
       "id": "F42",
@@ -2303,12 +2631,12 @@
         "WO03"
       ],
       "adaptation_notice": "便利店情节、证据、解法、资源数值及联动均为原创游戏改编；不主张这些操作是传统民俗中的真实禁忌或仪式。",
-      "signature_interaction": "用真实门槛证据判断反向哨声，在远离窗口时分批卸货。",
+      "signature_interaction": "等压力落到远档，再分批拉开手闸搬一箱。",
       "evidence": [
-        "哨声字幕“听来远”时门槛压力条升高，窗外影子变短而接近。",
-        "卸货闸旁的机械压力牌在停电中也可用，显示当前安全/危险，不显示未来答案。"
+        "哨声听来远时门板震动更明显，字幕只标听觉远近。",
+        "OBJ_REAR_GAUGE压力档与声音相反；门缝影在压力高时贴近。"
       ],
-      "safe_response": "机械压力牌与手动闸都是固定店设施。 补救：4秒内关闸，下一个安全窗口至少6秒；已完成箱保留。 安全退出：可按退货杆将剩余外箱退回物流位并关闸，放弃订单收益；基础补货由备用普通库存完成。",
+      "safe_response": "机械闸、压力牌和字幕均不耗电；不能通过一直锁门完成必要搬运。",
       "resource_effects": {
         "energy": "精力-3。",
         "san": "误开最多-8一次。",
@@ -2316,8 +2644,14 @@
         "stamina": "两箱搬运按普通2.4格/秒；0体力仍可慢搬。"
       },
       "synergy_conditions": {
-        "harder": "收货高峰需要两次关闸和两箱顺序；声音事件不加第三种隐藏信号。",
-        "easier": "当班已有窗影灯可直接看到影子，但每次仍需重新检查压力条。"
+        "harder": [
+          "错点送货增加一箱，但仍留在已登记后门。",
+          "电动门与监控离线。"
+        ],
+        "easier": [
+          "机械闸、压力牌和字幕均不耗电；不能通过一直锁门完成必要搬运。",
+          "等待安全声段延后工单；一次想搬完更省走位，却可能在近档仍占着门。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -2338,11 +2672,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F42",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "登记批次全部经过安全开闸窗口，后门重新关闭；不要求击退实体。"
     },
     {
       "id": "F43",
@@ -2357,12 +2693,12 @@
         "WO04"
       ],
       "adaptation_notice": "便利店情节、证据、解法、资源数值及联动均为原创游戏改编；不主张这些操作是传统民俗中的真实禁忌或仪式。",
-      "signature_interaction": "让伪接班者在公共交接垫留脚印，再用本班任务位置交叉核验。",
+      "signature_interaction": "让来者在公共粉印垫交物，结合真实作业连续性保留权限边界。",
       "evidence": [
-        "一侧地垫印是木制搅棒形，印迹对应实体脚步。",
-        "对方提出的库房交接点与当班任务回执中的公共柜台位置不符。"
+        "OBJ_HANDOFF_MAT留下单侧木纹方印，另一脚是正常鞋印。",
+        "便签要求的地点与玩家亲见并记录的同刻同事作业连续性不符；没有覆盖时刻的记录就标待核。"
       ],
-      "safe_response": "地垫、纸本任务回执和门禁手动键免费。 补救：走回公共核验桌，按门禁撤销键收回本实例权限并补完两证据。 安全退出：暂不确定时保持访客等待，关闭员工门；不扣信任，只付实际占台时间。",
+      "safe_response": "免费粉印垫与已发生的工作记录即可；缺证据时保留待核并照原路做工，不必追人。",
       "resource_effects": {
         "energy": "精力-4。",
         "san": "误交接-8一次。",
@@ -2370,8 +2706,14 @@
         "stamina": "轻物和门禁无需体力门槛。"
       },
       "synergy_conditions": {
-        "harder": "F46藏起印章时改取收银机日志，多跑一次公共柜台；足印不被同时擦除。",
-        "easier": "已核验同事留下本小时回执，省一次找纸，但仍须脚印。"
+        "harder": [
+          "真人与图恩达同时以同事外观出现，只增加一个怪实体。",
+          "新纸回执打印不出。"
+        ],
+        "easier": [
+          "免费粉印垫与已发生的工作记录即可；缺证据时保留待核并照原路做工，不必追人。",
+          "同行占用唯一同事，需调整接客；核验花时间，但普通班表本身不能证明人在何处。"
+        ]
       },
       "impersonation": {
         "enabled": true,
@@ -2397,11 +2739,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F43",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "真同事权限未交给伪装者，当前交接在登记边界内完成；假便签只在证据成立后归档。"
     },
     {
       "id": "F44",
@@ -2416,12 +2760,12 @@
         "WO05"
       ],
       "adaptation_notice": "便利店情节、证据、解法、资源数值及联动均为原创游戏改编；不主张这些操作是传统民俗中的真实禁忌或仪式。",
-      "signature_interaction": "把一段演出绑定一个交易号，用实体价牌和交货结束无限续曲。",
+      "signature_interaction": "用一块实体价牌把一首歌绑定一单，交货后封住该单。",
       "evidence": [
-        "每个曲末同一未结交易号再次出现，没有生成新支付凭证。",
-        "帽檐轻摆与曲段条一致，字幕给出“本段将完”。"
+        "每次确认铃响，刚结束的前奏都会重新开始。",
+        "小票上同一交易号拉出重复空格，帽影始终挡着下一位顾客的托盘。"
       ],
-      "safe_response": "普通价牌与续单杆是柜台基础设施。 补救：关闭重复号、收回多余货，补完一次限定交付。 安全退出：第一段末拉下服务牌并归回未售商品可WITHDRAWN，无隐藏追杀。",
+      "safe_response": "店内价牌、纸票和交付槽都免费；不要求完成音乐问答。",
       "resource_effects": {
         "energy": "基本-4；处理重复服务额外-8至多一次。",
         "san": "成功+3。",
@@ -2429,8 +2773,14 @@
         "stamina": "轻物无体力门槛。"
       },
       "synergy_conditions": {
-        "harder": "暴单使后面普通顾客真实等待压力上升，需先交岗或先完成限定单。",
-        "easier": "已有明码价牌可少一次取牌。"
+        "harder": [
+          "顾客队列挤到歌者旁。",
+          "电子收银离线。"
+        ],
+        "easier": [
+          "店内价牌、纸票和交付槽都免费；不要求完成音乐问答。",
+          "提前收尾少拿小费，继续应和会占用收银窗口；选择作用于实物托盘和单号。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -2451,11 +2801,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F44",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "单次歌曲绑定的实际交易已交付，续曲未获新许可。"
     },
     {
       "id": "F45",
@@ -2470,12 +2822,12 @@
         "WO06"
       ],
       "adaptation_notice": "便利店情节、证据、解法、资源数值及联动均为原创游戏改编；不主张这些操作是传统民俗中的真实禁忌或仪式。",
-      "signature_interaction": "依箱轮擦痕与批次记录追查来货，忽略反向脚尖的误导。",
+      "signature_interaction": "沿连续轮痕把对应批次推回正确货格。",
       "evidence": [
-        "身体前进与脚尖方向相反；箱角擦痕和车轮轨迹朝真实搬货方向。",
-        "三个候选箱中仅一个批次与采购单允许清单不符。"
+        "脚尖朝出店方向，箱轮的新擦痕却连续通向GRP_BATCH_TRACE的一个货格。",
+        "箱角缺口与该批封签能对上，旁边的脚印无法解释轮痕终点。"
       ],
-      "safe_response": "批次单、箱号、固定轮迹全部基础可用。 补救：原始批次单和车轮贴花保留，拆签重查后换箱。 安全退出：保守做法是把这一小批三箱全转停售区，放弃营业收益；不能因此算精准退货完成。",
+      "safe_response": "轮痕、箱角和固定货格都是现有物件，不依赖探测装备。",
       "resource_effects": {
         "energy": "精力-5。",
         "san": "误退-6至多一次。",
@@ -2483,8 +2835,14 @@
         "stamina": "两次普通搬运按实际动作扣；0体力仍可搬。"
       },
       "synergy_conditions": {
-        "harder": "F46或错点送货把三个箱槽交换，需多看一个轮迹节点；采购单保持不变。",
-        "easier": "提前完成库存归位减少一处候选槽。"
+        "harder": [
+          "送货先停在后门候验格。",
+          "两批退货形成交叉痕迹。"
+        ],
+        "easier": [
+          "轮痕、箱角和固定货格都是现有物件，不依赖探测装备。",
+          "空手先查更稳，带箱跟错痕会多一次搬运；无需逐箱填写新表格。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -2505,11 +2863,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F45",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "登记货箱放入与连续轮痕相符的正确货格，而非仅在面板选对方向。"
     },
     {
       "id": "F46",
@@ -2524,12 +2884,12 @@
         "WO06"
       ],
       "adaptation_notice": "便利店情节、证据、解法、资源数值及联动均为原创游戏改编；不主张这些操作是传统民俗中的真实禁忌或仪式。",
-      "signature_interaction": "从固定风迹找工具，或在预告停点用筛罩截住旋风取回工具。",
+      "signature_interaction": "提前把筛罩放到下一预告停点，等风入罩后取回工具。",
       "evidence": [
-        "纸袋摆动与一段段风迹共同指向下一停点。",
-        "工具清单少一件，候选格的重量标签只在真实隐藏槽增加。"
+        "GRP_TOOL_TRACE地面依次亮出旋风环；工具在当前候选槽露出轮廓，停留4秒后再随风换位。",
+        "下一停点先传来一声短笑，方向字幕保留；风移动顺序可观察。"
       ],
-      "safe_response": "基础工具挂板、三个候选槽、常备筛罩都免费；追踪路线无需筛罩消耗。 补救：显示下一段完整风迹，已揭示槽不再重洗，工具位置最多改变一次。 安全退出：可暂借基础备用同类工具做工作，但本遭遇仍未完成；后续找回原件。",
+      "safe_response": "固定筛罩与三个候选槽免费。P06可用3秒搬回已揭示槽中的同一件轻工具；工具转移不清除旋风，玩家仍须布筛截住它。",
       "resource_effects": {
         "energy": "完成-4，盲翻返工额外-4最多一次。",
         "san": "无固有SAN伤害。",
@@ -2537,8 +2897,14 @@
         "stamina": "筛罩布置耗4；追踪拿轻物0体力可用。"
       },
       "synergy_conditions": {
-        "harder": "与F43同时需要印章时可藏印章，玩家须改取已存根收银日志；不能把唯一身份核验凭据全部藏走。",
-        "easier": "已有整理挂板把候选位减至2。"
+        "harder": [
+          "纸质缺件单无法打印。",
+          "宠物也藏起一件普通小物。"
+        ],
+        "easier": [
+          "固定筛罩与三个候选槽免费。P06可用3秒搬回已揭示槽中的同一件轻工具；工具转移不清除旋风，玩家仍须布筛截住它。",
+          "耐心等一轮会延后清洁；盲追更快移动却可能再丢工具。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -2559,11 +2925,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F46",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "工具物件回到玩家或原工具槽，旋风在固定槽被截住一次。"
     },
     {
       "id": "F47",
@@ -2578,12 +2946,12 @@
         "WO07"
       ],
       "adaptation_notice": "便利店歌曲奖励、注意偏移、兑现券与退出窗口均为原创游戏改编；只保留来源支持的水中形象和歌声诱惑母题，不把该流程称为传统禁忌。",
-      "signature_interaction": "通过真实歌段结算决定收手，已兑现奖励安全，追加一段才增加结束操作压力。",
+      "signature_interaction": "在一段停拍内封好当前奖袋并实际拿离交付槽。",
       "evidence": [
-        "实体停唱时倒影仍唱，注意偏移段数以文字显示。",
-        "托盘分“已兑现”和“本段待完成”，开始下一段前显示完整收益和结束窗口。"
+        "每段末尾有清楚停拍与字幕；下一段开始前先询问是否继续。",
+        "奖励盘随歌段逐层亮起，封袋刻线分别显示1.2、1.0、0.8秒基础窗口。"
       ],
-      "safe_response": "独立托盘、完整提示与随时关窗免费。 补救：立即停止演唱，允许关窗；本实例不重复尝试用恐惧损失刷奖励。 安全退出：紧急关窗始终是完整大小固定按钮，放弃未完成段即可退出。",
+      "safe_response": "可不接受歌约或在第一段收手；P03专属仍是当前合法窗口额外+0.4秒，按既有上限结算。",
       "resource_effects": {
         "energy": "全流程精力-4；操作预算按实际启动段数结算。",
         "san": "漏拍-8至多一次。",
@@ -2591,8 +2959,14 @@
         "stamina": "站台与取券无需体力。"
       },
       "synergy_conditions": {
-        "harder": "已有雾笛残留使视听信号更杂，但两条字幕分开；不能再遮掉收尾条。",
-        "easier": "预设只听一段时自动出现结束提示，仍由玩家收券关服务。"
+        "harder": [
+          "窗外浓雾使歌者方向不清。",
+          "额外奖励改为奖券碎片。"
+        ],
+        "easier": [
+          "可不接受歌约或在第一段收手；P03专属仍是当前合法窗口额外+0.4秒，按既有上限结算。",
+          "追加奖励换更窄窗口与更多时间，每次尝试明示结算8秒；低SAN仍按已有QTE档收窄。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -2627,11 +3001,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F47",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "完成一至三段之一的实际封袋与领取，或在接受前拒绝；只有已完成回执发奖励。"
     },
     {
       "id": "F48",
@@ -2646,12 +3022,12 @@
         "WO08"
       ],
       "adaptation_notice": "便利店情节、证据、解法、资源数值及联动均为原创游戏改编；不主张这些操作是传统民俗中的真实禁忌或仪式。",
-      "signature_interaction": "正常卖货与员工区授权分开：访客可购物，换工作帽与授权链共同决定进厨房资格。",
+      "signature_interaction": "把商品交到访客托盘，把工作帽和钥匙留在员工侧槽。",
       "evidence": [
-        "付款收据有效，但当班授权存根没有对应员工许可。",
-        "按食品卫生流程换工作帽时可见呼吸孔，普通戴帽或不愿换帽不是怪物证据。"
+        "帽檐下可见与人形不符的呼吸细节，只提示原型，不自动判定敌意。",
+        "它已拿到商品仍伸手去取员工槽的工作帽，并绕过公共交付位。"
       ],
-      "safe_response": "当班授权存根、工作帽和手动员工门都免费。 补救：按实体ID撤销权限，收回通行牌，核对挂起订单后恢复。 安全退出：对拒绝换工作帽者维持访客购物资格，让其离店；不强制搜身，不以此直接标怪。",
+      "safe_response": "公开托盘、员工槽和手动门免费，不需要照出真身才能安全卖货。",
       "resource_effects": {
         "energy": "基本-4，错误授权返工额外-4一次。",
         "san": "成功+2，误授权-6一次。",
@@ -2659,8 +3035,14 @@
         "stamina": "轻物与门禁0体力可用。"
       },
       "synergy_conditions": {
-        "harder": "同一小时店长来电混淆授权时，电话不作第二证据，需纸本存根和实体换帽观察。",
-        "easier": "真实店长先前双联签发可省一次跑员工桌。"
+        "harder": [
+          "自称店长的人带访客来帮忙。",
+          "查账要求同时占用核验台。"
+        ],
+        "easier": [
+          "公开托盘、员工槽和手动门免费，不需要照出真身才能安全卖货。",
+          "接受陌生人代搬可以省一次跑动，却会暴露员工区；自己交货或请真同事更耗岗位时间。"
+        ]
       },
       "impersonation": {
         "enabled": true,
@@ -2685,11 +3067,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F48",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "商品已交付，员工权限未被购物凭证替代；访客留在公开路径并离店。"
     },
     {
       "id": "F49",
@@ -2704,12 +3088,12 @@
         "WO08"
       ],
       "adaptation_notice": "便利店情节、证据、解法、资源数值及联动均为原创游戏改编；不主张这些操作是传统民俗中的真实禁忌或仪式。",
-      "signature_interaction": "看离散热度标签分流垃圾：先封盖余热，再冷却回收，合规熟食热源不必熄灭。",
+      "signature_interaction": "先合盖封住余热，再从袋外温标确认冷却后投放。",
       "evidence": [
-        "火蛇只沿红色余热废弃箱的标签移动，正常电热食台不吸引它。",
-        "箱侧热感牌从红变黄再变蓝，冷却时间以数字显示，不靠颜色单独判断。"
+        "热垃圾袋的温标转橙，火蛇只沿该袋外沿亮起，不追热食台。",
+        "袋盖打开时蛇影靠近，盖合后退到封口边等候。"
       ],
-      "safe_response": "分类标签、游戏防火盖与冷却槽为常备。 补救：从暂存槽取箱盖好，保留一半已完成冷却。 安全退出：封闭这一垃圾回收格并保持盖住可安全延期；不获得完成奖励，阶段垃圾工作记待补。",
+      "safe_response": "固定盖与袋外温标免费；不必熄灭全店热源，也不需要购买灭火器才能解。",
       "resource_effects": {
         "energy": "误操作额外-4一次；正常处理由工作成本结算。",
         "san": "成功+3，误操作-4一次。",
@@ -2717,8 +3101,14 @@
         "stamina": "垃圾搬运按实际动作，建议总6点；0体力仍可慢移。"
       },
       "synergy_conditions": {
-        "harder": "与F58并发时必须一边保留合规热食台、一边关废弃物热源，增加一次明确分路开关。",
-        "easier": "提前分类使冷箱不需二次搬动。"
+        "harder": [
+          "闷热让冷却档多停一轮。",
+          "后门锁卡。"
+        ],
+        "easier": [
+          "固定盖与袋外温标免费；不必熄灭全店热源，也不需要购买灭火器才能解。",
+          "等降温会占一个容器和时间；立即倾倒能赶工，却把危险带到后院。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -2739,11 +3129,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F49",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "登记废物保持封闭并降到允许热档后实际投入垃圾箱。"
     },
     {
       "id": "F50",
@@ -2758,12 +3150,12 @@
         "WO09"
       ],
       "adaptation_notice": "便利店情节、证据、解法、资源数值及联动均为原创游戏改编；不主张这些操作是传统民俗中的真实禁忌或仪式。",
-      "signature_interaction": "根据两次掠影确定攻击窗，把遮挡板推入该窗固定槽挡一次俯冲。",
+      "signature_interaction": "把遮板推入目标窗固定槽，立即退到同组安全点。",
       "evidence": [
-        "同方向掠影先经过一面玻璃再经过另一面，第二面为目标窗。",
-        "预告窗的顶棚震动与叫声方向字幕一致，最后8秒给完整轮廓。"
+        "同组两扇窗中一扇连续出现爪痕与掠影，下一击目标锁定后不暗换。",
+        "第二声尖啸启动8秒窗口，方向字幕与窗沿轮廓同步。"
       ],
-      "safe_response": "固定遮挡板与窗帘属于店设施。 补救：4秒攻击暂停内拉帘复位，重新给完整预告，不缩短补救窗。 安全退出：就近手动遮帘1秒可退出该展示位，损失本次展示收益；不耗体力且0体力可用。",
+      "safe_response": "店内固定板、近侧帘和预告都免费；启动前当前到板再到窗须不超过12格。",
       "resource_effects": {
         "energy": "精力-3。",
         "san": "误挡-8至多一次。",
@@ -2771,8 +3163,14 @@
         "stamina": "推板建议8点；0体力走拉帘路线。"
       },
       "synergy_conditions": {
-        "harder": "断电只减弱窗外普通照明，留下发光轮廓和震动；要求多一次确认目标，不能消灭全部信号。",
-        "easier": "已加固一窗可省一次来回推板。"
+        "harder": [
+          "普通外窗灯熄灭。",
+          "雷光制造一次无爪痕假影。"
+        ],
+        "easier": [
+          "店内固定板、近侧帘和预告都免费；启动前当前到板再到窗须不超过12格。",
+          "盯窗能获取目标，但也耽误搬货；花灯电可早看，机械遮板与轮廓仍是免费解。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -2793,11 +3191,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F50",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "当前目标窗被正确防护且玩家已离开条带，撞击结算一次；防护不改变全店导航。"
     },
     {
       "id": "F51",
@@ -2812,12 +3212,12 @@
         "WO10"
       ],
       "adaptation_notice": "便利店情节、证据、解法、资源数值及联动均为原创游戏改编；不主张这些操作是传统民俗中的真实禁忌或仪式。",
-      "signature_interaction": "把真实销售回执放到故事矛盾槽，换取明示折扣，再实际完成一次有上限的交易。",
+      "signature_interaction": "用真实回执压住矛盾段，把有限折扣牌和对应商品一起封单。",
       "evidence": [
-        "三条故事引用已经发生的商品、数量和时间，其中一条与可靠纸本摘要不符。",
-        "合同总价、义务、折扣条件始终显示；蜘蛛影子只表明特殊来客，不指答案。"
+        "同一笔交易被讲成两种数量，讲到矛盾处收银铃自行响一下。",
+        "故事纸条的交易号与本班实物回执对应，但有一处商品轮廓多了一件重影。"
       ],
-      "safe_response": "证据只来自至少三张已完成可靠摘要，主线工作可自然产生。 补救：显示矛盾字段类型，允许按正常价格成交或收回未交物件。 安全退出：关闭交易牌并收回未提交物品可WITHDRAWN，无后续债务。",
+      "safe_response": "免费基础回执与固定折扣牌足够；没有可用本班记录时导演不投放。",
       "resource_effects": {
         "energy": "完整流程精力-6；错配返工额外-2最多一次。",
         "san": "折扣成功+3，无固有恐惧罚。",
@@ -2825,8 +3225,14 @@
         "stamina": "轻文件与付款无体力门槛。"
       },
       "synergy_conditions": {
-        "harder": "假票据导致可用摘要减少；若不足三份则直接改明价交易，不用假数据出无解题。",
-        "easier": "白天整理已把可靠摘要放公共架，少一次找档。"
+        "harder": [
+          "新收据打印卡住。",
+          "无署名礼盒被说成你已同意收下的赠品。"
+        ],
+        "easier": [
+          "免费基础回执与固定折扣牌足够；没有可用本班记录时导演不投放。",
+          "多听一段可能提高小费，也给对方续写条款的机会；复核占注意力，不要求新算术小游戏。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -2847,11 +3253,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F51",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "真实回执对应的有限折扣和实物交付同时结算，未生成无限次折扣义务。"
     },
     {
       "id": "F52",
@@ -2866,12 +3274,12 @@
         "WO11"
       ],
       "adaptation_notice": "便利店情节、证据、解法、资源数值及联动均为原创游戏改编；不主张这些操作是传统民俗中的真实禁忌或仪式。",
-      "signature_interaction": "在坐下前切断低处水线并检查椅底，恢复一个真实可用的短休位置。",
+      "signature_interaction": "从干侧擦断椅南割点，再用低位手压灯查椅底。",
       "evidence": [
-        "膝盖以下湿手印从四格以内的水线伸到椅脚。",
-        "椅底影子在动，椅垫重量显示却为零；检查灯可见真实椅脚标记。"
+        "WET_CHAIR椅南水线连到椅脚，班表位和站立恢复点保持干燥。",
+        "从低处看能见到椅底小影；只从上方看坐垫读不到这条证据。"
       ],
-      "safe_response": "拖把和低位检查灯免费，站立恢复点一直可用。 补救：起身到安全站立点，断水线后重新检查；短休恢复不因重进界面重复领取。 安全退出：可在固定站立点喝水休息获得较低普通恢复；怪物仍在未处理椅区，不算CLEARED。",
+      "safe_response": "固定拖把和手压检查灯免费；可先在干站点稳定，无需购买电池。",
       "resource_effects": {
         "energy": "唯一安全短休回执精力+5；失误-6一次，不能无限刷。",
         "san": "误坐-6一次。",
@@ -2879,8 +3287,14 @@
         "stamina": "拖地按工作4点，0体力仍可慢擦。"
       },
       "synergy_conditions": {
-        "harder": "漏水加低精力会让可用座位少一个，增加擦关键格动作；保留站立恢复点。",
-        "easier": "预先有干燥步道时直接做椅底检查，省一次拖地。"
+        "harder": [
+          "普通仓库漏水也在场，但来源不同。",
+          "顶灯断电。"
+        ],
+        "easier": [
+          "固定拖把和手压检查灯免费；可先在干站点稳定，无需购买电池。",
+          "检查会推迟休息；急着恢复SAN却可能先损失SAN，留下不受影响的站立稳定解。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -2901,11 +3315,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F52",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "椅线已断、低位检查通过，实际短休回执只提交一次。"
     },
     {
       "id": "F53",
@@ -2921,12 +3337,12 @@
         "WO13"
       ],
       "adaptation_notice": "便利店情节、证据、解法、资源数值及联动均为原创游戏改编；不主张这些操作是传统民俗中的真实禁忌或仪式。",
-      "signature_interaction": "把可卖饮水与保留饮水分到两套实物库存，按已公开的普通顾客配额履行整夜契约。",
+      "signature_interaction": "把承诺瓶实际放入封签保留槽，售货只从另一箱拿。",
       "evidence": [
-        "倒影呈水生意象，实体仍像普通来客；不能凭该影像判善恶。",
-        "合同、普通顾客已服务数、必须保留数与托管收益在签前同时可读。"
+        "保留箱的瓶影朝水纹界内倒映，售货箱的瓶影仍朝货架。",
+        "一旦把保留瓶抬向售货侧，来客会按住箱沿，水纹先明显越界警告。"
       ],
-      "safe_response": "契约仅从现有已验库存签1–2份，拒签后照常经营。 补救：补回现有已验瓶，或明示降额并返还相应托管收益；不强制欠未来夜班债。 安全退出：签前拒绝无惩罚；签后可按签前显示的取消价结算，不可一键凭空保留全部收益。",
+      "safe_response": "基础饮水与双槽容器免费，接受前保证数量够；不强迫购买道具或让玩家挨饿补契约。",
       "resource_effects": {
         "energy": "分仓工作精力-5。",
         "san": "完整履约结算+5；违约-4最多一次。",
@@ -2934,8 +3350,14 @@
         "stamina": "搬瓶按实际工作，轻瓶可0体力搬。"
       },
       "synergy_conditions": {
-        "harder": "热浪增加普通订单预测需求，签约前相应减少可售份数；已签额度不在事后突然上调。",
-        "easier": "已整理服务角可直接用现有保留槽，省一次分仓。"
+        "harder": [
+          "热浪增加普通饮水需求。",
+          "普通自来水停供。"
+        ],
+        "easier": [
+          "基础饮水与双槽容器免费，接受前保证数量够；不强迫购买道具或让玩家挨饿补契约。",
+          "回报换真实库存和一个槽位；热浪时宁愿少卖，也不能把同一瓶同时计作保留和售出。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -2956,11 +3378,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F53",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "至06:00保留槽数量与封签有效，或实际结清违约损耗；跨小时占槽持续计入导演。"
     },
     {
       "id": "F54",
@@ -2976,12 +3400,12 @@
         "WO15"
       ],
       "adaptation_notice": "便利店情节、证据、解法、资源数值及联动均为原创游戏改编；不主张这些操作是传统民俗中的真实禁忌或仪式。",
-      "signature_interaction": "从最后吞入的编号开始逆序拉回三件对象，先救回可选同事，再决定是否补救货物。",
+      "signature_interaction": "从最后吞入的一件开始，逐件逆序拉到外部暂存槽。",
       "evidence": [
-        "三件对象吞入前依次显示大编号，地面扇区至少预告8秒。",
-        "取货口的三条绳端持续显示物件编号，回声字幕按最后吞入号先报。"
+        "三件物品的编号依次消失，嘴边三条绳槽留下同样顺序的发光结。",
+        "每次吞入有独立咔嗒声与编号字幕；最后一个绳结会回弹。"
       ],
-      "safe_response": "固定绳、锚槽、编号和暂存格免费，0体力仍能慢拉。 补救：显示队尾编号，已拉进度保留；停止增加吞入对象。 安全退出：救回人后可放弃剩余可替代货物并关闸退出，损失明示货值；无同事版本可直接放弃货物。",
+      "safe_response": "固定三绳和三个暂存槽免费；只处理登记三物，不能吞掉玩家全部背包或生成腹内地图。",
       "resource_effects": {
         "energy": "精力-5，错绳返工额外-4最多一次。",
         "san": "站吞入扇区-8最多一次。",
@@ -2989,8 +3413,14 @@
         "stamina": "标准三件建议总12点；0体力拉动加倍时长须纳入准入预算。"
       },
       "synergy_conditions": {
-        "harder": "团购大件令三个暂存槽分别占用，玩家需每拉一件先归槽；不增加第四条绳。",
-        "easier": "已加固锚点使分段回收时间少3秒。"
+        "harder": [
+          "三件都是团购中的登记货。",
+          "后门不能用。"
+        ],
+        "easier": [
+          "固定三绳和三个暂存槽免费；只处理登记三物，不能吞掉玩家全部背包或生成腹内地图。",
+          "拉回每件时要占手和一格暂存位；急着抢最贵的货会打乱绳序。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -3011,11 +3441,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F54",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 1
+      "complexity_surcharge": 1,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "三件物品均按逆序进入实际暂存槽，吞入队列为空；吞同事和救人功能门槛保持关闭。"
     },
     {
       "id": "F55",
@@ -3030,12 +3462,12 @@
         "WO05"
       ],
       "adaptation_notice": "便利店情节、证据、解法、资源数值及联动均为原创游戏改编；不主张这些操作是传统民俗中的真实禁忌或仪式。",
-      "signature_interaction": "交出未食用口粮并指定一段路线，亲自沿路径完成护送，守护范围以标线为限。",
+      "signature_interaction": "交出一份未吃过的实际食物，沿限定节点完成交接并返回。",
       "evidence": [
-        "犬形脚下留下蹄印，停在当前路线起点回望已指定对象。",
-        "合同牌同时显示起点、终点、可护送对象与一次保护范围。"
+        "犬足印只在GRP_ESCORT_ROUTE登记节点亮起，边界外没有连续实体痕迹。",
+        "另一侧有模仿犬步的声响，但护送犬身体仍停在下一个亮点。"
       ],
-      "safe_response": "主流程无需抽奖：有现存口粮才显示可签，无粮可不签，必要营业路线仍可普通步行完成。 补救：回到最近已通过节点继续原目标；中断恢复同一契约ID。 安全退出：无粮可不签且正常经营；签后可送目标回起点取消，原粮不退款但无额外债务。",
+      "safe_response": "店内有一份免费基础赠食可用；不依赖宠物购买或抽奖，也不承诺店外无限无敌。",
       "resource_effects": {
         "energy": "无固定额外精力扣除，实际行走计全局。",
         "san": "成功+4。",
@@ -3043,8 +3475,14 @@
         "stamina": "搬车按普通2.4格/秒，0体力可慢行。"
       },
       "synergy_conditions": {
-        "harder": "两个配送订单同时出现时只能选一条路线，另一条延期或退单，不产生牺牲顾客选择。",
-        "easier": "路线先前已被清理，可省绕行并保留一次保护。"
+        "harder": [
+          "骑手迟到，交接物需在终点等候。",
+          "门前普通积水靠近标线。"
+        ],
+        "easier": [
+          "店内有一份免费基础赠食可用；不依赖宠物购买或抽奖，也不承诺店外无限无敌。",
+          "赠食减少可售或可吃库存，护送占用玩家行程；可以在接受前拒绝。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -3065,11 +3503,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F55",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "食物交付和本段交接均完成。回报只作用本次护送，或下一夜一次提前预警；N06不生成第七小时怪。"
     },
     {
       "id": "F56",
@@ -3085,12 +3525,12 @@
         "WO17"
       ],
       "adaptation_notice": "采用公开可核的水域母题；本条不使用封闭或具名社群知识。水深幻境、工具、证据和解法全部原创，不声称复原任何社群的仪式。",
-      "signature_interaction": "先测深标界，再沿干路操作远端排水，用明确边界压回深水幻境。",
+      "signature_interaction": "从干侧测深划界，再擦断供水割点取回目标物。",
       "evidence": [
-        "水面倒影的货架高度不合实物，测深尺到标示极限仍未触底。",
-        "固定墙尺的深度级别从1到2，显示下一扩张格及12秒倒计时。"
+        "WET_AISLE的表面像普通积水，量尺落入边缘却显出异常深度档。",
+        "货架下有深水回响，字幕显示局部来源；相邻干格并不产生回声。"
       ],
-      "safe_response": "测深尺、隔离牌和远端手动阀常备。 补救：扩张停4秒并显示干地退出方向，阀门和已放牌进度保留。 安全退出：关受影响货架并维持隔离牌可以安全等本小时结束，损失营业而不计主动排水成功。",
+      "safe_response": "固定尺、拖把与干侧路线免费；不把量尺做成连续物理深度模拟。",
       "resource_effects": {
         "energy": "精力-5。",
         "san": "越界-8一次。",
@@ -3098,8 +3538,14 @@
         "stamina": "操作牌和阀建议6点；0体力均有慢操作。"
       },
       "synergy_conditions": {
-        "harder": "F52同时侵占休息椅时要保留干燥休息替代点，并额外擦一次旁支水线。",
-        "easier": "已经和F57划过水界时最多扩张3格。"
+        "harder": [
+          "门前雨水同时出现。",
+          "普通库房水源漏水。"
+        ],
+        "easier": [
+          "固定尺、拖把与干侧路线免费；不把量尺做成连续物理深度模拟。",
+          "先探边界多走几步；直接取近处货物看似更快，却会进入拖拽区。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -3120,11 +3566,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F56",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "测深记录和湿区割断都已发生，登记物从干格实际取回。"
     },
     {
       "id": "F57",
@@ -3139,12 +3587,12 @@
         "WO18"
       ],
       "adaptation_notice": "便利店情节、证据、解法、资源数值及联动均为原创游戏改编；不主张这些操作是传统民俗中的真实禁忌或仪式。",
-      "signature_interaction": "清出一条预置水路线，再按停水窗口放踏板，让货流跨过而不永久堵渠。",
+      "signature_interaction": "在本地8秒维护窗口里搭板过一箱，随后撤板恢复水流。",
       "evidence": [
-        "水纹沿预置地砖线连续显示，堵住节点时上游指示条升高。",
-        "来客停在第一个堵点，阀牌同时指出该节点编号而不自动搬箱。"
+        "保护水沟的三段标记相继亮起，堆在沟上的箱会截断最后一段。",
+        "清走箱子后水影退开；把沟永久堵住时它重新挡住垃圾交接位。"
       ],
-      "safe_response": "缓冲箱槽、手动阀和折叠踏板常备。 补救：4秒缓冲内收回阻挡物，恢复通水，已完成过箱记录保留。 安全退出：签前可封闭相关货架借道区并不承接收益；需实际摆封区牌，不只选拒绝。",
+      "safe_response": "ATT15踏板、拉杆与缓冲槽免费；8秒内的完整动作已静态预算，跨过并不重建寻路网格。",
       "resource_effects": {
         "energy": "精力-4，返工额外-4至多一次。",
         "san": "成功+4。",
@@ -3152,8 +3600,14 @@
         "stamina": "搬两箱和一次过线建议总8点；0体力慢搬可行。"
       },
       "synergy_conditions": {
-        "harder": "F54已回收大箱在缓冲位时先腾一个合法暂存槽，否则不许开始此遭遇。",
-        "easier": "服务角整理已完成则只剩一箱要移。"
+        "harder": [
+          "普通旁支漏水同时发生。",
+          "跨线物改为重箱。"
+        ],
+        "easier": [
+          "ATT15踏板、拉杆与缓冲槽免费；8秒内的完整动作已静态预算，跨过并不重建寻路网格。",
+          "绕过水渠要多走，过板要服从窗口；这里保护的是水路，与其他水怪的断支流不矛盾。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -3174,11 +3628,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F57",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "登记箱到另一侧、踏板已撤、主渠连接和流动恢复；只允许登记维护期短暂停流。"
     },
     {
       "id": "F58",
@@ -3193,12 +3649,12 @@
         "WO19"
       ],
       "adaptation_notice": "便利店情节、证据、解法、资源数值及联动均为原创游戏改编；不主张这些操作是传统民俗中的真实禁忌或仪式。",
-      "signature_interaction": "用一份真实热食维持工作区的可见保温边界，或实际封闭冷区保守撤场。",
+      "signature_interaction": "留一份真实热食在保温槽维持边界，或实际封闭冷区。",
       "evidence": [
-        "雾停在有温度标记的熟食线，保温剩余时长下降时才推进一个预告格。",
-        "笛声来自雾区，暖区货架编号连续；字幕与热食温度条可在静音中读。"
+        "一份真实热食所在槽外侧保持清楚，空槽对应的边界开始结露。",
+        "雾笛从冷区传来，声源靠近随边界前移；字幕与边界刻线同步。"
       ],
-      "safe_response": "有现货才使用热食；无现货可用固定封区牌和服务灯。 补救：重新保温一次或实际封区，原订单完成进度保留。 安全退出：免费封区路线始终可用；不能同时封死唯一通路和唯一正常收银工作位。",
+      "safe_response": "免费基础热食或手动封区均可完成，不要求用最后一格电救命。",
       "resource_effects": {
         "energy": "正常流程精力-5。",
         "san": "温度失控-6至多一次。",
@@ -3206,8 +3662,14 @@
         "stamina": "摆牌及轻物0体力可用。"
       },
       "synergy_conditions": {
-        "harder": "F49余热巡查同时要求关垃圾热源，玩家必须明确区分两个独立回路，而非关全店电源。",
-        "easier": "提前备有保温餐盒可减少一次补温。"
+        "harder": [
+          "微波炉停转。",
+          "外部浓雾加重普通能见度。"
+        ],
+        "easier": [
+          "免费基础热食或手动封区均可完成，不要求用最后一格电救命。",
+          "留食少一份销量，供电延长便利；封区保守解放弃一段服务但不会取消整夜基础目标。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -3228,11 +3690,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F58",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "热食边界守到本次退场，或冷区已明确停用且玩家退出边界；两者只发一次回执。"
     },
     {
       "id": "F59",
@@ -3247,12 +3711,12 @@
         "WO20"
       ],
       "adaptation_notice": "便利店情节、证据、解法、资源数值及联动均为原创游戏改编；不主张这些操作是传统民俗中的真实禁忌或仪式。",
-      "signature_interaction": "在固定施工格按料单供料、引导绕行，再亲手验收一次有限修复。",
+      "signature_interaction": "把所需材料放到固定槽，再关局部施工灯、离开注视。",
       "evidence": [
-        "两种构件按图纸序号移动，不随机毁坏其他设备。",
-        "施工收据的材料消耗与台面现有材料一一对应，缺料明确写出。"
+        "GRP_CONSTRUCTION_SLOTS出现三处材料轮廓，工具声响起时缺口依次被补齐。",
+        "玩家或手持强光朝向施工位时锤子停下，转开朝向后才继续。"
       ],
-      "safe_response": "已有日常修理材料可承接，无料可不签；不要求抽奖材料。 补救：取回错料重新放，离开施工格续建；紧固可再试一次，已有建设阶段保留。 安全退出：开工前收回材料并取消；开工后可暂停至本阶段截止，已消耗材料按公开合同结算。",
+      "safe_response": "基础材料与绕行牌免费；没有损坏设施就不给无意义维修任务。",
       "resource_effects": {
         "energy": "精力-5。",
         "san": "无固有SAN伤害。",
@@ -3260,8 +3724,14 @@
         "stamina": "搬构件建议6点；0体力可慢搬。"
       },
       "synergy_conditions": {
-        "harder": "补货高峰要先移一箱出施工格，F45若核验同批材料须先完成其放行再交付。",
-        "easier": "已核验同事引导队列可避免普通顾客偶然进格暂停。"
+        "harder": [
+          "普通排队可能靠近工区。",
+          "坏门铃成为修理对象。"
+        ],
+        "easier": [
+          "基础材料与绕行牌免费；没有损坏设施就不给无意义维修任务。",
+          "等待时必须让出注意力与一段位置；关的只是局部灯，不切冷链任务柜。"
+        ]
       },
       "impersonation": {
         "enabled": false,
@@ -3282,11 +3752,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F59",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "材料已实际交付、施工完成且目标设施测试通过；最多修该登记故障一次。"
     },
     {
       "id": "F60",
@@ -3301,12 +3773,12 @@
         "WO05"
       ],
       "adaptation_notice": "马形面部反转与诱向危险处只作为传统母题；员工背影伪装、凸镜观察、转身视锥、遮挡板和结束条件全部是原创游戏规则，不宣称为传统弱点。",
-      "signature_interaction": "在安全站位拨三档凸镜看到真面，再于转身预告内遮断直视。",
+      "signature_interaction": "在转身预告内拉OBJ_MIRROR_CURTAIN，或锁朝向退离实体视线。",
       "evidence": [
-        "本体仍是员工背影时，正确档位的镜内已显示马形脸；镜外身体不瞬移。",
-        "每次转身前地面头影先转，方向字幕与8秒倒计时一致，预告不能被黑视吞掉。"
+        "实体还未回头，凸镜里已出现另一张面孔；镜证据采用预制三档画面。",
+        "头影先偏转再真正回身，方向标和转身预告始终可见。"
       ],
-      "safe_response": "固定凸镜、板轨、安全站位与安全帘免费。 补救：敌退回原角，原镜证据保留，给完整8秒复位窗；回安全位遮线。 安全退出：近处安全帘1秒可关，0体力可用；未取镜证据时为WITHDRAWN，仅损失该服务位机会。",
+      "safe_response": "固定帘与朝向锁定都免费；镜面查看不触发直视禁令，不能将二者都按facing判罚。",
       "resource_effects": {
         "energy": "精力-4。",
         "san": "首次直视-8；其后本实例只给空间压力不重复扣恐惧。",
@@ -3314,8 +3786,14 @@
         "stamina": "推板8点；拉帘无需体力，方向锁定移动按共享0.8系数。"
       },
       "synergy_conditions": {
-        "harder": "雾残留使正确镜档线索更窄，但档位数仍3，预告和近帘完整保留；多一次站位调整。",
-        "easier": "学习镜面案例预标一个安全脚点，不自动选镜档。"
+        "harder": [
+          "雾让镜位提示只能在观察点附近读到。",
+          "普通灯熄灭。"
+        ],
+        "easier": [
+          "固定帘与朝向锁定都免费；镜面查看不触发直视禁令，不能将二者都按facing判罚。",
+          "多看一秒能认清原型，晚退一步会暴露；帘同时挡住该侧信息，需换服务位。"
+        ]
       },
       "impersonation": {
         "enabled": true,
@@ -3346,11 +3824,13 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v04_complete_design",
+      "interaction_design_stage": "v05_mechanism_derived_design",
       "interaction_card_id": "F60",
-      "interaction_card_file": "content/encounter_designs.json",
+      "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
-      "complexity_surcharge": 0
+      "complexity_surcharge": 0,
+      "legacy_interaction_design_stage": "v04_complete_design",
+      "current_resolution": "转身危险窗口内实体视线被遮断或玩家未朝向，服务位实际停用并完成退场等待。"
     }
   ],
   "runtime_admission_policy": "enabled_default标识完整候选池；运行时还须完成店务映射、功能实现和可解性验证，不能仅按该标记投放。",
@@ -3420,5 +3900,6 @@
     "F59",
     "F60"
   ],
-  "design_completion_is_not_runtime_implementation": true
+  "design_completion_is_not_runtime_implementation": true,
+  "current_gameplay_catalog": "content/encounters_v05.json"
 }

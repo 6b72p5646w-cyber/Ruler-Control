@@ -1,0 +1,506 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1180" viewBox="0 0 2200 1180">
+<title>午夜便利店 V0.5 共享机制地图</title>
+<desc>同尺度双图：左图为19项操作位，右图为离散湿区、入口与窄路限制。由maps.json和map_mechanics_v05.json直接绘制。</desc>
+<style>text{font-family:"Noto Sans CJK SC","Microsoft YaHei",sans-serif}</style>
+<defs><pattern id="grid0" x="56" y="324" width="18" height="18" viewBox="0 0 18 18" patternUnits="userSpaceOnUse"><path d="M18 0H0V18" fill="none" stroke="#94a3b8" stroke-width=".45" opacity=".4"/></pattern><pattern id="grid1" x="1140" y="324" width="18" height="18" viewBox="0 0 18 18" patternUnits="userSpaceOnUse"><path d="M18 0H0V18" fill="none" stroke="#94a3b8" stroke-width=".45" opacity=".4"/></pattern></defs>
+<rect x="0" y="0" width="2200" height="1180" rx="0" fill="#f1f5f9" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="32" y="106" width="1048" height="956" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" opacity="1"/>
+<rect x="1116" y="106" width="1052" height="956" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" opacity="1"/>
+<text x="40" y="48" font-size="34" fill="#1e293b" font-weight="700" text-anchor="start">午夜便利店 · 共享机制地图 V0.5</text>
+<text x="40" y="82" font-size="18" fill="#475569" font-weight="400" text-anchor="start">精确坐标补件：先建立可操作的门、证据、交接与湿区，再由怪物改变这些物件的条件。</text>
+<text x="56" y="142" font-size="24" fill="#1e293b" font-weight="700" text-anchor="start">A  物件与操作位</text>
+<text x="1140" y="142" font-size="24" fill="#1e293b" font-weight="700" text-anchor="start">B  湿区、入口与通路限制</text>
+<rect x="56" y="324" width="540" height="540" rx="0" fill="#eef2f6" stroke="#a8b4c2" stroke-width="1" opacity="1"/>
+<rect x="56" y="864" width="540" height="144" rx="0" fill="#eef2f6" stroke="#a8b4c2" stroke-width="1" opacity="1"/>
+<rect x="380" y="180" width="216" height="144" rx="0" fill="#eef2f6" stroke="#a8b4c2" stroke-width="1" opacity="1"/>
+<rect x="596" y="180" width="72" height="828" rx="0" fill="#eef2f6" stroke="#a8b4c2" stroke-width="1" opacity="1"/>
+<rect x="56" y="684" width="540" height="180" rx="0" fill="#e0f2fe" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="56" y="504" width="324" height="180" rx="0" fill="#ecfccb" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="380" y="504" width="216" height="180" rx="0" fill="#dbeafe" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="308" y="324" width="288" height="180" rx="0" fill="#fef3c7" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="56" y="324" width="252" height="180" rx="0" fill="#f3e8ff" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="56" y="324" width="540" height="540" rx="0" fill="url(#grid0)" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="56" y="864" width="540" height="144" rx="0" fill="url(#grid0)" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="380" y="180" width="216" height="144" rx="0" fill="url(#grid0)" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="596" y="180" width="72" height="828" rx="0" fill="url(#grid0)" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="74" y="342" width="72" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="182" y="342" width="54" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="74" y="414" width="54" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="182" y="432" width="72" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="254" y="342" width="18" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="326" y="342" width="90" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="452" y="342" width="72" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="326" y="450" width="90" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="524" y="396" width="54" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="524" y="450" width="54" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="110" y="540" width="54" height="108" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="236" y="540" width="54" height="108" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="344" y="540" width="36" height="108" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="416" y="558" width="72" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="506" y="540" width="72" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="542" y="612" width="36" height="72" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="542" y="504" width="36" height="18" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="92" y="756" width="126" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="92" y="792" width="36" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="92" y="684" width="54" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="236" y="792" width="36" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="380" y="792" width="72" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="506" y="774" width="72" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="398" y="198" width="90" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="398" y="270" width="54" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="110" y="936" width="90" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="56" y="324" width="18" height="540" rx="0" fill="#243447" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="578" y="324" width="18" height="540" rx="0" fill="#243447" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="56" y="324" width="468" height="18" rx="0" fill="#243447" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="56" y="846" width="234" height="18" rx="0" fill="#243447" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="362" y="846" width="234" height="18" rx="0" fill="#243447" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="56" y="486" width="90" height="18" rx="0" fill="#243447" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="218" y="486" width="216" height="18" rx="0" fill="#243447" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="506" y="486" width="90" height="18" rx="0" fill="#243447" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="290" y="324" width="18" height="72" rx="0" fill="#243447" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="290" y="468" width="18" height="18" rx="0" fill="#243447" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="290" y="846" width="72" height="18" rx="0" fill="#86efac" stroke="#15803d" stroke-width="0.7" opacity="1"/>
+<rect x="524" y="324" width="54" height="18" rx="0" fill="#86efac" stroke="#15803d" stroke-width="0.7" opacity="1"/>
+<rect x="146" y="486" width="72" height="18" rx="0" fill="#86efac" stroke="#15803d" stroke-width="0.7" opacity="1"/>
+<rect x="434" y="486" width="72" height="18" rx="0" fill="#86efac" stroke="#15803d" stroke-width="0.7" opacity="1"/>
+<rect x="290" y="396" width="18" height="72" rx="0" fill="#86efac" stroke="#15803d" stroke-width="0.7" opacity="1"/>
+<text x="110" y="363.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">员工桌</text>
+<text x="209" y="363.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">更衣柜</text>
+<text x="101" y="435.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">休息椅</text>
+<text x="218" y="453.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">餐桌</text>
+<text x="263" y="363.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">05</text>
+<text x="371" y="363.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">储物架</text>
+<text x="488" y="363.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">验收台</text>
+<text x="371" y="471.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">打包台</text>
+<text x="551" y="417.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">隔离架</text>
+<text x="551" y="471.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">分袋台</text>
+<text x="137" y="597.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">货架A</text>
+<text x="263" y="597.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">文具架</text>
+<text x="362" y="597.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">货架B</text>
+<text x="452" y="579.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">热食台</text>
+<text x="542" y="561.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">冰柜</text>
+<text x="560" y="651.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">饮料冷柜</text>
+<text x="560" y="516.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">水槽</text>
+<text x="155" y="777.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">收银台</text>
+<text x="110" y="813.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">柜台侧翼</text>
+<text x="119" y="705.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">保留座</text>
+<text x="254" y="813.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">失物柜</text>
+<text x="416" y="813.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">提货架</text>
+<text x="542" y="795.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">核验台</text>
+<text x="443" y="219.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">垃圾箱</text>
+<text x="425" y="291.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">回收箱</text>
+<text x="155" y="957.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">门前长椅</text>
+<rect x="56" y="324" width="540" height="540" rx="0" fill="none" stroke="#0f172a" stroke-width="2" opacity="1"/>
+<text x="236" y="986.4" font-size="16" fill="#64748b" font-weight="600" text-anchor="middle">店前空地</text>
+<text x="497" y="191.7" font-size="14" fill="#64748b" font-weight="600" text-anchor="middle">后院垃圾区</text>
+<text x="632" y="612" font-size="14" fill="#64748b" font-weight="600" text-anchor="middle">东</text>
+<text x="632" y="630" font-size="14" fill="#64748b" font-weight="600" text-anchor="middle">侧</text>
+<text x="632" y="648" font-size="14" fill="#64748b" font-weight="600" text-anchor="middle">巷</text>
+<text x="56" y="1029.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="middle">0</text>
+<text x="146" y="1029.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="middle">5</text>
+<text x="236" y="1029.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="middle">10</text>
+<text x="326" y="1029.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="middle">15</text>
+<text x="416" y="1029.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="middle">20</text>
+<text x="506" y="1029.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="middle">25</text>
+<text x="596" y="1029.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="middle">30</text>
+<text x="44" y="237.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="end">-5</text>
+<text x="44" y="327.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="end">0</text>
+<text x="44" y="417.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="end">5</text>
+<text x="44" y="507.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="end">10</text>
+<text x="44" y="597.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="end">15</text>
+<text x="44" y="687.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="end">20</text>
+<text x="44" y="777.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="end">25</text>
+<text x="44" y="867.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="end">30</text>
+<text x="44" y="957.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="end">35</text>
+<text x="74" y="196.2" font-size="14" fill="#334155" font-weight="700" text-anchor="start">店内五区 · 30×30 格</text>
+<rect x="74" y="200.5" width="12" height="12" rx="0" fill="#e0f2fe" stroke="#94a3b8" stroke-width="1" opacity="1"/>
+<text x="94" y="211.5" font-size="13" fill="#475569" font-weight="400" text-anchor="start">Z01  前场收银</text>
+<rect x="74" y="220.5" width="12" height="12" rx="0" fill="#ecfccb" stroke="#94a3b8" stroke-width="1" opacity="1"/>
+<text x="94" y="231.5" font-size="13" fill="#475569" font-weight="400" text-anchor="start">Z02  商品货架</text>
+<rect x="74" y="240.5" width="12" height="12" rx="0" fill="#dbeafe" stroke="#94a3b8" stroke-width="1" opacity="1"/>
+<text x="94" y="251.5" font-size="13" fill="#475569" font-weight="400" text-anchor="start">Z03  熟食与冷链</text>
+<rect x="74" y="260.5" width="12" height="12" rx="0" fill="#fef3c7" stroke="#94a3b8" stroke-width="1" opacity="1"/>
+<text x="94" y="271.5" font-size="13" fill="#475569" font-weight="400" text-anchor="start">Z04  库房与验收</text>
+<rect x="74" y="280.5" width="12" height="12" rx="0" fill="#f3e8ff" stroke="#94a3b8" stroke-width="1" opacity="1"/>
+<text x="94" y="291.5" font-size="13" fill="#475569" font-weight="400" text-anchor="start">Z05  员工与设备</text>
+<rect x="182" y="522" width="216" height="270" rx="0" fill="none" stroke="#a855f7" stroke-width="1.6" opacity="1" stroke-dasharray="7 5"/>
+<text x="182" y="516.6" font-size="12" fill="#9333ea" font-weight="600" text-anchor="start">12×15 格：一屏尺度参考</text>
+<path d="M497,819 L469,839" stroke="#0f766e" stroke-width="1.2" fill="none"/>
+<circle cx="497" cy="819" r="3.3" fill="#064e3b" stroke="#ffffff" stroke-width="1"/>
+<rect x="455.52" y="828" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="469" y="843" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">01</text>
+<path d="M551,819 L574,834" stroke="#0f766e" stroke-width="1.2" fill="none"/>
+<circle cx="551" cy="819" r="3.3" fill="#064e3b" stroke="#ffffff" stroke-width="1"/>
+<rect x="560.52" y="823" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="574" y="838" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">02</text>
+<path d="M515,819 L515,857" stroke="#0f766e" stroke-width="1.2" fill="none"/>
+<circle cx="515" cy="819" r="3.3" fill="#064e3b" stroke="#ffffff" stroke-width="1"/>
+<rect x="501.52" y="846" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="515" y="861" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">03</text>
+<path d="M173,801 L173,823" stroke="#0f766e" stroke-width="1.2" fill="none"/>
+<circle cx="173" cy="801" r="3.3" fill="#064e3b" stroke="#ffffff" stroke-width="1"/>
+<rect x="159.52" y="812" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="173" y="827" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">04</text>
+<path d="M551,369 L583,377" stroke="#0f766e" stroke-width="1.2" fill="none"/>
+<circle cx="551" cy="369" r="3.3" fill="#064e3b" stroke="#ffffff" stroke-width="1"/>
+<rect x="569.52" y="366" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="583" y="381" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">05</text>
+<path d="M551,351 L581,332" stroke="#0f766e" stroke-width="1.2" fill="none"/>
+<circle cx="551" cy="351" r="3.3" fill="#064e3b" stroke="#ffffff" stroke-width="1"/>
+<rect x="556.3" y="321" width="49.4" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="581" y="336" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">06/07</text>
+<path d="M407,747 L407,729" stroke="#0f766e" stroke-width="1.2" fill="none"/>
+<circle cx="407" cy="747" r="3.3" fill="#064e3b" stroke="#ffffff" stroke-width="1"/>
+<rect x="393.52" y="718" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="407" y="733" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">08</text>
+<path d="M461,837 L438,859" stroke="#0f766e" stroke-width="1.2" fill="none"/>
+<circle cx="461" cy="837" r="3.3" fill="#064e3b" stroke="#ffffff" stroke-width="1"/>
+<rect x="424.52" y="848" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="438" y="863" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">09</text>
+<path d="M119,729 L119,747" stroke="#0f766e" stroke-width="1.2" fill="none"/>
+<circle cx="119" cy="729" r="3.3" fill="#064e3b" stroke="#ffffff" stroke-width="1"/>
+<rect x="105.52" y="736" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="119" y="751" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">10</text>
+<path d="M335,801 L335,781" stroke="#0f766e" stroke-width="1.2" fill="none"/>
+<circle cx="335" cy="801" r="3.3" fill="#064e3b" stroke="#ffffff" stroke-width="1"/>
+<rect x="321.52" y="770" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="335" y="785" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">11</text>
+<path d="M533,369 L502,344" stroke="#0f766e" stroke-width="1.2" fill="none"/>
+<circle cx="533" cy="369" r="3.3" fill="#064e3b" stroke="#ffffff" stroke-width="1"/>
+<rect x="477.3" y="333" width="49.4" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="502" y="348" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">12/13</text>
+<path d="M407,783 L407,766" stroke="#0f766e" stroke-width="1.2" fill="none"/>
+<circle cx="407" cy="783" r="3.3" fill="#064e3b" stroke="#ffffff" stroke-width="1"/>
+<rect x="393.52" y="755" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="407" y="770" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">14</text>
+<path d="M227,801 L222,825" stroke="#0f766e" stroke-width="1.2" fill="none"/>
+<circle cx="227" cy="801" r="3.3" fill="#064e3b" stroke="#ffffff" stroke-width="1"/>
+<rect x="208.52" y="814" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="222" y="829" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">15</text>
+<path d="M335,819 L364,827" stroke="#0f766e" stroke-width="1.2" fill="none"/>
+<circle cx="335" cy="819" r="3.3" fill="#064e3b" stroke="#ffffff" stroke-width="1"/>
+<rect x="350.52" y="816" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="364" y="831" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">16</text>
+<path d="M389,423 L389,403" stroke="#0f766e" stroke-width="1.2" fill="none"/>
+<circle cx="389" cy="423" r="3.3" fill="#064e3b" stroke="#ffffff" stroke-width="1"/>
+<rect x="375.52" y="392" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="389" y="407" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">17</text>
+<path d="M497,603 L497,626" stroke="#0f766e" stroke-width="1.2" fill="none"/>
+<circle cx="497" cy="603" r="3.3" fill="#064e3b" stroke="#ffffff" stroke-width="1"/>
+<rect x="483.52" y="615" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="497" y="630" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">18</text>
+<path d="M83,729 L75,713" stroke="#0f766e" stroke-width="1.2" fill="none"/>
+<circle cx="83" cy="729" r="3.3" fill="#064e3b" stroke="#ffffff" stroke-width="1"/>
+<rect x="61.52" y="702" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="75" y="717" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">19</text>
+<rect x="506" y="378" width="36" height="18" rx="0" fill="#ef4444" stroke="#b91c1c" stroke-width="2" opacity="0.65"/>
+<path d="M515,387 L479,417.6" stroke="#b91c1c" stroke-width="1.5" fill="none"/>
+<rect x="464.84" y="406.6" width="28.32" height="22" rx="5" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="479" y="421.6" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle">L1</text>
+<text x="714" y="180" font-size="21" fill="#1e293b" font-weight="700" text-anchor="start">物件编号 → 玩家操作位</text>
+<text x="714" y="206" font-size="14" fill="#64748b" font-weight="400" text-anchor="start">圆点是坐标；引线数字不占据地格。</text>
+<rect x="717.52" y="227" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="731" y="242" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">01</text>
+<text x="755" y="242" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">前场快照读屏与远程采集键</text>
+<rect x="717.52" y="253" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="731" y="268" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">02</text>
+<text x="755" y="268" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">核验台权限钥匙槽</text>
+<rect x="717.52" y="279" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="731" y="294" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">03</text>
+<text x="755" y="294" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">核验侧灯与手压观察镜</text>
+<rect x="717.52" y="305" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="731" y="320" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">04</text>
+<text x="755" y="320" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">柜台班表与交接本副本</text>
+<rect x="717.52" y="331" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="731" y="346" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">05</text>
+<text x="755" y="346" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">后门工作证据卡槽</text>
+<rect x="717.52" y="357" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="731" y="372" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">06</text>
+<text x="755" y="372" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">后门手动验货闸控制</text>
+<rect x="717.52" y="383" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="731" y="398" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">07</text>
+<text x="755" y="398" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">后门机械压力牌</text>
+<rect x="717.52" y="409" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="731" y="424" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">08</text>
+<text x="755" y="424" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">凸镜近侧遮线帘</text>
+<rect x="717.52" y="435" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="731" y="450" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">09</text>
+<text x="755" y="450" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">正门外窗内侧服务位</text>
+<rect x="717.52" y="461" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="731" y="476" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">10</text>
+<text x="755" y="476" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">第二等候格</text>
+<rect x="717.52" y="487" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="731" y="502" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">11</text>
+<text x="755" y="502" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">前门内侧交接与粉印垫</text>
+<rect x="717.52" y="513" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="731" y="528" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">12</text>
+<text x="755" y="528" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">后门内侧粉印垫</text>
+<rect x="717.52" y="539" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="731" y="554" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">13</text>
+<text x="755" y="554" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">公开入口计数与时间卡</text>
+<rect x="717.52" y="565" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="731" y="580" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">14</text>
+<text x="755" y="580" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">公共长台包裹近侧槽</text>
+<rect x="717.52" y="591" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="731" y="606" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">15</text>
+<text x="755" y="606" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">柜台护栏与可见规则线</text>
+<rect x="717.52" y="617" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="731" y="632" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">16</text>
+<text x="755" y="632" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">门内树苗归还槽</text>
+<rect x="717.52" y="643" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="731" y="658" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">17</text>
+<text x="755" y="658" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">库房限域借用标牌</text>
+<rect x="717.52" y="669" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="731" y="684" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">18</text>
+<text x="755" y="684" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">冷区暂停与保温边界牌</text>
+<rect x="717.52" y="695" width="26.96" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="731" y="710" font-size="11" fill="#ffffff" font-weight="700" text-anchor="middle">19</text>
+<text x="755" y="710" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">保留座旁供物小台</text>
+<text x="714" y="765" font-size="20" fill="#1e293b" font-weight="700" text-anchor="start">机制层边界</text>
+<text x="714" y="796" font-size="15" fill="#475569" font-weight="400" text-anchor="start">台面物件与脚下操作位分别登记。</text>
+<text x="714" y="823" font-size="15" fill="#475569" font-weight="400" text-anchor="start">帘、标牌、粉印不增加导航障碍。</text>
+<text x="714" y="850" font-size="15" fill="#475569" font-weight="400" text-anchor="start">柜台不是全怪无敌区。</text>
+<text x="714" y="877" font-size="15" fill="#475569" font-weight="400" text-anchor="start">快照只证明拍摄时刻和视域。</text>
+<text x="714" y="904" font-size="15" fill="#475569" font-weight="400" text-anchor="start">F12 / F13 的确定解法保持。</text>
+<rect x="714" y="943" width="322" height="66" rx="8" fill="#faf5ff" stroke="#d8b4fe" stroke-width="1" opacity="1"/>
+<text x="726" y="969" font-size="17" fill="#7e22ce" font-weight="700" text-anchor="start">900 格 ÷ 180 格 = 5 屏</text>
+<text x="726" y="993" font-size="14" fill="#7e22ce" font-weight="400" text-anchor="start">前场、后院、东侧巷额外计算。</text>
+<rect x="1140" y="324" width="540" height="540" rx="0" fill="#eef2f6" stroke="#a8b4c2" stroke-width="1" opacity="1"/>
+<rect x="1140" y="864" width="540" height="144" rx="0" fill="#eef2f6" stroke="#a8b4c2" stroke-width="1" opacity="1"/>
+<rect x="1464" y="180" width="216" height="144" rx="0" fill="#eef2f6" stroke="#a8b4c2" stroke-width="1" opacity="1"/>
+<rect x="1680" y="180" width="72" height="828" rx="0" fill="#eef2f6" stroke="#a8b4c2" stroke-width="1" opacity="1"/>
+<rect x="1140" y="684" width="540" height="180" rx="0" fill="#e0f2fe" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="1140" y="504" width="324" height="180" rx="0" fill="#ecfccb" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="1464" y="504" width="216" height="180" rx="0" fill="#dbeafe" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="1392" y="324" width="288" height="180" rx="0" fill="#fef3c7" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="1140" y="324" width="252" height="180" rx="0" fill="#f3e8ff" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="1140" y="324" width="540" height="540" rx="0" fill="url(#grid1)" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="1140" y="864" width="540" height="144" rx="0" fill="url(#grid1)" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="1464" y="180" width="216" height="144" rx="0" fill="url(#grid1)" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="1680" y="180" width="72" height="828" rx="0" fill="url(#grid1)" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="1158" y="342" width="72" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1266" y="342" width="54" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1158" y="414" width="54" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1266" y="432" width="72" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1338" y="342" width="18" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1410" y="342" width="90" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1536" y="342" width="72" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1410" y="450" width="90" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1608" y="396" width="54" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1608" y="450" width="54" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1194" y="540" width="54" height="108" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1320" y="540" width="54" height="108" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1428" y="540" width="36" height="108" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1500" y="558" width="72" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1590" y="540" width="72" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1626" y="612" width="36" height="72" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1626" y="504" width="36" height="18" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1176" y="756" width="126" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1176" y="792" width="36" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1176" y="684" width="54" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1320" y="792" width="36" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1464" y="792" width="72" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1590" y="774" width="72" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1482" y="198" width="90" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1482" y="270" width="54" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1194" y="936" width="90" height="36" rx="0" fill="#c6ced7" stroke="#8291a3" stroke-width="0.8" opacity="1"/>
+<rect x="1140" y="324" width="18" height="540" rx="0" fill="#243447" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="1662" y="324" width="18" height="540" rx="0" fill="#243447" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="1140" y="324" width="468" height="18" rx="0" fill="#243447" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="1140" y="846" width="234" height="18" rx="0" fill="#243447" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="1446" y="846" width="234" height="18" rx="0" fill="#243447" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="1140" y="486" width="90" height="18" rx="0" fill="#243447" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="1302" y="486" width="216" height="18" rx="0" fill="#243447" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="1590" y="486" width="90" height="18" rx="0" fill="#243447" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="1374" y="324" width="18" height="72" rx="0" fill="#243447" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="1374" y="468" width="18" height="18" rx="0" fill="#243447" stroke="none" stroke-width="1" opacity="1"/>
+<rect x="1374" y="846" width="72" height="18" rx="0" fill="#86efac" stroke="#15803d" stroke-width="0.7" opacity="1"/>
+<rect x="1608" y="324" width="54" height="18" rx="0" fill="#86efac" stroke="#15803d" stroke-width="0.7" opacity="1"/>
+<rect x="1230" y="486" width="72" height="18" rx="0" fill="#86efac" stroke="#15803d" stroke-width="0.7" opacity="1"/>
+<rect x="1518" y="486" width="72" height="18" rx="0" fill="#86efac" stroke="#15803d" stroke-width="0.7" opacity="1"/>
+<rect x="1374" y="396" width="18" height="72" rx="0" fill="#86efac" stroke="#15803d" stroke-width="0.7" opacity="1"/>
+<text x="1194" y="363.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">员工桌</text>
+<text x="1293" y="363.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">更衣柜</text>
+<text x="1185" y="435.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">休息椅</text>
+<text x="1302" y="453.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">餐桌</text>
+<text x="1347" y="363.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">05</text>
+<text x="1455" y="363.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">储物架</text>
+<text x="1572" y="363.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">验收台</text>
+<text x="1455" y="471.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">打包台</text>
+<text x="1635" y="417.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">隔离架</text>
+<text x="1635" y="471.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">分袋台</text>
+<text x="1221" y="597.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">货架A</text>
+<text x="1347" y="597.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">文具架</text>
+<text x="1446" y="597.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">货架B</text>
+<text x="1536" y="579.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">热食台</text>
+<text x="1626" y="561.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">冰柜</text>
+<text x="1644" y="651.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">饮料冷柜</text>
+<text x="1644" y="516.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">水槽</text>
+<text x="1239" y="777.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">收银台</text>
+<text x="1194" y="813.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">柜台侧翼</text>
+<text x="1203" y="705.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">保留座</text>
+<text x="1338" y="813.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">失物柜</text>
+<text x="1500" y="813.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">提货架</text>
+<text x="1626" y="795.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">核验台</text>
+<text x="1527" y="219.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">垃圾箱</text>
+<text x="1509" y="291.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">回收箱</text>
+<text x="1239" y="957.5" font-size="10" fill="#334155" font-weight="500" text-anchor="middle">门前长椅</text>
+<rect x="1140" y="324" width="540" height="540" rx="0" fill="none" stroke="#0f172a" stroke-width="2" opacity="1"/>
+<text x="1320" y="986.4" font-size="16" fill="#64748b" font-weight="600" text-anchor="middle">店前空地</text>
+<text x="1581" y="191.7" font-size="14" fill="#64748b" font-weight="600" text-anchor="middle">后院垃圾区</text>
+<text x="1716" y="612" font-size="14" fill="#64748b" font-weight="600" text-anchor="middle">东</text>
+<text x="1716" y="630" font-size="14" fill="#64748b" font-weight="600" text-anchor="middle">侧</text>
+<text x="1716" y="648" font-size="14" fill="#64748b" font-weight="600" text-anchor="middle">巷</text>
+<text x="1140" y="1029.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="middle">0</text>
+<text x="1230" y="1029.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="middle">5</text>
+<text x="1320" y="1029.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="middle">10</text>
+<text x="1410" y="1029.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="middle">15</text>
+<text x="1500" y="1029.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="middle">20</text>
+<text x="1590" y="1029.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="middle">25</text>
+<text x="1680" y="1029.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="middle">30</text>
+<text x="1128" y="237.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="end">-5</text>
+<text x="1128" y="327.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="end">0</text>
+<text x="1128" y="417.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="end">5</text>
+<text x="1128" y="507.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="end">10</text>
+<text x="1128" y="597.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="end">15</text>
+<text x="1128" y="687.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="end">20</text>
+<text x="1128" y="777.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="end">25</text>
+<text x="1128" y="867.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="end">30</text>
+<text x="1128" y="957.6" font-size="12" fill="#64748b" font-weight="400" text-anchor="end">35</text>
+<text x="1158" y="196.2" font-size="14" fill="#334155" font-weight="700" text-anchor="start">店内五区 · 30×30 格</text>
+<rect x="1158" y="200.5" width="12" height="12" rx="0" fill="#e0f2fe" stroke="#94a3b8" stroke-width="1" opacity="1"/>
+<text x="1178" y="211.5" font-size="13" fill="#475569" font-weight="400" text-anchor="start">Z01  前场收银</text>
+<rect x="1158" y="220.5" width="12" height="12" rx="0" fill="#ecfccb" stroke="#94a3b8" stroke-width="1" opacity="1"/>
+<text x="1178" y="231.5" font-size="13" fill="#475569" font-weight="400" text-anchor="start">Z02  商品货架</text>
+<rect x="1158" y="240.5" width="12" height="12" rx="0" fill="#dbeafe" stroke="#94a3b8" stroke-width="1" opacity="1"/>
+<text x="1178" y="251.5" font-size="13" fill="#475569" font-weight="400" text-anchor="start">Z03  熟食与冷链</text>
+<rect x="1158" y="260.5" width="12" height="12" rx="0" fill="#fef3c7" stroke="#94a3b8" stroke-width="1" opacity="1"/>
+<text x="1178" y="271.5" font-size="13" fill="#475569" font-weight="400" text-anchor="start">Z04  库房与验收</text>
+<rect x="1158" y="280.5" width="12" height="12" rx="0" fill="#f3e8ff" stroke="#94a3b8" stroke-width="1" opacity="1"/>
+<text x="1178" y="291.5" font-size="13" fill="#475569" font-weight="400" text-anchor="start">Z05  员工与设备</text>
+<polyline points="1419,837 1437,837 1455,837 1473,837 1491,837 1509,837 1527,837 1545,837 1563,837 1581,837 1581,819 1581,801 1581,783 1581,765 1581,747 1581,729 1581,711 1581,693 1581,675 1581,657 1581,639 1581,621 1581,603 1581,585 1581,567 1581,549 1581,531 1581,513 1581,495 1581,477 1599,477 1599,459 1599,441 1599,423 1599,405 1599,387 1617,387 1635,387 1635,369 1635,351" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="4 4" opacity=".65"/>
+<rect x="1374" y="810" width="18" height="18" rx="0" fill="#0891b2" stroke="#0891b2" stroke-width="1" opacity="0.6"/>
+<rect x="1374" y="828" width="18" height="18" rx="0" fill="#0891b2" stroke="#0891b2" stroke-width="1" opacity="0.6"/>
+<rect x="1374" y="846" width="18" height="18" rx="0" fill="#0891b2" stroke="#0891b2" stroke-width="1" opacity="0.6"/>
+<rect x="1374" y="864" width="18" height="18" rx="0" fill="#0891b2" stroke="#0891b2" stroke-width="1" opacity="0.6"/>
+<rect x="1374" y="882" width="18" height="18" rx="0" fill="#0891b2" stroke="#0891b2" stroke-width="1" opacity="0.6"/>
+<rect x="1392" y="810" width="18" height="18" rx="0" fill="#0891b2" stroke="#0891b2" stroke-width="1" opacity="0.6"/>
+<circle cx="1383" cy="891" r="4.5" fill="#0891b2" stroke="#ffffff" stroke-width="1.3"/>
+<path d="M1378,850 L1388,860" stroke="#ffffff" stroke-width="2.4" fill="none"/>
+<path d="M1378,860 L1388,850" stroke="#ffffff" stroke-width="2.4" fill="none"/>
+<path d="M1401,849L1407,855L1401,861L1395,855Z" fill="#ffffff" stroke="#14532d" stroke-width="2"/>
+<path d="M1383,855 L1339,863" stroke="#0891b2" stroke-width="1.4" fill="none"/>
+<rect x="1324.84" y="852" width="28.32" height="22" rx="5" fill="#0891b2" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="1339" y="867" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle">W1</text>
+<rect x="1554" y="504" width="18" height="18" rx="0" fill="#2563eb" stroke="#2563eb" stroke-width="1" opacity="0.6"/>
+<rect x="1572" y="504" width="18" height="18" rx="0" fill="#2563eb" stroke="#2563eb" stroke-width="1" opacity="0.6"/>
+<rect x="1590" y="504" width="18" height="18" rx="0" fill="#2563eb" stroke="#2563eb" stroke-width="1" opacity="0.6"/>
+<rect x="1608" y="504" width="18" height="18" rx="0" fill="#2563eb" stroke="#2563eb" stroke-width="1" opacity="0.6"/>
+<rect x="1554" y="522" width="18" height="18" rx="0" fill="#2563eb" stroke="#2563eb" stroke-width="1" opacity="0.6"/>
+<rect x="1554" y="540" width="18" height="18" rx="0" fill="#2563eb" stroke="#2563eb" stroke-width="1" opacity="0.6"/>
+<circle cx="1617" cy="513" r="4.5" fill="#2563eb" stroke="#ffffff" stroke-width="1.3"/>
+<path d="M1576,508 L1586,518" stroke="#ffffff" stroke-width="2.4" fill="none"/>
+<path d="M1576,518 L1586,508" stroke="#ffffff" stroke-width="2.4" fill="none"/>
+<path d="M1581,525L1587,531L1581,537L1575,531Z" fill="#ffffff" stroke="#14532d" stroke-width="2"/>
+<path d="M1581,513 L1546,488" stroke="#2563eb" stroke-width="1.4" fill="none"/>
+<rect x="1531.84" y="477" width="28.32" height="22" rx="5" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="1546" y="492" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle">W2</text>
+<rect x="1644" y="216" width="18" height="18" rx="0" fill="#0f766e" stroke="#0f766e" stroke-width="1" opacity="0.6"/>
+<rect x="1644" y="234" width="18" height="18" rx="0" fill="#0f766e" stroke="#0f766e" stroke-width="1" opacity="0.6"/>
+<rect x="1644" y="252" width="18" height="18" rx="0" fill="#0f766e" stroke="#0f766e" stroke-width="1" opacity="0.6"/>
+<rect x="1644" y="270" width="18" height="18" rx="0" fill="#0f766e" stroke="#0f766e" stroke-width="1" opacity="0.6"/>
+<rect x="1644" y="288" width="18" height="18" rx="0" fill="#0f766e" stroke="#0f766e" stroke-width="1" opacity="0.6"/>
+<rect x="1644" y="306" width="18" height="18" rx="0" fill="#0f766e" stroke="#0f766e" stroke-width="1" opacity="0.6"/>
+<rect x="1644" y="324" width="18" height="18" rx="0" fill="#0f766e" stroke="#0f766e" stroke-width="1" opacity="0.6"/>
+<rect x="1644" y="342" width="18" height="18" rx="0" fill="#0f766e" stroke="#0f766e" stroke-width="1" opacity="0.6"/>
+<rect x="1644" y="360" width="18" height="18" rx="0" fill="#0f766e" stroke="#0f766e" stroke-width="1" opacity="0.6"/>
+<circle cx="1653" cy="225" r="4.5" fill="#0f766e" stroke="#ffffff" stroke-width="1.3"/>
+<path d="M1648,310 L1658,320" stroke="#ffffff" stroke-width="2.4" fill="none"/>
+<path d="M1648,320 L1658,310" stroke="#ffffff" stroke-width="2.4" fill="none"/>
+<path d="M1635,309L1641,315L1635,321L1629,315Z" fill="#ffffff" stroke="#14532d" stroke-width="2"/>
+<path d="M1653,315 L1688,297" stroke="#0f766e" stroke-width="1.4" fill="none"/>
+<rect x="1673.84" y="286" width="28.32" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="1688" y="301" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle">W3</text>
+<rect x="1284" y="576" width="18" height="18" rx="0" fill="#7c3aed" stroke="#7c3aed" stroke-width="1" opacity="0.6"/>
+<rect x="1284" y="594" width="18" height="18" rx="0" fill="#7c3aed" stroke="#7c3aed" stroke-width="1" opacity="0.6"/>
+<rect x="1284" y="612" width="18" height="18" rx="0" fill="#7c3aed" stroke="#7c3aed" stroke-width="1" opacity="0.6"/>
+<rect x="1284" y="630" width="18" height="18" rx="0" fill="#7c3aed" stroke="#7c3aed" stroke-width="1" opacity="0.6"/>
+<rect x="1284" y="648" width="18" height="18" rx="0" fill="#7c3aed" stroke="#7c3aed" stroke-width="1" opacity="0.6"/>
+<rect x="1284" y="666" width="18" height="18" rx="0" fill="#7c3aed" stroke="#7c3aed" stroke-width="1" opacity="0.6"/>
+<circle cx="1293" cy="585" r="4.5" fill="#7c3aed" stroke="#ffffff" stroke-width="1.3"/>
+<path d="M1288,634 L1298,644" stroke="#ffffff" stroke-width="2.4" fill="none"/>
+<path d="M1288,644 L1298,634" stroke="#ffffff" stroke-width="2.4" fill="none"/>
+<path d="M1275,633L1281,639L1275,645L1269,639Z" fill="#ffffff" stroke="#14532d" stroke-width="2"/>
+<path d="M1293,639 L1259,619" stroke="#7c3aed" stroke-width="1.4" fill="none"/>
+<rect x="1244.84" y="608" width="28.32" height="22" rx="5" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="1259" y="623" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle">W4</text>
+<rect x="1158" y="468" width="18" height="18" rx="0" fill="#d97706" stroke="#d97706" stroke-width="1" opacity="0.6"/>
+<rect x="1176" y="468" width="18" height="18" rx="0" fill="#d97706" stroke="#d97706" stroke-width="1" opacity="0.6"/>
+<rect x="1194" y="468" width="18" height="18" rx="0" fill="#d97706" stroke="#d97706" stroke-width="1" opacity="0.6"/>
+<rect x="1194" y="450" width="18" height="18" rx="0" fill="#d97706" stroke="#d97706" stroke-width="1" opacity="0.6"/>
+<circle cx="1167" cy="477" r="4.5" fill="#d97706" stroke="#ffffff" stroke-width="1.3"/>
+<path d="M1198,472 L1208,482" stroke="#ffffff" stroke-width="2.4" fill="none"/>
+<path d="M1198,482 L1208,472" stroke="#ffffff" stroke-width="2.4" fill="none"/>
+<path d="M1221,471L1227,477L1221,483L1215,477Z" fill="#ffffff" stroke="#14532d" stroke-width="2"/>
+<path d="M1203,477 L1187,506" stroke="#d97706" stroke-width="1.4" fill="none"/>
+<rect x="1172.84" y="495" width="28.32" height="22" rx="5" fill="#d97706" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="1187" y="510" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle">W5</text>
+<circle cx="1419" cy="909" r="9" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+<text x="1432" y="913" font-size="12" fill="#0f172a" font-weight="700" text-anchor="start">E1</text>
+<circle cx="1635" cy="261" r="9" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+<text x="1648" y="265" font-size="12" fill="#0f172a" font-weight="700" text-anchor="start">E2/6</text>
+<circle cx="1401" cy="675" r="9" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+<text x="1414" y="679" font-size="12" fill="#0f172a" font-weight="700" text-anchor="start">E3</text>
+<circle cx="1491" cy="783" r="9" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+<text x="1504" y="787" font-size="12" fill="#0f172a" font-weight="700" text-anchor="start">E4</text>
+<circle cx="1293" cy="729" r="9" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+<text x="1306" y="733" font-size="12" fill="#0f172a" font-weight="700" text-anchor="start">E5</text>
+<rect x="1590" y="378" width="36" height="18" rx="0" fill="#ef4444" stroke="#b91c1c" stroke-width="2" opacity="0.65"/>
+<path d="M1599,387 L1563,417.6" stroke="#b91c1c" stroke-width="1.5" fill="none"/>
+<rect x="1548.84" y="406.6" width="28.32" height="22" rx="5" fill="#b91c1c" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="1563" y="421.6" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle">L1</text>
+<text x="1798" y="180" font-size="21" fill="#1e293b" font-weight="700" text-anchor="start">湿区：水源—割点—干侧</text>
+<rect x="1801.84" y="209" width="28.32" height="22" rx="5" fill="#0891b2" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="1816" y="224" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle">W1</text>
+<text x="1842" y="225" font-size="16" fill="#1e293b" font-weight="600" text-anchor="start">前门左侧雨线</text>
+<text x="1842" y="246" font-size="13" fill="#475569" font-weight="400" text-anchor="start">6 格；割点 (13,29)</text>
+<text x="1842" y="266" font-size="13" fill="#475569" font-weight="400" text-anchor="start">干侧操作 (14.5,29.5)</text>
+<rect x="1801.84" y="276" width="28.32" height="22" rx="5" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="1816" y="291" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle">W2</text>
+<text x="1842" y="292" font-size="16" fill="#1e293b" font-weight="600" text-anchor="start">水槽西侧短漏水线</text>
+<text x="1842" y="313" font-size="13" fill="#475569" font-weight="400" text-anchor="start">6 格；割点 (24,10)</text>
+<text x="1842" y="333" font-size="13" fill="#475569" font-weight="400" text-anchor="start">干侧操作 (24.5,11.5)</text>
+<rect x="1801.84" y="343" width="28.32" height="22" rx="5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="1816" y="358" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle">W3</text>
+<text x="1842" y="359" font-size="16" fill="#1e293b" font-weight="600" text-anchor="start">后院东侧沟到门内渗水</text>
+<text x="1842" y="380" font-size="13" fill="#475569" font-weight="400" text-anchor="start">9 格；割点 (28,-1)</text>
+<text x="1842" y="400" font-size="13" fill="#475569" font-weight="400" text-anchor="start">干侧操作 (27.5,-0.5)</text>
+<rect x="1801.84" y="410" width="28.32" height="22" rx="5" fill="#7c3aed" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="1816" y="425" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle">W4</text>
+<text x="1842" y="426" font-size="16" fill="#1e293b" font-weight="600" text-anchor="start">货架环路积水片</text>
+<text x="1842" y="447" font-size="13" fill="#475569" font-weight="400" text-anchor="start">6 格；割点 (8,17)</text>
+<text x="1842" y="467" font-size="13" fill="#475569" font-weight="400" text-anchor="start">干侧操作 (7.5,17.5)</text>
+<rect x="1801.84" y="477" width="28.32" height="22" rx="5" fill="#d97706" stroke="#ffffff" stroke-width="1.5" opacity="1"/>
+<text x="1816" y="492" font-size="12" fill="#ffffff" font-weight="700" text-anchor="middle">W5</text>
+<text x="1842" y="493" font-size="16" fill="#1e293b" font-weight="600" text-anchor="start">员工椅南侧短水线</text>
+<text x="1842" y="514" font-size="13" fill="#475569" font-weight="400" text-anchor="start">4 格；割点 (3,8)</text>
+<text x="1842" y="534" font-size="13" fill="#475569" font-weight="400" text-anchor="start">干侧操作 (4.5,8.5)</text>
+<text x="1798" y="570" font-size="14" fill="#475569" font-weight="400" text-anchor="start">实心点：水源   白 ×：割点</text>
+<text x="1798" y="593" font-size="14" fill="#475569" font-weight="400" text-anchor="start">白菱形：干侧操作   圆圈：入口</text>
+<text x="1798" y="631" font-size="19" fill="#1e293b" font-weight="700" text-anchor="start">入口档案（共点合并标记）</text>
+<text x="1798" y="659" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">E1  正门公开来客</text>
+<text x="1798" y="684" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">E2  后门有限验收</text>
+<text x="1798" y="709" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">E3  货架预告后显现</text>
+<text x="1798" y="734" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">E4  物件附着：测试位</text>
+<text x="1798" y="759" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">E5  F12 原蓝图出生位</text>
+<text x="1798" y="784" font-size="15" fill="#1e293b" font-weight="400" text-anchor="start">E6  F13 后门接近肉箱</text>
+<rect x="1798" y="818" width="338" height="193" rx="8" fill="#fff1f2" stroke="#fda4af" stroke-width="1" opacity="1"/>
+<text x="1810" y="848" font-size="19" fill="#991b1b" font-weight="700" text-anchor="start">红框 L1：后场窄连接</text>
+<text x="1810" y="878" font-size="14" fill="#475569" font-weight="400" text-anchor="start">0.3 格半径：店内 39 格可达。</text>
+<text x="1810" y="905" font-size="14" fill="#b91c1c" font-weight="600" text-anchor="start">0.75 格半径：店内不可达。</text>
+<text x="1810" y="932" font-size="14" fill="#475569" font-weight="400" text-anchor="start">宽体外绕 59 格，须双门可通。</text>
+<text x="1810" y="959" font-size="14" fill="#991b1b" font-weight="600" text-anchor="start">不启用体型成长；仍需碰撞实测。</text>
+<text x="40" y="1100" font-size="17" fill="#334155" font-weight="400" text-anchor="start">两幅地图比例一致：1 格 = 18 px。墙、设备、五区与内外轮廓直接读取底图；所有新增点直接读取 V0.5 补件。</text>
+<text x="40" y="1129" font-size="16" fill="#475569" font-weight="400" text-anchor="start">静态校验 PASS（477 项）。路径虚线仅表示基础角色的店内格心路线；并非全图三格宽，也不代表动态避让通过。</text>
+<text x="40" y="1157" font-size="16" fill="#64748b" font-weight="400" text-anchor="start">这是设计规格图，非游戏运行截图。移动碰撞、触屏、黑视可读性、动态怪物与微信实机仍待实现和验证。</text>
+</svg>

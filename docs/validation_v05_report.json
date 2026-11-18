@@ -1,0 +1,431 @@
+{
+  "version": "0.5",
+  "recorded_date": "2026-11-18",
+  "status": "PASS",
+  "base_commit": "5b6dcd8dbcd86f99520ceca6e1ead47ac0381730",
+  "client_implemented": false,
+  "playtest_completed": false,
+  "scope": "设计引用、静态地图与局部无画面合同；不代表完整60怪AI、动态联动、触控手感、趣味性或微信运行已验证。",
+  "checks": [
+    {
+      "name": "shared",
+      "command": "python3 scripts/validate_content.py",
+      "exit_code": 0,
+      "report": {
+        "status": "PASS",
+        "checks": 5057,
+        "counts": {
+          "monsters": 60,
+          "default_enabled_monsters": 59,
+          "events": 72,
+          "rules": 20,
+          "temporary_items": 24,
+          "equipment": 24,
+          "pets": 8,
+          "synergy_cases": 18,
+          "sources": 63,
+          "shared_verbs": 10,
+          "work_templates": 16,
+          "qte_templates": 3,
+          "rule_components": 8,
+          "event_variants": 12,
+          "encounter_blueprints": 2,
+          "deployables": 8,
+          "legacy_complete_encounter_designs": 60,
+          "legacy_encounter_event_variants": 120,
+          "mechanism_modules": 12,
+          "map_scenes": 4
+        },
+        "scope": "Shared catalogs and preserved V0.4 history only; run validate_design_v05.py for current gameplay. Static/headless checks do not validate navigation, touch UI, phone performance or play balance.",
+        "errors": []
+      }
+    },
+    {
+      "name": "current",
+      "command": "python3 scripts/validate_design_v05.py",
+      "exit_code": 0,
+      "report": {
+        "status": "PASS",
+        "checks": 2628,
+        "counts": {
+          "current_monsters": 60,
+          "current_variants": 120,
+          "store_mechanisms": 10,
+          "primary_mechanism_distribution": {
+            "SG07": 9,
+            "SG08": 6,
+            "SG06": 6,
+            "SG09": 6,
+            "SG05": 6,
+            "SG10": 10,
+            "SG04": 9,
+            "SG02": 4,
+            "SG01": 3,
+            "SG03": 1
+          }
+        },
+        "scope": "Current design coverage, links, budgets and authored invariants. No full monster runtime, dynamic route or fun validation.",
+        "errors": []
+      }
+    },
+    {
+      "name": "base_map",
+      "command": "python3 scripts/validate_maps.py",
+      "exit_code": 0,
+      "report": {
+        "status": "PASS",
+        "viewport_ratio": 5,
+        "counter_distance_tiles": 4,
+        "errors": [],
+        "tutorial_spawn_distance_tiles": 5.83,
+        "local_timing_checks": [
+          {
+            "id": "F10",
+            "timed_local_seconds": 2.67,
+            "window_seconds": 6
+          },
+          {
+            "id": "F32",
+            "timed_local_seconds": 0.93,
+            "window_seconds": 4
+          },
+          {
+            "id": "F50_front_pair",
+            "timed_local_seconds": 7.33,
+            "window_seconds": 8
+          },
+          {
+            "id": "F50_rear_pair",
+            "timed_local_seconds": 6.67,
+            "window_seconds": 8
+          },
+          {
+            "id": "F57",
+            "timed_local_seconds": 5.22,
+            "window_seconds": 8,
+            "box_path_tiles": 2
+          }
+        ],
+        "limits": "Static four-neighbor tile paths with doors fixed at scenario start. No moving enemies, collision radius sweep, timing AI, field-of-view renderer, touch UI or arbitrary event combinations were simulated.",
+        "routes": [
+          {
+            "id": "R01",
+            "name": "验收到货架",
+            "length_tiles": 29,
+            "movement_seconds": 12.08,
+            "speed": 2.4,
+            "segment_speeds": [
+              2.4
+            ],
+            "closed_doors": []
+          },
+          {
+            "id": "R02",
+            "name": "任务生肉入主冰柜",
+            "length_tiles": 20,
+            "movement_seconds": 7.69,
+            "speed": 2.6,
+            "segment_speeds": [
+              2.6
+            ],
+            "closed_doors": []
+          },
+          {
+            "id": "R03",
+            "name": "封袋送垃圾箱",
+            "length_tiles": 16,
+            "movement_seconds": 6.67,
+            "speed": 2.4,
+            "segment_speeds": [
+              2.4
+            ],
+            "closed_doors": []
+          },
+          {
+            "id": "R04",
+            "name": "回形针架到正门店外",
+            "length_tiles": 17,
+            "movement_seconds": 5.67,
+            "speed": 3,
+            "segment_speeds": [
+              3
+            ],
+            "closed_doors": []
+          },
+          {
+            "id": "R05",
+            "name": "柜台修电往返",
+            "length_tiles": 60,
+            "movement_seconds": 20,
+            "speed": 3,
+            "segment_speeds": [
+              3,
+              3
+            ],
+            "closed_doors": []
+          },
+          {
+            "id": "R06",
+            "name": "后门关闭时外环清运",
+            "length_tiles": 88,
+            "movement_seconds": 36.67,
+            "speed": 2.4,
+            "segment_speeds": [
+              2.4
+            ],
+            "closed_doors": [
+              "DOOR_REAR"
+            ]
+          },
+          {
+            "id": "R07",
+            "name": "冷链通道关闭备用路",
+            "length_tiles": 36,
+            "movement_seconds": 13.85,
+            "speed": 2.6,
+            "segment_speeds": [
+              2.6
+            ],
+            "closed_doors": [
+              "DOOR_COLD"
+            ]
+          },
+          {
+            "id": "R08",
+            "name": "四区主巡店回路",
+            "length_tiles": 106,
+            "movement_seconds": 35.33,
+            "speed": 3,
+            "segment_speeds": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "closed_doors": []
+          },
+          {
+            "id": "R09",
+            "name": "巨魔两批搬货并回柜台",
+            "length_tiles": 144,
+            "movement_seconds": 54.83,
+            "speed": 3,
+            "segment_speeds": [
+              2.4,
+              3,
+              2.4,
+              3
+            ],
+            "closed_doors": []
+          },
+          {
+            "id": "R10",
+            "name": "双重身三工位证据链",
+            "length_tiles": 89,
+            "movement_seconds": 29.67,
+            "speed": 3,
+            "segment_speeds": [
+              3,
+              3,
+              3,
+              3,
+              3
+            ],
+            "closed_doors": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "map_mechanics",
+      "command": "python3 scripts/validate_map_mechanics_v05.py",
+      "exit_code": 0,
+      "report": {
+        "status": "PASS",
+        "checks": 477,
+        "errors": [],
+        "counts": {
+          "objects": 19,
+          "spatial_groups": 12,
+          "wet_regions": 5,
+          "defense_groups": 2,
+          "entry_profiles": 6
+        },
+        "water": [
+          {
+            "id": "WET_FRONT",
+            "wet_cells": 6,
+            "cut_disconnects_target": true,
+            "dry_controls_and_required_paths_checked": true
+          },
+          {
+            "id": "WET_COLD",
+            "wet_cells": 6,
+            "cut_disconnects_target": true,
+            "dry_controls_and_required_paths_checked": true
+          },
+          {
+            "id": "WET_REAR",
+            "wet_cells": 9,
+            "cut_disconnects_target": true,
+            "dry_controls_and_required_paths_checked": true
+          },
+          {
+            "id": "WET_AISLE",
+            "wet_cells": 6,
+            "cut_disconnects_target": true,
+            "dry_controls_and_required_paths_checked": true
+          },
+          {
+            "id": "WET_CHAIR",
+            "wet_cells": 4,
+            "cut_disconnects_target": true,
+            "dry_controls_and_required_paths_checked": true
+          }
+        ],
+        "defense": [
+          {
+            "id": "DEF_FRONT_PAIR",
+            "maximum_authored_seconds": 7.33,
+            "warning_seconds": 8,
+            "runtime_approach_limit_tiles": 12
+          },
+          {
+            "id": "DEF_REAR_PAIR",
+            "maximum_authored_seconds": 7,
+            "warning_seconds": 8,
+            "runtime_approach_limit_tiles": 12
+          }
+        ],
+        "routes": [
+          {
+            "id": "OV_F21_ROSTER",
+            "path_tiles": 2,
+            "movement_seconds": 0.67,
+            "max_seconds": 3
+          },
+          {
+            "id": "OV_F10_EVIDENCE",
+            "path_tiles": 2,
+            "movement_seconds": 0.67,
+            "max_seconds": 2
+          },
+          {
+            "id": "OV_VERIFY_READER",
+            "path_tiles": 6,
+            "movement_seconds": 2,
+            "max_seconds": 4
+          },
+          {
+            "id": "OV_F60_CURTAIN",
+            "path_tiles": 2,
+            "movement_seconds": 0.67,
+            "max_seconds": 1
+          },
+          {
+            "id": "OV_F17_PARCEL",
+            "path_tiles": 0,
+            "movement_seconds": 0,
+            "max_seconds": 1
+          }
+        ],
+        "clearance_probes": [
+          {
+            "id": "PROBE_WIDE_EXTERNAL_ROUTE",
+            "radius_tiles": 0.75,
+            "path_tiles": 59,
+            "uses_exterior": true,
+            "meaning": "Specific center-path clearance only, not all store aisles"
+          },
+          {
+            "id": "PROBE_SHELF_LOOP",
+            "radius_tiles": 0.75,
+            "path_tiles": 11,
+            "uses_exterior": false,
+            "meaning": "Specific center-path clearance only, not all store aisles"
+          },
+          {
+            "id": "PROBE_PLAYER_INTERIOR",
+            "radius_tiles": 0.3,
+            "path_tiles": 39,
+            "uses_exterior": false,
+            "meaning": "Specific center-path clearance only, not all store aisles"
+          }
+        ],
+        "known_geometry_limits": [
+          {
+            "id": "LIM_WIDE_INTERIOR_TO_REAR",
+            "radius_tiles": 0.75,
+            "interior_route_reachable": false,
+            "admission_gate": "需要店内前后通行的追逐使用现版0.3格半径；未重做地图与动态验证前禁止体型成长或宽体怪强占此路线。外部宽路线另需双门可通及59格行程预算。"
+          }
+        ],
+        "limitations": "仅静态格网、具名位置、局部路线、湿区割点、宽通道段和半径探针；不宣称客户端、60怪AI或所有事件组合已完成。"
+      }
+    },
+    {
+      "name": "canonical_rules",
+      "command": "node prototype/check_rule_core.mjs",
+      "exit_code": 0,
+      "report": {
+        "status": "PASS",
+        "scenarioCount": 21,
+        "scenarios": [
+          "Low SAN visibly narrows timing, with a 0.6 second floor",
+          "All SAN bands keep a usable center and continuous numeric coverage",
+          "F47 uses one three-second QTE with per-segment windows and exact nonstacking pet help",
+          "Facing uses the avatar direction and static occlusion",
+          "Distance bounds allow exact boundary and reject too close/far",
+          "Closeups cannot pause a chase or bypass spatial/budget restrictions",
+          "Started cancellations pay once and do not complete work",
+          "Paperclip scatter consumes one charge only for a legal world placement",
+          "F12 defaults to player and does not clear from an unbaited exit",
+          "F12 picks reachable bait, locks target, and ignores arbitrary metal",
+          "F12 eating pauses attacks and consumes its bait once before reselecting",
+          "F12 clears only after the lured body holds beyond the exit, then stays cleared",
+          "Expired bait returns F12 to chasing, without adding growth",
+          "P04 extends the current eating pause once and cannot create a second extension",
+          "F13 seeks meat, telegraphs touch, then persists in chase after the meat is dropped",
+          "F13 can be prevented by early delivery; success wins simultaneous touch",
+          "Touching unrelated food cannot trigger the registered meat encounter",
+          "Committed delivery survives same-frame power loss before enemy evaluation",
+          "Unavailable, distant and wrong freezers cannot lose the meat or clear the encounter",
+          "F13 remains terminal after later freezer opening or power loss",
+          "First contact applies a discrete injury and shared grace, not instant failure"
+        ],
+        "scope": "Pure rule transitions and configuration only. No navigation, rendering, touch UI, performance or WeChat runtime verified."
+      }
+    },
+    {
+      "name": "store_contracts",
+      "command": "node prototype/check_store_core_v05.mjs",
+      "exit_code": 0,
+      "report": {
+        "status": "PASS",
+        "suite": "V0.5 store contracts",
+        "scenarios": 17,
+        "scope": "headless invariants only; no client, navigation, touch or fun validation",
+        "passed_scenarios": [
+          "12-unit spending examples reconcile",
+          "power transactions commit once and pause produces no benefit",
+          "battery cannot recharge both lamp and reserve or twice per night",
+          "shutter cannot block required exit; free manual mode remains at zero reserve",
+          "shutter expires on world clock and does not resolve an admitted monster",
+          "quiet greeting and window cost one manual confirmation, not two",
+          "changing service mode or greeting cancels work without resetting patience",
+          "mode toggling never resets waiting customer patience",
+          "orders need actual world service and settle once",
+          "browse orders require observed entry; a permanently closed shop cannot take every order",
+          "one continuous violation is one episode; different monsters do not share strikes",
+          "work debt stays at one and total wage deduction at 20",
+          "clearing a debt avoids deduction and cannot reproduce it",
+          "low orders reduce grade and rewards, not safe shift completion",
+          "player evidence excludes truth keys and one photo is one independent root",
+          "design completeness cannot enable an unimplemented or unsafe encounter",
+          "zero reserve does not block canonical F13 meat delivery or revive completion"
+        ]
+      }
+    }
+  ]
+}

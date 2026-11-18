@@ -1,5 +1,5 @@
 {
-  "version": "0.3",
+  "version": "0.5",
   "status": "design_only_not_implemented",
   "ordering": "先做便利店动作和工作模板，再配置怪物的空间/状态条件，最后用事件改变参数。",
   "space_contract": {
@@ -183,7 +183,14 @@
       "implementation_cost": "低：一个共享扫码窗与订单列表。",
       "movement_cost": "actual_path_length_tiles / 3.0 when empty-handed; normal heavy box uses 2.4 tiles/second; reserve travel separately",
       "budget_policy": "入场前预留路径、操作与一次可见补救窗口；一起装入阶段120秒工作预算，不跨阶段偷偷补做。",
-      "chase_policy": "closeup_blocked_during_active_chase"
+      "chase_policy": "closeup_blocked_during_active_chase",
+      "normal_case_v05": {
+        "scale": "world",
+        "seconds": 1.5,
+        "qte": false,
+        "automatic_change": true,
+        "description": "站在柜台将普通篮交付，短动作确认一次；异常订单按怪物绑定的取放/同一物件/距离规则处理。"
+      }
     },
     {
       "id": "W02",
@@ -217,7 +224,13 @@
       "implementation_cost": "低：离散面额和数量，无硬币刚体。",
       "movement_cost": "actual_path_length_tiles / 3.0 when empty-handed; normal heavy box uses 2.4 tiles/second; reserve travel separately",
       "budget_policy": "入场前预留路径、操作与一次可见补救窗口；一起装入阶段120秒工作预算，不跨阶段偷偷补做。",
-      "chase_policy": "closeup_blocked_during_active_chase"
+      "chase_policy": "closeup_blocked_during_active_chase",
+      "normal_case_v05": {
+        "automatic": true,
+        "included_in": "W01",
+        "standalone_seconds": 0,
+        "exception": "图尤尔零钱/普卡重复退款等异常才暴露找零盘或物件身份。"
+      }
     },
     {
       "id": "W03",
@@ -312,7 +325,12 @@
       "implementation_cost": "低：库存转移与进度条。",
       "movement_cost": "actual_path_length_tiles / 3.0 when empty-handed; normal heavy box uses 2.4 tiles/second; reserve travel separately",
       "budget_policy": "入场前预留路径、操作与一次可见补救窗口；一起装入阶段120秒工作预算，不跨阶段偷偷补做。",
-      "chase_policy": "world_actions_allowed_subject_to_rules"
+      "chase_policy": "world_actions_allowed_subject_to_rules",
+      "normal_case_v05": {
+        "repeat_detail_simplified": true,
+        "retain_carry_and_object_state": true,
+        "reference": "content/store_systems_v05.json#/duties"
+      }
     },
     {
       "id": "W06",
@@ -377,7 +395,12 @@
       "implementation_cost": "中：共享短配方加一个QTE；温度用离散状态。",
       "movement_cost": "actual_path_length_tiles / 3.0 when empty-handed; normal heavy box uses 2.4 tiles/second; reserve travel separately",
       "budget_policy": "入场前预留路径、操作与一次可见补救窗口；一起装入阶段120秒工作预算，不跨阶段偷偷补做。",
-      "chase_policy": "closeup_blocked_during_active_chase"
+      "chase_policy": "closeup_blocked_during_active_chase",
+      "normal_case_v05": {
+        "repeat_detail_simplified": true,
+        "retain_carry_and_object_state": true,
+        "reference": "content/store_systems_v05.json#/duties"
+      }
     },
     {
       "id": "W08",
@@ -434,7 +457,12 @@
       "implementation_cost": "低：容器状态及两步配方。",
       "movement_cost": "actual_path_length_tiles / 3.0 when empty-handed; normal heavy box uses 2.4 tiles/second; reserve travel separately",
       "budget_policy": "入场前预留路径、操作与一次可见补救窗口；一起装入阶段120秒工作预算，不跨阶段偷偷补做。",
-      "chase_policy": "closeup_blocked_during_active_chase"
+      "chase_policy": "closeup_blocked_during_active_chase",
+      "normal_case_v05": {
+        "repeat_detail_simplified": true,
+        "retain_carry_and_object_state": true,
+        "reference": "content/store_systems_v05.json#/duties"
+      }
     },
     {
       "id": "W10",
@@ -738,5 +766,8 @@
     "同一库存物件跨取、放、搬、存不会复制；同一工作回执不能重复刷阶段完成或交易量。",
     "特写阅读准备阶段取消免费；点击开始操作后，无论在首个QTE命中前还是命中后取消/失败，均只结算同一份已明示承诺成本一次。"
   ],
-  "event_variants_reference": "event_variants.json"
+  "event_variants_reference": "event_variants.json",
+  "v05_normal_work_policy": "content/store_systems_v05.json#/work_contract",
+  "work_templates_schedule_semantics": "phases只安排普通主工单；已解锁动作可被其他小时的怪借用，按encounters_v05.allowed_phases入场。",
+  "legacy_precision_templates_scope": "需要物件辨别/计量/修复的异常任务才调用相应特写；普通收银找零不要求QTE。"
 }
