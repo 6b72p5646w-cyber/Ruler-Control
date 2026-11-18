@@ -1,5 +1,5 @@
 {
-  "version": "0.7",
+  "version": "0.8",
   "schema_version": 1,
   "total": 60,
   "supersedes": "V0.1 M01-M60 are not adopted; all current candidates use F identifiers.",
@@ -1539,10 +1539,11 @@
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "皮衣实际交还匹配认领者并离店才产生一次领取回执；访客将其声明携带的应急护身符（I21）一份放交付槽，实际领取后进库存。证据不足可保留原封存并请认领者离去，安全结束且无礼物。",
+      "current_resolution": "同一皮衣实际交还匹配认领者并离店，即结束本次认领遭遇。有限载荷中的I21应急护身符一份按独立领取回执转移；未领取或背包满不阻止安全结束，同一礼物保留在已有槽，不复制。证据不足可保持原封存并请来者离去，安全结束但无礼物。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F23",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。",
+      "completion_condition": "同一皮衣实际交还匹配认领者并离店，即结束本次认领遭遇。有限载荷中的I21应急护身符一份按独立领取回执转移；未领取或背包满不阻止安全结束，同一礼物保留在已有槽，不复制。证据不足可保持原封存并请来者离去，安全结束但无礼物。"
     },
     {
       "id": "F24",
@@ -1905,7 +1906,7 @@
         ],
         "easier": [
           "入场前必须保证基础粥与黄油可取，不依赖购买或抽奖。",
-          "占用已预留食物和一次搬运，换实际薄荷糖（I04）一份；未接额外承诺可以拒绝，交付与领取各按唯一回执结算。"
+          "消耗已预留的一份粥与黄油并实际搬运，换一份可留存的薄荷糖；领取后另需免费同物核验才能食用，不产生库存保护令牌。"
         ]
       },
       "impersonation": {
@@ -1927,7 +1928,7 @@
         "摆放表层配料",
         "确认接纳"
       ],
-      "completion_condition": "已接受的单份粥与表层黄油实际交付才成功；访客将声明携带的薄荷糖（I04）一份放交付槽，按实际领取回执只给一次。未接受可拒绝或到期离场，无供食欠债或库存保护令牌。",
+      "completion_condition": "同一份粥与表层黄油实际交付即结束本次供食。有限I04薄荷糖一份按独立领取回执转移；赠品最初为sealed_unverified，须到柜台免费检查同件封签和真实供应批次3世界秒，合格才可食用。未领奖或未核验不阻止遭遇结束；未接受可拒绝，无供食欠债。",
       "enabled_default": true,
       "advanced_optional": false,
       "design_status": "complete_design_not_playtested",
@@ -1939,7 +1940,7 @@
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "已接受的单份粥与表层黄油实际交付才成功；访客将声明携带的薄荷糖（I04）一份放交付槽，按实际领取回执只给一次。未接受可拒绝或到期离场，无供食欠债或库存保护令牌。",
+      "current_resolution": "同一份粥与表层黄油实际交付即结束本次供食。有限I04薄荷糖一份按独立领取回执转移；赠品最初为sealed_unverified，须到柜台免费检查同件封签和真实供应批次3世界秒，合格才可食用。未领奖或未核验不阻止遭遇结束；未接受可拒绝，无供食欠债。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F29",
       "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
@@ -2027,7 +2028,7 @@
       ],
       "safe_response": "店内杯与机械闹钟保证基础解；P08只按既有次数增加唤醒容错，不是必需钥匙。",
       "resource_effects": {
-        "energy": "成功短休精力+4建议值；失败无收益；不额外产生日间睡眠收益。",
+        "energy": "实际唤醒成功总计+4；P08首次真实失败先补偿+2，后成功只补到总+4，主动取消不给新补偿。",
         "san": "失败SAN−6一次；SAN0不可新开本精度特写，仍允许世界安定。",
         "satiety": "仅承诺成本对应的统一时间扣除。",
         "stamina": "特写冻结体力恢复，返回世界才恢复正常规则。"
@@ -2067,10 +2068,11 @@
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "准备后的唤醒完成可结算一次休息收益；拒绝短休并停用该椅位也能安全结束，不发休息收益，不阻止06:00交班。",
+      "current_resolution": "准备后的实际唤醒成功只结算本次短休总精力+4。若已准备P08且第一次真实失败触发其补偿，先得到+2，之后成功只再补+2；拒绝短休并停用椅位也安全结束，不给休息收益。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F31",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。",
+      "completion_condition": "准备后的实际唤醒成功只结算本次短休总精力+4。若已准备P08且第一次真实失败触发其补偿，先得到+2，之后成功只再补+2；拒绝短休并停用椅位也安全结束，不给休息收益。"
     },
     {
       "id": "F32",
@@ -2156,7 +2158,7 @@
       "safe_response": "来客携带本实例专用急救包，伤迹对照与现有干线免费；不消耗两份员工保底敷料，不依赖银器装备。",
       "resource_effects": {
         "energy": "查看与搬袋精力−2。",
-        "san": "堵出口SAN−4一次。",
+        "san": "实际援助并同一来客离店SAN+4一次；只让其离去无奖励，堵出口SAN−4一次。",
         "satiety": "统一时间流逝。",
         "stamina": "路线退让可普通步行，不能要求低体力冲刺。"
       },
@@ -2166,7 +2168,7 @@
           "雷暴干扰远处外形观察。"
         ],
         "easier": [
-          "基础绷带、可近看的伤迹与现有干线足够，不依赖银器装备。",
+          "来客携带本实例专用急救包，伤迹对照与现有干线免费；不消耗两份员工保底敷料，不依赖银器装备。",
           "腾路暂占交付时间；救助不等于给钥匙，变形也不自动证明恶意。"
         ]
       },
@@ -2195,10 +2197,11 @@
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "来客接受公共急救物后沿公开路线离店，或在玩家未接受援助时保持出口畅通自行离去；只有实际援助回执给对应奖励，猜对姓名不是结束条件。",
+      "current_resolution": "来客实际接受其携带的专用急救物并沿公开路线离店，按同实例援助与离店回执恢复SAN+4一次；未接受援助而保留出口让其自行离去也安全结束，但没有援助奖励。当前伤迹不授予员工权限。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F33",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。",
+      "completion_condition": "来客实际接受其携带的专用急救物并沿公开路线离店，按同实例援助与离店回执恢复SAN+4一次；未接受援助而保留出口让其自行离去也安全结束，但没有援助奖励。当前伤迹不授予员工权限。"
     },
     {
       "id": "F34",
@@ -2283,10 +2286,10 @@
       ],
       "safe_response": "来客提供本次扫帚与边界牌，玩家只需基础取放；不以稀有供物换解法。",
       "resource_effects": {
-        "energy": "完整劳动额外精力−5，但替换同阶段对应普通杂务，不重复收成本。",
-        "san": "正常错步无SAN；失约按公开条款可SAN−3一次。",
-        "satiety": "任务食材不可食用，不动基础口粮。",
-        "stamina": "清洁分段耗体力−5，搬动轻豆包可低体力完成。"
+        "energy": "摆边界、搬扫帚与回收按真实普通动作结算；代清的同一任务不重复收玩家全程劳动成本。",
+        "san": "拒绝或正常暂停无额外SAN，扫帚越界先给可见警告。",
+        "satiety": "无豆包、食材或供食消耗，只按统一时钟。",
+        "stamina": "只按实际取放与行走；不会因帮手清扫自动扣主角体力。"
       },
       "synergy_conditions": {
         "harder": [
@@ -2295,7 +2298,7 @@
         ],
         "easier": [
           "来客提供本次扫帚与边界牌，玩家只需基础取放；不以稀有供物换解法。",
-          "离开注视换自动清扫，却要及时收工具保护旁边商品；拒绝尚未接受的委托不罚。"
+          "暂时让出对工区的注视换取现有垃圾点代清；仍要摆边界和收回扫帚。未接受可拒绝，已由自己清完就保留原工作回执，不再领取第二份帮助。"
         ]
       },
       "impersonation": {
@@ -2323,10 +2326,11 @@
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "指定垃圾处理、工具归还时结算一次有限帮助；接受前拒绝、任务提前被清理或提前收回工具均可安全结束，不重新制造垃圾。",
+      "current_resolution": "登记的同一垃圾点已真实清洁且同一扫帚归还，清洁回执计入对应普通工单一次；清洁本身就是帮助，不另发币、食物或保护令牌。提前自行清完、未接受或提前收回工具均可安全结束，不制造新垃圾。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F35",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。",
+      "completion_condition": "登记的同一垃圾点已真实清洁且同一扫帚归还，清洁回执计入对应普通工单一次；清洁本身就是帮助，不另发币、食物或保护令牌。提前自行清完、未接受或提前收回工具均可安全结束，不制造新垃圾。"
     },
     {
       "id": "F36",
@@ -2348,7 +2352,7 @@
       "safe_response": "基础边界牌、机械计时与临时纸条免费；未接受前可拒绝。",
       "resource_effects": {
         "energy": "布置与回收精力−2。",
-        "san": "证据冲突初见SAN−3一次，拒绝不罚SAN。",
+        "san": "拒绝与提前撤销不罚SAN；租金只按已声明6币回执结算。",
         "satiety": "统一时间流逝。",
         "stamina": "空槽搬运按普通负重规则，不需冲刺。"
       },
@@ -2359,7 +2363,7 @@
         ],
         "easier": [
           "基础边界牌、机械计时与临时纸条免费；未接受前可拒绝。",
-          "短时占仓位换一次可选帮助；给无限区域虽省摆牌却会挡工作。"
+          "让出一个现有空槽20世界秒，换明示的6金币；主动提前撤销可保工作空间但不拿租金。不是提供没有消费者的帮助令牌。"
         ]
       },
       "impersonation": {
@@ -2392,10 +2396,11 @@
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "20秒到期或玩家提前撤销后，该访客对该槽的权限失效并离开；清理纸条和空槽后可领已完成的有限帮助。接受前拒绝也结束邀请。",
+      "current_resolution": "许可从实际授予起20世界秒自动到期，或由玩家提前撤销；访客离开即结束权限请求。完整20秒合法借用、按时撤权且原槽实际清空，才按同一rent回执领取6金币一次；提前撤销、拒绝或未清槽无租金。未领奖不保持活动威胁。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F36",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。",
+      "completion_condition": "许可从实际授予起20世界秒自动到期，或由玩家提前撤销；访客离开即结束权限请求。完整20秒合法借用、按时撤权且原槽实际清空，才按同一rent回执领取6金币一次；提前撤销、拒绝或未清槽无租金。未领奖不保持活动威胁。"
     },
     {
       "id": "F37",
@@ -3501,7 +3506,7 @@
       "safe_response": "基础饮水与双槽容器免费，接受前保证数量够；不强迫购买道具或让玩家挨饿补契约。",
       "resource_effects": {
         "energy": "分仓工作精力-5。",
-        "san": "完整履约结算+5；违约-4最多一次。",
+        "san": "06履约资格成立且实际核验交班完成后+5一次；取消或未履约0，不存在可售承诺瓶的−4罚。",
         "satiety": "只占未食用物品库存，已获得饱腹不变。",
         "stamina": "搬瓶按实际工作，轻瓶可0体力搬。"
       },
@@ -3512,7 +3517,7 @@
         ],
         "easier": [
           "基础饮水与双槽容器免费，接受前保证数量够；不强迫购买道具或让玩家挨饿补契约。",
-          "回报换真实库存和一个槽位；热浪时宁愿少卖，也不能把同一瓶同时计作保留和售出。"
+          "占用两瓶真实库存与保留容器至06，换安全交班后的SAN+5；四瓶可售仍按已有普通订单成交，不新增客单、营业倍率或工资奖励。"
         ]
       },
       "impersonation": {
@@ -3540,10 +3545,11 @@
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "真实06:00先结算履约并释放占用，或此前按明示条件取消契约；两者都结束本契约。契约终态必须先于关键威胁检查与H20交班，不能循环等待交班后解封。",
+      "current_resolution": "真实06:00先按同两瓶的实际封存快照判履约资格并释放占槽，再检查危机与交班；已履约且核验交班完成才SAN+5一次，不能借此在危机检查前消除活动恐慌。主动取消或未履约均结束合同、无奖励与新增罚款；06以后补封不能补领。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F53",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。",
+      "completion_condition": "真实06:00先按同两瓶的实际封存快照判履约资格并释放占槽，再检查危机与交班；已履约且核验交班完成才SAN+5一次，不能借此在危机检查前消除活动恐慌。主动取消或未履约均结束合同、无奖励与新增罚款；06以后补封不能补领。"
     },
     {
       "id": "F54",
@@ -3632,7 +3638,7 @@
       "safe_response": "店内有一份免费基础赠食可用；不依赖宠物购买或抽奖，也不承诺店外无限无敌。",
       "resource_effects": {
         "energy": "无固定额外精力扣除，实际行走计全局。",
-        "san": "成功+4。",
+        "san": "本次实际护送完成返店+4一次；不发次夜预警。",
         "satiety": "只扣未食用库存1份，已恢复的饱腹数值不减。",
         "stamina": "搬车按普通2.4格/秒，0体力可慢行。"
       },
@@ -3671,10 +3677,11 @@
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "完成限定护送并返回店内即可结束：实际交付才记订单完成，超时带物返回只记安全护送及待办。次夜预警绑定实际下一夜ID、跨周仍限一次且到期失效，N06不生成第七小时。",
+      "current_resolution": "完成本次登记路线并实际返店，按同一护送回执SAN+4一次；实际交付才另记原订单完成，骑手超时带原物返店只算护送成功及原待办。未接受或中途放弃无护送奖励。不再发没有明确消费者的次夜预警。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F55",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。",
+      "completion_condition": "完成本次登记路线并实际返店，按同一护送回执SAN+4一次；实际交付才另记原订单完成，骑手超时带原物返店只算护送成功及原待办。未接受或中途放弃无护送奖励。不再发没有明确消费者的次夜预警。"
     },
     {
       "id": "F56",

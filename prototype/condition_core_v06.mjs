@@ -47,8 +47,43 @@ function endEncounter(s, e, state, cause) {
   return true;
 }
 
+function startPanicIfNeeded(s, trigger) {
+  if (s.mode !== 'night' || !s.sanSettings || s.san !== 0 || s.panic.active) return false;
+  s.panic.active = true; s.panic.episode++; s.panic.progress = 0; s.panic.stabilizing = false;
+  s.panic.deadline = s.world + s.sanSettings.panic_window_seconds;
+  log(s, 'panic_started', {episode: s.panic.episode, deadline: s.panic.deadline, trigger});
+  return true;
+}
+
+function boundedCarryover(s, slot) {
+  const extra = s.contract.active_carryover.max_additional_phases;
+  return {deadlinePolicy: 'bounded_carryover', originPhaseIndex: slot.phase,
+    carryoverDeadlineBudget: Math.min((slot.phase + 1 + extra) * 120,
+      s.contract.end_of_shift.true_six_budget_seconds)};
+}
+
+function enforceCarryoverDeadline(s) {
+  // True 06:00 has its own contractual settlement order. Earlier phase limits
+  // are checked only after same-time actions, exits and encounter terminals.
+  if (s.mode !== 'night' || s.budget >= s.contract.end_of_shift.true_six_budget_seconds) return;
+  const expired = Object.values(s.encounters).filter(e => e.critical && !TERMINAL.has(e.state) &&
+    e.deadlinePolicy === 'bounded_carryover' && s.budget >= e.carryoverDeadlineBudget);
+  if (!expired.length) return;
+  s.mode = 'failed_shift';
+  log(s, 'carryover_deadline_exceeded', {encounterIds: expired.map(e => e.id),
+    originPhaseIndices: expired.map(e => e.originPhaseIndex)});
+}
+
 export function createConditionState(contract, options = {}) {
   if (!contract?.wounds || !contract?.clock_contract) throw new Error('causal contract required');
+  if (options.mode !== undefined && options.mode !== 'night') throw new Error('condition_reference_requires_night_mode');
+  if (!Number.isInteger(contract.active_carryover?.max_additional_phases) ||
+      contract.active_carryover.max_additional_phases < 0) throw new Error('bounded_carryover_contract_required');
+  const initialSan = options.initialSan ?? options.balance?.resources?.san?.max ?? 100;
+  if (!Number.isFinite(initialSan) || initialSan < 0 || initialSan > (options.balance?.resources?.san?.max ?? 100)) {
+    throw new RangeError('invalid_initial_san');
+  }
+  if (initialSan === 0 && !options.balance?.resources?.san) throw new Error('zero_san_requires_balance');
   const slots = {};
   for (const slot of options.reservedSlots ?? []) {
     if (!['primary', 'joint'].includes(slot.kind)) throw new Error('reserved slot kind');
@@ -67,9 +102,9 @@ export function createConditionState(contract, options = {}) {
     ...(options.markers ?? []).filter(x => !fixedMarkerIds.has(x.id)),
     ...fixedMarkers
   ].map(x => ({...x, dispatched: false}));
-  return {contract: copy(contract), world: 0, budget: 0, paused: false, mode: 'night', sequence: 0,
+  const state = {contract: copy(contract), world: 0, budget: 0, paused: false, mode: 'night', sequence: 0,
     sanSettings: options.balance?.resources?.san ? copy(options.balance.resources.san) : null,
-    san: options.initialSan ?? options.balance?.resources?.san?.max ?? 100,
+    san: initialSan,
     panic: {active: false, deadline: null, progress: 0, stabilizing: false, used: false, episode: 0, fearImmuneUntil: null},
     fearSources: {},
     actors: {PLAYER: {wound: null, minorUntil: null, cutCount: 0, station: null, distanceSinceMark: 0},
@@ -78,6 +113,10 @@ export function createConditionState(contract, options = {}) {
       bags: contract.supply_catalog.find(x => x.id === 'SUP_SEALING')?.quantity ?? 0},
     objects, slots, markers, receipts: {}, actions: {}, actionLocks: {}, incidents: {}, traces: {}, waste: {},
     encounters: {}, promises: {}, log: [], nightCutCount: 0, precision: null, managerArrived: false};
+  // This factory opens an actual night. A turn-based day at SAN zero must not
+  // instantiate it merely to advance a day slot or coffee's delayed effect.
+  startPanicIfNeeded(state, 'night_entry');
+  return state;
 }
 
 export function setConditionPause(s, paused) { s.paused = Boolean(paused); }
@@ -92,11 +131,7 @@ export function applyConditionFear(s, {amount, sourceId}) {
   if (!actual) return fail('fear_source_cap');
   s.fearSources[key] = {total: old.total + actual, lastAt: s.world};
   s.san = Math.max(0, s.san - actual);
-  if (s.san === 0 && !s.panic.active) {
-    s.panic.active = true; s.panic.episode++; s.panic.progress = 0; s.panic.stabilizing = false;
-    s.panic.deadline = s.world + s.sanSettings.panic_window_seconds;
-    log(s, 'panic_started', {episode: s.panic.episode, deadline: s.panic.deadline});
-  }
+  startPanicIfNeeded(s, 'actual_fear');
   return ok({damage: actual});
 }
 
@@ -187,7 +222,7 @@ export function activateStationFaultEncounter(s, {id, objectId, slotId, variant 
   slot.state = 'ACTIVE'; slot.encounterId = id;
   const receipt = record(s, 'station_fault_activation', 'WORLD', objectId, id, {monsterId: 'F21', variant, slotId});
   s.encounters[id] = {id, monsterId: 'F21', variant, objectId, slotId,
-    state: 'ACTIVE', critical: true, activationReceiptId: receipt.id};
+    state: 'ACTIVE', critical: true, activationReceiptId: receipt.id, ...boundedCarryover(s, slot)};
   log(s, 'station_fault_activated', {id, objectId, slotId});
   return ok({encounterId: id, receiptId: receipt.id});
 }
@@ -338,41 +373,40 @@ export function walkActor(s, {actorId = 'PLAYER', distanceTiles, gait = 'walk'})
   }
   const interval = s.contract.wounds.blood_trace.min_travel_tiles_between_marks;
   let remaining = distanceTiles, travelled = 0;
+  const commitMovement = (startedAt, endedAt) => {
+    const actualStep = (endedAt - startedAt) * 3;
+    travelled += actualStep;
+    if (a.station) a.stationExitTravel = (a.stationExitTravel ?? 0) + actualStep;
+    const wound = a.wound;
+    const bleedingSeconds = wound?.state === 'fresh' ? Math.max(0,
+      Math.min(endedAt, wound.endAt) - Math.max(startedAt, wound.startedAt)) : 0;
+    a.distanceSinceMark = wound?.state === 'fresh'
+      ? a.distanceSinceMark + Math.min(actualStep, bleedingSeconds * 3) : 0;
+    if (a.distanceSinceMark + 1e-9 >= interval) {
+      a.distanceSinceMark = 0;
+      // Expiry at this endpoint frees a slot even though processDue has not yet
+      // flipped the old trace's cached live flag. Never refresh the old trace.
+      const current = Object.values(s.traces).filter(t => t.live && t.actorId === actorId && t.expiresAt > endedAt);
+      if (current.length < s.contract.wounds.blood_trace.max_live_marks_per_actor) {
+        const id = nextId(s, 'trace');
+        s.traces[id] = {id, actorId, incidentId: wound.incidentId, live: true,
+          bornAt: endedAt, expiresAt: endedAt + s.contract.wounds.blood_trace.lifetime_world_seconds,
+          actualWalkReceiptId: record(s, 'actual_walk_mark', actorId, id, nextId(s, 'walk')).id};
+      }
+    }
+    if (wound && endedAt >= wound.endAt) a.distanceSinceMark = 0;
+  };
   while (remaining > 0 && s.mode === 'night') {
     const step = Math.min(remaining, interval - a.distanceSinceMark);
-    const segmentStartedAt = s.world;
-    const tick = advanceConditionWorld(s, step / 3);
+    // Commit only actually travelled portions before same-time enemy admission.
+    // A new mark at arrival is a present fact; a future requested mark is not.
+    const tick = advanceWorldInterval(s, step / 3, commitMovement);
     const actualStep = Math.min(step, tick.advanced * 3);
     if (actualStep <= 1e-9) break;
-    // This bounded reference models a straight one-tile station exit. The client
-    // must use its actual exit/collision facts, not total distance walked in a loop.
-    if (a.station) {
-      a.stationExitTravel = (a.stationExitTravel ?? 0) + actualStep;
-    }
-    // A fault may cut the actor in the middle of this movement segment. Only
-    // travel after the actual cut and before dressing/natural expiry is blood
-    // travel; checking fresh(end) alone would include the pre-injury distance.
-    const wound = a.wound;
-    const bleedingSeconds = wound ? Math.max(0,
-      Math.min(s.world, wound.endedAt ?? wound.endAt) - Math.max(segmentStartedAt, wound.startedAt)) : 0;
-    const bleedingStep = Math.min(actualStep, bleedingSeconds * 3);
-    a.distanceSinceMark = fresh(s, actorId) ? a.distanceSinceMark + bleedingStep : 0;
-    remaining = Math.max(0, remaining - actualStep); travelled += actualStep;
+    remaining = Math.max(0, remaining - actualStep);
     // A failed shift or handover stops the unfinished movement segment. It
     // cannot create a later mark/receipt for the originally requested distance.
     if (s.mode !== 'night') break;
-    if (a.distanceSinceMark + 1e-9 >= interval) {
-      a.distanceSinceMark = 0;
-      if (fresh(s, actorId)) {
-        const current = Object.values(s.traces).filter(t => t.live && t.actorId === actorId);
-        if (current.length < s.contract.wounds.blood_trace.max_live_marks_per_actor) {
-          const id = nextId(s, 'trace');
-          s.traces[id] = {id, actorId, incidentId: a.wound.incidentId, live: true,
-            bornAt: s.world, expiresAt: s.world + s.contract.wounds.blood_trace.lifetime_world_seconds,
-            actualWalkReceiptId: record(s, 'actual_walk_mark', actorId, id, nextId(s, 'walk')).id};
-        }
-      }
-    }
   }
   return ok({distanceTravelled: travelled});
 }
@@ -397,7 +431,7 @@ export function announceBloodEncounter(s, {id, monsterId, incidentId, slotId}) {
   i.consumerId = id; slot.state = 'ANNOUNCED'; slot.encounterId = id;
   s.encounters[id] = {id, monsterId, incidentId, slotId, state: 'ANNOUNCED', critical: true,
     announcedAt: s.world, arrivalAt: s.world + c.announcement_lead_world_seconds,
-    boundTraceIds: traces.map(t => t.id), sourceActorId: i.actorId};
+    boundTraceIds: traces.map(t => t.id), sourceActorId: i.actorId, ...boundedCarryover(s, slot)};
   log(s, 'encounter_announced', {id, monsterId});
   return ok({});
 }
@@ -449,7 +483,7 @@ export function acceptDawnPromise(s, {id, objectId}) {
   if (Object.values(s.promises).some(p => p.objectId === objectId && p.state === 'ACTIVE')) return fail('already_reserved');
   interruptPortableStabilization(s, 'promise_acceptance');
   s.promises[id] = {id, objectId, state: 'ACTIVE', deadline: s.contract.end_of_shift.true_six_budget_seconds};
-  s.encounters[id] = {id, monsterId: 'F53', state: 'ACTIVE', critical: true};
+  s.encounters[id] = {id, monsterId: 'F53', state: 'ACTIVE', critical: true, deadlinePolicy: 'true_six_promise'};
   return ok({});
 }
 
@@ -515,6 +549,7 @@ function processDue(s) {
     }
   }
   for (const e of Object.values(s.encounters)) if (['F26', 'F32'].includes(e.monsterId)) updateBloodEncounter(s, e);
+  enforceCarryoverDeadline(s);
   for (const m of [...s.markers].sort((a, b) => a.at - b.at)) if (!m.dispatched && s.budget >= m.at) {
     m.dispatched = true; log(s, 'schedule_marker', {id: m.id});
     if (m.id === 'manager_arrival') s.managerArrived = true;
@@ -529,7 +564,7 @@ function processDue(s) {
   }
 }
 
-export function advanceConditionWorld(s, seconds) {
+function advanceWorldInterval(s, seconds, commitMovement = null) {
   if (!Number.isFinite(seconds) || seconds < 0) return fail('invalid_delta');
   if (s.paused || s.precision || s.mode !== 'night') return ok({advanced: 0});
   processDue(s);
@@ -555,13 +590,22 @@ export function advanceConditionWorld(s, seconds) {
     for (const e of Object.values(s.encounters)) if (!TERMINAL.has(e.state)) {
       if (e.state === 'ANNOUNCED' && e.arrivalAt > s.world) deadlines.push(e.arrivalAt - s.world);
       if (e.leaveAt !== undefined && e.leaveAt > s.world) deadlines.push(e.leaveAt - s.world);
+      if (e.deadlinePolicy === 'bounded_carryover' && e.carryoverDeadlineBudget > s.budget) {
+        deadlines.push(e.carryoverDeadlineBudget - s.budget);
+      }
     }
     const dt = Math.min(...deadlines);
     if (s.panic.active && s.panic.stabilizing) s.panic.progress += dt;
+    const startedAt = s.world;
     s.world += dt; s.budget += dt; advanced += dt; remaining -= dt;
+    if (commitMovement) commitMovement(startedAt, s.world);
     processDue(s);
   }
   return ok({advanced});
+}
+
+export function advanceConditionWorld(s, seconds) {
+  return advanceWorldInterval(s, seconds);
 }
 
 export function beginPrecisionAttempt(s, {costSeconds}) {

@@ -1,5 +1,5 @@
 {
-  "version": "0.7",
+  "version": "0.8",
   "status": "reviewed_design_with_partial_headless_contract_reference_not_playable_client",
   "design_goal": "每个熟悉的工作物件都有正常用途、被怪物利用的方式和玩家可改变的状态；紧张来自行动取舍、可观察的违禁后果与有限注意力。",
   "authority": {
@@ -601,7 +601,7 @@
     "first_critical_failure_requires_telegraph": true,
     "environment_false_cue_has_real_source": true,
     "no_extra_san_hallucination_system_in_first_slice": true,
-    "learning": "班前/白天学习给出原型线索与可行策略；初见时不自动报正确名字，禁令提示写眼前现象和危险动作。玩家可以靠相同物件机制解决未知怪。",
+    "learning": "免费20店规与基础安全操作始终可用；白天A03解锁7类可检索方法页，A04用真实记录整理具体案例。信息不足仍是假说，不自动识别当前怪名、不窥探下夜排程、不凭空开放替代结局。",
     "schedule_clock": "phase_budget_elapsed",
     "reactive_actual_state_exceptions": {
       "F26": "content/condition_lifecycle_v06.json#/wounds/reactive_consumers",
@@ -661,7 +661,8 @@
     "historical_work_receipts_world_ttl": null,
     "historical_work_receipt_does_not_prove_current_body_identity": true,
     "handover_local_checks_contract": "content/condition_lifecycle_v06.json#/end_of_shift",
-    "historical_fact_timestamp_must_precede_first_omen": true
+    "historical_fact_timestamp_must_precede_first_omen": true,
+    "day_knowledge_contract": "content/balance.json#/knowledge"
   },
   "attention_and_pause": {
     "read_handbook_pauses_all": true,
@@ -730,7 +731,10 @@
     "formal_handover_after_six_is_not_extra_work_time": true,
     "bonus_formula": "min(40, 4 * completed_duties + 2 * min(8, unique_valid_orders))",
     "handover_actor": "MANAGER",
-    "handover_contract": "content/condition_lifecycle_v06.json#/end_of_shift"
+    "handover_contract": "content/condition_lifecycle_v06.json#/end_of_shift",
+    "reject_explicit_panicActive": true,
+    "provided_settlementMode_must_be": "handover_only",
+    "scoring_reference_is_not_handover_authentication": true
   },
   "regulars": [
     {
@@ -785,7 +789,6 @@
     "replacement": "替换同类基础订单的到店时刻，不新增订单；座位系绑定本阶段尚未入场的一位浏览客。"
   },
   "friendly_rewards": {
-    "per_encounter_settles_once": true,
     "tokens_max_held": 1,
     "duration_max_nights": 1,
     "stack_rule": "同类取较强效果；不叠加到全周免疫设备故障/水怪/追逐。",
@@ -820,6 +823,26 @@
       {
         "monster_id": "F59",
         "reward": "修好已损坏的普通设施一次；不免费新增永久付费装备。"
+      },
+      {
+        "monster_id": "F33",
+        "reward": "实际援助且同一来客离店，SAN+4一次。"
+      },
+      {
+        "monster_id": "F35",
+        "reward": "仅真实代清同一垃圾点的普通工单回执，不另发奖励。"
+      },
+      {
+        "monster_id": "F36",
+        "reward": "足额20秒借用、自动撤权、实际清槽，6金币一次；提前撤销0。"
+      },
+      {
+        "monster_id": "F53",
+        "reward": "06同两瓶封存取得资格，安全核验交班后SAN+5；取消或未履约无奖励且无额外罚。"
+      },
+      {
+        "monster_id": "F55",
+        "reward": "实际护送返店SAN+4一次；原订单仍须实际交付，删除次夜预警令牌。"
       }
     ],
     "fixed_item_gift_contract": {
@@ -842,7 +865,11 @@
       "per_segment_actual_seal_and_claim": true,
       "max_claims_per_segment": 1,
       "E065_adds_only_one_fragment_at_first_claim": true
-    }
+    },
+    "completion_per_encounter_settles_once": true,
+    "predeclared_reward_keys_each_settle_once": true,
+    "consumer_closure_contract": "content/consumer_closure_v08.json",
+    "unclaimed_reward_does_not_hold_encounter_active": true
   },
   "pets_and_deployables": {
     "pet_catalog": "content/pets.json",
@@ -910,7 +937,8 @@
       "branch_specific_requirements_not_union_of_all_event_variants": true,
       "no_condition_can_simultaneously_require_normal_and_anomalous_branch": true,
       "variant_handling_credited_to_same_existing_action_once": true
-    }
+    },
+    "consumer_closure_contract": "content/consumer_closure_v08.json"
   },
   "conditional_examples": [
     {

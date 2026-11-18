@@ -268,6 +268,7 @@ test('Precision budget cost does not secretly advance wound or movement time', (
 
 test('Due-at-six promises settle before critical check and handover grants no extra work time', () => {
   const s = fixture(); assert.equal(acceptDawnPromise(s, {id: 'F53-water', objectId: 'water'}).ok, true);
+  assert.equal(s.encounters['F53-water'].deadlinePolicy, 'true_six_promise');
   const ordinaryPrecision = beginPrecisionAttempt(s, {costSeconds: 1}); assert.equal(ordinaryPrecision.ok, true);
   finishPrecisionAttempt(s, {attemptId: ordinaryPrecision.attemptId, outcome: 'success'});
   work(s, 'seal_water', 'water'); offerOptionalEncounter(s, 'unaccepted-F11');
@@ -516,5 +517,94 @@ test('Resolving F21 after its real accident retains the pre-reserved child and t
   assert.equal(blood(s, h.incidentId, 'F32', 'real-child').state, 'ANNOUNCED');
 });
 
+test('N04 carryover expires at budget600 from its origin slot and stops unfinished movement', () => {
+  const s = fixture();
+  const q = beginPrecisionAttempt(s, {costSeconds: 8}); assert.equal(q.ok, true);
+  finishPrecisionAttempt(s, {attemptId: q.attemptId, outcome: 'success'});
+  advanceConditionWorld(s, 352); // Actual world352, phase budget360; N04 is allowed for F26.
+  const incident = cut(s); walkActor(s, {distanceTiles: 2});
+  const e = blood(s, incident, 'F26', 'bounded-redcap'); advanceConditionWorld(s, 12);
+  work(s, 'wipe_trace', Object.keys(s.traces)[0]);
+  assert.equal(e.originPhaseIndex, 3); assert.equal(e.carryoverDeadlineBudget, 600);
+  advanceConditionWorld(s, 480 - s.budget);
+  assert.equal(s.mode, 'night'); assert.equal(e.state, 'ACTIVE'); assert.equal(e.carryoverDeadlineBudget, 600);
+  advanceConditionWorld(s, 599 - s.budget);
+  const beforeWorld = s.world, moved = walkActor(s, {distanceTiles: 60});
+  assert.equal(s.mode, 'failed_shift'); assert.equal(s.budget, 600);
+  assert.ok(Math.abs(s.world - 592) < 1e-8); assert.ok(Math.abs(s.world - beforeWorld - 1) < 1e-8);
+  assert.ok(Math.abs(moved.distanceTravelled - 3) < 1e-8);
+  assert.equal(e.state, 'ACTIVE'); // Failure does not pretend the unsealed waste was resolved.
+  assert.deepEqual(s.log.find(x => x.type === 'carryover_deadline_exceeded').encounterIds, ['bounded-redcap']);
+  assert.equal(advanceConditionWorld(s, 120).advanced, 0);
+});
+
+test('A genuine F21 resolution at its carryover boundary commits before the expiry check', () => {
+  const s = fixture({reservedSlots: [{id: 'f21-slot2', phase: 2, kind: 'primary', allowed: ['F21']}]});
+  advanceConditionWorld(s, 240); const receipt = work(s, 'station_work', 'hot_food');
+  activateStationFaultEncounter(s, {id: 'f21-last-tick', objectId: 'hot_food', slotId: 'f21-slot2'});
+  announceStationGlassFault(s, {workReceiptId: receipt, objectId: 'hot_food', actorId: 'PLAYER', sourceEncounterId: 'f21-last-tick'});
+  advanceConditionWorld(s, 40); walkActor(s, {distanceTiles: 1});
+  advanceConditionWorld(s, 478 - s.budget);
+  const isolate = beginRecordedWork(s, {kind: 'isolate_station', objectId: 'hot_food'}); assert.equal(isolate.ok, true);
+  advanceConditionWorld(s, 2);
+  assert.equal(s.budget, 480); assert.equal(s.actions[isolate.actionId].state, 'completed');
+  assert.equal(s.encounters['f21-last-tick'].state, 'RESOLVED'); assert.equal(s.mode, 'night');
+  assert.equal(s.log.some(x => x.type === 'carryover_deadline_exceeded'), false);
+});
+
+test('Actual night entry at SAN zero starts one panic and permits the existing free stabilization', () => {
+  const s = fixture({initialSan: 0, mode: 'night'});
+  assert.equal(s.panic.active, true); assert.equal(s.panic.episode, 1); assert.equal(s.panic.deadline, 20);
+  assert.equal(s.log.find(x => x.type === 'panic_started').trigger, 'night_entry');
+  setConditionPause(s, true); advanceConditionWorld(s, 60);
+  assert.equal(s.world, 0); assert.equal(s.panic.progress, 0); setConditionPause(s, false);
+  assert.equal(beginPortableStabilization(s).ok, true); advanceConditionWorld(s, 8);
+  assert.equal(s.san, 15); assert.equal(s.panic.active, false); assert.equal(s.panic.used, true);
+});
+
+test('Ignoring an actual zero-SAN night entry expires at world20 without another fear event', () => {
+  const s = fixture({initialSan: 0}); advanceConditionWorld(s, 720);
+  assert.equal(s.world, 20); assert.equal(s.budget, 20); assert.equal(s.mode, 'failed_shift');
+  assert.equal(s.panic.episode, 1); assert.equal(s.san, 0);
+});
+
+test('The night factory rejects a daytime mode and invalid initial SAN instead of ticking a day panic', () => {
+  assert.throws(() => fixture({mode: 'day', initialSan: 0}), /condition_reference_requires_night_mode/);
+  for (const initialSan of [-1, 101, NaN, Infinity]) assert.throws(() => fixture({initialSan}), /invalid_initial_san/);
+});
+
+test('A real two-tile mark at F26 arrival is committed before its same-time trace recheck', () => {
+  const s = fixture(); advanceConditionWorld(s, 360);
+  const incident = cut(s); walkActor(s, {distanceTiles: 2}); const old = Object.values(s.traces)[0];
+  advanceConditionWorld(s, 20); const e = blood(s, incident, 'F26', 'same-tick-mark');
+  advanceConditionWorld(s, e.arrivalAt - s.world - 2 / 3);
+  walkActor(s, {distanceTiles: 2});
+  const added = Object.values(s.traces).find(t => t.id !== old.id);
+  assert.equal(old.live, false); assert.ok(Math.abs(added.bornAt - e.arrivalAt) < 1e-8);
+  assert.equal(e.state, 'ACTIVE'); assert.deepEqual(e.boundTraceIds, [added.id]);
+});
+
+test('A requested mark created after F26 arrival cannot be used early or revive its safe return', () => {
+  const s = fixture(); advanceConditionWorld(s, 360);
+  const incident = cut(s); walkActor(s, {distanceTiles: 2}); const old = Object.values(s.traces)[0];
+  advanceConditionWorld(s, 20); const e = blood(s, incident, 'F26', 'future-requested-mark');
+  advanceConditionWorld(s, e.arrivalAt - s.world - 0.5);
+  walkActor(s, {distanceTiles: 2});
+  const added = Object.values(s.traces).find(t => t.id !== old.id);
+  assert.ok(added.bornAt > e.arrivalAt); assert.equal(e.state, 'SAFE_RETURNED');
+  assert.equal(e.endCause, 'no_actual_trace_at_arrival'); advanceConditionWorld(s, 1);
+  assert.equal(e.state, 'SAFE_RETURNED');
+});
+
+test('A trace expiring at the movement endpoint frees one live-mark slot without refreshing it', () => {
+  const s = fixture(); advanceConditionWorld(s, 360); cut(s); walkActor(s, {distanceTiles: 12});
+  const old = Object.values(s.traces).sort((a, b) => a.bornAt - b.bornAt)[0], expiry = old.expiresAt;
+  assert.equal(Object.values(s.traces).filter(t => t.live).length, 6);
+  advanceConditionWorld(s, expiry - s.world - 2 / 3); walkActor(s, {distanceTiles: 2});
+  assert.equal(old.live, false); assert.equal(old.expiresAt, expiry);
+  assert.equal(Object.values(s.traces).filter(t => t.live).length, 6);
+  assert.equal(Object.values(s.traces).filter(t => Math.abs(t.bornAt - expiry) < 1e-8).length, 1);
+});
+
 console.log(JSON.stringify({status: 'PASS', scenarioCount: passed.length, scenarios: passed,
-  scope: 'Bounded headless causal/action chains, object reservations, and narrow F21 glass-variant activation only. No real collision, touch, full actor AI, F32 invitation/geometry, physical pickup/carrying, full identity or all sixty encounter adapters verified.'}, null, 2));
+  scope: 'Bounded headless causal/action chains, origin-slot carryover limits, night-only panic initialization, object reservations, and narrow F21 activation. No real collision, daytime engine, touch, full actor AI, F32 invitation/geometry, physical pickup/carrying, full identity or all sixty encounter adapters verified.'}, null, 2));

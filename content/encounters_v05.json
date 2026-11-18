@@ -1,5 +1,5 @@
 {
-  "version": "0.7",
+  "version": "0.8",
   "schema_version": "0.5-design",
   "status": "complete_design_proposal_not_playtested",
   "client_implemented": false,
@@ -2576,7 +2576,7 @@
       "pressure_tradeoff": "中立台与普通提货争位置；怪可能是受害者，不能凭外貌驱赶。",
       "free_solution": "查看皮衣、纸质认领格与中立交付均免费。",
       "failure_recovery": "错交先给拉扯与水线预告，可叫停并收回同一皮衣；不瞬移删除物件。开班已有记录须注明白班来源，本班新记录只能来自真实交存，不能补造过去。",
-      "resolution_condition": "皮衣实际交还匹配认领者并离店才产生一次领取回执；访客将其声明携带的应急护身符（I21）一份放交付槽，实际领取后进库存。证据不足可保留原封存并请认领者离去，安全结束且无礼物。",
+      "resolution_condition": "同一皮衣实际交还匹配认领者并离店，即结束本次认领遭遇。有限载荷中的I21应急护身符一份按独立领取回执转移；未领取或背包满不阻止安全结束，同一礼物保留在已有槽，不复制。证据不足可保持原封存并请来者离去，安全结束但无礼物。",
       "variants": [
         {
           "event_id": "E007",
@@ -2648,7 +2648,9 @@
         "actual_delivery_receipt_required_for_gift": true,
         "same_encounter_gift_settles_once": true,
         "reward_handler_and_acquisition_policy_checked_before_offer": true,
-        "full_inventory_does_not_destroy_gift": true
+        "full_inventory_does_not_destroy_gift": true,
+        "encounter_can_end_before_optional_gift_claim": true,
+        "same_earned_gift_persists_in_existing_slot_until_claim_or_decline": true
       },
       "condition_contract_id": "F23",
       "condition_contract_file": "content/condition_lifecycle_v06.json"
@@ -3236,10 +3238,10 @@
         "实际把黄油放到可见表层，盖上运输盖。",
         "放到供食槽再揭盖，保留正常客人的订单份。"
       ],
-      "pressure_tradeoff": "占用食物和一次搬运，换一份可实际使用的薄荷糖；未接受可拒绝。",
+      "pressure_tradeoff": "消耗已预留的一份粥与黄油并实际搬运，换一份可留存的薄荷糖；领取后另需免费同物核验才能食用，不产生库存保护令牌。",
       "free_solution": "入场前必须保证基础粥与黄油可取，不依赖购买或抽奖。",
       "failure_recovery": "摆错则退回同一碗并给提示，可重摆。食材在预兆预订时已从非个人保底库存预留；后来基础份失效就取消请求，不扣玩家食物或强迫购买。",
-      "resolution_condition": "已接受的单份粥与表层黄油实际交付才成功；访客将声明携带的薄荷糖（I04）一份放交付槽，按实际领取回执只给一次。未接受可拒绝或到期离场，无供食欠债或库存保护令牌。",
+      "resolution_condition": "同一份粥与表层黄油实际交付即结束本次供食。有限I04薄荷糖一份按独立领取回执转移；赠品最初为sealed_unverified，须到柜台免费检查同件封签和真实供应批次3世界秒，合格才可食用。未领奖或未核验不阻止遭遇结束；未接受可拒绝，无供食欠债。",
       "variants": [
         {
           "event_id": "E020",
@@ -3319,7 +3321,14 @@
         "actual_delivery_receipt_required_for_gift": true,
         "same_encounter_gift_settles_once": true,
         "reward_handler_and_acquisition_policy_checked_before_offer": true,
-        "full_inventory_does_not_destroy_gift": true
+        "full_inventory_does_not_destroy_gift": true,
+        "encounter_can_end_before_optional_gift_claim": true,
+        "same_earned_gift_persists_in_existing_slot_until_claim_or_decline": true,
+        "gift_food_initial_status": "sealed_unverified",
+        "gift_food_inspection_world_seconds": 3,
+        "gift_food_source_contract": "content/consumer_closure_v08.json#/food_verification",
+        "gift_supplier_batch_record_must_preexist": true,
+        "gift_inspection_handler_required_before_offer": true
       },
       "condition_contract_id": "F29",
       "condition_contract_file": "content/condition_lifecycle_v06.json"
@@ -3455,12 +3464,12 @@
       "action_steps": [
         "检查是否需要休息；杯与机械钟摆到已有槽，确认真实接岗，或暂停入店并清空现有客务。",
         "选择安全短休才进入梦境特写；也可标记椅位暂不用并离开。SAN为0时先用世界安定，不启动精度特写。",
-        "开始短休后按已设唤醒刻度完成，或按明示一次成本退出；不坐则结束本次休息邀请。"
+        "开始短休后用QT01停针唤醒：一圈3本地秒，基础命中窗1.2秒按SAN缩放；每次尝试预留并支付8预算秒。P08的唯一二次机会需重新准入；不坐可直接结束邀请。"
       ],
       "pressure_tradeoff": "短休能恢复状态却占交班时间；本地QTE沿用安全特写与一次成本结算，不另建可走梦地图。",
       "free_solution": "店内杯与机械闹钟保证基础解；P08只按既有次数增加唤醒容错，不是必需钥匙。",
-      "failure_recovery": "未准备先给压迫警告，可取消落座补摆；梦里误按保留正确步骤。退出已开始尝试只扣一次成本且不给休息收益，不把玩家锁在SAN为0而不能再开QTE的梦境。",
-      "resolution_condition": "准备后的唤醒完成可结算一次休息收益；拒绝短休并停用该椅位也能安全结束，不发休息收益，不阻止06:00交班。",
+      "failure_recovery": "首次真实唤醒失败SAN−6至多一次；预置且已照护、有次数的P08提交精力+2。SAN仍大于0且重新满足预算与安全准入时，提供唯一第二次尝试：命中窗1.5本地秒、正常倍率，另付8预算秒；二次成功只补至累计+4，失败终结。无宠物或SAN降0时直接退出；SAN0启动正常恐慌，不再新开精度QTE。主动取消不给新补偿，已合法取得的+2保留。",
+      "resolution_condition": "准备后的实际唤醒成功只结算本次短休总精力+4。若已准备P08且第一次真实失败触发其补偿，先得到+2，之后成功只再补+2；拒绝短休并停用椅位也安全结束，不给休息收益。",
       "variants": [
         {
           "event_id": "E033",
@@ -3525,7 +3534,39 @@
         "static_binding_is_not_route_timing_proof": true
       },
       "condition_contract_id": "F31",
-      "condition_contract_file": "content/condition_lifecycle_v06.json"
+      "condition_contract_file": "content/condition_lifecycle_v06.json",
+      "runtime_parameters": {
+        "successful_rest_energy_total": 4,
+        "p08_first_real_failure_energy_compensation": 2,
+        "p08_success_adds_only_difference_to_total": true,
+        "failure_san_delta": -6,
+        "failure_san_max_occurrences": 1,
+        "rest_episode_max_per_encounter": 1,
+        "active_cancellation_grants_new_compensation": false,
+        "reward_contract": "content/consumer_closure_v08.json#/f31_p08_rest",
+        "attempt_cost_budget_seconds": 8,
+        "normal_local_cycle_seconds": 3,
+        "normal_base_hit_window_local_seconds": 1.2,
+        "p08_retry_hit_window_local_seconds": 1.5,
+        "max_attempts_without_pet": 1,
+        "max_attempts_with_prepared_pet": 2,
+        "retry_requires_positive_san": true,
+        "retry_separate_precision_admission_required": true,
+        "failure_without_retry_or_second_failure_terminates_rest": true
+      },
+      "qte_binding": {
+        "template_id": "QT01",
+        "task_profile_id": "F31_wake",
+        "task_tags": [
+          "wake_from_mara"
+        ],
+        "normal_cycle_local_seconds": 3,
+        "normal_base_hit_window_local_seconds": 1.2,
+        "attempt_cost_budget_seconds": 8,
+        "prepared_pet_retry_window_local_seconds": 1.5,
+        "retry_is_separately_reserved_attempt": true,
+        "maximum_attempts_per_encounter": 2
+      }
     },
     {
       "id": "F32",
@@ -3685,7 +3726,7 @@
       "pressure_tradeoff": "腾路暂占交付时间；救助不等于给钥匙，变形也不自动证明恶意。",
       "free_solution": "来客携带本实例专用急救包，伤迹对照与现有干线免费；不消耗两份员工保底敷料，不依赖银器装备。",
       "failure_recovery": "堵路使来客焦躁并预告冲撞；退开并清路可恢复，不强制新增第二追逐。",
-      "resolution_condition": "来客接受公共急救物后沿公开路线离店，或在玩家未接受援助时保持出口畅通自行离去；只有实际援助回执给对应奖励，猜对姓名不是结束条件。",
+      "resolution_condition": "来客实际接受其携带的专用急救物并沿公开路线离店，按同实例援助与离店回执恢复SAN+4一次；未接受援助而保留出口让其自行离去也安全结束，但没有援助奖励。当前伤迹不授予员工权限。",
       "variants": [
         {
           "event_id": "E008",
@@ -3748,7 +3789,14 @@
         "static_binding_is_not_route_timing_proof": true
       },
       "condition_contract_id": "F33",
-      "condition_contract_file": "content/condition_lifecycle_v06.json"
+      "condition_contract_file": "content/condition_lifecycle_v06.json",
+      "runtime_parameters": {
+        "aid_reward_san": 4,
+        "reward_requires_actual_aid_and_same_visitor_departure": true,
+        "decline_or_departure_without_aid_reward": 0,
+        "per_encounter_reward_key": "aid",
+        "reward_contract": "content/consumer_closure_v08.json#/friendly_benefits"
+      }
     },
     {
       "id": "F34",
@@ -3886,10 +3934,10 @@
         "接受后把扫帚放入工位，背向去做其他工作；清扫仅在世界运行且未被注视时推进。",
         "已标垃圾清空后收回工具并交付；也可提前收起取消未完成委托，不发未完成帮助。"
       ],
-      "pressure_tradeoff": "离开注视换自动清扫，却要及时收工具保护旁边商品；拒绝尚未接受的委托不罚。",
+      "pressure_tradeoff": "暂时让出对工区的注视换取现有垃圾点代清；仍要摆边界和收回扫帚。未接受可拒绝，已由自己清完就保留原工作回执，不再领取第二份帮助。",
       "free_solution": "来客提供本次扫帚与边界牌，玩家只需基础取放；不以稀有供物换解法。",
       "failure_recovery": "边界漏放先推动邻物并警示，可拿起扫帚停工、补边界继续；不随机增加第四个任务。",
-      "resolution_condition": "指定垃圾处理、工具归还时结算一次有限帮助；接受前拒绝、任务提前被清理或提前收回工具均可安全结束，不重新制造垃圾。",
+      "resolution_condition": "登记的同一垃圾点已真实清洁且同一扫帚归还，清洁回执计入对应普通工单一次；清洁本身就是帮助，不另发币、食物或保护令牌。提前自行清完、未接受或提前收回工具均可安全结束，不制造新垃圾。",
       "variants": [
         {
           "event_id": "E022",
@@ -3953,7 +4001,13 @@
         "static_binding_is_not_route_timing_proof": true
       },
       "condition_contract_id": "F35",
-      "condition_contract_file": "content/condition_lifecycle_v06.json"
+      "condition_contract_file": "content/condition_lifecycle_v06.json",
+      "runtime_parameters": {
+        "only_reward_is_actual_existing_cleaning_credit": true,
+        "extra_currency_food_or_token_reward": false,
+        "same_work_credit_deduplicated_across_player_coworker_and_helper": true,
+        "reward_contract": "content/consumer_closure_v08.json#/friendly_benefits"
+      }
     },
     {
       "id": "F36",
@@ -3981,14 +4035,14 @@
       "taboo": "没有摆明范围和期限，不要把员工通行权一并交出去。",
       "critical_action": "给一个固定槽和20秒访问，到期收回通行条。",
       "action_steps": [
-        "先清出登记槽，摆实体边界牌并设置机械期限。",
+        "先确认已有空借用槽及一次6金币租金的有限载荷，摆边界牌；可拒绝，不从未来帮助倒造物资。",
         "交仅覆盖此槽的访客条，让它在圈内使用。",
         "到期到边界收回通行条并确认槽位清空。"
       ],
-      "pressure_tradeoff": "短时占仓位换一次可选帮助；给无限区域虽省摆牌却会挡工作。",
+      "pressure_tradeoff": "让出一个现有空槽20世界秒，换明示的6金币；主动提前撤销可保工作空间但不拿租金。不是提供没有消费者的帮助令牌。",
       "free_solution": "基础边界牌、机械计时与临时纸条免费；未接受前可拒绝。",
       "failure_recovery": "越界先显示圈向外延伸，可撤销本次许可再补边界。许可到20秒自动失效，不能因为纸条尚未收回而永久有效；拒绝尚未接受的借用不受罚。",
-      "resolution_condition": "20秒到期或玩家提前撤销后，该访客对该槽的权限失效并离开；清理纸条和空槽后可领已完成的有限帮助。接受前拒绝也结束邀请。",
+      "resolution_condition": "许可从实际授予起20世界秒自动到期，或由玩家提前撤销；访客离开即结束权限请求。完整20秒合法借用、按时撤权且原槽实际清空，才按同一rent回执领取6金币一次；提前撤销、拒绝或未清槽无租金。未领奖不保持活动威胁。",
       "variants": [
         {
           "event_id": "E009",
@@ -4052,7 +4106,17 @@
         "static_binding_is_not_route_timing_proof": true
       },
       "condition_contract_id": "F36",
-      "condition_contract_file": "content/condition_lifecycle_v06.json"
+      "condition_contract_file": "content/condition_lifecycle_v06.json",
+      "runtime_parameters": {
+        "lease_world_seconds": 20,
+        "lease_starts_on_actual_grant": true,
+        "permission_expires_automatically": true,
+        "full_lease_rent_coins": 6,
+        "early_revocation_rent_coins": 0,
+        "rent_requires_actual_slot_clearance": true,
+        "same_rent_reward_key_settles_once": true,
+        "reward_contract": "content/consumer_closure_v08.json#/friendly_benefits"
+      }
     },
     {
       "id": "F37",
@@ -5844,7 +5908,7 @@
         "N01",
         "N02"
       ],
-      "work_hook": "补饮用水时，水之母提出保留几瓶换本夜营业回报；两只箱之间出现镜面水纹界。",
+      "work_hook": "补饮用水时，水之母提出保留固定两瓶至06:00，履约且安全交班后换SAN+5；保留与可售两只容器之间出现镜面水纹界。",
       "omens": [
         {
           "kind": "physical",
@@ -5860,14 +5924,14 @@
       "taboo": "已经答应留在水界内的饮水，不要拿去补售货架。",
       "critical_action": "把承诺瓶实际放入封签保留槽，售货只从另一箱拿。",
       "action_steps": [
-        "接受前确认独立6瓶饮水、2瓶承诺与4瓶可售、两个已有容器槽及真实06:00期限；可以拒绝，个人保底补给不纳入。取消只放弃尚未获得的契约回报。",
+        "接受前确认独立6瓶饮水、固定2瓶保留/4瓶可售、两个已有容器槽及真实06:00期限。明示：履约并安全交班后SAN+5一次；拒绝、主动取消或06未封存都没有此奖励，不收额外现金或SAN罚。",
         "亲手把同一批承诺瓶分入保留槽封好，剩余瓶才进入可售槽；跨小时保留该槽占用。",
-        "只卖可售瓶；真实06:00先核履约或已声明违约结算，再释放占槽和封签，之后进行正式交班。"
+        "普通售货只取可售瓶；保留瓶不可被无关消费，但可在已有槽间实际移动。真实06:00记录同两瓶是否已封在保留容器，结清契约并释放占槽；过危机检查、核验交班后才领取已取得资格的SAN+5。"
       ],
-      "pressure_tradeoff": "回报换真实库存和一个槽位；热浪时宁愿少卖，也不能把同一瓶同时计作保留和售出。",
+      "pressure_tradeoff": "占用两瓶真实库存与保留容器至06，换安全交班后的SAN+5；四瓶可售仍按已有普通订单成交，不新增客单、营业倍率或工资奖励。",
       "free_solution": "基础饮水与双槽容器免费，接受前保证数量够；不强迫购买道具或让玩家挨饿补契约。",
-      "failure_recovery": "误移未售瓶可放回；已售物不复制补回。接受前明示取消只放弃尚未获得的契约奖励，无新现金扣款、欠债或必须补购的物品；取消释放剩余物占用。",
-      "resolution_condition": "真实06:00先结算履约并释放占用，或此前按明示条件取消契约；两者都结束本契约。契约终态必须先于关键威胁检查与H20交班，不能循环等待交班后解封。",
+      "failure_recovery": "误移保留瓶可把同一原物放回并封存；普通售货拒绝保留瓶。取消只释放剩余原物与槽，不发SAN+5、不收新增SAN罚、不生现金债；已出售的四瓶可售水不复制补回，也不能把未封存当履约。",
+      "resolution_condition": "真实06:00先按同两瓶的实际封存快照判履约资格并释放占槽，再检查危机与交班；已履约且核验交班完成才SAN+5一次，不能借此在危机检查前消除活动恐慌。主动取消或未履约均结束合同、无奖励与新增罚款；06以后补封不能补领。",
       "variants": [
         {
           "event_id": "E012",
@@ -5936,7 +6000,15 @@
         "promised_bottles": 2,
         "saleable_bottles": 4,
         "personal_emergency_food_and_water_excluded": true,
-        "exit_penalty": "forfeit_unearned_contract_reward_no_new_cash_required"
+        "exit_penalty": "forfeit_unearned_contract_reward_no_new_cash_required",
+        "promised_bottles_block_unrelated_sales": true,
+        "promised_bottles_may_move_between_existing_slots": true,
+        "fulfilled_reward_san": 5,
+        "reward_requires_verified_handover": true,
+        "qualification_snapshot_budget": 720,
+        "cancelled_or_unfulfilled_san_delta": 0,
+        "undefined_sale_breach_penalty_removed": true,
+        "reward_contract": "content/consumer_closure_v08.json#/friendly_benefits"
       }
     },
     {
@@ -6077,7 +6149,7 @@
       "pressure_tradeoff": "赠食减少可售或可吃库存，护送占用玩家行程；可以在接受前拒绝。",
       "free_solution": "店内有一份免费基础赠食可用；不依赖宠物购买或抽奖，也不承诺店外无限无敌。",
       "failure_recovery": "踩出线先让犬停步示警，返回最近节点可续行；离开过久则本次庇护结束，交接物仍保留。",
-      "resolution_condition": "完成限定护送并返回店内即可结束：实际交付才记订单完成，超时带物返回只记安全护送及待办。次夜预警绑定实际下一夜ID、跨周仍限一次且到期失效，N06不生成第七小时。",
+      "resolution_condition": "完成本次登记路线并实际返店，按同一护送回执SAN+4一次；实际交付才另记原订单完成，骑手超时带原物返店只算护送成功及原待办。未接受或中途放弃无护送奖励。不再发没有明确消费者的次夜预警。",
       "variants": [
         {
           "event_id": "E008",
@@ -6148,7 +6220,12 @@
         "receiver_wait_world_seconds_max": 6,
         "return_budget_reserved_before_acceptance": true,
         "off_route_warning_world_seconds": 3,
-        "off_route_protection_expires_world_seconds": 6
+        "off_route_protection_expires_world_seconds": 6,
+        "completed_escort_san_reward": 4,
+        "reward_requires_actual_return_to_store": true,
+        "late_receiver_return_with_same_item_counts_as_escort_only": true,
+        "next_night_warning_token_enabled": false,
+        "reward_contract": "content/consumer_closure_v08.json#/friendly_benefits"
       }
     },
     {

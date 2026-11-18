@@ -358,7 +358,7 @@ def validate_world_contract(audit: Audit, files: dict[str, dict], indexes: dict)
     audit.need(set(lifecycle.get("terminal_states", [])) <= set(lifecycle.get("states", [])),
                "lifecycle", "terminal states must be declared")
     for field, value in {"post_announcement_slot_refill": False, "terminal_states_absorbing": True,
-                         "completion_receipt_idempotent": True, "root_episode_reward_max": 1,
+                         "completion_receipt_idempotent": True, "per_declared_reward_key_max": 1,
                          "failure_derived_blood_encounters_grant_no_farmable_bonus": True}.items():
         audit.equal(lifecycle, field, value, "lifecycle")
     actors = core.get("actors", {})

@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "checks": 487,
+  "errors": [],
+  "inputs_sha256": {
+    "content/encounters_v05.json": "2f1832785164f9d975b70dc93c14921f4138ff30f76d3f523349603366cd1c9c",
+    "content/condition_lifecycle_v06.json": "c0d144c40637e8f53a8f1489fe3307c7e709bb3a3c97e4395b479a24f3d53996",
+    "content/events.json": "97b0fabd83cf0cd89cbf574408fa937853b3c36cd0dcd5f24470d86547d4755c",
+    "content/consumer_closure_v08.json": "e1f6a7886a1a81f485941bdc268dc1799b3c83c59c0a57f316818da014a2bf1e",
+    "content/items.json": "496cfff30f45206fcd92f8050fbc6d74436e2f9b0c1cf14161e212a70630051f",
+    "content/equipment.json": "5b858d630059a2839b33697f42e624bcfb78a7f8b06d384174cfdccb54df5253",
+    "content/pets.json": "27711d15abc6a97cfd63767057d5856552a937c28b4599edc36e351ccf0d641b",
+    "content/balance.json": "876128e90ba61929a9527044d0103a5a97bb17cd2f082ef1e4b37f7d49c27f51",
+    "content/rules.json": "eb2ab60f021089165266bb9df614c7e7bc1d6a19b4f7f2efc2438577e2e05793",
+    "content/synergies.json": "90dae1762b92a157ae1f0da936d4e92ebd1655181c03796050a5470098ccfcc1",
+    "content/store_systems_v05.json": "535ee2444c3d0f111b4ef72476a8702ebe547c7a83da5672e23cd9bf5069e376",
+    "content/auxiliary_targets_v07.json": "48cd7764eeedb4a9a93a584c8e274721ea4f772e5a083f5a05109665897c9bb6",
+    "content/maps.json": "773e39b35bc16c63e6b4f294e27f8a944072599f21b8ad1bae46527f0a093b9a",
+    "content/map_mechanics_v05.json": "d83825248f740035fa7924ff3b6845b127f10453a3ed78a64c7444d3deb2c03d",
+    "content/qte.json": "cc23cea190904e846f5c6b162c7b8f82aefa3aadef3bd581cefe13bc90c5771a"
+  },
+  "counts": {
+    "current_cards": 60,
+    "current_variants": 120,
+    "event_catalog": 72,
+    "current_event_design_candidates": 71,
+    "current_synergy_design_cases": 15,
+    "method_pages": 7
+  },
+  "scope": "Cross-file consumer and temporal consistency plus explicit S06/S08/S17 source chronology and fixed-slot geometry. Not complete dynamic reachability, all random combinations, client or playtesting."
+}

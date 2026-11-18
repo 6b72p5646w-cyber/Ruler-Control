@@ -1,5 +1,5 @@
 {
-  "version": "0.7",
+  "version": "0.8",
   "client_implemented": false,
   "scope": "Second pass: actual time windows, typed supplies, effective consumers and action transactions; no complete director/AI proof.",
   "phase_seconds": 120,
@@ -210,5 +210,7 @@
       "E065_first_claim_fragment": 1,
       "max_fragment_sources_per_night": 1
     }
-  }
+  },
+  "consumer_closure_contract": "content/consumer_closure_v08.json",
+  "current_carryover_reference": "content/condition_lifecycle_v06.json#/active_carryover"
 }

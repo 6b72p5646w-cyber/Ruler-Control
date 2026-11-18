@@ -213,8 +213,14 @@ export function clearDebt(previous, dutyId) {
 }
 
 export function gradeShift(state, config, outcome) {
+  // Reject an explicitly failed/unsettled upstream result and an active panic
+  // even before its timer expires. This does not authenticate a caller's
+  // verifiedHandover flag. Older arithmetic examples may omit settlementMode;
+  // the client must supply actual settlement and completed handover facts.
+  const rejectedSettlement = Object.hasOwn(outcome, 'settlementMode') && outcome.settlementMode !== 'handover_only';
   const complete = outcome.trueGameMinutes >= 360 && outcome.verifiedHandover &&
-    !state.criticalBreach && !outcome.unresolvedCriticalThreat && !outcome.panicExpired && !outcome.withdrawn;
+    !state.criticalBreach && !outcome.unresolvedCriticalThreat && !outcome.panicExpired &&
+    !outcome.panicActive && !rejectedSettlement && !outcome.withdrawn;
   if (!complete) return {complete: false, grade: null, wage: 0, ticket: false};
   const orders = new Set(state.orders.filter(o => o.status === 'complete').map(o => o.id)).size;
   const duties = Math.min(6, Math.max(0, outcome.completedDuties));

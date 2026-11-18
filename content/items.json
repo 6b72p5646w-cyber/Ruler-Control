@@ -1,5 +1,5 @@
 {
-  "version": "0.7",
+  "version": "0.8",
   "items": [
     {
       "id": "I01",
@@ -19,7 +19,9 @@
       "lottery_enabled": true,
       "reward_enabled": true,
       "crafting_enabled": false,
-      "acquisition_contract": "content/auxiliary_targets_v07.json"
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "food_source_policy": "personal_verified_required_for_ingestion",
+      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification"
     },
     {
       "id": "I02",
@@ -39,7 +41,9 @@
       "lottery_enabled": true,
       "reward_enabled": true,
       "crafting_enabled": false,
-      "acquisition_contract": "content/auxiliary_targets_v07.json"
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "food_source_policy": "personal_verified_required_for_ingestion",
+      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification"
     },
     {
       "id": "I03",
@@ -62,7 +66,9 @@
       "lottery_enabled": true,
       "reward_enabled": true,
       "crafting_enabled": false,
-      "acquisition_contract": "content/auxiliary_targets_v07.json"
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "food_source_policy": "personal_verified_required_for_ingestion",
+      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification"
     },
     {
       "id": "I04",
@@ -85,7 +91,12 @@
       "lottery_enabled": true,
       "reward_enabled": true,
       "crafting_enabled": false,
-      "acquisition_contract": "content/auxiliary_targets_v07.json"
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "resource_deltas": {
+        "san": 8
+      },
+      "food_source_policy": "personal_verified_required_for_ingestion",
+      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification"
     },
     {
       "id": "I05",
@@ -102,7 +113,9 @@
       "lottery_enabled": true,
       "reward_enabled": true,
       "crafting_enabled": false,
-      "acquisition_contract": "content/auxiliary_targets_v07.json"
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "food_source_policy": "personal_verified_required_for_ingestion",
+      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification"
     },
     {
       "id": "I06",
@@ -293,7 +306,9 @@
       "lottery_enabled": true,
       "reward_enabled": true,
       "crafting_enabled": false,
-      "acquisition_contract": "content/auxiliary_targets_v07.json"
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "food_source_policy": "personal_verified_required_for_ingestion",
+      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification"
     },
     {
       "id": "I14",
@@ -310,7 +325,9 @@
       "lottery_enabled": true,
       "reward_enabled": true,
       "crafting_enabled": false,
-      "acquisition_contract": "content/auxiliary_targets_v07.json"
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "food_source_policy": "personal_verified_required_for_ingestion",
+      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification"
     },
     {
       "id": "I15",
@@ -452,7 +469,7 @@
       "rarity": "uncommon",
       "shop_price": 22,
       "effect": "补充一份已核验净水或清理一小块普通污迹",
-      "tradeoff": "净化灵体仅对已研究的匹配方法生效",
+      "tradeoff": "仅饮用或清理普通污迹；遭遇若明确接受净水，仍须对同一份实际净水完成指定交付，不直接净化灵体，也不以日间学习页作为使用门槛。",
       "tag": "water",
       "consumable": true,
       "design_origin": "original_game_adaptation",
@@ -461,7 +478,9 @@
       "lottery_enabled": true,
       "reward_enabled": true,
       "crafting_enabled": false,
-      "acquisition_contract": "content/auxiliary_targets_v07.json"
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "food_source_policy": "personal_verified_required_for_ingestion",
+      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification"
     },
     {
       "id": "I21",
@@ -724,6 +743,8 @@
     "qte_parameter_changes": "SAN或技能变化影响下一次QTE，已经开始的QTE不突然更改显示判定区。",
     "task_meat_container_rule": "封口袋、保冷套、速冷包均不能替代F13的冰柜入柜完成条件。",
     "illumination_changes_san_value": false,
-    "all_acquisition_channels_respect_availability": true
+    "all_acquisition_channels_respect_availability": true,
+    "food_verification_contract": "content/consumer_closure_v08.json#/food_verification",
+    "food_status_is_independent_of_effect_tag": true
   }
 }

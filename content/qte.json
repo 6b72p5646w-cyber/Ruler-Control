@@ -1,5 +1,5 @@
 {
-  "version": "0.6",
+  "version": "0.8",
   "status": "prototype_proposal_not_playtested",
   "judgment_policy": "visible_region_matches_logical_region_no_hidden_input_error_roll",
   "snapshot_modifiers_at_attempt_start": true,
@@ -147,6 +147,30 @@
       "task_bonus_applied_after_unassisted_floor": true,
       "stacking": "strongest_single_increase_not_sum",
       "maximum_final_window_seconds": 1.8
+    },
+    {
+      "id": "F31_wake",
+      "template_id": "QT01",
+      "cycle_seconds": 3,
+      "segment_base_windows_seconds": [
+        1.2
+      ],
+      "attempt_cost_seconds": 8,
+      "local_cycles_per_attempt": 1,
+      "task_bonus_seconds_max": 0,
+      "maximum_final_window_seconds": 1.8,
+      "first_window_uses_normal_san_modifiers": true,
+      "prepared_p08_retry": {
+        "maximum_extra_attempts": 1,
+        "visible_hit_window_local_seconds": 1.5,
+        "normal_target_multiplier": 1.0,
+        "requires_actual_san_above_zero": true,
+        "attempt_cost_seconds": 8,
+        "separate_admission_and_cost_required": true,
+        "local_cycles_per_attempt": 1,
+        "cannot_stack_other_precision_bonuses": true
+      },
+      "reward_contract": "content/consumer_closure_v08.json#/f31_p08_rest"
     }
   ]
 }

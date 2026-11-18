@@ -1,0 +1,258 @@
+{
+  "version": "0.8",
+  "client_implemented": false,
+  "scope": "Finite current consumers and declared reward outputs. Actual world actions, provenance observations and storage must be supplied by client adapters; this is not a complete item or encounter engine.",
+  "food_verification": {
+    "edible_item_ids": [
+      "I01",
+      "I02",
+      "I03",
+      "I04",
+      "I05",
+      "I13",
+      "I14",
+      "I20"
+    ],
+    "food_status_is_separate_from_effect_tag": true,
+    "ownership_alone_makes_food_safe": false,
+    "trusted_acquisition_channels": [
+      "paid_shop",
+      "daily_job_supply",
+      "shop_lottery"
+    ],
+    "guest_gift_initial_status": "sealed_unverified",
+    "gift_source": {
+      "F29": {
+        "item_id": "I04",
+        "quantity": 1,
+        "product_class": "factory_sealed_known_catalog_product",
+        "trusted_batch_source": "actual_pre_shift_supplier_record",
+        "unknown_homemade_food_supported": false
+      }
+    },
+    "inspection_world_seconds": 3,
+    "inspection_anchors": [
+      "cashier",
+      "verification_desk"
+    ],
+    "requires_qte": false,
+    "requires_no_active_chase": true,
+    "requires_actual_same_item_in_inspection_slot": true,
+    "required_evidence": [
+      "actual_same_item_claim_receipt",
+      "observed_intact_seal",
+      "observed_batch_matches_trusted_record",
+      "trusted_record_precedes_gift"
+    ],
+    "success_status": "personal_verified",
+    "cancel_or_mismatch_status": "sealed_unverified",
+    "cancel_or_mismatch_consumes_item": false,
+    "unsupported_unknown_gift_policy": "keep_sealed_or_decline_no_consumption_no_safety_claim",
+    "knowledge_or_species_identification_substitutes_for_inspection": false,
+    "one_food_instance_consumed_once": true,
+    "inspection_handler_required_before_promising_edible_gift": true
+  },
+  "friendly_benefits": {
+    "settlement_scope": "each_predeclared_reward_key_once_per_encounter_instance",
+    "completion_receipt_is_separate_from_reward_keys": true,
+    "arbitrary_child_reward_keys_allowed": false,
+    "actual_inputs_must_share_instance_and_object_binding": true,
+    "source_receipts_are_engine_adapter_facts_not_authenticated_by_reference": true,
+    "resource_caps_apply": true,
+    "benefits": [
+      {
+        "monster_id": "F23",
+        "reward_key": "gift",
+        "kind": "item",
+        "item_id": "I21",
+        "quantity": 1,
+        "requires": [
+          "matched_coat_actually_returned",
+          "claimant_departed",
+          "declared_gift_actually_claimed"
+        ]
+      },
+      {
+        "monster_id": "F29",
+        "reward_key": "gift",
+        "kind": "item",
+        "item_id": "I04",
+        "quantity": 1,
+        "requires": [
+          "same_porridge_and_visible_butter_delivered",
+          "declared_gift_actually_claimed"
+        ],
+        "food_status_on_claim": "sealed_unverified"
+      },
+      {
+        "monster_id": "F33",
+        "reward_key": "aid",
+        "kind": "san",
+        "amount": 4,
+        "requires": [
+          "visitor_first_aid_actually_delivered",
+          "same_visitor_departed"
+        ]
+      },
+      {
+        "monster_id": "F35",
+        "reward_key": "cleaning",
+        "kind": "existing_work_credit",
+        "quantity": 1,
+        "requires": [
+          "same_registered_garbage_point_actually_cleaned",
+          "same_broom_returned"
+        ],
+        "extra_token_or_currency": false
+      },
+      {
+        "monster_id": "F36",
+        "reward_key": "rent",
+        "kind": "coins",
+        "amount": 6,
+        "requires": [
+          "actual_lease_granted",
+          "full_lease_elapsed",
+          "lease_revoked_on_time",
+          "same_leased_slot_actually_cleared"
+        ],
+        "lease_world_seconds": 20,
+        "early_revocation_reward": 0
+      },
+      {
+        "monster_id": "F47",
+        "reward_key": "segment_1",
+        "kind": "coins",
+        "amount": 3,
+        "requires": [
+          "same_segment_actually_completed",
+          "same_segment_sealed_and_claimed"
+        ]
+      },
+      {
+        "monster_id": "F47",
+        "reward_key": "segment_2",
+        "kind": "coins",
+        "amount": 5,
+        "requires": [
+          "same_segment_actually_completed",
+          "same_segment_sealed_and_claimed"
+        ],
+        "previous_claim_key": "segment_1"
+      },
+      {
+        "monster_id": "F47",
+        "reward_key": "segment_3",
+        "kind": "coins",
+        "amount": 8,
+        "requires": [
+          "same_segment_actually_completed",
+          "same_segment_sealed_and_claimed"
+        ],
+        "previous_claim_key": "segment_2"
+      },
+      {
+        "monster_id": "F53",
+        "reward_key": "dawn",
+        "kind": "san",
+        "amount": 5,
+        "requires": [
+          "actual_promise_accepted",
+          "true_six_reached",
+          "same_two_bottles_sealed_in_reserved_container",
+          "verified_handover_completed"
+        ],
+        "cancelled_or_unfulfilled_reward": 0,
+        "payment_phase": "after_verified_handover",
+        "qualification_snapshot_budget": 720,
+        "does_not_clear_panic_before_handover": true
+      },
+      {
+        "monster_id": "F55",
+        "reward_key": "escort",
+        "kind": "san",
+        "amount": 4,
+        "requires": [
+          "actual_escort_accepted",
+          "same_registered_route_completed",
+          "player_and_remaining_item_returned_to_store"
+        ],
+        "actual_delivery_is_separate_order_credit": true,
+        "next_night_warning_token": false
+      }
+    ],
+    "f47_fragment_bonus": {
+      "contract": "content/items.json#/lottery/fragment_contract",
+      "first_actual_cashout_only": true,
+      "same_root_reward_id_for_E065": true,
+      "per_night_source_limit": 1
+    }
+  },
+  "f53_preserved_stock": {
+    "fixed_total": 6,
+    "fixed_promised": 2,
+    "fixed_saleable": 4,
+    "promised_items_block_unrelated_sale_or_consumption": true,
+    "same_promised_bottles_may_move_between_existing_slots": true,
+    "completion_requires_same_bottles_in_sealed_reserved_container_at_true_six": true,
+    "voluntary_cancellation_releases_remaining_reservations": true,
+    "unfulfilled_or_cancelled_san_delta": 0,
+    "undefined_sale_breach_penalty_removed": true,
+    "cancel_does_not_generate_new_bottles_or_restore_previous_sales": true
+  },
+  "f31_p08_rest": {
+    "rest_episode_max_per_encounter": 1,
+    "successful_rest_total_energy": 4,
+    "pet_first_real_failure_compensation_energy": 2,
+    "pet_compensation_requires_prepared_cared_pet_and_charge": true,
+    "pet_charge_spent_on_first_actual_failure_effect": true,
+    "pet_retry_target_scale": 1.0,
+    "subsequent_success_adds_only_difference_to_total": true,
+    "active_cancellation_grants_new_compensation": false,
+    "already_committed_compensation_survives_later_exit": true,
+    "first_failure_san_delta": -6,
+    "failure_san_applies_max_once_per_rest_episode": true,
+    "precision_time_and_existing_budget_still_required": true,
+    "client_adapter_implemented": false,
+    "pet_retry_local_window_seconds": 1.5,
+    "attempt_cost_budget_seconds": 8,
+    "local_attempt_cycle_seconds": 3,
+    "normal_first_base_hit_window_local_seconds": 1.2,
+    "qte_template_id": "QT01",
+    "qte_task_profile_id": "F31_wake",
+    "max_attempts_without_pet": 1,
+    "max_attempts_with_prepared_pet": 2,
+    "retry_requires_positive_san": true,
+    "each_retry_separately_reserved_and_charged": true,
+    "second_failure_ends_rest_episode": true,
+    "first_failure_without_usable_retry_ends_rest_episode": true,
+    "prepared_read_only_exit_cost_seconds": 0,
+    "started_cancel_cost_budget_seconds": 8,
+    "pet_retry_uses_normal_visible_target_without_san_shrink": true,
+    "world_frozen_during_local_qte": true,
+    "san_zero_exits_to_normal_panic_without_new_qte": true
+  },
+  "e062_noise_sleep": {
+    "host_action": "A01",
+    "same_existing_day_slot": true,
+    "forecast_required_before_acceptance": true,
+    "source_id_settles_once_per_day_slot": true,
+    "stay_home": {
+      "coins_cost": 0,
+      "energy_delta": 8,
+      "san_delta": 0,
+      "sleep_hours": 2
+    },
+    "move_to_existing_study_rest_area": {
+      "scene": "MAP_STUDY",
+      "coins_cost": 10,
+      "energy_delta": 16,
+      "san_delta": 4,
+      "sleep_hours": 2
+    },
+    "both_choices_use_sleep_satiety_rate_once": true,
+    "insufficient_coins_keeps_free_choice": true,
+    "extra_soundproof_item_required": false,
+    "stack_full_A01_reward_again": false
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "version": "0.6",
+  "version": "0.8",
   "total": 18,
   "evaluation_order": [
     "default_enabled",
@@ -109,21 +109,48 @@
     {
       "id": "S06",
       "monster_ids": [
-        "F08",
         "F12"
       ],
       "event_ids": [],
       "effect_type": "mixed",
       "stress_delta_proposal": 1,
-      "condition": "F08待处理旧器具占用了办公用品架，F12尚处于入场预告或准备阶段。",
-      "effect": "玩家先把旧器具登记并暂存到待办托盘，再取得露出的回形针盒；随后按地面诱饵引出F12，旧器具本身不作为诱饵。",
-      "hard_admission_gate": "追逐开始前须完成取物通路整理，或已在旁边提供可取的备用回形针；F08不能强迫长维修后才开放唯一反制。至少保留一个可达出口。",
-      "player_response": "调整办公用品架的取物顺序，先拿到回形针，再把旧器具的完整修复或退役排入后续工作。只撒回形针，不投喂旧器具或废铁。",
-      "status": "v03_supply_access_order_before_pursuit",
+      "condition": "F12已合法预告但尚未追逐；玩家因真实普通工作持有一件未归位旧工具，手持工作位被该原物占用，packing既有托盘有可用空位。旧工具存在不表示F08已经入场。",
+      "effect": "取回形针前先把当前旧工具实际放到已有托盘，释放手持位；只改变一次取放次序，不要求修好工具，不产生第二怪物。",
+      "hard_admission_gate": "仅绑定实际已持有的非关键普通工具和packing既有空托盘，保留其对象ID与原归属；托盘须可达且往返取放可在追逐前完成，或已持有合法回形针备用。无实际工具/空托盘/余量则不选该组合。不得占用唯一回形针源或关闭诱离出口，不改变F12蓝图。",
+      "player_response": "把同一工具放入已预留托盘，再从metal_shelf实际拿回形针；之后仍由玩家撒回形针诱离。已提前归位就跳过整理，不把工具塞回手中重做，也不因整理完毕直接清除F12。",
+      "status": "current_existing_object_preparation_not_F08_entity_pair",
       "enabled_default": true,
       "enabled_current": true,
       "runtime_enabled": false,
-      "source_revalidation_contract": "content/condition_lifecycle_v06.json"
+      "source_revalidation_contract": "content/condition_lifecycle_v06.json",
+      "composition_kind": "current_encounter_with_actual_ordinary_object",
+      "active_monster_ids": [
+        "F12"
+      ],
+      "source_contract_v08": {
+        "source_kind": "actual_ordinary_work_object",
+        "required_fields": [
+          "object_instance_id",
+          "actual_pickup_receipt_id",
+          "current_holder_id",
+          "current_location",
+          "original_owner"
+        ],
+        "requires_current_holder": "PLAYER",
+        "object_must_be_noncritical": true,
+        "existing_fixture_anchor": "packing",
+        "required_existing_fixture": "available_operation_tray",
+        "fixture_created_by_synergy": false,
+        "tool_created_by_synergy": false,
+        "tool_already_placed_skips_preparation": true,
+        "world_transfer_does_not_resolve_F12": true,
+        "F08_active_or_prior_encounter_required": false,
+        "paperclip_only_lure_unchanged": true,
+        "prepare_before_pursuit_or_require_already_held_valid_paperclips": true,
+        "time_and_route_must_be_measured_before_admission": true,
+        "canonical_blueprint_file": "content/encounter_blueprints.json",
+        "canonical_encounter_id": "F12"
+      }
     },
     {
       "id": "S07",
@@ -153,14 +180,81 @@
       "event_ids": [],
       "effect_type": "easier",
       "stress_delta_proposal": -1,
-      "condition": "报丧女妖的预警对象为真实员工，双重身制造两个位置。",
-      "effect": "危险岗位提示可作为额外观察线索，帮助缩小轨迹核验范围。",
-      "hard_admission_gate": "预警不是完整身份认证；恢复权限仍需要另一类独立证据。",
-      "player_response": "先让危险工位上的所有员工外观者离开，保护动作不授权限；再核验连续性，无法辨认就两者待核。",
-      "status": "hand_authored_design_case_not_runtime_predicate",
+      "condition": "本班较早N03/N04的F21已实际产生预警记录或事故回执；N05/N06的F38现身时，玩家可以读取该真实历史，并有独立连续观察把当时所见对象连接到当前身体。旧F21实体不要求仍在场。",
+      "effect": "既有险情记录提供一项过去工位与动作的核对线索，帮助缩小F38三段真实作业轨迹的核验范围；它不是当前身份结论，也不让已结束的女妖再次预警。",
+      "hard_admission_gate": "只引用已实际发生并由玩家合法观察到的F21本次预警/事故记录及其原始对象、时刻和来源ID，不补造纸条或事故。F21同次预警、事故、预防回执共用一条根来源，不能凑成两类独立证据。恢复当前身体权限仍需H04的不同根来源与不同证据域，并有实际连续观察或本怪合法现场测试；过期快照只证明当时事实，不能证明现在位置。缺旧源不启用这项减难；后续连续性断裂则保持待核，不强迫猜人。",
+      "player_response": "先在既有日志核对F21当时的工位、预警对象和实际避险/事故结果，再和另一独立来源及连接当前身体的观察链核对。证据不足就保留钥匙并限制两者高风险权限，允许冒名请求安全结束；不要把两张同源记录当作两份身份证明。",
+      "status": "current_historical_F21_record_assists_later_F38_no_live_F21_required",
       "enabled_current": true,
       "runtime_enabled": false,
-      "source_revalidation_contract": "content/condition_lifecycle_v06.json"
+      "source_revalidation_contract": "content/condition_lifecycle_v06.json",
+      "composition_kind": "prior_actual_observed_evidence_plus_current_encounter",
+      "active_monster_ids": [
+        "F38"
+      ],
+      "source_contract_v08": {
+        "historical_monster_id": "F21",
+        "historical_allowed_phases": [
+          "N03",
+          "N04"
+        ],
+        "current_monster_id": "F38",
+        "current_allowed_phases": [
+          "N05",
+          "N06"
+        ],
+        "requires_actual_F21_source_instance": true,
+        "accepted_source": "existing_observed_F21_warning_record_or_actual_accident_receipt",
+        "source_can_be_successfully_prevented_without_injury": true,
+        "source_instance_and_timestamp_immutable": true,
+        "must_precede_F38_first_omen": true,
+        "same_warning_accident_and_prevention_share_root_evidence_id": true,
+        "requires_distinct_second_root_and_independence_domain": true,
+        "historical_receipt_is_not_current_presence_proof": true,
+        "current_body_requires_bound_continuity_or_current_species_test": true,
+        "expired_live_snapshot_cannot_prove_current_location": true,
+        "hidden_true_identity_never_added_to_player_record": true,
+        "creates_new_receipt_paper_or_entity": false,
+        "F21_must_remain_active": false,
+        "reopens_F21_warning": false,
+        "missing_prior_source": "disable_this_easier_combination_F38_still_uses_its_own_admission",
+        "continuity_lost_after_arrival": "safe_pending_identity_no_forced_guess_no_identity_reward"
+      },
+      "temporal_witness_v08": {
+        "scope": "Sequential evidence example, not simultaneous F21/F38 and not a full NPC/navigation playtest.",
+        "clock_assumption": "world_elapsed_equals_shift_budget_in_this_witness",
+        "steps": [
+          {
+            "budget": 380,
+            "phase": "N04",
+            "event": "已合法准入的F21对实际有人操作的工位发出预警；保存原事故实例的可观察警报时刻与范围"
+          },
+          {
+            "budget": 400,
+            "phase": "N04",
+            "event": "被预警者实际离开危险位并完成安全停机，F21记预防终态；原预警仍只是一份过去事实，无须故意受伤"
+          },
+          {
+            "budget": 440,
+            "phase": "N04",
+            "event": "F38首兆前已有三个独立实际工作来源，核对其中可用的F21历史线索与真实观察链；不制造新预警"
+          },
+          {
+            "budget": 500,
+            "phase": "N05",
+            "event": "F38实际出现；读取旧源并与独立当前观察绑定，只有其覆盖的事实有效，不要求F21同场"
+          },
+          {
+            "budget": 530,
+            "phase": "N05",
+            "event": "若另一独立证据与身体连续性均成立，按F38原规则恢复有限权限；否则继续待核并安全结束冒名请求"
+          }
+        ],
+        "historical_presence_age_at_F38_arrival_world_seconds": 120,
+        "old_snapshot_age_does_not_refresh_or_serve_as_current_presence": true,
+        "new_primary_in_N04": "F21",
+        "new_primary_in_N05": "F38"
+      }
     },
     {
       "id": "S09",
@@ -283,14 +377,28 @@
       ],
       "effect_type": "harder",
       "stress_delta_proposal": 1,
-      "condition": "区域停水且正在考虑饮水高价契约。",
-      "effect": "饮水的即时售价和后续营业需求同时上升，签约前要分配保留库存。",
-      "hard_admission_gate": "只允许承诺当前可履行的份额；个人最低补给不得被未经确认的合同自动扣走。",
-      "player_response": "部分签约或拒绝均合法；把库存保护条款写清楚后再确认。",
+      "condition": "E015实际区域停水正在生效，F53提出固定六瓶饮水的公开方案：完整接受后两瓶保留、四瓶可售；同一六瓶独立库存实际存在，尚未承诺或转作其他用途。",
+      "effect": "停水使已存在的可售饮水更有价值；玩家在固定两瓶留水承诺与四瓶可售份额之间安排后续服务，不改变F53原本数量和取消条款。",
+      "hard_admission_gate": "只允许完整接受固定6/2/4份额或拒绝，不能临时少保留一瓶或部分签约。六瓶须为同一独立实际库存，两处已有容器槽可达且可预留；个人最低饮食、其他已接受任务的基础物资和唯一免费用水解均不得挪用。缺任一必要物、槽位、剩余预算或唯一免费解被占用就不投该组合；不要求额外购买以补齐准入。",
+      "player_response": "核对六瓶与两个已有容器后，选择按明示固定份额接受，或拒绝；接受后亲手分为两瓶保留和四瓶可售。停水不授权出售保留瓶，也不自动把饮用瓶扣作清洁补水；以后取消仍仅放弃未获得的原契约奖励。",
       "status": "hand_authored_design_case_not_runtime_predicate",
       "enabled_current": true,
       "runtime_enabled": false,
-      "source_revalidation_contract": "content/condition_lifecycle_v06.json"
+      "source_revalidation_contract": "content/condition_lifecycle_v06.json",
+      "source_contract_v08": {
+        "actual_event_id": "E015",
+        "actual_event_must_be_active": true,
+        "offered_bottles": 6,
+        "retained_bottles": 2,
+        "saleable_bottles": 4,
+        "partial_acceptance_enabled": false,
+        "player_cannot_edit_promised_quantity": true,
+        "personal_and_other_encounter_reserved_supplies_excluded": true,
+        "must_preserve_other_active_encounters_unique_free_solution": true,
+        "missing_required_inputs": "do_not_admit_or_decline_before_acceptance_without_penalty",
+        "requires_no_purchase_to_become_eligible": true,
+        "same_bottle_not_duplicated_between_retained_saleable_or_cleaning": true
+      }
     },
     {
       "id": "S16",
@@ -315,19 +423,114 @@
       "id": "S17",
       "monster_ids": [
         "F36",
-        "F51"
+        "F53"
       ],
       "event_ids": [],
       "effect_type": "harder",
       "stress_delta_proposal": 2,
-      "condition": "同时收到空间授权契约与故事换物契约。",
-      "effect": "两组对象、代价和时限并列，考验分开记录与避免无意代理承诺。",
-      "hard_admission_gate": "两合同都能在签订前拒绝；若承诺相互矛盾，不得提供同时接受按钮。",
-      "player_response": "先完成一项短契约，再处理另一项；可按明价买商品结束故事交易。",
-      "status": "hand_authored_design_case_not_runtime_predicate",
+      "condition": "N01实际接受的F53两瓶留水承诺仍有效，保留瓶和四瓶可售水已分入两个已有容器槽；N02的F36在公共核验位提出20世界秒单槽借用，既有OBJ_LEASE_MARKER借用框为空且与两处水瓶槽分离。",
+      "effect": "同一时段维持长期留水承诺并办理短期借槽许可；玩家要分清物品归属与临时空间权限。F53只保留原合同和库存占用，N02只新增F36一个主遭遇，不召回或复制F53实体。",
+      "hard_admission_gate": "F53须有同班N01真实接受/分槽封存回执，早于F36首兆且未取消；仅使用goods_shelf既有保留容器、pickup_shelf既有可售容器与OBJ_LEASE_MARKER原借用框，三者实际槽ID不同、几何不重叠且未被其他任务占用。保留两瓶不可销售、转交或借用；若不能同时保留两份互不冲突的承诺，就不提供F36接受动作，允许拒绝或提前撤销并放弃未赚租金。仍须核对20秒许可及来回实际操作预算。",
+      "player_response": "先看封存两瓶仍在自己的保留槽，再把F36访客条限定给既有空借用框；到20世界秒自动撤销该空间权限，并实际收条清槽。F53继续到真实06:00结算。也可拒绝F36，或按F53原条款取消未赚回报后释放留水槽；不能让同一瓶同时算留存、售出和借走。",
+      "status": "current_prior_F53_commitment_with_N02_F36_offer",
       "enabled_current": true,
       "runtime_enabled": false,
-      "source_revalidation_contract": "content/condition_lifecycle_v06.json"
+      "source_revalidation_contract": "content/condition_lifecycle_v06.json",
+      "composition_kind": "prior_actual_commitment_plus_current_encounter",
+      "active_monster_ids": [
+        "F36"
+      ],
+      "source_contract_v08": {
+        "prior_contract_monster_id": "F53",
+        "required_prior_acceptance_phase": "N01",
+        "current_encounter_id": "F36",
+        "required_current_phase": "N02",
+        "requires_actual_prior_acceptance_receipt": true,
+        "requires_actual_water_split_and_seal_receipt": true,
+        "prior_receipts_must_precede_current_first_omen": true,
+        "prior_contract_must_still_be_active": true,
+        "prior_contract_does_not_spawn_another_entity": true,
+        "new_primary_per_phase": 1,
+        "preserved_bottles": 2,
+        "saleable_bottles": 4,
+        "retained_container_anchor": "goods_shelf",
+        "saleable_container_anchor": "pickup_shelf",
+        "lease_object_id": "OBJ_LEASE_MARKER",
+        "lease_object_owner_anchor": "storage_shelf",
+        "use_existing_actual_container_slots_only": true,
+        "new_slots_created": false,
+        "all_three_slot_instance_ids_must_differ": true,
+        "lease_rect_cannot_include_water_container": true,
+        "retained_bottles_may_be_sold_or_leased": false,
+        "F36_permission_world_seconds": 20,
+        "F36_expiry_does_not_cancel_F53": true,
+        "F53_cancel_does_not_rewrite_existing_F36_permission": true,
+        "old_F51_simultaneous_offer_not_required": true
+      },
+      "temporal_witness_v08": {
+        "scope": "One no-pause/no-QTE source chronology with actual receipts assumed only at completed actions; not a complete navigation, NPC or full-shift playtest.",
+        "clock_assumption": "world_elapsed_equals_shift_budget_in_this_witness",
+        "steps": [
+          {
+            "budget": 20,
+            "phase": "N01",
+            "event": "F53实际到场并提出六瓶/两瓶保留的已公开提案"
+          },
+          {
+            "budget": 24,
+            "phase": "N01",
+            "event": "玩家实际接受同一提案，写唯一接受回执，不凭预定安排生成承诺"
+          },
+          {
+            "budget": 75,
+            "phase": "N01",
+            "event": "同一六瓶实际分到goods_shelf保留两瓶和pickup_shelf可售四瓶，完成封存回执；既有借用框确为空"
+          },
+          {
+            "budget": 80,
+            "phase": "N01",
+            "event": "F36首兆前复查F53真实回执、未取消状态和独立借用框"
+          },
+          {
+            "budget": 140,
+            "phase": "N02",
+            "event": "F36作为本阶段唯一新主遭遇实际到场；F53仅保留旧合同与占槽"
+          },
+          {
+            "budget": 160,
+            "phase": "N02",
+            "event": "实际到达借用边界并提交20秒限定许可；水瓶不移动、不授库存权限"
+          },
+          {
+            "budget": 180,
+            "phase": "N02",
+            "event": "F36权限自动到期并处理收条清槽；F53两瓶继续封存，不因借槽到期解除"
+          },
+          {
+            "budget": 720,
+            "phase": "N06_end",
+            "event": "真实06:00按F53既有顺序结算并释放其槽，随后才交班"
+          }
+        ],
+        "map_witness": {
+          "retained_anchor_position": [
+            6.5,
+            15.5
+          ],
+          "saleable_anchor_position": [
+            19.5,
+            25.5
+          ],
+          "lease_rect": [
+            18,
+            4,
+            3,
+            2
+          ],
+          "retained_and_saleable_anchors_outside_lease_rect": true,
+          "actual_slot_coordinates_and_actor_travel_still_revalidated": true
+        }
+      }
     },
     {
       "id": "S18",

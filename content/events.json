@@ -1,5 +1,5 @@
 {
-  "version": "0.7",
+  "version": "0.8",
   "events": [
     {
       "id": "E001",
@@ -4859,11 +4859,11 @@
       "name": "资料馆开放",
       "category": "白天出行",
       "phase": "day",
-      "trigger": "文化资料展临时开放",
+      "trigger": "现有资料室临时专题开放，玩家还有未学习的K01—K07方法页；没有新页不占行动格。",
       "choices": [
         {
-          "label": "用一格核对某类传闻",
-          "consequence": "取得可靠研究进度",
+          "label": "选择一页未学方法专题",
+          "consequence": "按A03占一格、精力−6，同一回执学习点+2并消费2点解锁所选完整方法页；不额外获得研究进度。",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -4872,7 +4872,7 @@
         },
         {
           "label": "按原计划活动",
-          "consequence": "不额外惩罚",
+          "consequence": "不消费格或资源，不解锁新页。",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -4937,6 +4937,14 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
+      },
+      "knowledge_contract": "content/balance.json#/knowledge",
+      "v08_day_action_binding": {
+        "same_existing_slot_as_A03_or_A04": true,
+        "no_duplicate_full_action_reward": true,
+        "target_checked_before_confirmation": true,
+        "no_available_target_consumes_nothing": true,
+        "trusted_records_not_created_by_event_text": true
       }
     },
     {
@@ -5015,6 +5023,16 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
+      },
+      "enabled_current": false,
+      "enabled_default": false,
+      "runtime_enabled": false,
+      "disabled_reason": "当前装备没有耐久/损坏与对应修复生产者，A06暂停；本事件仅保留历史目录，不可预约、收费或占格。",
+      "v08_availability": {
+        "selectable": false,
+        "invalid_selection_consumes_time": false,
+        "invalid_selection_consumes_coins": false,
+        "requires_real_damaged_equipment_and_enabled_A06": true
       }
     },
     {
@@ -5276,11 +5294,11 @@
       "name": "旧员工笔记",
       "category": "白天学习关系",
       "phase": "day",
-      "trigger": "发现带可疑批注的记录",
+      "trigger": "玩家实际发现并记录一份带可疑批注的笔记，存在尚未整理的真实观察根；笔记主张本身不等于历史事实。",
       "choices": [
         {
-          "label": "与可靠来源对照",
-          "consequence": "把一条假说升级为证实或否定",
+          "label": "与本班真实记录对照",
+          "consequence": "按A04占一格、精力−3，同一回执研究进度+1并消费1形成案例页；满足登记命题和观察方法才判证实/反证，冲突保留冲突。",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -5289,7 +5307,7 @@
         },
         {
           "label": "先归档不采信",
-          "consequence": "保时间但知识暂不提升",
+          "consequence": "保留既有原始记录，不耗格、不生成研究进度或证实结果。",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -5354,6 +5372,14 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
+      },
+      "knowledge_contract": "content/balance.json#/knowledge",
+      "v08_day_action_binding": {
+        "same_existing_slot_as_A03_or_A04": true,
+        "no_duplicate_full_action_reward": true,
+        "target_checked_before_confirmation": true,
+        "no_available_target_consumes_nothing": true,
+        "trusted_records_not_created_by_event_text": true
       }
     },
     {
@@ -5361,11 +5387,11 @@
       "name": "导师答疑",
       "category": "白天学习关系",
       "phase": "day",
-      "trigger": "可预约的一次研究讨论",
+      "trigger": "已预约的导师时段与一条尚未整理的真实个人案例或一个未学方法页同时可用；不能为答疑伪造案例。",
       "choices": [
         {
-          "label": "提一个明确原型问题",
-          "consequence": "得到替代处置线索",
+          "label": "讨论一条实际案例",
+          "consequence": "按A04同一格整理真实新根和登记命题，精力−3；只形成案例页，不自动认证身份或解锁未实现替代结局。",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -5373,8 +5399,8 @@
           }
         },
         {
-          "label": "复习通用安全规程",
-          "consequence": "提升基础准备效率",
+          "label": "学习一个未学方法专题",
+          "consequence": "按A03同一格精力−6、2点获得并消费，解锁一页；无新页不扣格。",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -5439,6 +5465,14 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
+      },
+      "knowledge_contract": "content/balance.json#/knowledge",
+      "v08_day_action_binding": {
+        "same_existing_slot_as_A03_or_A04": true,
+        "no_duplicate_full_action_reward": true,
+        "target_checked_before_confirmation": true,
+        "no_available_target_consumes_nothing": true,
+        "trusted_records_not_created_by_event_text": true
       }
     },
     {
@@ -5608,11 +5642,11 @@
       "name": "资料译法冲突",
       "category": "白天学习关系",
       "phase": "day",
-      "trigger": "两份材料对同一特征不同",
+      "trigger": "已实际阅读的两份资料对同一特征有冲突，至少一条实际观察根尚未整理；引用内容仍是待核主张。",
       "choices": [
         {
-          "label": "记录地域差异并核源",
-          "consequence": "获得更准确条件知识",
+          "label": "整理来源与适用范围",
+          "consequence": "按A04同一格精力−3，进度+1并消费1形成案例页；冲突不强行判真，两份资料不自动证明当前怪物身份。",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -5621,10 +5655,10 @@
         },
         {
           "label": "保留未知标记",
-          "consequence": "不使用未核实弱点",
+          "consequence": "保留原始记录和待核标记，不耗格、不生成额外研究进度。",
           "time_cost": {
             "night_seconds_max": 0,
-            "day_action_slots": 1,
+            "day_action_slots": 0,
             "preparation_minutes": 0
           }
         }
@@ -5687,6 +5721,14 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
+      },
+      "knowledge_contract": "content/balance.json#/knowledge",
+      "v08_day_action_binding": {
+        "same_existing_slot_as_A03_or_A04": true,
+        "no_duplicate_full_action_reward": true,
+        "target_checked_before_confirmation": true,
+        "no_available_target_consumes_nothing": true,
+        "trusted_records_not_created_by_event_text": true
       }
     },
     {
@@ -5707,7 +5749,7 @@
         },
         {
           "label": "按原计划学习",
-          "consequence": "只按A03结算精力-6、学习点+2；不额外扣SAN，不留下新的无限负担。",
+          "consequence": "仅在选定未学方法页后按A03结算：精力−6、学习点+2并同回执消费2解锁该页；无新页不扣格，可选原安静活动；不额外扣SAN。",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -5784,6 +5826,14 @@
         ],
         "event_reward_does_not_stack_with_action_reward": true,
         "current_san_recovery_prevents_event": true
+      },
+      "knowledge_contract": "content/balance.json#/knowledge",
+      "v08_day_action_binding": {
+        "same_existing_slot_as_A03_or_A04": true,
+        "no_duplicate_full_action_reward": true,
+        "target_checked_before_confirmation": true,
+        "no_available_target_consumes_nothing": true,
+        "trusted_records_not_created_by_event_text": true
       }
     },
     {
@@ -5874,11 +5924,11 @@
       "name": "邻居施工",
       "category": "白天学习关系",
       "phase": "day",
-      "trigger": "睡前预告噪声",
+      "trigger": "已在确认前公开的施工噪声覆盖本次A01睡眠格；原地受扰睡眠始终可选，已有MAP_STUDY休息区有空位时另可付10币换安静点。",
       "choices": [
         {
-          "label": "换安静休息点",
-          "consequence": "小额花费换稳定睡眠",
+          "label": "原地受扰睡眠",
+          "consequence": "同一2小时格只结算精力+8、SAN+0，睡眠饱腹−2；不要求隔音道具，不另叠A01完整收益。",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -5886,8 +5936,8 @@
           }
         },
         {
-          "label": "使用已有隔音用品",
-          "consequence": "消耗道具而不丢整段睡眠",
+          "label": "付10币换资料室安静休息点",
+          "consequence": "已有休息位实际预留且付实款10币后，同一格按A01精力+16、SAN+4、睡眠饱腹−2结算一次；余额不足可留原地，不新增地图或行动格。",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -5933,8 +5983,8 @@
       "current_contract": "content/condition_lifecycle_v06.json",
       "v06_condition_contract": {
         "producer_kind": "day_schedule",
-        "required_live_inputs": "睡前已公开施工时段；可用替代休息方案",
-        "producer_policy": "不可在睡眠已结算后追溯取消；不加隐藏行动格。",
+        "required_live_inputs": "提前公开的同一睡眠格噪声；免费原地选项，付费选项另需实际10币和既有资料室空休息位。",
+        "producer_policy": "本次事件替换而非叠加A01收益；确认前显示两种结果，不追溯取消已睡完的收益。",
         "scheduled_by": "unified_game_clock",
         "continuous_effect_clock": "world_simulation",
         "handling_budget_is_not_effect_lifetime": true,
@@ -5951,18 +6001,19 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "consumer_closure_contract": "content/consumer_closure_v08.json#/e062_noise_sleep"
     },
     {
       "id": "E063",
       "name": "传闻对照会",
       "category": "白天学习关系",
       "phase": "day",
-      "trigger": "多位夜班者分享相互矛盾故事",
+      "trigger": "对照会已安排，玩家有尚未整理的真实个人案例或未学方法页；他人传闻不能冒充自己的世界回执。",
       "choices": [
         {
-          "label": "检验一条可观察假说",
-          "consequence": "获得证据方法",
+          "label": "对照一条实际个人案例",
+          "consequence": "按A04占一格、精力−3，+1进度并消费1形成案例页；口述保留待核，不能靠数量认证。",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -5970,8 +6021,8 @@
           }
         },
         {
-          "label": "只整理已经证实内容",
-          "consequence": "减少新信息但避免误信",
+          "label": "学习一个可用方法页",
+          "consequence": "按A03占一格、精力−6，+2学习点并消费2解锁未学页；无新页不扣格。",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -6036,6 +6087,14 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
+      },
+      "knowledge_contract": "content/balance.json#/knowledge",
+      "v08_day_action_binding": {
+        "same_existing_slot_as_A03_or_A04": true,
+        "no_duplicate_full_action_reward": true,
+        "target_checked_before_confirmation": true,
+        "no_available_target_consumes_nothing": true,
+        "trusted_records_not_created_by_event_text": true
       }
     },
     {

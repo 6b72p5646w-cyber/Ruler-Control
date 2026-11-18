@@ -1,5 +1,5 @@
 {
-  "version": "0.6",
+  "version": "0.8",
   "status": "design_only_not_implemented",
   "ordering": "先做便利店动作和工作模板，再配置怪物的空间/状态条件，最后用事件改变参数。",
   "space_contract": {
@@ -772,5 +772,17 @@
   "work_templates_schedule_semantics": "phases只安排普通主工单；已解锁动作可被其他小时的怪借用，按encounters_v05.allowed_phases入场。",
   "legacy_precision_templates_scope": "需要物件辨别/计量/修复的异常任务才调用相应特写；普通收银找零不要求QTE。",
   "condition_lifecycle_contract": "content/condition_lifecycle_v06.json",
-  "v06_health_action_contract": "content/condition_lifecycle_v06.json#/wounds/first_aid"
+  "v06_health_action_contract": "content/condition_lifecycle_v06.json#/wounds/first_aid",
+  "food_verification_v08": {
+    "contract": "content/consumer_closure_v08.json#/food_verification",
+    "reuse_template": "W03",
+    "normal_world_action_seconds": 3,
+    "requires_qte": false,
+    "same_item_receipt_required": true,
+    "station_anchors": [
+      "cashier",
+      "verification_desk"
+    ],
+    "active_chase_blocks_inspection": true
+  }
 }

@@ -148,6 +148,29 @@ check('low orders reduce grade and rewards, not safe shift completion', () => {
   assert.equal(gradeShift({...createStore(config),criticalBreach:true},config,outcome).complete,false);
 });
 
+check('an explicitly active panic rejects grading before its timeout despite a conflicting handover flag', () => {
+  const outcome={trueGameMinutes:360,verifiedHandover:true,completedDuties:2,
+    unresolvedCriticalThreat:false,panicActive:true,panicExpired:false};
+  const grade=gradeShift(createStore(config),config,outcome);
+  assert.equal(grade.complete,false);assert.equal(grade.wage,0);assert.equal(grade.ticket,false);
+});
+
+check('an explicit failed or unsettled upstream mode cannot be overwritten by verifiedHandover true', () => {
+  for (const settlementMode of ['failed_shift','night',undefined]) {
+    const grade=gradeShift(createStore(config),config,{trueGameMinutes:360,verifiedHandover:true,
+      completedDuties:2,panicActive:false,settlementMode});
+    assert.equal(grade.complete,false);assert.equal(grade.wage,0);
+  }
+});
+
+check('an explicit eligible settlement preserves legacy grading arithmetic without authenticating it', () => {
+  const outcome={trueGameMinutes:360,verifiedHandover:true,completedDuties:2};
+  const state=createStore(config),legacy=gradeShift(state,config,outcome);
+  assert.deepEqual(gradeShift(state,config,{...outcome,panicActive:false,panicExpired:false,
+    settlementMode:'handover_only'}),legacy);
+  assert.equal(legacy.complete,true);assert.equal(legacy.wage,88);
+});
+
 check('player evidence excludes truth keys and one photo is one independent root', () => {
   const evidence={id:'photo1',kind:'snapshot',source:'CAM4',capturedAt:80,area:'warehouse',
     description:'两个人穿同样围裙',rootEvidenceId:'capture1',true_author:'F02',is_fake:true,

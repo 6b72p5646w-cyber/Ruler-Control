@@ -1,5 +1,5 @@
 {
-  "version": "0.7",
+  "version": "0.8",
   "status": "design_with_bounded_headless_reference_not_playtested",
   "client_implemented": false,
   "authority": {
@@ -34,7 +34,10 @@
     "phase_boundary_does_not_delete_world_conditions": true,
     "movement_credits_only_actual_advanced_world_time": true,
     "shift_termination_cancels_uncommitted_actions_and_returns_own_reservations": true,
-    "f21_active_immediate_danger_blocks_precision_in_reference": true
+    "f21_active_immediate_danger_blocks_precision_in_reference": true,
+    "actual_movement_outputs_commit_before_same_time_arrival_recheck": true,
+    "requested_future_movement_is_not_actual_fact": true,
+    "expired_trace_ttl_frees_live_cap_at_same_endpoint": true
   },
   "lifecycle": {
     "states": [
@@ -97,10 +100,15 @@
     "post_announcement_slot_refill": false,
     "terminal_states_absorbing": true,
     "completion_receipt_idempotent": true,
-    "root_episode_reward_max": 1,
     "failure_derived_blood_encounters_grant_no_farmable_bonus": true,
     "whole_shift_withdrawal_is_not_local_monster_success": true,
-    "instance_ids_cannot_be_overwritten_or_reopened": true
+    "instance_ids_cannot_be_overwritten_or_reopened": true,
+    "per_declared_reward_key_max": 1,
+    "bonus_root_episode_reward_max": 1,
+    "reward_key_manifest_contract": "content/consumer_closure_v08.json#/friendly_benefits",
+    "encounter_completion_does_not_require_optional_reward_claim": true,
+    "unclaimed_earned_reward_is_not_critical_threat": true,
+    "completed_encounter_cannot_reopen_when_reward_claimed": true
   },
   "actors": {
     "real_staff_ids": [
@@ -270,7 +278,9 @@
     "claimed_past_event_can_create_receipt": false,
     "old_order_substitution_requires_actual_receipt": true,
     "initial_trust": "班前可信场景形成的私人约定＋可观察身体/行为基准，分别保存；当夜失去保管链或被偷听时可污染。",
-    "historical_fact_must_precede_first_omen_with_matching_run_or_explicit_handover": true
+    "historical_fact_must_precede_first_omen_with_matching_run_or_explicit_handover": true,
+    "case_review_contract": "content/balance.json#/knowledge/case_review",
+    "case_review_does_not_authenticate_current_identity": true
   },
   "stock_and_instances": {
     "supply_types": [
@@ -296,9 +306,13 @@
     "optional_supply_required_only_after_acceptance": true,
     "station_fixture_policy": "秤、操作盘、固定帘、手动门/阀、基础纸票和现有容器槽属于已登记地图工位；不是随时生成的背包道具。各自工位与操作位被占时不能并行使用，随身物只在实际取走时离开原槽。",
     "produced_component_contract": "SUP_REPAIR_COMPONENT的quantity=1是实例容量，班前库存为0；必须真实加工才可领取，清故障必须安装和测试。",
-    "water_offer_contract": "SUP_WATER_OFFER是独立可见6瓶，接受时2瓶承诺、4瓶可售；不得把同一瓶双记，个人保底饮食不在此库存。取消只放弃未获得的契约奖励，不新增现金债务。",
+    "water_offer_contract": "独立6瓶，接受时2瓶保留/4瓶可售。保留瓶可在已有合法槽间实际移动，但不能被普通售货或无关消费；06:00同两瓶封在保留容器才取得履约资格，通过核验交班后SAN+5一次。取消或未封存无奖励、无新增SAN罚或现金债，不生成新瓶补售出物。",
     "commit_revalidates_object_not_already_completed": true,
-    "fixed_friendly_gifts": "F23的I21一份、F29的I04一份及F47最多16金币均须在来客声明的有限奖励载荷内；完成与领取分开回执，未领取不算拥有，重复领取不复制。"
+    "fixed_friendly_gifts": "F23的I21一份、F29的I04一份及F47最多16金币均须在来客声明的有限奖励载荷内；完成与领取分开回执，未领取不算拥有，重复领取不复制。",
+    "gift_food_verification_contract": "content/consumer_closure_v08.json#/food_verification",
+    "food_effect_tag_is_not_source_status": true,
+    "earned_unclaimed_gift_persists_as_same_object_in_existing_slot": true,
+    "optional_reward_claim_not_required_to_end_encounter": true
   },
   "end_of_shift": {
     "true_six_budget_seconds": 720,
@@ -343,7 +357,13 @@
       "san_at_settlement",
       "handover_receipt_id"
     ],
-    "e060_uses_saved_san_without_creating_new_trauma_state": true
+    "e060_uses_saved_san_without_creating_new_trauma_state": true,
+    "f53_fulfillment_qualification_before_critical_check": true,
+    "f53_san_reward_only_after_verified_handover": true,
+    "f53_late_sealing_after_true_six_cannot_qualify": true,
+    "grading_explicit_panicActive_rejected": true,
+    "grading_provided_settlementMode_must_be": "handover_only",
+    "grading_reference_does_not_authenticate_handover": true
   },
   "condition_definitions": [
     {
@@ -2145,7 +2165,7 @@
       "on_player_prevented": "提前封存与编号保留，不因新访客重置登记。",
       "on_source_expired": "未领取物继续合法保管；交付须实际拿走并离开，不凭空消失。",
       "on_refused": "证据不足可保持封存并令认领者离去，未交付不奖励。",
-      "normal_resolution": "皮衣实际交还匹配认领者并离店才产生一次领取回执；访客将其声明携带的应急护身符（I21）一份放交付槽，实际领取后进库存。证据不足可保留原封存并请认领者离去，安全结束且无礼物。",
+      "normal_resolution": "同一皮衣实际交还匹配认领者并离店，即结束本次认领遭遇。有限载荷中的I21应急护身符一份按独立领取回执转移；未领取或背包满不阻止安全结束，同一礼物保留在已有槽，不复制。证据不足可保持原封存并请来者离去，安全结束但无礼物。",
       "recovery": "错交先给拉扯与水线预告，可叫停并收回同一皮衣；不瞬移删除物件。开班已有记录须注明白班来源，本班新记录只能来自真实交存，不能补造过去。",
       "witness_fact": "PAYLOAD_F23",
       "witness_file": "content/condition_reachability_v06.json",
@@ -2158,7 +2178,8 @@
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
       "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
-      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json",
+      "consumer_closure_contract": "content/consumer_closure_v08.json"
     },
     {
       "id": "F24",
@@ -2512,7 +2533,7 @@
       "on_player_prevented": "提前备好表层黄油和运输盖有效。",
       "on_source_expired": "到期离去无无限库存诅咒；奖品仅实际正确交付一次。",
       "on_refused": "未接受可拒绝；已接受可按明示规则退回供物。",
-      "normal_resolution": "已接受的单份粥与表层黄油实际交付才成功；访客将声明携带的薄荷糖（I04）一份放交付槽，按实际领取回执只给一次。未接受可拒绝或到期离场，无供食欠债或库存保护令牌。",
+      "normal_resolution": "同一份粥与表层黄油实际交付即结束本次供食。有限I04薄荷糖一份按独立领取回执转移；赠品最初为sealed_unverified，须到柜台免费检查同件封签和真实供应批次3世界秒，合格才可食用。未领奖或未核验不阻止遭遇结束；未接受可拒绝，无供食欠债。",
       "recovery": "摆错则退回同一碗并给提示，可重摆。食材在预兆预订时已从非个人保底库存预留；后来基础份失效就取消请求，不扣玩家食物或强迫购买。",
       "witness_fact": "PAYLOAD_F29",
       "witness_file": "content/condition_reachability_v06.json",
@@ -2524,7 +2545,8 @@
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
       "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
-      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json",
+      "consumer_closure_contract": "content/consumer_closure_v08.json"
     },
     {
       "id": "F30",
@@ -2605,14 +2627,26 @@
           "id": "registered_deadline",
           "clock": "shift_budget",
           "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "rest_attempt_cost",
+          "clock": "shift_budget",
+          "seconds": 8,
+          "each_started_attempt_pays_once": true
+        },
+        {
+          "id": "rest_local_cycle",
+          "clock": "local_qte",
+          "seconds": 3,
+          "cycles_per_attempt": 1
         }
       ],
       "on_missing_inputs": "do_not_admit_no_history_fabrication",
       "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；未接受到期离去；已开始按一次成本退出；不坐或提前安定是安全防范，不能强制扣SAN让玩家入梦。",
       "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；未接受到期离去；已开始按一次成本退出；不坐或提前安定是安全防范，不能强制扣SAN让玩家入梦。",
       "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；未接受到期离去；已开始按一次成本退出；不坐或提前安定是安全防范，不能强制扣SAN让玩家入梦。",
-      "normal_resolution": "准备后的唤醒完成可结算一次休息收益；拒绝短休并停用该椅位也能安全结束，不发休息收益，不阻止06:00交班。",
-      "recovery": "未准备先给压迫警告，可取消落座补摆；梦里误按保留正确步骤。退出已开始尝试只扣一次成本且不给休息收益，不把玩家锁在SAN为0而不能再开QTE的梦境。",
+      "normal_resolution": "准备后的实际唤醒成功只结算本次短休总精力+4。若已准备P08且第一次真实失败触发其补偿，先得到+2，之后成功只再补+2；拒绝短休并停用椅位也安全结束，不给休息收益。",
+      "recovery": "首次真实唤醒失败SAN−6至多一次；预置且已照护、有次数的P08提交精力+2。SAN仍大于0且重新满足预算与安全准入时，提供唯一第二次尝试：命中窗1.5本地秒、正常倍率，另付8预算秒；二次成功只补至累计+4，失败终结。无宠物或SAN降0时直接退出；SAN0启动正常恐慌，不再新开精度QTE。主动取消不给新补偿，已合法取得的+2保留。",
       "witness_fact": "PAYLOAD_F31",
       "witness_file": "content/condition_reachability_v06.json",
       "actor_policy_file": "content/condition_lifecycle_v06.json",
@@ -2622,7 +2656,8 @@
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
       "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
-      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json",
+      "consumer_closure_contract": "content/consumer_closure_v08.json"
     },
     {
       "id": "F32",
@@ -2759,7 +2794,7 @@
       "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；援助后离店；未接受可保留出口让其离去；禁止因玩家没目击一次性动画永久锁关。",
       "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；援助后离店；未接受可保留出口让其离去；禁止因玩家没目击一次性动画永久锁关。",
       "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；援助后离店；未接受可保留出口让其离去；禁止因玩家没目击一次性动画永久锁关。",
-      "normal_resolution": "来客接受公共急救物后沿公开路线离店，或在玩家未接受援助时保持出口畅通自行离去；只有实际援助回执给对应奖励，猜对姓名不是结束条件。",
+      "normal_resolution": "来客实际接受其携带的专用急救物并沿公开路线离店，按同实例援助与离店回执恢复SAN+4一次；未接受援助而保留出口让其自行离去也安全结束，但没有援助奖励。当前伤迹不授予员工权限。",
       "recovery": "堵路使来客焦躁并预告冲撞；退开并清路可恢复，不强制新增第二追逐。",
       "witness_fact": "PAYLOAD_F33",
       "witness_file": "content/condition_reachability_v06.json",
@@ -2770,7 +2805,8 @@
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
       "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
-      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json",
+      "consumer_closure_contract": "content/consumer_closure_v08.json"
     },
     {
       "id": "F34",
@@ -2883,7 +2919,7 @@
       "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；清扫进度只在未注视且世界运行时推进；完成或取消即收回工具；玩家提前清洁不重新制造垃圾。",
       "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；清扫进度只在未注视且世界运行时推进；完成或取消即收回工具；玩家提前清洁不重新制造垃圾。",
       "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；清扫进度只在未注视且世界运行时推进；完成或取消即收回工具；玩家提前清洁不重新制造垃圾。",
-      "normal_resolution": "指定垃圾处理、工具归还时结算一次有限帮助；接受前拒绝、任务提前被清理或提前收回工具均可安全结束，不重新制造垃圾。",
+      "normal_resolution": "登记的同一垃圾点已真实清洁且同一扫帚归还，清洁回执计入对应普通工单一次；清洁本身就是帮助，不另发币、食物或保护令牌。提前自行清完、未接受或提前收回工具均可安全结束，不制造新垃圾。",
       "recovery": "边界漏放先推动邻物并警示，可拿起扫帚停工、补边界继续；不随机增加第四个任务。",
       "witness_fact": "PAYLOAD_F35",
       "witness_file": "content/condition_reachability_v06.json",
@@ -2894,7 +2930,8 @@
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
       "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
-      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json",
+      "consumer_closure_contract": "content/consumer_closure_v08.json"
     },
     {
       "id": "F36",
@@ -2923,13 +2960,19 @@
           "id": "registered_deadline",
           "clock": "shift_budget",
           "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "lease_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 20,
+          "kind": "actual_grant_to_automatic_revocation"
         }
       ],
       "on_missing_inputs": "do_not_admit_no_history_fabrication",
       "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；20秒到期先撤权再结算；接受前拒绝安全离去，接受后提前撤销仅放弃未赚帮助。",
       "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；20秒到期先撤权再结算；接受前拒绝安全离去，接受后提前撤销仅放弃未赚帮助。",
       "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；20秒到期先撤权再结算；接受前拒绝安全离去，接受后提前撤销仅放弃未赚帮助。",
-      "normal_resolution": "20秒到期或玩家提前撤销后，该访客对该槽的权限失效并离开；清理纸条和空槽后可领已完成的有限帮助。接受前拒绝也结束邀请。",
+      "normal_resolution": "许可从实际授予起20世界秒自动到期，或由玩家提前撤销；访客离开即结束权限请求。完整20秒合法借用、按时撤权且原槽实际清空，才按同一rent回执领取6金币一次；提前撤销、拒绝或未清槽无租金。未领奖不保持活动威胁。",
       "recovery": "越界先显示圈向外延伸，可撤销本次许可再补边界。许可到20秒自动失效，不能因为纸条尚未收回而永久有效；拒绝尚未接受的借用不受罚。",
       "witness_fact": "PAYLOAD_F36",
       "witness_file": "content/condition_reachability_v06.json",
@@ -2940,7 +2983,8 @@
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
       "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
-      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json",
+      "consumer_closure_contract": "content/consumer_closure_v08.json"
     },
     {
       "id": "F37",
@@ -3857,11 +3901,11 @@
         }
       ],
       "on_missing_inputs": "do_not_admit_no_history_fabrication",
-      "on_player_prevented": "接受前拒绝不耗水；接受后可取消，只放弃尚未获得的契约奖励并释放剩余瓶/槽，不新增债务。",
-      "on_source_expired": "真实06:00先结履约或有限违约并释放占用，再做关键威胁检查与交班。",
+      "on_player_prevented": "接受前拒绝不耗水；接受后可取消，放弃SAN+5并释放剩余原物/槽，不造现金债或新的SAN惩罚。",
+      "on_source_expired": "真实06:00先按同两瓶封存快照确定履约资格并释放占槽，再查危机；核验交班后才发有资格的SAN+5。未封存或取消0奖励0新增罚，06后补封不能补领。",
       "on_refused": "未接受可以DECLINED；已接受取消按上述已明示代价结清，不需要新现金或补购物件。",
-      "normal_resolution": "真实06:00先结算履约并释放占用，或此前按明示条件取消契约；两者都结束本契约。契约终态必须先于关键威胁检查与H20交班，不能循环等待交班后解封。",
-      "recovery": "误移未售瓶可放回；已售物不复制补回。接受前明示取消只放弃尚未获得的契约奖励，无新现金扣款、欠债或必须补购的物品；取消释放剩余物占用。",
+      "normal_resolution": "真实06:00先按同两瓶的实际封存快照判履约资格并释放占槽，再检查危机与交班；已履约且核验交班完成才SAN+5一次，不能借此在危机检查前消除活动恐慌。主动取消或未履约均结束合同、无奖励与新增罚款；06以后补封不能补领。",
+      "recovery": "误移保留瓶可把同一原物放回并封存；普通售货拒绝保留瓶。取消只释放剩余原物与槽，不发SAN+5、不收新增SAN罚、不生现金债；已出售的四瓶可售水不复制补回，也不能把未封存当履约。",
       "witness_fact": "PAYLOAD_F53",
       "witness_file": "content/condition_reachability_v06.json",
       "actor_policy_file": "content/condition_lifecycle_v06.json",
@@ -3871,7 +3915,8 @@
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
       "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
-      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json",
+      "consumer_closure_contract": "content/consumer_closure_v08.json"
     },
     {
       "id": "F54",
@@ -3977,7 +4022,7 @@
       "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；等待有上限，离线可取消庇护并带原物返回；06前必须留足返程时间；未接受拒绝不消耗食物。",
       "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；等待有上限，离线可取消庇护并带原物返回；06前必须留足返程时间；未接受拒绝不消耗食物。",
       "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；等待有上限，离线可取消庇护并带原物返回；06前必须留足返程时间；未接受拒绝不消耗食物。",
-      "normal_resolution": "完成限定护送并返回店内即可结束：实际交付才记订单完成，超时带物返回只记安全护送及待办。次夜预警绑定实际下一夜ID、跨周仍限一次且到期失效，N06不生成第七小时。",
+      "normal_resolution": "完成本次登记路线并实际返店，按同一护送回执SAN+4一次；实际交付才另记原订单完成，骑手超时带原物返店只算护送成功及原待办。未接受或中途放弃无护送奖励。不再发没有明确消费者的次夜预警。",
       "recovery": "踩出线先让犬停步示警，返回最近节点可续行；离开过久则本次庇护结束，交接物仍保留。",
       "witness_fact": "PAYLOAD_F55",
       "witness_file": "content/condition_reachability_v06.json",
@@ -3988,7 +4033,8 @@
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
       "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
-      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json",
+      "consumer_closure_contract": "content/consumer_closure_v08.json"
     },
     {
       "id": "F56",
@@ -4315,7 +4361,11 @@
     "pause_generates_no_progress": true,
     "first_zero_starts_one_deadline_repeated_zero_does_not_refresh": true,
     "not_a_physical_damage_shield": true,
-    "reason": "垃圾箱到柜台54格/18秒加8秒稳定已超过旧20秒；固定点要求会使首次免费解因几何无解。"
+    "reason": "垃圾箱到柜台54格/18秒加8秒稳定已超过旧20秒；固定点要求会使首次免费解因几何无解。",
+    "night_entry_at_zero_starts_panic_immediately": true,
+    "daytime_zero_does_not_run_night_world_countdown": true,
+    "night_entry_zero_does_not_refill_san": true,
+    "night_only_reference_rejects_day_mode": true
   },
   "order_timing": {
     "ordinary_waiting_world_seconds": 24,
@@ -4341,6 +4391,14 @@
     "conflicting_next_primary_suppressed": true,
     "no_free_phase_boundary_reset": true,
     "unresolved_at_true_six_fails_shift": true,
-    "registered_nonhostile_dawn_contracts_use_their_own_deadline": true
+    "registered_nonhostile_dawn_contracts_use_their_own_deadline": true,
+    "origin_phase_source": "admitted_instance_reserved_slot.phase",
+    "latch_on_announcement_or_activation": true,
+    "deadline_budget_formula": "min((originPhaseIndex + 1 + max_additional_phases) * 120, 720)",
+    "deadline_does_not_reset_at_phase_change": true,
+    "same_time_actions_and_terminal_updates_before_expiry": true,
+    "expired_unresolved_instance_fails_shift_without_auto_resolution": true,
+    "true_six_promise_policy_exempt": true,
+    "finite_reference_scope": "F26/F32/F21 timed reference only; remaining monster adapters are still unimplemented."
   }
 }

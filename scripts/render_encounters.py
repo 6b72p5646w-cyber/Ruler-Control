@@ -5,12 +5,12 @@ d=json.loads((R/'content/encounters_v05.json').read_text())
 store=json.loads((R/'content/store_systems_v05.json').read_text())
 contracts={r['id']:r for r in json.loads((R/'content/condition_lifecycle_v06.json').read_text())['encounter_contracts']}
 systems={s['id']:s['name'] for s in store['systems']}
-lines=['# V0.7：有实际来源、时限与收益闭环的60种怪物玩法','',
+lines=['# V0.8：有实际来源、时限与收益闭环的60种怪物玩法','',
  '2026-11-18。先定义可操作物件，再让怪物原型改变其条件。当前权威数据为[encounters_v05.json](../content/encounters_v05.json)，共60张设计、120个事件变体；全部客户端开关关闭。', '',
  '普通店务、应急电、四资源、信息可信度与结算以[门店机制](20_store_gameplay_v05.md)为准。地图绑定见[机制补图](22_map_mechanics_v05.md)；[F12/F13详细蓝图](11_encounters_v03.md)保留最高优先级。旧V0.4卡仅供历史推导，不直接混合加载。','',
  '所有禁令、预兆和解法都是本作的游戏改编，民俗原型与资料出处沿用[原型目录](../content/monsters.json)和[资料索引](../references/README.md)。不要求玩家先填对怪名；不把“识别出来”当作自动完成，也不把同类怪强塞进一个终态。','',
  '每张以一个主机制、最多两个辅机制组成。中文完成条件用于审阅，不可通过eval执行；客户端仍需为实际状态和可见反馈编写适配。时段表示可投放阶段，不把热饮、擦地等通用动作锁死到某一小时。','',
- '当前条件来源、时钟和终态以[条件生命周期](23_condition_consistency_v06.md)、[第二轮自洽审计](25_second_consistency_audit_v07.md)及[60卡条件矩阵](24_condition_matrix_v06.md)为准；当前数据版本为0.7，文件名保留v05仅为现有链接兼容。','',
+ '当前条件来源、时钟和终态以[第三轮自洽审计](26_third_consistency_audit_v08.md)、[消费者合同](../content/consumer_closure_v08.json)及[60卡条件矩阵](24_condition_matrix_v06.md)为准；第一、二轮审计保留追溯。当前数据版本为0.8，文件名保留v05仅为现有链接兼容。','',
  '## 快速索引','',
  '| 原型 | 主机制 | 核心实际操作 |','|---|---|---|']
 for row in d['encounters']:
@@ -40,7 +40,9 @@ for row in d['encounters']:
     if 'latest_accept_phase_budget_second' in params:
         lines+=['','**接单截止：** 普通到场耐心24世界秒与本阶段预算第'+str(params['latest_accept_phase_budget_second'])+'秒，两者谁先到就关闭未接受报价；接受后须预留完整'+str(params['accepted_special_order_deadline_world_seconds'])+'世界秒，不把接受前耐心再接在执行期后。']
     if 'fixed_gift_item_id' in params:
-        lines+=['','**有限实物回报：** 实际交付成立后，只能领取来客已声明携带的'+params['fixed_gift_item_id']+' × '+str(params['fixed_gift_quantity'])+'；同一实例只结算一次，背包满时保留在交付槽，不复制或删除。基础解不要求拥有这份礼物。']
+        lines+=['','**有限实物回报：** 本卡规定的实际交付与退场条件成立后，只能领取来客已声明携带的'+params['fixed_gift_item_id']+' × '+str(params['fixed_gift_quantity'])+'；同一实例只领取一次，背包满时保留原物，不复制或删除。可选领取不阻止遭遇终结；食物所有权本身不等于可食用。']
+    if fid=='F29':
+        lines+=['','**赠食核验：** 礼物仅为已知目录的完整封装I04。将同一份实际领取的糖放到既有柜台核验槽，安全状态下完成3世界秒动作，核对完整封装与早于赠送的实际供货批次后变为personal_verified；未知、自制或批次不符的食物不适用。没有核验处理器时不承诺可食用奖励。']
     if fid=='F07':
         lines+=['','**计时起点：** 45世界秒从童子实际出现开始；提前挂保留牌属于有效准备，重挂牌和重复出现回调都不重置计时。']
     if fid=='F42':

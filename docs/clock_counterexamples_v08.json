@@ -1,0 +1,71 @@
+{
+  "scope": "Read-only V0.7 probes; repository files unchanged",
+  "results": [
+    {
+      "id": "active_carryover_exceeds_one_additional_phase",
+      "valid_card_phase": "N04",
+      "expected_failure_budget": 600,
+      "actual_budget": 601,
+      "actual_mode": "night",
+      "encounter_state": "ACTIVE",
+      "open_waste": 1,
+      "violated": true
+    },
+    {
+      "id": "movement_mark_at_arrival_boundary",
+      "valid_card_phase": "N04",
+      "arrival_world": 397.6666666666667,
+      "actual_world": 397.6666666666667,
+      "old_trace_live": false,
+      "live_traces": [
+        {
+          "id": "trace-8",
+          "born_at": 397.6666666666667
+        }
+      ],
+      "encounter_state": "SAFE_RETURNED",
+      "cause": "no_actual_trace_at_arrival",
+      "ordering_gap": true
+    },
+    {
+      "id": "zero_san_at_night_entry",
+      "initial_san": 0,
+      "stabilization": {
+        "ok": false,
+        "reason": "no_active_panic"
+      },
+      "actual_san": 0,
+      "active_panic": false,
+      "actual_mode": "handover_only",
+      "design_source": "I05 delayed SAN -2 can take daytime SAN 1 to 0; no current positive-SAN attendance gate. Coffee/daytime execution is not implemented in this probe.",
+      "initialization_gap": true
+    },
+    {
+      "id": "grading_ignores_explicit_active_panic",
+      "condition_mode": "failed_shift",
+      "panic_deadline": 730,
+      "world": 720,
+      "conflicting_adapter_input": {
+        "trueGameMinutes": 360,
+        "verifiedHandover": true,
+        "completedDuties": 2,
+        "unresolvedCriticalThreat": false,
+        "panicActive": true,
+        "panicExpired": false,
+        "settlementMode": "failed_shift"
+      },
+      "grade": {
+        "complete": true,
+        "grade": "C",
+        "orders": 0,
+        "duties": 2,
+        "wage": 88,
+        "ticket": false
+      },
+      "scope": "This is a contradictory adapter-input acceptance test, not a demonstrated legal game path: verifiedHandover must not be true after strict settlement rejected it. No bridging call or receipt validation currently exists."
+    }
+  ],
+  "tested_revision": "0.7",
+  "report_kind": "historical_counterexamples_before_v08_fixes",
+  "current_resolution": "V0.8 condition_core/store_core checks cover the corrected boundaries. These saved pre-fix outputs are not current defects; grading input was deliberately contradictory and is not a legal game path."
+}

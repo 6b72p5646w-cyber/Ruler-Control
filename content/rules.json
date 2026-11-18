@@ -1,5 +1,5 @@
 {
-  "version": "0.6",
+  "version": "0.8",
   "unlocks_by": "milestone_before_first_applicable_threat",
   "total": 20,
   "canonical_manual_immutable": true,
@@ -187,21 +187,22 @@
     {
       "id": "H10",
       "title": "吃进嘴的东西，要知道从哪里来",
-      "action": "只食用已验证个人补给；未知赠食先封存核验。",
+      "action": "只食用personal_verified的同一原物；已知密封商品赠品须在安全柜台实际核对封签与可信批次3世界秒，未知自制物仍封存。",
       "unlock": "首次上岗与资源教学",
       "clear_condition": "食品来源与状态可确认",
       "tag": "food",
       "current_contract": "content/condition_lifecycle_v06.json",
       "v06_condition_contract": {
-        "producer_description": "个人补给购买/领取凭证、封存记录",
+        "producer_description": "真实购买/岗位领取/受信抽奖回执，或同件已知密封商品通过实际封签和可信供应批次检查的回执。",
         "applies_when": "玩家尝试吃物品",
         "unlock_milestone": "班前领取免费餐",
         "before_first_applicable_danger": true,
         "free_instruction": true,
         "does_not_require_first_failure_or_paid_study": true,
         "clear_or_expiry": "消费同一实例一次；未知物品可一直封存，不制造强制饥饿解题。",
-        "audit_fix": "食品标签personal_verified/store_stock/offering/unknown，购买或每日领取生成前者；未知赠食在没有已实现测试时只可封存，不可食用。",
-        "client_implemented": false
+        "audit_fix": "所有权与食用资格分开，I04的san效果标签也不能绕过食品门槛。F29礼物须同件3世界秒核验；没有合法测试的未知食物保持封存；不得靠学到怪名自动认证。",
+        "client_implemented": false,
+        "consumer_closure_contract": "content/consumer_closure_v08.json#/food_verification"
       }
     },
     {
@@ -341,7 +342,8 @@
         "does_not_require_first_failure_or_paid_study": true,
         "clear_or_expiry": "恢复到明确阈值或主动撤班；0体力保留关键取物/撒饵/入柜。",
         "audit_fix": "普通工位休息保留无追逐/无待命中条件；恐慌应急稳定可随身8世界秒、走路、被打断保留进度，世界不暂停；两者不能混用准入条件。去掉无生产者的睡眠不足层数。",
-        "client_implemented": false
+        "client_implemented": false,
+        "night_entry_zero_san_policy": "白天可用正常恢复；真正开班仍为0立即触发一次20世界秒恐慌，免费8秒稳定可正常开始，不自动补SAN。"
       }
     },
     {

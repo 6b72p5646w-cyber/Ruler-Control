@@ -1,5 +1,5 @@
 {
-  "version": "0.6",
+  "version": "0.8",
   "max_active": 1,
   "baseline_uses_per_night": 2,
   "permanent_death": false,
@@ -347,9 +347,9 @@
       "id": "P06",
       "name": "壁虎",
       "purchase_price": 150,
-      "ability": "把一次可延缓的设备故障升级推迟5秒，便于玩家先交岗再检修。 专属F46：3秒后把其中一件已确认的轻工具送到该工位可拿取台面；玩家仍需拾取并完成后续处理。",
-      "limitation": "普通与专属共用每夜2次；不修好设备，不延长怪物禁忌或真实交班时钟；只接受普通故障标签。 不凭空找出未观察到的工具，不消除旋风，不跨锁门。",
-      "tag": "equipment_and_retrieval_support",
+      "ability": "3秒后把同一件普通轻工具搬到选定可取台面，玩家仍须实际拾取和操作；不生成工具、不延后不存在的故障计时。 专属F46：3秒后把其中一件已确认的轻工具送到该工位可拿取台面；玩家仍需拾取并完成后续处理。",
+      "limitation": "普通与专属共用每夜2次；一次指令只提交一种转移。普通不移动被预留或尚未揭示物；F46专属仍绑定它当前已揭示的同一工具。不凭空找出未观察到的工具，不消除旋风，不跨锁门。",
+      "tag": "ordinary_tool_and_encounter_retrieval_support",
       "acquisition": [
         "shop",
         "specified_rescue_or_contract_event"
@@ -358,23 +358,46 @@
       "uses_per_night": 2,
       "care_supply_id": "PC06",
       "general_help": {
-        "name": "检修守望",
-        "trigger": "对已出现故障预告的设备启用",
-        "effect_type": "progress_timer_modifier",
-        "description": "把一次可延缓的设备故障升级推迟5秒，便于玩家先交岗再检修。",
+        "name": "邻台取物",
+        "trigger": "玩家已观察3格内实际放在工位的自有普通轻工具，且它未被预留、装备或手持；选择沿可达路径不超过3格的空取物台面。",
+        "effect_type": "scheduled_item_transfer",
+        "description": "3秒后把同一件普通轻工具搬到选定可取台面，玩家仍须实际拾取和操作；不生成工具、不延后不存在的故障计时。",
         "range_tiles": 3,
-        "duration_seconds": 5,
+        "duration_seconds": 3,
         "shared_charge_cost": 1,
         "effects": [
           {
-            "type": "escalation_delay_seconds",
-            "value": 5,
-            "target_tag": "ordinary_equipment_fault",
-            "max_actions": 1
+            "type": "relocate_existing_item_to_socket",
+            "delay_seconds": 3,
+            "max_quantity": 1,
+            "item_tag": "ordinary_light_tool",
+            "requires_revealed_source": true,
+            "requires_owned_unreserved_unequipped_tool": true,
+            "requires_actual_existing_world_instance": true,
+            "target_socket_type": "reachable_pickup_surface",
+            "maximum_source_to_socket_path_tiles": 3,
+            "requires_path_open_at_start_and_commit": true,
+            "transfer_mode": "move_same_existing_instance",
+            "forbidden_tags": [
+              "encounter_raw_meat_crate",
+              "paperclip_supply",
+              "key",
+              "unverified_item",
+              "hidden_light_tool",
+              "visitor_owned_payload"
+            ],
+            "reserve_source_and_destination_before_commit": true,
+            "refund_same_instance_on_cancel": true,
+            "invalid_or_same_location_consumes_charge": false,
+            "may_complete_work_or_encounter": false,
+            "auto_equip_or_use": false,
+            "concrete_source_examples": [
+              "owned_unequipped_Q01_instance_on_observed_workstation"
+            ]
           }
         ],
         "target_monster_ids": [],
-        "limitation": "不修好设备，不延长怪物禁忌或真实交班时钟；只接受普通故障标签。"
+        "limitation": "只处理实际已见的自有普通轻工具；无工具、已被占用、无空槽、路径关闭或已在目标槽时不扣次数。不跨锁门、不直接送进手中，不代做工作。F46隐藏工具只能使用其专属已揭示目标分支。"
       },
       "special_help": [
         {
@@ -400,7 +423,8 @@
                 "unverified_item"
               ],
               "reserve_source_and_destination_before_commit": true,
-              "refund_same_instance_on_cancel": true
+              "refund_same_instance_on_cancel": true,
+              "general_branch_cannot_take_hidden_or_encounter_reserved_tool": true
             }
           ],
           "target_monster_ids": [
@@ -480,8 +504,8 @@
       "id": "P08",
       "name": "布偶守夜者",
       "purchase_price": 360,
-      "ability": "持续3秒后SAN恢复12；若离开安全点则保留进度，不能在追逐中贴脸无条件施放。 专属F31：若第一次唤醒操作失败，保留50%的已获得短休收益并立刻提供一次正常大小的唤醒区域，持续1.5秒；玩家需再次输入才能醒来。",
-      "limitation": "普通与专属共用每夜1次；实际恢复SAN后后续QTE按新值计算；不回改正在进行的QTE。 不自动赢过梦魇，不跳过玩家操作；二次仍失败按已提示后果结算。",
+      "ability": "持续3秒后SAN恢复12；若离开安全点则保留进度，不能在追逐中贴脸无条件施放。 专属F31：本次F31首次真实唤醒失败按回执补偿精力2一次；SAN仍大于0并重新满足特写准入时，开放唯一第二次尝试，停针命中窗1.5本地秒、正常判定倍率，另付8预算秒。第二次成功只补足本次累计精力4，失败终结。",
+      "limitation": "普通与专属共用每夜1次；预置、已照护且有共用次数才触发，首次真实失败实际提交时耗1次。主动取消不生成补偿；二次失败无再补偿、无第三次。SAN降0保留已提交精力2，但不新开精度QTE。每次尝试各8预算秒，均需现有安全、阶段和调度边界准入。",
       "tag": "san_and_recovery_support",
       "acquisition": [
         "shop",
@@ -515,7 +539,7 @@
           "name": "第二次唤醒",
           "trigger": "F31遭遇的短休开始前把布偶放到锚点位",
           "effect_type": "qte_retry_guard",
-          "description": "若第一次唤醒操作失败，保留50%的已获得短休收益并立刻提供一次正常大小的唤醒区域，持续1.5秒；玩家需再次输入才能醒来。",
+          "description": "本次F31首次真实唤醒失败按回执补偿精力2一次；SAN仍大于0并重新满足特写准入时，开放唯一第二次尝试，停针命中窗1.5本地秒、正常判定倍率，另付8预算秒。第二次成功只补足本次累计精力4，失败终结。",
           "range_tiles": 1,
           "duration_seconds": 1.5,
           "shared_charge_cost": 1,
@@ -525,13 +549,26 @@
               "task_tag": "wake_from_mara",
               "retry_seconds": 1.5,
               "retry_target_scale": 1.0,
-              "retained_rest_fraction": 0.5
+              "first_actual_failure_energy_compensation": 2,
+              "total_rest_energy_cap": 4,
+              "successful_retry_adds_only_remainder_to_cap": true,
+              "actual_failure_receipt_required": true,
+              "one_compensation_per_rest_instance": true,
+              "voluntary_cancel_grants_compensation": false,
+              "retry_failure_grants_additional_compensation": false,
+              "existing_qte_cost_and_boundary_reservations_required": true,
+              "retry_clock": "local_qte",
+              "retry_visible_hit_window_seconds": 1.5,
+              "retry_attempt_cost_budget_seconds": 8,
+              "max_extra_attempts": 1,
+              "retry_requires_positive_san": true,
+              "retry_failure_ends_rest_episode": true
             }
           ],
           "target_monster_ids": [
             "F31"
           ],
-          "limitation": "不自动赢过梦魇，不跳过玩家操作；二次仍失败按已提示后果结算。"
+          "limitation": "预置、已照护且有共用次数才触发，首次真实失败实际提交时耗1次。主动取消不生成补偿；二次失败无再补偿、无第三次。SAN降0保留已提交精力2，但不新开精度QTE。每次尝试各8预算秒，均需现有安全、阶段和调度边界准入。"
         }
       ],
       "implementation_cost": "medium",

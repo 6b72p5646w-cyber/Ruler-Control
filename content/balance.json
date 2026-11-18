@@ -1,5 +1,5 @@
 {
-  "version": "0.6",
+  "version": "0.8",
   "status": "design_proposal_not_playtested",
   "week_length_days": 7,
   "same_phases_every_day": true,
@@ -117,7 +117,11 @@
       "emergency_stabilization_hit_or_work_interrupts_but_keeps_progress": true,
       "legacy_safe_zone_field_is_duration_alias_only": true,
       "emergency_stabilization_does_not_pause_enemies": true,
-      "emergency_stabilization_consumes_on_success": true
+      "emergency_stabilization_consumes_on_success": true,
+      "daytime_zero_has_no_night_world_countdown": true,
+      "night_entry_at_zero_starts_one_panic": true,
+      "night_only_reference_rejects_day_mode": true,
+      "initial_zero_night_keeps_existing_free_stabilization": true
     },
     "satiety": {
       "min": 0,
@@ -226,7 +230,11 @@
       "slots": 1,
       "energy_delta": -6,
       "study_points": 2,
-      "satiety_accounting": "awake_rate_only"
+      "satiety_accounting": "awake_rate_only",
+      "knowledge_contract": "balance.knowledge.study_action",
+      "study_points_spent_for_selected_page": 2,
+      "no_available_target_consumes_nothing": true,
+      "requires_selected_unlearned_method_page": true
     },
     {
       "id": "A04",
@@ -234,7 +242,12 @@
       "slots": 1,
       "energy_delta": -3,
       "research_progress": 1,
-      "satiety_accounting": "awake_rate_only"
+      "satiety_accounting": "awake_rate_only",
+      "knowledge_contract": "balance.knowledge.case_review",
+      "requires_actual_unreviewed_root_record": true,
+      "research_progress_consumed_per_case_revision": 1,
+      "progress_does_not_make_hypothesis_true": true,
+      "no_available_target_consumes_nothing": true
     },
     {
       "id": "A05",
@@ -248,7 +261,12 @@
       "name": "装备维修",
       "slots": 1,
       "energy_delta": -4,
-      "satiety_accounting": "awake_rate_only"
+      "satiety_accounting": "awake_rate_only",
+      "enabled": false,
+      "selectable": false,
+      "unavailable_reason": "当前装备没有已定义的耐久损失与修复消费者；保留历史行动编号，禁止选择和扣时。换装/整备仍免费，部署物按自己的有限补充合同处理。",
+      "unavailable_consumes_slot": false,
+      "unavailable_consumes_resources": false
     },
     {
       "id": "A07",
@@ -343,5 +361,403 @@
     "handover_after_six_mode": "read_only_and_handover_commit_no_new_work_reward_or_recovery",
     "current_contract": "content/condition_lifecycle_v06.json"
   },
-  "current_contract": "content/condition_lifecycle_v06.json"
+  "current_contract": "content/condition_lifecycle_v06.json",
+  "day_action_admission": {
+    "disabled_actions_not_offered": true,
+    "unavailable_action_consumes_slot": false,
+    "unavailable_action_consumes_resources": false,
+    "target_and_source_validated_before_commit": true,
+    "ordinary_equipment_selection_remains_free_in_preparation": true
+  },
+  "knowledge": {
+    "version": "0.8",
+    "status": "design_only_with_finite_reference",
+    "client_implemented": false,
+    "study_ui_implemented": false,
+    "base_twenty_rules_always_free": true,
+    "base_safe_actions_never_require_method_page": true,
+    "method_pages_are_searchable_comparison_material": true,
+    "method_pages_grant_combat_stats": false,
+    "study_action": {
+      "action_id": "A03",
+      "slots": 1,
+      "energy_delta": -6,
+      "points_per_completed_action": 2,
+      "page_price": 2,
+      "max_pages_per_action": 1,
+      "select_locked_page_before_action": true,
+      "award_and_spend_points_and_unlock_in_one_receipt": true,
+      "duplicate_page_or_action_no_cost": true,
+      "no_new_page_no_slot_or_resource_cost": true,
+      "persist_across_weeks": true
+    },
+    "case_review": {
+      "action_id": "A04",
+      "slots": 1,
+      "energy_delta": -3,
+      "progress_per_completed_action": 1,
+      "progress_consumed_per_case_revision": 1,
+      "must_have_at_least_one_real_record": true,
+      "must_have_at_least_one_new_root_source": true,
+      "same_root_cannot_be_rewarded_by_reprint_or_new_case_id": true,
+      "minimum_independent_roots_for_claim_verdict": 2,
+      "independent_count_is_necessary_not_sufficient": true,
+      "claim_must_be_pre_registered_for_verified_or_refuted": true,
+      "must_match_same_run_scene_subject_and_evaluation_window": true,
+      "must_satisfy_authored_predicates_and_observation_methods": true,
+      "contradiction_result": "CONFLICTED",
+      "insufficient_or_unregistered_claim_result": "HYPOTHESIS",
+      "generic_case_notes_enabled": true,
+      "generic_notes_never_verify_claim": true,
+      "no_new_case_no_slot_or_resource_cost": true,
+      "does_not_authenticate_identity_or_name": true,
+      "may_change_current_permissions": false,
+      "may_rewrite_original_records": false,
+      "case_reward_is_actual_searchable_page_not_combat_buff": true,
+      "allowed_record_producer_kinds": [
+        "actual_work_receipt",
+        "actual_observation_receipt",
+        "actual_handover_receipt"
+      ],
+      "requires_completed_and_visible_record": true
+    },
+    "method_pages": [
+      {
+        "id": "K01",
+        "branch": "拟态核验",
+        "title": "工作记录、当前身体与权限分别核对",
+        "system_ids": [
+          "SG08"
+        ],
+        "monster_ids": [
+          "F02",
+          "F38",
+          "F43"
+        ],
+        "event_ids": [],
+        "applicable_phenomena": [
+          "熟悉同事的身体、声音或工作请求出现不一致",
+          "历史记录真实，但当前来者是否与记录中的人连续对应仍待核"
+        ],
+        "method_steps": [
+          "查看原始工作回执，按根来源归并重印件。",
+          "把记录中的时段与实际连续观察对照；不够时保留钥匙和原工单。",
+          "只恢复证据支持的有限权限，拒绝越界请求不等于宣布对方是假身。"
+        ],
+        "limits": [
+          "记录曾经做过工作，不能单独证明眼前身体。",
+          "本页不读取隐藏真身，不把宠物反应算独立身份认证。"
+        ]
+      },
+      {
+        "id": "K02",
+        "branch": "门槛与邀约",
+        "title": "门牌、迎宾声道和员工权限是三件事",
+        "system_ids": [
+          "SG01",
+          "SG10"
+        ],
+        "monster_ids": [
+          "F32",
+          "F36",
+          "F48"
+        ],
+        "event_ids": [],
+        "applicable_phenomena": [
+          "来客停在门槛或要求借用员工通道",
+          "已经说出欢迎语后，玩家想改变接待方式"
+        ],
+        "method_steps": [
+          "分别查看营业牌、迎宾声道及本次实际邀请记录。",
+          "按该遭遇给出的实体边界和纸条限定区域、对象与期限。",
+          "收回许可后检查同一来客与原槽；不把关声道当作撤销既有邀请。"
+        ],
+        "limits": [
+          "边界只对明确适用的本怪规则生效。",
+          "不能用门牌自动清除店内追逐，也不能把员工帽当授权。"
+        ]
+      },
+      {
+        "id": "K03",
+        "branch": "姓名与契约",
+        "title": "接受前、履行中和结束时分别查什么",
+        "system_ids": [
+          "SG07",
+          "SG10"
+        ],
+        "monster_ids": [
+          "F06",
+          "F44",
+          "F51",
+          "F53"
+        ],
+        "event_ids": [],
+        "applicable_phenomena": [
+          "来客提出取物、供食、保留库存或续约要求",
+          "同一个确认声、名字或纸条可能被误当成新的承诺"
+        ],
+        "method_steps": [
+          "接受前列出这一次对象、份量、范围、截止和退出代价。",
+          "履行时沿用同一物件与接受回执；观察完整预算，报价截止后不补接受。",
+          "完成、取消、到期分开记；实际交易才给收入，不重复使用同一承诺编号。"
+        ],
+        "limits": [
+          "所有必要条款与安全拒绝方法始终免费可读。",
+          "学习不生成真实旧订单、不自动接受合同，也不延长06:00。"
+        ]
+      },
+      {
+        "id": "K04",
+        "branch": "供物与饮食",
+        "title": "个人餐、供物与交付物分盘保管",
+        "system_ids": [
+          "SG07",
+          "SG09"
+        ],
+        "monster_ids": [
+          "F11",
+          "F20",
+          "F29"
+        ],
+        "event_ids": [],
+        "applicable_phenomena": [
+          "普通顾客和来客同时要求食物",
+          "同一份食品可能被拿去吃、售卖或履行供物"
+        ],
+        "method_steps": [
+          "先对照来源、份量和实物标签，把个人保底餐留在个人补给。",
+          "只从该次已预留供物里取出指定份额，按实际摆放和交付完成。",
+          "领取赠物后仍遵循其核验与消费规则；领取所有权不自动证明可食。"
+        ],
+        "limits": [
+          "不把未食用库存扣减写成饱腹数值扣减。",
+          "已完成供物不复制，不允许用未知食品替代已验证个人补给。"
+        ]
+      },
+      {
+        "id": "K05",
+        "branch": "污秽与净化",
+        "title": "伤口、残迹、水路和封存物逐个处理",
+        "system_ids": [
+          "SG05",
+          "SG09"
+        ],
+        "monster_ids": [
+          "F05",
+          "F26",
+          "F49",
+          "F13"
+        ],
+        "event_ids": [],
+        "applicable_phenomena": [
+          "人员流血、地面残迹、湿连通或热废物同时在场",
+          "一种状态消失后，另一种状态仍可能存在"
+        ],
+        "method_steps": [
+          "把真实伤口、同事故血迹、不同水源和已有废物分别编号。",
+          "按对象选择包扎、擦拭、断支路或合盖冷却；先完成的有效处理保留。",
+          "只封存实际生成的污物，检查本实例剩余来源和终态。"
+        ],
+        "limits": [
+          "止血不等于自动擦净，普通积水也不等于怪物水路。",
+          "本页不生成污染层数、不制造第二个来源，也不发免疫令牌。"
+        ]
+      },
+      {
+        "id": "K06",
+        "branch": "夜巡与群体",
+        "title": "短窗口只做能完成的局部工作",
+        "system_ids": [
+          "SG06",
+          "SG10"
+        ],
+        "monster_ids": [
+          "F42"
+        ],
+        "event_ids": [
+          "E037"
+        ],
+        "applicable_phenomena": [
+          "开关门、搬运和群体服务争用同一阶段时间",
+          "一个动作同时属于普通工单与重大事件任务"
+        ],
+        "method_steps": [
+          "先看当前实际物件、候运位、携物速度和剩余窗口。",
+          "窗口外预先候运，窗口内只提交已核算可完成的短转运。",
+          "相同物件的工作只记一次，跨门不代替投箱，上架或实际交付另行完成。"
+        ],
+        "limits": [
+          "方法页不预测下一夜随机排程。",
+          "不减少已承诺工作、不添加第七小时，也不把普通主怪叠进整段巡游。"
+        ]
+      },
+      {
+        "id": "K07",
+        "branch": "护身与安抚",
+        "title": "照明、遮线和延长预告各管一件事",
+        "system_ids": [
+          "SG02",
+          "SG03"
+        ],
+        "monster_ids": [
+          "F50",
+          "F60"
+        ],
+        "event_ids": [],
+        "applicable_phenomena": [
+          "低SAN黑视、真实视线危险和攻击预告同时出现",
+          "多个道具或宠物宣称提供相近缓冲"
+        ],
+        "method_steps": [
+          "先辨认效果是改善可见性、真实遮挡，还是延长一个已存在预告。",
+          "保留原攻击对象与动作编号，检查该辅助的明确消费者。",
+          "同类增量取最大，使用前检查正增量、剩余次数和阶段预算。"
+        ],
+        "limits": [
+          "照亮不会恢复SAN或看穿身份，遮挡也不会自动完成防御。",
+          "失效或越预算的辅助不扣次数；本页不直接发放战斗增益。"
+        ]
+      }
+    ],
+    "case_claim_catalog": [
+      {
+        "id": "C01",
+        "title": "本次F13的登记肉入柜与解除回执对应",
+        "method_page_id": "K05",
+        "monster_id": "F13",
+        "subject_scope": "same_encounter_and_delivery_id",
+        "evaluation_window": "after_settled_world_update",
+        "predicates": [
+          {
+            "id": "registered_meat_delivery_committed",
+            "allowed_methods": [
+              "world_action_receipt"
+            ]
+          },
+          {
+            "id": "same_instance_cleared_observed",
+            "allowed_methods": [
+              "direct_world_observation"
+            ]
+          }
+        ],
+        "confirmation": [
+          {
+            "predicate_id": "registered_meat_delivery_committed",
+            "value": true
+          },
+          {
+            "predicate_id": "same_instance_cleared_observed",
+            "value": true
+          }
+        ],
+        "refutation": [
+          {
+            "predicate_id": "registered_meat_delivery_committed",
+            "value": true
+          },
+          {
+            "predicate_id": "same_instance_cleared_observed",
+            "value": false
+          }
+        ],
+        "scope_limit": "只归档该次物件与遭遇的已观测对应，不由一次案例推导所有怪物或真实身份。"
+      },
+      {
+        "id": "C02",
+        "title": "本次真实包扎与同一员工止血对应",
+        "method_page_id": "K05",
+        "monster_id": null,
+        "subject_scope": "same_actor_and_incident_id",
+        "evaluation_window": "after_settled_world_update",
+        "predicates": [
+          {
+            "id": "actual_bandage_committed",
+            "allowed_methods": [
+              "world_action_receipt"
+            ]
+          },
+          {
+            "id": "same_wound_closed_observed",
+            "allowed_methods": [
+              "direct_world_observation"
+            ]
+          }
+        ],
+        "confirmation": [
+          {
+            "predicate_id": "actual_bandage_committed",
+            "value": true
+          },
+          {
+            "predicate_id": "same_wound_closed_observed",
+            "value": true
+          }
+        ],
+        "refutation": [
+          {
+            "predicate_id": "actual_bandage_committed",
+            "value": true
+          },
+          {
+            "predicate_id": "same_wound_closed_observed",
+            "value": false
+          }
+        ],
+        "scope_limit": "不把其他员工、旧血迹或自然到期混成该包扎的证据。"
+      },
+      {
+        "id": "C03",
+        "title": "本次F36许可到期后仍须实际清场",
+        "method_page_id": "K02",
+        "monster_id": "F36",
+        "subject_scope": "same_contract_and_borrowed_slot_id",
+        "evaluation_window": "after_settled_world_update",
+        "predicates": [
+          {
+            "id": "permission_expired_receipt",
+            "allowed_methods": [
+              "world_action_receipt"
+            ]
+          },
+          {
+            "id": "same_visitor_and_slot_cleared_observed",
+            "allowed_methods": [
+              "direct_world_observation"
+            ]
+          }
+        ],
+        "confirmation": [
+          {
+            "predicate_id": "permission_expired_receipt",
+            "value": true
+          },
+          {
+            "predicate_id": "same_visitor_and_slot_cleared_observed",
+            "value": true
+          }
+        ],
+        "refutation": [
+          {
+            "predicate_id": "permission_expired_receipt",
+            "value": true
+          },
+          {
+            "predicate_id": "same_visitor_and_slot_cleared_observed",
+            "value": false
+          }
+        ],
+        "scope_limit": "本页只记录此次许可和清场是否都完成；权限到期不自动移动物件或证明来客身份。"
+      }
+    ],
+    "reference_scope": [
+      "Validates finite day-slot, energy and knowledge transactions using this balance data.",
+      "Actual day execution and trustworthy immutable observation records remain external adapters.",
+      "The first three claim templates evaluate only a bound past instance; other actual records can form unverified notes.",
+      "No current-body identity, hidden monster name, future random schedule, alternate ending or complete client is inferred."
+    ],
+    "base_rule_unlocks_still_progressive": true,
+    "base_rule_unlock_contract": "content/rules.json#/unlock_policy",
+    "free_does_not_mean_all_rules_unlocked_at_new_game": true
+  }
 }

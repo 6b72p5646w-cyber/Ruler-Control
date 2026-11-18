@@ -1,5 +1,5 @@
 {
-  "version": "0.7",
+  "version": "0.8",
   "status": "design_contract_with_bounded_reward_reference",
   "client_implemented": false,
   "scope": "只收紧已知辅助对象和有限奖励交易，不生成新怪物行为、完整抽奖采样器或支付系统。",
@@ -11,7 +11,8 @@
     "disabled_ids": [
       "I22",
       "I23",
-      "Q03"
+      "Q03",
+      "Q11"
     ],
     "all_channels": [
       "shop",
@@ -92,8 +93,19 @@
     {
       "id": "Q03",
       "reason": "同I23，铜铃声音作为主动辅助没有现成受益对象；暂不发放。"
+    },
+    {
+      "id": "Q11",
+      "reason": "当前没有污染积累状态或装备耐久维修消费者，暂停所有新获取；不为填装备条目增设系统。"
     }
   ],
   "economy_contract_file": "content/items.json#/lottery",
-  "reference_scope": "prototype/reward_core_v07.mjs只验证票/碎片/物件/回执的事务与去重；候选由外部固定数据注入，不验证随机概率、引擎工作或实际触控。"
+  "reference_scope": "prototype/reward_core_v07.mjs只验证票/碎片/物件/回执的事务与去重；候选由外部固定数据注入，不验证随机概率、引擎工作或实际触控。",
+  "consumer_closure_contract": "content/consumer_closure_v08.json",
+  "current_auxiliary_replacements": {
+    "P06": "content/pets.json#/pets/P06",
+    "P08": "content/consumer_closure_v08.json#/f31_p08_rest",
+    "A06": "disabled_until_actual_equipment_wear_and_repair_exist",
+    "E051": "disabled_in_current_design"
+  }
 }

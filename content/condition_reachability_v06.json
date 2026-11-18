@@ -1,5 +1,5 @@
 {
-  "version": "0.7",
+  "version": "0.8",
   "scope": "有限条件依赖图：验证60项到场前提存在声明的真实动作生产链，并以删除生产者反例检查孤儿条件；不模拟60怪完整AI/动态导航/数值平衡。",
   "initial_facts": [
     "NEW_SHIFT"
@@ -3762,5 +3762,6 @@
       ]
     }
   ],
-  "temporal_gate_contract": "content/temporal_resource_contract_v07.json"
+  "temporal_gate_contract": "content/temporal_resource_contract_v07.json",
+  "consumer_closure_contract": "content/consumer_closure_v08.json"
 }

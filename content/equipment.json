@@ -1,5 +1,5 @@
 {
-  "version": "0.7",
+  "version": "0.8",
   "slots": [
     "hand",
     "light",
@@ -21,7 +21,11 @@
       "tradeoff": "持用期间需要换手才能扫码",
       "design_origin": "original_game_item",
       "hands_required": 1,
-      "acquisition_enabled": true
+      "acquisition_enabled": true,
+      "world_transfer_tags": [
+        "ordinary_light_tool"
+      ],
+      "pet_transfer_condition": "同一已持有夹取钳已实际放在可见工位，未装备、未手持、未被任务或其他动作预留；普通取物只搬到可取槽，不自动装备或使用。"
     },
     {
       "id": "Q02",
@@ -59,11 +63,12 @@
       "name": "契约印板",
       "rarity": "special",
       "price": 240,
-      "benefit": "对已学契约增加一次范围核验",
-      "tradeoff": "每次精力-2，需要对应知识",
+      "benefit": "对当前实际存在且已阅读的契约提供一次范围复核，不改变条款或自动判断真伪",
+      "tradeoff": "每次实际复核精力-2；须有同一份可观察契约和已完成的免费基础教学，不以日间方法页为使用门槛",
       "design_origin": "original_game_item",
       "hands_required": 1,
-      "acquisition_enabled": true
+      "acquisition_enabled": true,
+      "paid_knowledge_page_required": false
     },
     {
       "id": "Q05",
@@ -95,11 +100,12 @@
       "name": "偏振检视灯",
       "rarity": "rare",
       "price": 180,
-      "benefit": "对已学反射线索提供更清晰观察",
+      "benefit": "让当前视域内实际存在的反射线索更清楚，不生成不存在或被遮挡的线索，也不要求付费学习页",
       "tradeoff": "使用时占1手，普通照明范围较小",
       "design_origin": "original_game_item",
       "hands_required": 1,
-      "acquisition_enabled": true
+      "acquisition_enabled": true,
+      "paid_knowledge_page_required": false
     },
     {
       "id": "Q08",
@@ -149,7 +155,13 @@
       "tradeoff": "每夜有限耐久，需维修",
       "design_origin": "original_game_item",
       "hands_required": 0,
-      "acquisition_enabled": true
+      "acquisition_enabled": false,
+      "shop_enabled": false,
+      "lottery_enabled": false,
+      "reward_enabled": false,
+      "crafting_enabled": false,
+      "disabled_reason": "当前没有污染积累、该装备耐久损失与维修的已定义生产和消费合同；保留历史目录与已有实例，暂停一切新获取，不为此新增污染或装备损耗系统。",
+      "current_target_contract": "content/auxiliary_targets_v07.json"
     },
     {
       "id": "Q12",
@@ -230,10 +242,11 @@
       "rarity": "uncommon",
       "price": 110,
       "benefit": "携带一份已核验护身材料",
-      "tradeoff": "只对已研究的匹配类型有效",
+      "tradeoff": "只对当前原物种类与已登记使用条件匹配的材料提供携带位置；不新增驱魔效果，不以研究页解锁效果",
       "design_origin": "original_game_item",
       "hands_required": 0,
-      "acquisition_enabled": true
+      "acquisition_enabled": true,
+      "paid_knowledge_page_required": false
     },
     {
       "id": "Q19",
@@ -346,5 +359,15 @@
     ],
     "automatic_item_destruction": false
   },
-  "current_acquisition_contract": "content/auxiliary_targets_v07.json"
+  "current_acquisition_contract": "content/auxiliary_targets_v07.json",
+  "maintenance_policy": {
+    "durability_system_enabled": false,
+    "equipment_repair_day_action_enabled": false,
+    "day_action_id": "A06",
+    "disabled_equipment_repair_has_no_cost": true,
+    "existing_items_are_not_destroyed": true,
+    "ordinary_swap_and_preparation_free": true,
+    "deployable_recharge_and_I07_repair_follow_existing_own_contracts": true,
+    "no_generic_repair_can_refresh_pet_or_deployable_resources": true
+  }
 }
