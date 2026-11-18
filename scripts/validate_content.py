@@ -210,7 +210,10 @@ def main():
         require(set(device['special_target_monster_ids']) <= set(monsters), f'{bid}: unknown target')
     require(deployables['B05']['effect']['lure_tag'] == encounters['F12']['objects']['bait_tag'], 'B05 lure tag mismatch')
     require(deployables['B06']['effect']['item_tag'] == encounters['F13']['objects']['meat_tag'], 'B06 meat tag mismatch')
-    require(sum('operational_extension' in item for item in items.values()) == 13, '13 immediate item extensions expected')
+    # Preserve thirteen historical entries plus V0.7's explicit I21 consumer.
+    # Metadata presence does not enable acquisition of a disabled item.
+    expected_extensions = {'I03', 'I04', 'I06', 'I07', 'I09', 'I10', 'I11', 'I12', 'I15', 'I16', 'I17', 'I19', 'I21', 'I23'}
+    require({iid for iid,item in items.items() if 'operational_extension' in item} == expected_extensions, 'historical operational entries plus I21 consumer expected')
 
     # Full encounter design and map bindings. Feature completion is deliberately separate.
     design_data, designs = catalog('encounter_designs', 'encounters', 'F', 60)

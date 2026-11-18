@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "0.7",
   "slots": [
     "hand",
     "light",
@@ -20,7 +20,8 @@
       "benefit": "隔离小物的体力成本-20%",
       "tradeoff": "持用期间需要换手才能扫码",
       "design_origin": "original_game_item",
-      "hands_required": 1
+      "hands_required": 1,
+      "acquisition_enabled": true
     },
     {
       "id": "Q02",
@@ -31,7 +32,8 @@
       "benefit": "在安全位置扩大可检查角度",
       "tradeoff": "观察时占用手持位",
       "design_origin": "original_game_item",
-      "hands_required": 1
+      "hands_required": 1,
+      "acquisition_enabled": true
     },
     {
       "id": "Q03",
@@ -42,7 +44,14 @@
       "benefit": "生成可控声源，用于已知适用对象",
       "tradeoff": "会惊动其他听觉型目标",
       "design_origin": "original_game_item",
-      "hands_required": 1
+      "hands_required": 1,
+      "acquisition_enabled": false,
+      "shop_enabled": false,
+      "lottery_enabled": false,
+      "crafting_enabled": false,
+      "disabled_reason": "当前没有明确登记的声音诱导消费者；保留历史铜铃提案，不向玩家出售或随机发放无合法目标装备。",
+      "current_target_contract": "content/auxiliary_targets_v07.json",
+      "reward_enabled": false
     },
     {
       "id": "Q04",
@@ -53,7 +62,8 @@
       "benefit": "对已学契约增加一次范围核验",
       "tradeoff": "每次精力-2，需要对应知识",
       "design_origin": "original_game_item",
-      "hands_required": 1
+      "hands_required": 1,
+      "acquisition_enabled": true
     },
     {
       "id": "Q05",
@@ -64,7 +74,8 @@
       "benefit": "持续照亮前方",
       "tradeoff": "使用时占1手，单一区域，需要电池",
       "design_origin": "original_game_item",
-      "hands_required": 1
+      "hands_required": 1,
+      "acquisition_enabled": true
     },
     {
       "id": "Q06",
@@ -75,7 +86,8 @@
       "benefit": "搬运时仍可照明，占0手",
       "tradeoff": "耗电较普通手电快",
       "design_origin": "original_game_item",
-      "hands_required": 0
+      "hands_required": 0,
+      "acquisition_enabled": true
     },
     {
       "id": "Q07",
@@ -86,7 +98,8 @@
       "benefit": "对已学反射线索提供更清晰观察",
       "tradeoff": "使用时占1手，普通照明范围较小",
       "design_origin": "original_game_item",
-      "hands_required": 1
+      "hands_required": 1,
+      "acquisition_enabled": true
     },
     {
       "id": "Q08",
@@ -99,7 +112,8 @@
       "design_origin": "original_game_item",
       "hands_required": 0,
       "setup_hands_required": 2,
-      "recovery_hands_required": 2
+      "recovery_hands_required": 2,
+      "acquisition_enabled": true
     },
     {
       "id": "Q09",
@@ -110,7 +124,8 @@
       "benefit": "减少普通污物带来的清理返工",
       "tradeoff": "不防止身份或精神异常",
       "design_origin": "original_game_item",
-      "hands_required": 0
+      "hands_required": 0,
+      "acquisition_enabled": true
     },
     {
       "id": "Q10",
@@ -121,7 +136,8 @@
       "benefit": "降低游戏中低级设备检修的体力成本",
       "tradeoff": "移动工作效率小幅下降",
       "design_origin": "original_game_item",
-      "hands_required": 0
+      "hands_required": 0,
+      "acquisition_enabled": true
     },
     {
       "id": "Q11",
@@ -132,7 +148,8 @@
       "benefit": "对选定已学污染类型减少一次负面积累",
       "tradeoff": "每夜有限耐久，需维修",
       "design_origin": "original_game_item",
-      "hands_required": 0
+      "hands_required": 0,
+      "acquisition_enabled": true
     },
     {
       "id": "Q12",
@@ -143,7 +160,8 @@
       "benefit": "遮蔽多余姓名信息并保留员工编号",
       "tradeoff": "真实同事也需先按编号确认",
       "design_origin": "original_game_item",
-      "hands_required": 0
+      "hands_required": 0,
+      "acquisition_enabled": true
     },
     {
       "id": "Q13",
@@ -154,7 +172,8 @@
       "benefit": "湿区普通行走更稳定",
       "tradeoff": "不能穿越灵体禁区",
       "design_origin": "original_game_item",
-      "hands_required": 0
+      "hands_required": 0,
+      "acquisition_enabled": true
     },
     {
       "id": "Q14",
@@ -165,7 +184,8 @@
       "benefit": "行走声音减小",
       "tradeoff": "重搬体力成本增加",
       "design_origin": "original_game_item",
-      "hands_required": 0
+      "hands_required": 0,
+      "acquisition_enabled": true
     },
     {
       "id": "Q15",
@@ -176,7 +196,8 @@
       "benefit": "重搬体力成本-20%",
       "tradeoff": "冲刺声音增加",
       "design_origin": "original_game_item",
-      "hands_required": 0
+      "hands_required": 0,
+      "acquisition_enabled": true
     },
     {
       "id": "Q16",
@@ -187,7 +208,8 @@
       "benefit": "脚下留下可追溯路径标记",
       "tradeoff": "寻迹类对象也可能利用标记",
       "design_origin": "original_game_item",
-      "hands_required": 0
+      "hands_required": 0,
+      "acquisition_enabled": true
     },
     {
       "id": "Q17",
@@ -198,7 +220,8 @@
       "benefit": "安全休息时SAN恢复小幅增加",
       "tradeoff": "需要停止高耗动作",
       "design_origin": "original_game_item",
-      "hands_required": 0
+      "hands_required": 0,
+      "acquisition_enabled": true
     },
     {
       "id": "Q18",
@@ -209,7 +232,8 @@
       "benefit": "携带一份已核验护身材料",
       "tradeoff": "只对已研究的匹配类型有效",
       "design_origin": "original_game_item",
-      "hands_required": 0
+      "hands_required": 0,
+      "acquisition_enabled": true
     },
     {
       "id": "Q19",
@@ -220,7 +244,8 @@
       "benefit": "降低一次明确惊吓的SAN损失",
       "tradeoff": "有冷却，不阻止实体伤害",
       "design_origin": "original_game_item",
-      "hands_required": 0
+      "hands_required": 0,
+      "acquisition_enabled": true
     },
     {
       "id": "Q20",
@@ -231,7 +256,8 @@
       "benefit": "保存一次独立核验摘要",
       "tradeoff": "只辅助记录，不直接判真伪",
       "design_origin": "original_game_item",
-      "hands_required": 0
+      "hands_required": 0,
+      "acquisition_enabled": true
     },
     {
       "id": "Q21",
@@ -247,7 +273,8 @@
         "ordinary": 2,
         "insulated_food": 0,
         "sealed_evidence": 0
-      }
+      },
+      "acquisition_enabled": true
     },
     {
       "id": "Q22",
@@ -263,7 +290,8 @@
         "ordinary": 2,
         "insulated_food": 2,
         "sealed_evidence": 0
-      }
+      },
+      "acquisition_enabled": true
     },
     {
       "id": "Q23",
@@ -279,7 +307,8 @@
         "ordinary": 2,
         "insulated_food": 0,
         "sealed_evidence": 3
-      }
+      },
+      "acquisition_enabled": true
     },
     {
       "id": "Q24",
@@ -295,7 +324,8 @@
         "ordinary": 6,
         "insulated_food": 0,
         "sealed_evidence": 0
-      }
+      },
+      "acquisition_enabled": true
     }
   ],
   "baseline_inventory_slots": 4,
@@ -315,5 +345,6 @@
       "cancel_switch"
     ],
     "automatic_item_destruction": false
-  }
+  },
+  "current_acquisition_contract": "content/auxiliary_targets_v07.json"
 }

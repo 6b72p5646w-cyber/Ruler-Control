@@ -1,5 +1,5 @@
 {
-  "version": "0.6",
+  "version": "0.7",
   "status": "design_with_bounded_headless_reference_not_playtested",
   "client_implemented": false,
   "authority": {
@@ -7,7 +7,8 @@
     "encounter_cards": "content/encounters_v05.json",
     "canonical_f12_f13": "content/encounter_blueprints.json",
     "never_execute_prose_guards": true,
-    "all_runtime_candidates_remain_disabled_until_client_adapter_exists": true
+    "all_runtime_candidates_remain_disabled_until_client_adapter_exists": true,
+    "temporal_resource_supplement": "content/temporal_resource_contract_v07.json"
   },
   "clock_contract": {
     "world_clock": "仅未暂停的世界模拟推进；移动、受击宽限、伤口、脚印、顾客耐心、短时辅助与现场警告使用它",
@@ -30,7 +31,10 @@
     "precision_commit_never_replays_unseen_enemy_or_wound_movement": true,
     "pause_advances_no_clock_or_regeneration": true,
     "daytime_elapsed_game_hours_settle_energy_satiety_once": true,
-    "phase_boundary_does_not_delete_world_conditions": true
+    "phase_boundary_does_not_delete_world_conditions": true,
+    "movement_credits_only_actual_advanced_world_time": true,
+    "shift_termination_cancels_uncommitted_actions_and_returns_own_reservations": true,
+    "f21_active_immediate_danger_blocks_precision_in_reference": true
   },
   "lifecycle": {
     "states": [
@@ -95,7 +99,8 @@
     "completion_receipt_idempotent": true,
     "root_episode_reward_max": 1,
     "failure_derived_blood_encounters_grant_no_farmable_bonus": true,
-    "whole_shift_withdrawal_is_not_local_monster_success": true
+    "whole_shift_withdrawal_is_not_local_monster_success": true,
+    "instance_ids_cannot_be_overwritten_or_reopened": true
   },
   "actors": {
     "real_staff_ids": [
@@ -111,7 +116,8 @@
     "free_critical_actions_do_not_require_assistant": true,
     "cooperative_branch_requires_present_verified_unreserved_coworker": true,
     "missing_coworker_branch": "玩家单人可暂停新客接待后完成基础解；若某怪必需双人，则准入时不选。",
-    "compound_encounter": "一个主遭遇包可预留最多两只具名实体，仍逐只占实体/压力额度；不能用联动临时补生第二只。"
+    "compound_encounter": "一个主遭遇包可预留最多两只具名实体，仍逐只占实体/压力额度；不能用联动临时补生第二只。",
+    "object_and_target_locks_required_in_addition_to_actor_lock": true
   },
   "wounds": {
     "fictional_game_status_only": true,
@@ -218,7 +224,12 @@
       "f26_additional_requirement": "至少一枚实际移动产生、可见且未过期的血迹，最多绑定三枚；到场时已有真实痕迹可继续成立，不重新制造伤口。",
       "f32_target_scope": "仅已登记真实员工的fresh_blood，不读地面旧血、不读F33访客外观伤痕。",
       "minimum_remaining_current_phase_budget_seconds": 45,
-      "compound_reservation_not_fact_creation": "F21→F32可事先预留条件型子席位与预算，不创建血事实；只有真正事故发生并重检时间/物资才激活，预防事故则释放子席位。"
+      "compound_reservation_not_fact_creation": "F21→F32可事先预留条件型子席位与预算，不创建血事实；只有真正事故发生并重检时间/物资才激活，预防事故则释放子席位。",
+      "f26_arrival_recheck": "只绑定同事故现存活血迹，最多三枚；没有活迹则SAFE_RETURNED并消耗原预留波次。不得用公告时的旧快照转ACTIVE。",
+      "f21_parent_requirement": "F21割伤警告必须来自实际已激活的F21玻璃变体、有效预留槽和激活回执；普通工位工作不够。预防后释放未触发子槽，不捏造后续伤口。",
+      "f21_child_slots_reference_parentSlotId": true,
+      "prevented_parent_releases_only_untriggered_reserved_child_slots": true,
+      "repair_after_actual_cut_does_not_erase_wound_or_release_valid_child": true
     },
     "f32_invitation": {
       "automatic_welcome_emits_only_on_actual_threshold_approach": true,
@@ -258,7 +269,8 @@
     "schedule_is_presence_proof": false,
     "claimed_past_event_can_create_receipt": false,
     "old_order_substitution_requires_actual_receipt": true,
-    "initial_trust": "班前可信场景形成的私人约定＋可观察身体/行为基准，分别保存；当夜失去保管链或被偷听时可污染。"
+    "initial_trust": "班前可信场景形成的私人约定＋可观察身体/行为基准，分别保存；当夜失去保管链或被偷听时可污染。",
+    "historical_fact_must_precede_first_omen_with_matching_run_or_explicit_handover": true
   },
   "stock_and_instances": {
     "supply_types": [
@@ -284,7 +296,9 @@
     "optional_supply_required_only_after_acceptance": true,
     "station_fixture_policy": "秤、操作盘、固定帘、手动门/阀、基础纸票和现有容器槽属于已登记地图工位；不是随时生成的背包道具。各自工位与操作位被占时不能并行使用，随身物只在实际取走时离开原槽。",
     "produced_component_contract": "SUP_REPAIR_COMPONENT的quantity=1是实例容量，班前库存为0；必须真实加工才可领取，清故障必须安装和测试。",
-    "water_offer_contract": "SUP_WATER_OFFER是独立可见6瓶，接受时2瓶承诺、4瓶可售；不得把同一瓶双记，个人保底饮食不在此库存。取消只放弃未获得的契约奖励，不新增现金债务。"
+    "water_offer_contract": "SUP_WATER_OFFER是独立可见6瓶，接受时2瓶承诺、4瓶可售；不得把同一瓶双记，个人保底饮食不在此库存。取消只放弃未获得的契约奖励，不新增现金债务。",
+    "commit_revalidates_object_not_already_completed": true,
+    "fixed_friendly_gifts": "F23的I21一份、F29的I04一份及F47最多16金币均须在来客声明的有限奖励载荷内；完成与领取分开回执，未领取不算拥有，重复领取不复制。"
   },
   "end_of_shift": {
     "true_six_budget_seconds": 720,
@@ -321,7 +335,15 @@
     "cross_night_favors": "保存限次奖励或下夜预约，不让本夜实体/占槽不明地无限驻留。",
     "handover_verification_clock": "独立交班交互状态；不是世界暂停面板。只允许预先登记的柜台核验与交物，不推进战斗/资源钟、不产生额外工作收益。",
     "entry_requires_no_active_hostile": true,
-    "any_active_panic_blocks_handover_even_before_deadline": true
+    "any_active_panic_blocks_handover_even_before_deadline": true,
+    "actual_completed_night_receipt_fields": [
+      "night_id",
+      "run_id",
+      "completed_at_budget",
+      "san_at_settlement",
+      "handover_receipt_id"
+    ],
+    "e060_uses_saved_san_without_creating_new_trauma_state": true
   },
   "condition_definitions": [
     {
@@ -621,14 +643,12 @@
       "quantity": 3,
       "used_by": [
         "F08",
-        "F39",
         "F59"
       ],
       "reservation": "按真实库存预留；可选食物在接受前展示具体品种和份量，不足可拒绝；访客自带物仅在其入场时出现。",
       "cannot_replace_canonical_quest_item": true,
       "quantity_required_per_job": {
         "F08": 1,
-        "F39": 1,
         "F59": 3
       }
     },
@@ -938,21 +958,27 @@
         "N05不自然生成D02货箱，不能要求旧货箱仍待验。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F02",
       "name": "画皮鬼",
       "activation_mode": "history_gated",
       "requires_before_omen": [
-        "可信班前同事基准及真实本班工作记录已存在；来客观察在到场后取得。",
-        "基础侧光和独立记录可取，不先读隐藏真实身份。"
+        "可信班前同事基准，以及班前公开领物/交接或本班实际工作回执已存在；不得临时补造。",
+        "当前身体侧光等观察在到场后取得，历史记录不直接揭示真身。"
       ],
       "producer_steps": [
         "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
         "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
         "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
         "P_BASELINE：在可信班前场景实际核验并保存独立基准",
+        "P_PRE_SHIFT_TASK：班前实际领钥匙/围裙或清点，产生有真实时刻与主体的记录；不是临时补造历史",
+        "P_CORROBORATE_PRE_SHIFT：读取班前实际公开领物/交接的回执，只引用其已发生事实，不补造当前身份。",
+        "P_DUTY：本阶段发出真实尚未完成的工作对象",
+        "P_FINISH_WORK：玩家或已核验同事实际完成同一工作并写回",
+        "P_CORROBORATE_CURRENT_WORK：读取本班实际已完成工作的回执，只引用其已发生事实，不补造当前身份。",
         "P_ARRIVE_F02：F02从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
       ],
       "source_kinds": [
@@ -986,7 +1012,8 @@
         "结局仅写异常未获权限，没有明确待核者何时离场。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F03",
@@ -1059,7 +1086,8 @@
         "0体力只承诺普通步行可退，却没有证明不屏息也能完成货箱目标。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F04",
@@ -1121,7 +1149,8 @@
         "湿纱收紧速度、重新浸湿时间、各容器槽无统一状态；无供水备用瓶未登记。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F05",
@@ -1174,7 +1203,8 @@
         "玩家在远兆阶段擦掉/关闭水源后的提前成功未定义。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F06",
@@ -1237,7 +1267,8 @@
         "低温后重做数量和冻住工位的恢复未定义。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F07",
@@ -1275,7 +1306,7 @@
           "id": "reserved_world_seconds",
           "clock": "world_simulation",
           "seconds": 45,
-          "kind": "admission_minimum"
+          "kind": "declared_duration_or_window"
         }
       ],
       "on_missing_inputs": "do_not_admit_no_history_fabrication",
@@ -1292,7 +1323,8 @@
         "终态强制“浏览客已改道”，但全夜窗口让该客离开合法；没有入店就不能真正改道，会留下未结束实例。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F08",
@@ -1343,7 +1375,8 @@
         "裂纹、修补材料、试作结果及退役槽只写文案。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F09",
@@ -1396,7 +1429,8 @@
         "身体移动、头指货和长颈占格没有明确两站状态；若都占唯一通道可能相互阻塞。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F10",
@@ -1446,7 +1480,8 @@
         "到近兆前已修好故障，原回执应继续有效，不能因为故障当前为false而删证。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F11",
@@ -1498,7 +1533,8 @@
         "荞麦未进入基础供给登记，体力不足时替代路线未真正保证。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F12",
@@ -1543,7 +1579,8 @@
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
       "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
-      "canonical_file": "content/encounter_blueprints.json"
+      "canonical_file": "content/encounter_blueprints.json",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F13",
@@ -1591,7 +1628,8 @@
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
       "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
-      "canonical_file": "content/encounter_blueprints.json"
+      "canonical_file": "content/encounter_blueprints.json",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F14",
@@ -1638,7 +1676,8 @@
         "三个台面角色和测试餐库存无具体绑定；若解除后宿主原岗已另占，直接“恢复岗位”可能冲突。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F15",
@@ -1691,7 +1730,8 @@
         "“已有记忆灯箱”未登记生成者；可重播片段若称本班旧事但没有经历会成为伪历史。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F16",
@@ -1747,7 +1787,8 @@
         "E023要求比对三次转移，但玩家第一枚后封袋会主动阻止后两次，成功玩法反而无法生成要求证据。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F17",
@@ -1795,7 +1836,8 @@
         "卡片终态比地图实际交付条件更早，玩家仍站在槽旁时可能先结束并令包裹消失。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F18",
@@ -1844,7 +1886,8 @@
         "误擦后“等一次新过垫机会”没有怪为何会重走、多久重走的生产机制。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F19",
@@ -1898,7 +1941,8 @@
         "匹配寄存柜未有命名槽，只有pickup_shelf。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F20",
@@ -1949,7 +1993,8 @@
         "E031变体引用白天原本，玩家白天可能根本没签这项合同。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F21",
@@ -2006,15 +2051,15 @@
         "未登记事故生成者、实际危险工位、人员占位和闭锁重启；map_binding未含热食设备等具体危险工位。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F22",
       "name": "布朗尼家务精",
       "activation_mode": "optional_offer",
       "requires_before_omen": [
-        "尚未完成且可代做的一项真实工单点",
-        "食物、固定工区与不注视空间"
+        "现有未完成且可代做工单、可取SUP_MEAL普通餐一份、供物槽和不直视工区的合法空间；食物接受后预留。"
       ],
       "producer_steps": [
         "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
@@ -2061,7 +2106,8 @@
         "没有不注视工作时长；同事/监控是否算注视未定义。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F23",
@@ -2099,7 +2145,7 @@
       "on_player_prevented": "提前封存与编号保留，不因新访客重置登记。",
       "on_source_expired": "未领取物继续合法保管；交付须实际拿走并离开，不凭空消失。",
       "on_refused": "证据不足可保持封存并令认领者离去，未交付不奖励。",
-      "normal_resolution": "皮衣实际交还匹配认领者并离店才奖励一次；证据不足可保留原封存并请认领者离去，安全结束且无交付回报。",
+      "normal_resolution": "皮衣实际交还匹配认领者并离店才产生一次领取回执；访客将其声明携带的应急护身符（I21）一份放交付槽，实际领取后进库存。证据不足可保留原封存并请认领者离去，安全结束且无礼物。",
       "recovery": "错交先给拉扯与水线预告，可叫停并收回同一皮衣；不瞬移删除物件。开班已有记录须注明白班来源，本班新记录只能来自真实交存，不能补造过去。",
       "witness_fact": "PAYLOAD_F23",
       "witness_file": "content/condition_reachability_v06.json",
@@ -2111,7 +2157,8 @@
         "同一人说出两个细节不应被算成两类独立证据。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F24",
@@ -2163,7 +2210,8 @@
         "预兆前已断水/卸货的提前防范可能被忽略。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F25",
@@ -2218,7 +2266,8 @@
         "商品已由玩家收进透明槽后，下一变形顾客不能又拿着同一件商品到柜台。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F26",
@@ -2289,10 +2338,10 @@
       ],
       "on_missing_inputs": "do_not_admit_no_history_fabrication",
       "on_player_prevented": "预告后真实包扎/处理切断已登记来源记PREVENTED并占原波次；不得为完成本怪重新造伤。",
-      "on_source_expired": "伤口90秒自然止血、绑定痕迹30秒失效且实际沾染物已封存则SAFE_RETURNED。",
+      "on_source_expired": "预告到期时复核同事故实际活血迹：可绑定其间真实新滴迹，但不刷新预告或痕迹寿命；若已无活迹，直接SAFE_RETURNED并消耗原波次，即使伤口尚未止血也不强制造迹。已经ACTIVE后按伤口、绑定痕迹和实际沾染物完整收尾。",
       "on_refused": "不是可选交易，不提供拒绝即清怪；允许用真实止血、痕迹处理和合法退路解局。",
       "normal_resolution": "本次血源已包扎或自然止血、绑定血迹均失效/清除，且实际产生的沾染物已封存；未到场前达成记预防，完全自然消退记安全离去。无新伤、无新迹，不为完成交袋再造污物。",
-      "recovery": "只绑定本次真实移动留下的最多三枚血迹；包扎停止新滴迹，已有痕迹每枚30世界秒后失效或可擦除。实际擦血形成的沾染物须封袋；没有发生擦拭就不凭空要求一袋污物。普通碰撞轻伤不自动出血。",
+      "recovery": "只绑定本次真实移动留下的最多三枚血迹；包扎停止新滴迹，已有痕迹每枚30世界秒后失效或可擦除。实际擦血形成的沾染物须封袋；没有发生擦拭就不凭空要求一袋污物。普通碰撞轻伤不自动出血。 到场时必须仍有同事故实际活血迹；预告中全部自然失效则安全离去，可绑定实际新滴迹但不重开预告。",
       "witness_fact": "PAYLOAD_F26",
       "witness_file": "content/condition_reachability_v06.json",
       "actor_policy_file": "content/condition_lifecycle_v06.json",
@@ -2303,7 +2352,8 @@
         "E026说新增邻格与最多三迹，缺替换/上限规则。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F27",
@@ -2347,13 +2397,13 @@
           "id": "route_lower_bound_world_seconds",
           "clock": "world_simulation",
           "seconds": 54.83,
-          "kind": "admission_minimum"
+          "kind": "declared_duration_or_window"
         },
         {
           "id": "minimum_actions_and_recovery_reserved_world_seconds",
           "clock": "world_simulation",
           "seconds": 22,
-          "kind": "admission_minimum"
+          "kind": "declared_duration_or_window"
         }
       ],
       "on_missing_inputs": "do_not_admit_no_history_fabrication",
@@ -2371,7 +2421,8 @@
         "N02唯一预订单默认第10秒，主怪第20秒到场；需要明确其替换订单的到达时刻与类型，不能等第10秒已完成后又计额外单。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F28",
@@ -2420,7 +2471,8 @@
         "如果正常水已停，关支路对异常水是否仍有效未定义；“无水也有水纹”可能无真实载体。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F29",
@@ -2460,7 +2512,7 @@
       "on_player_prevented": "提前备好表层黄油和运输盖有效。",
       "on_source_expired": "到期离去无无限库存诅咒；奖品仅实际正确交付一次。",
       "on_refused": "未接受可拒绝；已接受可按明示规则退回供物。",
-      "normal_resolution": "已接受的单份粥与表层黄油实际交付才成功，库存令牌只发一次；未接受可拒绝/到期离场，无无限供食欠债。",
+      "normal_resolution": "已接受的单份粥与表层黄油实际交付才成功；访客将声明携带的薄荷糖（I04）一份放交付槽，按实际领取回执只给一次。未接受可拒绝或到期离场，无供食欠债或库存保护令牌。",
       "recovery": "摆错则退回同一碗并给提示，可重摆。食材在预兆预订时已从非个人保底库存预留；后来基础份失效就取消请求，不扣玩家食物或强迫购买。",
       "witness_fact": "PAYLOAD_F29",
       "witness_file": "content/condition_reachability_v06.json",
@@ -2471,7 +2523,8 @@
         "库存可能在远兆到到场间被顾客消耗，抽选检查一次不能保证稍后存在。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F30",
@@ -2521,7 +2574,8 @@
         "压箱石和封存盘未登记实际实例及归属；变体后门封存点不在map_binding明示。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F31",
@@ -2567,7 +2621,8 @@
         "当前成功强制进入梦境并醒来，没有不坐/已恢复/同事失联不能交岗的结束分支。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F32",
@@ -2632,13 +2687,13 @@
           "id": "minimum_remaining_phase_budget_seconds",
           "clock": "shift_budget",
           "seconds": 45,
-          "kind": "admission_minimum"
+          "kind": "declared_duration_or_window"
         },
         {
           "id": "minimum_remaining_fresh_blood_world_seconds",
           "clock": "world_simulation",
           "seconds": 45,
-          "kind": "admission_minimum"
+          "kind": "declared_duration_or_window"
         },
         {
           "id": "welcome_warning_world_seconds",
@@ -2667,7 +2722,8 @@
         "出血原来没有生产动作/期限，伤口均处理与自然停止流血的结束含义不一致。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F33",
@@ -2713,7 +2769,8 @@
         "要求玩家此前亲眼见过狼形伤口，但可能错过入场，无法再取得唯一证据。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F34",
@@ -2785,7 +2842,8 @@
         "节拍没有长度，若休拍短于实际动作就无合法解；提前断水后仍可能要求湿格节拍。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F35",
@@ -2835,7 +2893,8 @@
         "只有完整委托成功终点；店已干净或玩家拒绝时没有退出；未观察施工持续多久缺失。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F36",
@@ -2880,7 +2939,8 @@
         "20秒到期仍依赖玩家抢回纸条才撤权，实体条遗失可能形成永久授权；不接契约缺结束。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F37",
@@ -2925,7 +2985,8 @@
         "成功强制合法交付，但没有真实待取单或不可信来者无法合法交货；初期订单可能在主怪到场前已做完。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F38",
@@ -2974,7 +3035,8 @@
         "三个作业结果只证明工作发生，不自动证明当前两张同脸中的哪一个做过；强制恢复真同事权限可无解。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F39",
@@ -2997,7 +3059,6 @@
         "actual_fault_or_scheduled_maintenance"
       ],
       "supplies_required": [
-        "SUP_MATERIAL_REPAIR",
         "SUP_WOOD_PLAQUE"
       ],
       "supplies_on_accept": [],
@@ -3030,7 +3091,8 @@
         "旧新灶槽已有，但迁移理由和木牌生产者缺合同；停电却要求正常工作恢复矛盾。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F40",
@@ -3075,7 +3137,8 @@
         "误收来源未定义，正常玩家可能未收错；归还后还强迫走一遍路线会成为无意义任务。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F41",
@@ -3119,14 +3182,16 @@
         "要求正确袋交给哭泣者，可能违反失物归属；未登记袋/联系不通/拒绝假请求没有终态。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F42",
       "name": "哨声亡灵",
       "activation_mode": "scheduled_visible_scene",
       "requires_before_omen": [
-        "本班实际待搬箱或垃圾；当前后门可用；机械牌明确周期。"
+        "本次登记一至两件真实货或垃圾、既有后门内外候运位、机械闸和压力牌可用；完整路线预算另算。",
+        "准入前按实际门状态验证3格短转运；含取放与开关需7.25世界秒，若动态路程超8秒则不启动该轮。"
       ],
       "producer_steps": [
         "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
@@ -3178,13 +3243,37 @@
           "clock": "world_simulation",
           "seconds": 1,
           "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "pickup_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 1.5,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "place_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 1.5,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "static_cycle_required_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 7.25,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "window_slack_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 0.75,
+          "kind": "declared_duration_or_window"
         }
       ],
       "on_missing_inputs": "do_not_admit_no_history_fabrication",
       "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；已搬完且门闭可结束；安全期不足不开始下一批；取消未开始批次只保留普通待办，不传送已搬物。",
       "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；已搬完且门闭可结束；安全期不足不开始下一批；取消未开始批次只保留普通待办，不传送已搬物。",
       "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；已搬完且门闭可结束；安全期不足不开始下一批；取消未开始批次只保留普通待办，不传送已搬物。",
-      "normal_resolution": "本次登记批次已合法搬运且后门关闭即可结束；已提前搬完可直接关闸结束，不要求再开门表演一次。",
+      "normal_resolution": "本次登记最多两件货完成rear_door↔rear_threshold短转运且闸门关闭，即结束本怪危险；提前完成同样有效。上架、投垃圾箱和交易仅在其各自目的地实际完成才记功。",
       "recovery": "错期开闸先敲门预警；关闸退回可保留已搬批次，只有暴露的这一箱需重新候运。",
       "witness_fact": "PAYLOAD_F42",
       "witness_file": "content/condition_reachability_v06.json",
@@ -3194,7 +3283,8 @@
         "声段长度未声明；额外货无上限；全部货已搬仍可能要求开闸；E025开闭语义混乱需全局统一。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F43",
@@ -3242,7 +3332,8 @@
         "N01未必有垃圾交接；记录不覆盖便签时刻却仍必须归档为假；拒绝待核请求缺明确结束。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F44",
@@ -3295,7 +3386,8 @@
         "未接受可拒绝的文字与成功只写成交矛盾；自动确认铃可能被重复触发产生无限续约。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F45",
@@ -3340,7 +3432,8 @@
         "轮痕可被当作凭空历史；箱已正确上架仍强制撤回重做；交叉痕迹缺批次身份。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F46",
@@ -3393,7 +3486,8 @@
         "可偷走唯一关键工具导致别的任务无解；E069在未带宠物时不可触发；P06转移后风重新偷回会抹收益。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F47",
@@ -3440,7 +3534,8 @@
         "第一段未成功就写基础所得不明确；接受前拒绝与开始后退出成本边界需一致。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F48",
@@ -3491,7 +3586,8 @@
         "E035可能既有怪访客又有假店长，隐含第二冒充实体；拒售/已提前归帽没有完整出口。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F49",
@@ -3531,6 +3627,18 @@
           "clock": "world_simulation",
           "seconds": 20,
           "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "heat_event_additional_cooling_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 20,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "hot_weather_total_cooling_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 40,
+          "kind": "declared_duration_or_window"
         }
       ],
       "on_missing_inputs": "do_not_admit_no_history_fabrication",
@@ -3547,7 +3655,8 @@
         "热垃圾生产、冷却时间和盖状态未定义；E025需明确卡闭才强制外绕。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F50",
@@ -3602,7 +3711,8 @@
         "错误窗补救写拉帘停用，但成功仍只认正确板，补救缺终态。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F51",
@@ -3661,7 +3771,8 @@
         "若本班零成交就无真实回执；不接交易却必须交物才算结束；故事把未收礼盒说已同意可能改写事实。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F52",
@@ -3710,7 +3821,8 @@
         "怪已被断水驱走仍要求实际坐6秒才清除，与不想休息/已满资源/即将06冲突。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F53",
@@ -3758,7 +3870,8 @@
         "06履约与交班后解封形成顺序循环；违约要求付款可能余额不足卡关；长期占槽未明压力记账。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F54",
@@ -3806,7 +3919,8 @@
         "可吞到任务肉/钥匙/契约库存就破坏其他解；错过三次动画无顺序证据。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F55",
@@ -3873,7 +3987,8 @@
         "迟到超时带货返回与必须终点交物的成功条件冲突；免费赠食来源与个人保底餐未分开；最后夜奖励期限含糊。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F56",
@@ -3923,7 +4038,8 @@
         "成功强制测深记录，即使玩家已在预兆期断水把货取回也被判没完成。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F57",
@@ -3974,7 +4090,8 @@
         "重箱超预算允许外绕，但主成功强制踏板完成，替代解无终点。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F58",
@@ -4034,7 +4151,8 @@
         "退雾没有时间；热食可永久热；封区可能堵F13必要冰柜/退路；无冷区业务时保食取舍无意义。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F59",
@@ -4106,7 +4224,8 @@
         "无故障虽然文案说不投，但没结构化门槛；E024门铃在前门，工区在店内，修完如何作用目标未交代。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     },
     {
       "id": "F60",
@@ -4149,10 +4268,10 @@
         }
       ],
       "on_missing_inputs": "do_not_admit_no_history_fabrication",
-      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；实体退场等2秒按世界时间；提前遮线PREVENTED；无法隔断则保留背向退出且不锁必经路。",
-      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；实体退场等2秒按世界时间；提前遮线PREVENTED；无法隔断则保留背向退出且不锁必经路。",
-      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；实体退场等2秒按世界时间；提前遮线PREVENTED；无法隔断则保留背向退出且不锁必经路。",
-      "normal_resolution": "实际实体视线已被有效遮挡或玩家保持未朝向，该服务位实际停用并完成2秒世界退场等待即结束；提前拉帘或停用有效。帘只在真实位于两者之间时阻视，镜证据仍为可选奖励。",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；实体退场等3世界秒按世界时间；提前遮线PREVENTED；无法隔断则保留背向退出且不锁必经路。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；实体退场等3世界秒按世界时间；提前遮线PREVENTED；无法隔断则保留背向退出且不锁必经路。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；实体退场等3世界秒按世界时间；提前遮线PREVENTED；无法隔断则保留背向退出且不锁必经路。",
+      "normal_resolution": "实际实体视线已被有效遮挡或玩家保持未朝向，该服务位实际停用并完成3世界秒退场等待即结束；提前拉帘或停用有效。帘只在真实位于两者之间时阻视，镜证据仍为可选奖励。",
       "recovery": "误转头先给可见的惊惧警告，拉帘或侧退可恢复；帘不得在同一遭遇里无预告失效。",
       "witness_fact": "PAYLOAD_F60",
       "witness_file": "content/condition_reachability_v06.json",
@@ -4162,7 +4281,8 @@
         "转身预告长度未当前化；已关闭服务位仍必须重复关；帘仅在固定样例有效而非所有站位。"
       ],
       "remediation_status": "design_fields_updated_client_adapter_pending",
-      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "temporal_resource_contract": "content/temporal_resource_contract_v07.json"
     }
   ],
   "audit_notes": [
@@ -4211,7 +4331,8 @@
       "F51"
     ],
     "source": "content/encounters_v05.json#runtime_parameters",
-    "normal_work_action_credit_and_time_count_once": true
+    "normal_work_action_credit_and_time_count_once": true,
+    "offer_expiry_policy": "min(剩余24秒普通世界耐心, 当前阶段预算终点-接受后预留窗口-当前预算)，先到即结束报价；恰好到截止的合法接受先提交。"
   },
   "pet_startle_contract": "content/events.json#E070",
   "active_carryover": {

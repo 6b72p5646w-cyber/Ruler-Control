@@ -1,0 +1,88 @@
+{
+  "status": "PASS",
+  "checks": 416,
+  "errors": [],
+  "scope": "Cross-file declared temporal, supply and consumer contracts plus four static route calculations; not full gameplay.",
+  "inputs_sha256": {
+    "content/temporal_resource_contract_v07.json": "32237492e01fc04bbb1c3b98ec98e9b216eb72b30e7ef58dc10b47d1e4eff78b",
+    "content/condition_lifecycle_v06.json": "50741ceb547733984212cf05ed3148bac59171697c7665f4be9480d6c8da3e0c",
+    "content/encounters_v05.json": "e58c68a68c5bba6df46a016a5f70da9dbf2add62caba40205a4fa3f7103348b4",
+    "content/events.json": "6304ea867abb0d6f1b398ec5546bc49c1de701586cd3577ec7bdb11012f0b1fe",
+    "content/items.json": "98b38fc0b29fcc1829687c219600e4bdfcefdcde33a4724a1c44ee956c3b2967",
+    "content/equipment.json": "496d4de9f69d5112f766950a6bdff69a8ba6db827e61d92b4c11736f5ea2c62e",
+    "content/auxiliary_targets_v07.json": "81f251859355a2be9b00169055565c1dfe3b74a9f1342d5e4eaa0a2d378dbdc2",
+    "content/store_systems_v05.json": "8621fcdf73a7727838e9a3f03e01e6d71eecaa2afe50a079a45e481d759c2832",
+    "content/maps.json": "773e39b35bc16c63e6b4f294e27f8a944072599f21b8ad1bae46527f0a093b9a",
+    "content/condition_reachability_v06.json": "75f0b69dad072679b425f6b304f90c90f297740608d3a7b32bb0e2defadb3d27"
+  },
+  "special_offer_windows": [
+    {
+      "id": "F06",
+      "latest_budget_accept": 75,
+      "no_offset_effective_expiry": 44
+    },
+    {
+      "id": "F09",
+      "latest_budget_accept": 50,
+      "no_offset_effective_expiry": 44
+    },
+    {
+      "id": "F27",
+      "latest_budget_accept": 30,
+      "no_offset_effective_expiry": 30
+    },
+    {
+      "id": "F44",
+      "latest_budget_accept": 90,
+      "no_offset_effective_expiry": 44
+    },
+    {
+      "id": "F48",
+      "latest_budget_accept": 90,
+      "no_offset_effective_expiry": 44
+    },
+    {
+      "id": "F51",
+      "latest_budget_accept": 75,
+      "no_offset_effective_expiry": 44
+    }
+  ],
+  "f42_routes": [
+    {
+      "from": "rear_door",
+      "to": "rear_threshold",
+      "tiles": 3,
+      "seconds": 7.25,
+      "fits_8_seconds": true
+    },
+    {
+      "from": "rear_door",
+      "to": "loading_bay",
+      "tiles": 8,
+      "seconds": 11.0,
+      "fits_8_seconds": false
+    },
+    {
+      "from": "rear_door",
+      "to": "dumpster",
+      "tiles": 10,
+      "seconds": 12.5,
+      "fits_8_seconds": false
+    },
+    {
+      "from": "receiving",
+      "to": "rear_threshold",
+      "tiles": 9,
+      "seconds": 11.75,
+      "fits_8_seconds": false
+    }
+  ],
+  "counts": {
+    "encounters": 60,
+    "variants": 120,
+    "events": 72,
+    "item_catalog": 24,
+    "current_item_acquisition_candidates": 22,
+    "equipment_catalog": 24
+  }
+}

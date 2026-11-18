@@ -1,0 +1,291 @@
+{
+  "scope": "Static local path and explicit no-QTE-offset deadline examples only.",
+  "assumptions": {
+    "all_doors_open_for_route_example": true,
+    "carry_tiles_per_world_second": 2.4,
+    "walk_tiles_per_world_second": 3.0,
+    "pickup_world_seconds": 1.5,
+    "drop_world_seconds": 1.5,
+    "handling_durations_are_explicit_proposed_local_contract": true,
+    "no_enemy_delay_or_touch_reaction_modelled": true,
+    "runtime_offer_expires_on_either_world_or_budget_boundary": true
+  },
+  "input_sha256": {
+    "content/maps.json": "773e39b35bc16c63e6b4f294e27f8a944072599f21b8ad1bae46527f0a093b9a",
+    "content/encounters_v05.json": "e58c68a68c5bba6df46a016a5f70da9dbf2add62caba40205a4fa3f7103348b4",
+    "content/store_systems_v05.json": "8621fcdf73a7727838e9a3f03e01e6d71eecaa2afe50a079a45e481d759c2832",
+    "scripts/validate_maps.py": "f8f5ea9735818e9c19caca76fc5b52932cf0baed7b0741cec0e9ef46ed1cced4"
+  },
+  "f42_routes": [
+    {
+      "start": "rear_door",
+      "end": "loading_bay",
+      "tiles_one_way": 8,
+      "carry_out_world_seconds": 3.333333,
+      "walk_back_world_seconds": 2.666667,
+      "gate_open_close_world_seconds": 2,
+      "before_pickup_drop_world_seconds": 8.0,
+      "pickup_plus_drop_world_seconds": 3.0,
+      "total_world_seconds": 11.0,
+      "safe_window_world_seconds": 8,
+      "fits_with_declared_handling": false,
+      "path_cell_centers": [
+        [
+          27.5,
+          1.5
+        ],
+        [
+          28.5,
+          1.5
+        ],
+        [
+          28.5,
+          0.5
+        ],
+        [
+          28.5,
+          -0.5
+        ],
+        [
+          29.5,
+          -0.5
+        ],
+        [
+          30.5,
+          -0.5
+        ],
+        [
+          31.5,
+          -0.5
+        ],
+        [
+          31.5,
+          -1.5
+        ],
+        [
+          31.5,
+          -2.5
+        ]
+      ]
+    },
+    {
+      "start": "rear_door",
+      "end": "dumpster",
+      "tiles_one_way": 10,
+      "carry_out_world_seconds": 4.166667,
+      "walk_back_world_seconds": 3.333333,
+      "gate_open_close_world_seconds": 2,
+      "before_pickup_drop_world_seconds": 9.5,
+      "pickup_plus_drop_world_seconds": 3.0,
+      "total_world_seconds": 12.5,
+      "safe_window_world_seconds": 8,
+      "fits_with_declared_handling": false,
+      "path_cell_centers": [
+        [
+          27.5,
+          1.5
+        ],
+        [
+          26.5,
+          1.5
+        ],
+        [
+          26.5,
+          0.5
+        ],
+        [
+          26.5,
+          -0.5
+        ],
+        [
+          25.5,
+          -0.5
+        ],
+        [
+          24.5,
+          -0.5
+        ],
+        [
+          24.5,
+          -1.5
+        ],
+        [
+          24.5,
+          -2.5
+        ],
+        [
+          24.5,
+          -3.5
+        ],
+        [
+          24.5,
+          -4.5
+        ],
+        [
+          24.5,
+          -5.5
+        ]
+      ]
+    },
+    {
+      "start": "receiving",
+      "end": "rear_threshold",
+      "tiles_one_way": 9,
+      "carry_out_world_seconds": 3.75,
+      "walk_back_world_seconds": 3.0,
+      "gate_open_close_world_seconds": 2,
+      "before_pickup_drop_world_seconds": 8.75,
+      "pickup_plus_drop_world_seconds": 3.0,
+      "total_world_seconds": 11.75,
+      "safe_window_world_seconds": 8,
+      "fits_with_declared_handling": false,
+      "path_cell_centers": [
+        [
+          23.5,
+          3.5
+        ],
+        [
+          24.5,
+          3.5
+        ],
+        [
+          25.5,
+          3.5
+        ],
+        [
+          26.5,
+          3.5
+        ],
+        [
+          27.5,
+          3.5
+        ],
+        [
+          27.5,
+          2.5
+        ],
+        [
+          27.5,
+          1.5
+        ],
+        [
+          27.5,
+          0.5
+        ],
+        [
+          27.5,
+          -0.5
+        ],
+        [
+          27.5,
+          -1.5
+        ]
+      ]
+    },
+    {
+      "start": "rear_door",
+      "end": "rear_threshold",
+      "tiles_one_way": 3,
+      "carry_out_world_seconds": 1.25,
+      "walk_back_world_seconds": 1.0,
+      "gate_open_close_world_seconds": 2,
+      "before_pickup_drop_world_seconds": 4.25,
+      "pickup_plus_drop_world_seconds": 3.0,
+      "total_world_seconds": 7.25,
+      "safe_window_world_seconds": 8,
+      "fits_with_declared_handling": true,
+      "path_cell_centers": [
+        [
+          27.5,
+          1.5
+        ],
+        [
+          27.5,
+          0.5
+        ],
+        [
+          27.5,
+          -0.5
+        ],
+        [
+          27.5,
+          -1.5
+        ]
+      ]
+    }
+  ],
+  "special_offer_windows": [
+    {
+      "id": "F06",
+      "arrival_phase_budget_second": 20,
+      "arrival_world_second_in_no_offset_example": 20,
+      "ordinary_world_patience_seconds": 24,
+      "ordinary_expiry_in_no_offset_example": 44,
+      "required_contract_seconds": 45,
+      "last_phase_budget_second_for_acceptance": 75,
+      "effective_expiry_in_no_offset_example": 44,
+      "effective_offer_window_world_seconds": 24,
+      "invalid_waiting_tail_without_cutoff_seconds": 0
+    },
+    {
+      "id": "F09",
+      "arrival_phase_budget_second": 20,
+      "arrival_world_second_in_no_offset_example": 20,
+      "ordinary_world_patience_seconds": 24,
+      "ordinary_expiry_in_no_offset_example": 44,
+      "required_contract_seconds": 70,
+      "last_phase_budget_second_for_acceptance": 50,
+      "effective_expiry_in_no_offset_example": 44,
+      "effective_offer_window_world_seconds": 24,
+      "invalid_waiting_tail_without_cutoff_seconds": 0
+    },
+    {
+      "id": "F27",
+      "arrival_phase_budget_second": 20,
+      "arrival_world_second_in_no_offset_example": 20,
+      "ordinary_world_patience_seconds": 24,
+      "ordinary_expiry_in_no_offset_example": 44,
+      "required_contract_seconds": 90,
+      "last_phase_budget_second_for_acceptance": 30,
+      "effective_expiry_in_no_offset_example": 30,
+      "effective_offer_window_world_seconds": 10,
+      "invalid_waiting_tail_without_cutoff_seconds": 14
+    },
+    {
+      "id": "F44",
+      "arrival_phase_budget_second": 20,
+      "arrival_world_second_in_no_offset_example": 20,
+      "ordinary_world_patience_seconds": 24,
+      "ordinary_expiry_in_no_offset_example": 44,
+      "required_contract_seconds": 30,
+      "last_phase_budget_second_for_acceptance": 90,
+      "effective_expiry_in_no_offset_example": 44,
+      "effective_offer_window_world_seconds": 24,
+      "invalid_waiting_tail_without_cutoff_seconds": 0
+    },
+    {
+      "id": "F48",
+      "arrival_phase_budget_second": 20,
+      "arrival_world_second_in_no_offset_example": 20,
+      "ordinary_world_patience_seconds": 24,
+      "ordinary_expiry_in_no_offset_example": 44,
+      "required_contract_seconds": 30,
+      "last_phase_budget_second_for_acceptance": 90,
+      "effective_expiry_in_no_offset_example": 44,
+      "effective_offer_window_world_seconds": 24,
+      "invalid_waiting_tail_without_cutoff_seconds": 0
+    },
+    {
+      "id": "F51",
+      "arrival_phase_budget_second": 20,
+      "arrival_world_second_in_no_offset_example": 20,
+      "ordinary_world_patience_seconds": 24,
+      "ordinary_expiry_in_no_offset_example": 44,
+      "required_contract_seconds": 45,
+      "last_phase_budget_second_for_acceptance": 75,
+      "effective_expiry_in_no_offset_example": 44,
+      "effective_offer_window_world_seconds": 24,
+      "invalid_waiting_tail_without_cutoff_seconds": 0
+    }
+  ]
+}

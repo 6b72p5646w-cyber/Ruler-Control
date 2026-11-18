@@ -1,5 +1,5 @@
 {
-  "version": "0.6",
+  "version": "0.7",
   "status": "reviewed_design_with_partial_headless_contract_reference_not_playable_client",
   "design_goal": "每个熟悉的工作物件都有正常用途、被怪物利用的方式和玩家可改变的状态；紧张来自行动取舍、可观察的违禁后果与有限注意力。",
   "authority": {
@@ -20,7 +20,8 @@
       "historical_detail_catalog"
     ],
     "migration": "V0.4动作卡保留为历史推导与素材，不再直接作为V0.5遭遇加载源。F12/F13的精确蓝图优先级不变。",
-    "condition_lifecycle": "content/condition_lifecycle_v06.json"
+    "condition_lifecycle": "content/condition_lifecycle_v06.json",
+    "temporal_resource_supplement": "content/temporal_resource_contract_v07.json"
   },
   "systems": [
     {
@@ -468,7 +469,10 @@
       "browse_entry_still_required": true,
       "acceptance_needs_route_actions_recovery_and_phase_budget": true,
       "refund_or_request_is_not_new_sale": true,
-      "cancel_retains_unique_item_ids_and_received_payments": true
+      "cancel_retains_unique_item_ids_and_received_payments": true,
+      "offer_closes_at_first_world_or_budget_deadline": true,
+      "accepted_budget_reservation_blocks_conflicting_qte": true,
+      "show_actual_latest_acceptance": true
     }
   },
   "emergency_power": {
@@ -656,7 +660,8 @@
     "snapshot_stale_scope": "only_current_presence_or_position_inference",
     "historical_work_receipts_world_ttl": null,
     "historical_work_receipt_does_not_prove_current_body_identity": true,
-    "handover_local_checks_contract": "content/condition_lifecycle_v06.json#/end_of_shift"
+    "handover_local_checks_contract": "content/condition_lifecycle_v06.json#/end_of_shift",
+    "historical_fact_timestamp_must_precede_first_omen": true
   },
   "attention_and_pause": {
     "read_handbook_pauses_all": true,
@@ -796,7 +801,10 @@
       },
       {
         "monster_id": "F29",
-        "reward": "一次普通货品损耗免除，不覆盖任务目标或安全事故。"
+        "reward": "实际完成本怪交付后，从有限访客礼物中领取薄荷糖（I04）一份，未领取不视为已拥有；物满沿用保留/存仓/主动替换，不自动销毁。",
+        "item_id": "I04",
+        "quantity": 1,
+        "requires_actual_claim_receipt": true
       },
       {
         "monster_id": "F21",
@@ -804,13 +812,37 @@
       },
       {
         "monster_id": "F23",
-        "reward": "下一次水系局部危险预告+2秒一次；不自动解除。"
+        "reward": "实际完成本怪交付后，从有限访客礼物中领取应急护身符（I21）一份，未领取不视为已拥有；物满沿用保留/存仓/主动替换，不自动销毁。",
+        "item_id": "I21",
+        "quantity": 1,
+        "requires_actual_claim_receipt": true
       },
       {
         "monster_id": "F59",
         "reward": "修好已损坏的普通设施一次；不免费新增永久付费装备。"
       }
-    ]
+    ],
+    "fixed_item_gift_contract": {
+      "gift_is_one_declared_visitor_payload": true,
+      "not_in_inventory_before_actual_claim": true,
+      "one_claim_receipt_per_encounter": true,
+      "acquisition_and_handler_checked_before_promise": true,
+      "gift_slot_full_uses_existing_overflow_policy": true,
+      "F23": "I21",
+      "F29": "I04",
+      "undefined_water_or_inventory_protection_tokens_removed": true
+    },
+    "f47_rewards": {
+      "segment_coin_amounts": [
+        3,
+        5,
+        8
+      ],
+      "declared_total": 16,
+      "per_segment_actual_seal_and_claim": true,
+      "max_claims_per_segment": 1,
+      "E065_adds_only_one_fragment_at_first_claim": true
+    }
   },
   "pets_and_deployables": {
     "pet_catalog": "content/pets.json",

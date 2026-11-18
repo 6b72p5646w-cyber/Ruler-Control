@@ -1,5 +1,5 @@
 {
-  "version": "0.6",
+  "version": "0.7",
   "items": [
     {
       "id": "I01",
@@ -13,7 +13,13 @@
       "design_origin": "original_game_adaptation",
       "resource_deltas": {
         "satiety": 25
-      }
+      },
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json"
     },
     {
       "id": "I02",
@@ -27,7 +33,13 @@
       "design_origin": "original_game_adaptation",
       "resource_deltas": {
         "satiety": 40
-      }
+      },
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json"
     },
     {
       "id": "I03",
@@ -44,7 +56,13 @@
         "shared_primitive": "resource_delta",
         "requires_new_item_type": false,
         "status": "proposal_not_implemented"
-      }
+      },
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json"
     },
     {
       "id": "I04",
@@ -61,7 +79,13 @@
         "shared_primitive": "resource_delta",
         "requires_new_item_type": false,
         "status": "proposal_not_implemented"
-      }
+      },
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json"
     },
     {
       "id": "I05",
@@ -72,7 +96,13 @@
       "tradeoff": "下一游戏小时精力-8且SAN-2，债务写入存档",
       "tag": "energy",
       "consumable": true,
-      "design_origin": "original_game_adaptation"
+      "design_origin": "original_game_adaptation",
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json"
     },
     {
       "id": "I06",
@@ -98,7 +128,13 @@
         "max_uses_per_night": 1,
         "same_item_exclusive_with_lamp": true,
         "ref": "content/store_systems_v05.json#/emergency_power"
-      }
+      },
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json"
     },
     {
       "id": "I07",
@@ -111,7 +147,7 @@
       "consumable": true,
       "design_origin": "original_game_adaptation",
       "operational_extension": {
-        "description": "在安全工位给尚未损坏的D01恢复1次接触次数；每个实例最多修1次，原上限不变。",
+        "description": "在安全工位给尚未损坏的B01恢复1次接触次数；每个实例最多修1次，原上限不变。",
         "shared_primitive": "limited_charge_restore",
         "requires_new_item_type": false,
         "status": "proposal_not_implemented",
@@ -122,7 +158,13 @@
         "may_repair_destroyed_instance": false,
         "restored_charges": 1,
         "cannot_exceed_original_capacity": true
-      }
+      },
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json"
     },
     {
       "id": "I08",
@@ -133,7 +175,13 @@
       "tradeoff": "不免疫精神干扰或所有诅咒",
       "tag": "isolation",
       "consumable": true,
-      "design_origin": "original_game_adaptation"
+      "design_origin": "original_game_adaptation",
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json"
     },
     {
       "id": "I09",
@@ -150,7 +198,13 @@
         "shared_primitive": "door_timer_modifier",
         "requires_new_item_type": false,
         "status": "proposal_not_implemented"
-      }
+      },
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json"
     },
     {
       "id": "I10",
@@ -170,7 +224,13 @@
         "not_a_goal_container_for_tags": [
           "encounter_raw_meat_crate"
         ]
-      }
+      },
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json"
     },
     {
       "id": "I11",
@@ -187,7 +247,13 @@
         "shared_primitive": "route_marker",
         "requires_new_item_type": false,
         "status": "proposal_not_implemented"
-      }
+      },
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json"
     },
     {
       "id": "I12",
@@ -204,7 +270,13 @@
         "shared_primitive": "block_effect",
         "requires_new_item_type": false,
         "status": "proposal_not_implemented"
-      }
+      },
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json"
     },
     {
       "id": "I13",
@@ -215,7 +287,13 @@
       "tradeoff": "需在安全工位使用3秒",
       "tag": "san",
       "consumable": true,
-      "design_origin": "original_game_adaptation"
+      "design_origin": "original_game_adaptation",
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json"
     },
     {
       "id": "I14",
@@ -226,7 +304,13 @@
       "tradeoff": "安全开封后使用，不能把供物当成便当",
       "tag": "food",
       "consumable": true,
-      "design_origin": "original_game_adaptation"
+      "design_origin": "original_game_adaptation",
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json"
     },
     {
       "id": "I15",
@@ -251,7 +335,13 @@
         "changes_F13_target_state": false,
         "can_mark_freezer_goal_complete": false,
         "target_item_tag": "encounter_raw_meat_crate"
-      }
+      },
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json"
     },
     {
       "id": "I16",
@@ -282,7 +372,13 @@
       },
       "counts_toward_deployable_cap": true,
       "deployment_socket_type": "lamp",
-      "recovery_preserves_remaining_lifetime": true
+      "recovery_preserves_remaining_lifetime": true,
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json"
     },
     {
       "id": "I17",
@@ -299,7 +395,13 @@
         "shared_primitive": "trace_reveal",
         "requires_new_item_type": false,
         "status": "proposal_not_implemented"
-      }
+      },
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json"
     },
     {
       "id": "I18",
@@ -310,7 +412,13 @@
       "tradeoff": "不能单独证明持有人身份",
       "tag": "identity",
       "consumable": true,
-      "design_origin": "original_game_adaptation"
+      "design_origin": "original_game_adaptation",
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json"
     },
     {
       "id": "I19",
@@ -330,7 +438,13 @@
         "condition_contract": "content/condition_lifecycle_v06.json#/wounds/first_aid",
         "world_seconds": 1,
         "requires_qte": false
-      }
+      },
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json"
     },
     {
       "id": "I20",
@@ -341,18 +455,51 @@
       "tradeoff": "净化灵体仅对已研究的匹配方法生效",
       "tag": "water",
       "consumable": true,
-      "design_origin": "original_game_adaptation"
+      "design_origin": "original_game_adaptation",
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json"
     },
     {
       "id": "I21",
       "name": "应急护身符",
       "rarity": "rare",
       "shop_price": 60,
-      "effect": "一次已预告严重阶段延迟8秒",
-      "tradeoff": "只延迟指定可延迟标签，不撤销错误交易",
+      "effect": "仅对F50俯冲或F60转身的当前有效预告，增加3世界秒总缓冲，单个攻击实例一次。",
+      "tradeoff": "与同一预告的宠物/门铃增时取最大总增量，不相加；若本次增量会超出当前阶段或真实06预算，不使用也不消耗。",
       "tag": "ward",
       "consumable": true,
-      "design_origin": "original_game_adaptation"
+      "design_origin": "original_game_adaptation",
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "operational_extension": {
+        "shared_primitive": "telegraph_total_bonus_max",
+        "target_monster_ids": [
+          "F50",
+          "F60"
+        ],
+        "target_action_ids": [
+          "roof_dive",
+          "turn_to_face"
+        ],
+        "requested_total_bonus_world_seconds": 3,
+        "max_uses_per_attack_instance": 1,
+        "requires_active_unexpired_telegraph": true,
+        "same_category_stacking": "strongest_total_only",
+        "refund_on_invalid_target": true,
+        "must_fit_remaining_phase_and_shift_budget": true,
+        "cannot_extend_true_six": true,
+        "may_complete_encounter_goal": false,
+        "status": "design_only_client_adapter_pending",
+        "condition_contract": "content/auxiliary_targets_v07.json#/telegraph_extension"
+      }
     },
     {
       "id": "I22",
@@ -363,7 +510,14 @@
       "tradeoff": "不是所有原型都惧盐；非适用者不生效",
       "tag": "threshold",
       "consumable": true,
-      "design_origin": "original_game_adaptation"
+      "design_origin": "original_game_adaptation",
+      "acquisition_enabled": false,
+      "shop_enabled": false,
+      "lottery_enabled": false,
+      "reward_enabled": false,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "disabled_reason": "当前60卡没有已定义且有实际消费者的此项辅助反应，保留历史条目，暂不出售、抽取、赠送或制造；不删除已有存量。"
     },
     {
       "id": "I23",
@@ -380,7 +534,14 @@
         "shared_primitive": "tagged_lure",
         "requires_new_item_type": false,
         "status": "proposal_not_implemented"
-      }
+      },
+      "acquisition_enabled": false,
+      "shop_enabled": false,
+      "lottery_enabled": false,
+      "reward_enabled": false,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "disabled_reason": "当前60卡没有已定义且有实际消费者的此项辅助反应，保留历史条目，暂不出售、抽取、赠送或制造；不删除已有存量。"
     },
     {
       "id": "I24",
@@ -391,7 +552,13 @@
       "tradeoff": "只能连接实际通路，不穿墙或抹除封锁",
       "tag": "path",
       "consumable": true,
-      "design_origin": "original_game_adaptation"
+      "design_origin": "original_game_adaptation",
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json"
     }
   ],
   "lottery": {
@@ -454,7 +621,74 @@
         ]
       }
     },
-    "atomic_ticket_reward_counter_save": true
+    "atomic_ticket_reward_counter_save": true,
+    "current_pool_contract": "content/auxiliary_targets_v07.json#/acquisition",
+    "preparation_minutes_per_draw": 15,
+    "all_results_granted_scope": "正式选中的最终奖品；E064未选候选不是已授予结果。",
+    "eligible_pool_policy": {
+      "requires_acquisition_enabled": true,
+      "requires_lottery_enabled": true,
+      "requires_current_build_handler": true,
+      "requires_defined_supported_consumer": true,
+      "within_eligible_tier": "uniform",
+      "missing_required_tier_pool": "do_not_debit_or_reveal_or_update_pity",
+      "empty_pool": "do_not_debit_or_reveal_or_update_pity",
+      "no_silent_pity_downgrade": true,
+      "no_silent_replacement_with_disabled_item": true
+    },
+    "double_choice_contract": {
+      "event_id": "E064",
+      "currency": "earned_shift_ticket",
+      "cost": 1,
+      "candidate_count": 2,
+      "candidate_item_ids_distinct": true,
+      "candidate_generation_uses_same_pre_draw_pity_snapshot": true,
+      "candidate_sampling_done_by_adapter_not_reference_module": true,
+      "reserve_ticket_and_persist_candidates_before_reveal": true,
+      "resume_pending_choice_never_rerolls": true,
+      "cannot_start_second_draw_with_pending_choice": true,
+      "only_selected_candidate_granted": true,
+      "selected_result_updates_pity_exactly_once": true,
+      "unselected_candidates_do_not_update_pity": true,
+      "preparation_minutes": 15,
+      "max_uses_per_procurement_window": 1,
+      "final_commit_policy": "已预留券的唯一支付回执、最终物件、保底及终态同时保存；不会二次扣券。"
+    },
+    "fragment_contract": {
+      "event_id": "E065",
+      "fragment_id": "shift_ticket_fragment",
+      "fragments_per_completed_reward": 1,
+      "max_reward_sources_per_night": 1,
+      "requires_actual_completion_receipt": true,
+      "eligible_receipt_kinds": [
+        "optional_work_completed",
+        "f47_sealed_reward"
+      ],
+      "same_root_reward_id_settles_once": true,
+      "f47_and_e065_share_root_reward_id": true,
+      "reserve_night_reward_quota_before_promising_variant": true,
+      "fragments_required_per_exchange": 3,
+      "tickets_granted_per_exchange": 1,
+      "exchange_preparation_minutes": 15,
+      "exchange_phase": "20:00-22:00 procurement window",
+      "exchange_action_idempotent": true,
+      "atomic_debit_and_credit": true,
+      "fragments_persist_across_nights_and_weeks": true,
+      "fragments_use_inventory_slots": false
+    },
+    "refund_contract": {
+      "event_id": "E072",
+      "eligible_source": "paid_shop_purchase_only",
+      "window": "same_procurement_window_before_22:00",
+      "requires_same_unused_untransferred_item_instance": true,
+      "refund_limit": "actual_paid_amount_of_purchase_line",
+      "one_refund_per_purchase_line": true,
+      "lottery_and_gifts_eligible": false,
+      "atomic_original_item_return_receipt_cancellation_and_money_credit": true,
+      "lock_original_item_during_return": true,
+      "preparation_minutes": 5,
+      "leave_no_overpayment_state": true
+    }
   },
   "job_supply": {
     "daily_free_food": {
@@ -489,6 +723,7 @@
     "inventory_is_not_satiety": "回形针、生肉和用品使用只扣对应库存；未食用商品不直接减少已获得饱腹。",
     "qte_parameter_changes": "SAN或技能变化影响下一次QTE，已经开始的QTE不突然更改显示判定区。",
     "task_meat_container_rule": "封口袋、保冷套、速冷包均不能替代F13的冰柜入柜完成条件。",
-    "illumination_changes_san_value": false
+    "illumination_changes_san_value": false,
+    "all_acquisition_channels_respect_availability": true
   }
 }

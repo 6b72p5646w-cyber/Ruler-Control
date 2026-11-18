@@ -25,6 +25,20 @@ const actionAllowed = s => !s.paused && s.mode === 'night' && !s.precision;
 const actorBusy = (s, actorId) => Object.values(s.actions).some(a => a.actorId === actorId && a.state === 'running');
 const producerPhaseAllowed = (s, type) => s.contract.wounds.producers.find(p => p.id === type)
   ?.phase_options.includes(`N0${Math.floor(s.budget / 120) + 1}`);
+const objectLock = objectId => `object:${objectId}`;
+const woundLock = (targetId, incidentId) => `wound:${targetId}:${incidentId}`;
+function releaseActionReservations(s, a, refund) {
+  if (a.lockKey && s.actionLocks[a.lockKey] === a.id) delete s.actionLocks[a.lockKey];
+  if (refund && a.reservedDressing) { s.inventory.dressings++; a.reservedDressing = false; }
+  if (refund && a.reservedBag) { s.inventory.bags++; a.reservedBag = false; }
+}
+function cancelAction(s, a, reason) {
+  if (a.state !== 'running') return false;
+  a.state = 'cancelled'; a.cancelReason = reason;
+  releaseActionReservations(s, a, true);
+  log(s, 'action_cancelled', {actionId: a.id, reason});
+  return true;
+}
 function endEncounter(s, e, state, cause) {
   if (TERMINAL.has(e.state)) return false;
   e.state = state; e.endedAt = s.world; e.endCause = cause;
@@ -62,7 +76,7 @@ export function createConditionState(contract, options = {}) {
       COWORKER: {wound: null, minorUntil: null, cutCount: 0, station: null, distanceSinceMark: 0}},
     inventory: {dressings: contract.wounds.first_aid.night_free_dressings,
       bags: contract.supply_catalog.find(x => x.id === 'SUP_SEALING')?.quantity ?? 0},
-    objects, slots, markers, receipts: {}, actions: {}, incidents: {}, traces: {}, waste: {},
+    objects, slots, markers, receipts: {}, actions: {}, actionLocks: {}, incidents: {}, traces: {}, waste: {},
     encounters: {}, promises: {}, log: [], nightCutCount: 0, precision: null, managerArrived: false};
 }
 
@@ -107,16 +121,20 @@ export function beginRecordedWork(s, {kind, actorId = 'PLAYER', objectId}) {
   if (!s.actors[actorId] || actorBusy(s, actorId)) return fail('actor_unavailable');
   if (!(kind in WORK_SECONDS)) return fail('unknown_work_kind');
   if (s.budget + WORK_SECONDS[kind] > s.contract.end_of_shift.true_six_budget_seconds) return fail('insufficient_shift_budget');
+  const lockKey = objectLock(objectId);
+  if (s.actionLocks[lockKey]) return fail('object_reserved_by_action');
   const o = s.objects[objectId];
   if (kind === 'receive_return' && (!o || o.kind !== 'returned_glass' || o.received)) return fail('not_pending_return');
   if (['station_work', 'isolate_station'].includes(kind) && (!o || o.kind !== 'station')) return fail('not_station');
+  if (['station_work', 'isolate_station'].includes(kind) && o.isolated) return fail('station_already_isolated');
   if (kind === 'wipe_trace' && !s.traces[objectId]?.live) return fail('no_live_trace');
   if (kind === 'seal_waste' && (!s.waste[objectId] || s.waste[objectId].sealed || s.inventory.bags < 1)) return fail('no_waste_or_bag');
   if (kind === 'seal_water' && (!o || o.kind !== 'reserved_water' || o.sealed)) return fail('not_unsealed_water');
   const id = nextId(s, 'action');
   if (actorId === 'PLAYER') interruptPortableStabilization(s, 'other_work');
   s.actions[id] = {id, kind, actorId, objectId, startedAt: s.world,
-    endAt: s.world + WORK_SECONDS[kind], state: 'running'};
+    endAt: s.world + WORK_SECONDS[kind], state: 'running', lockKey};
+  s.actionLocks[lockKey] = id;
   if (kind === 'station_work') {
     s.actors[actorId].station = objectId;
     s.actors[actorId].stationExitTravel = 0;
@@ -129,10 +147,7 @@ export function cancelRecordedWork(s, actionId) {
   const a = s.actions[actionId];
   if (!a || a.state !== 'running') return fail('no_running_action');
   if (s.paused) return fail('paused');
-  a.state = 'cancelled';
-  if (a.reservedDressing) { s.inventory.dressings++; a.reservedDressing = false; }
-  if (a.reservedBag) { s.inventory.bags++; a.reservedBag = false; }
-  log(s, 'action_cancelled', {actionId});
+  cancelAction(s, a, 'player_cancelled');
   return ok({});
 }
 
@@ -157,14 +172,41 @@ export function announceGlassHazard(s, {returnReceiptId, objectId}) {
   return ok({incidentId: id});
 }
 
-export function announceStationGlassFault(s, {workReceiptId, objectId, actorId}) {
+/** Narrow reference adapter: activate the pre-reserved F21 glass variant only.
+ * The full director still owns entry geometry, clue delivery and composition
+ * budgets. An activated instance and its receipt are required by the accident;
+ * a caller-provided boolean or a work receipt alone cannot stand in for them.
+ */
+export function activateStationFaultEncounter(s, {id, objectId, slotId, variant = 'glass_shield_fault'}) {
+  if (!actionAllowed(s) || !id || s.encounters[id] || variant !== 'glass_shield_fault') return fail('invalid_station_fault_activation');
+  if (!producerPhaseAllowed(s, 'F21_GLASS_FAULT')) return fail('producer_phase_not_allowed');
+  const slot = s.slots[slotId], object = s.objects[objectId];
+  if (!slot || slot.state !== 'RESERVED' || !slot.allowed.includes('F21') || slot.phase !== Math.floor(s.budget / 120)) return fail('no_pre_reserved_f21_slot');
+  if (!object || object.kind !== 'station' || object.isolated) return fail('actual_station_missing');
+  if (Object.values(s.encounters).some(e => e.monsterId === 'F21' && e.objectId === objectId && !TERMINAL.has(e.state))) return fail('station_fault_already_active');
+  slot.state = 'ACTIVE'; slot.encounterId = id;
+  const receipt = record(s, 'station_fault_activation', 'WORLD', objectId, id, {monsterId: 'F21', variant, slotId});
+  s.encounters[id] = {id, monsterId: 'F21', variant, objectId, slotId,
+    state: 'ACTIVE', critical: true, activationReceiptId: receipt.id};
+  log(s, 'station_fault_activated', {id, objectId, slotId});
+  return ok({encounterId: id, receiptId: receipt.id});
+}
+
+export function announceStationGlassFault(s, {workReceiptId, objectId, actorId, sourceEncounterId}) {
   if (!actionAllowed(s)) return fail('world_not_actionable');
   if (!producerPhaseAllowed(s, 'F21_GLASS_FAULT')) return fail('producer_phase_not_allowed');
+  const parent = s.encounters[sourceEncounterId], slot = parent && s.slots[parent.slotId];
+  const activation = parent && s.receipts[parent.activationReceiptId];
+  if (!parent || parent.monsterId !== 'F21' || parent.variant !== 'glass_shield_fault' ||
+      parent.state !== 'ACTIVE' || parent.objectId !== objectId || slot?.state !== 'ACTIVE' ||
+      slot.encounterId !== parent.id || activation?.kind !== 'station_fault_activation' ||
+      activation.sourceActionId !== parent.id || activation.objectId !== objectId) return fail('actual_active_f21_glass_variant_missing');
   const r = requireHistoricalReceipt(s, {id: workReceiptId, kind: 'station_work', actorId, objectId});
   if (!r.ok || s.actors[actorId]?.station !== objectId || s.objects[objectId]?.isolated) return fail('actual_occupied_station_missing');
   if (Object.values(s.incidents).some(i => i.objectId === objectId)) return fail('hazard_already_registered');
   const id = nextId(s, 'incident');
   s.incidents[id] = {id, type: 'F21_GLASS_FAULT', objectId, sourceReceiptId: workReceiptId,
+    sourceEncounterId, sourceActivationReceiptId: activation.id,
     actorId, warningAt: s.world, readyAt: s.world +
       (s.contract.wounds.producers.find(p => p.id === 'F21_GLASS_FAULT').warning_world_seconds ?? 40),
     stage: 'warning', cut: false, consumerId: null};
@@ -179,6 +221,7 @@ function cutActor(s, incident, actorId) {
   incident.cut = true; incident.actorId = actorId; incident.stage = 'consequence';
   if (actorId === 'PLAYER') interruptPortableStabilization(s, 'cut_contact');
   a.cutCount++; s.nightCutCount++;
+  a.distanceSinceMark = 0; // Pre-injury walking is not bleeding travel.
   a.wound = {incidentId: incident.id, state: 'fresh', startedAt: s.world,
     endAt: s.world + c.bleeding_duration_world_seconds, endedByPlayer: false};
   a.minorUntil = s.world + c.minor_injury_duration_world_seconds;
@@ -217,44 +260,65 @@ export function beginFirstAid(s, {actorId = 'PLAYER', targetId = actorId, distan
   if (distanceTiles > s.contract.wounds.first_aid.requires_target_distance_tiles_max) return fail('out_of_reach');
   if (s.inventory.dressings < 1) return fail('no_dressing');
   if (s.budget + s.contract.wounds.first_aid.world_action_seconds > s.contract.end_of_shift.true_six_budget_seconds) return fail('insufficient_shift_budget');
+  const lockKey = woundLock(targetId, s.actors[targetId].wound.incidentId);
+  if (s.actionLocks[lockKey]) return fail('wound_reserved_by_action');
   s.inventory.dressings--;
   if (actorId === 'PLAYER') interruptPortableStabilization(s, 'first_aid');
   const id = nextId(s, 'action');
   s.actions[id] = {id, kind: 'first_aid', actorId, targetId, objectId: s.actors[targetId].wound.incidentId,
     startedAt: s.world, endAt: s.world + s.contract.wounds.first_aid.world_action_seconds,
-    state: 'running', reservedDressing: true};
+    state: 'running', reservedDressing: true, lockKey};
+  s.actionLocks[lockKey] = id;
   return ok({actionId: id});
 }
 
 function completeWorldAction(s, a) {
   if (a.state !== 'running') return;
+  if (!a.lockKey || s.actionLocks[a.lockKey] !== a.id) {
+    cancelAction(s, a, 'action_ownership_lost'); return;
+  }
   if (a.kind === 'first_aid') {
     const w = s.actors[a.targetId]?.wound;
     if (!w || w.state !== 'fresh' || w.incidentId !== a.objectId) {
-      a.state = 'cancelled';
-      if (a.reservedDressing) { s.inventory.dressings++; a.reservedDressing = false; }
+      cancelAction(s, a, 'wound_no_longer_fresh');
       return;
     }
     w.state = 'dressed'; w.endedAt = s.world; w.endedByPlayer = true;
     s.actors[a.targetId].minorUntil = null;
     a.reservedDressing = false;
   } else if (a.kind === 'receive_return') {
+    if (!s.objects[a.objectId] || s.objects[a.objectId].kind !== 'returned_glass' || s.objects[a.objectId].received) {
+      cancelAction(s, a, 'return_no_longer_pending'); return;
+    }
     s.objects[a.objectId].received = true;
+  } else if (a.kind === 'station_work') {
+    if (!s.objects[a.objectId] || s.objects[a.objectId].kind !== 'station' || s.objects[a.objectId].isolated) {
+      cancelAction(s, a, 'station_no_longer_available'); return;
+    }
   } else if (a.kind === 'isolate_station') {
+    if (!s.objects[a.objectId] || s.objects[a.objectId].kind !== 'station' || s.objects[a.objectId].isolated) {
+      cancelAction(s, a, 'station_no_longer_available'); return;
+    }
     s.objects[a.objectId].isolated = true;
   } else if (a.kind === 'wipe_trace') {
     const t = s.traces[a.objectId];
-    if (t?.live) {
-      t.live = false; t.removedByPlayer = true;
-      const id = nextId(s, 'waste');
-      s.waste[id] = {id, incidentId: t.incidentId, sealed: false, sourceTraceId: t.id};
-    }
+    if (!t?.live) { cancelAction(s, a, 'trace_no_longer_live'); return; }
+    t.live = false; t.removedByPlayer = true;
+    const id = nextId(s, 'waste');
+    s.waste[id] = {id, incidentId: t.incidentId, sealed: false, sourceTraceId: t.id};
   } else if (a.kind === 'seal_waste') {
+    if (!s.waste[a.objectId] || s.waste[a.objectId].sealed || !a.reservedBag) {
+      cancelAction(s, a, 'waste_no_longer_unsealed'); return;
+    }
     s.waste[a.objectId].sealed = true; a.reservedBag = false;
   } else if (a.kind === 'seal_water') {
+    if (!s.objects[a.objectId] || s.objects[a.objectId].kind !== 'reserved_water' || s.objects[a.objectId].sealed) {
+      cancelAction(s, a, 'water_no_longer_unsealed'); return;
+    }
     s.objects[a.objectId].sealed = true;
   }
   a.state = 'completed';
+  releaseActionReservations(s, a, false);
   a.receiptId = record(s, a.kind, a.actorId, a.objectId, a.id).id;
   log(s, 'action_committed', {actionId: a.id, kind: a.kind});
 }
@@ -273,16 +337,30 @@ export function walkActor(s, {actorId = 'PLAYER', distanceTiles, gait = 'walk'})
     a.pendingStationExitAt = s.world + (1 - (a.stationExitTravel ?? 0)) / 3;
   }
   const interval = s.contract.wounds.blood_trace.min_travel_tiles_between_marks;
-  let remaining = distanceTiles;
+  let remaining = distanceTiles, travelled = 0;
   while (remaining > 0 && s.mode === 'night') {
     const step = Math.min(remaining, interval - a.distanceSinceMark);
-    advanceConditionWorld(s, step / 3);
+    const segmentStartedAt = s.world;
+    const tick = advanceConditionWorld(s, step / 3);
+    const actualStep = Math.min(step, tick.advanced * 3);
+    if (actualStep <= 1e-9) break;
     // This bounded reference models a straight one-tile station exit. The client
     // must use its actual exit/collision facts, not total distance walked in a loop.
     if (a.station) {
-      a.stationExitTravel = (a.stationExitTravel ?? 0) + step;
+      a.stationExitTravel = (a.stationExitTravel ?? 0) + actualStep;
     }
-    a.distanceSinceMark += step; remaining -= step;
+    // A fault may cut the actor in the middle of this movement segment. Only
+    // travel after the actual cut and before dressing/natural expiry is blood
+    // travel; checking fresh(end) alone would include the pre-injury distance.
+    const wound = a.wound;
+    const bleedingSeconds = wound ? Math.max(0,
+      Math.min(s.world, wound.endedAt ?? wound.endAt) - Math.max(segmentStartedAt, wound.startedAt)) : 0;
+    const bleedingStep = Math.min(actualStep, bleedingSeconds * 3);
+    a.distanceSinceMark = fresh(s, actorId) ? a.distanceSinceMark + bleedingStep : 0;
+    remaining = Math.max(0, remaining - actualStep); travelled += actualStep;
+    // A failed shift or handover stops the unfinished movement segment. It
+    // cannot create a later mark/receipt for the originally requested distance.
+    if (s.mode !== 'night') break;
     if (a.distanceSinceMark + 1e-9 >= interval) {
       a.distanceSinceMark = 0;
       if (fresh(s, actorId)) {
@@ -296,7 +374,7 @@ export function walkActor(s, {actorId = 'PLAYER', distanceTiles, gait = 'walk'})
       }
     }
   }
-  return ok({});
+  return ok({distanceTravelled: travelled});
 }
 
 export function announceBloodEncounter(s, {id, monsterId, incidentId, slotId}) {
@@ -306,6 +384,10 @@ export function announceBloodEncounter(s, {id, monsterId, incidentId, slotId}) {
   if (s.encounters[id]) return fail('duplicate_encounter');
   if (!slot || slot.state !== 'RESERVED' || !slot.allowed.includes(monsterId)) return fail('no_pre_reserved_slot');
   if (slot.phase !== Math.floor(s.budget / 120)) return fail('wrong_phase_slot');
+  if (i.type === 'F21_GLASS_FAULT') {
+    const parent = s.encounters[i.sourceEncounterId];
+    if (!parent || slot.kind !== 'joint' || slot.parentSlotId !== parent.slotId) return fail('no_pre_reserved_f21_child_slot');
+  }
   const c = s.contract.wounds.reactive_consumers, a = s.actors[i.actorId];
   if (!fresh(s, i.actorId) || a.wound.endAt - s.world < c.minimum_remaining_fresh_blood_world_seconds_at_announcement) return fail('fresh_source_window_missing');
   if (s.contract.end_of_shift.true_six_budget_seconds - s.budget < c.minimum_remaining_shift_budget_seconds) return fail('insufficient_shift_budget');
@@ -335,6 +417,16 @@ function updateBloodEncounter(s, e) {
     }
   }
   if (e.state === 'ANNOUNCED' && s.world >= e.arrivalAt) {
+    if (e.monsterId === 'F26') {
+      // Rebind only existing live marks from this same incident. A real later
+      // walk may replace an expired mark; no TTL or announcement is refreshed.
+      const actualTraces = Object.values(s.traces).filter(t => t.live && t.incidentId === e.incidentId).slice(0, 3);
+      if (actualTraces.length === 0) {
+        endEncounter(s, e, 'SAFE_RETURNED', 'no_actual_trace_at_arrival');
+        return;
+      }
+      e.boundTraceIds = actualTraces.map(t => t.id);
+    }
     e.state = 'ACTIVE'; log(s, 'encounter_arrived', {id: e.id});
   }
   if (e.leaveAt !== undefined && s.world >= e.leaveAt) endEncounter(s, e, e.leaveState, 'targetless_exit');
@@ -353,7 +445,7 @@ export function declineOptionalEncounter(s, id) {
 }
 
 export function acceptDawnPromise(s, {id, objectId}) {
-  if (!actionAllowed(s) || s.promises[id] || s.objects[objectId]?.kind !== 'reserved_water') return fail('invalid_promise');
+  if (!actionAllowed(s) || !id || s.promises[id] || s.encounters[id] || s.objects[objectId]?.kind !== 'reserved_water') return fail('invalid_promise');
   if (Object.values(s.promises).some(p => p.objectId === objectId && p.state === 'ACTIVE')) return fail('already_reserved');
   interruptPortableStabilization(s, 'promise_acceptance');
   s.promises[id] = {id, objectId, state: 'ACTIVE', deadline: s.contract.end_of_shift.true_six_budget_seconds};
@@ -396,15 +488,31 @@ function processDue(s) {
   }
   for (const t of Object.values(s.traces)) if (t.live && s.world >= t.expiresAt) t.live = false;
   for (const a of Object.values(s.actions)) if (a.state === 'running' &&
-    (s.world >= a.endAt || (a.kind === 'first_aid' && !fresh(s, a.targetId)))) completeWorldAction(s, a);
+    (s.world >= a.endAt || (a.kind === 'first_aid' && !fresh(s, a.targetId)) ||
+      (a.kind === 'wipe_trace' && !s.traces[a.objectId]?.live))) completeWorldAction(s, a);
   for (const a of Object.values(s.actors)) if (a.pendingStationExitAt !== undefined && s.world >= a.pendingStationExitAt) {
     a.station = null; delete a.pendingStationExitAt;
   }
   for (const i of Object.values(s.incidents)) if (i.type === 'F21_GLASS_FAULT' && i.stage === 'warning' && s.world >= i.readyAt) {
+    const parent = s.encounters[i.sourceEncounterId];
+    if (!parent || parent.monsterId !== 'F21' || parent.variant !== 'glass_shield_fault' || parent.state !== 'ACTIVE') {
+      i.stage = 'cancelled_source_unavailable'; continue;
+    }
     if (s.actors[i.actorId]?.station === i.objectId && !s.objects[i.objectId].isolated) {
       if (!cutActor(s, i, i.actorId).ok) i.stage = 'suppressed_by_cut_cap';
     }
     else i.stage = 'prevented';
+  }
+  for (const i of Object.values(s.incidents)) if (i.type === 'F21_GLASS_FAULT') {
+    const parent = s.encounters[i.sourceEncounterId];
+    if (parent && !TERMINAL.has(parent.state) && s.objects[i.objectId]?.isolated &&
+        s.actors[i.actorId]?.station !== i.objectId) {
+      if (!i.cut) i.stage = 'prevented';
+      endEncounter(s, parent, i.cut ? 'RESOLVED' : 'PREVENTED', 'actual_departure_and_isolation');
+      for (const slot of Object.values(s.slots)) if (!i.cut && slot.parentSlotId === parent.slotId && slot.state === 'RESERVED') {
+        slot.state = 'RELEASED';
+      }
+    }
   }
   for (const e of Object.values(s.encounters)) if (['F26', 'F32'].includes(e.monsterId)) updateBloodEncounter(s, e);
   for (const m of [...s.markers].sort((a, b) => a.at - b.at)) if (!m.dispatched && s.budget >= m.at) {
@@ -415,6 +523,9 @@ function processDue(s) {
   if (panicTimedOut) {
     s.mode = 'failed_shift'; s.panic.stabilizing = false;
     log(s, 'panic_timeout');
+  }
+  if (s.mode !== 'night') {
+    for (const a of Object.values(s.actions)) if (a.state === 'running') cancelAction(s, a, 'night_ended_before_commit');
   }
 }
 
@@ -459,7 +570,9 @@ export function beginPrecisionAttempt(s, {costSeconds}) {
   if (s.mode !== 'night') return fail('shift_already_ended');
   if (s.san <= 0) return fail('panic_disallows_new_precision');
   if (Object.values(s.actions).some(a => a.state === 'running')) return fail('running_world_action');
-  if (Object.values(s.encounters).some(e => ['F26', 'F32'].includes(e.monsterId) && e.critical && !TERMINAL.has(e.state))) return fail('critical_resolution_reserved');
+  // Immediate F21 glass danger cannot be frozen while precision costs move the
+  // shift across hours. F53 is a long-lived stock promise, not this guard class.
+  if (Object.values(s.encounters).some(e => ['F21', 'F26', 'F32'].includes(e.monsterId) && e.critical && !TERMINAL.has(e.state))) return fail('critical_resolution_reserved');
   const nextMarker = s.markers.filter(m => !m.dispatched).reduce((n, m) => Math.min(n, m.at), Infinity);
   if (s.budget + costSeconds > nextMarker) return fail('would_cross_schedule_marker');
   const id = nextId(s, 'precision');

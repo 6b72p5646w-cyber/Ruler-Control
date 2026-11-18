@@ -1,0 +1,214 @@
+{
+  "version": "0.7",
+  "client_implemented": false,
+  "scope": "Second pass: actual time windows, typed supplies, effective consumers and action transactions; no complete director/AI proof.",
+  "phase_seconds": 120,
+  "default_primary_arrival_phase_second": 20,
+  "ordinary_order_wait_world_seconds": 24,
+  "historical_fact_admission": {
+    "must_have_real_receipt": true,
+    "same_night_or_explicit_prior_handover": true,
+    "receipt_budget_lte_first_omen_budget": true,
+    "arrival_payload_reservation_is_not_history": true,
+    "current_body_observation_is_not_required_before_arrival": true,
+    "first_phase_omens_are_pre_shift": true,
+    "later_first_omen_previous_phase_second": 80,
+    "conditional_early_cargo_examples": [
+      "F40",
+      "F45"
+    ],
+    "first_phase_corroboration_example": "F02可用同一班前实际领物/交接回执；不是声称本班已经销售。",
+    "prior_handover_adapter_scope": {
+      "current_reference_requires_same_run_and_scene": true,
+      "prior_original_record_must_keep_original_run_id": true,
+      "current_handover_receipt_kind": "actual_pre_shift_action",
+      "current_handover_must_precede_first_omen": true,
+      "handover_references": [
+        "immutable_original_sale_id",
+        "original_object_id",
+        "original_root_id"
+      ],
+      "not_implemented_by_current_history_guard": [
+        "original_sale_authenticity",
+        "cross_run_reference_validation",
+        "cross_run_same_object_refund_uniqueness"
+      ],
+      "note": "同班历史守卫仅检本班真实交接回执；F25客户端适配器还须核对不可变前班原单与同一物件，不可改写原单runId绕过检查。"
+    }
+  },
+  "special_order_windows": [
+    {
+      "encounter_id": "F06",
+      "default_arrival": 20,
+      "accepted_world_seconds": 45,
+      "latest_phase_budget_accept": 75,
+      "world_patience": 24,
+      "close_at_first_clock": true,
+      "exact_deadline_commit_before_expiry": true
+    },
+    {
+      "encounter_id": "F09",
+      "default_arrival": 20,
+      "accepted_world_seconds": 70,
+      "latest_phase_budget_accept": 50,
+      "world_patience": 24,
+      "close_at_first_clock": true,
+      "exact_deadline_commit_before_expiry": true
+    },
+    {
+      "encounter_id": "F27",
+      "default_arrival": 20,
+      "accepted_world_seconds": 90,
+      "latest_phase_budget_accept": 30,
+      "world_patience": 24,
+      "close_at_first_clock": true,
+      "exact_deadline_commit_before_expiry": true
+    },
+    {
+      "encounter_id": "F44",
+      "default_arrival": 20,
+      "accepted_world_seconds": 30,
+      "latest_phase_budget_accept": 90,
+      "world_patience": 24,
+      "close_at_first_clock": true,
+      "exact_deadline_commit_before_expiry": true
+    },
+    {
+      "encounter_id": "F48",
+      "default_arrival": 20,
+      "accepted_world_seconds": 30,
+      "latest_phase_budget_accept": 90,
+      "world_patience": 24,
+      "close_at_first_clock": true,
+      "exact_deadline_commit_before_expiry": true
+    },
+    {
+      "encounter_id": "F51",
+      "default_arrival": 20,
+      "accepted_world_seconds": 45,
+      "latest_phase_budget_accept": 75,
+      "world_patience": 24,
+      "close_at_first_clock": true,
+      "exact_deadline_commit_before_expiry": true
+    }
+  ],
+  "f42_local_transfer": {
+    "scene": "MAP_STORE",
+    "from_anchor": "rear_door",
+    "to_anchor": "rear_threshold",
+    "distance_tiles": 3,
+    "carry_speed": 2.4,
+    "walk_speed": 3,
+    "open_seconds": 1,
+    "pickup_seconds": 1.5,
+    "place_seconds": 1.5,
+    "close_seconds": 1,
+    "required_world_seconds": 7.25,
+    "window_world_seconds": 8,
+    "prestage_required": true,
+    "max_boxes": 2,
+    "full_duty_receipt_not_granted_by_gate_transfer": true,
+    "long_route_counterexamples": {
+      "loading_bay": 11,
+      "dumpster": 12.5,
+      "receiving_to_rear_threshold": 11.75
+    }
+  },
+  "manager_visit": {
+    "actor_id": "MANAGER",
+    "arrival_budget": 700,
+    "event_id": "E035",
+    "earliest_start_budget": 700,
+    "latest_start_budget": 714,
+    "max_handling_world_seconds": 6,
+    "verified_presence_required": true,
+    "early_monster_variants_replaced": {
+      "F20-V05-2": "E009",
+      "F48-V05-1": "E022"
+    },
+    "no_new_monster_or_regular_employee": true
+  },
+  "e031_branches": {
+    "normal": "actual_verified_manager_instruction_and_actual_ledger",
+    "anomalous": "actual_authority_claim_from_same_admitted_F20_or_F48_and_actual_ledger",
+    "branch_inputs_are_not_unioned": true,
+    "claim_does_not_create_true_authorization": true
+  },
+  "finite_supplies": {
+    "F22": {
+      "supply": "SUP_MEAL",
+      "item_kind": "meal_portion",
+      "quantity": 1
+    },
+    "F08": {
+      "supply": "SUP_MATERIAL_REPAIR",
+      "quantity": 1,
+      "consumable": true
+    },
+    "F39": {
+      "requires_repair_material": false,
+      "uses_same_wood_plaque": true
+    }
+  },
+  "timer_origins": {
+    "F07": {
+      "duration_world_seconds": 45,
+      "start": "actual_manifestation",
+      "early_sign_starts_timer": false,
+      "rehanging_resets_timer": false
+    },
+    "F49": {
+      "base_world_seconds": 20,
+      "E018_addition_world_seconds": 20,
+      "maximum_episode_total_world_seconds": 40,
+      "snapshot_once_per_episode": true,
+      "open_lid_pauses_progress": true
+    },
+    "F60": {
+      "targetless_departure_world_seconds": 3
+    }
+  },
+  "atomic_world_actions": {
+    "actor_lock_and_object_or_target_lock": true,
+    "start_and_commit_revalidate": true,
+    "same_incident_or_object_does_not_create_independent_duplicate_receipts": true,
+    "cancel_releases_only_owned_reservations": true,
+    "terminal_ids_never_reused": true,
+    "movement_uses_actual_advanced_seconds": true,
+    "F21_requires_actual_active_parent_instance": true,
+    "F26_rechecks_live_trace_at_arrival": true
+  },
+  "auxiliary_targets": "content/auxiliary_targets_v07.json",
+  "economy_event_contracts": [
+    "E060",
+    "E064",
+    "E065",
+    "E072"
+  ],
+  "not_proved": [
+    "full navigation under moving enemies",
+    "all event combinations",
+    "mobile touch and blackout comfort",
+    "all sixty client adapters",
+    "long-term economy and fun"
+  ],
+  "fixed_friendly_rewards": {
+    "F23": {
+      "item_id": "I21",
+      "quantity": 1
+    },
+    "F29": {
+      "item_id": "I04",
+      "quantity": 1
+    },
+    "F47": {
+      "base_coins_by_segment": [
+        3,
+        5,
+        8
+      ],
+      "E065_first_claim_fragment": 1,
+      "max_fragment_sources_per_night": 1
+    }
+  }
+}

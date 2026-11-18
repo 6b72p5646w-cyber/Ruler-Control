@@ -1,5 +1,5 @@
 {
-  "version": "0.6",
+  "version": "0.7",
   "scope": "有限条件依赖图：验证60项到场前提存在声明的真实动作生产链，并以删除生产者反例检查孤儿条件；不模拟60怪完整AI/动态导航/数值平衡。",
   "initial_facts": [
     "NEW_SHIFT"
@@ -438,7 +438,8 @@
       "requires": [
         "BASIC_RULES",
         "SAFE_ROUTE",
-        "BASELINE"
+        "BASELINE",
+        "CORROBORATING_WORK_TRACE"
       ],
       "produces": [
         "PAYLOAD_F02"
@@ -1904,6 +1905,30 @@
       "invalidates": [],
       "order_instance": "base_slot_reserved_for_F48",
       "same_order_not_an_extra_sale": true
+    },
+    {
+      "id": "P_CORROBORATE_PRE_SHIFT",
+      "requires": [
+        "PRE_SHIFT_WORK_TRACE"
+      ],
+      "produces": [
+        "CORROBORATING_WORK_TRACE"
+      ],
+      "invalidates": [],
+      "kind": "actual_receipt_reference",
+      "label": "读取班前实际公开领物/交接的回执，只引用其已发生事实，不补造当前身份。"
+    },
+    {
+      "id": "P_CORROBORATE_CURRENT_WORK",
+      "requires": [
+        "WORK_RECEIPT"
+      ],
+      "produces": [
+        "CORROBORATING_WORK_TRACE"
+      ],
+      "invalidates": [],
+      "kind": "actual_receipt_reference",
+      "label": "读取本班实际已完成工作的回执，只引用其已发生事实，不补造当前身份。"
     }
   ],
   "encounters": [
@@ -1944,7 +1969,8 @@
         "NEW_SHIFT"
       ],
       "required_before_arrival": [
-        "BASELINE"
+        "BASELINE",
+        "CORROBORATING_WORK_TRACE"
       ],
       "activation_fact": "PAYLOAD_F02",
       "arrival_producer": "P_ARRIVE_F02",
@@ -3735,5 +3761,6 @@
         "F54"
       ]
     }
-  ]
+  ],
+  "temporal_gate_contract": "content/temporal_resource_contract_v07.json"
 }

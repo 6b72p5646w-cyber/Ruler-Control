@@ -1,5 +1,5 @@
 {
-  "version": "0.6",
+  "version": "0.7",
   "events": [
     {
       "id": "E001",
@@ -833,6 +833,7 @@
       "v05_encounter_variant_ids": [
         "F09-V05-1",
         "F17-V05-1",
+        "F20-V05-2",
         "F22-V05-1",
         "F27-V05-1",
         "F36-V05-1",
@@ -2072,6 +2073,7 @@
         "F35-V05-1",
         "F43-V05-2",
         "F46-V05-1",
+        "F48-V05-1",
         "F51-V05-1"
       ],
       "current_contract": "content/condition_lifecycle_v06.json",
@@ -2954,7 +2956,7 @@
       "name": "店长临时查账",
       "category": "人员身份",
       "phase": "night",
-      "trigger": "经理提出异常优先级",
+      "trigger": "当前真实账目存在；已核验店长实际提出查账，或已准入F20/F48提出冒名授权的查账要求。",
       "choices": [
         {
           "label": "核验当前工单与权限",
@@ -3010,12 +3012,16 @@
         "anomalous_variant_requires_binding": true,
         "required_catalog": "F",
         "required_instance_state": "already_admitted_by_director",
-        "required_capability": "当前事件所需的员工拟态或远程冒充能力，必须已列在该F模板中",
+        "required_capability": "manager_authority_claim：同一已准入F20/F48实际提出冒名授权要求，既不复制员工外貌也不创建远程第二实体。",
         "create_new_entity": false,
         "resample_identity": false,
         "unbound_behavior": "真实店长的普通工单优先级需要确认。",
         "entity_slot_cost": "只由绑定的F实例计一次，事件不增加未登记席位",
-        "stress_cost_mode": "stress_cost只计未被绑定F实例预算包含的额外操作，已包含则为0"
+        "stress_cost_mode": "stress_cost只计未被绑定F实例预算包含的额外操作，已包含则为0",
+        "allowed_current_encounter_ids": [
+          "F20",
+          "F48"
+        ]
       },
       "permission_policy": {
         "high_risk_independent_sources_min": 2,
@@ -3045,9 +3051,9 @@
       ],
       "current_contract": "content/condition_lifecycle_v06.json",
       "v06_condition_contract": {
-        "producer_kind": "existing_fact",
-        "required_live_inputs": "已核验店长指令与当前真实账单",
-        "producer_policy": "优先级变化不扩大权限，不能凭新电话改正式店规。",
+        "producer_kind": "existing_fact_or_bound_monster_claim",
+        "required_live_inputs": "当前真实账目；正常分支有已核验店长实际指令（可为已核验远程联系）；异常分支有同一已准入F20/F48实际提出的冒名查账请求。",
+        "producer_policy": "正常指令与怪物声称分支互斥。claim只证明请求发生，不产生真实授权、不要求真实店长同时到场，不增加第二怪。",
         "scheduled_by": "phase_budget_elapsed",
         "continuous_effect_clock": "world_simulation",
         "handling_budget_is_not_effect_lifetime": true,
@@ -3410,22 +3416,22 @@
       "name": "店长带陌生访客",
       "category": "人员身份",
       "phase": "night",
-      "trigger": "申请直接进入员工区",
+      "trigger": "唯一真实店长在预算700回店后，已实际核验，带一名已声明普通访客在公共区等候；至少还剩6秒阶段预算且没有关键威胁。",
       "choices": [
         {
-          "label": "逐人核验权限",
-          "consequence": "占时间而不承诺新岗位",
+          "label": "把访客留在公共交接位",
+          "consequence": "完成实际公共区安置，不授员工权限；不新增工作岗位。",
           "time_cost": {
-            "night_seconds_max": 20,
+            "night_seconds_max": 6,
             "day_action_slots": 0,
             "preparation_minutes": 0
           }
         },
         {
-          "label": "改在公共区完成交谈",
-          "consequence": "保安全并占用顾客空间",
+          "label": "将非必要来访改约白天",
+          "consequence": "访客从合法公共路线离去，本事件安全结束，不阻塞06交班。",
           "time_cost": {
-            "night_seconds_max": 20,
+            "night_seconds_max": 6,
             "day_action_slots": 0,
             "preparation_minutes": 0
           }
@@ -3444,14 +3450,9 @@
       "feasibility": "先核验已学规则、工具、独立证据、路径、人员权限与真实操作时间；夜间须与既有工作同处允许小时且留余量，白天只能用已声明的行动格或整备分钟。不可退出的分支资源不足则不投放；安全待核不扣关系。",
       "bound_entity_id": null,
       "allowed_hours": [
-        0,
-        1,
-        2,
-        3,
-        4,
         5
       ],
-      "duration_seconds": 20,
+      "duration_seconds": 6,
       "latest_finish": "hour_end",
       "time_binding": {
         "kind": "night_stage",
@@ -3463,15 +3464,16 @@
         "rule": "事件动作默认不抵扣关键店务；仅在事前明确映射到同一真实工作对象时按实际验收计入一次。"
       },
       "entity_binding": {
-        "anomalous_variant_requires_binding": true,
+        "anomalous_variant_requires_binding": false,
         "required_catalog": "F",
-        "required_instance_state": "already_admitted_by_director",
-        "required_capability": "当前事件所需的员工拟态或远程冒充能力，必须已列在该F模板中",
+        "required_instance_state": "verified_real_manager_present",
+        "required_capability": "no_monster_branch_in_current_design",
         "create_new_entity": false,
         "resample_identity": false,
-        "unbound_behavior": "真实店长携普通未授权来访者，只能在公共区等待。",
+        "unbound_behavior": "真实店长与班前已声明的普通访客在公共区短停；不存在未登记怪物。",
         "entity_slot_cost": "只由绑定的F实例计一次，事件不增加未登记席位",
-        "stress_cost_mode": "stress_cost只计未被绑定F实例预算包含的额外操作，已包含则为0"
+        "stress_cost_mode": "stress_cost只计未被绑定F实例预算包含的额外操作，已包含则为0",
+        "allowed_current_encounter_ids": []
       },
       "permission_policy": {
         "high_risk_independent_sources_min": 2,
@@ -3495,15 +3497,12 @@
         "F20V2",
         "F48V1"
       ],
-      "v05_encounter_variant_ids": [
-        "F20-V05-2",
-        "F48-V05-1"
-      ],
+      "v05_encounter_variant_ids": [],
       "current_contract": "content/condition_lifecycle_v06.json",
       "v06_condition_contract": {
         "producer_kind": "visitor_arrival",
-        "required_live_inputs": "已核验店长实际来店；普通访客",
-        "producer_policy": "来者仍是访客，不增加常驻员工或自动拥有员工区权限。",
+        "required_live_inputs": "预算≥700；唯一真实店长已在场且经过独立核验，已声明普通访客、公共槽和至少6秒余量。",
+        "producer_policy": "只作为店长回店后的可拒绝交班旁支；不绑定早时段怪物，不增加常驻员工、拟态者或攻击实体。",
         "scheduled_by": "phase_budget_elapsed",
         "continuous_effect_clock": "world_simulation",
         "handling_budget_is_not_effect_lifetime": true,
@@ -3520,6 +3519,17 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
+      },
+      "v07_timing": {
+        "kind": "reactive_existing_actor",
+        "earliest_budget_second": 700,
+        "latest_start_budget_second": 714,
+        "handling_world_seconds_max": 6,
+        "required_actor": "MANAGER",
+        "actor_must_be_present_and_verified": true,
+        "base_monster_arrival_at_20_not_applicable": true,
+        "on_no_room": "do_not_admit",
+        "on_decline": "safe_departure"
       }
     },
     {
@@ -5681,14 +5691,14 @@
     },
     {
       "id": "E060",
-      "name": "噩梦反复",
+      "name": "噩梦余波",
       "category": "白天学习关系",
       "phase": "day",
-      "trigger": "有可见未处理恐惧状态",
+      "trigger": "上一夜真实结算SAN<40，当前SAN仍<40，且该previous_night_id尚未处理过此事件；使用现有白天行动格。",
       "choices": [
         {
-          "label": "安排安静活动",
-          "consequence": "SAN恢复，消耗一格",
+          "label": "用一格安静活动恢复",
+          "consequence": "只按A05结算SAN+15；不另发一份事件恢复，不生成恐惧层数。",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -5696,8 +5706,8 @@
           }
         },
         {
-          "label": "坚持学习",
-          "consequence": "获得学习点但保留SAN负担",
+          "label": "按原计划学习",
+          "consequence": "只按A03结算精力-6、学习点+2；不额外扣SAN，不留下新的无限负担。",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -5741,9 +5751,9 @@
       "v05_encounter_variant_ids": [],
       "current_contract": "content/condition_lifecycle_v06.json",
       "v06_condition_contract": {
-        "producer_kind": "existing_fact",
-        "required_live_inputs": "上一夜明确未处理恐惧状态记录",
-        "producer_policy": "没有恐惧记录不生成噩梦惩罚；不会因为低SAN另造无限追逐。",
+        "producer_kind": "actual_previous_night_settlement",
+        "required_live_inputs": "真实previous_night_id结算SAN<40；当前SAN<40；该来源未处理；当前已有行动格",
+        "producer_policy": "读取已保存结算，不生成未处理恐惧独立状态；按同一来源最多处理一次，当前SAN已恢复到40则提前防范。",
         "scheduled_by": "unified_game_clock",
         "continuous_effect_clock": "world_simulation",
         "handling_budget_is_not_effect_lifetime": true,
@@ -5756,10 +5766,24 @@
         ],
         "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
         "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
-        "expiry_policy": "day_action_or_preparation_end",
+        "expiry_policy": "current_san_at_least_40_or_source_processed_or_end_of_current_day",
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
+      },
+      "v07_source_contract": {
+        "previous_night_san_threshold": 40,
+        "current_san_threshold": 40,
+        "strictly_below_threshold": true,
+        "source_id": "previous_night_id",
+        "max_instances_per_source": 1,
+        "no_separate_trauma_or_sleep_debt_state": true,
+        "action_ids": [
+          "A05",
+          "A03"
+        ],
+        "event_reward_does_not_stack_with_action_reward": true,
+        "current_san_recovery_prevents_event": true
       }
     },
     {
@@ -6019,11 +6043,11 @@
       "name": "福利双选",
       "category": "抽奖契约宠物",
       "phase": "day",
-      "trigger": "取得一次特殊奖券事件",
+      "trigger": "本次采购窗口开放一次双选优惠，玩家实际持有普通夜班券且可用抽奖池与15分钟整备余量齐备。",
       "choices": [
         {
-          "label": "在两份公开随机结果中选一份",
-          "consequence": "获得一件道具，另一份放弃",
+          "label": "用一张普通券开启双选",
+          "consequence": "一次预留普通券并存档两候选；只取最终一件，按最终稀有度更新一次保底，不另发奖券。",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -6031,8 +6055,8 @@
           }
         },
         {
-          "label": "领取等值普通补给",
-          "consequence": "保证基础收益",
+          "label": "保留奖券，暂不抽取",
+          "consequence": "揭示前可拒绝，保留原券；已经揭示则保存原待选，不能退券重抽。",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -6071,9 +6095,9 @@
       "v05_encounter_variant_ids": [],
       "current_contract": "content/condition_lifecycle_v06.json",
       "v06_condition_contract": {
-        "producer_kind": "existing_fact",
-        "required_live_inputs": "真实已取得特殊奖券事件或奖励凭证",
-        "producer_policy": "不随机白送第二次奖励；二选一消耗同一奖励ID。",
+        "producer_kind": "actual_ticket_and_procurement_offer",
+        "required_live_inputs": "现有earned_shift_ticket>=1；当前采购窗口未使用双选；可用候选池；15分钟整备余量",
+        "producer_policy": "无需特殊券；同一普通券只付一次。揭示前保存券预留、同一保底快照生成的两候选及待选事务，最终选中才一次发物并更新保底。",
         "scheduled_by": "unified_game_clock",
         "continuous_effect_clock": "world_simulation",
         "handling_budget_is_not_effect_lifetime": true,
@@ -6086,22 +6110,24 @@
         ],
         "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
         "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
-        "expiry_policy": "day_action_or_preparation_end",
+        "expiry_policy": "unaccepted_offer_ends_at_window_end_pending_revealed_choice_persists",
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v07_transaction_contract": "content/items.json#/lottery/double_choice_contract",
+      "v07_no_reroll_policy": "关闭、退出或重载只恢复同一待选；已有待选不得另开抽奖。未选项不是已拥有物，不能回收。待选跨窗口仍保留，下一可用准备期完成，不再次收费。"
     },
     {
       "id": "E065",
       "name": "奖券碎片",
       "category": "抽奖契约宠物",
       "phase": "night",
-      "trigger": "完成一项额外可选工作",
+      "trigger": "本夜已有实际可选工作完成或F47封袋回执，且同一来源未领、当夜一个碎片奖励额度尚可用。",
       "choices": [
         {
-          "label": "收下碎片",
-          "consequence": "累计兑换，不占随身格",
+          "label": "领取这一份碎片",
+          "consequence": "按原完成回执领取1碎片；本夜至多一个来源，F47与本事件共用来源ID，不重复发奖。",
           "time_cost": {
             "night_seconds_max": 4,
             "day_action_slots": 0,
@@ -6109,10 +6135,10 @@
           }
         },
         {
-          "label": "换少量固定补给",
-          "consequence": "获得确定的小收益",
+          "label": "放弃本次可选碎片",
+          "consequence": "不发碎片，不生成替代物；本次来源标记已处理，不能重进选择重复领取。",
           "time_cost": {
-            "night_seconds_max": 4,
+            "night_seconds_max": 0,
             "day_action_slots": 0,
             "preparation_minutes": 0
           }
@@ -6158,9 +6184,9 @@
       ],
       "current_contract": "content/condition_lifecycle_v06.json",
       "v06_condition_contract": {
-        "producer_kind": "existing_receipt",
-        "required_live_inputs": "已完成可选工作或F47实际封袋奖励回执",
-        "producer_policy": "同一来源只结算一次；没有实际完成不能先抽奖励事件。",
+        "producer_kind": "actual_completed_optional_work",
+        "required_live_inputs": "实际optional_work_completed或f47_sealed_reward回执；未核销root_reward_id；当夜未用奖励额度",
+        "producer_policy": "每夜最多一个来源、每源1碎片；F47变体在显示奖励前预留同一额度，已完成封袋与领取同一动作可计入处理，不重复扣完整工作成本。",
         "scheduled_by": "phase_budget_elapsed",
         "continuous_effect_clock": "world_simulation",
         "handling_budget_is_not_effect_lifetime": true,
@@ -6173,11 +6199,14 @@
         ],
         "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
         "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
-        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "expiry_policy": "declared_reward_claim_or_decline_terminal_no_repeat_source",
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v07_transaction_contract": "content/items.json#/lottery/fragment_contract",
+      "v07_exchange": "仅在20—22采购准备期用15分钟将3碎片原子换1普通券；碎片扣减、券增加及兑换ID同一次保存。",
+      "v07_existing_work_credit": "处理时间上限4秒；若已完成的F47封袋及实际领取覆盖同一处理步骤，不另追加4秒完整封袋。"
     },
     {
       "id": "E066",
@@ -6727,14 +6756,14 @@
     },
     {
       "id": "E072",
-      "name": "意外退款",
+      "name": "未用商品退货",
       "category": "抽奖契约宠物",
       "phase": "day",
-      "trigger": "真实交易更正后返还多付款",
+      "trigger": "同一采购窗口内，玩家实际付费购得的原商品仍未使用、未转移，真实购买回执可核销，且22点前尚有5分钟整备余量。",
       "choices": [
         {
-          "label": "收回并核销记录",
-          "consequence": "获得确定金币",
+          "label": "交回原物，按实付退货",
+          "consequence": "锁定并交回同一原商品，核销其唯一购买行后返还该行实付金币一次；不按原价或当前标价造差额。",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -6742,12 +6771,12 @@
           }
         },
         {
-          "label": "将退款转作同事共享补给",
-          "consequence": "提升关系并减少个人零钱",
+          "label": "保留原商品",
+          "consequence": "不返金币、不生成关系收益；保留原物及购买记录。",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
-            "preparation_minutes": 5
+            "preparation_minutes": 0
           }
         }
       ],
@@ -6782,9 +6811,9 @@
       "v05_encounter_variant_ids": [],
       "current_contract": "content/condition_lifecycle_v06.json",
       "v06_condition_contract": {
-        "producer_kind": "existing_receipt",
-        "required_live_inputs": "真实可核销多付款记录与商店退款来源",
-        "producer_policy": "返还存根差额；没有真实记录不导演随机造钱。",
+        "producer_kind": "actual_paid_purchase_receipt",
+        "required_live_inputs": "同一采购窗口真实付费购买行、同一未使用未转移原物、未退款标记、5分钟整备余量",
+        "producer_policy": "受理先锁原物，完成时退物/核销购买行/按实付返币原子结算；抽奖物与赠品无付费购买行，不能退款。取消未完成只解锁，不返币。",
         "scheduled_by": "unified_game_clock",
         "continuous_effect_clock": "world_simulation",
         "handling_budget_is_not_effect_lifetime": true,
@@ -6797,11 +6826,13 @@
         ],
         "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
         "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
-        "expiry_policy": "day_action_or_preparation_end",
+        "expiry_policy": "same_procurement_window_end_at_22_00",
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v07_transaction_contract": "content/items.json#/lottery/refund_contract",
+      "v07_original_overpayment_condition_removed": true
     }
   ],
   "note": "72项候选事件有条件来源规格。真实历史前提不足则不投放，不能临时倒填历史；各条件仍需实现生产者和消费动作后才启用。七天阶段一致。",

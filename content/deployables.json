@@ -1,5 +1,5 @@
 {
-  "version": "0.3",
+  "version": "0.7",
   "status": "proposal_not_implemented",
   "total": 8,
   "design_origin": "original_convenience_store_helpers",
@@ -59,7 +59,9 @@
     },
     "illumination_changes_san_value": false,
     "paperclip_bait_points_use_separate_cap": true,
-    "pet_uses_deployment_slot": false
+    "pet_uses_deployment_slot": false,
+    "telegraph_extension_contract": "content/auxiliary_targets_v07.json#/telegraph_extension",
+    "telegraph_same_attack_stacking": "同一攻击所有增时按最大总增量，后用只补差；目标失效或没有正差值不消费辅助资源。"
   },
   "deployables": [
     {
@@ -184,13 +186,18 @@
         "radius_tiles": 1.5,
         "telegraph_add_seconds": 1,
         "charges": 3,
-        "max_per_attack": 1
+        "max_per_attack": 1,
+        "stacking_group": "warning_total_bonus",
+        "stacking_policy": "maximum_total_bonus_not_sum",
+        "requires_actual_unexpired_telegraph_for_extension": true,
+        "clamp_policy": "reject_extension_if_positive_difference_exceeds_phase_or_shift_budget",
+        "no_retroactive_warning": true
       },
       "special_target_monster_ids": [
         "F12",
         "F50"
       ],
-      "limitation": "普通顾客也会触发并耗次数；不显示真伪，不创造不存在的攻击方向信息。",
+      "limitation": "普通顾客也会触发并耗次数；不显示真伪，不创造不存在的攻击方向信息。 同一预告与I21/P05/P07只取最大总增量，不叠加；未有合法预告只做入区提醒。",
       "upgrade_tradeoff": "省电档：次数3→5，额外预告1→0.5秒。",
       "implementation_cost": "low",
       "setup_world_seconds": 1,

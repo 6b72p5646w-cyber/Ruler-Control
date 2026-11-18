@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {
   createConditionState, setConditionPause, beginRecordedWork, cancelRecordedWork,
-  requireHistoricalReceipt, announceGlassHazard, announceStationGlassFault,
+  requireHistoricalReceipt, announceGlassHazard, activateStationFaultEncounter, announceStationGlassFault,
   contactGlassHazard, applyOrdinaryMinorContact, beginFirstAid, walkActor,
   announceBloodEncounter, offerOptionalEncounter, declineOptionalEncounter,
   acceptDawnPromise, advanceConditionWorld, beginPrecisionAttempt,
@@ -18,8 +18,10 @@ function fixture(options = {}) {
   return createConditionState(contract, {balance, objects: [
     ...['glass1', 'glass2', 'glass3', 'glass4'].map(id => ({id, kind: 'returned_glass', broken: true})),
     {id: 'hot_food', kind: 'station'}, {id: 'water', kind: 'reserved_water', sealed: false}
-  ], reservedSlots: [0, 1, 2, 3, 4, 5].map(phase => ({id: `slot${phase}`, phase,
-    kind: phase === 2 ? 'joint' : 'primary', allowed: ['F26', 'F32']})), ...options});
+  ], reservedSlots: [...[0, 1, 2, 3, 4, 5].map(phase => ({id: `slot${phase}`, phase,
+    kind: phase === 2 ? 'joint' : 'primary', allowed: ['F26', 'F32'],
+    ...(phase === 2 ? {parentSlotId: 'f21-slot2'} : {})})),
+    {id: 'f21-slot2', phase: 2, kind: 'primary', allowed: ['F21']}], ...options});
 }
 function work(s, kind, objectId, actorId = 'PLAYER') {
   const a = beginRecordedWork(s, {kind, objectId, actorId}); assert.equal(a.ok, true, a.reason);
@@ -188,7 +190,9 @@ test('A reserved F21 child slot is not a wound; real occupancy and 40-second fai
   const s = fixture(); advanceConditionWorld(s, 240);
   assert.equal(announceBloodEncounter(s, {id: 'fake', monsterId: 'F32', incidentId: 'future-accident', slotId: 'slot2'}).ok, false);
   const receipt = work(s, 'station_work', 'hot_food', 'COWORKER');
-  const hazard = announceStationGlassFault(s, {workReceiptId: receipt, objectId: 'hot_food', actorId: 'COWORKER'});
+  assert.equal(activateStationFaultEncounter(s, {id: 'f21', objectId: 'hot_food', slotId: 'f21-slot2'}).ok, true);
+  assert.equal(beginPrecisionAttempt(s, {costSeconds: 1}).reason, 'critical_resolution_reserved');
+  const hazard = announceStationGlassFault(s, {workReceiptId: receipt, objectId: 'hot_food', actorId: 'COWORKER', sourceEncounterId: 'f21'});
   assert.equal(hazard.ok, true); advanceConditionWorld(s, 39); assert.equal(s.actors.COWORKER.wound, null);
   advanceConditionWorld(s, 1); assert.equal(s.actors.COWORKER.wound.state, 'fresh');
   assert.equal(blood(s, hazard.incidentId).state, 'ANNOUNCED');
@@ -197,10 +201,12 @@ test('A reserved F21 child slot is not a wound; real occupancy and 40-second fai
 test('Actual departure and shutdown prevent the F21 cut and its reactive child', () => {
   const s = fixture(); advanceConditionWorld(s, 240);
   const r = work(s, 'station_work', 'hot_food', 'COWORKER');
-  const h = announceStationGlassFault(s, {workReceiptId: r, objectId: 'hot_food', actorId: 'COWORKER'});
+  activateStationFaultEncounter(s, {id: 'f21', objectId: 'hot_food', slotId: 'f21-slot2'});
+  const h = announceStationGlassFault(s, {workReceiptId: r, objectId: 'hot_food', actorId: 'COWORKER', sourceEncounterId: 'f21'});
   walkActor(s, {actorId: 'COWORKER', distanceTiles: 3}); work(s, 'isolate_station', 'hot_food');
   advanceConditionWorld(s, 40); assert.equal(s.actors.COWORKER.wound, null);
   assert.equal(s.incidents[h.incidentId].stage, 'prevented');
+  assert.equal(s.encounters.f21.state, 'PREVENTED'); assert.equal(s.slots.slot2.state, 'RELEASED');
   assert.equal(announceBloodEncounter(s, {id: 'b', monsterId: 'F32', incidentId: h.incidentId, slotId: 'slot2'}).ok, false);
 });
 
@@ -262,6 +268,8 @@ test('Precision budget cost does not secretly advance wound or movement time', (
 
 test('Due-at-six promises settle before critical check and handover grants no extra work time', () => {
   const s = fixture(); assert.equal(acceptDawnPromise(s, {id: 'F53-water', objectId: 'water'}).ok, true);
+  const ordinaryPrecision = beginPrecisionAttempt(s, {costSeconds: 1}); assert.equal(ordinaryPrecision.ok, true);
+  finishPrecisionAttempt(s, {attemptId: ordinaryPrecision.attemptId, outcome: 'success'});
   work(s, 'seal_water', 'water'); offerOptionalEncounter(s, 'unaccepted-F11');
   advanceConditionWorld(s, 718);
   assert.equal(s.budget, 720); assert.equal(s.promises['F53-water'].state, 'RESOLVED');
@@ -352,5 +360,161 @@ test('Walking configuration is honored and portable stabilization never freezes 
   assert.equal(s.san, 15); assert.equal(e.state, 'ACTIVE'); assert.equal(s.actors.PLAYER.wound.state, 'fresh');
 });
 
+test('F26 cannot arrive after every real trace expired during its existing warning', () => {
+  const s = fixture(); advanceConditionWorld(s, 360);
+  const incident = cut(s); walkActor(s, {distanceTiles: 2});
+  const trace = Object.values(s.traces)[0]; advanceConditionWorld(s, 20);
+  assert.ok(Math.abs(trace.expiresAt - s.world - 10) < 1e-8);
+  const e = blood(s, incident, 'F26', 'expired-redcap'); advanceConditionWorld(s, 12);
+  assert.equal(trace.live, false); assert.equal(s.actors.PLAYER.wound.state, 'fresh');
+  assert.equal(e.state, 'SAFE_RETURNED'); assert.equal(e.endCause, 'no_actual_trace_at_arrival');
+  assert.equal(s.slots.slot3.state, 'CONSUMED');
+  walkActor(s, {distanceTiles: 2}); advanceConditionWorld(s, 1);
+  assert.equal(e.state, 'SAFE_RETURNED');
+  assert.equal(announceBloodEncounter(s, {id: 'replacement', monsterId: 'F26', incidentId: incident, slotId: 'slot3'}).ok, false);
+});
+
+test('F26 may bind an actual later mark without renewing the warning or any mark lifetime', () => {
+  const s = fixture(); advanceConditionWorld(s, 360);
+  const incident = cut(s); walkActor(s, {distanceTiles: 2});
+  const old = Object.values(s.traces)[0]; advanceConditionWorld(s, 20);
+  const e = blood(s, incident, 'F26', 'new-real-trace'), arrivalAt = e.arrivalAt;
+  advanceConditionWorld(s, 11); assert.equal(old.live, false);
+  walkActor(s, {distanceTiles: 2});
+  const added = Object.values(s.traces).find(t => t.id !== old.id), expiry = added.expiresAt;
+  advanceConditionWorld(s, arrivalAt - s.world);
+  assert.equal(e.state, 'ACTIVE'); assert.deepEqual(e.boundTraceIds, [added.id]);
+  assert.equal(e.arrivalAt, arrivalAt); assert.equal(added.expiresAt, expiry);
+});
+
+test('One return cannot produce duplicate roots while two different returns can proceed together', () => {
+  const s = fixture(); const first = beginRecordedWork(s, {kind: 'receive_return', objectId: 'glass1'});
+  assert.equal(first.ok, true);
+  assert.equal(beginRecordedWork(s, {kind: 'receive_return', actorId: 'COWORKER', objectId: 'glass1'}).reason, 'object_reserved_by_action');
+  assert.equal(beginRecordedWork(s, {kind: 'receive_return', actorId: 'COWORKER', objectId: 'glass2'}).ok, true);
+  advanceConditionWorld(s, 2);
+  for (const objectId of ['glass1', 'glass2']) assert.equal(Object.values(s.receipts).filter(r => r.kind === 'receive_return' && r.objectId === objectId).length, 1);
+  assert.equal(beginRecordedWork(s, {kind: 'receive_return', actorId: 'COWORKER', objectId: 'glass1'}).reason, 'not_pending_return');
+});
+
+test('One waste object consumes one bag and cancellation transfers the same operation cleanly', () => {
+  const s = fixture(); cut(s); walkActor(s, {distanceTiles: 2});
+  work(s, 'wipe_trace', Object.keys(s.traces)[0]); const wasteId = Object.keys(s.waste)[0], bags = s.inventory.bags;
+  const a = beginRecordedWork(s, {kind: 'seal_waste', objectId: wasteId});
+  assert.equal(beginRecordedWork(s, {kind: 'seal_waste', actorId: 'COWORKER', objectId: wasteId}).reason, 'object_reserved_by_action');
+  assert.equal(s.inventory.bags, bags - 1); cancelRecordedWork(s, a.actionId);
+  assert.equal(s.inventory.bags, bags);
+  assert.equal(beginRecordedWork(s, {kind: 'seal_waste', actorId: 'COWORKER', objectId: wasteId}).ok, true);
+  advanceConditionWorld(s, 2); assert.equal(s.inventory.bags, bags - 1);
+  assert.equal(Object.values(s.receipts).filter(r => r.kind === 'seal_waste' && r.objectId === wasteId).length, 1);
+});
+
+test('A trace expiring during a wipe releases the worker without a fictitious cleanup receipt', () => {
+  const s = fixture(); cut(s); walkActor(s, {distanceTiles: 2});
+  const trace = Object.values(s.traces)[0]; advanceConditionWorld(s, 29.5);
+  const wipe = beginRecordedWork(s, {kind: 'wipe_trace', objectId: trace.id}); assert.equal(wipe.ok, true);
+  assert.equal(beginRecordedWork(s, {kind: 'wipe_trace', actorId: 'COWORKER', objectId: trace.id}).reason, 'object_reserved_by_action');
+  advanceConditionWorld(s, 0.5);
+  assert.equal(s.actions[wipe.actionId].state, 'cancelled'); assert.equal(s.actions[wipe.actionId].receiptId, undefined);
+  assert.equal(Object.keys(s.waste).length, 0);
+  assert.equal(beginRecordedWork(s, {kind: 'receive_return', objectId: 'glass2'}).ok, true);
+});
+
+test('Two healers cannot reserve the same wound and expiry or cancellation releases its reservation', () => {
+  const s = fixture(); cut(s);
+  const a = beginFirstAid(s, {}); assert.equal(a.ok, true);
+  assert.equal(beginFirstAid(s, {actorId: 'COWORKER', targetId: 'PLAYER'}).reason, 'wound_reserved_by_action');
+  assert.equal(s.inventory.dressings, 1); cancelRecordedWork(s, a.actionId);
+  const b = beginFirstAid(s, {actorId: 'COWORKER', targetId: 'PLAYER'}); assert.equal(b.ok, true);
+  cancelRecordedWork(s, b.actionId); advanceConditionWorld(s, 89);
+  const atExpiry = beginFirstAid(s, {}); assert.equal(atExpiry.ok, true); advanceConditionWorld(s, 1);
+  assert.equal(s.actions[atExpiry.actionId].state, 'cancelled'); assert.equal(s.inventory.dressings, 2);
+  assert.equal(Object.keys(s.actionLocks).length, 0);
+});
+
+test('Dawn acceptance cannot overwrite a live instance or revive an already declined offer', () => {
+  const s = fixture(); offerOptionalEncounter(s, 'same-offer');
+  assert.equal(acceptDawnPromise(s, {id: 'same-offer', objectId: 'water'}).reason, 'invalid_promise');
+  assert.equal(s.encounters['same-offer'].state, 'ANNOUNCED');
+  declineOptionalEncounter(s, 'same-offer');
+  assert.equal(acceptDawnPromise(s, {id: 'same-offer', objectId: 'water'}).reason, 'invalid_promise');
+  assert.equal(s.encounters['same-offer'].state, 'DECLINED'); assert.equal(s.promises['same-offer'], undefined);
+  assert.equal(acceptDawnPromise(s, {id: 'new-declared-contract', objectId: 'water'}).ok, true);
+});
+
+test('An interrupted final movement counts only advanced distance and cannot write post-failure blood marks', () => {
+  const s = fixture({initialSan: 1}); cut(s);
+  applyConditionFear(s, {amount: 1, sourceId: 'visible-threat'}); advanceConditionWorld(s, 19.9);
+  const before = s.world, receipts = Object.keys(s.receipts).length;
+  const result = walkActor(s, {distanceTiles: 2});
+  assert.equal(s.mode, 'failed_shift'); assert.ok(Math.abs(s.world - before - 0.1) < 1e-8);
+  assert.ok(Math.abs(result.distanceTravelled - 0.3) < 1e-8);
+  assert.equal(Object.keys(s.traces).length, 0); assert.equal(Object.keys(s.receipts).length, receipts);
+  assert.equal(walkActor(s, {distanceTiles: 2}).ok, false);
+});
+
+test('Pre-injury travel cannot shorten the first two-tile bleeding movement interval', () => {
+  const s = fixture(); walkActor(s, {distanceTiles: 1.5}); cut(s);
+  walkActor(s, {distanceTiles: 0.5}); assert.equal(Object.keys(s.traces).length, 0);
+  walkActor(s, {distanceTiles: 1.5}); assert.equal(Object.keys(s.traces).length, 1);
+});
+
+test('Movement crossing an actual cut or natural expiry counts only its fresh-wound interval', () => {
+  const s = fixture(); advanceConditionWorld(s, 240);
+  const receipt = work(s, 'station_work', 'hot_food');
+  activateStationFaultEncounter(s, {id: 'f21', objectId: 'hot_food', slotId: 'f21-slot2'});
+  const h = announceStationGlassFault(s, {workReceiptId: receipt, objectId: 'hot_food', actorId: 'PLAYER', sourceEncounterId: 'f21'});
+  const cutAt = s.incidents[h.incidentId].readyAt;
+  advanceConditionWorld(s, 39.9); // Leaving the cell needs 1/3 second, so the real cut occurs first.
+  walkActor(s, {distanceTiles: 2});
+  assert.equal(s.actors.PLAYER.wound.startedAt, cutAt);
+  assert.ok(Math.abs(s.actors.PLAYER.distanceSinceMark - 1.7) < 1e-8);
+  assert.equal(Object.keys(s.traces).length, 0); // The first 0.3 tiles preceded the cut.
+  walkActor(s, {distanceTiles: 0.3}); assert.equal(Object.keys(s.traces).length, 1);
+
+  const expiring = fixture(); cut(expiring); walkActor(expiring, {distanceTiles: 1.5});
+  advanceConditionWorld(expiring, 89.4); // Only 0.1 world second of fresh blood remains.
+  walkActor(expiring, {distanceTiles: 2});
+  assert.equal(expiring.actors.PLAYER.wound.state, 'dry');
+  assert.equal(Object.keys(expiring.traces).length, 0); // 1.5 + 0.3 bleeding tiles never reached two.
+  assert.equal(expiring.actors.PLAYER.distanceSinceMark, 0);
+});
+
+test('A panic ending the shift mid-seal refunds its uncommitted bag and clears the object reservation', () => {
+  const s = fixture({initialSan: 1}); cut(s); walkActor(s, {distanceTiles: 2});
+  work(s, 'wipe_trace', Object.keys(s.traces)[0]); const wasteId = Object.keys(s.waste)[0], bags = s.inventory.bags;
+  applyConditionFear(s, {amount: 1, sourceId: 'visible-threat'}); advanceConditionWorld(s, 19);
+  const seal = beginRecordedWork(s, {kind: 'seal_waste', objectId: wasteId}); assert.equal(seal.ok, true);
+  assert.equal(s.inventory.bags, bags - 1); advanceConditionWorld(s, 2);
+  assert.equal(s.mode, 'failed_shift'); assert.equal(s.actions[seal.actionId].state, 'cancelled');
+  assert.equal(s.waste[wasteId].sealed, false); assert.equal(s.inventory.bags, bags);
+  assert.equal(s.actions[seal.actionId].receiptId, undefined); assert.equal(Object.keys(s.actionLocks).length, 0);
+});
+
+test('A work receipt cannot impersonate the reserved and actually activated F21 glass variant', () => {
+  const s = fixture(); advanceConditionWorld(s, 240);
+  const receipt = work(s, 'station_work', 'hot_food');
+  assert.equal(announceStationGlassFault(s, {workReceiptId: receipt, objectId: 'hot_food', actorId: 'PLAYER', sourceEncounterId: 'invented', f21Active: true}).reason, 'actual_active_f21_glass_variant_missing');
+  assert.equal(activateStationFaultEncounter(s, {id: 'invalid-slot', objectId: 'hot_food', slotId: 'slot2'}).reason, 'no_pre_reserved_f21_slot');
+  advanceConditionWorld(s, 40); assert.equal(s.actors.PLAYER.wound, null); assert.equal(Object.keys(s.incidents).length, 0);
+  const activation = activateStationFaultEncounter(s, {id: 'actual-f21', objectId: 'hot_food', slotId: 'f21-slot2'});
+  assert.equal(activation.ok, true); assert.equal(s.receipts[activation.receiptId].kind, 'station_fault_activation');
+  const hazard = announceStationGlassFault(s, {workReceiptId: receipt, objectId: 'hot_food', actorId: 'PLAYER', sourceEncounterId: 'actual-f21'});
+  assert.equal(hazard.ok, true); assert.equal(s.incidents[hazard.incidentId].sourceActivationReceiptId, activation.receiptId);
+  advanceConditionWorld(s, 40); assert.equal(s.actors.PLAYER.wound.state, 'fresh');
+});
+
+test('Resolving F21 after its real accident retains the pre-reserved child and the actual wound', () => {
+  const s = fixture(); advanceConditionWorld(s, 240);
+  const receipt = work(s, 'station_work', 'hot_food', 'COWORKER');
+  activateStationFaultEncounter(s, {id: 'f21', objectId: 'hot_food', slotId: 'f21-slot2'});
+  const h = announceStationGlassFault(s, {workReceiptId: receipt, objectId: 'hot_food', actorId: 'COWORKER', sourceEncounterId: 'f21'});
+  advanceConditionWorld(s, 40); walkActor(s, {actorId: 'COWORKER', distanceTiles: 3});
+  work(s, 'isolate_station', 'hot_food');
+  assert.equal(s.encounters.f21.state, 'RESOLVED'); assert.equal(s.slots.slot2.state, 'RESERVED');
+  assert.equal(s.actors.COWORKER.wound.state, 'fresh');
+  assert.equal(blood(s, h.incidentId, 'F32', 'real-child').state, 'ANNOUNCED');
+});
+
 console.log(JSON.stringify({status: 'PASS', scenarioCount: passed.length, scenarios: passed,
-  scope: 'Bounded headless causal/action chains only. No real collision, touch, full actor AI, F32 invitation/geometry, full identity or all sixty encounter adapters verified.'}, null, 2));
+  scope: 'Bounded headless causal/action chains, object reservations, and narrow F21 glass-variant activation only. No real collision, touch, full actor AI, F32 invitation/geometry, physical pickup/carrying, full identity or all sixty encounter adapters verified.'}, null, 2));

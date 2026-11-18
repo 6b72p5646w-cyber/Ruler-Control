@@ -1,0 +1,99 @@
+{
+  "version": "0.7",
+  "status": "design_contract_with_bounded_reward_reference",
+  "client_implemented": false,
+  "scope": "只收紧已知辅助对象和有限奖励交易，不生成新怪物行为、完整抽奖采样器或支付系统。",
+  "acquisition": {
+    "catalog_counts_include_disabled_history": true,
+    "item_catalog_count": 24,
+    "current_item_acquisition_candidates": 22,
+    "equipment_catalog_count": 24,
+    "disabled_ids": [
+      "I22",
+      "I23",
+      "Q03"
+    ],
+    "all_channels": [
+      "shop",
+      "lottery",
+      "fixed_reward",
+      "crafting"
+    ],
+    "existing_instances_not_deleted": true,
+    "require_item_availability_flag": true,
+    "require_current_build_effect_handler": true,
+    "require_supported_effect_consumer": true,
+    "empty_or_required_pity_pool_unavailable": "no_debit_no_reveal_no_counter_update",
+    "cannot_silently_change_pity_distribution": true,
+    "actual_random_sampler_is_not_implemented": true
+  },
+  "telegraph_extension": {
+    "clock": "world_simulation",
+    "stacking_group": "warning_total_bonus",
+    "combination": "maximum_total_bonus_not_sum",
+    "per_attack_instance_ledger": true,
+    "new_actual_increment": "max(0,requested_total_bonus - already_committed_max_bonus)",
+    "zero_increment_consumes_charge": false,
+    "expired_or_missing_warning_consumes_charge": false,
+    "bonus_must_fit_current_phase_and_true_six_budget": true,
+    "existing_attack_clock_does_not_reset": true,
+    "late_application_adds_only_the_positive_difference": true,
+    "partial_clamped_consumption_allowed": false,
+    "changes_true_six_or_order_deadlines": false,
+    "entries": [
+      {
+        "source_id": "I21",
+        "monster_id": "F50",
+        "action_id": "roof_dive",
+        "requested_total_bonus_world_seconds": 3,
+        "maximum_commits_per_attack": 1
+      },
+      {
+        "source_id": "I21",
+        "monster_id": "F60",
+        "action_id": "turn_to_face",
+        "requested_total_bonus_world_seconds": 3,
+        "maximum_commits_per_attack": 1
+      },
+      {
+        "source_id": "P05_special",
+        "monster_id": "F50",
+        "action_id": "roof_dive",
+        "requested_total_bonus_world_seconds": 2
+      },
+      {
+        "source_id": "P07_special",
+        "monster_id": "F60",
+        "action_id": "turn_to_face",
+        "requested_total_bonus_world_seconds": 2
+      },
+      {
+        "source_id": "B04",
+        "monster_id": "F50",
+        "action_id": "roof_dive",
+        "requested_total_bonus_world_seconds": 1,
+        "upgrade_requested_total_bonus_world_seconds": 0.5,
+        "base_charges": 3,
+        "upgrade_charges": 5,
+        "upgrade_semantics": "既有省电档以较少缓冲换更多触发：3→5次，升级后的总预告增量为0.5世界秒；不是在基础1秒上另加0.5秒。"
+      }
+    ],
+    "other_targets": "B04已有普通入区提醒仍保留；没有合法攻击预告时仅做声明的提醒，不凭空创建新计时器。F12既有蓝图不被I21修改。"
+  },
+  "disabled_effects": [
+    {
+      "id": "I22",
+      "reason": "没有当前已定义盐边界消费者与期限；暂不发放。"
+    },
+    {
+      "id": "I23",
+      "reason": "当前60卡没有允许被此铃改变目标的声音诱导接收器；暂不发放。"
+    },
+    {
+      "id": "Q03",
+      "reason": "同I23，铜铃声音作为主动辅助没有现成受益对象；暂不发放。"
+    }
+  ],
+  "economy_contract_file": "content/items.json#/lottery",
+  "reference_scope": "prototype/reward_core_v07.mjs只验证票/碎片/物件/回执的事务与去重；候选由外部固定数据注入，不验证随机概率、引擎工作或实际触控。"
+}
