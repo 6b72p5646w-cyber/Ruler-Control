@@ -26,6 +26,7 @@
 | [验证范围和结果](docs/09_validation.md) | 已检查内容及尚需客户端/实机完成的验收 |
 | [怪物规则与地图适配审查](docs/16_review_rules_maps_v04.md) | V0.4数据不一致、设计判断、可玩性对照与代码可及性（审查建议，未改数据） |
 | [怪物预告线索与交互规则优化](docs/17_omen_system_proposal_v04.md) | 远兆/近兆/临门预告、一怪一禁令、准备代价与通用状态机（设计提案） |
+| [便利店玩法机制与怪物交互设计](docs/18_store_mechanics_monster_interactions_v04.md) | 店务工单点、一夜电量池、正门三态、熟客基准与假便签、十个怪物族群挂店铺系统（审查意见与设计建议） |
 
 ![门店布局](docs/maps/store_layout.svg)
 

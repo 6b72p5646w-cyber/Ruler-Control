@@ -2,7 +2,7 @@
 
 2026-11-17 · 审查对象：仓库 main 分支提交 a3429a6（2026-11-17）
 
-> 本文是对 V0.4 的审查与修改建议，不改动 `content/` 数据和代码。配套的设计提案见[怪物预告线索与交互规则优化](17_omen_system_proposal_v04.md)。
+> 本文是对 V0.4 的审查与修改建议，不改动 `content/` 数据和代码。配套的设计提案见[怪物预告线索与交互规则优化](17_omen_system_proposal_v04.md)，店铺机制与怪物交互的后续建议见[便利店玩法机制与怪物交互设计](18_store_mechanics_monster_interactions_v04.md)。
 
 ## 结论
 
