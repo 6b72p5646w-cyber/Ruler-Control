@@ -2,7 +2,7 @@
 
 2026-11-17 · 基于 V0.4（main 分支提交 a3429a6）
 
-> 本文是设计提案，不改动 `content/` 数据和代码；文中“审查 D1”“J4”“R4”等编号指[怪物规则与地图适配审查](16_review_rules_maps_v04.md)。
+> 本文是设计提案，不改动 `content/` 数据和代码；文中“审查 D1”“J4”“R4”等编号指[怪物规则与地图适配审查](16_review_rules_maps_v04.md)；把预兆接到店铺机制上的后续建议见[便利店玩法机制与怪物交互设计](18_store_mechanics_monster_interactions_v04.md)。
 
 ## 结论与关键决定
 
