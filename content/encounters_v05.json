@@ -1,5 +1,5 @@
 {
-  "version": "0.5",
+  "version": "0.6",
   "schema_version": "0.5-design",
   "status": "complete_design_proposal_not_playtested",
   "client_implemented": false,
@@ -18,7 +18,7 @@
         "N02",
         "N05"
       ],
-      "work_hook": "验收台上的满箱货物一离手就显出空位；补货变成辨认哪些货能真正留下。",
+      "work_hook": "来客把同一箱货实际放到验收台；满箱影像一离手就显出空位，验货决定哪些实物能够上架。",
       "omens": [
         {
           "kind": "physical",
@@ -40,8 +40,8 @@
       ],
       "pressure_tradeoff": "看着满箱很想直接补完；复核占一次绕路，贸然上架会出现空货格。",
       "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-      "resolution_condition": "本箱全部分入已验货槽或整箱退回，假货不再占据待售槽。",
-      "failure_recovery": "错上架时该格先闪出狐影而暂停售卖；把同一箱撤回隔离盘重测，不扣整夜收入。",
+      "resolution_condition": "本实例货箱全部分入已验货槽或整箱实际退回；假货不再占待售槽。未接受到货可拒收结束，不记销售。",
+      "failure_recovery": "错上架时只停售该格；把同一箱撤回隔离盘重测，或整箱退回。已交付真货不回滚，已隔离未验货可安全留作普通后续任务。",
       "variants": [
         {
           "event_id": "E027",
@@ -49,15 +49,21 @@
           "counterplay": "先搬回验收台再计量。",
           "admission_gate": "额外路线仍在26秒预留内且后门可达",
           "id": "F01-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E002",
-          "change": "现金交易无法足额找零。",
-          "counterplay": "先用已有店内记账券结算，实物数量校正照常。",
-          "admission_gate": "店内记账券可用；不要求抽奖道具",
+          "change": "实际钱匣卡滞，验货/退货工序与换备用匣争占柜台。",
+          "counterplay": "封好现有货物并换常备备用钱匣后再结款；若暂退货则不生成虚构付款凭据。",
+          "admission_gate": "真实待结款订单、可达备用匣；不以未实现零钱余额作为门槛。",
           "id": "F01-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -101,7 +107,19 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "item_source": "visible_visitor_delivery",
+        "whole_box_return_is_terminal": true,
+        "task_tools": [
+          "measurement_cup",
+          "scale",
+          "inspection_tray"
+        ],
+        "refund_is_not_sale": true
+      },
+      "condition_contract_id": "F01",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F02",
@@ -132,13 +150,13 @@
       "critical_action": "将其留在访客权限并把围裙交给已核实真人",
       "action_steps": [
         "把交接钥匙留在员工侧，来者停在公开核验位",
-        "从基础侧光看皮缘，再读公开围裙领取与本班作业的连续记录，两个来源分别核验",
-        "将其留在访客权限并把围裙交给已核实真人"
+        "看基础侧光皮缘，并核对确已发生的公开领取/交接记录；首班记录从班前实际核验建立",
+        "保持待核者访客权限；真实同事不在时由玩家锁好围裙和钥匙，不强制向不存在的人交接"
       ],
       "pressure_tradeoff": "去核验台会离开柜台，保持待核可以继续低风险营业；不靠不停扣SAN逼迫误判。",
       "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-      "resolution_condition": "异常来者未获员工权限，交接物仍由真实员工保管，事件收场。",
-      "failure_recovery": "误递围裙先给可见越线预告；撤回权限并把钥匙收柜可止损，未核实就等待不罚真人关系。",
+      "resolution_condition": "异常来者请求被拒绝或核验完毕并实际离场，高风险权限未扩大；交接物由已核验玩家或真人保管。",
+      "failure_recovery": "误递围裙有越线预告，撤回权限并收柜可止损。首班记录不足或真人迟到时维持访客权限，可等待或拒绝请求；不伪造连续在岗记录，不扣真人关系。",
       "variants": [
         {
           "event_id": "E032",
@@ -146,7 +164,10 @@
           "counterplay": "工牌放物件槽，按原流程采集皮缘与连续换貌。",
           "admission_gate": "E032绑定本F02实例，不额外生成假扮者",
           "id": "F02-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E019",
@@ -154,7 +175,10 @@
           "counterplay": "在核验台启用基础应急灯后采集。",
           "admission_gate": "应急灯独立可用，记录器电池可支撑采集",
           "id": "F02-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -204,7 +228,14 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "pre_shift_actual_baseline_required": true,
+        "absent_real_coworker_does_not_block_safe_denial": true,
+        "waiting_claimant_has_bounded_departure": true
+      },
+      "condition_contract_id": "F02",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F03",
@@ -234,14 +265,14 @@
       "taboo": "僵尸蓄跳时，别在暴露通道急喘冲刺。",
       "critical_action": "分两段送完货，退到已有遮挡线后让最后雾点失效",
       "action_steps": [
-        "在干侧看起跳标记，把一次吐气留在远离搬货路线的格",
-        "用最多4秒游戏内屏息穿过短通道并放下一箱，离开再正常呼吸",
-        "分两段送完货，退到已有遮挡线后让最后雾点失效"
+        "在安全侧看起跳标记，把一次吐气留在远离搬运路线的格",
+        "两只登记货箱分段搬到预留槽；可短屏息通过，也可等落地停顿后步行通过",
+        "退回已有遮挡线，等最后雾点自然失效；已送货箱不被重置"
       ],
       "pressure_tradeoff": "短屏息限制迫使你分段搬货；安全点只屏蔽呼吸目标，不是所有怪的无敌格。",
       "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-      "resolution_condition": "两个本阶段货箱到槽，最后外部雾点失效，僵尸退回入口。",
-      "failure_recovery": "被扑到只掉当前箱并产生一次轻伤；箱留在可达点，落地停顿足够退回重新规划。",
+      "resolution_condition": "两只登记货箱已送到目标槽且最后有效雾点失效，僵尸退回入口；拒收本次加运任务则封存货箱、失去该项收益后离场。",
+      "failure_recovery": "命中掉下当前箱并产生一次已定义轻伤，不能自动视作出血。箱留可达点，可在安全侧喘息；零体力仍可利用落地停顿分段走，不要求屏息才能完成。",
       "variants": [
         {
           "event_id": "E018",
@@ -249,7 +280,10 @@
           "counterplay": "把两次搬运拆开，在安全侧喘息。",
           "admission_gate": "0体力普通步行仍有退路",
           "id": "F03-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E025",
@@ -257,7 +291,11 @@
           "counterplay": "使用已标记货架内回路分段搬运。",
           "admission_gate": "主回路可通，累计路线不超30秒预算",
           "id": "F03-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "event_subtype": "fails_to_open",
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -302,7 +340,20 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "cargo_instances_required": 2,
+        "cargo_source": "reserved_existing_job_split_into_two_units",
+        "ordinary_order_count_increment": 0,
+        "zero_stamina_wait_then_walk_path_required": true,
+        "breath_point_ttl_must_be_registered": true,
+        "breath_point_world_seconds": 6,
+        "jump_cycle_world_seconds": 4,
+        "landing_safe_world_seconds": 2,
+        "maximum_breath_hold_world_seconds": 4
+      },
+      "condition_contract_id": "F03",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F04",
@@ -338,8 +389,8 @@
       ],
       "pressure_tradeoff": "要先准备容器再取货；照普通干货顺序做会被纱缠住，不能用更多力气硬拉。",
       "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-      "resolution_condition": "湿纱已量过、保湿盘已合盖并放入寄售槽。",
-      "failure_recovery": "纱收紧时把盘放回湿台即可松开重试，已验长度保留；不要求制造眼泪。",
+      "resolution_condition": "湿纱已实际量过、保湿盘合盖并交入寄售槽；未接受寄售可退回同一湿纱，接受后退货也终止交易但不发成交回报。",
+      "failure_recovery": "纱收紧时回湿台恢复，已验长度保留。离盘暴露、合盖暂停和回湿台恢复使用同一可见计时；特写冻结期间不暗扣干燥时间。任务水与盘须先预留，不能索取个人保底餐。",
       "variants": [
         {
           "event_id": "E015",
@@ -347,7 +398,10 @@
           "counterplay": "使用店配应急清水瓶灌盘。",
           "admission_gate": "应急清水保证一份，不消耗个人救急饮食",
           "id": "F04-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E010",
@@ -355,7 +409,10 @@
           "counterplay": "在隔离台合盖后再移动，避免形成新连接。",
           "admission_gate": "台面可达且保留干路",
           "id": "F04-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -407,7 +464,26 @@
         "operation": "安全特写中把湿纱真实边缘拖到已确认量尺刻线",
         "general_pet_id": "P03",
         "freeze_policy_file": "content/qte.json"
-      }
+      },
+      "runtime_parameters": {
+        "item_source": "visible_visitor_delivery",
+        "required_reusable_tools": [
+          "lidded_moisture_tray",
+          "measurement_ruler"
+        ],
+        "required_reserved_consumables": [
+          {
+            "kind": "task_clean_water",
+            "quantity": 1
+          }
+        ],
+        "exposure_timer_domain": "world",
+        "closed_tray_pauses_exposure": true,
+        "uncovered_drying_world_seconds": 20,
+        "rewet_world_seconds": 2
+      },
+      "condition_contract_id": "F04",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F05",
@@ -443,8 +519,8 @@
       ],
       "pressure_tradeoff": "越急着抢回货越接近水；关阀会暂时停一处水务，但必要食物和出口不断。",
       "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-      "resolution_condition": "被拖篮与水源断开并回到干槽，断点保持到短结算完成。",
-      "failure_recovery": "误抓先被牵一步并给挣脱预告；松手退干地再断水，物件不销毁。",
+      "resolution_condition": "登记篮已回干槽且与本实例水源断开，经一次世界更新确认后结束。到场前已断水并移回目标篮同样记为预防完成。",
+      "failure_recovery": "误抓先牵一步并给挣脱预告；松手退干地再断水，篮不销毁。提前关阀/擦断不被强制重新湿化；完成只撤本实例牵引，普通雨水仍按店务处理。",
       "variants": [
         {
           "event_id": "E026",
@@ -452,7 +528,10 @@
           "counterplay": "看篮前2秒湿手印与逆流波纹，沿冷区干侧关闭既有水阀、擦断同一割点。",
           "admission_gate": "WET_COLD割点与干侧站位可达；保留可见预告，不生成库房水阀或额外水路",
           "id": "F05-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E016",
@@ -463,7 +542,10 @@
           "preserve_core_resolution": true,
           "environment_wet_region_ids": [
             "WET_FRONT"
-          ]
+          ],
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -507,7 +589,15 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "source_binding": "WET_COLD",
+        "basket_source": "one_registered_existing_work_basket",
+        "early_disconnection_counts_as_prevention": true,
+        "completion_hold_world_updates": 1
+      },
+      "condition_contract_id": "F05",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F06",
@@ -542,8 +632,8 @@
       ],
       "pressure_tradeoff": "不能远程叫同事，玩家要自己走一趟；保持距离与保温窗口构成实际操作。",
       "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-      "resolution_condition": "登记热饮与纸单进入同一交付槽，保密限制解除。",
-      "failure_recovery": "误广播先结霜预告；关广播、封住订单并回到交付点补救，至多冻结一个非唯一工位。",
+      "resolution_condition": "登记热饮与纸单实际进入同一槽，保密限制解除；明确退单或未接受即拒绝也会结束本单，均不记营业成功。",
+      "failure_recovery": "误广播先结霜预告；关广播、封单并补救，至多影响一个非唯一工位。热饮品质过期可用已预留替换份重做或退单；来客离去后不保留永久保密限制。",
       "variants": [
         {
           "event_id": "E013",
@@ -551,7 +641,10 @@
           "counterplay": "先备杯套再制作，缩短裸杯时间。",
           "admission_gate": "正常路径加操作≤22秒且保留重做材料",
           "id": "F06-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E022",
@@ -559,7 +652,10 @@
           "counterplay": "在基础预印空白票填写三个固定字段后投槽。",
           "admission_gate": "空白票保证提供；不额外增加一种QTE",
           "id": "F06-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -603,7 +699,22 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "order_slot_kind": "pickup",
+        "order_slot_reserved_before_arrival": true,
+        "accepted_order_uses_reserved_special_budget": true,
+        "ordinary_patience_applies_only_before_acceptance": true,
+        "quality_timer_starts": "actual_hot_drink_production_receipt",
+        "quality_window_world_seconds": 30,
+        "reserved_remake_portions": 1,
+        "accepted_special_order_deadline_world_seconds": 45,
+        "deadline_is_not_ordinary_waiting_patience": true,
+        "acceptance_deadline_must_fit_current_phase_budget": true,
+        "special_order_replaces_base_slot": true
+      },
+      "condition_contract_id": "F06",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F07",
@@ -640,8 +751,8 @@
       ],
       "pressure_tradeoff": "留位会挤占一处等候空间；引导同一批顾客比简单关店更合算。",
       "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-      "resolution_condition": "自到场起保留45秒，期间无人占椅且本阶段冲突浏览客已改道；完成后本实例结束，回报至多一次。",
-      "failure_recovery": "顾客触椅先出现哭声与坐垫回弹警告，及时改道仍可挽回；离开只失本次有限回报，不永久封故障池。",
+      "resolution_condition": "自到场起保留45秒，期间无人占椅；冲突浏览客已改道，或因未入店而离去/取消，均可结束本实例。未入店不记成交，回报至多一次。",
+      "failure_recovery": "顾客触椅先有哭声与回弹预告，及时改道仍可挽回；若继续占用则童子离去并失本次回报。窗口拒客不导致永远等待改道，已取消客单不再补生成。",
       "variants": [
         {
           "event_id": "E001",
@@ -649,7 +760,10 @@
           "counterplay": "把队列导向另一固定排队格。",
           "admission_gate": "至少2个普通等候格保持连通",
           "id": "F07-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E028",
@@ -657,7 +771,10 @@
           "counterplay": "先挂保留牌，再把本小时的坐座顾客导向第二等候格；不强制短休或使用尚未到岗同事。",
           "admission_gate": "仅 N01；第二等候格可达，本小时顾客与座位冲突事先绑定。",
           "id": "F07-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -684,7 +801,13 @@
       "runtime_parameters": {
         "reserved_world_seconds": 45,
         "conflict_customer": "same_phase_pending_browse_order",
-        "no_customer_added_outside_base_slots": true
+        "no_customer_added_outside_base_slots": true,
+        "conflict_customer_outcomes_allowing_end": [
+          "redirected",
+          "departed_without_entry",
+          "cancelled"
+        ],
+        "missing_customer_does_not_spawn_replacement": true
       },
       "adaptation_notice": "母题与来源沿用monsters.json；预兆、禁令、门店操作和数值属于本作原创改编，不声称是民俗原文。",
       "candidate_enabled": true,
@@ -708,7 +831,9 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "condition_contract_id": "F07",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F08",
@@ -743,16 +868,19 @@
       ],
       "pressure_tradeoff": "修好能保住工具，退役更快但当夜少一件辅助；没有唯一购买门槛。",
       "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-      "resolution_condition": "同一工具完成试作或已放入退役槽，停止返回垃圾口。",
-      "failure_recovery": "错丢会从垃圾口回到托盘，打断当前整理一次；取回后仍可选择两条基础解。",
+      "resolution_condition": "同一工具完成实际修补试作，或交入退役槽；两种都是终态。工具已退休不再从垃圾口反复返回。",
+      "failure_recovery": "错丢让同一物件回到维修托盘并打断整理一次；可取回重修或退役。替用件保持普通营业，未接受维修可直接隔离退役。",
       "variants": [
         {
           "event_id": "E021",
-          "change": "成灵对象改为可拆旧旋钮，不把普通故障自动当妖怪。",
+          "change": "E021故障中的可拆旧旋钮出现离电敲击，转为本实例的异常对象。",
           "counterplay": "先验离电敲击再拆旋钮维修或退役。",
-          "admission_gate": "必须先有两条异常线索；普通故障仍走E021",
+          "admission_gate": "先发生真实停转，再观察两条异常线索；本变体替换普通E021的“无异常”分支，不同时要求二者，也不计第二主怪。",
           "id": "F08-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E022",
@@ -760,7 +888,10 @@
           "counterplay": "改用基础空白票维持结账，再修夹并试送一页。",
           "admission_gate": "票夹可独立拆换，不锁唯一收银能力",
           "id": "F08-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -804,7 +935,14 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "task_tool_source": "actual_existing_old_tool",
+        "reusable_repair_material_reserved": true,
+        "retirement_is_free_terminal": true
+      },
+      "condition_contract_id": "F08",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F09",
@@ -840,8 +978,8 @@
       ],
       "pressure_tradeoff": "注意会被高处头吸走；身体还随队列移动，玩家必须追踪物件归属。",
       "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-      "resolution_condition": "指定货物都进身体篮且本单结清。",
-      "failure_recovery": "递向头时商品被顶回可达低层槽，取回送篮即可，头不会再开一单。",
+      "resolution_condition": "指定商品全部进入同一身体篮且本单实际结清；未接受时可放弃该顾客，已接受可退单归槽并让顾客离店，不留下永久未完成单。",
+      "failure_recovery": "递向头时同一商品顶回可达低层槽，取回送篮即可。长颈和身体只占预留位置，不能封唯一通路；退单不重复生成货或订单。",
       "variants": [
         {
           "event_id": "E009",
@@ -849,7 +987,10 @@
           "counterplay": "按身体篮统一装好后合并扫码。",
           "admission_gate": "总路线和操作仍≤90秒，其他长单不再叠加",
           "id": "F09-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E001",
@@ -857,7 +998,10 @@
           "counterplay": "跟随篮号标记送货，而非依赖原坐标。",
           "admission_gate": "篮号HUD持续可读；不与身份核验同时强制限时",
           "id": "F09-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -903,7 +1047,21 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "order_slot_kind": "browse",
+        "requires_actual_entry": true,
+        "order_slot_reserved_before_arrival": true,
+        "accepted_order_uses_reserved_special_budget": true,
+        "ordinary_patience_applies_only_before_acceptance": true,
+        "body_wait_positions_max": 2,
+        "accepted_special_order_deadline_world_seconds": 70,
+        "deadline_is_not_ordinary_waiting_patience": true,
+        "acceptance_deadline_must_fit_current_phase_budget": true,
+        "special_order_replaces_base_slot": true
+      },
+      "condition_contract_id": "F09",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F10",
@@ -932,14 +1090,14 @@
       "taboo": "别为看清巨影而把小窗完全打开。",
       "critical_action": "排回一档后关小窗，封好窗下吸水布",
       "action_steps": [
-        "保持交单缝，把本班已发生故障的小票夹到窗槽，代替口头逞强",
-        "巨影读票停水时在干侧操作旁边排水杆",
+        "保持交单缝，把本班实际发生且已有日志的故障/险情处理回执夹到窗槽；普通签到不冒充问题回执",
+        "巨影读票停水时从干侧操作相邻排水杆",
         "排回一档后关小窗，封好窗下吸水布"
       ],
       "pressure_tradeoff": "不是选一句勇敢台词；玩家要把日常遗留的物件带到危险窗前争取排水时机。",
       "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resolution_condition": "本班实物记录已展示、水位回落且小窗关闭。",
-      "failure_recovery": "误开先喷出一格水并停止本地任务；关回交单缝、取回小票再排水，有干侧保底位。 若缺少本班真实问题记录则导演不应投放；运行态丢失引用时撤销本场且不罚玩家。",
+      "failure_recovery": "误开先喷一格水；关回交单缝、取回同一回执再排水。不存在本班问题回执就不投放；丢失纸张只能复制原日志，原始事实失效则安全取消且不罚玩家。",
       "variants": [
         {
           "event_id": "E010",
@@ -947,7 +1105,10 @@
           "counterplay": "先放吸水布，再投卡开槽。",
           "admission_gate": "干侧位置与手动关窗始终有效",
           "id": "F10-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E016",
@@ -955,7 +1116,10 @@
           "counterplay": "确认吸水布割点后只排一档，立即关窗。",
           "admission_gate": "最多激活一条湿连接，不叠加F05额外强制扩张",
           "id": "F10-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -1013,7 +1177,14 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "receipt_kind": "actual_same_shift_problem_resolution",
+        "ordinary_sign_in_is_not_problem_receipt": true,
+        "repaired_fault_keeps_immutable_receipt": true
+      },
+      "condition_contract_id": "F10",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F11",
@@ -1048,8 +1219,8 @@
       ],
       "pressure_tradeoff": "挑战耗体力和操作时间，食物路线耗一份公开库存；拒绝可退出不受追罚。",
       "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-      "resolution_condition": "两轮平衡完成或荞麦食品交付，奖励只领取一次。",
-      "failure_recovery": "失衡退出圈外重整，最多丢本次可选奖品；体力不足自动保留食品路线和无损拒绝。",
+      "resolution_condition": "两轮平衡完成或实际交付一份荞麦即成功；未接受邀请的拒绝/到期离场也是结束但无奖励。已接受后的退出仅结算事先明示赌注。",
+      "failure_recovery": "失衡可退圈重整或退出当前赌局；只失明示可选赌注。体力不足保留已预留食品替代与未接受前无损拒绝，不强迫继续QTE。",
       "variants": [
         {
           "event_id": "E012",
@@ -1057,7 +1228,10 @@
           "counterplay": "先放水杯再布圈，或走食品路线。",
           "admission_gate": "饮水不挪用主角保底餐，且准备≤8秒",
           "id": "F11-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E001",
@@ -1065,7 +1239,10 @@
           "counterplay": "先交岗或封装荞麦快速交割。",
           "admission_gate": "真实同事可交岗或允许无损拒绝",
           "id": "F11-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -1107,7 +1284,18 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "acceptance_before_stake_commit": true,
+        "unaccepted_offer_has_safe_terminal": true,
+        "reserved_exchange_food": {
+          "kind": "buckwheat_portion",
+          "quantity": 1
+        },
+        "personal_emergency_food_may_be_consumed": false
+      },
+      "condition_contract_id": "F11",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F12",
@@ -1152,7 +1340,10 @@
           "counterplay": "先按预告去实际领取槽取盒，再沿已验证路线撒点。",
           "admission_gate": "位置变体使用预制锚点；一盒6次且≤4点有效链仍成立。",
           "id": "F12-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E025",
@@ -1160,7 +1351,11 @@
           "counterplay": "把诱饵链改向正门标记外区。",
           "admission_gate": "预警时即显示正门可用，前出口不与其他怪独占",
           "id": "F12-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "event_subtype": "fails_to_open",
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -1209,7 +1404,9 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "condition_contract_id": "F12",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F13",
@@ -1253,7 +1450,10 @@
           "counterplay": "按任务物件ID取肉，避免拿普通商品肉。",
           "admission_gate": "预告即显示实际箱位，路线不超36秒",
           "id": "F13-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E026",
@@ -1261,7 +1461,10 @@
           "counterplay": "走干线或先开已标门，再搬肉入柜。",
           "admission_gate": "有足够宽的干燥替代，不能与唯一冰柜失效叠加",
           "id": "F13-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -1306,7 +1509,9 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "condition_contract_id": "F13",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F14",
@@ -1342,8 +1547,8 @@
       ],
       "pressure_tradeoff": "需要暂时失去一个帮手；身份与附着物分开处理，不能套用假扮者驱逐流程。",
       "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-      "resolution_condition": "同一影子被封入登记盒并送出，同事留店且权限恢复。",
-      "failure_recovery": "合盖过早只退回上一台面，盒与影可重定位；被误暂停的真人不扣信任。默认关闭，影子组件完成后才开放。",
+      "resolution_condition": "同一影子实际封入登记盒并送出，真人留店；恢复其原有权限范围，再按当前可用岗位安排，不瞬移回已被占用工位。",
+      "failure_recovery": "合盖过早只退上一台面，盒与影保留同一实例；误暂停真人不扣信任。真人不在、三台面未预留或影子模块未完成时禁投，运行中宿主引用丢失则安全取消。",
       "variants": [
         {
           "event_id": "E004",
@@ -1351,7 +1556,10 @@
           "counterplay": "先交付预约，测试餐使用独立登记备用盒。",
           "admission_gate": "主动开启模块，且不影响已承诺预约容量",
           "id": "F14-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E019",
@@ -1359,7 +1567,10 @@
           "counterplay": "把同事和测试盒移到基础应急灯台。",
           "admission_gate": "独立应急灯可用；不得同时关掉所有物理证据",
           "id": "F14-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -1405,7 +1616,15 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "verified_real_coworker_present_required": true,
+        "reserved_test_meals": 2,
+        "reserved_transfer_stations": 3,
+        "restore_permission_not_forced_station_position": true
+      },
+      "condition_contract_id": "F14",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F15",
@@ -1418,7 +1637,7 @@
       "allowed_phases": [
         "N05"
       ],
-      "work_hook": "服务铃无人按却开合，灯箱里的影子指着一块未盖好的布。",
+      "work_hook": "来客在包装台放下一套灯箱、布和铃盒；装置演示两个短片段，影子指向没盖好的槽。",
       "omens": [
         {
           "kind": "physical",
@@ -1434,13 +1653,13 @@
       "taboo": "铃盒还在弹开时，不要直接关灯送客。",
       "critical_action": "合上铃盒并保持3秒，等影子归位再收台",
       "action_steps": [
-        "查看可重播的两个短片段，点亮已有记忆灯箱",
-        "按影子指向取布盖住指定槽",
-        "合上铃盒并保持3秒，等影子归位再收台"
+        "查看装置自带、可重播的两个演示片段，点亮记忆灯箱",
+        "按影子指向取同一布盖住指定槽",
+        "合上铃盒并保持3世界秒，影子归位后交回装置"
       ],
       "pressure_tradeoff": "玩家以摆放和顺序复原记忆；不答人物身世选择题，听不清也有等价图示。",
       "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-      "resolution_condition": "灯、布、铃盒按因果顺序完成，稳定3秒后影子离开。",
+      "resolution_condition": "本实例灯、布、铃盒按顺序完成并稳定3世界秒后离场；未接受装置可拒收，未完成交回不发奖励。",
       "failure_recovery": "错序只让铃盒重开，已正确的前置动作保留；回看片段后补下一步。",
       "variants": [
         {
@@ -1449,7 +1668,10 @@
           "counterplay": "先把普通购物篮移出记忆槽，再做三步。",
           "admission_gate": "记忆台不占唯一收银格",
           "id": "F15-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E019",
@@ -1457,7 +1679,10 @@
           "counterplay": "实际装电池再点灯，其余顺序相同。",
           "admission_gate": "电池随事件保证，不从抽奖索取",
           "id": "F15-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -1498,7 +1723,15 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "prop_source": "visible_visitor_kit_delivery",
+        "replay_is_authored_demonstration_not_shift_history": true,
+        "kit_battery_not_convertible_to_I06": true,
+        "stability_world_seconds": 3
+      },
+      "condition_contract_id": "F15",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F16",
@@ -1534,8 +1767,8 @@
       ],
       "pressure_tradeoff": "先保护库存还是马上追踪形成次序选择；不用计算找零或怀疑每个普通顾客。",
       "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-      "resolution_condition": "本实例转移的钱已回袋且诱饵币收回，偷取路径封闭。",
-      "failure_recovery": "跟错痕迹只多一次绕行，封袋已阻止损失；被偷钱留在可达收集槽，不越跑越少。",
+      "resolution_condition": "本实例实际转移的钱已回封袋且测试币回工具槽，偷取路径关闭；尚未丢币就封盘并收回诱饵也算预防，不能要求故意被偷满三次。",
+      "failure_recovery": "封盘即停新损失，跟错痕迹只多绕行。实际被偷小币最多三枚，留在可达回收槽；找零盘无小币不投放该题型，不能从个人钱凭空扣除。",
       "variants": [
         {
           "event_id": "E002",
@@ -1543,15 +1776,21 @@
           "counterplay": "封袋后启用基础记账券，追踪显色币。",
           "admission_gate": "记账券交易可正常计营业完成",
           "id": "F16-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E023",
           "change": "在线账目不可读，使用店内离线流水。",
-          "counterplay": "在封袋标签写原余额并比对三次实际转移。",
+          "counterplay": "读实际已有的一次或多次小币转移，再跟踪显色测试币；封盘已阻止后续转移时不要求补足三次，离线流水只记录真实发生。",
           "admission_gate": "离线不可篡改流水存在，不额外强制联网",
           "id": "F16-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -1595,7 +1834,16 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "actual_change_float_required": true,
+        "max_stolen_coin_instances": 3,
+        "steal_interval_world_seconds": 4,
+        "test_coin_is_reusable_nonredeemable_tool": true,
+        "preemptive_bag_sealing_is_valid": true
+      },
+      "condition_contract_id": "F16",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F17",
@@ -1630,8 +1878,8 @@
       ],
       "pressure_tradeoff": "靠近核绳要暂离柜台，但细节由特写清晰呈现；不是识别一个小像素结。",
       "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-      "resolution_condition": "同一束带的三个结已松开，包裹到公共交付槽。",
-      "failure_recovery": "错步只重紧当前结，已松开的结保留进度；可退出特写、退到远端再回来继续。暂放包裹不会自动清除遭遇，也不生成未登记的晨班待办柜。",
+      "resolution_condition": "同一包裹三个结已松开并放交付槽；玩家实际退出2.5格安全距离，来客领取同一物件后才提交交付成功。未接寄存可拒收。",
+      "failure_recovery": "错步只重紧当前结，已松开的结保留；退出特写或退开不自动清除。未领取包裹不消失，必要时交回原来客结束且无完成奖励。",
       "variants": [
         {
           "event_id": "E009",
@@ -1639,7 +1887,10 @@
           "counterplay": "先将普通订单移到取货架，再摆包裹。",
           "admission_gate": "取货架有空槽且不破坏现有订单归属",
           "id": "F17-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E019",
@@ -1647,7 +1898,10 @@
           "counterplay": "在开特写前实际打开应急灯。",
           "admission_gate": "绳路颜色还有形状编码，不只靠色觉",
           "id": "F17-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -1690,7 +1944,14 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "requires_actual_guest_pickup": true,
+        "player_distance_before_pickup_tiles": 2.5,
+        "unclaimed_item_may_not_despawn": true
+      },
+      "condition_contract_id": "F17",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F18",
@@ -1714,7 +1975,7 @@
         {
           "kind": "physical",
           "scale": "world",
-          "text": "已确认无人区域只录到一次小体型穿过，成人门框未响却出现成人轮廓。"
+          "text": "入口本地记录显示这段足迹形成期间仅有一次实际过门，没有第二位来客插入；记录只说明经过次数和时刻，不自动判断物种或身份。"
         }
       ],
       "taboo": "别为让门口显得干净，先擦掉还没核实的连续足迹。",
@@ -1726,8 +1987,8 @@
       ],
       "pressure_tradeoff": "清洁任务的正确本能会毁掉线索；先留痕后清洁才能保住一次核验机会。",
       "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-      "resolution_condition": "连续变形证据与独立过门记录完成，异常访客未取得员工权限。",
-      "failure_recovery": "误擦时先封存剩余末段并等一次已预告的新过垫机会；不足证据保持待核，不凭动物脚印宣判。",
+      "resolution_condition": "连续爪鞋变化与独立入口记录核验后，来者仍未获越界权限并离去；证据不足时保持访客权限并拒绝请求，也可安全结束但不算辨认成功。",
+      "failure_recovery": "误擦先封存剩余痕迹，可请求来者实际重新过公共粉垫一次；不保证配合，也不补造旧足迹。无法补核就维持访客限权直到离去，普通动物脚印不能单独定身份。",
       "variants": [
         {
           "event_id": "E017",
@@ -1735,7 +1996,10 @@
           "counterplay": "按同一条连续轨迹和一次入口计数核对。",
           "admission_gate": "普通动物走救助区；不扣分惩罚善意安置",
           "id": "F18-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E024",
@@ -1743,7 +2007,10 @@
           "counterplay": "去内侧计数器读日志，不依赖铃声。",
           "admission_gate": "明确区分门铃故障与计数证据，至少两路可得",
           "id": "F18-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -1791,7 +2058,14 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "entry_tally_has_no_implicit_size_classifier": true,
+        "reobservation_requires_actual_new_crossing": true,
+        "failed_evidence_recovery_allows_safe_denial": true
+      },
+      "condition_contract_id": "F18",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F19",
@@ -1805,7 +2079,7 @@
         "N02",
         "N05"
       ],
-      "work_hook": "寄存包裹在你抱着它时讲述纠纷，每当你停下接话它就跳回上一处架子。",
+      "work_hook": "寄存包裹引用本班已经发生且可查的一笔订单；抱着它口头回应会使它跳回上一处已登记台面。",
       "omens": [
         {
           "kind": "physical",
@@ -1827,16 +2101,19 @@
       ],
       "pressure_tradeoff": "器物持续说话诱你停步，真正解是安排放下的节点；答题变为带物穿行。",
       "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-      "resolution_condition": "两个停放节点的实体凭据已挂好，同一包裹入柜。",
-      "failure_recovery": "忍不住回应仅让包裹退回上一节点，已挂凭据保留；重新搬最后一段即可。",
+      "resolution_condition": "两个节点挂入同一真实订单链的对应凭据，同一包裹实际入匹配寄存格；未接寄存可拒收，源记录失效时安全取消。",
+      "failure_recovery": "回应只退回上一节点，已挂凭据保留；打印失败可复制已有日志。没有匹配历史链就不出这道题，不能补开一笔没发生过的付款或退款。",
       "variants": [
         {
           "event_id": "E003",
           "change": "案件从付款变为退款，需要退款单和原销售票。",
           "counterplay": "取两份同订单ID票据再投退款寄存柜。",
-          "admission_gate": "原票与退款票均可查，不能只提供一个答案按钮",
+          "admission_gate": "原销售与实际退款两个已完成记录都存在且同订单ID才准入；只有退货请求、没有退款结果时不能使用本题型。",
           "id": "F19-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E022",
@@ -1844,7 +2121,10 @@
           "counterplay": "在基础空白票上补开同ID凭据再挂袋。",
           "admission_gate": "补开不引入新QTE，耗时计入恢复预留",
           "id": "F19-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -1888,7 +2168,16 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "requires_actual_preexisting_receipt_chain": true,
+        "receipt_chain_min_records": 2,
+        "reprint_copies_existing_history_only": true,
+        "registered_waypoint_count": 2,
+        "final_locker_is_named_pickup_shelf_socket": true
+      },
+      "condition_contract_id": "F19",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F20",
@@ -1902,7 +2191,7 @@
         "N01",
         "N03"
       ],
-      "work_hook": "访客只讨一份食物，柜台外的取货影子却一伸再伸，想接过整排库存。",
+      "work_hook": "访客提出一份食物的可选请求；玩家准备接受时，柜台外的影手却想把范围扩大到整排库存。",
       "omens": [
         {
           "kind": "physical",
@@ -1918,22 +2207,25 @@
       "taboo": "你答应的一份食物，不要换成整柜都由它拿。",
       "critical_action": "来客伸向别处时收回多余托盘并关交单缝",
       "action_steps": [
-        "从店配交换份取一件封装，放进只容一份的透明交付盒",
-        "钥匙与其余货留员工侧，隔服务窗推出这一盒",
-        "来客伸向别处时收回多余托盘并关交单缝"
+        "先看一份食品的明示请求；可拒绝，愿意履约才从预留交换份装入单份盒",
+        "钥匙与其他货留员工侧，隔服务窗实际推出这一个盒完成有限交付",
+        "对伸向其他库存的影手收回多余托盘并关交单缝，原承诺不扩大"
       ],
       "pressure_tradeoff": "善意可以履行，但交付边界必须亲手保持；无需读长篇授权协议。",
       "free_solution": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-      "resolution_condition": "承诺的单份食品已交付，额外库存和钥匙未出边界。",
-      "failure_recovery": "多推一盘先出现越线影手；及时收回多余盘与关内侧挡板可止损，仍可完成原承诺。",
+      "resolution_condition": "一份实际食品交付且额外库存和钥匙未越界即成功；未接受请求可拒绝或等来客离场，均无供食欠债。",
+      "failure_recovery": "多推一盘先有越线预告，及时收回仍可止损。只有玩家明确接受的有限范围生效；不存在的白天合同不能作为处罚依据。",
       "variants": [
         {
           "event_id": "E031",
           "change": "来者把有限送餐授权改成全库查账。",
-          "counterplay": "把新增页抽入撤回槽，按白天原本恢复有限范围。",
+          "counterplay": "收回追加查账页，按已经实际确认的一份送餐范围交付；没有白天合同就核对本次当场请求，不伪造“白天原本”。",
           "admission_gate": "E031绑定本实例，不产生第二个店长怪",
           "id": "F20-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E035",
@@ -1941,7 +2233,10 @@
           "counterplay": "食品只交窗口，访客牌仍停留普通区。",
           "admission_gate": "剪影不占额外攻击/拟态槽，不是第二怪物",
           "id": "F20-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -1990,7 +2285,14 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "explicit_acceptance_required": true,
+        "unaccepted_request_has_safe_terminal": true,
+        "reserved_exchange_portions": 1
+      },
+      "condition_contract_id": "F20",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F21",
@@ -2004,7 +2306,7 @@
         "N03",
         "N04"
       ],
-      "work_hook": "危险工位的哭声预告打断正常排班；女妖报信而不攻击。",
+      "work_hook": "一个真实设备工位出现已预告险情，女妖的哭声指出当时实际在岗的人。",
       "omens": [
         {
           "kind": "sound",
@@ -2026,22 +2328,28 @@
       ],
       "pressure_tradeoff": "救人会暂停该工位产出；预告须覆盖实际调岗与关机路程。",
       "free_solution": "纸位置卡、机械旗、手动关机和基本调岗不耗电。",
-      "failure_recovery": "错过预告造成局部故障与一次恐惧；仍可转移人员、隔离工位。核验报信不受罚。",
-      "resolution_condition": "目标离开危险区且设备安全停机，救援回报只结算一次。",
+      "failure_recovery": "警告40世界秒后仍在实际玻璃故障危险位且设备未隔离，才产生一次登记割伤；无人在位、提前调岗或停机均不造伤。其他故障只有其明示后果。事故后仍可调离、隔离和免费包扎；F32仅在事前预留且余量合格时形成后续条件遭遇。",
+      "resolution_condition": "目标已实际离开危险区且设备安全停机，即使在警告前完成也记为预防；设备与人员结果只提交一次。",
       "variants": [
         {
           "event_id": "E001",
           "change": "现有订单袋占一侧安全点。",
           "counterplay": "先移到提货槽再调岗，不新增顾客。",
           "id": "F21-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E019",
           "change": "屏幕与普通灯失效。",
           "counterplay": "用纸卡、机械旗及独立关机杆；关键路径不可全黑。",
           "id": "F21-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -2086,8 +2394,18 @@
       },
       "runtime_parameters": {
         "accident_warning_world_seconds": 40,
-        "requires_actual_departure_before_station_shutdown": true
-      }
+        "requires_actual_departure_before_station_shutdown": true,
+        "actual_station_hazard_required": true,
+        "actual_target_occupancy_required": true,
+        "preemptive_shutdown_or_departure_is_valid": true,
+        "accident_effects_must_use_shared_typed_contract": true,
+        "station_restart_requires_actual_repair": true,
+        "bleeding_producer": "F21_GLASS_FAULT",
+        "bleeding_is_not_unconditional_failure_effect": true,
+        "conditional_f32_child_reservation_does_not_create_wound": true
+      },
+      "condition_contract_id": "F21",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F22",
@@ -2122,22 +2440,28 @@
       ],
       "pressure_tradeoff": "少一个可看方向，换一次代工；不能让同事同时重复做该点。",
       "free_solution": "使用店内免费基础供食和现有工区，不必购买宠物或设备。",
-      "failure_recovery": "回头只暂停当前进度；塞工钱会让帮手离开，此点仍能自己做，不取消整周机会。",
-      "resolution_condition": "登记点由帮手完成且玩家实际验收，原工单只记一次。",
+      "failure_recovery": "回头只暂停当前进度，背开继续；塞工钱让帮手离去，剩余点仍可自己做。登记点被他人完成、没有食物或阶段余量不足时不再重新造一个脏槽。",
+      "resolution_condition": "登记的现有工单点由帮手完成并实际验收，只记一次；若玩家或同事先完成，该实例以目标已完成退场，不重复发代工奖励。未接受帮助可拒绝。",
       "variants": [
         {
           "event_id": "E009",
           "change": "同区多一袋已登记团购。",
           "counterplay": "先把袋移离工作槽，其他订单数量不变。",
           "id": "F22-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E024",
           "change": "门铃不能提示完工。",
           "counterplay": "看工区固定完成标记，不能靠猜声强制结算。",
           "id": "F22-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -2180,7 +2504,18 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "existing_unfinished_job_required": true,
+        "job_completion_commits_once_across_actors": true,
+        "only_player_direct_world_gaze_counts": true,
+        "replay_camera_does_not_count_as_live_gaze": true,
+        "helper_progress_timer_must_be_registered": true,
+        "unobserved_work_world_seconds": 8,
+        "live_world_clock_only": true
+      },
+      "condition_contract_id": "F22",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F23",
@@ -2192,7 +2527,7 @@
       "allowed_phases": [
         "N05"
       ],
-      "work_hook": "失物柜里的一件湿皮衣引来两名认领者。",
+      "work_hook": "此前实际交存并有来源记录的湿皮衣，在两位认领者到来后令失物柜自行弹开。",
       "omens": [
         {
           "kind": "physical",
@@ -2214,22 +2549,28 @@
       ],
       "pressure_tradeoff": "中立台与普通提货争位置；怪可能是受害者，不能凭外貌驱赶。",
       "free_solution": "查看皮衣、纸质认领格与中立交付均免费。",
-      "failure_recovery": "错交先出现可见拉扯与水线预告；可叫停交付取回重核，不让普通人瞬移带走关键物。",
-      "resolution_condition": "皮衣交还匹配认领者并离店；一次水系预告帮助只结算一次。",
+      "failure_recovery": "错交先给拉扯与水线预告，可叫停并收回同一皮衣；不瞬移删除物件。开班已有记录须注明白班来源，本班新记录只能来自真实交存，不能补造过去。",
+      "resolution_condition": "皮衣实际交还匹配认领者并离店才奖励一次；证据不足可保留原封存并请认领者离去，安全结束且无交付回报。",
       "variants": [
         {
           "event_id": "E007",
           "change": "架上有两件相似衣物。",
           "counterplay": "分别挂实物号，比较缺口而非标签颜色。",
           "id": "F23-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E008",
           "change": "迟到取货袋占中立台。",
           "counterplay": "移入已登记待取槽再归还，不把袋当供物。",
           "id": "F23-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -2270,7 +2611,15 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "actual_deposit_record_required_before_omens": true,
+        "claimants_reserved": 2,
+        "claimants_create_no_extra_orders": true,
+        "physical_features_are_not_two_independent_verbal_claims": true
+      },
+      "condition_contract_id": "F23",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F24",
@@ -2306,22 +2655,28 @@
       ],
       "pressure_tradeoff": "需要额外搬运与清洁，省下越线风险；暂停迎宾不能擦掉湿路。",
       "free_solution": "拖把与固定干侧取物位可用，不要求吸水垫。",
-      "failure_recovery": "越线会把车拖向下一预设点；退到干侧断边后仍可取回，不模拟任意拉扯。",
-      "resolution_condition": "任务物回到干侧登记槽，与怪物水源不再连通。",
+      "failure_recovery": "越线只将同一车/箱移到下一预设停点，退干侧断边仍可取回。失去主干槽时只能用已登记备用槽；两槽都失效则安全取消，不临时凭空生成交付点。",
+      "resolution_condition": "同一登记货物位于干侧交付槽且与本实例源不连通；到场前已卸货或断水同样记为预防，来者结束牵引后离去。",
       "variants": [
         {
           "event_id": "E016",
           "change": "一个外侧交接格变湿。",
           "counterplay": "改用已登记备用干格，普通雨水不加入怪物图。",
           "id": "F24-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E027",
           "change": "货箱到了错误门线。",
           "counterplay": "先核实物号，从店内安全路线搬到本卡交付点。",
           "id": "F24-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -2365,7 +2720,15 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "visible_delivery_item_required": true,
+        "max_pull_stop_positions": 2,
+        "early_dry_handoff_is_valid": true,
+        "backup_dry_socket_reserved_before_variant": true
+      },
+      "condition_contract_id": "F24",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F25",
@@ -2378,7 +2741,7 @@
         "N01",
         "N06"
       ],
-      "work_hook": "退货客每次转身就换外貌，却始终递出同一件商品。",
+      "work_hook": "一名退货客先递来真实商品，退款后不断换外貌，指着仍在透明退货槽里的同一件商品再次索款。",
       "omens": [
         {
           "kind": "behavior",
@@ -2388,34 +2751,40 @@
         {
           "kind": "physical",
           "scale": "closeup",
-          "text": "商品折痕与第一张退款回执的实物记录完全对应。"
+          "text": "第一次退款完成后，透明退货槽内仍是同一破口商品；新索款者指向它，而唯一回执已经登记该实物。"
         }
       ],
       "taboo": "同一件退货，换了人也不能再退一次钱。",
       "critical_action": "先把实物收进隔离格，再对本物件的一次退款回执。",
       "action_steps": [
-        "接回商品，放入透明退货槽固定身份。",
-        "核折痕与原单，锁定实际物件而非顾客名字。",
-        "退一次并关槽；再来时只出已处理回执。"
+        "按真实原销售记录接回商品，放透明退货槽；缺来源先待核",
+        "首次退款实际提交后产生唯一回执，商品继续留槽",
+        "来者换貌再索款时核对槽内同一折痕，只展示已处理回执，直到请求结束离场"
       ],
       "pressure_tradeoff": "占用退货槽与收银时间；检查一次可避免不断补钱。",
       "free_solution": "纸回执、透明槽与肉眼折痕可完成，联网只是便利。",
-      "failure_recovery": "误开第二次退款会先出现重复确认；已错付可收回尚未交出的退款袋，超出部分只计本次店损。",
-      "resolution_condition": "实物收回且退款回执只提交一次，变形不会重置记录。",
+      "failure_recovery": "误开第二笔先有重复确认；尚未交出的退款袋可收回，已错付只计本次有限店损。换貌不把已收槽商品复制到来客手里，也不重开营业订单。",
+      "resolution_condition": "同一实物已收回且退款最多提交一次，重复索款被拒绝或到期离场；缺原销售记录则按待核退货结束，不能凭外貌猜。",
       "variants": [
         {
           "event_id": "E003",
           "change": "旁边同时有一件正常退货。",
           "counterplay": "一物一槽核号，不能因见变形拒绝所有退货。",
           "id": "F25-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E023",
           "change": "收银网络离线。",
           "counterplay": "在纸联单上登记物件标记，恢复后不重复结算。",
           "id": "F25-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -2454,7 +2823,20 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "first_refund_receipt_created_only_after_actual_refund": true,
+        "item_remains_in_store_after_first_refund": true,
+        "repeat_claim_does_not_spawn_item_or_order": true,
+        "actual_sale_record_required": true,
+        "original_sale_origin_options": [
+          "actual_current_shift_receipt",
+          "explicit_prior_shift_handover_receipt"
+        ],
+        "refund_receipt_origin": "current_actual_refund_only"
+      },
+      "condition_contract_id": "F25",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F26",
@@ -2467,7 +2849,7 @@
       "allowed_phases": [
         "N04"
       ],
-      "work_hook": "清洁时的一处擦伤让垃圾路线出现被追踪的红迹。",
+      "work_hook": "真实割伤后的实际移动留下有限血迹，红帽影才有可追踪目标；无伤或无迹时不投放这只怪。",
       "omens": [
         {
           "kind": "physical",
@@ -2489,22 +2871,29 @@
       ],
       "pressure_tradeoff": "先止血会延迟外运，却避免追踪继续连到队列。",
       "free_solution": "基础绷带、拖把与普通垃圾袋均由店内提供。",
-      "failure_recovery": "拖袋会激活已预告追踪，先放袋退离再包扎断线；不额外生成第二追逐者。",
-      "resolution_condition": "伤口处理，追踪红迹断开，沾染物封袋进入登记槽。",
+      "failure_recovery": "只绑定本次真实移动留下的最多三枚血迹；包扎停止新滴迹，已有痕迹每枚30世界秒后失效或可擦除。实际擦血形成的沾染物须封袋；没有发生擦拭就不凭空要求一袋污物。普通碰撞轻伤不自动出血。",
+      "resolution_condition": "本次血源已包扎或自然止血、绑定血迹均失效/清除，且实际产生的沾染物已封存；未到场前达成记预防，完全自然消退记安全离去。无新伤、无新迹，不为完成交袋再造污物。",
       "variants": [
         {
           "event_id": "E026",
-          "change": "漏水将一处红迹连到邻格。",
-          "counterplay": "按本卡最多三处红迹处理，普通湿格不一律当血。",
+          "change": "E026普通漏水与一枚实际血迹重叠，颜色/方向提示容易混淆；血迹位置不因本变体移动。",
+          "counterplay": "先看实际血迹标记与事故来源，从干侧清理该点；普通湿格不算血，也不增加本怪目标数量。",
           "id": "F26-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E025",
           "change": "后门暂时无法外运。",
           "counterplay": "把封袋放到室内隔离废物位即可解除追踪，外运另记店务。",
           "id": "F26-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "event_subtype": "fails_to_open",
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -2545,7 +2934,20 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "real_cut_accident_or_existing_trace_required": true,
+        "generic_minor_injury_does_not_imply_bleeding": true,
+        "max_registered_blood_trace_positions": 3,
+        "natural_hemostasis_satisfies_no_active_bleeding": true,
+        "basic_bandage_must_be_reserved": true,
+        "condition_mode": "reactive_actual_state",
+        "trace_position_source": "actual_actor_world_movement",
+        "static_trace_group_is_tutorial_only": true,
+        "activation_clock_contract": "content/condition_lifecycle_v06.json#/wounds/reactive_consumers"
+      },
+      "condition_contract_id": "F26",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F27",
@@ -2580,22 +2982,28 @@
       ],
       "pressure_tradeoff": "多跑一趟且重物减速，换取店内道路保持畅通；两批仍只算一个名额。",
       "free_solution": "基本秤、搬运与门前槽足够；路线超预算就不投放该组合。",
-      "failure_recovery": "过早邀请先压缩门口空间并提示；撤掉邀请、把未交货移回槽可退到门外，不永久封死逃路。",
-      "resolution_condition": "两批实物交付且主通路清空，一笔订单只计一次。",
+      "failure_recovery": "过早邀请先压缩门口并预告；撤邀请、移开未交货可退回门外，不永久封逃路。任务截止须容纳真实两批路线与补救，不能继承24秒普通耐心。",
+      "resolution_condition": "同一大件单的两批实际交付、主通路清空后成功；未接受可拒单，取消或到期按明示规则结算已交部分并收回未交部分，来客离场。",
       "variants": [
         {
           "event_id": "E009",
           "change": "大件台旁有普通团购袋。",
           "counterplay": "先分槽放置，巨魔单替同类既定名额不添新单。",
           "id": "F27-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E027",
           "change": "货到后门而来客在前场。",
           "counterplay": "按已验算搬运路线分两批；无余量时拒绝该变体准入。",
           "id": "F27-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -2632,7 +3040,26 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "order_slot_kind": "pickup",
+        "order_slot_reserved_before_default_arrival": true,
+        "replace_order_arrival_with_encounter_arrival": true,
+        "accepted_order_uses_reserved_special_budget": true,
+        "ordinary_patience_applies_only_before_acceptance": true,
+        "reserved_batch_count": 2,
+        "already_completed_slot_cannot_be_replaced": true,
+        "accepted_special_order_deadline_world_seconds": 90,
+        "deadline_is_not_ordinary_waiting_patience": true,
+        "acceptance_deadline_must_fit_current_phase_budget": true,
+        "special_order_replaces_base_slot": true,
+        "route_lower_bound_world_seconds": 54.83,
+        "reserved_two_batch_work_also_credits_receiving_duty": true,
+        "never_adds_full_normal_receiving_duration_twice": true,
+        "minimum_actions_and_recovery_reserved_world_seconds": 22
+      },
+      "condition_contract_id": "F27",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F28",
@@ -2645,7 +3072,7 @@
       "allowed_phases": [
         "N03"
       ],
-      "work_hook": "水槽漏出的乐曲让普通关水动作变成声源定位。",
+      "work_hook": "水槽已登记浅盘中的少量异常水随乐曲起纹；玩家通过同一工位的三支路局部面板定位声路。",
       "omens": [
         {
           "kind": "sound",
@@ -2667,22 +3094,28 @@
       ],
       "pressure_tradeoff": "测试会短停对应水务；关错总阀虽安全却失去定位信息，需要恢复再试。",
       "free_solution": "手动支阀、水纹与基础槽盖不耗应急电，怪名不必填对。",
-      "failure_recovery": "触倒影后局部拖近有预告；退回干侧重新关支路，错误测试不立即判整夜失败。",
-      "resolution_condition": "本卡源点已隔离并封盖，普通漏水可作为其他工作继续处理。",
+      "failure_recovery": "触倒影有局部拖近预告，退干侧可继续。普通停水不删除异常浅盘，也不会让局部支路失去响应；已正确封源不重新打开。",
+      "resolution_condition": "本实例实际源支路被隔离、源盘盖好，乐曲与水纹都停止；普通供水和其他漏水独立处理。",
       "variants": [
         {
           "event_id": "E015",
           "change": "正常自来水停供。",
           "counterplay": "依然观察异常水纹与可用支路测试，不把无水等于没怪。",
           "id": "F28-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E026",
           "change": "另一处普通漏水制造声音干扰。",
           "counterplay": "按水纹节拍与开闭反应判断，不能靠总音量。",
           "id": "F28-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -2726,7 +3159,14 @@
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
       },
-      "station_panel_id": "PANEL_WATER_BRANCHES"
+      "station_panel_id": "PANEL_WATER_BRANCHES",
+      "runtime_parameters": {
+        "abnormal_source_is_registered_shallow_pan": true,
+        "branch_controls_are_discrete_signal_isolation": true,
+        "ordinary_supply_off_does_not_destroy_source": true
+      },
+      "condition_contract_id": "F28",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F29",
@@ -2738,7 +3178,7 @@
       "allowed_phases": [
         "N03"
       ],
-      "work_hook": "库存旁的小碗敲响，家园精灵等一份按约摆好的粥。",
+      "work_hook": "库存旁的小碗敲响，家园精灵提出一份粥和表层黄油的可选请求。",
       "omens": [
         {
           "kind": "sound",
@@ -2760,22 +3200,28 @@
       ],
       "pressure_tradeoff": "占用食物和一次搬运，换一次普通库存损耗缓冲；未接额外承诺可以拒绝。",
       "free_solution": "入场前必须保证基础粥与黄油可取，不依赖购买或抽奖。",
-      "failure_recovery": "摆错时碗退回并出现不满提示，可重新摆放；不会永久打乱全店或没收玩家食物。",
-      "resolution_condition": "约定份量在正确供食位交付，库存保护令牌只发一次且不覆盖任务物。",
+      "failure_recovery": "摆错则退回同一碗并给提示，可重摆。食材在预兆预订时已从非个人保底库存预留；后来基础份失效就取消请求，不扣玩家食物或强迫购买。",
+      "resolution_condition": "已接受的单份粥与表层黄油实际交付才成功，库存令牌只发一次；未接受可拒绝/到期离场，无无限供食欠债。",
       "variants": [
         {
           "event_id": "E020",
           "change": "一批黄油需要隔离。",
           "counterplay": "取已登记正常备用份；没有健康基础份就不投放。",
           "id": "F29-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E004",
           "change": "预约配餐占热食台。",
           "counterplay": "先分清供食与客户份，借用备用摆放槽不侵占已承诺订单。",
           "id": "F29-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -2815,7 +3261,24 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "explicit_acceptance_required": true,
+        "reserved_exchange_food": [
+          {
+            "kind": "porridge_portion",
+            "quantity": 1
+          },
+          {
+            "kind": "butter_portion",
+            "quantity": 1
+          }
+        ],
+        "reserved_food_not_sellable_to_other_orders": true,
+        "unaccepted_offer_has_safe_terminal": true
+      },
+      "condition_contract_id": "F29",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F30",
@@ -2850,22 +3313,29 @@
       ],
       "pressure_tradeoff": "搬重物速度慢且要占一趟外侧交付，直接拿来压门虽省事却扩大潮水入口。",
       "free_solution": "秤、普通分槽和门外托盘免费可用。",
-      "failure_recovery": "错用门挡会出现局部水线与预告；拿开石头封存后水线退去，普通损耗按上限结算。",
-      "resolution_condition": "压箱石与商品分离并入外侧封存位，未被用作任何门挡。",
+      "failure_recovery": "误用门挡会产生本地水线与预告；拿开并封存后水线退去，只计本次有限损失。主封存点失效时使用预登记备用槽，两处都失效则保持室内隔离并安全取消外运目标。",
+      "resolution_condition": "同一压箱石与合法商品分离、已放登记封存槽，当前不再充当任何门挡。曾经误用但已经纠正仍可完成。",
       "variants": [
         {
           "event_id": "E010",
           "change": "暴雨掩盖普通渗水外观。",
           "counterplay": "以实际超重与石头为依据，雨水不是来源判断。",
           "id": "F30-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E025",
           "change": "后门原封存点暂不可达。",
           "counterplay": "使用预登记的前场托盘；替代路线不可用就不准入。",
           "id": "F30-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "event_subtype": "fails_to_open",
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -2902,7 +3372,15 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "item_source": "visible_delivery_extra_weight",
+        "current_doorstop_state_required_false": true,
+        "ever_used_as_doorstop_does_not_block_recovery": true,
+        "primary_and_backup_seal_sockets_reserved": true
+      },
+      "condition_contract_id": "F30",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F31",
@@ -2929,30 +3407,36 @@
         }
       ],
       "taboo": "杯子与机械闹钟没摆好前，不要直接坐下。",
-      "critical_action": "先摆真实参照物与唤醒计时器，再用已设节拍结束短休。",
+      "critical_action": "准备杯与机械钟后选择短休，或停用该椅位并继续安全收尾。",
       "action_steps": [
-        "将杯子放椅边固定槽，设置机械闹钟并确认接岗。",
-        "安全坐下，在局部特写比较杯位与真实锚点。",
-        "按预设唤醒刻度完成QTE，返回同一休息位。"
+        "检查是否需要休息；杯与机械钟摆到已有槽，确认真实接岗，或暂停入店并清空现有客务。",
+        "选择安全短休才进入梦境特写；也可标记椅位暂不用并离开。SAN为0时先用世界安定，不启动精度特写。",
+        "开始短休后按已设唤醒刻度完成，或按明示一次成本退出；不坐则结束本次休息邀请。"
       ],
       "pressure_tradeoff": "短休能恢复状态却占交班时间；本地QTE沿用安全特写与一次成本结算，不另建可走梦地图。",
       "free_solution": "店内杯与机械闹钟保证基础解；P08只按既有次数增加唤醒容错，不是必需钥匙。",
-      "failure_recovery": "未准备会先收到压迫警告；可取消落座补摆。梦里误按保留正确步骤并给下一节拍，不随机改输入。",
-      "resolution_condition": "真实参照物保留，唤醒动作完成并离开梦境；休息收益仅结算一次。",
+      "failure_recovery": "未准备先给压迫警告，可取消落座补摆；梦里误按保留正确步骤。退出已开始尝试只扣一次成本且不给休息收益，不把玩家锁在SAN为0而不能再开QTE的梦境。",
+      "resolution_condition": "准备后的唤醒完成可结算一次休息收益；拒绝短休并停用该椅位也能安全结束，不发休息收益，不阻止06:00交班。",
       "variants": [
         {
           "event_id": "E033",
           "change": "同事不在可见工位。",
-          "counterplay": "先暂停入店并确认覆盖，再进行短休，不默认远程口头接岗有效。",
+          "counterplay": "先暂停新客入店，处理或明确放弃现有客单；无人可真实接岗就拒绝本次短休，不能把远程口头答复当覆盖。",
           "id": "F31-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E019",
           "change": "电子钟与主灯熄灭。",
           "counterplay": "用机械钟与杯位，基础唤醒不要求电池或快照。",
           "id": "F31-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -2995,7 +3479,9 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "condition_contract_id": "F31",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F32",
@@ -3009,7 +3495,7 @@
         "N03",
         "N04"
       ],
-      "work_hook": "门口苍白来客盯着受伤员工，自动门的迎宾语音可能构成邀请。",
+      "work_hook": "真实员工出现仍在流血的登记割伤后，门外来客才沿其方向等待；无伤夜班不会强制造出一名伤员。",
       "omens": [
         {
           "kind": "behavior",
@@ -3019,34 +3505,40 @@
         {
           "kind": "physical",
           "scale": "world",
-          "text": "同事伤口标记与门框迎宾灯同时亮起。"
+          "text": "受伤的是已在场主角或唯一同事，伤口图标显示剩余世界时间；门框迎宾灯与当前声道状态可直接查看。"
         }
       ],
       "taboo": "店里有人流血时，不要让门对这位来客说欢迎。",
       "critical_action": "先关迎宾声道或转窗口，再亲手为伤者包扎。",
       "action_steps": [
-        "关闭迎宾语音，保留受控通行或改为窗口服务。",
-        "让已核验伤者停在安全位，取基础急救物。",
-        "完成包扎，确认目标条件解除后恢复营业安排。"
+        "在12秒条件预告中关闭迎宾声道或改窗口；若已到门口仍有3秒欢迎前提示",
+        "从柜台取真实敷料，让伤者进入已标记且未授访客权限的员工边界；玩家自己受伤可自行处理",
+        "在距离内完成3世界秒包扎；最后血源消失后，来客3秒离场；提前止血可直接预防"
       ],
       "pressure_tradeoff": "open+silent每单3.5秒，可继续让浏览客入店；全窗口会失去未入店浏览单，不能白拿A。",
       "free_solution": "语音开关、固定缓冲区与基础绷带免费；门加固只是可选延时。",
-      "failure_recovery": "邀请且有伤者才转入预告后的追踪；引伤者到缓冲区包扎仍能补救，关门不抹掉已入场实体。",
-      "resolution_condition": "登记伤口均处理、来客失去目标并离开；不能仅靠切门牌宣布清除。",
+      "failure_recovery": "只有真实对本来客发出的公共区邀请和仍活动伤口同时成立，才启动追踪。关闭语音不撤销已经发生的邀请；标记员工边界且不授员工权限可争取包扎站位，但不自动止血或清怪。碰撞普通轻伤不追加新伤口，伤口到期不复活。",
+      "resolution_condition": "本实例登记员工不再流血（包扎或90世界秒自然止血），来客失去全部合法目标并完成3秒离场；预告中包扎记PREVENTED，源自然消退记SAFE_RETURNED。已处理的伤口不被重开。",
       "variants": [
         {
           "event_id": "E001",
           "change": "已有待取袋占安全位。",
           "counterplay": "移袋到正常提货槽再安置伤者，不额外生成订单。",
           "id": "F32-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E019",
           "change": "普通照明失效。",
           "counterplay": "伤口和迎宾状态保留可读标记，手动开关与包扎不耗应急电。",
           "id": "F32-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -3092,7 +3584,27 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "condition_mode": "reactive_actual_state",
+        "allowed_bleeding_targets": [
+          "PLAYER",
+          "COWORKER"
+        ],
+        "bleeding_world_seconds": 90,
+        "bandage_world_seconds": 3,
+        "announcement_lead_world_seconds": 12,
+        "minimum_remaining_phase_budget_seconds": 45,
+        "minimum_remaining_fresh_blood_world_seconds": 45,
+        "welcome_warning_world_seconds": 3,
+        "invitation_requires_actual_emission_not_enabled_flag": true,
+        "employee_boundary_state": "marked",
+        "no_employee_zone_invitation": true,
+        "targetless_departure_world_seconds": 3,
+        "activation_clock_contract": "content/condition_lifecycle_v06.json#/wounds/reactive_consumers"
+      },
+      "condition_contract_id": "F32",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F33",
@@ -3122,28 +3634,34 @@
       "taboo": "认出同一个受伤来客后，不要因外形变化堵住他的退路。",
       "critical_action": "按伤迹连续性核对，隔台递包扎物并清空离店线。",
       "action_steps": [
-        "对照本人见过的伤迹与门垫轨迹，不凭一张照片判身份。",
-        "把急救物放公共交付位，保持员工权限边界。",
-        "移开离店线上现有货袋，让同一实体沿原路离开。"
+        "在公共核验位观察同一来客的有限变形与伤迹；若错过最初动画，可等下一次可见变形，或直接保持待核提供公共帮助。",
+        "将本次基础急救物放公共交付位；伤迹只关联该来客，不授予员工权限。",
+        "清出实际占用的离店线，让同一实体沿原路离开；本来畅通就不要求搬空袋。"
       ],
       "pressure_tradeoff": "腾路暂占交付时间；救助不等于给钥匙，变形也不自动证明恶意。",
-      "free_solution": "基础绷带、可近看的伤迹与现有干线足够，不依赖银器装备。",
+      "free_solution": "来客携带本实例专用急救包，伤迹对照与现有干线免费；不消耗两份员工保底敷料，不依赖银器装备。",
       "failure_recovery": "堵路使来客焦躁并预告冲撞；退开并清路可恢复，不强制新增第二追逐。",
-      "resolution_condition": "包扎物交给连续轨迹对应来客，路线恢复并实际离店。",
+      "resolution_condition": "来客接受公共急救物后沿公开路线离店，或在玩家未接受援助时保持出口畅通自行离去；只有实际援助回执给对应奖励，猜对姓名不是结束条件。",
       "variants": [
         {
           "event_id": "E008",
           "change": "一袋外卖挡在出口固定槽。",
           "counterplay": "把同一袋移入待取位，保留其订单归属。",
           "id": "F33-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E014",
           "change": "雷暴干扰远处外形观察。",
           "counterplay": "靠近公共核验位看伤迹，不能仅凭闪电一帧判断。",
           "id": "F33-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -3184,7 +3702,9 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "condition_contract_id": "F33",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F34",
@@ -3219,22 +3739,28 @@
       ],
       "pressure_tradeoff": "抢一个完整擦地窗口省路程，提前退回更稳；不是随机节拍按键题。",
       "free_solution": "普通拖把、地面图形与节拍字幕足够，静音也可玩。",
-      "failure_recovery": "强拍踩湿边先预告拖拽；退干侧可停止并保留已擦割点，不把全地面重湿。",
-      "resolution_condition": "目标湿边切断且任务货位于干侧，不再受该声段拖动。",
+      "failure_recovery": "强拍踩湿边先预告拖拽；退干侧停止并保留已擦割点。休拍必须能容纳擦地与退回动作；已提前断水时直接从干侧取袋，不重新激活湿边。",
+      "resolution_condition": "目标湿边已断开、登记货物已在干侧即可结束；预兆期提前完成同样有效，不要求为重演节拍把货物放回水中。",
       "variants": [
         {
           "event_id": "E001",
           "change": "普通客流声音遮住歌声。",
           "counterplay": "用同拍视觉标记，队列不能占唯一退回格。",
           "id": "F34-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E016",
           "change": "旁边多一个普通湿格。",
           "counterplay": "辨认本卡连通标记，不把所有水都当强拍范围。",
           "id": "F34-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -3274,6 +3800,15 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
+      },
+      "condition_contract_id": "F34",
+      "condition_contract_file": "content/condition_lifecycle_v06.json",
+      "runtime_parameters": {
+        "cycle_world_seconds": 8,
+        "strong_beat_world_seconds": 2,
+        "rest_beat_world_seconds": 6,
+        "wipe_cut_point_world_seconds": 1.5,
+        "safe_window_must_include_actual_approach_and_return": true
       }
     },
     {
@@ -3303,28 +3838,34 @@
       "taboo": "没限定工区就别松手；约定的垃圾扫完后，别让它继续。",
       "critical_action": "亲手限定一处脏槽，让扫帚在不被注视时工作，完工后收回。",
       "action_steps": [
-        "把约定垃圾放入现有工作格，摆边界牌限定对象与一次作业。",
-        "将扫帚放入工位，背向去做别处工作并留意完工标记。",
-        "已标垃圾清空后回到干侧收起工具，交付本次成果。"
+        "仅对当前真实未清垃圾设置一次工区；没有待清对象或不接受委托，就归还来客工具。",
+        "接受后把扫帚放入工位，背向去做其他工作；清扫仅在世界运行且未被注视时推进。",
+        "已标垃圾清空后收回工具并交付；也可提前收起取消未完成委托，不发未完成帮助。"
       ],
       "pressure_tradeoff": "离开注视换自动清扫，却要及时收工具保护旁边商品；拒绝尚未接受的委托不罚。",
       "free_solution": "来客提供本次扫帚与边界牌，玩家只需基础取放；不以稀有供物换解法。",
       "failure_recovery": "边界漏放先推动邻物并警示，可拿起扫帚停工、补边界继续；不随机增加第四个任务。",
-      "resolution_condition": "指定垃圾处理完成、工具归还且未超出承诺范围，有限帮助只给一次。",
+      "resolution_condition": "指定垃圾处理、工具归还时结算一次有限帮助；接受前拒绝、任务提前被清理或提前收回工具均可安全结束，不重新制造垃圾。",
       "variants": [
         {
           "event_id": "E022",
           "change": "小票机卡纸。",
           "counterplay": "用工具刻痕与柜台登记的委托范围核对，不能听口头无限加项。",
           "id": "F35-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E019",
           "change": "主灯熄灭。",
           "counterplay": "基础标线与完成旗仍可读，不花电也能收回工具。",
           "id": "F35-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -3366,7 +3907,9 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "condition_contract_id": "F35",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F36",
@@ -3400,22 +3943,29 @@
       ],
       "pressure_tradeoff": "短时占仓位换一次可选帮助；给无限区域虽省摆牌却会挡工作。",
       "free_solution": "基础边界牌、机械计时与临时纸条免费；未接受前可拒绝。",
-      "failure_recovery": "越界先出现圈向外延伸，收回条再缩回边界可补救；不靠猜名字驱逐。",
-      "resolution_condition": "限定访问结束，访客权限撤回且任务槽复位。",
+      "failure_recovery": "越界先显示圈向外延伸，可撤销本次许可再补边界。许可到20秒自动失效，不能因为纸条尚未收回而永久有效；拒绝尚未接受的借用不受罚。",
+      "resolution_condition": "20秒到期或玩家提前撤销后，该访客对该槽的权限失效并离开；清理纸条和空槽后可领已完成的有限帮助。接受前拒绝也结束邀请。",
       "variants": [
         {
           "event_id": "E009",
           "change": "团购袋占预定仓位。",
           "counterplay": "先移同一订单到合法备用槽，不能把仓位借给两者。",
           "id": "F36-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E030",
-          "change": "另有假店长电话要求放宽。",
-          "counterplay": "核自己的本班任务记录，不因声音或盖章外观改权限。",
+          "change": "同一F36实例利用已登记remote_voice能力发出假店长来电，要求放宽本次权限。",
+          "counterplay": "核自己的真实本班记录，保留原20秒单槽许可；该来电不新增第二个怪物或假店长实体。",
           "id": "F36-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "admission_gate": "当前F36实例已有remote_voice能力且未占用冲突声道",
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -3456,7 +4006,9 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "condition_contract_id": "F36",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F37",
@@ -3486,28 +4038,35 @@
       "taboo": "交接点一直后退时，不要越过固定安全线追声源。",
       "critical_action": "把正常交接落实在店内固定台与回执，停止跟随。",
       "action_steps": [
-        "核本班真实取件记录，停用未核实的口头改址。",
-        "把要交付的登记物放固定台并留下对应回执。",
-        "退回店内操作侧，保持不跨诱离线直到来者退去。"
+        "核实际尚未完成的取件单；不存在对应订单就拒绝口头改址，保留原有工作。",
+        "有真实待取物时只放原登记安全交付槽；领取者未取得本单领取资格就保持封存，不把摆到槽等同交货。",
+        "退回店内，停止跟随，等该诱离请求结束；普通订单只在真实合法交付后计完成。"
       ],
       "pressure_tradeoff": "固定交接较慢，可能放弃这一单收益；店内朝门移动本身不算违禁。",
       "free_solution": "纸任务夹、固定台与手动语音开关免费，不要求锁门耗电。",
       "failure_recovery": "越过第一条线先出现拉远警告；退回可见标记再固定交接。错误电话不自动改任务。",
-      "resolution_condition": "合法交付固定在安全线内，玩家未继续追随，诱离请求结束。",
+      "resolution_condition": "玩家停止追随并保留权限和物件归属，诱离请求结束即可安全收场；合法订单可以已交付或仍保管待取，未交物不虚报成交。",
       "variants": [
         {
           "event_id": "E008",
           "change": "声音冒称迟到骑手来取袋。",
           "counterplay": "核袋号和真实待取记录，物品不交到移动位置。",
           "id": "F37-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E025",
           "change": "后门故障使绕路话术更可信。",
           "counterplay": "只沿已登记侧巷路线，超出标线的带路请求无权更改路径。",
           "id": "F37-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "event_subtype": "fails_to_open",
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -3554,7 +4113,9 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "condition_contract_id": "F37",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F38",
@@ -3583,28 +4144,35 @@
       "taboo": "两个人都说自己刚做完工作时，不要先把钥匙交给说得快的。",
       "critical_action": "先收权限，再亲查三处已登记实物结果，接回异常前轨迹。",
       "action_steps": [
-        "将两者都留在公共待核区，把钥匙放员工侧槽。",
-        "亲查三处已发生作业痕迹，对照本人已确认的先后记录。",
-        "两类独立事实与连续轨迹一致后，仅向对应实体恢复授权。"
+        "把两名同貌者分开待核，将钥匙留在员工侧；真实员工总数不因此增加。",
+        "核查真实三段作业，并确认观察链是否能连续连接到当前某个身体；结果记录本身不认证持有人。",
+        "只有两类独立事实与当前实体连续性都成立才恢复对应权限；证据不足则两者继续待核、暂停相关委派，让冒名请求结束。"
       ],
       "pressure_tradeoff": "同时限权暂失同事代工；检查走位占时间，照片只能辅助记录不能自动标真伪。",
       "free_solution": "真实工作痕迹与本班个人回执可免费观察；缺少完整前史就不投放。",
-      "failure_recovery": "误授权先暴露一处权限异常；撤回钥匙、封停相关工位并重核可补救，不凭空永久丢装备。",
-      "resolution_condition": "高权限仅回到与真实连续轨迹对应的员工，冒名者保持无权并退出。",
+      "failure_recovery": "误授权先暴露权限异常，可撤销该次权限后重核。连续见证已中断时不猜真人，安全待核不会扣信任，也不凭空生成过去的录像补答案。",
+      "resolution_condition": "可证实时仅向真实连续轨迹对应者恢复权限；不可证实时保留钥匙、停止高风险交接并结束冒名请求也算安全处置，不发身份识破奖励。",
       "variants": [
         {
           "event_id": "E029",
           "change": "两个请求来自不同可见区域。",
           "counterplay": "先统一冻结高权限再逐点核验，事件不能额外生成第三个同事。",
           "id": "F38-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E019",
           "change": "一个监控区不可用。",
-          "counterplay": "依赖已登记实物与本人回执；前史不足则拒绝该变体。",
+          "counterplay": "只有剩余记录和连续可见轨迹仍能绑定当前实体才进入识别分支；否则采用安全限权结束，不能把三处物件结果当成身份证。",
           "id": "F38-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "admission_gate": "已有真实前史；丢失唯一证据时保留安全待核终态",
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -3650,7 +4218,9 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "condition_contract_id": "F38",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F39",
@@ -3663,7 +4233,7 @@
       "allowed_phases": [
         "N03"
       ],
-      "work_hook": "换热食设备时，旧灶里的家宅灵不肯跟一份没有落脚点的搬家安排走。",
+      "work_hook": "已登记设备维护或真实故障需要迁移热食工位，旧灶里的家宅灵跟随原有木牌寻找新落脚槽。",
       "omens": [
         {
           "kind": "sound",
@@ -3679,28 +4249,34 @@
       "taboo": "新落脚点没亮起来之前，不要关掉旧灶的灯。",
       "critical_action": "先亮新位、再搬木牌，最后关闭旧位。",
       "action_steps": [
-        "启用已登记备用灶位的基础灯，留出木牌槽。",
-        "把旧木牌实际搬到新槽，确认灰影跟随安定。",
-        "关闭旧位设备并恢复新工位的正常工作。"
+        "检查真实迁移工单与ATT08旧新槽；没有迁移需求就不启动，先使新位基础落脚标记可用。",
+        "把旧位同一木牌实际移到新槽，确认灰影安定。",
+        "安全停用旧位并记录新位状态；停电时只完成隔离和搬迁，不强迫恢复不可用设备的营业功能。"
       ],
       "pressure_tradeoff": "搬家期间占用两个短时工位；一次有序搬运换有限设备帮助，不获得整周免疫。",
       "free_solution": "基本指示灯与木牌不依赖应急储备，停电时有手动标记替代。",
       "failure_recovery": "先关旧位会敲碗并暂时停工；重新亮起旧标记，再按顺序搬迁即可。",
-      "resolution_condition": "木牌与灰影在新槽安定，旧工位停用，搬迁回执提交一次。",
+      "resolution_condition": "实际迁移需求对应的木牌已在新槽安定、旧设备安全停用即可结束；若故障提前修复且无需迁移，则撤销本次邀请，不倒放木牌重做。",
       "variants": [
         {
           "event_id": "E021",
           "change": "旧设备故障必须搬迁。",
           "counterplay": "从安全侧隔离故障，基础落脚标记独立可用。",
           "id": "F39-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E019",
           "change": "主回路断电。",
           "counterplay": "按登记应急标记完成先新后旧，不强迫花电恢复设备。",
           "id": "F39-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -3739,7 +4315,14 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "new_hearth_warmup_world_seconds": 3,
+        "requires_actual_replacement_plan": true,
+        "old_new_slots_reference": "maps.json#ATT08"
+      },
+      "condition_contract_id": "F39",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F40",
@@ -3753,7 +4336,7 @@
         "N02",
         "N05"
       ],
-      "work_hook": "树苗被误收后，货架装饰像林间回环，真实通道并没有移动。",
+      "work_hook": "普通到货中的一株树苗被实际放错位置后，货架装饰出现林间回环；真实通道不移动。",
       "omens": [
         {
           "kind": "physical",
@@ -3776,21 +4359,27 @@
       "pressure_tradeoff": "持苗绕行与看标记占时间；镜头装饰能迷惑观察，但不能偷偷改碰撞或传送人。",
       "free_solution": "普通贴纸、固定槽和可见通路免费；低SAN仍保留关键方向提示。",
       "failure_recovery": "走错仅进入预设绕路并预告重复，回最近实物标记可继续，不无限重置已走路线。",
-      "resolution_condition": "登记树苗归还，玩家回到真实柜台路径，林影退去。",
+      "resolution_condition": "同一登记树苗已归还或合法隔离，林影退去；预兆期提前归还同样有效。路标是安全辨路方法，不要求已正确归还后再走一遍。",
       "variants": [
         {
           "event_id": "E011",
           "change": "雾让远处装饰更像。",
           "counterplay": "只按近处实物标记与连续路线走，不要求远距离辨脸。",
           "id": "F40-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E027",
           "change": "树苗到了验收区而非原货架。",
           "counterplay": "先核实物身份，再用该入口的登记标记路线归还。",
           "id": "F40-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -3836,7 +4425,9 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "condition_contract_id": "F40",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F41",
@@ -3867,28 +4458,35 @@
       "taboo": "可以帮助她，不要拿着寻人物越过水线。",
       "critical_action": "在门内固定槽交付核对过的寻人物，并从店内完成求助联系。",
       "action_steps": [
-        "将寻物袋放到门内交接垫，对照封袋时间和认领描述。",
-        "留在服务位打求助电话，把袋移至窗口托盘；不跟随后退水印。",
-        "关交付缝，保留已完成的求助回执。"
+        "仅使用已有登记的失物袋，在门内交接垫核封袋时间与认领主张；不凭哭声确认归属。",
+        "在柜台求助面板登记联系；无可靠领取资格时袋留合规保管槽，有资格才使用公共交付托盘。",
+        "关闭交付缝并留在门内，保留求助或待办回执，不跟随后退水印。"
       ],
       "pressure_tradeoff": "求助占电话和手持槽；绕过她能继续收银，却会让交接位持续被占。",
       "free_solution": "免费电话、现有袋和内侧服务窗即可；无需判断她是否善良。",
       "failure_recovery": "越线先出现拉扯预告；放下袋、退回干侧可解除牵引，已核对的物件不用重查。",
-      "resolution_condition": "求助联系与正确袋的门内交付均留下回执；玩家未被引出登记服务边界。",
+      "resolution_condition": "求助已登记，失物袋仍在合规保管或已合法交付，诱离请求结束即可安全收场；不能把向未知哭泣者交袋设为强制胜利条件。",
       "variants": [
         {
           "event_id": "E005",
           "change": "真人求助与怪客各有一袋。",
           "counterplay": "按各自时间与封签分槽，交付错袋可在窗口关闭前撤回。",
           "id": "F41-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "admission_gate": "两袋均有实际登记来源和独立物件ID，容量足够；不为凑两袋改写旧失物记录",
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E010",
           "change": "雨水掩盖普通湿痕。",
           "counterplay": "依固定水线标记和袋的移动记录，不用声量判断距离。",
           "id": "F41-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -3934,7 +4532,9 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "condition_contract_id": "F41",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F42",
@@ -3964,28 +4564,34 @@
       "taboo": "哨声听着远、压力牌升高时，不要开后门。",
       "critical_action": "等压力落到远档，再分批拉开手闸搬一箱。",
       "action_steps": [
-        "把待搬物放到门内候运格，观察一个完整声段与压力变化。",
-        "压力牌低位、哨声听来近（实体实际远）时开闸搬一箱，回到干侧关闸。",
-        "重复必要批次，提交同一批货的实际搬运回执。"
+        "把本次实际待搬批次放候运格，观察一个完整声段与机械牌；已有搬运回执的箱不重新加入。",
+        "压力牌低位、哨声听来近时，确认剩余安全窗能容纳开闸、搬一箱、退回及关闸，再提交动作。",
+        "完成本次已承诺批次后关闸；新增超预算货保持普通待运，不加入不可退出的主目标。"
       ],
       "pressure_tradeoff": "等待安全声段延后工单；一次想搬完更省走位，却可能在近档仍占着门。",
       "free_solution": "机械闸、压力牌和字幕均不耗电；不能通过一直锁门完成必要搬运。",
       "failure_recovery": "错期开闸先敲门预警；关闸退回可保留已搬批次，只有暴露的这一箱需重新候运。",
-      "resolution_condition": "登记批次全部经过安全开闸窗口，后门重新关闭；不要求击退实体。",
+      "resolution_condition": "本次登记批次已合法搬运且后门关闭即可结束；已提前搬完可直接关闸结束，不要求再开门表演一次。",
       "variants": [
         {
           "event_id": "E027",
           "change": "错点送货增加一箱，但仍留在已登记后门。",
           "counterplay": "先挂待运号，按同一机械压力窗口分批，超预算则延后额外货。",
           "id": "F42-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E019",
           "change": "电动门与监控离线。",
           "counterplay": "直接使用OBJ_REAR_GATE手闸和机械压力牌，规则不变。",
           "id": "F42-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -4032,6 +4638,17 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
+      },
+      "condition_contract_id": "F42",
+      "condition_contract_file": "content/condition_lifecycle_v06.json",
+      "runtime_parameters": {
+        "cycle_world_seconds": 14,
+        "safe_low_pressure_world_seconds": 8,
+        "unsafe_high_pressure_world_seconds": 6,
+        "manual_gate_open_world_seconds": 1,
+        "manual_gate_close_world_seconds": 1,
+        "max_committed_batches": 2,
+        "actual_route_and_work_must_fit_one_safe_window": true
       }
     },
     {
@@ -4063,28 +4680,34 @@
       "taboo": "未核实的便签不能让你独自改变交接路线。",
       "critical_action": "让来者在公共粉印垫交物，结合真实作业连续性保留权限边界。",
       "action_steps": [
-        "把新便签夹入待核槽，物资仍放公共交接垫。",
-        "观察木足痕，再核对覆盖写入时刻的真实工作记录或玩家连续见证。",
-        "将钥匙留在员工侧；走原登记垃圾路线，或与已核验真人沿固定路线同行。"
+        "把新便签放待核槽，物资留原登记公共交付位；没有真实当前任务就不额外生成一项垃圾清运。",
+        "看公共垫木足痕，并核是否有覆盖所称时刻的真实记录；没有覆盖就保持待核，不宣称已经证伪。",
+        "钥匙留员工侧，拒绝越界要求；仍有合法交接才走原登记路线，或安排已核验真人同行。"
       ],
       "pressure_tradeoff": "同行占用唯一同事，需调整接客；核验花时间，但普通班表本身不能证明人在何处。",
       "free_solution": "免费粉印垫与已发生的工作记录即可；缺证据时保留待核并照原路做工，不必追人。",
       "failure_recovery": "误跟随先给越界预告；退回交接垫可中止。已交钥匙可封停对应权限，补核后恢复。",
-      "resolution_condition": "真同事权限未交给伪装者，当前交接在登记边界内完成；假便签只在证据成立后归档。",
+      "resolution_condition": "高风险权限没有交给未核验者，越界请求结束即可安全处置；只有独立证据成立才归档为假。真实普通交接按原任务另行结算，没有交接物时不制造空任务。",
       "variants": [
         {
           "event_id": "E029",
           "change": "真人与图恩达同时以同事外观出现，只增加一个怪实体。",
           "counterplay": "两者先分开等候，用木足痕与同刻实际工作核验，不选声音像的。",
           "id": "F43-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E022",
           "change": "新纸回执打印不出。",
           "counterplay": "使用已封存记录和玩家连续见证；没有覆盖证据就继续待核，不用空白纸证明身份。",
           "id": "F43-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -4128,7 +4751,9 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "condition_contract_id": "F43",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F44",
@@ -4165,21 +4790,27 @@
       "pressure_tradeoff": "提前收尾少拿小费，继续应和会占用收银窗口；选择作用于实物托盘和单号。",
       "free_solution": "店内价牌、纸票和交付槽都免费；不要求完成音乐问答。",
       "failure_recovery": "误续单只新增一个可见待确认段；合上该托盘可撤销未接受续约，已交货不追回。",
-      "resolution_condition": "单次歌曲绑定的实际交易已交付，续曲未获新许可。",
+      "resolution_condition": "本单实际交付且未授新续约，或接受前明确拒绝并关闭托盘，均结束本次邀请；只有真实交付计收入。确认铃不自行生成新已接受合同。",
       "variants": [
         {
           "event_id": "E001",
           "change": "顾客队列挤到歌者旁。",
           "counterplay": "把其他订单移到第二队列，保留歌者唯一交易号。",
           "id": "F44-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E023",
           "change": "电子收银离线。",
           "counterplay": "使用编号纸票与实体价牌，最后交货同样能封单。",
           "id": "F44-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -4220,7 +4851,15 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "accepted_special_order_deadline_world_seconds": 30,
+        "deadline_is_not_ordinary_waiting_patience": true,
+        "acceptance_deadline_must_fit_current_phase_budget": true,
+        "special_order_replaces_base_slot": true
+      },
+      "condition_contract_id": "F44",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F45",
@@ -4233,7 +4872,7 @@
         "N02",
         "N05"
       ],
-      "work_hook": "收货环节出现朝反方向的足印；真正来货路线藏在箱轮的连续擦痕里。",
+      "work_hook": "本次真实到货移动生成连续箱轮擦痕，逆向脚印诱导玩家看错货格；轮痕与箱ID及批次绑定。",
       "omens": [
         {
           "kind": "physical",
@@ -4256,21 +4895,27 @@
       "pressure_tradeoff": "空手先查更稳，带箱跟错痕会多一次搬运；无需逐箱填写新表格。",
       "free_solution": "轮痕、箱角和固定货格都是现有物件，不依赖探测装备。",
       "failure_recovery": "错误格先出现反向脚印封边；撤回箱子可重走，批次身份与已查痕迹保留。",
-      "resolution_condition": "登记货箱放入与连续轮痕相符的正确货格，而非仅在面板选对方向。",
+      "resolution_condition": "同一登记箱进入轮痕对应正确货格并有实际回执即可结束；提前正确上架有效，不撤回已完成货箱重做。",
       "variants": [
         {
           "event_id": "E027",
           "change": "送货先停在后门候验格。",
           "counterplay": "从实际轮痕起点追到本批货格，再搬入，不凭旧约定位置。",
           "id": "F45-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E003",
           "change": "两批退货形成交叉痕迹。",
           "counterplay": "先隔离非本批箱，按封签对应的连续轮痕逐批推回。",
           "id": "F45-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -4311,7 +4956,9 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "condition_contract_id": "F45",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F46",
@@ -4348,7 +4995,7 @@
       ],
       "pressure_tradeoff": "耐心等一轮会延后清洁；盲追更快移动却可能再丢工具。",
       "free_solution": "固定筛罩与三个候选槽免费。P06可用3秒搬回已揭示槽中的同一件轻工具；工具转移不清除旋风，玩家仍须布筛截住它。",
-      "failure_recovery": "放早或放错只让旋风绕过一次；工具不删除，可再等一轮，关键任务工具有替用件。",
+      "failure_recovery": "放错筛只让旋风绕过一次；工具不删除，关键工序有已登记替用件。仅能偷未预留的普通轻工具；已归还或已被P06预留的同一工具不再被本实例偷回。",
       "resolution_condition": "工具物件回到玩家或原工具槽，旋风在固定槽被截住一次。",
       "variants": [
         {
@@ -4356,14 +5003,21 @@
           "change": "纸质缺件单无法打印。",
           "counterplay": "直接对照原工具槽与地面风迹，口头猜测不计归还。",
           "id": "F46-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E069",
           "change": "宠物也藏起一件普通小物。",
           "counterplay": "先分清旋风工具和宠物藏物的物件ID；两者归还不重复领奖。",
           "id": "F46-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "admission_gate": "有实际出勤宠物、另一件可藏非关键物及其可达候选槽；未带宠物时不选该变体",
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -4420,7 +5074,12 @@
         "wind_cannot_relocate_reserved_item": true,
         "release_reservation_on_cancel_without_duplicate": true,
         "does_not_satisfy_wind_interception": true
-      }
+      },
+      "runtime_parameters": {
+        "candidate_dwell_world_seconds": 4
+      },
+      "condition_contract_id": "F46",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F47",
@@ -4456,22 +5115,28 @@
       ],
       "pressure_tradeoff": "追加奖励换更窄窗口与更多时间，每次尝试明示结算8秒；低SAN仍按已有QTE档收窄。",
       "free_solution": "可不接受歌约或在第一段收手；P03专属仍是当前合法窗口额外+0.4秒，按既有上限结算。",
-      "failure_recovery": "错过窗口先停止下一段；只失去尚未兑现的加码，回到干侧可封存基础所得，不撤销既有回执。",
-      "resolution_condition": "完成一至三段之一的实际封袋与领取，或在接受前拒绝；只有已完成回执发奖励。",
+      "failure_recovery": "错过窗口停止下一段，仅失去尚未兑现的加码；已完成段的实物奖励保留。第一段未完成就没有凭空基础奖。退出已开始尝试扣明示8秒一次，不再补扣。",
+      "resolution_condition": "任一已完成段实际封袋领取后退出，或未接受前拒绝，或失败/预算不足时安全退出，均结束本次邀请；奖励只按既有完成回执结算，不反复开页产奖。",
       "variants": [
         {
           "event_id": "E011",
           "change": "窗外浓雾使歌者方向不清。",
           "counterplay": "停拍字幕、袋口刻线和干侧站位仍可见，不能缩掉必需窗口。",
           "id": "F47-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E065",
           "change": "额外奖励改为奖券碎片。",
           "counterplay": "按实际封袋回执结算碎片，重复读奖励页不再发券。",
           "id": "F47-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -4526,7 +5191,9 @@
         "special_pet_id": "P03",
         "pet_combination": "strongest_single_increase_not_sum_shared_charge_pool",
         "freeze_policy_file": "content/qte.json"
-      }
+      },
+      "condition_contract_id": "F47",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F48",
@@ -4557,28 +5224,35 @@
       "taboo": "能在店里购物的人，不等于能戴上工作帽穿过员工门。",
       "critical_action": "把商品交到访客托盘，把工作帽和钥匙留在员工侧槽。",
       "action_steps": [
-        "完成正常交易，把商品实际放公共交付位。",
-        "来客要求帮忙时先保留访客权限；只查真实授权链，不因帽子怪异拒售。",
-        "把工作帽归回员工槽，关有限通行门后让来客从前门离店。"
+        "对本次基础名额中的真实订单正常交付；没有成交就保持访客路线，不凭空补出一单。",
+        "来客要求帮忙时保留访客权限，工作帽本身不授通行；任何额外许可须明确记录对象、区域和期限。",
+        "帽子归员工槽，撤销误授的本次权限或关闭员工侧通行，让访客从公开路线离店。"
       ],
       "pressure_tradeoff": "接受陌生人代搬可以省一次跑动，却会暴露员工区；自己交货或请真同事更耗岗位时间。",
       "free_solution": "公开托盘、员工槽和手动门免费，不需要照出真身才能安全卖货。",
       "failure_recovery": "帽子被拿起先触发门禁预告；回收帽子或撤销该次通行后可继续普通交易。",
-      "resolution_condition": "商品已交付，员工权限未被购物凭证替代；访客留在公开路径并离店。",
+      "resolution_condition": "访客没有借购物或工作帽取得未授权员工权限并沿公开路线离店，即安全结束；只有实际交付商品才计订单收益。",
       "variants": [
         {
           "event_id": "E035",
-          "change": "自称店长的人带访客来帮忙。",
-          "counterplay": "核验带人者本人的授权，不把同行外貌当作许可。",
+          "change": "已经核验的真实店长带同一F48访客来帮忙；本变体没有第二个假店长实体。",
+          "counterplay": "真实店长同行仍不自动授予访客员工权限；逐项确认本次有限许可，保持商品公共交付。",
           "id": "F48-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "admission_gate": "真实店长实际在场且已核验，唯一怪实体仍为F48访客；无真实店长则不选该变体",
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E031",
           "change": "查账要求同时占用核验台。",
           "counterplay": "账册先封入员工侧，访客购物仍走公共托盘，延期高权限操作。",
           "id": "F48-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -4622,7 +5296,15 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "accepted_special_order_deadline_world_seconds": 30,
+        "deadline_is_not_ordinary_waiting_patience": true,
+        "acceptance_deadline_must_fit_current_phase_budget": true,
+        "special_order_replaces_base_slot": true
+      },
+      "condition_contract_id": "F48",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F49",
@@ -4636,7 +5318,7 @@
         "N03",
         "N04"
       ],
-      "work_hook": "火蛇围着发热垃圾盘旋，开盖检查会把余热暴露成目标；正常热食不在它的惩戒范围。",
+      "work_hook": "真实热食工作留下已登记热废物，火蛇只围绕该袋；合规热食不在目标范围。",
       "omens": [
         {
           "kind": "physical",
@@ -4652,28 +5334,36 @@
       "taboo": "有余热的垃圾，不要敞口投进垃圾箱。",
       "critical_action": "先合盖封住余热，再从袋外温标确认冷却后投放。",
       "action_steps": [
-        "把热垃圾放到封袋位，合上现成隔热盖。",
-        "在不掀盖的情况下等温标降档；将合规热食留在原工位。",
-        "把已冷却封袋搬到垃圾箱，保留投放回执。"
+        "把实际热废物放封袋位，使用该位已有隔热盖封闭；已冷却的袋不重新加热制造目标。",
+        "封闭后按世界时间等待可见温档下降；闷热只能增加已预告且已留预算的等待。",
+        "有预算便按合法路线投放；路线受阻时留在封闭安全暂存位并登记普通清运待办。"
       ],
       "pressure_tradeoff": "等降温会占一个容器和时间；立即倾倒能赶工，却把危险带到后院。",
       "free_solution": "固定盖与袋外温标免费；不必熄灭全店热源，也不需要购买灭火器才能解。",
       "failure_recovery": "误开盖先出现橙色警戒圈；立即重新合盖可撤出，未冷却袋仍留在原位，不凭空焚毁库存。",
-      "resolution_condition": "登记废物保持封闭并降到允许热档后实际投入垃圾箱。",
+      "resolution_condition": "冷却后实际投放记完整清运；封闭安全暂存并结束火蛇活动也可安全收场，不虚报已投垃圾箱。提前冷却或已投放物不会重新生成热目标。",
       "variants": [
         {
           "event_id": "E018",
           "change": "闷热让冷却档多停一轮。",
           "counterplay": "先封盖，再处理另一项短店务；导演预留额外等待预算。",
           "id": "F49-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E025",
           "change": "后门锁卡。",
           "counterplay": "冷却袋暂存封闭位，走已确认侧巷路线；路线超预算则合法延期投放。",
           "id": "F49-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "admission_gate": "故障必须明确为stuck_closed或后门路线真实不可用；外绕总时长不足则保留安全封闭待办",
+          "event_subtype": "fails_to_open",
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -4715,7 +5405,14 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "covered_cooling_world_seconds": 20,
+        "open_lid_pauses_cooling_and_exposes_target": true,
+        "hot_waste_is_not_saleable_food": true
+      },
+      "condition_contract_id": "F49",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F50",
@@ -4753,21 +5450,27 @@
       "pressure_tradeoff": "盯窗能获取目标，但也耽误搬货；花灯电可早看，机械遮板与轮廓仍是免费解。",
       "free_solution": "店内固定板、近侧帘和预告都免费；启动前当前到板再到窗须不超过12格。",
       "failure_recovery": "错窗先留下破裂预告，可拉近帘保守撤出，停止该窗业务；不瞬间从窗外传送追人。",
-      "resolution_condition": "当前目标窗被正确防护且玩家已离开条带，撞击结算一次；防护不改变全店导航。",
+      "resolution_condition": "正确板防护且玩家离开受击带，可结算完整防御；错窗后拉帘、关闭该窗业务并撤到安全点，也能结束本轮危险但不发正确防护奖励。已提前合法防护有效，不能暗换目标补题。",
       "variants": [
         {
           "event_id": "E019",
           "change": "普通外窗灯熄灭。",
           "counterplay": "保留掠影轮廓、振动和字幕，用手动板槽完成。",
           "id": "F50-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E014",
           "change": "雷光制造一次无爪痕假影。",
           "counterplay": "只在两次对应爪痕确认后选窗；假影不缩短8秒有效预告。",
           "id": "F50-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -4817,7 +5520,9 @@
         "empty_hands_or_release_budget_seconds": 0.25,
         "interior_impact_cells_from": "defense_groups",
         "take_push_and_retreat_must_fit": true
-      }
+      },
+      "condition_contract_id": "F50",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F51",
@@ -4828,7 +5533,6 @@
         "SG06"
       ],
       "allowed_phases": [
-        "N01",
         "N05"
       ],
       "work_hook": "故事商一边讲述一边替你扩写折扣；小票与商品在柜台上构成能被实际钉住的事实。",
@@ -4854,21 +5558,27 @@
       "pressure_tradeoff": "多听一段可能提高小费，也给对方续写条款的机会；复核占注意力，不要求新算术小游戏。",
       "free_solution": "免费基础回执与固定折扣牌足够；没有可用本班记录时导演不投放。",
       "failure_recovery": "压错只让本轮优惠暂停，原收据不改写；可收回未签牌重摆，拒绝未接受的续约不受罚。",
-      "resolution_condition": "真实回执对应的有限折扣和实物交付同时结算，未生成无限次折扣义务。",
+      "resolution_condition": "真实回执支持的一次有限交易实际交付即可结算；接受前拒绝或在未承诺下一段时退出也安全结束。没有本班真实旧回执则不发此题，不能倒造过去交易。",
       "variants": [
         {
           "event_id": "E022",
           "change": "新收据打印卡住。",
           "counterplay": "使用已存在的存档联；没有旧回执就延期该遭遇。",
           "id": "F51-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E067",
           "change": "无署名礼盒被说成你已同意收下的赠品。",
           "counterplay": "礼盒先放隔离槽，只让真实回执中的物品进入本单。",
           "id": "F51-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -4907,7 +5617,19 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "required_distinct_current_shift_sale_receipts": 3,
+        "history_before_first_omen_required": true,
+        "no_first_phase_without_actual_history": true,
+        "accepted_special_order_deadline_world_seconds": 45,
+        "deadline_is_not_ordinary_waiting_patience": true,
+        "acceptance_deadline_must_fit_current_phase_budget": true,
+        "special_order_replaces_base_slot": true
+      },
+      "admission_note": "当前只在N05投放；三张不同本班销售回执须在远兆前真实存在。N01班前尚无本班成交，不再保留这一不可满足的标准候选。未凑齐记录就选其他内容，不补造历史。",
+      "condition_contract_id": "F51",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F52",
@@ -4935,30 +5657,36 @@
         }
       ],
       "taboo": "椅脚还连着水线时，不要坐下。",
-      "critical_action": "从干侧擦断椅南割点，再用低位手压灯查椅底。",
+      "critical_action": "从干侧擦断椅南割点并低位检查，解除后再决定是否短休。",
       "action_steps": [
-        "先交岗或暂缓接客，从干侧够到WET_CHAIR割点。",
-        "擦断该格，按固定手压检查灯，确认椅底影子离开。",
-        "坐下完成一次6秒世界短休，再起身领绑定本次的恢复回执。"
+        "确认安全交岗或暂停入店并处理现有客务，从干侧够到WET_CHAIR割点。",
+        "擦断该格，用固定手压灯确认椅底影子离去；如果已提前断线并看清，同样有效。",
+        "需要恢复且剩余预算够时才坐6秒世界短休；也可停用该椅位并继续收尾。"
       ],
       "pressure_tradeoff": "检查会推迟休息；急着恢复SAN却可能先损失SAN，留下不受影响的站立稳定解。",
-      "free_solution": "固定拖把和手压检查灯免费；可先在干站点稳定，无需购买电池。",
+      "free_solution": "固定拖把和手压检查灯免费；SAN归零时可随身累计8秒应急稳定，普通休息仍在工位，无需购买电池。",
       "failure_recovery": "误坐先出现抓脚预告，起身退到干站点可挣脱；重查后仍能短休，不抹去先前工作。",
-      "resolution_condition": "椅线已断、低位检查通过，实际短休回执只提交一次。",
+      "resolution_condition": "椅线断开、低位检查确认影子离去即解除危险；6秒短休只决定额外恢复回执，不是交班必须满足的条件。",
       "variants": [
         {
           "event_id": "E026",
           "change": "普通仓库漏水也在场，但来源不同。",
           "counterplay": "只切椅南独立短线，不能把关仓库总阀当成椅底已安全。",
           "id": "F52-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E019",
           "change": "顶灯断电。",
           "counterplay": "手压低灯与椅脚标记仍可读，基础检查不用池电。",
           "id": "F52-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -5000,7 +5728,9 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "condition_contract_id": "F52",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F53",
@@ -5030,28 +5760,34 @@
       "taboo": "已经答应留在水界内的饮水，不要拿去补售货架。",
       "critical_action": "把承诺瓶实际放入封签保留槽，售货只从另一箱拿。",
       "action_steps": [
-        "接受前看清保留数量、每单上限与06:00终期；也可不接契约。",
-        "亲手将承诺瓶分入保留槽封好，剩余瓶放可售槽。",
-        "接单时搬可售瓶，整夜保留封签；交班后再解除占用。"
+        "接受前确认独立6瓶饮水、2瓶承诺与4瓶可售、两个已有容器槽及真实06:00期限；可以拒绝，个人保底补给不纳入。取消只放弃尚未获得的契约回报。",
+        "亲手把同一批承诺瓶分入保留槽封好，剩余瓶才进入可售槽；跨小时保留该槽占用。",
+        "只卖可售瓶；真实06:00先核履约或已声明违约结算，再释放占槽和封签，之后进行正式交班。"
       ],
       "pressure_tradeoff": "回报换真实库存和一个槽位；热浪时宁愿少卖，也不能把同一瓶同时计作保留和售出。",
       "free_solution": "基础饮水与双槽容器免费，接受前保证数量够；不强迫购买道具或让玩家挨饿补契约。",
-      "failure_recovery": "误移先显水纹警告，可把尚未交出的瓶退回。已售不能复制补回，可结算一次明示损耗结束契约，不直接判整夜失败。",
-      "resolution_condition": "至06:00保留槽数量与封签有效，或实际结清违约损耗；跨小时占槽持续计入导演。",
+      "failure_recovery": "误移未售瓶可放回；已售物不复制补回。接受前明示取消只放弃尚未获得的契约奖励，无新现金扣款、欠债或必须补购的物品；取消释放剩余物占用。",
+      "resolution_condition": "真实06:00先结算履约并释放占用，或此前按明示条件取消契约；两者都结束本契约。契约终态必须先于关键威胁检查与H20交班，不能循环等待交班后解封。",
       "variants": [
         {
           "event_id": "E012",
           "change": "热浪增加普通饮水需求。",
           "counterplay": "继续用可售槽分单，需求超过明示配额则拒绝额外销量。",
           "id": "F53-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E015",
           "change": "普通自来水停供。",
           "counterplay": "饮用瓶与清洁水分开记，不能把保留瓶自动消耗为清洁补水。",
           "id": "F53-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -5092,6 +5828,15 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
+      },
+      "condition_contract_id": "F53",
+      "condition_contract_file": "content/condition_lifecycle_v06.json",
+      "runtime_parameters": {
+        "offered_bottles": 6,
+        "promised_bottles": 2,
+        "saleable_bottles": 4,
+        "personal_emergency_food_and_water_excluded": true,
+        "exit_penalty": "forfeit_unearned_contract_reward_no_new_cash_required"
       }
     },
     {
@@ -5122,28 +5867,35 @@
       "taboo": "最先被吞进去的东西，不要先拉。",
       "critical_action": "从最后吞入的一件开始，逐件逆序拉到外部暂存槽。",
       "action_steps": [
-        "看清三次吞入和对应绳槽，将外部三个暂存格清空。",
-        "从最后一结开始拉回物件，实际放入GRP_GIANT_BUFFERS。",
-        "依逆序取完三件并收绳；不进入巨兽体内。"
+        "只登记三件真实可用普通货，排除任务肉、回形针保底、钥匙、个人保底食品及已承诺库存；三次实际吞入同步留下可回看的顺序记录。",
+        "从最后一结取回同一物件，放入已有GRP_GIANT_BUFFERS空槽；错过动画可读已有记录。",
+        "按逆序取完并收绳；不进入巨兽体内、不吞真人，也不重新吞入已归还物。"
       ],
       "pressure_tradeoff": "拉回每件时要占手和一格暂存位；急着抢最贵的货会打乱绳序。",
       "free_solution": "固定三绳和三个暂存槽免费；只处理登记三物，不能吞掉玩家全部背包或生成腹内地图。",
       "failure_recovery": "错拉先让该结绷紧，松手可重试；已取回物不重新吞入，不因一次错误把全部成果抹掉。",
-      "resolution_condition": "三件物品均按逆序进入实际暂存槽，吞入队列为空；吞同事和救人功能门槛保持关闭。",
+      "resolution_condition": "三件原物依序回到实际暂存槽、吞入队列为空即结束；没有足够合法对象和空槽就不投放，不复制物件凑三件。",
       "variants": [
         {
           "event_id": "E009",
           "change": "三件都是团购中的登记货。",
           "counterplay": "以吞入顺序回收，不按售价排序；回收与团购交付是两个不同收据。",
           "id": "F54-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E025",
           "change": "后门不能用。",
           "counterplay": "全过程只用前场与已有暂存格，不暗加必须从后门取的专属工具。",
           "id": "F54-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "event_subtype": "fails_to_open",
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -5186,7 +5938,9 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "condition_contract_id": "F54",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F55",
@@ -5216,28 +5970,34 @@
       "taboo": "已经走上护送线，不要为了旁边的脚步离开亮点。",
       "critical_action": "交出一份未吃过的实际食物，沿限定节点完成交接并返回。",
       "action_steps": [
-        "从可赠库存取一份食物放到犬前，不能重复使用已吃掉的口粮。",
-        "拿本次交接物沿登记节点行走，不跟线外脚步。",
-        "在终点交物后返回店内，结清本段护送；这不算提前下班。"
+        "接受前确认真实待交物、单独可赠食物和返程预算；未接受就拒绝不耗食物，个人保底餐不被强占。",
+        "交出一份未食用物后，携同一交接物沿登记干路线前进，不追线外脚步。",
+        "对方在约定时限内可合法收物就交付后返店；迟到超时则带原物返回保管，同样结束本段护送。"
       ],
       "pressure_tradeoff": "赠食减少可售或可吃库存，护送占用玩家行程；可以在接受前拒绝。",
       "free_solution": "店内有一份免费基础赠食可用；不依赖宠物购买或抽奖，也不承诺店外无限无敌。",
       "failure_recovery": "踩出线先让犬停步示警，返回最近节点可续行；离开过久则本次庇护结束，交接物仍保留。",
-      "resolution_condition": "食物交付和本段交接均完成。回报只作用本次护送，或下一夜一次提前预警；N06不生成第七小时怪。",
+      "resolution_condition": "完成限定护送并返回店内即可结束：实际交付才记订单完成，超时带物返回只记安全护送及待办。次夜预警绑定实际下一夜ID、跨周仍限一次且到期失效，N06不生成第七小时。",
       "variants": [
         {
           "event_id": "E008",
           "change": "骑手迟到，交接物需在终点等候。",
-          "counterplay": "限定等候时间后带物返回，护送不无限延长。",
+          "counterplay": "按本次明确等候上限等待，超时带同一物返回并以安全返回结束护送；不虚报交易完成，也不无限续期。",
           "id": "F55-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E016",
           "change": "门前普通积水靠近标线。",
           "counterplay": "在投放前验证干路可达，否则换已登记干档或延期，不临时强迫越界。",
           "id": "F55-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -5281,6 +6041,14 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
+      },
+      "condition_contract_id": "F55",
+      "condition_contract_file": "content/condition_lifecycle_v06.json",
+      "runtime_parameters": {
+        "receiver_wait_world_seconds_max": 6,
+        "return_budget_reserved_before_acceptance": true,
+        "off_route_warning_world_seconds": 3,
+        "off_route_protection_expires_world_seconds": 6
       }
     },
     {
@@ -5318,21 +6086,27 @@
       "pressure_tradeoff": "先探边界多走几步；直接取近处货物看似更快，却会进入拖拽区。",
       "free_solution": "固定尺、拖把与干侧路线免费；不把量尺做成连续物理深度模拟。",
       "failure_recovery": "误入边缘先给下沉预告，退到刚登记的干格可中止；目标货仅滑到下一固定格，不随机沉没消失。",
-      "resolution_condition": "测深记录和湿区割断都已发生，登记物从干格实际取回。",
+      "resolution_condition": "已确认目标分支排干、登记物从干侧实际取回即结束；测深用于辨认边界，若玩家已提前断水并安全取回，不强迫在干地重复测深。",
       "variants": [
         {
           "event_id": "E010",
           "change": "门前雨水同时出现。",
           "counterplay": "雨水与货架深水有不同来源标记，只处理本次WET_AISLE。",
           "id": "F56-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E026",
           "change": "普通库房水源漏水。",
           "counterplay": "先核来源，不把仓库阀的关闭当成货架幻境已解除；干路无解则拒投放。",
           "id": "F56-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -5376,7 +6150,9 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "condition_contract_id": "F56",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F57",
@@ -5404,30 +6180,36 @@
         }
       ],
       "taboo": "不要为了省搬货距离把守护水渠永久堵死。",
-      "critical_action": "在本地8秒维护窗口里搭板过一箱，随后撤板恢复水流。",
+      "critical_action": "选择8秒维护过箱，或沿登记外绕路线送箱；最终恢复主渠且收起踏板。",
       "action_steps": [
-        "清掉保护水沟上的杂物，将待过箱放到ATT15交叉起点。",
-        "拉本地维护杆，按固定槽放踏板，把箱移到另一侧缓冲格。",
-        "撤板并恢复流动，确认三段重新连通后交货。"
+        "清理主渠上的现有杂物，确认同一待过箱和维护或外绕预算；箱已到目的地就直接核水流。",
+        "选维护才启动ATT15的8秒窗、放板并过箱；超预算改走已登记外绕，不伪造维护回执。",
+        "箱已送达后撤除实际使用的踏板、恢复主渠流动并交付；未使用踏板不要求摆一次再收。"
       ],
       "pressure_tradeoff": "绕过水渠要多走，过板要服从窗口；这里保护的是水路，与其他水怪的断支流不矛盾。",
       "free_solution": "ATT15踏板、拉杆与缓冲槽免费；8秒内的完整动作已静态预算，跨过并不重建寻路网格。",
       "failure_recovery": "窗口将结束先提示归位，可放箱到缓冲槽退回；仅本轮未完成，已移箱不回传、不整片倒灌。",
-      "resolution_condition": "登记箱到另一侧、踏板已撤、主渠连接和流动恢复；只允许登记维护期短暂停流。",
+      "resolution_condition": "同一登记箱通过合法维护路线或登记外绕到达，主渠畅通且无遗留踏板即可结束；提前送达且渠畅通同样有效。",
       "variants": [
         {
           "event_id": "E026",
           "change": "普通旁支漏水同时发生。",
           "counterplay": "关普通旁支阀，保护主渠仍按三段连通契约处理。",
           "id": "F57-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E009",
           "change": "跨线物改为重箱。",
           "counterplay": "先把重箱搬到起点再开8秒窗；实际完整动作超预算就用外绕路线。",
           "id": "F57-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -5477,7 +6259,9 @@
         "maintenance_pause_max_world_seconds": 8,
         "must_restore_source": true,
         "canonical_local_attachment": "ATT15"
-      }
+      },
+      "condition_contract_id": "F57",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F58",
@@ -5507,28 +6291,34 @@
       "taboo": "雾还贴着边界时，不要把唯一的保温热食拿去售卖。",
       "critical_action": "留一份真实热食在保温槽维持边界，或实际封闭冷区。",
       "action_steps": [
-        "确认保温槽内有一份已验热食，优先把普通订单改用另一份。",
-        "维持局部保温灯与热食，沿暖区工作；不必把全店灯都开满。",
-        "物资不足就挂OBJ_COLD_SECTION_SIGN并停止该区接单，等本次雾退。"
+        "确认实际热食及其温档，或选择手动停用冷区普通业务；退雾时点在本次开始前明确。",
+        "保留热食时按可见温档维护，沿暖区工作；订单只用实际另一份，不能生成无限替代热食。",
+        "热食不足或选择保守处理时挂已有封区牌并退出影响范围；封区不锁关键任务冰柜、同事退路或紧急出口。"
       ],
       "pressure_tradeoff": "留食少一份销量，供电延长便利；封区保守解放弃一段服务但不会取消整夜基础目标。",
       "free_solution": "免费基础热食或手动封区均可完成，不要求用最后一格电救命。",
       "failure_recovery": "误取最后热食先给边界收缩预告，放回或封区可补救；HUD和撤离方向不被雾覆盖。",
-      "resolution_condition": "热食边界守到本次退场，或冷区已明确停用且玩家退出边界；两者只发一次回执。",
+      "resolution_condition": "暖边界维持到本次明确退雾时点，或冷区普通业务已实际停用且玩家安全退出，均结束本次遭遇；提前封区有效，只有真实受影响服务才计机会损失。",
       "variants": [
         {
           "event_id": "E021",
           "change": "微波炉停转。",
           "counterplay": "独立保温槽有热食则继续，无食或设备不可用就实际封区。",
           "id": "F58-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E011",
           "change": "外部浓雾加重普通能见度。",
           "counterplay": "保留暖区边界和货架编号，两个雾来源不叠加吞掉全部提示。",
           "id": "F58-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -5571,7 +6361,14 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "fog_offer_world_seconds": 30,
+        "hot_portion_quality_world_seconds": 40,
+        "cold_section_closed_is_free_exit": true
+      },
+      "condition_contract_id": "F58",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     },
     {
       "id": "F59",
@@ -5600,28 +6397,34 @@
       "taboo": "供料后，不要开着施工灯盯着它们做。",
       "critical_action": "把所需材料放到固定槽，再关局部施工灯、离开注视。",
       "action_steps": [
-        "按三槽轮廓放基础材料，摆绕行牌保留工作通路。",
-        "关施工局部灯并把视线转向别处，照常做另一项短工作。",
-        "完成铃响后回去按一次设施测试键，验收有限修复。"
+        "仅接受当前真实未修故障，在现有三槽放基础材料并保留通路；没有故障或已修好就取消邀请。",
+        "关闭该工区局部灯并转开注视，使其制作本故障对应的有限替换组件；世界暂停时施工也暂停。",
+        "完成铃后取同一组件，到目标已有操作位安装并测试；测试成功才解除该故障。"
       ],
       "pressure_tradeoff": "等待时必须让出注意力与一段位置；关的只是局部灯，不切冷链任务柜。",
       "free_solution": "基础材料与绕行牌免费；没有损坏设施就不给无意义维修任务。",
       "failure_recovery": "误看或开灯只暂停进度，转开可继续；材料不重扣，不因一眼抹掉所有已做工。",
-      "resolution_condition": "材料已实际交付、施工完成且目标设施测试通过；最多修该登记故障一次。",
+      "resolution_condition": "真实故障对应组件已制作、安装并通过实际测试时结算一次帮助；故障提前修好或接受前拒绝则安全结束，返还未用材料，不产生故障免疫。",
       "variants": [
         {
           "event_id": "E001",
           "change": "普通排队可能靠近工区。",
           "counterplay": "先导向第二队列或让真同事接台，再让工队继续。",
           "id": "F59-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E024",
           "change": "坏门铃成为修理对象。",
-          "counterplay": "施工后由玩家按测试键确认，只恢复普通提醒，不获得识破怪物能力。",
+          "counterplay": "工队在固定工区制作同一故障的门铃替换组件，玩家带到前门已有门铃操作位安装并测试；不凭工区完成旗远程修好门铃。",
           "id": "F59-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -5665,6 +6468,15 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
+      },
+      "condition_contract_id": "F59",
+      "condition_contract_file": "content/condition_lifecycle_v06.json",
+      "runtime_parameters": {
+        "required_repair_material_units": 3,
+        "unobserved_construction_world_seconds": 8,
+        "install_world_seconds": 2,
+        "test_world_seconds": 1,
+        "one_component_per_fault_instance": true
       }
     },
     {
@@ -5703,21 +6515,27 @@
       "pressure_tradeoff": "多看一秒能认清原型，晚退一步会暴露；帘同时挡住该侧信息，需换服务位。",
       "free_solution": "固定帘与朝向锁定都免费；镜面查看不触发直视禁令，不能将二者都按facing判罚。",
       "failure_recovery": "误转头先给可见的惊惧警告，拉帘或侧退可恢复；帘不得在同一遭遇里无预告失效。",
-      "resolution_condition": "转身危险窗口内实体视线被遮断或玩家未朝向，服务位实际停用并完成退场等待。",
+      "resolution_condition": "实际实体视线已被有效遮挡或玩家保持未朝向，该服务位实际停用并完成2秒世界退场等待即结束；提前拉帘或停用有效。帘只在真实位于两者之间时阻视，镜证据仍为可选奖励。",
       "variants": [
         {
           "event_id": "E011",
           "change": "雾让镜位提示只能在观察点附近读到。",
           "counterplay": "先站到固定脚点，保留转身预告与近帘；可放弃镜证据直接锁朝向退出。",
           "id": "F60-V05-1",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         },
         {
           "event_id": "E019",
           "change": "普通灯熄灭。",
           "counterplay": "镜中预制轮廓、头影警示与机械帘仍可用；免费朝向退离不变。",
           "id": "F60-V05-2",
-          "preserve_core_resolution": true
+          "preserve_core_resolution": true,
+          "condition_recheck_required": true,
+          "cannot_fabricate_missing_history": true,
+          "replaces_only_declared_event_branch": true
         }
       ],
       "implementation": {
@@ -5761,10 +6579,18 @@
         "authority_file": "content/map_mechanics_v05.json",
         "dynamic_admission_required": true,
         "static_binding_is_not_route_timing_proof": true
-      }
+      },
+      "runtime_parameters": {
+        "turn_warning_world_seconds": 8,
+        "targetless_departure_world_seconds": 3
+      },
+      "condition_contract_id": "F60",
+      "condition_contract_file": "content/condition_lifecycle_v06.json"
     }
   ],
   "authority": "当前交互设计；F12/F13精确蓝图最高优先，四资源/奖励/预算/证据/经营规则按store_systems_v05，不从本表短文重新推断。",
   "runtime_loading_contract": "全部runtime_enabled为false。先完成组件及逐怪适配，并在客户端从当前站位验证路线、预警、预算和占位，才可启用。此表不是可eval的状态机。",
-  "event_variant_total": 120
+  "event_variant_total": 120,
+  "current_condition_contract": "content/condition_lifecycle_v06.json",
+  "filename_retained_for_existing_links": true
 }

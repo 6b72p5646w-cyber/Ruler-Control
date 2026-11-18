@@ -1,16 +1,16 @@
 {
-  "version": "0.4",
+  "version": "0.6",
   "events": [
     {
       "id": "E001",
-      "name": "暴单十分钟",
+      "name": "两单撞时",
       "category": "营业",
       "phase": "night",
-      "trigger": "正常客流集中",
+      "trigger": "本阶段两个基础订单均尚未到场，调度将其到达时刻集中；两单类型与唯一订单ID保持不变。",
       "choices": [
         {
           "label": "先挂单分批",
-          "consequence": "少赚部分奖金但保工作面",
+          "consequence": "按现有两单分批处理，可能放弃超时单的奖金；不增加或复制订单。",
           "time_cost": {
             "night_seconds_max": 20,
             "day_action_slots": 0,
@@ -83,18 +83,48 @@
         "F34-V05-1",
         "F44-V05-1",
         "F59-V05-1"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "schedule_transform",
+        "required_live_inputs": "本阶段尚未到达的两个基础订单名额",
+        "producer_policy": "只重排未到场的现有订单，保持预订/浏览类型；不新增第三单或刷新已有耐心。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      },
+      "v06_order_transform": {
+        "source": "current_phase_existing_unarrived_slots",
+        "maximum_orders": 2,
+        "preserve_slot_type": true,
+        "after_arrival_reschedule_allowed": false,
+        "patience_restarts": false,
+        "creates_extra_order": false
+      }
     },
     {
       "id": "E002",
-      "name": "零钱告急",
+      "name": "零钱匣卡住",
       "category": "营业",
       "phase": "night",
-      "trigger": "现金订单多且零钱不足",
+      "trigger": "当前真实现金订单等待结账，钱匣出现可见卡滞标记，常备备用匣在可达柜台槽。",
       "choices": [
         {
-          "label": "改为整单待付",
-          "consequence": "延迟收益但不伪造找零",
+          "label": "暂存这笔订单",
+          "consequence": "同一订单维持原耐心；超时可放弃，只损失该单收益，不伪造找零。",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -102,8 +132,8 @@
           }
         },
         {
-          "label": "申请备用零钱",
-          "consequence": "占用一次店长核验窗口",
+          "label": "更换常备备用匣",
+          "consequence": "从柜台槽取备用匣并装入，正常自动找零恢复；不用额外呼叫店长认证。",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -153,14 +183,36 @@
       "v05_encounter_variant_ids": [
         "F01-V05-2",
         "F16-V05-1"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "authored_incident",
+        "required_live_inputs": "一笔当前真实现金订单；可达常备备用钱匣",
+        "producer_policy": "可见钱匣卡滞产生条件；换匣真实操作解除，不建立未实现现金余额模型。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E003",
       "name": "退货小高峰",
       "category": "营业",
       "phase": "night",
-      "trigger": "多笔有效退货到店",
+      "trigger": "有真实销售来源的退货到场；一件实际玻璃退货可带可见裂口，只有危险接触才产生事故。",
       "choices": [
         {
           "label": "按原票逐单核对",
@@ -225,7 +277,32 @@
         "F19-V05-1",
         "F25-V05-1",
         "F45-V05-2"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "existing_fact",
+        "required_live_inputs": "有效原销售回执；对应真实退货物件；空待核槽",
+        "producer_policy": "没有原始销售记录不投放；最多占当前既有订单名额，退款不额外计销售笔数。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false,
+        "glass_incident_is_optional_subtype": true
+      },
+      "v06_order_policy": "退货占用既有服务名额但不计新的销售完成笔数；原销售凭证可以来自明确初始历史登记，不能为本怪补写本班成交。",
+      "v06_glass_incident_contract": "content/condition_lifecycle_v06.json#/wounds/producers"
     },
     {
       "id": "E004",
@@ -305,7 +382,30 @@
       "v05_encounter_variant_ids": [
         "F14-V05-1",
         "F29-V05-2"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "accepted_reservation",
+        "required_live_inputs": "当前已登记预约请求；下一阶段可替换预订名额与制作容量",
+        "producer_policy": "接受后先预约下一小时既有预订单，再记录食物批次；不增加第13单。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "requires_registered_future_reservation",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      },
+      "v06_order_policy": "预约的是下一小时既有pickup名额，不在当前小时新增完成交易；接受前锁定下一小时唯一订单ID及制作/交付预算。"
     },
     {
       "id": "E005",
@@ -370,7 +470,29 @@
       ],
       "v05_encounter_variant_ids": [
         "F41-V05-1"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "visitor_arrival",
+        "required_live_inputs": "普通来客请求；公共等候位与已验证求助渠道",
+        "producer_policy": "普通访客不是员工；协助只在公共边界，拒绝未知扩权不构成违禁。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E006",
@@ -433,7 +555,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": true,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "existing_order",
+        "required_live_inputs": "现有代购订单、实际付款人、真实物件",
+        "producer_policy": "代理付款不生成未到场者的身份许可或无限承诺。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E007",
@@ -500,7 +644,29 @@
       ],
       "v05_encounter_variant_ids": [
         "F23-V05-1"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "existing_fact",
+        "required_live_inputs": "初始登记或实际交存的失物实例；可核对认领细节",
+        "producer_policy": "两名来客可带认领主张，但不能倒填本班拾获史；无失物就不投放。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E008",
@@ -572,7 +738,29 @@
         "F33-V05-1",
         "F37-V05-1",
         "F55-V05-1"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "existing_fact",
+        "required_live_inputs": "实际封好的既有预订单；记录的原取件计划",
+        "producer_policy": "延迟取件只改同一订单预约；阶段结束按公开取消/保管规则处理，不复制订单。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E009",
@@ -650,7 +838,30 @@
         "F36-V05-1",
         "F54-V05-1",
         "F57-V05-2"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "existing_order",
+        "required_live_inputs": "本阶段一个已有订单；真实多件商品与可用打包槽",
+        "producer_policy": "增加同一订单件数和台面占用，不增加可记功笔数或突破队列上限。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      },
+      "v06_order_policy": "一个既有订单包含多件真实货物，最多按同一订单计功一次；增加件数不增加订单名额。"
     },
     {
       "id": "E010",
@@ -725,7 +936,29 @@
         "F30-V05-1",
         "F41-V05-2",
         "F56-V05-1"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "environment_schedule",
+        "required_live_inputs": "本阶段天气计划；WET_FRONT及干路可用",
+        "producer_policy": "有来源的普通雨水；不能与怪物湿区自动合图或堵唯一解。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E011",
@@ -800,7 +1033,29 @@
         "F47-V05-1",
         "F58-V05-2",
         "F60-V05-1"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "environment_schedule",
+        "required_live_inputs": "本阶段雾计划；最低可读范围与方向提示",
+        "producer_policy": "雾只改变已声明视野，不删除关键线索或额外叠满黑视。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E012",
@@ -867,7 +1122,29 @@
       "v05_encounter_variant_ids": [
         "F11-V05-1",
         "F53-V05-1"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "environment_schedule",
+        "required_live_inputs": "当前热浪状态；普通保温/冷却工位可用",
+        "producer_policy": "普通货品热负担，关键任务物不销毁。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E013",
@@ -932,7 +1209,29 @@
       ],
       "v05_encounter_variant_ids": [
         "F06-V05-1"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "environment_schedule",
+        "required_live_inputs": "寒潮预告；可见霜区；保留干路",
+        "producer_policy": "离散结霜状态，有明显范围，不能造成全店无路。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E014",
@@ -999,7 +1298,33 @@
       "v05_encounter_variant_ids": [
         "F33-V05-2",
         "F50-V05-2"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "environment_schedule",
+        "required_live_inputs": "雷暴预告与可见闪光",
+        "producer_policy": "闪光及已有预算内普通故障；不凭雷声另生未登记怪。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      },
+      "v06_conditional_children": [
+        "E070"
+      ],
+      "v06_children_share_reserved_handling_budget": true
     },
     {
       "id": "E015",
@@ -1068,7 +1393,29 @@
         "F04-V05-1",
         "F28-V05-1",
         "F53-V05-2"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "environment_schedule",
+        "required_live_inputs": "供水预告；免费应急清水与对应支路",
+        "producer_policy": "只切指定供水；必须保留所有已投放遭遇的基础用水解。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E016",
@@ -1143,7 +1490,29 @@
         "F24-V05-1",
         "F34-V05-2",
         "F55-V05-2"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "environment_schedule",
+        "required_live_inputs": "WET_FRONT；可达干侧与清洁工具",
+        "producer_policy": "只激活已定义湿区；隔离区不得凭事件变成全图水。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E017",
@@ -1210,7 +1579,29 @@
       ],
       "v05_encounter_variant_ids": [
         "F18-V05-1"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "visitor_arrival",
+        "required_live_inputs": "普通动物与门前避雨点",
+        "producer_policy": "不是自动获得宠物；到期普通动物离开，玩家安全忽略可不领奖。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E018",
@@ -1277,7 +1668,29 @@
       "v05_encounter_variant_ids": [
         "F03-V05-1",
         "F49-V05-1"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "authored_incident",
+        "required_live_inputs": "通风工位可见故障/环境计划",
+        "producer_policy": "普通闷热压力，不自动改变所有热源或伤害所有角色。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E019",
@@ -1370,7 +1783,29 @@
         "F50-V05-1",
         "F52-V05-2",
         "F60-V05-2"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "authored_incident",
+        "required_live_inputs": "片区断电预告；基础应急照明和最后有效任务冰柜保底",
+        "producer_policy": "不能借事件关闭F13最后有效目标柜，也不扣应急储备当作全店电网。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E020",
@@ -1438,7 +1873,29 @@
       ],
       "v05_encounter_variant_ids": [
         "F29-V05-1"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "authored_incident",
+        "required_live_inputs": "真实普通冷柜/货批；独立可用任务柜或保底",
+        "producer_policy": "普通温条报警，不直接撤销已提交F13成功或吞毁登记肉。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E021",
@@ -1512,7 +1969,29 @@
         "F08-V05-1",
         "F39-V05-1",
         "F58-V05-1"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "authored_incident",
+        "required_live_inputs": "正在使用的微波炉及真实订单",
+        "producer_policy": "已有工序停转才产生维修动作；无待加热订单不声称进度已丢失。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E022",
@@ -1594,7 +2073,29 @@
         "F43-V05-2",
         "F46-V05-1",
         "F51-V05-1"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "authored_incident",
+        "required_live_inputs": "真实待打印记录；可见卡纸",
+        "producer_policy": "只影响输出渠道，原始交易/工作记录保留且不算第二来源。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E023",
@@ -1666,7 +2167,29 @@
         "F16-V05-2",
         "F25-V05-2",
         "F44-V05-2"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "authored_incident",
+        "required_live_inputs": "真实待结账订单；免费离线记账路径",
+        "producer_policy": "保留同一订单ID，恢复网络不重复发钱/记功。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E024",
@@ -1737,14 +2260,36 @@
         "F18-V05-2",
         "F22-V05-2",
         "F59-V05-2"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "authored_incident",
+        "required_live_inputs": "门铃自测动作/真实来客；可见灯和声道",
+        "producer_policy": "先有可观察不一致；静音迎宾不等于门铃故障。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E025",
       "name": "后门锁卡",
       "category": "设备供应",
       "phase": "night",
-      "trigger": "门状态无法正常闭合",
+      "trigger": "后门在预告中明确卡闭（fails_to_open）或卡开（fails_to_close），子型在该实例内固定。",
       "choices": [
         {
           "label": "加内侧安全挡板",
@@ -1818,7 +2363,39 @@
         "F37-V05-2",
         "F49-V05-2",
         "F54-V05-2"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "authored_incident",
+        "required_live_inputs": "既有后门与合法外环；提前可见的故障子型",
+        "producer_policy": "预告时绑定fails_to_open或fails_to_close之一；不得在解法中途互换含义。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      },
+      "v06_failure_subtypes": {
+        "fails_to_open": {
+          "default_for_detour_variants": true,
+          "solution": "使用已验证外环或维修本门；不把现有卡闭门当成会自行开口的危险。"
+        },
+        "fails_to_close": {
+          "default_for_detour_variants": false,
+          "solution": "用就近内侧边界和有限守门/维修；不能同时当作后门不可通行。"
+        }
+      }
     },
     {
       "id": "E026",
@@ -1898,7 +2475,29 @@
         "F52-V05-1",
         "F56-V05-2",
         "F57-V05-1"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "authored_incident",
+        "required_live_inputs": "已定位普通漏水来源与清洁点",
+        "producer_policy": "普通库房漏水不额外生成河童水路或新阀；当前怪卡仍用自身已登记湿图。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E027",
@@ -1982,7 +2581,29 @@
         "F40-V05-2",
         "F42-V05-1",
         "F45-V05-1"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "existing_fact",
+        "required_live_inputs": "班前/当夜已登记送货计划；真实到货单",
+        "producer_policy": "到货时间不符读现有计划；计划不存在不制造矛盾证据。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E028",
@@ -2070,7 +2691,29 @@
       ],
       "v05_encounter_variant_ids": [
         "F07-V05-2"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "existing_fact",
+        "required_live_inputs": "开班真实同事交通延迟记录与ETA",
+        "producer_policy": "只一个真实同事；条件在其真正到岗后解除，迟到不是自动假扮。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E029",
@@ -2136,7 +2779,7 @@
         "required_capability": "当前事件所需的员工拟态或远程冒充能力，必须已列在该F模板中",
         "create_new_entity": false,
         "resample_identity": false,
-        "unbound_behavior": "降级为E028正常迟到/接班等待；不显示第二具同事身体。",
+        "unbound_behavior": "普通待核等候，不显示第二具同事身体，不借用仅00时允许开始的E028来跨时段投放。",
         "entity_slot_cost": "只由绑定的F实例计一次，事件不增加未登记席位",
         "stress_cost_mode": "stress_cost只计未被绑定F实例预算包含的额外操作，已包含则为0"
       },
@@ -2167,7 +2810,29 @@
       "v05_encounter_variant_ids": [
         "F38-V05-1",
         "F43-V05-1"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "bound_monster",
+        "required_live_inputs": "已准入员工拟态实例；真实同事；两路可得核验",
+        "producer_policy": "不能生成第二真实同事；未绑定采用普通待核等候，不调用仅0点允许的E028。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E030",
@@ -2260,7 +2925,29 @@
       ],
       "v05_encounter_variant_ids": [
         "F36-V05-2"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "bound_monster_or_normal_line_fault",
+        "required_live_inputs": "真实线路；若有冒充则需已准入remote_voice实例",
+        "producer_policy": "未绑定只显示普通重复线路，不能凭事件新造假店长。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E031",
@@ -2355,7 +3042,29 @@
       "v05_encounter_variant_ids": [
         "F20-V05-1",
         "F48-V05-2"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "existing_fact",
+        "required_live_inputs": "已核验店长指令与当前真实账单",
+        "producer_policy": "优先级变化不扩大权限，不能凭新电话改正式店规。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E032",
@@ -2448,7 +3157,29 @@
       ],
       "v05_encounter_variant_ids": [
         "F02-V05-1"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "existing_fact_or_bound_monster",
+        "required_live_inputs": "真实工牌遗失记录或已准入冒充者请求",
+        "producer_policy": "不先生成虚假遗失事实；借工牌不授钱款/门禁权限。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E033",
@@ -2539,7 +3270,29 @@
       ],
       "v05_encounter_variant_ids": [
         "F31-V05-1"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "existing_fact",
+        "required_live_inputs": "实际离岗任务、出发时间、预期返回时刻、路径",
+        "producer_policy": "只有真实任务超时才触发；没有离岗记录不宣布失联。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E034",
@@ -2628,7 +3381,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": true,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "existing_fact_or_bound_monster",
+        "required_live_inputs": "班前实际确认的私约；现场答复",
+        "producer_policy": "私约不能临时补写；正常记错与拟态分开，不自动抽真假。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E035",
@@ -2723,7 +3498,29 @@
       "v05_encounter_variant_ids": [
         "F20-V05-2",
         "F48-V05-1"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "visitor_arrival",
+        "required_live_inputs": "已核验店长实际来店；普通访客",
+        "producer_policy": "来者仍是访客，不增加常驻员工或自动拥有员工区权限。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E036",
@@ -2812,18 +3609,40 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": true,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "bound_monster_or_explicit_false_clock",
+        "required_live_inputs": "已绑定来电者请求或已定义普通钟错误",
+        "producer_policy": "可信HUD不变；没有允许来源时不生成冒名下班通知。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E037",
       "name": "百鬼夜行",
       "category": "大型异变",
       "phase": "night",
-      "trigger": "01—04阶段起点，有旗影与通行预告；该阶段实际关键工作可完整嵌入120秒流程且没有冲突义务",
+      "trigger": "01—04阶段起点，有旗影与通行预告；该阶段安全边界动作和保守处理可在120秒内完成，普通店务与交易容量另列。",
       "choices": [
         {
           "label": "分批服务并完成本阶段工作",
-          "consequence": "最多两笔特殊交易，各至多12秒；40秒关键工作和前后验收仍须实际执行",
+          "consequence": "最多使用本阶段既有两笔名额并保留预订/浏览类别；实际店务与交易影响收益，队伍安全边界与复店条件独立验收。",
           "time_cost": {
             "night_seconds_max": 120,
             "day_action_slots": 0,
@@ -2832,7 +3651,7 @@
         },
         {
           "label": "保守模式暂停特殊交易",
-          "consequence": "取消24秒可选交易额度以留余量，仍须执行40秒关键工作与前后验收；只降低额外收益",
+          "consequence": "放弃可选交易及未完成普通店务的收益，仍处理门线与安全复店；普通工单按有界店务债结算，不直接判本夜失败。",
           "time_cost": {
             "night_seconds_max": 120,
             "day_action_slots": 0,
@@ -2941,7 +3760,9 @@
           ]
         },
         "same_object_action_counts_once": true,
-        "conservative_mode_still_requires_full_work": true
+        "conservative_mode_still_requires_full_work": false,
+        "ordinary_work_not_survival_gate": true,
+        "phase_work_budget_is_upper_bound_for_optional_economic_work": true
       },
       "timeline": [
         {
@@ -2972,15 +3793,18 @@
         "hour_boundary_only": true,
         "no_forced_small_events_during_run": true,
         "no_stage_extension": true,
-        "no_deferred_critical_phase_work": true,
+        "no_deferred_critical_phase_work": false,
         "no_unrelated_accepted_order_cancellation": true,
-        "reject_if_effective_work_exceeds_40_seconds": true,
+        "reject_if_effective_work_exceeds_40_seconds": false,
         "reject_if_other_committed_actions_do_not_fit": true,
         "reject_if_other_large_event_reserved_this_night": true,
         "conservative_mode_must_be_feasible": true,
         "requires_revised_work_budget_with_qte_retry": true,
         "not_during_active_pursuit": true,
-        "preserve_existing_monster_win_conditions": true
+        "preserve_existing_monster_win_conditions": true,
+        "ordinary_work_debt_uses_current_bounded_policy": true,
+        "optional_work_must_fit_reserved_budget_if_selected": true,
+        "mandatory_safety_and_recovery_must_fit": true
       },
       "interaction_variant_ids": [
         "EV10"
@@ -2988,7 +3812,31 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": true,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "major_event_schedule",
+        "required_live_inputs": "整阶段主内容预约；已学门线操作；正常订单名额",
+        "producer_policy": "0秒启动自身预告；替换主怪。安全边界必做，普通店务与交易可放弃收益。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      },
+      "v06_safety_objective": "保护已登记门线并在队伍通过后确认通道可用；实际安全操作产生凭证。普通收银/盘点/补货未完成不等同安全目标失败。",
+      "v06_order_policy": "两笔特殊交易只能替换本阶段原pickup/browse名额；browse仍须实际入店，保守关门可放弃这单。"
     },
     {
       "id": "E038",
@@ -3049,7 +3897,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": true,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "major_event_schedule",
+        "required_live_inputs": "既有通行门线、可行替代工作路线",
+        "producer_policy": "请求只在已登记线和期限有效；不授员工区权限。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E039",
@@ -3110,7 +3980,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": true,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "major_event_schedule",
+        "required_live_inputs": "限定安静时段与可控声道",
+        "producer_policy": "安静约束有开始/结束提示，普通危险警示仍以字幕可读。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E040",
@@ -3171,7 +4063,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": true,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "major_event_schedule",
+        "required_live_inputs": "门前既有场地；公开报价和可选交付",
+        "producer_policy": "可不交易；不会因此产生未接受债务。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E041",
@@ -3232,7 +4146,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": true,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "major_event_schedule",
+        "required_live_inputs": "实际失物登记；来客持有可比对细节",
+        "producer_policy": "无真实失物不投放认领题；不伪造前夜拾获史。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E042",
@@ -3292,7 +4228,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": true,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "major_event_schedule",
+        "required_live_inputs": "可分区食台、店用配额、个人保底餐",
+        "producer_policy": "未接受可拒绝；接受前预留配额，不能挪用个人保底食物。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E043",
@@ -3351,7 +4309,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": true,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "major_event_schedule",
+        "required_live_inputs": "可信时刻4—6点前；已登记外部光照变化",
+        "producer_policy": "天色与墙钟可误导，可信HUD和已取得记录不改。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E044",
@@ -3412,7 +4392,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": true,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "major_event_schedule",
+        "required_live_inputs": "公共等候界线与受限收容点",
+        "producer_policy": "守柜台权限不随求宿扩大；拒绝未承诺请求合法。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E045",
@@ -3489,7 +4491,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": true,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "accepted_reservation",
+        "required_live_inputs": "至少一份真实到期债务及此前E071预约",
+        "producer_policy": "签约时创建，不随机无中生有；按绝对夜号处理，逐债唯一核销。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "requires_registered_future_reservation",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E046",
@@ -3550,7 +4574,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": false,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "day_schedule",
+        "required_live_inputs": "当前实际特殊采购行动格与商店营业/库存",
+        "producer_policy": "只替换当前行动格，不再加隐藏旅行时间。",
+        "scheduled_by": "unified_game_clock",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "day_action_or_preparation_end",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E047",
@@ -3606,7 +4652,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": false,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "shop_schedule",
+        "required_live_inputs": "20点可信商店固定商品和公开折扣",
+        "producer_policy": "保留玩家预算，购买只扣实际币，不自动赠优惠差额。",
+        "scheduled_by": "unified_game_clock",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "day_action_or_preparation_end",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E048",
@@ -3666,7 +4734,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": false,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "day_schedule",
+        "required_live_inputs": "20点前公告交通变更；未用整备弹性",
+        "producer_policy": "可选时间不足不强制投放；22—24验岗不被挤掉。",
+        "scheduled_by": "unified_game_clock",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "day_action_or_preparation_end",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E049",
@@ -3730,7 +4820,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": false,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "shop_inventory",
+        "required_live_inputs": "实际选择高级学习材料且该版本缺货",
+        "producer_policy": "不影响首次强制遭遇的免费基础规则；允许换已公开资料或恢复行动。",
+        "scheduled_by": "unified_game_clock",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "day_action_or_preparation_end",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E050",
@@ -3793,7 +4905,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": false,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "day_schedule",
+        "required_live_inputs": "实际可用资料馆开放时段和当前行动格",
+        "producer_policy": "按同一行动格付费结算，不额外生成学习时间。",
+        "scheduled_by": "unified_game_clock",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "day_action_or_preparation_end",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E051",
@@ -3849,7 +4983,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": false,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "existing_fact",
+        "required_live_inputs": "真实待修装备、预约队列、预算",
+        "producer_policy": "无损坏或待修装备不投放；没有备用装备不提供必须换备用的选项。",
+        "scheduled_by": "unified_game_clock",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "day_action_or_preparation_end",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E052",
@@ -3912,7 +5068,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": false,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "day_schedule",
+        "required_live_inputs": "真实领养名单、费用与已选行动格",
+        "producer_policy": "未完成领养不增加宠物；可拒绝，不制造照料债。",
+        "scheduled_by": "unified_game_clock",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "day_action_or_preparation_end",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E053",
@@ -3976,7 +5154,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": false,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "visitor_offer",
+        "required_live_inputs": "已知邻居实际送来的食品实例与可验证来源",
+        "producer_policy": "只消费真实食品，不直接按文字加饱腹。",
+        "scheduled_by": "unified_game_clock",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "day_action_or_preparation_end",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E054",
@@ -4037,7 +5237,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": false,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "day_schedule",
+        "required_live_inputs": "已公开兼职岗位与玩家选定两小时格",
+        "producer_policy": "完成后一次工资，不与同格学习/睡眠重复记收益。",
+        "scheduled_by": "unified_game_clock",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "day_action_or_preparation_end",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E055",
@@ -4100,7 +5322,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": false,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "authored_item_discovery",
+        "required_live_inputs": "实际旧笔记物件及可疑批注",
+        "producer_policy": "只提供待核主张，不能覆盖正式手册或自动解锁假事实。",
+        "scheduled_by": "unified_game_clock",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "day_action_or_preparation_end",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E056",
@@ -4163,7 +5407,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": false,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "day_schedule",
+        "required_live_inputs": "已预约导师时间与玩家当前研究主题",
+        "producer_policy": "可研究已见原型或基础专题；不要求先触发被知识锁住的怪。",
+        "scheduled_by": "unified_game_clock",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "day_action_or_preparation_end",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E057",
@@ -4220,7 +5486,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": false,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "day_schedule",
+        "required_live_inputs": "唯一真实同事午间邀约与当前行动格",
+        "producer_policy": "安全白天核验后生成私约来源，不能复制第二同事。",
+        "scheduled_by": "unified_game_clock",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "day_action_or_preparation_end",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E058",
@@ -4281,7 +5569,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": false,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "day_schedule",
+        "required_live_inputs": "已核验真实店长的白天会面",
+        "producer_policy": "只生成已确认目标与范围，不改夜间安全规则。",
+        "scheduled_by": "unified_game_clock",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "day_action_or_preparation_end",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E059",
@@ -4345,7 +5655,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": false,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "existing_fact",
+        "required_live_inputs": "两份实际材料与同一主题",
+        "producer_policy": "矛盾来自现有材料版本；核心安全动作仍有可信保底。",
+        "scheduled_by": "unified_game_clock",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "day_action_or_preparation_end",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E060",
@@ -4406,7 +5738,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": false,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "existing_fact",
+        "required_live_inputs": "上一夜明确未处理恐惧状态记录",
+        "producer_policy": "没有恐惧记录不生成噩梦惩罚；不会因为低SAN另造无限追逐。",
+        "scheduled_by": "unified_game_clock",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "day_action_or_preparation_end",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E061",
@@ -4467,7 +5821,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": false,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "day_schedule",
+        "required_live_inputs": "玩家已经选择的睡眠/短休格与安静住所状态",
+        "producer_policy": "只改善该格，不重复发额外完整睡眠收益。",
+        "scheduled_by": "unified_game_clock",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "day_action_or_preparation_end",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E062",
@@ -4529,7 +5905,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": false,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "day_schedule",
+        "required_live_inputs": "睡前已公开施工时段；可用替代休息方案",
+        "producer_policy": "不可在睡眠已结算后追溯取消；不加隐藏行动格。",
+        "scheduled_by": "unified_game_clock",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "day_action_or_preparation_end",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E063",
@@ -4592,7 +5990,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": false,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "day_schedule",
+        "required_live_inputs": "已选交流行动格与实际已登记传闻条目",
+        "producer_policy": "传闻是候选线索，不能产生本班真实工作证据。",
+        "scheduled_by": "unified_game_clock",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "day_action_or_preparation_end",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E064",
@@ -4648,7 +6068,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": false,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "existing_fact",
+        "required_live_inputs": "真实已取得特殊奖券事件或奖励凭证",
+        "producer_policy": "不随机白送第二次奖励；二选一消耗同一奖励ID。",
+        "scheduled_by": "unified_game_clock",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "day_action_or_preparation_end",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E065",
@@ -4713,7 +6155,29 @@
       ],
       "v05_encounter_variant_ids": [
         "F47-V05-2"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "existing_receipt",
+        "required_live_inputs": "已完成可选工作或F47实际封袋奖励回执",
+        "producer_policy": "同一来源只结算一次；没有实际完成不能先抽奖励事件。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E066",
@@ -4769,7 +6233,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": false,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "existing_receipt",
+        "required_live_inputs": "真实抽奖结果、已有同类物与有限仓位",
+        "producer_policy": "抽奖已存档结果不重抽；处置同一实例，不另发一次。",
+        "scheduled_by": "unified_game_clock",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "day_action_or_preparation_end",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E067",
@@ -4836,7 +6322,29 @@
       ],
       "v05_encounter_variant_ids": [
         "F51-V05-2"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "visitor_offer",
+        "required_live_inputs": "实际未知礼盒物件与公共放置槽",
+        "producer_policy": "封存/退回是免费基础处理；不可直接生成已验证食品。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E068",
@@ -4899,7 +6407,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": true,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "pet_state",
+        "required_live_inputs": "实际出勤且可提示的宠物；真实可感知异常线索",
+        "producer_policy": "无宠物/无可感知对象不投放；提示不算独立身份认证。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E069",
@@ -4966,18 +6496,40 @@
       ],
       "v05_encounter_variant_ids": [
         "F46-V05-2"
-      ]
+      ],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "pet_state",
+        "required_live_inputs": "出勤宠物；实际可藏的小件非关键物品",
+        "producer_policy": "转移同一物件且位置可揭示；禁藏任务肉、回形针、钥匙。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E070",
-      "name": "宠物疲惫",
+      "name": "宠物受惊",
       "category": "抽奖契约宠物",
       "phase": "night",
-      "trigger": "剩余出勤次数和疲惫明确提示",
+      "trigger": "E014真实雷声脉冲发生，出勤宠物照料有效且主动次数仍大于0；本夜尚未发生受惊。",
       "choices": [
         {
-          "label": "让宠物休息",
-          "consequence": "保次日状态",
+          "label": "让宠物自行平复",
+          "consequence": "等待30世界秒自然解除；期间仅禁止新主动命令，既有已提交效果继续。",
           "time_cost": {
             "night_seconds_max": 6,
             "day_action_slots": 0,
@@ -4985,8 +6537,8 @@
           }
         },
         {
-          "label": "使用正常照料用品恢复一次",
-          "consequence": "消耗物资，不能无限刷技能",
+          "label": "花6秒安抚",
+          "consequence": "实际安抚6世界秒提前解除受惊，不补技能次数，不替代白天照料。",
           "time_cost": {
             "night_seconds_max": 6,
             "day_action_slots": 0,
@@ -5029,7 +6581,43 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": true,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "actual_E014_thunder_receipt",
+        "required_live_inputs": "真实雷声脉冲；出勤且已照料宠物；主动次数>0；本夜未触发受惊",
+        "producer_policy": "只作为E014子结果并共享事件预算；按游戏雷声脉冲而非设备音量触发；没有状态执行器则禁投。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "30_world_seconds_or_completed_6_world_second_comfort",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      },
+      "v06_charge_policy": {
+        "restore_active_charges": 0,
+        "bypass_missed_care": false,
+        "changes_next_day_care": false,
+        "same_fatigue_episode_reward": 0,
+        "max_episodes_per_night": 1,
+        "parent_event": "E014",
+        "independent_random_sampling": false,
+        "duration_world_seconds": 30,
+        "comfort_world_seconds": 6,
+        "repeated_pulse_refreshes": false,
+        "committed_effects_continue": true,
+        "only_new_active_commands_blocked": true
+      }
     },
     {
       "id": "E071",
@@ -5113,7 +6701,29 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": true,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "optional_contract_offer",
+        "required_live_inputs": "真实访客提案；未来E045容量与可见退出条款",
+        "producer_policy": "预留绝对夜号窗口后才接受/发币；容量不足安全拒绝。",
+        "scheduled_by": "phase_budget_elapsed",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "requires_registered_future_reservation",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     },
     {
       "id": "E072",
@@ -5169,13 +6779,35 @@
       "selection_alone_completes_night_work": false,
       "requires_actual_world_or_station_work": false,
       "encounter_variant_ids": [],
-      "v05_encounter_variant_ids": []
+      "v05_encounter_variant_ids": [],
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_kind": "existing_receipt",
+        "required_live_inputs": "真实可核销多付款记录与商店退款来源",
+        "producer_policy": "返还存根差额；没有真实记录不导演随机造钱。",
+        "scheduled_by": "unified_game_clock",
+        "continuous_effect_clock": "world_simulation",
+        "handling_budget_is_not_effect_lifetime": true,
+        "on_missing_inputs": "do_not_admit_no_history_fabrication",
+        "recheck_at": [
+          "planning",
+          "before_first_omen",
+          "arrival",
+          "committed_action"
+        ],
+        "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
+        "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
+        "expiry_policy": "day_action_or_preparation_end",
+        "late_materialization_allowed": false,
+        "same_receipt_settles_once": true,
+        "client_implemented": false
+      }
     }
   ],
-  "note": "72项为候选内容池；七天阶段完全一致。所有事件有明确允许小时、处理预算、截止点与工作计入方式；白天结算不增加隐形时间，异常人员事件必须绑定获准F实例。",
+  "note": "72项候选事件有条件来源规格。真实历史前提不足则不投放，不能临时倒填历史；各条件仍需实现生产者和消费动作后才启用。七天阶段一致。",
   "scheduling_contract": {
     "allowed_hours": "游戏时钟的允许开始小时；夜间0—5，白天行动格8/10/12/14/16/18，整备20；22—24验岗不接受随机事件。",
-    "duration_seconds": "夜间从处理到善后的现实秒预算，含操作、核验和行走；白天结算为0，但必须支付choices.time_cost指明的既有行动格或整备分钟。数值是设计上限，须按当前资源与路径验证。",
+    "duration_seconds": "夜间为处理/善后预算，含实际动作和行走，不等同状态持续时间。日程用phase_budget_elapsed；移动、持续状态和耐心用world_simulation。白天仍使用既有行动格或整备分钟。",
     "latest_finish_values": {
       "hour_end": "本次开始小时结束；不跨阶段。",
       "action_slot_end": "本次既有2小时行动格结束，最迟20:00。",
@@ -5199,13 +6831,19 @@
     "minimum_night_margin_seconds": 10,
     "work_credit": "只有完成实际动作、匹配真实对象并记录验收才抵扣对应工作；同一动作不可重复计进度，事件结束不自动完成店务。",
     "deferred_effects": "天气、空间和库存占用若跨小时，先登记下一阶段负担；不能用本次处理结束来免费消除残留。",
-    "runtime_binding": "bound_entity_id模板为null；人员异常必须绑定通过所有硬约束检查且具有对应能力的F系列运行时实例。事件不创建、复制或重新抽样实体。"
+    "runtime_binding": "bound_entity_id模板为null；人员异常必须绑定通过所有硬约束检查且具有对应能力的F系列运行时实例。事件不创建、复制或重新抽样实体。",
+    "current_contract": "content/condition_lifecycle_v06.json",
+    "qte_boundary_policy": "开始精细特写前，明示成本不得跨下一个未发出的到客/预兆/到场/阶段/06日程边界；同刻先派发到期日程再判断准入。",
+    "source_invalidation": "到场及提交时复查原有输入。玩家合法提前处理可以预防；系统前提失效无惩罚取消，不能造新历史补题。"
   },
   "choices_semantics": "夜间choices是处置计划；必须执行实际工作并产生凭证才完成。白天选择按行动格结算。",
   "interaction_variants_reference": "event_variants.json",
-  "encounter_variant_catalog": "content/encounter_designs.json",
+  "encounter_variant_catalog": "content/encounters_v05.json",
   "encounter_variant_count": 120,
-  "v05_special_order_policy": "每个夜间事件的特殊客单替换同阶段基础客单名额，继承该名额的pickup/browse及真实入店约束；不产生第13笔，也不刷新顾客耐心。E037两笔特殊交易替代该阶段两笔基础交易。",
+  "v05_special_order_policy": "每个夜间特殊客单继承被替换基础名额的pickup/browse类型和真实入店约束，不产生第13笔、不刷新已到场顾客耐心。E037替换本阶段两单；E004预约下一阶段既有pickup名额。",
   "current_variant_catalog": "content/encounters_v05.json",
-  "v05_event_presentation": "choices是场内动作策略的设计表达，不必弹选择题；变体按当前卡及store_systems_v05准入。"
+  "v05_event_presentation": "choices是场内动作策略的设计表达，不必弹选择题；变体按当前卡及store_systems_v05准入。",
+  "current_contract": "content/condition_lifecycle_v06.json",
+  "current_condition_contract_policy": "v06_condition_contract是条件来源与生命周期规格；没有运行时生产者的事件保持禁投，不因这份文字视为已经实现。",
+  "legacy_encounter_variant_catalog": "content/encounter_designs.json"
 }

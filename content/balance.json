@@ -1,5 +1,5 @@
 {
-  "version": "0.5",
+  "version": "0.6",
   "status": "design_proposal_not_playtested",
   "week_length_days": 7,
   "same_phases_every_day": true,
@@ -75,7 +75,9 @@
       "night_hour_drain": 4,
       "sleep_hour_gain": 8,
       "daytime_hour_drain": 0,
-      "daytime_cost_policy": "explicit_action_costs_only"
+      "daytime_cost_policy": "explicit_action_costs_only",
+      "separate_sleep_debt_state_enabled": false,
+      "sleep_debt_policy": "首版不生成睡眠不足独立层；连续睡眠仍按明确精力与SAN收益结算。"
     },
     "san": {
       "min": 0,
@@ -107,7 +109,15 @@
       "hidden_correct_input_failure_probability": 0,
       "hud_and_emergency_buttons_masked": false,
       "omen_observation_damage": 0,
-      "new_global_hunt_threshold_system_enabled": false
+      "new_global_hunt_threshold_system_enabled": false,
+      "portable_stabilization_allowed_while_walking": true,
+      "emergency_stabilization_seconds": 8,
+      "emergency_stabilization_requires_fixed_safe_zone": false,
+      "emergency_stabilization_no_sprint_or_parallel_work": true,
+      "emergency_stabilization_hit_or_work_interrupts_but_keeps_progress": true,
+      "legacy_safe_zone_field_is_duration_alias_only": true,
+      "emergency_stabilization_does_not_pause_enemies": true,
+      "emergency_stabilization_consumes_on_success": true
     },
     "satiety": {
       "min": 0,
@@ -116,7 +126,9 @@
       "sleep_hour_drain": 1,
       "accounting_clock": "unified_24_hour_game_clock",
       "include_all_day_and_night_phases": true,
-      "action_satiety_annotations_add_extra_drain": false
+      "action_satiety_annotations_add_extra_drain": false,
+      "zero_satiety_additional_energy_drain": 0,
+      "zero_satiety_policy": "沿用低饱腹体力恢复限制，不添加未定义的额外精力扣减；基本关键动作保留。"
     },
     "stamina": {
       "min": 0,
@@ -127,7 +139,10 @@
       "low_energy_regen_multiplier": 0.65,
       "low_satiety_threshold": 25,
       "low_satiety_regen_multiplier": 0.6,
-      "minimum_regen_per_second": 2
+      "minimum_regen_per_second": 2,
+      "base_regen_per_world_second": 6,
+      "legacy_base_regen_per_real_second_semantics": "兼容旧读取键，当前仅按world_simulation秒恢复；暂停和特写冻结期间不生效。",
+      "recovery_clock": "world_simulation"
     }
   },
   "economy": {
@@ -183,7 +198,10 @@
     "admission_contract": "content/store_systems_v05.json",
     "design_completeness_is_runtime_enablement": false,
     "map_mechanics_contract": "content/map_mechanics_v05.json",
-    "legacy_pressure_catalog": "content/systems_v04.json"
+    "legacy_pressure_catalog": "content/systems_v04.json",
+    "requires_lifecycle_producer_and_terminal_contract": true,
+    "recheck_conditions_after_omens": true,
+    "prevented_encounter_consumes_reserved_primary_slot": true
   },
   "day_actions": [
     {
@@ -287,7 +305,16 @@
       "pickup": 6,
       "requires_physical_entry": 6,
       "special_replaces_base_slot": true
-    }
+    },
+    "handover_actor": "existing_real_manager",
+    "handover_actor_arrival_phase": "N06",
+    "handover_actor_arrival_phase_budget_second": 100,
+    "creates_extra_permanent_employee": false,
+    "six_am_processing_order": [
+      "due_contracts_and_already_legal_success_commits",
+      "critical_threat_evaluation",
+      "verified_handover_commit"
+    ]
   },
   "time_budget_semantics": {
     "night_hour_seconds": 120,
@@ -296,6 +323,25 @@
     "wall_clock_session_duration_is_fixed": false,
     "no_invisible_movement_or_damage_catchup": true,
     "energy_and_satiety_use_game_clock_once": true,
-    "paused_world_generates_stamina_recovery": false
-  }
+    "paused_world_generates_stamina_recovery": false,
+    "scheduler_clock": "phase_budget_elapsed",
+    "world_effect_clock": "world_simulation",
+    "phase_budget_advances_by": [
+      "active_world_delta",
+      "committed_precision_attempt_cost_once"
+    ],
+    "qte_cannot_cross_pending_scheduled_boundary": true,
+    "dispatch_due_schedule_before_qte_admission": true,
+    "scheduled_boundary_types": [
+      "order_arrival",
+      "omen",
+      "encounter_arrival",
+      "phase_end",
+      "six_am"
+    ],
+    "wall_clock_advances_gameplay_while_paused": false,
+    "handover_after_six_mode": "read_only_and_handover_commit_no_new_work_reward_or_recovery",
+    "current_contract": "content/condition_lifecycle_v06.json"
+  },
+  "current_contract": "content/condition_lifecycle_v06.json"
 }

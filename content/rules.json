@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "0.6",
   "unlocks_by": "milestone_before_first_applicable_threat",
   "total": 20,
   "canonical_manual_immutable": true,
@@ -7,10 +7,22 @@
     {
       "id": "H01",
       "title": "柜台要有人，身份要确认",
-      "action": "安排已核验员工守岗；无人可接替时先暂停新客入店。",
+      "action": "安排已核验且当前可工作的员工守岗；无人接替时切至窗口模式暂停新客入店。窗口仍须有人实际操作才可完成订单。",
       "unlock": "首次上岗",
-      "clear_condition": "完成交接或店门切至安全暂停模式",
-      "tag": "staff"
+      "clear_condition": "已核验员工实际接岗，或完成窗口模式切换；已在店内者与当前怪物不会自动消失。",
+      "tag": "staff",
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_description": "班前玩家与同事的真实实体、核验状态、当前柜台任务",
+        "applies_when": "counter_unattended AND mode=open",
+        "unlock_milestone": "班前免费操作一次营业牌",
+        "before_first_applicable_danger": true,
+        "free_instruction": true,
+        "does_not_require_first_failure_or_paid_study": true,
+        "clear_or_expiry": "恢复已核验守岗或切window；不消除已在店内怪。",
+        "audit_fix": "把H01安全暂停明确为window，原有顾客继续倒计时，柜台无人时不能完成订单；同事伤情/待核/同行均撤掉守岗能力。",
+        "client_implemented": false
+      }
     },
     {
       "id": "H02",
@@ -18,7 +30,19 @@
       "action": "店内普通钟、窗外天色与他人报时须与可信时间核对。",
       "unlock": "首次上岗",
       "clear_condition": "真实时间与结算记录一致",
-      "tag": "time"
+      "tag": "time",
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_description": "统一游戏时钟与本班唯一shift_id",
+        "applies_when": "有人报时/假黎明/交班时",
+        "unlock_milestone": "班前看本班钟",
+        "before_first_applicable_danger": true,
+        "free_instruction": true,
+        "does_not_require_first_failure_or_paid_study": true,
+        "clear_or_expiry": "可信时刻到06:00且交班凭证归属同shift_id。",
+        "audit_fix": "可信HUD只读绝对游戏时钟；普通墙钟/光照可假，HUD不可改。参见CLK01。",
+        "client_implemented": false
+      }
     },
     {
       "id": "H03",
@@ -26,7 +50,19 @@
       "action": "公共区域、仓库、柜台后各有独立权限，不随邀请自动扩大。",
       "unlock": "首次门禁教学",
       "clear_condition": "通行范围已明确或来客退出",
-      "tag": "threshold"
+      "tag": "threshold",
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_description": "已登记入口、公共区/员工区边界、限定授权记录",
+        "applies_when": "访客申请或实际试图进入员工区",
+        "unlock_milestone": "第一次访客到场前示意边界",
+        "before_first_applicable_danger": true,
+        "free_instruction": true,
+        "does_not_require_first_failure_or_paid_study": true,
+        "clear_or_expiry": "拒绝/退出/到期撤权；合法授权也仅作用原区。",
+        "audit_fix": "权限显式subject_id/zone_id/expires_at/source_receipt；邀请不授员工区权限；事件主体离开或限时到期就撤权。",
+        "client_implemented": false
+      }
     },
     {
       "id": "H04",
@@ -34,7 +70,19 @@
       "action": "离岗返回者核对本班记录与独立行为证据，待核者先撤高风险权限。",
       "unlock": "首次人员离岗或假扮前",
       "clear_condition": "至少两类独立证据一致",
-      "tag": "identity"
+      "tag": "identity",
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_description": "班前确认记录＋当前原型可执行现场试探",
+        "applies_when": "同事离岗返回或出现拟态候选",
+        "unlock_milestone": "首次计划人员离岗前免费讲解并执行一次核验",
+        "before_first_applicable_danger": true,
+        "free_instruction": true,
+        "does_not_require_first_failure_or_paid_study": true,
+        "clear_or_expiry": "两类有用途的独立事实恢复有限权限；H14单对照不替代。",
+        "audit_fix": "班前私约及任务存根由真实操作生成；当前原型必须提供可执行独立测试；不足则保持待核，不造证明。",
+        "client_implemented": false
+      }
     },
     {
       "id": "H05",
@@ -42,15 +90,39 @@
       "action": "经理指令须有当前工单与权限来源，不能仅按声线执行危险操作。",
       "unlock": "首次店长远程指令前",
       "clear_condition": "来源与范围核验完毕",
-      "tag": "identity"
+      "tag": "identity",
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_description": "班前已确认任务夹及限定店长指令来源",
+        "applies_when": "经理声线/电话要求改变工作",
+        "unlock_milestone": "首次远程指令候选预告前",
+        "before_first_applicable_danger": true,
+        "free_instruction": true,
+        "does_not_require_first_failure_or_paid_study": true,
+        "clear_or_expiry": "核实范围才执行；未接受请求安全忽略，不因此卡普通工作。",
+        "audit_fix": "先核当前已存在任务ID与授权范围；额外危险请求必须可回到本地授权记录或安全拒绝。",
+        "client_implemented": false
+      }
     },
     {
       "id": "H06",
       "title": "只报工号，不替别人应名",
-      "action": "涉及姓名、回应与代理承诺时采用员工编号和明示流程。",
+      "action": "只在主动回应或接受代理承诺时使用员工编号与明示流程；听见真实姓名、预警或字幕本身不构成回应。",
       "unlock": "首次姓名型访客前",
       "clear_condition": "对话不形成未知代理或实名绑定",
-      "tag": "name"
+      "tag": "name",
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_description": "角色固定员工编号、已学纸号/无声回应动作",
+        "applies_when": "姓名型访客要求代理回应或口头承诺",
+        "unlock_milestone": "首次姓名条件候选预告前",
+        "before_first_applicable_danger": true,
+        "free_instruction": true,
+        "does_not_require_first_failure_or_paid_study": true,
+        "clear_or_expiry": "用工号/纸号完成实际操作；保持沉默本身不扣分。",
+        "audit_fix": "只处罚玩家主动接受绑定/替人回应的命令事件；听到名字、方向字幕和F21预警不构成回应。",
+        "client_implemented": false
+      }
     },
     {
       "id": "H07",
@@ -58,7 +130,19 @@
       "action": "契约必须显示对象、范围、时限、代价与退出方式。",
       "unlock": "首次契约访客前",
       "clear_condition": "条款核对后接受或明确拒绝",
-      "tag": "contract"
+      "tag": "contract",
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_description": "明确可选合同提案，E071接受前预约E045",
+        "applies_when": "玩家点接受且实际交付条件满足",
+        "unlock_milestone": "首次契约提案到达前",
+        "before_first_applicable_danger": true,
+        "free_instruction": true,
+        "does_not_require_first_failure_or_paid_study": true,
+        "clear_or_expiry": "未接受安全离开；接受后按已记录退出/到期后果，不随机改价。",
+        "audit_fix": "统一proposal→accepted→fulfilled/exited/expired，接受前展示代价/截止/退出；E045使用绝对campaign_night_id，不只1—7。",
+        "client_implemented": false
+      }
     },
     {
       "id": "H08",
@@ -66,7 +150,19 @@
       "action": "核对付款、实物和票据，非金钱交换也需明确确认。",
       "unlock": "首次交易教学",
       "clear_condition": "交易账实一致或取消",
-      "tag": "transaction"
+      "tag": "transaction",
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_description": "真实订单、实物ID及唯一交易回执",
+        "applies_when": "交易/退款/非货币交换",
+        "unlock_milestone": "开班第一单前",
+        "before_first_applicable_danger": true,
+        "free_instruction": true,
+        "does_not_require_first_failure_or_paid_study": true,
+        "clear_or_expiry": "一次物件转移和唯一回执，退款不计新的销售完成单。",
+        "audit_fix": "普通收银自动；E002改可见钱匣故障/换备用匣；退款只能读当前或明确开班历史销售记录，不能凭遭遇声明制造。",
+        "client_implemented": false
+      }
     },
     {
       "id": "H09",
@@ -74,7 +170,19 @@
       "action": "按已核实方法分离供物、库存和个人食物。",
       "unlock": "首次供物型访客前",
       "clear_condition": "归属与用途清楚，污染隔离",
-      "tag": "offering"
+      "tag": "offering",
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_description": "独立供物槽、真实店用库存与个人保底食品",
+        "applies_when": "玩家决定供食或签供物契约",
+        "unlock_milestone": "首次供物候选预告前",
+        "before_first_applicable_danger": true,
+        "free_instruction": true,
+        "does_not_require_first_failure_or_paid_study": true,
+        "clear_or_expiry": "物件移到供物槽才成立；取回/使用按所属实例处理。",
+        "audit_fix": "候选投放前预留店用基础份额；不扣主角已得饱腹，不挪用保底餐；可选供物不足允许拒绝。",
+        "client_implemented": false
+      }
     },
     {
       "id": "H10",
@@ -82,7 +190,19 @@
       "action": "只食用已验证个人补给；未知赠食先封存核验。",
       "unlock": "首次上岗与资源教学",
       "clear_condition": "食品来源与状态可确认",
-      "tag": "food"
+      "tag": "food",
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_description": "个人补给购买/领取凭证、封存记录",
+        "applies_when": "玩家尝试吃物品",
+        "unlock_milestone": "班前领取免费餐",
+        "before_first_applicable_danger": true,
+        "free_instruction": true,
+        "does_not_require_first_failure_or_paid_study": true,
+        "clear_or_expiry": "消费同一实例一次；未知物品可一直封存，不制造强制饥饿解题。",
+        "audit_fix": "食品标签personal_verified/store_stock/offering/unknown，购买或每日领取生成前者；未知赠食在没有已实现测试时只可封存，不可食用。",
+        "client_implemented": false
+      }
     },
     {
       "id": "H11",
@@ -90,7 +210,19 @@
       "action": "先登记归属与领取证据，不直接出售或占为己有。",
       "unlock": "首次失物事件前",
       "clear_condition": "物品进入合规保管或完成核验交付",
-      "tag": "ownership"
+      "tag": "ownership",
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_description": "失物来客带入具体物件或实际拾获记录",
+        "applies_when": "领取/出售/归还失物",
+        "unlock_milestone": "首次失物候选预告前",
+        "before_first_applicable_danger": true,
+        "free_instruction": true,
+        "does_not_require_first_failure_or_paid_study": true,
+        "clear_or_expiry": "实际存入失物格或核验交付完成；不因登记就自动归还。",
+        "audit_fix": "由初始失物登记/普通拾取/访客交存生成；必须绑定owner_claims与两个可观察细节；不需虚构本班销售史。",
+        "client_implemented": false
+      }
     },
     {
       "id": "H12",
@@ -98,7 +230,19 @@
       "action": "移动、变形或污染物先控范围，再按已学方法处置。",
       "unlock": "首次商品异常前",
       "clear_condition": "异常停止且复检或退货完成",
-      "tag": "isolation"
+      "tag": "isolation",
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_description": "实际物件外观/污染状态被可见事件或怪能力改变",
+        "applies_when": "异常物仍在可售货格",
+        "unlock_milestone": "首次物件异常预告前",
+        "before_first_applicable_danger": true,
+        "free_instruction": true,
+        "does_not_require_first_failure_or_paid_study": true,
+        "clear_or_expiry": "异常解除后复检或退货；基本封存可保持非致命待办，不当成已解怪。",
+        "audit_fix": "候选先预留隔离槽和基础处理动作；异常状态来源/实例明确，早隔离允许预防成功，不暗中放回货架。",
+        "client_implemented": false
+      }
     },
     {
       "id": "H13",
@@ -106,15 +250,39 @@
       "action": "电话与广播只作为信息源；高风险动作需独立证据。",
       "unlock": "首次声音诱导前",
       "clear_condition": "信息来源经过核验",
-      "tag": "sound"
+      "tag": "sound",
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_description": "真实声源通道事件、电话请求记录",
+        "applies_when": "远程高风险操作",
+        "unlock_milestone": "首次声音诱导候选预告前",
+        "before_first_applicable_danger": true,
+        "free_instruction": true,
+        "does_not_require_first_failure_or_paid_study": true,
+        "clear_or_expiry": "核验后有限执行或安全拒绝；沉默不是永久锁住正常接待。",
+        "audit_fix": "声源可听/字幕可见；高风险请求需要H04/H05证据与权限；关声道有明确对象，既有请求不自动完成。",
+        "client_implemented": false
+      }
     },
     {
       "id": "H14",
       "title": "看见一个影像，不等于看见事实",
       "action": "镜子、监控与自身感知都需用可控测试或实物对照。",
       "unlock": "首次影像类异常前",
-      "clear_condition": "至少一个独立对照成立",
-      "tag": "perception"
+      "clear_condition": "一个独立对照只确认其覆盖的现象；身份与高风险权限仍须H04要求的两类独立事实。",
+      "tag": "perception",
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_description": "已有可见差异＋不依赖同一外观的实体对照",
+        "applies_when": "镜影/监控异常",
+        "unlock_milestone": "首次影像候选预告前",
+        "before_first_applicable_danger": true,
+        "free_instruction": true,
+        "does_not_require_first_failure_or_paid_study": true,
+        "clear_or_expiry": "对照动作完成产生限定事实，不显示隐藏怪名或true_author。",
+        "audit_fix": "对照只确认特定事实；8秒仅约束当前在场推断，历史回执/画面仍证明当时事实；权限仍需H04两域。",
+        "client_implemented": false
+      }
     },
     {
       "id": "H15",
@@ -122,23 +290,59 @@
       "action": "改变环境前预览自身与同事的安全路线。",
       "unlock": "首次环境调度前",
       "clear_condition": "目标与返回路线均可用",
-      "tag": "path"
+      "tag": "path",
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_description": "现有门、固定导航和当前人员/物件占位",
+        "applies_when": "玩家改变环境",
+        "unlock_milestone": "首次关门/支阀/遮线教学前",
+        "before_first_applicable_danger": true,
+        "free_instruction": true,
+        "does_not_require_first_failure_or_paid_study": true,
+        "clear_or_expiry": "必要目标与退路保留；条件被玩家提前安全解除可PREVENTED。",
+        "audit_fix": "对关闭唯一任务出口/占唯一关键槽的玩家动作做提交前守卫；怪/事件不能同时吞掉所有基础路径。",
+        "client_implemented": false
+      }
     },
     {
       "id": "H16",
       "title": "先辨来者，再选驱法",
-      "action": "盐、金属、灯、食物等仅按已学适用范围使用。",
+      "action": "根据现场已免费教学的特征与方法处理异常；白天研究可解锁更多线索或策略，不决定首次基础解法是否可用。",
       "unlock": "首次主动驱离前",
       "clear_condition": "对象特征与方法匹配或选择保守暂缓",
-      "tag": "knowledge"
+      "tag": "knowledge",
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_description": "免费基础动作教学、现场最低安全提示；白天学习扩展策略",
+        "applies_when": "第一次主动驱离或稀有工具使用",
+        "unlock_milestone": "首次相关能力候选预告前，不要求先受一次攻击",
+        "before_first_applicable_danger": true,
+        "free_instruction": true,
+        "does_not_require_first_failure_or_paid_study": true,
+        "clear_or_expiry": "适用范围已确认才提供有效道具按钮；无适用目标不扣物。",
+        "audit_fix": "候选计划后先发免费规则卡与动作演练，确认后再危险到场；基础解不以研究点/缺货书为门槛。",
+        "client_implemented": false
+      }
     },
     {
       "id": "H17",
       "title": "撑不住就交岗，不要在危险工位睡着",
-      "action": "低精力或恐慌时先接岗或暂停营业，再恢复资源。",
+      "action": "普通睡眠/短休先交岗或暂停接客并满足工位安全；SAN归零可立即随身启动每夜一次应急稳定，允许正常走路，不必先到工位或等同事。",
       "unlock": "首次资源低阈值前",
-      "clear_condition": "工位安全且资源恢复到行动门槛",
-      "tag": "resource"
+      "clear_condition": "普通休息满足工位准入并产生真实恢复；应急稳定累计8世界秒令SAN到15，无需固定地点。关键取物、撒诱饵和入柜不因零体力禁用。",
+      "tag": "resource",
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_description": "夜班基础精力消耗、真实恐怖扣SAN、食物/体力动作",
+        "applies_when": "低精力/恐慌/休息",
+        "unlock_milestone": "第一次夜班资源教学，不能等到SAN0才给说明",
+        "before_first_applicable_danger": true,
+        "free_instruction": true,
+        "does_not_require_first_failure_or_paid_study": true,
+        "clear_or_expiry": "恢复到明确阈值或主动撤班；0体力保留关键取物/撒饵/入柜。",
+        "audit_fix": "普通工位休息保留无追逐/无待命中条件；恐慌应急稳定可随身8世界秒、走路、被打断保留进度，世界不暂停；两者不能混用准入条件。去掉无生产者的睡眠不足层数。",
+        "client_implemented": false
+      }
     },
     {
       "id": "H18",
@@ -146,23 +350,66 @@
       "action": "宠物提示须与其他线索核对，不能单凭叫声驱赶人员。",
       "unlock": "首次宠物出勤前",
       "clear_condition": "获得独立证据或保持待核",
-      "tag": "pet"
+      "tag": "pet",
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_description": "实际出勤宠物及其能力次数/目标标签",
+        "applies_when": "宠物叫声或技能请求",
+        "unlock_milestone": "首次带宠物出勤前",
+        "before_first_applicable_danger": true,
+        "free_instruction": true,
+        "does_not_require_first_failure_or_paid_study": true,
+        "clear_or_expiry": "独立证据足够或继续待核；无宠物不抽宠物事件。",
+        "audit_fix": "夜间安抚不补技能次数、不解除未照料禁用；能力只在有效目标提交扣次，提示不算身份独立证据。",
+        "client_implemented": false
+      }
     },
     {
       "id": "H19",
       "title": "街上来了一队客人，先确认营业方式",
-      "action": "群体事件按预告切门禁与服务窗口，逐批处理并清点。",
+      "action": "按预告管理门线、队列与复店安全；普通店务和可选交易仍影响收益，不因未做齐普通工作直接判夜班失败。",
       "unlock": "首次大型群体事件前",
       "clear_condition": "群体离开且复店检查通过",
-      "tag": "procession"
+      "tag": "procession",
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_description": "重大事件自身预告与单一阶段预约",
+        "applies_when": "队伍将经过门线",
+        "unlock_milestone": "首次重大事件上一阶段预告前",
+        "before_first_applicable_danger": true,
+        "free_instruction": true,
+        "does_not_require_first_failure_or_paid_study": true,
+        "clear_or_expiry": "队伍结束且安全复店；无关未做店务只按有界债务结算。",
+        "audit_fix": "安全门线/清场动作与普通工单分开；放弃经营降收益不致死；特殊交易替换原两单并保留browse实际入店条件。",
+        "client_implemented": false
+      }
     },
     {
       "id": "H20",
       "title": "交了账与钥匙，才算真正下班",
-      "action": "真实六点后核对接班身份、账单与钥匙，系统确认交班。",
+      "action": "本班唯一真实店长在N06预留窗口回店并核验；真实六点后核对已准备的账单与钥匙，只提交本班职责交接。",
       "unlock": "首次正式交班前",
-      "clear_condition": "时间、身份与职责移交均通过",
-      "tag": "handover"
+      "clear_condition": "时间、两类独立核验事实与真实职责移交均通过；六点后只读/交付模式不产生新工作、收益或恢复。",
+      "tag": "handover",
+      "current_contract": "content/condition_lifecycle_v06.json",
+      "v06_condition_contract": {
+        "producer_description": "N06固定店长到店/核验安排、钥匙与账单预备槽、真实06",
+        "applies_when": "真实06时请求交班",
+        "unlock_milestone": "首次夜班N06前给演练说明，早于终局危险",
+        "before_first_applicable_danger": true,
+        "free_instruction": true,
+        "does_not_require_first_failure_or_paid_study": true,
+        "clear_or_expiry": "时间/身份/实际移交一次提交；未解决核心危险不能靠钟清除，普通订单不阻断。",
+        "audit_fix": "店长作为既有角色在N06预留窗口到公共交班点；班前/当夜两路记录可核验，钥匙账单在06前准备；06只是一次提交边界。",
+        "client_implemented": false,
+        "manager_arrival_phase_budget_second": 100,
+        "creates_third_permanent_employee": false,
+        "six_am_order": "先处理到期契约和已合法完成的成功提交，再判定关键威胁，最后允许交班。"
+      }
     }
-  ]
+  ],
+  "current_contract": "content/condition_lifecycle_v06.json",
+  "rule_unlock_is_not_paid_research": true,
+  "unlock_policy": "规划候选先安排免费局部规则/动作教学，确认后才允许危险到场；首次见怪和研究奖励不作为该怪基础解法的先决条件。",
+  "rule_tags_are_not_identity_answers": true
 }

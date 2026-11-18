@@ -1,5 +1,5 @@
 {
-  "version": "0.5",
+  "version": "0.6",
   "status": "reviewed_design_with_partial_headless_contract_reference_not_playable_client",
   "design_goal": "每个熟悉的工作物件都有正常用途、被怪物利用的方式和玩家可改变的状态；紧张来自行动取舍、可观察的违禁后果与有限注意力。",
   "authority": {
@@ -12,13 +12,15 @@
     "historical_guards_are_executable": false,
     "precedence": [
       "user_fixed_blueprints",
+      "condition_lifecycle",
       "current_store_rules",
       "current_monster_gameplay",
       "geometry_additions",
       "geometry_base",
       "historical_detail_catalog"
     ],
-    "migration": "V0.4动作卡保留为历史推导与素材，不再直接作为V0.5遭遇加载源。F12/F13的精确蓝图优先级不变。"
+    "migration": "V0.4动作卡保留为历史推导与素材，不再直接作为V0.5遭遇加载源。F12/F13的精确蓝图优先级不变。",
+    "condition_lifecycle": "content/condition_lifecycle_v06.json"
   },
   "systems": [
     {
@@ -454,7 +456,20 @@
     },
     "service_mode_or_greeting_change_cancels_current_checkout": true,
     "cancelled_checkout_keeps_original_patience": true,
-    "browser_rules": "入店自选客必须本人穿过门槛后才可结算；已入场者可以最后窗口交付。只翻营业牌、不产生过门事实不能解锁。全夜窗口最多6笔，最高B，A级至少需要2笔有入店事实的交易。"
+    "browser_rules": "入店自选客必须本人穿过门槛后才可结算；已入场者可以最后窗口交付。只翻营业牌、不产生过门事实不能解锁。全夜窗口最多6笔，最高B，A级至少需要2笔有入店事实的交易。",
+    "schedule_clock": "phase_budget_elapsed",
+    "special_order_contract": {
+      "reserve_same_type_base_slot_before_default_arrival": true,
+      "already_arrived_completed_or_lost_slot_cannot_be_replaced": true,
+      "replace_arrival_not_duplicate_it": true,
+      "ordinary_patience_applies_before_acceptance_only": true,
+      "accepted_special_contract_uses_displayed_reserved_deadline": true,
+      "deadline_cannot_extend_by_mode_change_or_reacceptance": true,
+      "browse_entry_still_required": true,
+      "acceptance_needs_route_actions_recovery_and_phase_budget": true,
+      "refund_or_request_is_not_new_sale": true,
+      "cancel_retains_unique_item_ids_and_received_payments": true
+    }
   },
   "emergency_power": {
     "capacity_units": 12,
@@ -554,7 +569,9 @@
     "low_san_modifiers_cap_per_task": 2,
     "perception_changes_fact_records": false,
     "omen_observation_san_damage": 0,
-    "identification_immediate_san_farm": false
+    "identification_immediate_san_farm": false,
+    "minor_injury_contract": "content/condition_lifecycle_v06.json#/wounds",
+    "panic_stabilization_contract": "content/condition_lifecycle_v06.json#/panic_stabilization"
   },
   "omens": {
     "phase_seconds": 120,
@@ -580,7 +597,14 @@
     "first_critical_failure_requires_telegraph": true,
     "environment_false_cue_has_real_source": true,
     "no_extra_san_hallucination_system_in_first_slice": true,
-    "learning": "班前/白天学习给出原型线索与可行策略；初见时不自动报正确名字，禁令提示写眼前现象和危险动作。玩家可以靠相同物件机制解决未知怪。"
+    "learning": "班前/白天学习给出原型线索与可行策略；初见时不自动报正确名字，禁令提示写眼前现象和危险动作。玩家可以靠相同物件机制解决未知怪。",
+    "schedule_clock": "phase_budget_elapsed",
+    "reactive_actual_state_exceptions": {
+      "F26": "content/condition_lifecycle_v06.json#/wounds/reactive_consumers",
+      "F32": "content/condition_lifecycle_v06.json#/wounds/reactive_consumers"
+    },
+    "after_announcement_source_recheck_required": true,
+    "player_prevented_encounter_keeps_primary_slot_spent": true
   },
   "information": {
     "canonical_handbook_immutable": true,
@@ -628,7 +652,11 @@
     "fake_notes_max_per_night": 1,
     "ignore_unaccepted_request_is_safe": true,
     "independence_domain_required": true,
-    "independence_contract": "两条证明须有不同原始记录和不同证据域；同一伪装外观的两帧监控不算两路独立证据。域由已实现的观测规则定义，不由用户输入或怪物声称定义。"
+    "independence_contract": "两条证明须有不同原始记录和不同证据域；同一伪装外观的两帧监控不算两路独立证据。域由已实现的观测规则定义，不由用户输入或怪物声称定义。",
+    "snapshot_stale_scope": "only_current_presence_or_position_inference",
+    "historical_work_receipts_world_ttl": null,
+    "historical_work_receipt_does_not_prove_current_body_identity": true,
+    "handover_local_checks_contract": "content/condition_lifecycle_v06.json#/end_of_shift"
   },
   "attention_and_pause": {
     "read_handbook_pauses_all": true,
@@ -641,7 +669,8 @@
     "new_information_generated_while_paused": false,
     "resource_recovery_while_paused": false,
     "safe_precision_closeup_policy": "沿用V0.3安全准入、本地QTE、明示成本一次结算；不得在追逐中靠特写冻结后拾物/入柜。",
-    "app_background_pauses_all": true
+    "app_background_pauses_all": true,
+    "precision_schedule_guard_contract": "content/condition_lifecycle_v06.json#/clock_contract"
   },
   "failure": {
     "global_three_strikes_ends_night": false,
@@ -665,7 +694,9 @@
       "explicit_irrecoverable_core_breach",
       "player_chooses_withdrawal"
     ],
-    "ordinary_work_errors_are_not_core_breaches": true
+    "ordinary_work_errors_are_not_core_breaches": true,
+    "active_unresolved_at_phase_boundary": "保留同一实例与工具/人员预约，最多跨下一阶段；占用冲突主位，不清空重抽。再逾期或真实06仍有关键危险则明确未完成夜班。F53等已登记非敌对限时契约按自己的到期规则。",
+    "player_prevention_is_successful_safety_outcome": true
   },
   "work_debt": {
     "max_carryover_tasks": 1,
@@ -692,7 +723,9 @@
     "attendance_only_ticket": false,
     "reward_ticket_requirements": "安全交班，至少4张主工单完成，至少6笔实际交易；经营不足仍有完成标记与扣减后工资，不发奖券。",
     "formal_handover_after_six_is_not_extra_work_time": true,
-    "bonus_formula": "min(40, 4 * completed_duties + 2 * min(8, unique_valid_orders))"
+    "bonus_formula": "min(40, 4 * completed_duties + 2 * min(8, unique_valid_orders))",
+    "handover_actor": "MANAGER",
+    "handover_contract": "content/condition_lifecycle_v06.json#/end_of_shift"
   },
   "regulars": [
     {
@@ -834,7 +867,18 @@
       "违反规则生成未占预算的第二追逐者"
     ],
     "max_constraints_per_action_including_san": 2,
-    "visual_impairment_stack": "同类黑暗/雾/黑视取较强受限效果，不相加吞掉最低可读范围。"
+    "visual_impairment_stack": "同类黑暗/雾/黑视取较强受限效果，不相加吞掉最低可读范围。",
+    "condition_lifecycle_contract": "content/condition_lifecycle_v06.json",
+    "source_graph_contract": "content/condition_reachability_v06.json",
+    "normal_work_shared_with_encounter_deducted_once": true,
+    "future_conditional_slot_reservation_is_not_fact_creation": true,
+    "remaining_current_phase_budget_required": true,
+    "variant_overrides": {
+      "must_declare_trigger_subtype": true,
+      "branch_specific_requirements_not_union_of_all_event_variants": true,
+      "no_condition_can_simultaneously_require_normal_and_anomalous_branch": true,
+      "variant_handling_credited_to_same_existing_action_once": true
+    }
   },
   "conditional_examples": [
     {
@@ -887,9 +931,9 @@
         "F21",
         "F32"
       ],
-      "condition": "第二实体已预留、警告与包扎窗口不冲突",
-      "effect": "未及时移岗导致伤口才成为吸血鬼目标；挽救事故切断联动",
-      "reject_if": "单实体教学夜或需要新增未预算追逐者"
+      "condition": "事前预留双实体/压力和至少45秒本阶段子遭遇预算；F21真实玻璃事故产生伤口后再激活F32，伤口剩余至少45世界秒。",
+      "effect": "调离人员防止事故则子怪不生成；真实割伤后才有目标，包扎可提前阻止吸血鬼。",
+      "reject_if": "无真实割伤、缺免费敷料、余血/阶段时间不足、未有预留席位或已有主动追逐者"
     },
     {
       "ids": [

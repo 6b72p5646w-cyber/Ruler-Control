@@ -1,5 +1,5 @@
 {
-  "version": "0.5",
+  "version": "0.6",
   "items": [
     {
       "id": "I01",
@@ -317,16 +317,19 @@
       "name": "游戏急救贴",
       "rarity": "uncommon",
       "shop_price": 30,
-      "effect": "缓解一层游戏轻伤动作限制",
-      "tradeoff": "不能治疗严重伤势，属于游戏道具",
+      "effect": "在距离内实际使用1世界秒，处理一个已登记游戏伤口/轻伤状态；是3秒免费包扎的可选加速。",
+      "tradeoff": "消耗同一急救贴一次；不恢复SAN、不解除追逐、不处理未定义严重伤势。",
       "tag": "injury",
       "consumable": true,
       "design_origin": "original_game_adaptation",
       "operational_extension": {
-        "description": "处理一次接触造成的轻伤动作限制，为再次搬运留出机会；不会解除追逐。",
-        "shared_primitive": "status_remove",
+        "description": "实际使用后止血并移除当前30秒轻伤；无这些状态时不消费。既有血迹仍需处理，怪物按各自目标条件结束。",
+        "shared_primitive": "typed_status_treatment",
         "requires_new_item_type": false,
-        "status": "proposal_not_implemented"
+        "status": "proposal_not_implemented",
+        "condition_contract": "content/condition_lifecycle_v06.json#/wounds/first_aid",
+        "world_seconds": 1,
+        "requires_qte": false
       }
     },
     {
@@ -476,7 +479,9 @@
       ],
       "nominal_satiety_total": 65,
       "overflow_destination": "job_supply_locker"
-    }
+    },
+    "nonfood_work_supplies_contract": "content/condition_lifecycle_v06.json#/supply_catalog",
+    "personal_food_cannot_fill_reserved_trade_stock": true
   },
   "operational_rules": {
     "world_quick_use": "大地图快捷输入；是否可在搬运或追逐中使用由占手与动作标签判断，不打开会冻结追击的工位特写。",

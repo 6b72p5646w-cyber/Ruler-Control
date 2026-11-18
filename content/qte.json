@@ -1,5 +1,5 @@
 {
-  "version": "0.4",
+  "version": "0.6",
   "status": "prototype_proposal_not_playtested",
   "judgment_policy": "visible_region_matches_logical_region_no_hidden_input_error_roll",
   "snapshot_modifiers_at_attempt_start": true,
@@ -122,7 +122,14 @@
     "system_pause_freezes_local_qte_too": true,
     "read_only_preparation_is_not_started_attempt": true,
     "press_start_is_first_committed_input": true,
-    "cost_reserved_on_start_charged_once_on_exit": true
+    "cost_reserved_on_start_charged_once_on_exit": true,
+    "schedule_clock": "phase_budget_elapsed",
+    "world_clock": "world_simulation",
+    "must_not_cross_next_undispatched_schedule_marker": true,
+    "equal_boundary_commits_action_then_dispatches_marker": true,
+    "critical_remaining_resolution_budget_must_still_fit": true,
+    "handover_actions_are_separate_from_world_pause": true,
+    "condition_clock_contract": "content/condition_lifecycle_v06.json#/clock_contract"
   },
   "task_profiles": [
     {

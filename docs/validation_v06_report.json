@@ -1,0 +1,1279 @@
+{
+  "revision": "0.6",
+  "date": "2026-11-18",
+  "status": "PASS",
+  "client_implemented": false,
+  "scope": "Design/reference integrity, independent source-dependency witnesses and bounded headless causal scenarios; not complete AI, temporal navigation or mobile playtest.",
+  "results": [
+    {
+      "command": "python scripts/validate_content.py",
+      "exit_code": 0,
+      "result": {
+        "status": "PASS",
+        "checks": 5116,
+        "counts": {
+          "monsters": 60,
+          "default_enabled_monsters": 59,
+          "events": 72,
+          "rules": 20,
+          "temporary_items": 24,
+          "equipment": 24,
+          "pets": 8,
+          "synergy_cases": 18,
+          "sources": 63,
+          "shared_verbs": 10,
+          "work_templates": 16,
+          "qte_templates": 3,
+          "rule_components": 8,
+          "event_variants": 12,
+          "encounter_blueprints": 2,
+          "deployables": 8,
+          "legacy_complete_encounter_designs": 60,
+          "legacy_encounter_event_variants": 120,
+          "mechanism_modules": 12,
+          "map_scenes": 4
+        },
+        "scope": "Shared catalogs and preserved V0.4 history only; run validate_design_v05.py for current gameplay. Static/headless checks do not validate navigation, touch UI, phone performance or play balance.",
+        "errors": []
+      },
+      "stderr": ""
+    },
+    {
+      "command": "python scripts/validate_design_v05.py",
+      "exit_code": 0,
+      "result": {
+        "status": "PASS",
+        "checks": 2628,
+        "counts": {
+          "current_monsters": 60,
+          "current_variants": 120,
+          "store_mechanisms": 10,
+          "primary_mechanism_distribution": {
+            "SG07": 9,
+            "SG08": 6,
+            "SG06": 6,
+            "SG09": 6,
+            "SG05": 6,
+            "SG10": 10,
+            "SG04": 9,
+            "SG02": 4,
+            "SG01": 3,
+            "SG03": 1
+          }
+        },
+        "scope": "Current design coverage, links, budgets and authored invariants. No full monster runtime, dynamic route or fun validation.",
+        "errors": []
+      },
+      "stderr": ""
+    },
+    {
+      "command": "python scripts/validate_maps.py",
+      "exit_code": 0,
+      "result": {
+        "status": "PASS",
+        "viewport_ratio": 5.0,
+        "counter_distance_tiles": 4.0,
+        "errors": [],
+        "tutorial_spawn_distance_tiles": 5.83,
+        "local_timing_checks": [
+          {
+            "id": "F10",
+            "timed_local_seconds": 2.67,
+            "window_seconds": 6
+          },
+          {
+            "id": "F32",
+            "timed_local_seconds": 0.93,
+            "window_seconds": 4
+          },
+          {
+            "id": "F50_front_pair",
+            "timed_local_seconds": 7.33,
+            "window_seconds": 8
+          },
+          {
+            "id": "F50_rear_pair",
+            "timed_local_seconds": 6.67,
+            "window_seconds": 8
+          },
+          {
+            "id": "F57",
+            "timed_local_seconds": 5.22,
+            "window_seconds": 8,
+            "box_path_tiles": 2
+          }
+        ],
+        "limits": "Static four-neighbor tile paths with doors fixed at scenario start. No moving enemies, collision radius sweep, timing AI, field-of-view renderer, touch UI or arbitrary event combinations were simulated.",
+        "routes": [
+          {
+            "id": "R01",
+            "name": "验收到货架",
+            "length_tiles": 29,
+            "movement_seconds": 12.08,
+            "speed": 2.4,
+            "segment_speeds": [
+              2.4
+            ],
+            "closed_doors": []
+          },
+          {
+            "id": "R02",
+            "name": "任务生肉入主冰柜",
+            "length_tiles": 20,
+            "movement_seconds": 7.69,
+            "speed": 2.6,
+            "segment_speeds": [
+              2.6
+            ],
+            "closed_doors": []
+          },
+          {
+            "id": "R03",
+            "name": "封袋送垃圾箱",
+            "length_tiles": 16,
+            "movement_seconds": 6.67,
+            "speed": 2.4,
+            "segment_speeds": [
+              2.4
+            ],
+            "closed_doors": []
+          },
+          {
+            "id": "R04",
+            "name": "回形针架到正门店外",
+            "length_tiles": 17,
+            "movement_seconds": 5.67,
+            "speed": 3.0,
+            "segment_speeds": [
+              3.0
+            ],
+            "closed_doors": []
+          },
+          {
+            "id": "R05",
+            "name": "柜台修电往返",
+            "length_tiles": 60,
+            "movement_seconds": 20.0,
+            "speed": 3.0,
+            "segment_speeds": [
+              3.0,
+              3.0
+            ],
+            "closed_doors": []
+          },
+          {
+            "id": "R06",
+            "name": "后门关闭时外环清运",
+            "length_tiles": 88,
+            "movement_seconds": 36.67,
+            "speed": 2.4,
+            "segment_speeds": [
+              2.4
+            ],
+            "closed_doors": [
+              "DOOR_REAR"
+            ]
+          },
+          {
+            "id": "R07",
+            "name": "冷链通道关闭备用路",
+            "length_tiles": 36,
+            "movement_seconds": 13.85,
+            "speed": 2.6,
+            "segment_speeds": [
+              2.6
+            ],
+            "closed_doors": [
+              "DOOR_COLD"
+            ]
+          },
+          {
+            "id": "R08",
+            "name": "四区主巡店回路",
+            "length_tiles": 106,
+            "movement_seconds": 35.33,
+            "speed": 3.0,
+            "segment_speeds": [
+              3.0,
+              3.0,
+              3.0,
+              3.0,
+              3.0
+            ],
+            "closed_doors": []
+          },
+          {
+            "id": "R09",
+            "name": "巨魔两批搬货并回柜台",
+            "length_tiles": 144,
+            "movement_seconds": 54.83,
+            "speed": 3.0,
+            "segment_speeds": [
+              2.4,
+              3.0,
+              2.4,
+              3.0
+            ],
+            "closed_doors": []
+          },
+          {
+            "id": "R10",
+            "name": "双重身三工位证据链",
+            "length_tiles": 89,
+            "movement_seconds": 29.67,
+            "speed": 3.0,
+            "segment_speeds": [
+              3.0,
+              3.0,
+              3.0,
+              3.0,
+              3.0
+            ],
+            "closed_doors": []
+          }
+        ]
+      },
+      "stderr": ""
+    },
+    {
+      "command": "python scripts/validate_map_mechanics_v05.py",
+      "exit_code": 0,
+      "result": {
+        "status": "PASS",
+        "checks": 477,
+        "errors": [],
+        "counts": {
+          "objects": 19,
+          "spatial_groups": 12,
+          "wet_regions": 5,
+          "defense_groups": 2,
+          "entry_profiles": 6
+        },
+        "water": [
+          {
+            "id": "WET_FRONT",
+            "wet_cells": 6,
+            "cut_disconnects_target": true,
+            "dry_controls_and_required_paths_checked": true
+          },
+          {
+            "id": "WET_COLD",
+            "wet_cells": 6,
+            "cut_disconnects_target": true,
+            "dry_controls_and_required_paths_checked": true
+          },
+          {
+            "id": "WET_REAR",
+            "wet_cells": 9,
+            "cut_disconnects_target": true,
+            "dry_controls_and_required_paths_checked": true
+          },
+          {
+            "id": "WET_AISLE",
+            "wet_cells": 6,
+            "cut_disconnects_target": true,
+            "dry_controls_and_required_paths_checked": true
+          },
+          {
+            "id": "WET_CHAIR",
+            "wet_cells": 4,
+            "cut_disconnects_target": true,
+            "dry_controls_and_required_paths_checked": true
+          }
+        ],
+        "defense": [
+          {
+            "id": "DEF_FRONT_PAIR",
+            "maximum_authored_seconds": 7.33,
+            "warning_seconds": 8,
+            "runtime_approach_limit_tiles": 12
+          },
+          {
+            "id": "DEF_REAR_PAIR",
+            "maximum_authored_seconds": 7.0,
+            "warning_seconds": 8,
+            "runtime_approach_limit_tiles": 12
+          }
+        ],
+        "routes": [
+          {
+            "id": "OV_F21_ROSTER",
+            "path_tiles": 2,
+            "movement_seconds": 0.67,
+            "max_seconds": 3
+          },
+          {
+            "id": "OV_F10_EVIDENCE",
+            "path_tiles": 2,
+            "movement_seconds": 0.67,
+            "max_seconds": 2
+          },
+          {
+            "id": "OV_VERIFY_READER",
+            "path_tiles": 6,
+            "movement_seconds": 2.0,
+            "max_seconds": 4
+          },
+          {
+            "id": "OV_F60_CURTAIN",
+            "path_tiles": 2,
+            "movement_seconds": 0.67,
+            "max_seconds": 1
+          },
+          {
+            "id": "OV_F17_PARCEL",
+            "path_tiles": 0,
+            "movement_seconds": 0.0,
+            "max_seconds": 1
+          }
+        ],
+        "clearance_probes": [
+          {
+            "id": "PROBE_WIDE_EXTERNAL_ROUTE",
+            "radius_tiles": 0.75,
+            "path_tiles": 59,
+            "uses_exterior": true,
+            "meaning": "Specific center-path clearance only, not all store aisles"
+          },
+          {
+            "id": "PROBE_SHELF_LOOP",
+            "radius_tiles": 0.75,
+            "path_tiles": 11,
+            "uses_exterior": false,
+            "meaning": "Specific center-path clearance only, not all store aisles"
+          },
+          {
+            "id": "PROBE_PLAYER_INTERIOR",
+            "radius_tiles": 0.3,
+            "path_tiles": 39,
+            "uses_exterior": false,
+            "meaning": "Specific center-path clearance only, not all store aisles"
+          }
+        ],
+        "known_geometry_limits": [
+          {
+            "id": "LIM_WIDE_INTERIOR_TO_REAR",
+            "radius_tiles": 0.75,
+            "interior_route_reachable": false,
+            "admission_gate": "需要店内前后通行的追逐使用现版0.3格半径；未重做地图与动态验证前禁止体型成长或宽体怪强占此路线。外部宽路线另需双门可通及59格行程预算。"
+          }
+        ],
+        "limitations": "仅静态格网、具名位置、局部路线、湿区割点、宽通道段和半径探针；不宣称客户端、60怪AI或所有事件组合已完成。"
+      },
+      "stderr": ""
+    },
+    {
+      "command": "python scripts/validate_conditions_v06.py",
+      "exit_code": 0,
+      "result": {
+        "status": "PASS",
+        "checks": 5710,
+        "scope": "core schema, explicit design invariants, references, and independent finite source-dependency witnesses",
+        "proof_level": "source_dependency_witness_only_not_temporal_or_ai_playthrough",
+        "client_implemented": false,
+        "interpretation": [
+          "Each of the 60 witnesses starts independently from NEW_SHIFT; they are not one playable night.",
+          "Operators represent declared concrete action/instance sources. A witness is only as truthful as those authored source contracts.",
+          "Facts invalidated by an action are removed before its products are added; the witness is replayed from its seed.",
+          "Each named operator is used at most once per witness. A second item/order/batch requires its own named instance operator.",
+          "Historical phase checks compare only explicit known metadata; they do not simulate elapsed time, observation continuity, or omen scheduling.",
+          "SAFE_ROUTE and SUPPLIES are abstract admission claims. This report does not prove collision/navigation, shared inventory quantities, deadlines, all event combinations, complete AI, guaranteed success, or fun.",
+          "SEARCH_LIMIT is inconclusive and fails validation; only an exhausted finite search is reported as UNREACHABLE.",
+          "F14 is included for design-source coverage while remaining disabled as a runtime candidate."
+        ],
+        "counts": {
+          "cards": 60,
+          "rules": 20,
+          "events": 72,
+          "encounter_contracts": 60,
+          "supplies": 30,
+          "condition_definitions": 18,
+          "witnesses_reachable": 60
+        },
+        "inputs_sha256": {
+          "content/condition_lifecycle_v06.json": "b7f146afb0b3d5a31dc66387469b5fa8e93303225e04bfebc869d9197ad1faea",
+          "content/condition_reachability_v06.json": "f388f5a7474c52d557b81b9164bd5effd28116bd5697bb4e97ce8e66de3c2926",
+          "content/encounter_blueprints.json": "e76c13f935738b87e362bb904ec93985b3730cb9c66b85481e1c8ee30f19c266",
+          "content/encounters_v05.json": "5804d008b1392e290db2999b647884f99274fefc92d6696481065bf8a6be60b9",
+          "content/rules.json": "1c8d57675b7dc00ca40f2502f48c19548a66c7616ca00c1aed6cc45a72c2d181",
+          "content/events.json": "2fd2ed4461c93f53d920c78397a97ce4829f8cc4cc2d03f078c027797da46113",
+          "content/balance.json": "b3a74eb1868a74c15a536bae863cd78f1e95b00189ad9428a561375ad243da5d",
+          "content/maps.json": "773e39b35bc16c63e6b4f294e27f8a944072599f21b8ad1bae46527f0a093b9a",
+          "content/map_mechanics_v05.json": "d83825248f740035fa7924ff3b6845b127f10453a3ed78a64c7444d3deb2c03d"
+        },
+        "operator_count": 139,
+        "case_count": 60,
+        "negative_source_tests": [
+          {
+            "remove_producers": [
+              "P_F21_REAL_CUT",
+              "P_REAL_CUT"
+            ],
+            "expected_unreachable": [
+              "F26",
+              "F32"
+            ],
+            "results": [
+              {
+                "id": "F26",
+                "states_examined": 5,
+                "relevant_operators": 5,
+                "removed_producers": [
+                  "P_F21_REAL_CUT",
+                  "P_REAL_CUT"
+                ],
+                "status": "UNREACHABLE",
+                "search_exhausted": true,
+                "goal_facts": [
+                  "PAYLOAD_F26"
+                ]
+              },
+              {
+                "id": "F32",
+                "states_examined": 5,
+                "relevant_operators": 4,
+                "removed_producers": [
+                  "P_F21_REAL_CUT",
+                  "P_REAL_CUT"
+                ],
+                "status": "UNREACHABLE",
+                "search_exhausted": true,
+                "goal_facts": [
+                  "PAYLOAD_F32"
+                ]
+              }
+            ]
+          },
+          {
+            "remove_producers": [
+              "P_REPAIR"
+            ],
+            "expected_unreachable": [
+              "F10"
+            ],
+            "results": [
+              {
+                "id": "F10",
+                "states_examined": 5,
+                "relevant_operators": 4,
+                "removed_producers": [
+                  "P_REPAIR"
+                ],
+                "status": "UNREACHABLE",
+                "search_exhausted": true,
+                "goal_facts": [
+                  "PAYLOAD_F10"
+                ]
+              }
+            ]
+          },
+          {
+            "remove_producers": [
+              "P_REFUND"
+            ],
+            "expected_unreachable": [
+              "F19"
+            ],
+            "results": [
+              {
+                "id": "F19",
+                "states_examined": 13,
+                "relevant_operators": 7,
+                "removed_producers": [
+                  "P_REFUND"
+                ],
+                "status": "UNREACHABLE",
+                "search_exhausted": true,
+                "goal_facts": [
+                  "PAYLOAD_F19"
+                ]
+              }
+            ]
+          },
+          {
+            "remove_producers": [
+              "P_WORK_TRACE_2"
+            ],
+            "expected_unreachable": [
+              "F38"
+            ],
+            "results": [
+              {
+                "id": "F38",
+                "states_examined": 33,
+                "relevant_operators": 9,
+                "removed_producers": [
+                  "P_WORK_TRACE_2"
+                ],
+                "status": "UNREACHABLE",
+                "search_exhausted": true,
+                "goal_facts": [
+                  "PAYLOAD_F38"
+                ]
+              }
+            ]
+          },
+          {
+            "remove_producers": [
+              "P_CHECKOUT_2"
+            ],
+            "expected_unreachable": [
+              "F51"
+            ],
+            "results": [
+              {
+                "id": "F51",
+                "states_examined": 37,
+                "relevant_operators": 10,
+                "removed_producers": [
+                  "P_CHECKOUT_2"
+                ],
+                "status": "UNREACHABLE",
+                "search_exhausted": true,
+                "goal_facts": [
+                  "PAYLOAD_F51"
+                ]
+              }
+            ]
+          },
+          {
+            "remove_producers": [
+              "P_CLAIM_WINDOW_EVIDENCE"
+            ],
+            "expected_unreachable": [
+              "F43"
+            ],
+            "results": [
+              {
+                "id": "F43",
+                "states_examined": 17,
+                "relevant_operators": 6,
+                "removed_producers": [
+                  "P_CLAIM_WINDOW_EVIDENCE"
+                ],
+                "status": "UNREACHABLE",
+                "search_exhausted": true,
+                "goal_facts": [
+                  "PAYLOAD_F43"
+                ]
+              }
+            ]
+          },
+          {
+            "remove_producers": [
+              "P_RECEIVE_THREE_MANIFEST"
+            ],
+            "expected_unreachable": [
+              "F54"
+            ],
+            "results": [
+              {
+                "id": "F54",
+                "states_examined": 5,
+                "relevant_operators": 4,
+                "removed_producers": [
+                  "P_RECEIVE_THREE_MANIFEST"
+                ],
+                "status": "UNREACHABLE",
+                "search_exhausted": true,
+                "goal_facts": [
+                  "PAYLOAD_F54"
+                ]
+              }
+            ]
+          }
+        ],
+        "nonmonotonic_tests": [
+          {
+            "name": "same_food_instance_not_both_saleable_and_waste",
+            "states_examined": 6,
+            "relevant_operators": 5,
+            "removed_producers": [],
+            "status": "UNREACHABLE",
+            "search_exhausted": true,
+            "goal_facts": [
+              "HOT_FOOD_SALEABLE",
+              "HOT_WASTE"
+            ]
+          }
+        ],
+        "explicit_phase_metadata_checks": [
+          {
+            "id": "F01",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N02",
+              "N05"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F02",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N01",
+              "N06"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F03",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N02",
+              "N04"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F04",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N02",
+              "N03"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F05",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N03",
+              "N04"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F06",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N03"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F07",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N01",
+              "N03",
+              "N05"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F08",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N05"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F09",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N01",
+              "N05"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F10",
+            "earliest_declared_source_phase": "N01",
+            "allowed_phases": [
+              "N04"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F11",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N05"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F12",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N02",
+              "N04"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F13",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N03"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F14",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N03",
+              "N05"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F15",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N05"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F16",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N01",
+              "N05"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F17",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N05"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F18",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N01",
+              "N02"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F19",
+            "earliest_declared_source_phase": "N01",
+            "allowed_phases": [
+              "N02",
+              "N05"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F20",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N01",
+              "N03"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F21",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N03",
+              "N04"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F22",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N04",
+              "N05"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F23",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N05"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F24",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N02",
+              "N04"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F25",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N01",
+              "N06"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F26",
+            "earliest_declared_source_phase": "N04",
+            "allowed_phases": [
+              "N04"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F27",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N02"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F28",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N03"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F29",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N03"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F30",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N02"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F31",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N06"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F32",
+            "earliest_declared_source_phase": "N03",
+            "allowed_phases": [
+              "N03",
+              "N04"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F33",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N01",
+              "N06"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F34",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N01",
+              "N04"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F35",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N05"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F36",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N02"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F37",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N01",
+              "N04"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F38",
+            "earliest_declared_source_phase": "N03",
+            "allowed_phases": [
+              "N05",
+              "N06"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F39",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N03"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F40",
+            "earliest_declared_source_phase": "N01",
+            "allowed_phases": [
+              "N02",
+              "N05"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F41",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N04",
+              "N05",
+              "N06"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F42",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N02",
+              "N04"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F43",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N01",
+              "N04",
+              "N06"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F44",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N01",
+              "N05"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F45",
+            "earliest_declared_source_phase": "N01",
+            "allowed_phases": [
+              "N02",
+              "N05"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F46",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N02",
+              "N04",
+              "N05"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F47",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N03",
+              "N05"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F48",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N01",
+              "N03",
+              "N06"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F49",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N03",
+              "N04"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F50",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N02",
+              "N04",
+              "N05"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F51",
+            "earliest_declared_source_phase": "N02",
+            "allowed_phases": [
+              "N05"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F52",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N05",
+              "N06"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F53",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N01",
+              "N02"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F54",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N02",
+              "N04"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F55",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N04",
+              "N06"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F56",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N02",
+              "N04"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F57",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N02",
+              "N04"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F58",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N03",
+              "N05"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F59",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N05"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          },
+          {
+            "id": "F60",
+            "earliest_declared_source_phase": "D04",
+            "allowed_phases": [
+              "N01",
+              "N05",
+              "N06"
+            ],
+            "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+          }
+        ],
+        "errors": []
+      },
+      "stderr": "",
+      "full_report": "docs/condition_validation_v06.json"
+    },
+    {
+      "command": "node prototype/check_rule_core.mjs",
+      "exit_code": 0,
+      "result": {
+        "status": "PASS",
+        "scenarioCount": 21,
+        "scenarios": [
+          "Low SAN visibly narrows timing, with a 0.6 second floor",
+          "All SAN bands keep a usable center and continuous numeric coverage",
+          "F47 uses one three-second QTE with per-segment windows and exact nonstacking pet help",
+          "Facing uses the avatar direction and static occlusion",
+          "Distance bounds allow exact boundary and reject too close/far",
+          "Closeups cannot pause a chase or bypass spatial/budget restrictions",
+          "Started cancellations pay once and do not complete work",
+          "Paperclip scatter consumes one charge only for a legal world placement",
+          "F12 defaults to player and does not clear from an unbaited exit",
+          "F12 picks reachable bait, locks target, and ignores arbitrary metal",
+          "F12 eating pauses attacks and consumes its bait once before reselecting",
+          "F12 clears only after the lured body holds beyond the exit, then stays cleared",
+          "Expired bait returns F12 to chasing, without adding growth",
+          "P04 extends the current eating pause once and cannot create a second extension",
+          "F13 seeks meat, telegraphs touch, then persists in chase after the meat is dropped",
+          "F13 can be prevented by early delivery; success wins simultaneous touch",
+          "Touching unrelated food cannot trigger the registered meat encounter",
+          "Committed delivery survives same-frame power loss before enemy evaluation",
+          "Unavailable, distant and wrong freezers cannot lose the meat or clear the encounter",
+          "F13 remains terminal after later freezer opening or power loss",
+          "First contact applies a discrete injury and shared grace, not instant failure"
+        ],
+        "scope": "Pure rule transitions and configuration only. No navigation, rendering, touch UI, performance or WeChat runtime verified."
+      },
+      "stderr": ""
+    },
+    {
+      "command": "node prototype/check_store_core_v05.mjs",
+      "exit_code": 0,
+      "result": {
+        "status": "PASS",
+        "suite": "V0.5 store contracts",
+        "scenarios": 17,
+        "scope": "headless invariants only; no client, navigation, touch or fun validation",
+        "scenarios_passed": [
+          "12-unit spending examples reconcile",
+          "power transactions commit once and pause produces no benefit",
+          "battery cannot recharge both lamp and reserve or twice per night",
+          "shutter cannot block required exit; free manual mode remains at zero reserve",
+          "shutter expires on world clock and does not resolve an admitted monster",
+          "quiet greeting and window cost one manual confirmation, not two",
+          "changing service mode or greeting cancels work without resetting patience",
+          "mode toggling never resets waiting customer patience",
+          "orders need actual world service and settle once",
+          "browse orders require observed entry; a permanently closed shop cannot take every order",
+          "one continuous violation is one episode; different monsters do not share strikes",
+          "work debt stays at one and total wage deduction at 20",
+          "clearing a debt avoids deduction and cannot reproduce it",
+          "low orders reduce grade and rewards, not safe shift completion",
+          "player evidence excludes truth keys and one photo is one independent root",
+          "design completeness cannot enable an unimplemented or unsafe encounter",
+          "zero reserve does not block canonical F13 meat delivery or revive completion"
+        ]
+      },
+      "stderr": ""
+    },
+    {
+      "command": "node prototype/check_condition_core_v06.mjs",
+      "exit_code": 0,
+      "result": {
+        "status": "PASS",
+        "scenarioCount": 28,
+        "scenarios": [
+          "Historical evidence requires a completed typed action, not an asserted boolean",
+          "A glass cut requires actual return, warning duration and later bare contact",
+          "Safe isolation prevents injury and cannot later be consumed as a blood fact",
+          "Repeated contact does not refresh the wound or create repeated injury receipts",
+          "Ordinary minor contact never manufactures fresh blood",
+          "Only one bleeding episode per real actor and two per night can be created",
+          "Three-second self treatment reserves once, cancels cleanly and consumes once",
+          "Natural expiry during treatment immediately releases its reserved dressing",
+          "Pause freezes wounds, treatment, movement and both clocks",
+          "Reactive arrival takes 12 seconds and treatment before it prevents F32",
+          "An active F32 leaves after its real wound is treated; decline cannot clear it",
+          "F26 requires actual movement marks; treatment alone leaves the real trace task",
+          "Actual marks are capped and naturally expire without new blood or free cleanup receipts",
+          "Natural target expiry produces safe departure, not a fabricated player solution",
+          "Reactive scheduling rejects insufficient current-phase budget even with fresh blood",
+          "A reserved F21 child slot is not a wound; real occupancy and 40-second failure produce it",
+          "Actual departure and shutdown prevent the F21 cut and its reactive child",
+          "Precision costs cannot cross a schedule marker and exact-boundary commit comes first",
+          "Default phase boundaries reject 119-to-121 precision and commit before exact 120 dispatch",
+          "Caller markers cannot replace fixed phase, manager, or true-six boundaries",
+          "Precision budget cost does not secretly advance wound or movement time",
+          "Due-at-six promises settle before critical check and handover grants no extra work time",
+          "Unresolved actual contaminated waste leaves a critical encounter at six",
+          "Optional refusal is terminal and cannot regenerate the same offer",
+          "Portable emergency stabilization succeeds while walking before an 18-second station trip could finish",
+          "Interrupted stabilization preserves only completed world progress and pays once",
+          "Repeated zero SAN cannot reset the same 20-second episode and pause grants no progress",
+          "Walking configuration is honored and portable stabilization never freezes an approaching encounter"
+        ],
+        "scope": "Bounded headless causal/action chains only. No real collision, touch, full actor AI, F32 invitation/geometry, full identity or all sixty encounter adapters verified."
+      },
+      "stderr": ""
+    }
+  ],
+  "input_files_sha256": {
+    "content/balance.json": "b3a74eb1868a74c15a536bae863cd78f1e95b00189ad9428a561375ad243da5d",
+    "content/condition_lifecycle_v06.json": "b7f146afb0b3d5a31dc66387469b5fa8e93303225e04bfebc869d9197ad1faea",
+    "content/condition_reachability_v06.json": "f388f5a7474c52d557b81b9164bd5effd28116bd5697bb4e97ce8e66de3c2926",
+    "content/deployables.json": "ed98bd00ea0aa95611afdd6363090da72c6c80d0273e52b314de63abfdd6fe72",
+    "content/encounter_blueprints.json": "e76c13f935738b87e362bb904ec93985b3730cb9c66b85481e1c8ee30f19c266",
+    "content/encounter_designs.json": "3ba2948771a28a9d4c525be3de390497c4e40ed563829f31d999d9a078800c2b",
+    "content/encounters_v05.json": "5804d008b1392e290db2999b647884f99274fefc92d6696481065bf8a6be60b9",
+    "content/equipment.json": "6192207f39e0411b957f0d9b2b009578d509a7535cfa7711a34e29a5c5b0a092",
+    "content/event_variants.json": "f96b6ecf5d7b901bf6dd3b21d94db8251dcfa4d79094652ed7eabba7d28ade4a",
+    "content/events.json": "2fd2ed4461c93f53d920c78397a97ce4829f8cc4cc2d03f078c027797da46113",
+    "content/interactions.json": "89e7feb42074f75e9a88a901e345de92f7bd7cecd5b2559a5f656d46c4dfde39",
+    "content/items.json": "a8bfe3640b2ba19c2175d7821ad45ffdad5426f89a5e57c5cea20abac4974546",
+    "content/map_mechanics_v05.json": "d83825248f740035fa7924ff3b6845b127f10453a3ed78a64c7444d3deb2c03d",
+    "content/maps.json": "773e39b35bc16c63e6b4f294e27f8a944072599f21b8ad1bae46527f0a093b9a",
+    "content/monsters.json": "77af63e49798364349aca34e23f2ba50ff05dcc64cf1cfba37319922ebd90e73",
+    "content/pets.json": "27f0dd631eedfd6b20d1d794e724cb9972a07605ca97a9dcfb807d766d5e3b44",
+    "content/qte.json": "0bc1ebf0bada6385de88417d484e0c825e175ac20f16afced65a0411b4cb25a7",
+    "content/rule_components.json": "dbf3e0789c8c3b6e99e387e8151002629ea81cbc7289a53a19a128690d9ecab7",
+    "content/rules.json": "1c8d57675b7dc00ca40f2502f48c19548a66c7616ca00c1aed6cc45a72c2d181",
+    "content/sources.json": "ab5eb2acdf32cb3cad31f95c15ee0fa933e876e496f5227d0ec14cfdc39b7057",
+    "content/store_systems_v05.json": "254b14b507116fb8325218fdc3317d5385f88d4cc4c9fb374050c8308019a894",
+    "content/synergies.json": "f7e53808170365f7093553ada309721a369c0007fdaa330327ed20d157d3b64a",
+    "content/systems_v04.json": "5a0e9007e4a2811770baa2303fc03e38fa7887d3b484e635dd90ccff192311e6",
+    "prototype/check_condition_core_v06.mjs": "d1368c34601c136205b9e726e6a50aa13b11525d7cb4e27a599cc323adbb9c9f",
+    "prototype/check_rule_core.mjs": "e6fc23aa6acc9e13367dce559f1723e6304555ea00bb8ae11ff16d6ec8b35434",
+    "prototype/check_store_core_v05.mjs": "2fae1dc3eded5cf2432b3cdfe3cb74994ad52dbbea3fcac0e284dada8fc876f4",
+    "prototype/condition_core_v06.mjs": "02e964e90108b0a722b61e9073a937574b3867628590786997f3116b07b8b7c1",
+    "prototype/rule_core.mjs": "474acecf2e46948000a19c47dfe58ea1e19776451eea63b8e3107f81be21e12c",
+    "prototype/store_core_v05.mjs": "e5c26b88e08aed4133e42ccac4036584b16855f0ac8dedd2d6ce4b7925047fa0",
+    "scripts/check_panic_routes_v06.py": "bf43b7593352fb9bfac51b839c50d74be249be2f96d4a37a157ce9b08c63a9d6",
+    "scripts/render_encounters.py": "c02490dd348c136c389c1da0942d6a999dc0c7023195242ae13ad3848026123a",
+    "scripts/render_map_mechanics_v05.py": "ea7537f296c694e8d1882269d5ce1ec73d19de325c4245a33a90ae63f17a0d7c",
+    "scripts/render_maps.py": "387fc2b3929c1e06a66f89791178667e3843108165c52b7a5c7603f945cac132",
+    "scripts/validate_conditions_v06.py": "7a400d25b3ba59408ec6dd05d10acb2a7604f1c6efbc4c0c6819c2c0798a5d3b",
+    "scripts/validate_content.py": "eb79dd944f1675ccb1d6bb7017faf7384d581d5eccf04f31c976778ac7a55d43",
+    "scripts/validate_design_v05.py": "0dfc06840e3bde5a5799566c17639c2f675aa546e02542f037587d889ffc03d9",
+    "scripts/validate_map_mechanics_v05.py": "9ef2a0fca4172ce7a1656e2ac4db5607309e0e581a7b94fb1fd61a46710b9289",
+    "scripts/validate_maps.py": "f8f5ea9735818e9c19caca76fc5b52932cf0baed7b0741cec0e9ef46ed1cced4"
+  }
+}

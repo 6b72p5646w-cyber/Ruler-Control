@@ -1,0 +1,3739 @@
+{
+  "version": "0.6",
+  "scope": "有限条件依赖图：验证60项到场前提存在声明的真实动作生产链，并以删除生产者反例检查孤儿条件；不模拟60怪完整AI/动态导航/数值平衡。",
+  "initial_facts": [
+    "NEW_SHIFT"
+  ],
+  "operators": [
+    {
+      "id": "P_OPEN_SHIFT",
+      "requires": [
+        "NEW_SHIFT"
+      ],
+      "produces": [
+        "CLOCK",
+        "STAFF",
+        "SUPPLIES",
+        "SCHEDULE"
+      ],
+      "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+      "kind": "trusted_setup"
+    },
+    {
+      "id": "P_FREE_INSTRUCTION",
+      "requires": [
+        "CLOCK"
+      ],
+      "produces": [
+        "BASIC_RULES"
+      ],
+      "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+      "kind": "instruction"
+    },
+    {
+      "id": "P_BASELINE",
+      "requires": [
+        "STAFF"
+      ],
+      "produces": [
+        "BASELINE"
+      ],
+      "label": "在可信班前场景实际核验并保存独立基准",
+      "kind": "actual_action"
+    },
+    {
+      "id": "P_PLAN_DELIVERY",
+      "requires": [
+        "SCHEDULE"
+      ],
+      "produces": [
+        "DELIVERY_PLAN"
+      ],
+      "label": "班前登记真实配送单与时刻",
+      "kind": "trusted_setup"
+    },
+    {
+      "id": "P_RECEIVE_CARGO",
+      "requires": [
+        "DELIVERY_PLAN",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "CARGO",
+        "RECEIVING_RECEIPT"
+      ],
+      "label": "配送到场实际收一箱货；记录同一箱ID",
+      "kind": "actual_action"
+    },
+    {
+      "id": "P_TWO_CARGO_UNITS",
+      "requires": [
+        "CARGO"
+      ],
+      "produces": [
+        "TWO_CARGO_UNITS"
+      ],
+      "label": "把本单实际可分的两件货登记为两个运输单位，数量不增加",
+      "kind": "actual_action"
+    },
+    {
+      "id": "P_ORDER_ARRIVAL",
+      "requires": [
+        "SCHEDULE"
+      ],
+      "produces": [
+        "ORDER"
+      ],
+      "label": "派发预排的一个真实订单与对应顾客",
+      "kind": "scheduled_action"
+    },
+    {
+      "id": "P_CHECKOUT",
+      "requires": [
+        "ORDER",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "SALE_RECEIPT",
+        "SALE_RECEIPT_1"
+      ],
+      "label": "实际拿货、接待并完成唯一订单结账",
+      "kind": "actual_action",
+      "invalidates": [
+        "ORDER"
+      ],
+      "order_instance": "night-slot-01-pickup",
+      "earliest_phase": "N01"
+    },
+    {
+      "id": "P_RETURN_ARRIVAL",
+      "requires": [
+        "SALE_RECEIPT"
+      ],
+      "produces": [
+        "RETURNED_ITEM"
+      ],
+      "label": "顾客携对应原销售回执和同一退货物实际到场",
+      "kind": "visible_arrival"
+    },
+    {
+      "id": "P_REFUND",
+      "requires": [
+        "RETURNED_ITEM",
+        "SALE_RECEIPT"
+      ],
+      "produces": [
+        "REFUND_RECEIPT"
+      ],
+      "label": "收回同一商品后实际退款，首次产生退款凭据",
+      "kind": "actual_action"
+    },
+    {
+      "id": "P_RECEIPT_CHAIN",
+      "requires": [
+        "SALE_RECEIPT",
+        "REFUND_RECEIPT"
+      ],
+      "produces": [
+        "RECEIPT_CHAIN"
+      ],
+      "label": "从已发生销售/退款关联同一订单链，不能补造第二记录",
+      "kind": "actual_action"
+    },
+    {
+      "id": "P_DUTY",
+      "requires": [
+        "SCHEDULE"
+      ],
+      "produces": [
+        "PENDING_JOB"
+      ],
+      "label": "本阶段发出真实尚未完成的工作对象",
+      "kind": "scheduled_action"
+    },
+    {
+      "id": "P_FINISH_WORK",
+      "requires": [
+        "PENDING_JOB",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "WORK_RECEIPT"
+      ],
+      "label": "玩家或已核验同事实际完成同一工作并写回",
+      "kind": "actual_action"
+    },
+    {
+      "id": "P_CONTINUITY",
+      "requires": [
+        "BASELINE",
+        "THREE_WORK_TRACES"
+      ],
+      "produces": [
+        "CONTINUITY_RECORD"
+      ],
+      "label": "观察同一身体从已核验基准经过三处实际作业；链断则不生成，允许改走安全拒交分支",
+      "kind": "actual_action"
+    },
+    {
+      "id": "P_LOST_HANDIN",
+      "requires": [
+        "CLOCK",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "LOST_ITEM",
+        "DEPOSIT_RECEIPT"
+      ],
+      "label": "在当前实际发生失物交存，或读取明确白班传入的原始记录",
+      "kind": "visible_arrival"
+    },
+    {
+      "id": "P_DEVICE_USE",
+      "requires": [
+        "PENDING_JOB",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "DEVICE_IN_USE"
+      ],
+      "label": "实际启用有任务的工位",
+      "kind": "actual_action"
+    },
+    {
+      "id": "P_DEVICE_WARNING",
+      "requires": [
+        "DEVICE_IN_USE"
+      ],
+      "produces": [
+        "DEVICE_WARNING"
+      ],
+      "label": "设备发生明确子型故障，出现可见预告",
+      "kind": "telegraphed_event"
+    },
+    {
+      "id": "P_STATION_OCCUPIED",
+      "requires": [
+        "STAFF",
+        "DEVICE_IN_USE"
+      ],
+      "produces": [
+        "OCCUPIED_STATION"
+      ],
+      "label": "真实人员实际到工位，无人员则不触发点名事故",
+      "kind": "actual_action"
+    },
+    {
+      "id": "P_REPAIR",
+      "requires": [
+        "DEVICE_WARNING",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "PROBLEM_RECEIPT"
+      ],
+      "label": "实际隔离/维修已发生的普通故障，留下问题处理回执",
+      "kind": "actual_action"
+    },
+    {
+      "id": "P_REPLACEMENT_PLAN",
+      "requires": [
+        "DEVICE_WARNING",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "REPLACEMENT_PLAN"
+      ],
+      "label": "玩家确认更换真实故障设备并预留已在库备用灶",
+      "kind": "actual_action"
+    },
+    {
+      "id": "P_OLD_TOOL",
+      "requires": [
+        "SUPPLIES",
+        "PENDING_JOB"
+      ],
+      "produces": [
+        "OLD_TOOL"
+      ],
+      "label": "实际使用已登记旧工具并触发可见磨损/故障",
+      "kind": "actual_action"
+    },
+    {
+      "id": "P_GLASS_WARNING",
+      "requires": [
+        "RETURNED_ITEM",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "GLASS_WARNING"
+      ],
+      "label": "退回玻璃容器确有裂口，隔离/刷扫仍可预防事故",
+      "kind": "telegraphed_event"
+    },
+    {
+      "id": "P_REAL_CUT",
+      "requires": [
+        "GLASS_WARNING",
+        "STAFF"
+      ],
+      "produces": [
+        "FRESH_BLOOD"
+      ],
+      "label": "可见警告至少3世界秒后实际危险接触，消耗一次事故许可",
+      "kind": "real_failure_receipt"
+    },
+    {
+      "id": "P_BLOOD_MOVEMENT",
+      "requires": [
+        "FRESH_BLOOD"
+      ],
+      "produces": [
+        "BLOOD_TRACE"
+      ],
+      "label": "带伤的同一员工实际移动至少2格生成有限地面标记",
+      "kind": "actual_action"
+    },
+    {
+      "id": "P_HOT_FOOD",
+      "requires": [
+        "SUPPLIES",
+        "PENDING_JOB"
+      ],
+      "produces": [
+        "HOT_FOOD_SALEABLE",
+        "HOT_PRODUCTION_RECEIPT"
+      ],
+      "label": "实际制作登记热食，温档/品质计时从完成动作开始",
+      "kind": "actual_action"
+    },
+    {
+      "id": "P_HOT_WASTE",
+      "requires": [
+        "HOT_FOOD_SALEABLE",
+        "WASTE_DESIGNATION_RECEIPT"
+      ],
+      "produces": [
+        "HOT_WASTE"
+      ],
+      "label": "同一批次实际转入废物盘，取消其可售状态；只能将另一批次用于F58供热",
+      "kind": "actual_action",
+      "invalidates": [
+        "HOT_FOOD_SALEABLE"
+      ]
+    },
+    {
+      "id": "P_CHANGE_FLOAT",
+      "requires": [
+        "SUPPLIES"
+      ],
+      "produces": [
+        "CHANGE_FLOAT"
+      ],
+      "label": "开班公开登记三枚找零小币实例；不靠现金余额凭空扣钱",
+      "kind": "trusted_setup"
+    },
+    {
+      "id": "P_KNOWN_WET",
+      "requires": [
+        "CLOCK",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "WET_REGION"
+      ],
+      "label": "只激活已绘湿图或怪本身带入的登记源；保留干路",
+      "kind": "telegraphed_event"
+    },
+    {
+      "id": "P_FATIGUE_OPPORTUNITY",
+      "requires": [
+        "CLOCK",
+        "STAFF"
+      ],
+      "produces": [
+        "REST_OPPORTUNITY"
+      ],
+      "label": "出现可选休息机会，不要求资源必然降到零",
+      "kind": "scheduled_action"
+    },
+    {
+      "id": "P_LOOSE_TOOL",
+      "requires": [
+        "SUPPLIES",
+        "PENDING_JOB"
+      ],
+      "produces": [
+        "LOOSE_TOOL"
+      ],
+      "label": "一件真实轻工具离开上锁槽位、正被当前工作使用",
+      "kind": "actual_action"
+    },
+    {
+      "id": "P_CLEAR_ROUTE",
+      "requires": [
+        "CLOCK",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "SAFE_ROUTE"
+      ],
+      "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+      "kind": "world_observation"
+    },
+    {
+      "id": "P_PAPERCLIP_PREP",
+      "requires": [
+        "SUPPLIES",
+        "SAFE_ROUTE"
+      ],
+      "produces": [
+        "PAPERCLIP_SUPPLY"
+      ],
+      "label": "按F12蓝图备主盒与备用盒、合法出口和撒点",
+      "kind": "canonical_setup"
+    },
+    {
+      "id": "P_REGISTER_MEAT",
+      "requires": [
+        "CARGO",
+        "SUPPLIES",
+        "SAFE_ROUTE"
+      ],
+      "produces": [
+        "REGISTERED_MEAT",
+        "VALID_FREEZER"
+      ],
+      "label": "从真实到货箱登记唯一任务肉及可用柜，提前入柜有效",
+      "kind": "canonical_setup"
+    },
+    {
+      "id": "P_UNFINISHED_REPAIR",
+      "requires": [
+        "DEVICE_WARNING"
+      ],
+      "produces": [
+        "REPAIR_JOB"
+      ],
+      "label": "真实故障尚未被玩家或同事修好",
+      "kind": "actual_action"
+    },
+    {
+      "id": "P_ARRIVE_F01",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "DELIVERY_PLAN",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "PAYLOAD_F01"
+      ],
+      "label": "F01从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F02",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "BASELINE"
+      ],
+      "produces": [
+        "PAYLOAD_F02"
+      ],
+      "label": "F02从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F03",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "TWO_CARGO_UNITS"
+      ],
+      "produces": [
+        "PAYLOAD_F03"
+      ],
+      "label": "F03从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F04",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "PAYLOAD_F04"
+      ],
+      "label": "F04从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F05",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "CARGO",
+        "WET_REGION"
+      ],
+      "produces": [
+        "PAYLOAD_F05"
+      ],
+      "label": "F05从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F06",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "RESERVED_ORDER_F06",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "PAYLOAD_F06"
+      ],
+      "label": "F06从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F07",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "PAYLOAD_F07"
+      ],
+      "label": "F07从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F08",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "OLD_TOOL"
+      ],
+      "produces": [
+        "PAYLOAD_F08"
+      ],
+      "label": "F08从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F09",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "RESERVED_ORDER_F09"
+      ],
+      "produces": [
+        "PAYLOAD_F09"
+      ],
+      "label": "F09从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F10",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "PROBLEM_RECEIPT"
+      ],
+      "produces": [
+        "PAYLOAD_F10"
+      ],
+      "label": "F10从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F11",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "OFFER_F11"
+      ],
+      "produces": [
+        "PAYLOAD_F11"
+      ],
+      "label": "F11已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false,
+      "entity_owner": "F11"
+    },
+    {
+      "id": "P_ARRIVE_F12",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "PAPERCLIP_SUPPLY"
+      ],
+      "produces": [
+        "PAYLOAD_F12"
+      ],
+      "label": "F12从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F13",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "REGISTERED_MEAT",
+        "VALID_FREEZER"
+      ],
+      "produces": [
+        "PAYLOAD_F13"
+      ],
+      "label": "F13从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F14",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "BASELINE",
+        "STAFF"
+      ],
+      "produces": [
+        "PAYLOAD_F14"
+      ],
+      "label": "F14从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F15",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "PAYLOAD_F15"
+      ],
+      "label": "F15从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F16",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "CHANGE_FLOAT"
+      ],
+      "produces": [
+        "PAYLOAD_F16"
+      ],
+      "label": "F16从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F17",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "PAYLOAD_F17"
+      ],
+      "label": "F17从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F18",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "BASELINE"
+      ],
+      "produces": [
+        "PAYLOAD_F18"
+      ],
+      "label": "F18从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F19",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "RECEIPT_CHAIN"
+      ],
+      "produces": [
+        "PAYLOAD_F19"
+      ],
+      "label": "F19从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F20",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "OFFER_F20"
+      ],
+      "produces": [
+        "PAYLOAD_F20"
+      ],
+      "label": "F20已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false,
+      "entity_owner": "F20"
+    },
+    {
+      "id": "P_ARRIVE_F21",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "DEVICE_WARNING",
+        "OCCUPIED_STATION"
+      ],
+      "produces": [
+        "PAYLOAD_F21"
+      ],
+      "label": "F21从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F22",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "PENDING_JOB"
+      ],
+      "produces": [
+        "PAYLOAD_F22"
+      ],
+      "label": "F22从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F23",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "LOST_ITEM",
+        "DEPOSIT_RECEIPT"
+      ],
+      "produces": [
+        "PAYLOAD_F23"
+      ],
+      "label": "F23从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F24",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "CARGO",
+        "WET_REGION"
+      ],
+      "produces": [
+        "PAYLOAD_F24"
+      ],
+      "label": "F24从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F25",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "ORIGINAL_SALE_RECEIPT",
+        "RETURN_FROM_ORIGINAL"
+      ],
+      "produces": [
+        "PAYLOAD_F25"
+      ],
+      "label": "F25从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F26",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "FRESH_BLOOD",
+        "BLOOD_TRACE"
+      ],
+      "produces": [
+        "PAYLOAD_F26"
+      ],
+      "label": "F26从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F27",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "TWO_CARGO_UNITS",
+        "RESERVED_ORDER_F27"
+      ],
+      "produces": [
+        "PAYLOAD_F27"
+      ],
+      "label": "F27从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F28",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "WET_REGION"
+      ],
+      "produces": [
+        "PAYLOAD_F28"
+      ],
+      "label": "F28从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F29",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "OFFER_F29"
+      ],
+      "produces": [
+        "PAYLOAD_F29"
+      ],
+      "label": "F29已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false,
+      "entity_owner": "F29"
+    },
+    {
+      "id": "P_ARRIVE_F30",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "CARGO"
+      ],
+      "produces": [
+        "PAYLOAD_F30"
+      ],
+      "label": "F30从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F31",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "REST_OPPORTUNITY"
+      ],
+      "produces": [
+        "PAYLOAD_F31"
+      ],
+      "label": "F31从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F32",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "FRESH_BLOOD"
+      ],
+      "produces": [
+        "PAYLOAD_F32"
+      ],
+      "label": "F32从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F33",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "PAYLOAD_F33"
+      ],
+      "label": "F33从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F34",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "CARGO",
+        "WET_REGION"
+      ],
+      "produces": [
+        "PAYLOAD_F34"
+      ],
+      "label": "F34从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F35",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "PENDING_JOB",
+        "OFFER_F35"
+      ],
+      "produces": [
+        "PAYLOAD_F35"
+      ],
+      "label": "F35已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false,
+      "entity_owner": "F35"
+    },
+    {
+      "id": "P_ARRIVE_F36",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "OFFER_F36"
+      ],
+      "produces": [
+        "PAYLOAD_F36"
+      ],
+      "label": "F36已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false,
+      "entity_owner": "F36"
+    },
+    {
+      "id": "P_ARRIVE_F37",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "CLAIM_F37",
+        "SAFE_ROUTE"
+      ],
+      "produces": [
+        "PAYLOAD_F37"
+      ],
+      "label": "F37已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false,
+      "entity_owner": "F37"
+    },
+    {
+      "id": "P_ARRIVE_F38",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "BASELINE",
+        "THREE_WORK_TRACES",
+        "CONTINUITY_RECORD"
+      ],
+      "produces": [
+        "PAYLOAD_F38"
+      ],
+      "label": "F38从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F39",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "REPLACEMENT_PLAN"
+      ],
+      "produces": [
+        "PAYLOAD_F39"
+      ],
+      "label": "F39从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F40",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "RECEIVING_RECEIPT"
+      ],
+      "produces": [
+        "PAYLOAD_F40"
+      ],
+      "label": "F40从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F41",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "LOST_ITEM",
+        "DEPOSIT_RECEIPT"
+      ],
+      "produces": [
+        "PAYLOAD_F41"
+      ],
+      "label": "F41从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F42",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "CARGO",
+        "SAFE_ROUTE"
+      ],
+      "produces": [
+        "PAYLOAD_F42"
+      ],
+      "label": "F42从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F43",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "BASELINE",
+        "PENDING_JOB",
+        "CLAIM_WINDOW_RECORD"
+      ],
+      "produces": [
+        "PAYLOAD_F43"
+      ],
+      "label": "F43从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F44",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "RESERVED_ORDER_F44"
+      ],
+      "produces": [
+        "PAYLOAD_F44"
+      ],
+      "label": "F44从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F45",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "CARGO",
+        "RECEIVING_RECEIPT"
+      ],
+      "produces": [
+        "PAYLOAD_F45"
+      ],
+      "label": "F45从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F46",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "LOOSE_TOOL"
+      ],
+      "produces": [
+        "PAYLOAD_F46"
+      ],
+      "label": "F46从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F47",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "OFFER_F47"
+      ],
+      "produces": [
+        "PAYLOAD_F47"
+      ],
+      "label": "F47已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false,
+      "entity_owner": "F47"
+    },
+    {
+      "id": "P_ARRIVE_F48",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "RESERVED_ORDER_F48"
+      ],
+      "produces": [
+        "PAYLOAD_F48"
+      ],
+      "label": "F48从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F49",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "HOT_WASTE"
+      ],
+      "produces": [
+        "PAYLOAD_F49"
+      ],
+      "label": "F49从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F50",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "SAFE_ROUTE"
+      ],
+      "produces": [
+        "PAYLOAD_F50"
+      ],
+      "label": "F50从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F51",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "THREE_SALE_RECEIPTS",
+        "F51_CURRENT_ORDER"
+      ],
+      "produces": [
+        "PAYLOAD_F51"
+      ],
+      "label": "F51从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F52",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "REST_OPPORTUNITY",
+        "WET_REGION"
+      ],
+      "produces": [
+        "PAYLOAD_F52"
+      ],
+      "label": "F52从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F53",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "OFFER_F53"
+      ],
+      "produces": [
+        "PAYLOAD_F53"
+      ],
+      "label": "F53已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false,
+      "entity_owner": "F53"
+    },
+    {
+      "id": "P_ARRIVE_F54",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "THREE_CARGO_UNITS",
+        "SAFE_ROUTE"
+      ],
+      "produces": [
+        "PAYLOAD_F54"
+      ],
+      "label": "F54从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F55",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "CARGO",
+        "OFFER_F55",
+        "SAFE_ROUTE"
+      ],
+      "produces": [
+        "PAYLOAD_F55"
+      ],
+      "label": "F55已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false,
+      "entity_owner": "F55"
+    },
+    {
+      "id": "P_ARRIVE_F56",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "CARGO",
+        "WET_REGION"
+      ],
+      "produces": [
+        "PAYLOAD_F56"
+      ],
+      "label": "F56从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F57",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "CARGO",
+        "SAFE_ROUTE"
+      ],
+      "produces": [
+        "PAYLOAD_F57"
+      ],
+      "label": "F57从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F58",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "HOT_FOOD_SALEABLE"
+      ],
+      "produces": [
+        "PAYLOAD_F58"
+      ],
+      "label": "F58从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_ARRIVE_F59",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "REPAIR_JOB",
+        "OFFER_F59"
+      ],
+      "produces": [
+        "PAYLOAD_F59"
+      ],
+      "label": "F59已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false,
+      "entity_owner": "F59"
+    },
+    {
+      "id": "P_ARRIVE_F60",
+      "requires": [
+        "BASIC_RULES",
+        "SAFE_ROUTE",
+        "SAFE_ROUTE"
+      ],
+      "produces": [
+        "PAYLOAD_F60"
+      ],
+      "label": "F60从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+      "kind": "bounded_encounter_arrival",
+      "creates_new_real_staff": false
+    },
+    {
+      "id": "P_RECEIVE_THREE_MANIFEST",
+      "requires": [
+        "DELIVERY_PLAN",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "THREE_CARGO_UNITS"
+      ],
+      "label": "实际接收清单上三件不同ID物件并逐件验收；不是从两件复制第三件",
+      "kind": "actual_action",
+      "quantity": 3,
+      "distinct_item_instances": 3
+    },
+    {
+      "id": "P_WORK_TRACE_1",
+      "requires": [
+        "SCHEDULE",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "WORK_TRACE_1"
+      ],
+      "label": "在第1个不同工位完成真实工作并留下本班回执",
+      "kind": "actual_action",
+      "earliest_phase": "N01",
+      "distinct_station_index": 1
+    },
+    {
+      "id": "P_WORK_TRACE_2",
+      "requires": [
+        "SCHEDULE",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "WORK_TRACE_2"
+      ],
+      "label": "在第2个不同工位完成真实工作并留下本班回执",
+      "kind": "actual_action",
+      "earliest_phase": "N02",
+      "distinct_station_index": 2
+    },
+    {
+      "id": "P_WORK_TRACE_3",
+      "requires": [
+        "SCHEDULE",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "WORK_TRACE_3"
+      ],
+      "label": "在第3个不同工位完成真实工作并留下本班回执",
+      "kind": "actual_action",
+      "earliest_phase": "N03",
+      "distinct_station_index": 3
+    },
+    {
+      "id": "P_THREE_WORK_TRACES",
+      "requires": [
+        "WORK_TRACE_1",
+        "WORK_TRACE_2",
+        "WORK_TRACE_3"
+      ],
+      "produces": [
+        "THREE_WORK_TRACES"
+      ],
+      "label": "关联三处不同工位、同班次且未被覆盖的实际结果，仍不自动授身份",
+      "kind": "actual_action"
+    },
+    {
+      "id": "P_PRE_SHIFT_TASK",
+      "requires": [
+        "BASELINE",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "PRE_SHIFT_WORK_TRACE"
+      ],
+      "label": "班前实际领钥匙/围裙或清点，产生有真实时刻与主体的记录；不是临时补造历史",
+      "kind": "actual_action",
+      "earliest_phase": "D04"
+    },
+    {
+      "id": "P_CLAIM_WINDOW_EVIDENCE",
+      "requires": [
+        "PRE_SHIFT_WORK_TRACE",
+        "BASELINE"
+      ],
+      "produces": [
+        "CLAIM_WINDOW_RECORD"
+      ],
+      "label": "所选请求声称的时刻必须落在已有连续见证区间；不覆盖就不能当作矛盾证据",
+      "kind": "actual_action"
+    },
+    {
+      "id": "P_SEE_F11",
+      "requires": [
+        "SCHEDULE",
+        "BASIC_RULES",
+        "SAFE_ROUTE"
+      ],
+      "produces": [
+        "VISITOR_F11"
+      ],
+      "label": "同一F11实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+      "kind": "bounded_visible_appearance",
+      "entity_owner": "F11"
+    },
+    {
+      "id": "P_OFFER_F11",
+      "requires": [
+        "VISITOR_F11"
+      ],
+      "produces": [
+        "OFFER_F11"
+      ],
+      "label": "该F11本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+      "kind": "actual_action",
+      "entity_owner": "F11"
+    },
+    {
+      "id": "P_SEE_F20",
+      "requires": [
+        "SCHEDULE",
+        "BASIC_RULES",
+        "SAFE_ROUTE"
+      ],
+      "produces": [
+        "VISITOR_F20"
+      ],
+      "label": "同一F20实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+      "kind": "bounded_visible_appearance",
+      "entity_owner": "F20"
+    },
+    {
+      "id": "P_OFFER_F20",
+      "requires": [
+        "VISITOR_F20"
+      ],
+      "produces": [
+        "OFFER_F20"
+      ],
+      "label": "该F20本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+      "kind": "actual_action",
+      "entity_owner": "F20"
+    },
+    {
+      "id": "P_SEE_F29",
+      "requires": [
+        "SCHEDULE",
+        "BASIC_RULES",
+        "SAFE_ROUTE"
+      ],
+      "produces": [
+        "VISITOR_F29"
+      ],
+      "label": "同一F29实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+      "kind": "bounded_visible_appearance",
+      "entity_owner": "F29"
+    },
+    {
+      "id": "P_OFFER_F29",
+      "requires": [
+        "VISITOR_F29"
+      ],
+      "produces": [
+        "OFFER_F29"
+      ],
+      "label": "该F29本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+      "kind": "actual_action",
+      "entity_owner": "F29"
+    },
+    {
+      "id": "P_SEE_F35",
+      "requires": [
+        "SCHEDULE",
+        "BASIC_RULES",
+        "SAFE_ROUTE"
+      ],
+      "produces": [
+        "VISITOR_F35"
+      ],
+      "label": "同一F35实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+      "kind": "bounded_visible_appearance",
+      "entity_owner": "F35"
+    },
+    {
+      "id": "P_OFFER_F35",
+      "requires": [
+        "VISITOR_F35"
+      ],
+      "produces": [
+        "OFFER_F35"
+      ],
+      "label": "该F35本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+      "kind": "actual_action",
+      "entity_owner": "F35"
+    },
+    {
+      "id": "P_SEE_F36",
+      "requires": [
+        "SCHEDULE",
+        "BASIC_RULES",
+        "SAFE_ROUTE"
+      ],
+      "produces": [
+        "VISITOR_F36"
+      ],
+      "label": "同一F36实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+      "kind": "bounded_visible_appearance",
+      "entity_owner": "F36"
+    },
+    {
+      "id": "P_OFFER_F36",
+      "requires": [
+        "VISITOR_F36"
+      ],
+      "produces": [
+        "OFFER_F36"
+      ],
+      "label": "该F36本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+      "kind": "actual_action",
+      "entity_owner": "F36"
+    },
+    {
+      "id": "P_SEE_F37",
+      "requires": [
+        "SCHEDULE",
+        "BASIC_RULES",
+        "SAFE_ROUTE"
+      ],
+      "produces": [
+        "VISITOR_F37"
+      ],
+      "label": "同一F37实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+      "kind": "bounded_visible_appearance",
+      "entity_owner": "F37"
+    },
+    {
+      "id": "P_OFFER_F37",
+      "requires": [
+        "VISITOR_F37"
+      ],
+      "produces": [
+        "CLAIM_F37"
+      ],
+      "label": "该F37本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+      "kind": "actual_action",
+      "entity_owner": "F37"
+    },
+    {
+      "id": "P_SEE_F47",
+      "requires": [
+        "SCHEDULE",
+        "BASIC_RULES",
+        "SAFE_ROUTE"
+      ],
+      "produces": [
+        "VISITOR_F47"
+      ],
+      "label": "同一F47实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+      "kind": "bounded_visible_appearance",
+      "entity_owner": "F47"
+    },
+    {
+      "id": "P_OFFER_F47",
+      "requires": [
+        "VISITOR_F47"
+      ],
+      "produces": [
+        "OFFER_F47"
+      ],
+      "label": "该F47本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+      "kind": "actual_action",
+      "entity_owner": "F47"
+    },
+    {
+      "id": "P_SEE_F53",
+      "requires": [
+        "SCHEDULE",
+        "BASIC_RULES",
+        "SAFE_ROUTE"
+      ],
+      "produces": [
+        "VISITOR_F53"
+      ],
+      "label": "同一F53实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+      "kind": "bounded_visible_appearance",
+      "entity_owner": "F53"
+    },
+    {
+      "id": "P_OFFER_F53",
+      "requires": [
+        "VISITOR_F53"
+      ],
+      "produces": [
+        "OFFER_F53"
+      ],
+      "label": "该F53本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+      "kind": "actual_action",
+      "entity_owner": "F53"
+    },
+    {
+      "id": "P_SEE_F55",
+      "requires": [
+        "SCHEDULE",
+        "BASIC_RULES",
+        "SAFE_ROUTE"
+      ],
+      "produces": [
+        "VISITOR_F55"
+      ],
+      "label": "同一F55实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+      "kind": "bounded_visible_appearance",
+      "entity_owner": "F55"
+    },
+    {
+      "id": "P_OFFER_F55",
+      "requires": [
+        "VISITOR_F55"
+      ],
+      "produces": [
+        "OFFER_F55"
+      ],
+      "label": "该F55本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+      "kind": "actual_action",
+      "entity_owner": "F55"
+    },
+    {
+      "id": "P_SEE_F59",
+      "requires": [
+        "SCHEDULE",
+        "BASIC_RULES",
+        "SAFE_ROUTE"
+      ],
+      "produces": [
+        "VISITOR_F59"
+      ],
+      "label": "同一F59实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+      "kind": "bounded_visible_appearance",
+      "entity_owner": "F59"
+    },
+    {
+      "id": "P_OFFER_F59",
+      "requires": [
+        "VISITOR_F59"
+      ],
+      "produces": [
+        "OFFER_F59"
+      ],
+      "label": "该F59本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+      "kind": "actual_action",
+      "entity_owner": "F59"
+    },
+    {
+      "id": "P_ACTUAL_DISCARD",
+      "requires": [
+        "HOT_FOOD_SALEABLE",
+        "HOT_PRODUCTION_RECEIPT"
+      ],
+      "produces": [
+        "WASTE_DESIGNATION_RECEIPT"
+      ],
+      "label": "玩家对真实退单/到期批次实际执行弃置，生成废物用途回执；不对所有热食全局改标签",
+      "kind": "actual_action"
+    },
+    {
+      "id": "P_F21_REAL_CUT",
+      "requires": [
+        "DEVICE_WARNING",
+        "OCCUPIED_STATION",
+        "PAYLOAD_F21",
+        "F21_GLASS_VARIANT"
+      ],
+      "produces": [
+        "FRESH_BLOOD"
+      ],
+      "label": "预告40秒后仍在玻璃故障危险位且未隔离，产生一次实际割伤；预防事故不会执行",
+      "kind": "real_failure_receipt"
+    },
+    {
+      "id": "P_PREVIOUS_SALE_LEDGER",
+      "requires": [
+        "BASELINE"
+      ],
+      "produces": [
+        "PRIOR_SALE_RECEIPT"
+      ],
+      "label": "班前实际接收明确白班/前夜销售存根；保留原班次，绝不标为本班成交",
+      "kind": "actual_action",
+      "earliest_phase": "D04"
+    },
+    {
+      "id": "P_ORIGINAL_SALE_CURRENT",
+      "requires": [
+        "SALE_RECEIPT"
+      ],
+      "produces": [
+        "ORIGINAL_SALE_RECEIPT"
+      ],
+      "label": "选择当前真实销售记录作为该退货商品来源",
+      "kind": "actual_action"
+    },
+    {
+      "id": "P_ORIGINAL_SALE_PRIOR",
+      "requires": [
+        "PRIOR_SALE_RECEIPT"
+      ],
+      "produces": [
+        "ORIGINAL_SALE_RECEIPT"
+      ],
+      "label": "选择已传入的原班次真实记录，与退货物件ID匹配",
+      "kind": "actual_action"
+    },
+    {
+      "id": "P_RETURN_FROM_ORIGINAL",
+      "requires": [
+        "ORIGINAL_SALE_RECEIPT"
+      ],
+      "produces": [
+        "RETURN_FROM_ORIGINAL"
+      ],
+      "label": "顾客实际交回与原始存根匹配的物件；不先创建退款凭据",
+      "kind": "actual_action"
+    },
+    {
+      "id": "P_THREE_SALES",
+      "requires": [
+        "SALE_RECEIPT_1",
+        "SALE_RECEIPT_2",
+        "SALE_RECEIPT_3"
+      ],
+      "produces": [
+        "THREE_SALE_RECEIPTS"
+      ],
+      "label": "完成三个不同预排销售订单并保存三张真实回执，最早N02；不能裁一张充三张",
+      "kind": "actual_action",
+      "earliest_phase": "N02",
+      "unique_order_receipt_count": 3
+    },
+    {
+      "id": "P_ORDER_2",
+      "requires": [
+        "SCHEDULE"
+      ],
+      "produces": [
+        "ORDER_2"
+      ],
+      "label": "派发另一个实际预排名额night-slot-01-browse",
+      "kind": "scheduled_action",
+      "order_instance": "night-slot-01-browse",
+      "earliest_phase": "N01"
+    },
+    {
+      "id": "P_CHECKOUT_2",
+      "requires": [
+        "ORDER_2",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "SALE_RECEIPT_2"
+      ],
+      "invalidates": [
+        "ORDER_2"
+      ],
+      "label": "实际完成此独立订单，不复用前一个订单回执",
+      "kind": "actual_action",
+      "order_instance": "night-slot-01-browse",
+      "earliest_phase": "N01"
+    },
+    {
+      "id": "P_ORDER_3",
+      "requires": [
+        "SCHEDULE"
+      ],
+      "produces": [
+        "ORDER_3"
+      ],
+      "label": "派发另一个实际预排名额night-slot-02-pickup",
+      "kind": "scheduled_action",
+      "order_instance": "night-slot-02-pickup",
+      "earliest_phase": "N02"
+    },
+    {
+      "id": "P_CHECKOUT_3",
+      "requires": [
+        "ORDER_3",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "SALE_RECEIPT_3"
+      ],
+      "invalidates": [
+        "ORDER_3"
+      ],
+      "label": "实际完成此独立订单，不复用前一个订单回执",
+      "kind": "actual_action",
+      "order_instance": "night-slot-02-pickup",
+      "earliest_phase": "N02"
+    },
+    {
+      "id": "P_F51_CURRENT_ORDER",
+      "requires": [
+        "SCHEDULE",
+        "THREE_SALE_RECEIPTS"
+      ],
+      "produces": [
+        "F51_CURRENT_ORDER"
+      ],
+      "label": "三张实际历史销售回执已存在后，首兆前预留N05尚未到场的基础订单；保留同一订单ID，不生成第四张已完成收据。",
+      "kind": "scheduled_action",
+      "order_instance": "night-slot-05-pickup",
+      "earliest_phase": "N05",
+      "entity_owner": "F51"
+    },
+    {
+      "id": "P_F21_GLASS_VARIANT",
+      "requires": [
+        "PAYLOAD_F21",
+        "DEVICE_WARNING"
+      ],
+      "produces": [
+        "F21_GLASS_VARIANT"
+      ],
+      "invalidates": [],
+      "actor": "encounter_director",
+      "physical_action": "已到场的F21选择预先登记的玻璃护罩故障变体；不提前产伤",
+      "clock": "world_simulation",
+      "note": "只是实际故障子型，不是另一个怪物或伤口。",
+      "kind": "actual_encounter_variant",
+      "label": "已到场F21选择登记的玻璃护罩故障；只建立故障子型，不造伤"
+    },
+    {
+      "id": "P_RESERVE_ORDER_F06",
+      "requires": [
+        "SCHEDULE",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "RESERVED_ORDER_F06"
+      ],
+      "kind": "actual_slot_reservation",
+      "label": "F06首兆前预留一个尚未到场的基础订单槽，保留原订单ID及领取/浏览类型；实际来客到场才转为等待订单。",
+      "invalidates": [],
+      "order_instance": "base_slot_reserved_for_F06",
+      "same_order_not_an_extra_sale": true
+    },
+    {
+      "id": "P_RESERVE_ORDER_F09",
+      "requires": [
+        "SCHEDULE",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "RESERVED_ORDER_F09"
+      ],
+      "kind": "actual_slot_reservation",
+      "label": "F09首兆前预留一个尚未到场的基础订单槽，保留原订单ID及领取/浏览类型；实际来客到场才转为等待订单。",
+      "invalidates": [],
+      "order_instance": "base_slot_reserved_for_F09",
+      "same_order_not_an_extra_sale": true
+    },
+    {
+      "id": "P_RESERVE_ORDER_F27",
+      "requires": [
+        "SCHEDULE",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "RESERVED_ORDER_F27"
+      ],
+      "kind": "actual_slot_reservation",
+      "label": "F27首兆前预留一个尚未到场的基础订单槽，保留原订单ID及领取/浏览类型；实际来客到场才转为等待订单。",
+      "invalidates": [],
+      "order_instance": "base_slot_reserved_for_F27",
+      "same_order_not_an_extra_sale": true
+    },
+    {
+      "id": "P_RESERVE_ORDER_F44",
+      "requires": [
+        "SCHEDULE",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "RESERVED_ORDER_F44"
+      ],
+      "kind": "actual_slot_reservation",
+      "label": "F44首兆前预留一个尚未到场的基础订单槽，保留原订单ID及领取/浏览类型；实际来客到场才转为等待订单。",
+      "invalidates": [],
+      "order_instance": "base_slot_reserved_for_F44",
+      "same_order_not_an_extra_sale": true
+    },
+    {
+      "id": "P_RESERVE_ORDER_F48",
+      "requires": [
+        "SCHEDULE",
+        "SUPPLIES"
+      ],
+      "produces": [
+        "RESERVED_ORDER_F48"
+      ],
+      "kind": "actual_slot_reservation",
+      "label": "F48首兆前预留一个尚未到场的基础订单槽，保留原订单ID及领取/浏览类型；实际来客到场才转为等待订单。",
+      "invalidates": [],
+      "order_instance": "base_slot_reserved_for_F48",
+      "same_order_not_an_extra_sale": true
+    }
+  ],
+  "encounters": [
+    {
+      "id": "F01",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "DELIVERY_PLAN",
+        "SUPPLIES"
+      ],
+      "activation_fact": "PAYLOAD_F01",
+      "arrival_producer": "P_ARRIVE_F01",
+      "allowed_phases": [
+        "N02",
+        "N05"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F02",
+      "activation_mode": "history_gated",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "BASELINE"
+      ],
+      "activation_fact": "PAYLOAD_F02",
+      "arrival_producer": "P_ARRIVE_F02",
+      "allowed_phases": [
+        "N01",
+        "N06"
+      ],
+      "actual_history_required": true,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": true,
+        "rule": "班前实际核验/领物；真人不在时安全限权拒交"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F03",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "TWO_CARGO_UNITS"
+      ],
+      "activation_fact": "PAYLOAD_F03",
+      "arrival_producer": "P_ARRIVE_F03",
+      "allowed_phases": [
+        "N02",
+        "N04"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F04",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "SUPPLIES"
+      ],
+      "activation_fact": "PAYLOAD_F04",
+      "arrival_producer": "P_ARRIVE_F04",
+      "allowed_phases": [
+        "N02",
+        "N03"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F05",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "CARGO",
+        "WET_REGION"
+      ],
+      "activation_fact": "PAYLOAD_F05",
+      "arrival_producer": "P_ARRIVE_F05",
+      "allowed_phases": [
+        "N03",
+        "N04"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F06",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "RESERVED_ORDER_F06",
+        "SUPPLIES"
+      ],
+      "activation_fact": "PAYLOAD_F06",
+      "arrival_producer": "P_ARRIVE_F06",
+      "allowed_phases": [
+        "N03"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F07",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "SCHEDULE",
+        "SUPPLIES"
+      ],
+      "activation_fact": "PAYLOAD_F07",
+      "arrival_producer": "P_ARRIVE_F07",
+      "allowed_phases": [
+        "N01",
+        "N03",
+        "N05"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F08",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "OLD_TOOL"
+      ],
+      "activation_fact": "PAYLOAD_F08",
+      "arrival_producer": "P_ARRIVE_F08",
+      "allowed_phases": [
+        "N05"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F09",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "RESERVED_ORDER_F09"
+      ],
+      "activation_fact": "PAYLOAD_F09",
+      "arrival_producer": "P_ARRIVE_F09",
+      "allowed_phases": [
+        "N01",
+        "N05"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F10",
+      "activation_mode": "history_gated",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "PROBLEM_RECEIPT"
+      ],
+      "activation_fact": "PAYLOAD_F10",
+      "arrival_producer": "P_ARRIVE_F10",
+      "allowed_phases": [
+        "N04"
+      ],
+      "actual_history_required": true,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "N01",
+        "must_exist_before_first_omen": true,
+        "rule": "至少一项本班真实故障已完成处理；在N04首兆前仍可查"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F11",
+      "activation_mode": "optional_offer",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "OFFER_F11"
+      ],
+      "activation_fact": "PAYLOAD_F11",
+      "arrival_producer": "P_ARRIVE_F11",
+      "allowed_phases": [
+        "N05"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": true,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F12",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "PAPERCLIP_SUPPLY"
+      ],
+      "activation_fact": "PAYLOAD_F12",
+      "arrival_producer": "P_ARRIVE_F12",
+      "allowed_phases": [
+        "N02",
+        "N04"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F13",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "REGISTERED_MEAT",
+        "VALID_FREEZER"
+      ],
+      "activation_fact": "PAYLOAD_F13",
+      "arrival_producer": "P_ARRIVE_F13",
+      "allowed_phases": [
+        "N03"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F14",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "BASELINE",
+        "STAFF"
+      ],
+      "activation_fact": "PAYLOAD_F14",
+      "arrival_producer": "P_ARRIVE_F14",
+      "allowed_phases": [
+        "N03",
+        "N05"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F15",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "SUPPLIES"
+      ],
+      "activation_fact": "PAYLOAD_F15",
+      "arrival_producer": "P_ARRIVE_F15",
+      "allowed_phases": [
+        "N05"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F16",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "CHANGE_FLOAT"
+      ],
+      "activation_fact": "PAYLOAD_F16",
+      "arrival_producer": "P_ARRIVE_F16",
+      "allowed_phases": [
+        "N01",
+        "N05"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F17",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "SUPPLIES"
+      ],
+      "activation_fact": "PAYLOAD_F17",
+      "arrival_producer": "P_ARRIVE_F17",
+      "allowed_phases": [
+        "N05"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F18",
+      "activation_mode": "history_gated",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "BASELINE"
+      ],
+      "activation_fact": "PAYLOAD_F18",
+      "arrival_producer": "P_ARRIVE_F18",
+      "allowed_phases": [
+        "N01",
+        "N02"
+      ],
+      "actual_history_required": true,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": true,
+        "rule": "班前基准＋本次实际过门痕迹，不假设先见过变形"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F19",
+      "activation_mode": "history_gated",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "RECEIPT_CHAIN"
+      ],
+      "activation_fact": "PAYLOAD_F19",
+      "arrival_producer": "P_ARRIVE_F19",
+      "allowed_phases": [
+        "N02",
+        "N05"
+      ],
+      "actual_history_required": true,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "N01",
+        "must_exist_before_first_omen": true,
+        "rule": "本班真实销售与同一订单退款已在N02/N05首兆前完成"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F20",
+      "activation_mode": "optional_offer",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "OFFER_F20"
+      ],
+      "activation_fact": "PAYLOAD_F20",
+      "arrival_producer": "P_ARRIVE_F20",
+      "allowed_phases": [
+        "N01",
+        "N03"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": true,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F21",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "DEVICE_WARNING",
+        "OCCUPIED_STATION"
+      ],
+      "activation_fact": "PAYLOAD_F21",
+      "arrival_producer": "P_ARRIVE_F21",
+      "allowed_phases": [
+        "N03",
+        "N04"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F22",
+      "activation_mode": "optional_offer",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "PENDING_JOB"
+      ],
+      "activation_fact": "PAYLOAD_F22",
+      "arrival_producer": "P_ARRIVE_F22",
+      "allowed_phases": [
+        "N04",
+        "N05"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": true,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F23",
+      "activation_mode": "history_gated",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "LOST_ITEM",
+        "DEPOSIT_RECEIPT"
+      ],
+      "activation_fact": "PAYLOAD_F23",
+      "arrival_producer": "P_ARRIVE_F23",
+      "allowed_phases": [
+        "N05"
+      ],
+      "actual_history_required": true,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": true,
+        "rule": "明确白班交存或本班真实交存；不得补写过去"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F24",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "CARGO",
+        "WET_REGION"
+      ],
+      "activation_fact": "PAYLOAD_F24",
+      "arrival_producer": "P_ARRIVE_F24",
+      "allowed_phases": [
+        "N02",
+        "N04"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F25",
+      "activation_mode": "history_gated",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "ORIGINAL_SALE_RECEIPT",
+        "RETURN_FROM_ORIGINAL"
+      ],
+      "activation_fact": "PAYLOAD_F25",
+      "arrival_producer": "P_ARRIVE_F25",
+      "allowed_phases": [
+        "N01",
+        "N06"
+      ],
+      "actual_history_required": true,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": true,
+        "rule": "原销售可来自明确交入的前班存根；首次退款仍在当前动作后产生"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F26",
+      "activation_mode": "reactive_actual_state",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "FRESH_BLOOD",
+        "BLOOD_TRACE"
+      ],
+      "activation_fact": "PAYLOAD_F26",
+      "arrival_producer": "P_ARRIVE_F26",
+      "allowed_phases": [
+        "N04"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": true,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "N04",
+        "must_exist_before_first_omen": true,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F27",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "TWO_CARGO_UNITS",
+        "RESERVED_ORDER_F27"
+      ],
+      "activation_fact": "PAYLOAD_F27",
+      "arrival_producer": "P_ARRIVE_F27",
+      "allowed_phases": [
+        "N02"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F28",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "WET_REGION"
+      ],
+      "activation_fact": "PAYLOAD_F28",
+      "arrival_producer": "P_ARRIVE_F28",
+      "allowed_phases": [
+        "N03"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F29",
+      "activation_mode": "optional_offer",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "OFFER_F29"
+      ],
+      "activation_fact": "PAYLOAD_F29",
+      "arrival_producer": "P_ARRIVE_F29",
+      "allowed_phases": [
+        "N03"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": true,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F30",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "CARGO"
+      ],
+      "activation_fact": "PAYLOAD_F30",
+      "arrival_producer": "P_ARRIVE_F30",
+      "allowed_phases": [
+        "N02"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F31",
+      "activation_mode": "optional_offer",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "REST_OPPORTUNITY"
+      ],
+      "activation_fact": "PAYLOAD_F31",
+      "arrival_producer": "P_ARRIVE_F31",
+      "allowed_phases": [
+        "N06"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": true,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F32",
+      "activation_mode": "reactive_actual_state",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "FRESH_BLOOD"
+      ],
+      "activation_fact": "PAYLOAD_F32",
+      "arrival_producer": "P_ARRIVE_F32",
+      "allowed_phases": [
+        "N03",
+        "N04"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": true,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "N03",
+        "must_exist_before_first_omen": true,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F33",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "SUPPLIES"
+      ],
+      "activation_fact": "PAYLOAD_F33",
+      "arrival_producer": "P_ARRIVE_F33",
+      "allowed_phases": [
+        "N01",
+        "N06"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F34",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "CARGO",
+        "WET_REGION"
+      ],
+      "activation_fact": "PAYLOAD_F34",
+      "arrival_producer": "P_ARRIVE_F34",
+      "allowed_phases": [
+        "N01",
+        "N04"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F35",
+      "activation_mode": "optional_offer",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "PENDING_JOB",
+        "OFFER_F35"
+      ],
+      "activation_fact": "PAYLOAD_F35",
+      "arrival_producer": "P_ARRIVE_F35",
+      "allowed_phases": [
+        "N05"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": true,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F36",
+      "activation_mode": "optional_offer",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "OFFER_F36"
+      ],
+      "activation_fact": "PAYLOAD_F36",
+      "arrival_producer": "P_ARRIVE_F36",
+      "allowed_phases": [
+        "N02"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": true,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F37",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "CLAIM_F37",
+        "SAFE_ROUTE"
+      ],
+      "activation_fact": "PAYLOAD_F37",
+      "arrival_producer": "P_ARRIVE_F37",
+      "allowed_phases": [
+        "N01",
+        "N04"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F38",
+      "activation_mode": "history_gated",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "BASELINE",
+        "THREE_WORK_TRACES",
+        "CONTINUITY_RECORD"
+      ],
+      "activation_fact": "PAYLOAD_F38",
+      "arrival_producer": "P_ARRIVE_F38",
+      "allowed_phases": [
+        "N05",
+        "N06"
+      ],
+      "actual_history_required": true,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "N03",
+        "must_exist_before_first_omen": true,
+        "rule": "三处不同工位实际工作已发生；当前身体连续性不足则安全限权"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F39",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "REPLACEMENT_PLAN"
+      ],
+      "activation_fact": "PAYLOAD_F39",
+      "arrival_producer": "P_ARRIVE_F39",
+      "allowed_phases": [
+        "N03"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F40",
+      "activation_mode": "history_gated",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "RECEIVING_RECEIPT"
+      ],
+      "activation_fact": "PAYLOAD_F40",
+      "arrival_producer": "P_ARRIVE_F40",
+      "allowed_phases": [
+        "N02",
+        "N05"
+      ],
+      "actual_history_required": true,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "N01",
+        "must_exist_before_first_omen": true,
+        "rule": "真实收货中已登记误收树苗；没误收不投放"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F41",
+      "activation_mode": "history_gated",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "LOST_ITEM",
+        "DEPOSIT_RECEIPT"
+      ],
+      "activation_fact": "PAYLOAD_F41",
+      "arrival_producer": "P_ARRIVE_F41",
+      "allowed_phases": [
+        "N04",
+        "N05",
+        "N06"
+      ],
+      "actual_history_required": true,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": true,
+        "rule": "真实交存袋及其物件清单；没有失物不投放"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F42",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "CARGO",
+        "SAFE_ROUTE"
+      ],
+      "activation_fact": "PAYLOAD_F42",
+      "arrival_producer": "P_ARRIVE_F42",
+      "allowed_phases": [
+        "N02",
+        "N04"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F43",
+      "activation_mode": "history_gated",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "BASELINE",
+        "PENDING_JOB",
+        "CLAIM_WINDOW_RECORD"
+      ],
+      "activation_fact": "PAYLOAD_F43",
+      "arrival_producer": "P_ARRIVE_F43",
+      "allowed_phases": [
+        "N01",
+        "N04",
+        "N06"
+      ],
+      "actual_history_required": true,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": true,
+        "rule": "真实记录覆盖便签所指时间；不覆盖则保持待核/拒绝，不声称识破"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F44",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "RESERVED_ORDER_F44"
+      ],
+      "activation_fact": "PAYLOAD_F44",
+      "arrival_producer": "P_ARRIVE_F44",
+      "allowed_phases": [
+        "N01",
+        "N05"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F45",
+      "activation_mode": "history_gated",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "CARGO",
+        "RECEIVING_RECEIPT"
+      ],
+      "activation_fact": "PAYLOAD_F45",
+      "arrival_producer": "P_ARRIVE_F45",
+      "allowed_phases": [
+        "N02",
+        "N05"
+      ],
+      "actual_history_required": true,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "N01",
+        "must_exist_before_first_omen": true,
+        "rule": "实际收货轮痕与批次；不以想象的方向当证据"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F46",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "LOOSE_TOOL"
+      ],
+      "activation_fact": "PAYLOAD_F46",
+      "arrival_producer": "P_ARRIVE_F46",
+      "allowed_phases": [
+        "N02",
+        "N04",
+        "N05"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F47",
+      "activation_mode": "optional_offer",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "OFFER_F47"
+      ],
+      "activation_fact": "PAYLOAD_F47",
+      "arrival_producer": "P_ARRIVE_F47",
+      "allowed_phases": [
+        "N03",
+        "N05"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": true,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F48",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "RESERVED_ORDER_F48"
+      ],
+      "activation_fact": "PAYLOAD_F48",
+      "arrival_producer": "P_ARRIVE_F48",
+      "allowed_phases": [
+        "N01",
+        "N03",
+        "N06"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F49",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "HOT_WASTE"
+      ],
+      "activation_fact": "PAYLOAD_F49",
+      "arrival_producer": "P_ARRIVE_F49",
+      "allowed_phases": [
+        "N03",
+        "N04"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F50",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "SAFE_ROUTE"
+      ],
+      "activation_fact": "PAYLOAD_F50",
+      "arrival_producer": "P_ARRIVE_F50",
+      "allowed_phases": [
+        "N02",
+        "N04",
+        "N05"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F51",
+      "activation_mode": "history_gated",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "THREE_SALE_RECEIPTS",
+        "F51_CURRENT_ORDER"
+      ],
+      "activation_fact": "PAYLOAD_F51",
+      "arrival_producer": "P_ARRIVE_F51",
+      "allowed_phases": [
+        "N05"
+      ],
+      "actual_history_required": true,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "N02",
+        "must_exist_before_first_omen": true,
+        "rule": "三张本班既有交易回执；N01标准班前预兆不可能满足，当前仅N05"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F52",
+      "activation_mode": "optional_offer",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "REST_OPPORTUNITY",
+        "WET_REGION"
+      ],
+      "activation_fact": "PAYLOAD_F52",
+      "arrival_producer": "P_ARRIVE_F52",
+      "allowed_phases": [
+        "N05",
+        "N06"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": true,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F53",
+      "activation_mode": "optional_offer",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "OFFER_F53"
+      ],
+      "activation_fact": "PAYLOAD_F53",
+      "arrival_producer": "P_ARRIVE_F53",
+      "allowed_phases": [
+        "N01",
+        "N02"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": true,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F54",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "THREE_CARGO_UNITS",
+        "SAFE_ROUTE"
+      ],
+      "activation_fact": "PAYLOAD_F54",
+      "arrival_producer": "P_ARRIVE_F54",
+      "allowed_phases": [
+        "N02",
+        "N04"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F55",
+      "activation_mode": "optional_offer",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "CARGO",
+        "OFFER_F55",
+        "SAFE_ROUTE"
+      ],
+      "activation_fact": "PAYLOAD_F55",
+      "arrival_producer": "P_ARRIVE_F55",
+      "allowed_phases": [
+        "N04",
+        "N06"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": true,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F56",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "CARGO",
+        "WET_REGION"
+      ],
+      "activation_fact": "PAYLOAD_F56",
+      "arrival_producer": "P_ARRIVE_F56",
+      "allowed_phases": [
+        "N02",
+        "N04"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F57",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "CARGO",
+        "SAFE_ROUTE"
+      ],
+      "activation_fact": "PAYLOAD_F57",
+      "arrival_producer": "P_ARRIVE_F57",
+      "allowed_phases": [
+        "N02",
+        "N04"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F58",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "HOT_FOOD_SALEABLE"
+      ],
+      "activation_fact": "PAYLOAD_F58",
+      "arrival_producer": "P_ARRIVE_F58",
+      "allowed_phases": [
+        "N03",
+        "N05"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F59",
+      "activation_mode": "optional_offer",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "REPAIR_JOB",
+        "OFFER_F59"
+      ],
+      "activation_fact": "PAYLOAD_F59",
+      "arrival_producer": "P_ARRIVE_F59",
+      "allowed_phases": [
+        "N05"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": true,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    },
+    {
+      "id": "F60",
+      "activation_mode": "scheduled_visible_scene",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "required_before_arrival": [
+        "SAFE_ROUTE"
+      ],
+      "activation_fact": "PAYLOAD_F60",
+      "arrival_producer": "P_ARRIVE_F60",
+      "allowed_phases": [
+        "N01",
+        "N05",
+        "N06"
+      ],
+      "actual_history_required": false,
+      "real_failure_required": false,
+      "optional_offer": false,
+      "first_applicable_rule_free_before_danger": true,
+      "source_may_be_created_by_claim_only": false,
+      "production_trace_is_abstract_not_engine_playthrough": true,
+      "historical_window": {
+        "earliest_possible_source_phase": "D04",
+        "must_exist_before_first_omen": false,
+        "rule": "到场物件可事前预约并在入场时实际交付；不是把未来事实提前写成已发生。条件型遭遇等真实来源出现再预告。"
+      },
+      "condition_model_goal": "source_dependency_witness_only",
+      "arrival_fact_means": "该条件链在一个单独场景中可建立；不表示引擎已生成/运行该怪。"
+    }
+  ],
+  "scope_exclusions": [
+    "实际场景移动与碰撞",
+    "任意多事件组合",
+    "单夜能否遇齐全部怪",
+    "玩家已犯错后的必胜保证",
+    "叙述字符串作为可执行guard"
+  ],
+  "witness_policy": "每只怪有独立合法场景。一般历史可在之前阶段/明确白班交存产生；限定本班的历史不得用虚构初始记录替代。F26/F32必须走真正事故链。F14只作设计依赖检查，候选仍关闭。",
+  "nonmonotonic_policy": "invalidates删除当前用途状态；生产/销售历史回执保留。证明器按目标回溯构造单个场景，不把所有怪物和所有食物批次混在同一个单调全集。",
+  "entity_binding_policy": "带entity_owner的提案与来者绑定；同名文本、其他来者提案不满足当前实体。",
+  "source_counterexamples": [
+    {
+      "remove_producers": [
+        "P_REAL_CUT",
+        "P_F21_REAL_CUT"
+      ],
+      "unreachable": [
+        "F26",
+        "F32"
+      ]
+    },
+    {
+      "remove_producers": [
+        "P_REPAIR"
+      ],
+      "unreachable": [
+        "F10"
+      ]
+    },
+    {
+      "remove_producers": [
+        "P_REFUND"
+      ],
+      "unreachable": [
+        "F19"
+      ]
+    },
+    {
+      "remove_producers": [
+        "P_WORK_TRACE_2"
+      ],
+      "unreachable": [
+        "F38"
+      ]
+    },
+    {
+      "remove_producers": [
+        "P_CHECKOUT_2"
+      ],
+      "unreachable": [
+        "F51"
+      ]
+    },
+    {
+      "remove_producers": [
+        "P_CLAIM_WINDOW_EVIDENCE"
+      ],
+      "unreachable": [
+        "F43"
+      ]
+    },
+    {
+      "remove_producers": [
+        "P_RECEIVE_THREE_MANIFEST"
+      ],
+      "unreachable": [
+        "F54"
+      ]
+    }
+  ]
+}

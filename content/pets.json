@@ -1,5 +1,5 @@
 {
-  "version": "0.5",
+  "version": "0.6",
   "max_active": 1,
   "baseline_uses_per_night": 2,
   "permanent_death": false,
@@ -689,6 +689,9 @@
       "F12_supply_tag": "paperclip_supply",
       "F13_task_meat_tag": "encounter_raw_meat_crate",
       "source": "encounter_blueprints.json.objects"
-    }
-  }
+    },
+    "startle_blocks_only_new_commands": true,
+    "startle_never_refreshes_charges_or_care": true
+  },
+  "temporary_startle_contract": "content/events.json#E070"
 }

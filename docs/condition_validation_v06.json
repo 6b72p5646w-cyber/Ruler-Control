@@ -1,0 +1,7649 @@
+{
+  "status": "PASS",
+  "checks": 5710,
+  "scope": "core schema, explicit design invariants, references, and independent finite source-dependency witnesses",
+  "proof_level": "source_dependency_witness_only_not_temporal_or_ai_playthrough",
+  "client_implemented": false,
+  "interpretation": [
+    "Each of the 60 witnesses starts independently from NEW_SHIFT; they are not one playable night.",
+    "Operators represent declared concrete action/instance sources. A witness is only as truthful as those authored source contracts.",
+    "Facts invalidated by an action are removed before its products are added; the witness is replayed from its seed.",
+    "Each named operator is used at most once per witness. A second item/order/batch requires its own named instance operator.",
+    "Historical phase checks compare only explicit known metadata; they do not simulate elapsed time, observation continuity, or omen scheduling.",
+    "SAFE_ROUTE and SUPPLIES are abstract admission claims. This report does not prove collision/navigation, shared inventory quantities, deadlines, all event combinations, complete AI, guaranteed success, or fun.",
+    "SEARCH_LIMIT is inconclusive and fails validation; only an exhausted finite search is reported as UNREACHABLE.",
+    "F14 is included for design-source coverage while remaining disabled as a runtime candidate."
+  ],
+  "counts": {
+    "cards": 60,
+    "rules": 20,
+    "events": 72,
+    "encounter_contracts": 60,
+    "supplies": 30,
+    "condition_definitions": 18,
+    "witnesses_reachable": 60
+  },
+  "inputs_sha256": {
+    "content/condition_lifecycle_v06.json": "b7f146afb0b3d5a31dc66387469b5fa8e93303225e04bfebc869d9197ad1faea",
+    "content/condition_reachability_v06.json": "f388f5a7474c52d557b81b9164bd5effd28116bd5697bb4e97ce8e66de3c2926",
+    "content/encounter_blueprints.json": "e76c13f935738b87e362bb904ec93985b3730cb9c66b85481e1c8ee30f19c266",
+    "content/encounters_v05.json": "5804d008b1392e290db2999b647884f99274fefc92d6696481065bf8a6be60b9",
+    "content/rules.json": "1c8d57675b7dc00ca40f2502f48c19548a66c7616ca00c1aed6cc45a72c2d181",
+    "content/events.json": "2fd2ed4461c93f53d920c78397a97ce4829f8cc4cc2d03f078c027797da46113",
+    "content/balance.json": "b3a74eb1868a74c15a536bae863cd78f1e95b00189ad9428a561375ad243da5d",
+    "content/maps.json": "773e39b35bc16c63e6b4f294e27f8a944072599f21b8ad1bae46527f0a093b9a",
+    "content/map_mechanics_v05.json": "d83825248f740035fa7924ff3b6845b127f10453a3ed78a64c7444d3deb2c03d"
+  },
+  "operator_count": 139,
+  "case_count": 60,
+  "witnesses": [
+    {
+      "id": "F01",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 10,
+      "relevant_operators": 5,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F01"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_PLAN_DELIVERY",
+          "kind": "trusted_setup",
+          "label": "班前登记真实配送单与时刻",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "DELIVERY_PLAN"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F01",
+          "kind": "bounded_encounter_arrival",
+          "label": "F01从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "DELIVERY_PLAN",
+            "SUPPLIES"
+          ],
+          "added": [
+            "PAYLOAD_F01"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "DELIVERY_PLAN",
+        "NEW_SHIFT",
+        "PAYLOAD_F01",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F02",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 10,
+      "relevant_operators": 5,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F02"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_BASELINE",
+          "kind": "actual_action",
+          "label": "在可信班前场景实际核验并保存独立基准",
+          "requires": [
+            "STAFF"
+          ],
+          "added": [
+            "BASELINE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F02",
+          "kind": "bounded_encounter_arrival",
+          "label": "F02从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "BASELINE"
+          ],
+          "added": [
+            "PAYLOAD_F02"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASELINE",
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAYLOAD_F02",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F03",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 18,
+      "relevant_operators": 7,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F03"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_PLAN_DELIVERY",
+          "kind": "trusted_setup",
+          "label": "班前登记真实配送单与时刻",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "DELIVERY_PLAN"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_RECEIVE_CARGO",
+          "kind": "actual_action",
+          "label": "配送到场实际收一箱货；记录同一箱ID",
+          "requires": [
+            "DELIVERY_PLAN",
+            "SUPPLIES"
+          ],
+          "added": [
+            "CARGO",
+            "RECEIVING_RECEIPT"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_TWO_CARGO_UNITS",
+          "kind": "actual_action",
+          "label": "把本单实际可分的两件货登记为两个运输单位，数量不增加",
+          "requires": [
+            "CARGO"
+          ],
+          "added": [
+            "TWO_CARGO_UNITS"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F03",
+          "kind": "bounded_encounter_arrival",
+          "label": "F03从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "TWO_CARGO_UNITS"
+          ],
+          "added": [
+            "PAYLOAD_F03"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CARGO",
+        "CLOCK",
+        "DELIVERY_PLAN",
+        "NEW_SHIFT",
+        "PAYLOAD_F03",
+        "RECEIVING_RECEIPT",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "TWO_CARGO_UNITS"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F04",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 6,
+      "relevant_operators": 4,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F04"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F04",
+          "kind": "bounded_encounter_arrival",
+          "label": "F04从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "SUPPLIES"
+          ],
+          "added": [
+            "PAYLOAD_F04"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAYLOAD_F04",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F05",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 26,
+      "relevant_operators": 7,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F05"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_KNOWN_WET",
+          "kind": "telegraphed_event",
+          "label": "只激活已绘湿图或怪本身带入的登记源；保留干路",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "WET_REGION"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_PLAN_DELIVERY",
+          "kind": "trusted_setup",
+          "label": "班前登记真实配送单与时刻",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "DELIVERY_PLAN"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_RECEIVE_CARGO",
+          "kind": "actual_action",
+          "label": "配送到场实际收一箱货；记录同一箱ID",
+          "requires": [
+            "DELIVERY_PLAN",
+            "SUPPLIES"
+          ],
+          "added": [
+            "CARGO",
+            "RECEIVING_RECEIPT"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F05",
+          "kind": "bounded_encounter_arrival",
+          "label": "F05从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "CARGO",
+            "WET_REGION"
+          ],
+          "added": [
+            "PAYLOAD_F05"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CARGO",
+        "CLOCK",
+        "DELIVERY_PLAN",
+        "NEW_SHIFT",
+        "PAYLOAD_F05",
+        "RECEIVING_RECEIPT",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "WET_REGION"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F06",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 10,
+      "relevant_operators": 5,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F06"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_RESERVE_ORDER_F06",
+          "kind": "actual_slot_reservation",
+          "label": "F06首兆前预留一个尚未到场的基础订单槽，保留原订单ID及领取/浏览类型；实际来客到场才转为等待订单。",
+          "requires": [
+            "SCHEDULE",
+            "SUPPLIES"
+          ],
+          "added": [
+            "RESERVED_ORDER_F06"
+          ],
+          "removed": [],
+          "order_instance": "base_slot_reserved_for_F06"
+        },
+        {
+          "operator": "P_ARRIVE_F06",
+          "kind": "bounded_encounter_arrival",
+          "label": "F06从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "RESERVED_ORDER_F06",
+            "SUPPLIES"
+          ],
+          "added": [
+            "PAYLOAD_F06"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAYLOAD_F06",
+        "RESERVED_ORDER_F06",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F07",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 6,
+      "relevant_operators": 4,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F07"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F07",
+          "kind": "bounded_encounter_arrival",
+          "label": "F07从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "SCHEDULE",
+            "SUPPLIES"
+          ],
+          "added": [
+            "PAYLOAD_F07"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAYLOAD_F07",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F08",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 14,
+      "relevant_operators": 6,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F08"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_DUTY",
+          "kind": "scheduled_action",
+          "label": "本阶段发出真实尚未完成的工作对象",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "PENDING_JOB"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_OLD_TOOL",
+          "kind": "actual_action",
+          "label": "实际使用已登记旧工具并触发可见磨损/故障",
+          "requires": [
+            "SUPPLIES",
+            "PENDING_JOB"
+          ],
+          "added": [
+            "OLD_TOOL"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F08",
+          "kind": "bounded_encounter_arrival",
+          "label": "F08从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "OLD_TOOL"
+          ],
+          "added": [
+            "PAYLOAD_F08"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "OLD_TOOL",
+        "PAYLOAD_F08",
+        "PENDING_JOB",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F09",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 10,
+      "relevant_operators": 5,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F09"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_RESERVE_ORDER_F09",
+          "kind": "actual_slot_reservation",
+          "label": "F09首兆前预留一个尚未到场的基础订单槽，保留原订单ID及领取/浏览类型；实际来客到场才转为等待订单。",
+          "requires": [
+            "SCHEDULE",
+            "SUPPLIES"
+          ],
+          "added": [
+            "RESERVED_ORDER_F09"
+          ],
+          "removed": [],
+          "order_instance": "base_slot_reserved_for_F09"
+        },
+        {
+          "operator": "P_ARRIVE_F09",
+          "kind": "bounded_encounter_arrival",
+          "label": "F09从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "RESERVED_ORDER_F09"
+          ],
+          "added": [
+            "PAYLOAD_F09"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAYLOAD_F09",
+        "RESERVED_ORDER_F09",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F10",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 22,
+      "relevant_operators": 8,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F10"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_DUTY",
+          "kind": "scheduled_action",
+          "label": "本阶段发出真实尚未完成的工作对象",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "PENDING_JOB"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_DEVICE_USE",
+          "kind": "actual_action",
+          "label": "实际启用有任务的工位",
+          "requires": [
+            "PENDING_JOB",
+            "SUPPLIES"
+          ],
+          "added": [
+            "DEVICE_IN_USE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_DEVICE_WARNING",
+          "kind": "telegraphed_event",
+          "label": "设备发生明确子型故障，出现可见预告",
+          "requires": [
+            "DEVICE_IN_USE"
+          ],
+          "added": [
+            "DEVICE_WARNING"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_REPAIR",
+          "kind": "actual_action",
+          "label": "实际隔离/维修已发生的普通故障，留下问题处理回执",
+          "requires": [
+            "DEVICE_WARNING",
+            "SUPPLIES"
+          ],
+          "added": [
+            "PROBLEM_RECEIPT"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F10",
+          "kind": "bounded_encounter_arrival",
+          "label": "F10从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "PROBLEM_RECEIPT"
+          ],
+          "added": [
+            "PAYLOAD_F10"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "DEVICE_IN_USE",
+        "DEVICE_WARNING",
+        "NEW_SHIFT",
+        "PAYLOAD_F10",
+        "PENDING_JOB",
+        "PROBLEM_RECEIPT",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F11",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 8,
+      "relevant_operators": 6,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F11"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_SEE_F11",
+          "kind": "bounded_visible_appearance",
+          "label": "同一F11实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+          "requires": [
+            "SCHEDULE",
+            "BASIC_RULES",
+            "SAFE_ROUTE"
+          ],
+          "added": [
+            "VISITOR_F11"
+          ],
+          "removed": [],
+          "entity_owner": "F11"
+        },
+        {
+          "operator": "P_OFFER_F11",
+          "kind": "actual_action",
+          "label": "该F11本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+          "requires": [
+            "VISITOR_F11"
+          ],
+          "added": [
+            "OFFER_F11"
+          ],
+          "removed": [],
+          "entity_owner": "F11"
+        },
+        {
+          "operator": "P_ARRIVE_F11",
+          "kind": "bounded_encounter_arrival",
+          "label": "F11已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "OFFER_F11"
+          ],
+          "added": [
+            "PAYLOAD_F11"
+          ],
+          "removed": [],
+          "entity_owner": "F11"
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "OFFER_F11",
+        "PAYLOAD_F11",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "VISITOR_F11"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F12",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 8,
+      "relevant_operators": 5,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F12"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_PAPERCLIP_PREP",
+          "kind": "canonical_setup",
+          "label": "按F12蓝图备主盒与备用盒、合法出口和撒点",
+          "requires": [
+            "SUPPLIES",
+            "SAFE_ROUTE"
+          ],
+          "added": [
+            "PAPERCLIP_SUPPLY"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F12",
+          "kind": "bounded_encounter_arrival",
+          "label": "F12从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "PAPERCLIP_SUPPLY"
+          ],
+          "added": [
+            "PAYLOAD_F12"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAPERCLIP_SUPPLY",
+        "PAYLOAD_F12",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F13",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 16,
+      "relevant_operators": 7,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F13"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_PLAN_DELIVERY",
+          "kind": "trusted_setup",
+          "label": "班前登记真实配送单与时刻",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "DELIVERY_PLAN"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_RECEIVE_CARGO",
+          "kind": "actual_action",
+          "label": "配送到场实际收一箱货；记录同一箱ID",
+          "requires": [
+            "DELIVERY_PLAN",
+            "SUPPLIES"
+          ],
+          "added": [
+            "CARGO",
+            "RECEIVING_RECEIPT"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_REGISTER_MEAT",
+          "kind": "canonical_setup",
+          "label": "从真实到货箱登记唯一任务肉及可用柜，提前入柜有效",
+          "requires": [
+            "CARGO",
+            "SUPPLIES",
+            "SAFE_ROUTE"
+          ],
+          "added": [
+            "REGISTERED_MEAT",
+            "VALID_FREEZER"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F13",
+          "kind": "bounded_encounter_arrival",
+          "label": "F13从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "REGISTERED_MEAT",
+            "VALID_FREEZER"
+          ],
+          "added": [
+            "PAYLOAD_F13"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CARGO",
+        "CLOCK",
+        "DELIVERY_PLAN",
+        "NEW_SHIFT",
+        "PAYLOAD_F13",
+        "RECEIVING_RECEIPT",
+        "REGISTERED_MEAT",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "VALID_FREEZER"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F14",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 10,
+      "relevant_operators": 5,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F14"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_BASELINE",
+          "kind": "actual_action",
+          "label": "在可信班前场景实际核验并保存独立基准",
+          "requires": [
+            "STAFF"
+          ],
+          "added": [
+            "BASELINE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F14",
+          "kind": "bounded_encounter_arrival",
+          "label": "F14从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "BASELINE",
+            "STAFF"
+          ],
+          "added": [
+            "PAYLOAD_F14"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASELINE",
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAYLOAD_F14",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F15",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 6,
+      "relevant_operators": 4,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F15"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F15",
+          "kind": "bounded_encounter_arrival",
+          "label": "F15从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "SUPPLIES"
+          ],
+          "added": [
+            "PAYLOAD_F15"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAYLOAD_F15",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F16",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 10,
+      "relevant_operators": 5,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F16"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CHANGE_FLOAT",
+          "kind": "trusted_setup",
+          "label": "开班公开登记三枚找零小币实例；不靠现金余额凭空扣钱",
+          "requires": [
+            "SUPPLIES"
+          ],
+          "added": [
+            "CHANGE_FLOAT"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F16",
+          "kind": "bounded_encounter_arrival",
+          "label": "F16从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "CHANGE_FLOAT"
+          ],
+          "added": [
+            "PAYLOAD_F16"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CHANGE_FLOAT",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAYLOAD_F16",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F17",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 6,
+      "relevant_operators": 4,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F17"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F17",
+          "kind": "bounded_encounter_arrival",
+          "label": "F17从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "SUPPLIES"
+          ],
+          "added": [
+            "PAYLOAD_F17"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAYLOAD_F17",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F18",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 10,
+      "relevant_operators": 5,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F18"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_BASELINE",
+          "kind": "actual_action",
+          "label": "在可信班前场景实际核验并保存独立基准",
+          "requires": [
+            "STAFF"
+          ],
+          "added": [
+            "BASELINE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F18",
+          "kind": "bounded_encounter_arrival",
+          "label": "F18从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "BASELINE"
+          ],
+          "added": [
+            "PAYLOAD_F18"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASELINE",
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAYLOAD_F18",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F19",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 26,
+      "relevant_operators": 9,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F19"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ORDER_ARRIVAL",
+          "kind": "scheduled_action",
+          "label": "派发预排的一个真实订单与对应顾客",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "ORDER"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CHECKOUT",
+          "kind": "actual_action",
+          "label": "实际拿货、接待并完成唯一订单结账",
+          "requires": [
+            "ORDER",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SALE_RECEIPT",
+            "SALE_RECEIPT_1"
+          ],
+          "removed": [
+            "ORDER"
+          ],
+          "earliest_phase": "N01",
+          "order_instance": "night-slot-01-pickup"
+        },
+        {
+          "operator": "P_RETURN_ARRIVAL",
+          "kind": "visible_arrival",
+          "label": "顾客携对应原销售回执和同一退货物实际到场",
+          "requires": [
+            "SALE_RECEIPT"
+          ],
+          "added": [
+            "RETURNED_ITEM"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_REFUND",
+          "kind": "actual_action",
+          "label": "收回同一商品后实际退款，首次产生退款凭据",
+          "requires": [
+            "RETURNED_ITEM",
+            "SALE_RECEIPT"
+          ],
+          "added": [
+            "REFUND_RECEIPT"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_RECEIPT_CHAIN",
+          "kind": "actual_action",
+          "label": "从已发生销售/退款关联同一订单链，不能补造第二记录",
+          "requires": [
+            "SALE_RECEIPT",
+            "REFUND_RECEIPT"
+          ],
+          "added": [
+            "RECEIPT_CHAIN"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F19",
+          "kind": "bounded_encounter_arrival",
+          "label": "F19从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "RECEIPT_CHAIN"
+          ],
+          "added": [
+            "PAYLOAD_F19"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAYLOAD_F19",
+        "RECEIPT_CHAIN",
+        "REFUND_RECEIPT",
+        "RETURNED_ITEM",
+        "SAFE_ROUTE",
+        "SALE_RECEIPT",
+        "SALE_RECEIPT_1",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F20",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 8,
+      "relevant_operators": 6,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F20"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_SEE_F20",
+          "kind": "bounded_visible_appearance",
+          "label": "同一F20实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+          "requires": [
+            "SCHEDULE",
+            "BASIC_RULES",
+            "SAFE_ROUTE"
+          ],
+          "added": [
+            "VISITOR_F20"
+          ],
+          "removed": [],
+          "entity_owner": "F20"
+        },
+        {
+          "operator": "P_OFFER_F20",
+          "kind": "actual_action",
+          "label": "该F20本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+          "requires": [
+            "VISITOR_F20"
+          ],
+          "added": [
+            "OFFER_F20"
+          ],
+          "removed": [],
+          "entity_owner": "F20"
+        },
+        {
+          "operator": "P_ARRIVE_F20",
+          "kind": "bounded_encounter_arrival",
+          "label": "F20已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "OFFER_F20"
+          ],
+          "added": [
+            "PAYLOAD_F20"
+          ],
+          "removed": [],
+          "entity_owner": "F20"
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "OFFER_F20",
+        "PAYLOAD_F20",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "VISITOR_F20"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F21",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 26,
+      "relevant_operators": 8,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F21"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_DUTY",
+          "kind": "scheduled_action",
+          "label": "本阶段发出真实尚未完成的工作对象",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "PENDING_JOB"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_DEVICE_USE",
+          "kind": "actual_action",
+          "label": "实际启用有任务的工位",
+          "requires": [
+            "PENDING_JOB",
+            "SUPPLIES"
+          ],
+          "added": [
+            "DEVICE_IN_USE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_DEVICE_WARNING",
+          "kind": "telegraphed_event",
+          "label": "设备发生明确子型故障，出现可见预告",
+          "requires": [
+            "DEVICE_IN_USE"
+          ],
+          "added": [
+            "DEVICE_WARNING"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_STATION_OCCUPIED",
+          "kind": "actual_action",
+          "label": "真实人员实际到工位，无人员则不触发点名事故",
+          "requires": [
+            "STAFF",
+            "DEVICE_IN_USE"
+          ],
+          "added": [
+            "OCCUPIED_STATION"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F21",
+          "kind": "bounded_encounter_arrival",
+          "label": "F21从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "DEVICE_WARNING",
+            "OCCUPIED_STATION"
+          ],
+          "added": [
+            "PAYLOAD_F21"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "DEVICE_IN_USE",
+        "DEVICE_WARNING",
+        "NEW_SHIFT",
+        "OCCUPIED_STATION",
+        "PAYLOAD_F21",
+        "PENDING_JOB",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F22",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 10,
+      "relevant_operators": 5,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F22"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_DUTY",
+          "kind": "scheduled_action",
+          "label": "本阶段发出真实尚未完成的工作对象",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "PENDING_JOB"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F22",
+          "kind": "bounded_encounter_arrival",
+          "label": "F22从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "PENDING_JOB"
+          ],
+          "added": [
+            "PAYLOAD_F22"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAYLOAD_F22",
+        "PENDING_JOB",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F23",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 10,
+      "relevant_operators": 5,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F23"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_LOST_HANDIN",
+          "kind": "visible_arrival",
+          "label": "在当前实际发生失物交存，或读取明确白班传入的原始记录",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "DEPOSIT_RECEIPT",
+            "LOST_ITEM"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F23",
+          "kind": "bounded_encounter_arrival",
+          "label": "F23从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "LOST_ITEM",
+            "DEPOSIT_RECEIPT"
+          ],
+          "added": [
+            "PAYLOAD_F23"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "DEPOSIT_RECEIPT",
+        "LOST_ITEM",
+        "NEW_SHIFT",
+        "PAYLOAD_F23",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F24",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 26,
+      "relevant_operators": 7,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F24"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_KNOWN_WET",
+          "kind": "telegraphed_event",
+          "label": "只激活已绘湿图或怪本身带入的登记源；保留干路",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "WET_REGION"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_PLAN_DELIVERY",
+          "kind": "trusted_setup",
+          "label": "班前登记真实配送单与时刻",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "DELIVERY_PLAN"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_RECEIVE_CARGO",
+          "kind": "actual_action",
+          "label": "配送到场实际收一箱货；记录同一箱ID",
+          "requires": [
+            "DELIVERY_PLAN",
+            "SUPPLIES"
+          ],
+          "added": [
+            "CARGO",
+            "RECEIVING_RECEIPT"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F24",
+          "kind": "bounded_encounter_arrival",
+          "label": "F24从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "CARGO",
+            "WET_REGION"
+          ],
+          "added": [
+            "PAYLOAD_F24"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CARGO",
+        "CLOCK",
+        "DELIVERY_PLAN",
+        "NEW_SHIFT",
+        "PAYLOAD_F24",
+        "RECEIVING_RECEIPT",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "WET_REGION"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F25",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 89,
+      "relevant_operators": 11,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F25"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_BASELINE",
+          "kind": "actual_action",
+          "label": "在可信班前场景实际核验并保存独立基准",
+          "requires": [
+            "STAFF"
+          ],
+          "added": [
+            "BASELINE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_PREVIOUS_SALE_LEDGER",
+          "kind": "actual_action",
+          "label": "班前实际接收明确白班/前夜销售存根；保留原班次，绝不标为本班成交",
+          "requires": [
+            "BASELINE"
+          ],
+          "added": [
+            "PRIOR_SALE_RECEIPT"
+          ],
+          "removed": [],
+          "earliest_phase": "D04"
+        },
+        {
+          "operator": "P_ORIGINAL_SALE_PRIOR",
+          "kind": "actual_action",
+          "label": "选择已传入的原班次真实记录，与退货物件ID匹配",
+          "requires": [
+            "PRIOR_SALE_RECEIPT"
+          ],
+          "added": [
+            "ORIGINAL_SALE_RECEIPT"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_RETURN_FROM_ORIGINAL",
+          "kind": "actual_action",
+          "label": "顾客实际交回与原始存根匹配的物件；不先创建退款凭据",
+          "requires": [
+            "ORIGINAL_SALE_RECEIPT"
+          ],
+          "added": [
+            "RETURN_FROM_ORIGINAL"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F25",
+          "kind": "bounded_encounter_arrival",
+          "label": "F25从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "ORIGINAL_SALE_RECEIPT",
+            "RETURN_FROM_ORIGINAL"
+          ],
+          "added": [
+            "PAYLOAD_F25"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASELINE",
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "ORIGINAL_SALE_RECEIPT",
+        "PAYLOAD_F25",
+        "PRIOR_SALE_RECEIPT",
+        "RETURN_FROM_ORIGINAL",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F26",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 171,
+      "relevant_operators": 17,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F26"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ORDER_ARRIVAL",
+          "kind": "scheduled_action",
+          "label": "派发预排的一个真实订单与对应顾客",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "ORDER"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CHECKOUT",
+          "kind": "actual_action",
+          "label": "实际拿货、接待并完成唯一订单结账",
+          "requires": [
+            "ORDER",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SALE_RECEIPT",
+            "SALE_RECEIPT_1"
+          ],
+          "removed": [
+            "ORDER"
+          ],
+          "earliest_phase": "N01",
+          "order_instance": "night-slot-01-pickup"
+        },
+        {
+          "operator": "P_RETURN_ARRIVAL",
+          "kind": "visible_arrival",
+          "label": "顾客携对应原销售回执和同一退货物实际到场",
+          "requires": [
+            "SALE_RECEIPT"
+          ],
+          "added": [
+            "RETURNED_ITEM"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_GLASS_WARNING",
+          "kind": "telegraphed_event",
+          "label": "退回玻璃容器确有裂口，隔离/刷扫仍可预防事故",
+          "requires": [
+            "RETURNED_ITEM",
+            "SUPPLIES"
+          ],
+          "added": [
+            "GLASS_WARNING"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_REAL_CUT",
+          "kind": "real_failure_receipt",
+          "label": "可见警告至少3世界秒后实际危险接触，消耗一次事故许可",
+          "requires": [
+            "GLASS_WARNING",
+            "STAFF"
+          ],
+          "added": [
+            "FRESH_BLOOD"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_BLOOD_MOVEMENT",
+          "kind": "actual_action",
+          "label": "带伤的同一员工实际移动至少2格生成有限地面标记",
+          "requires": [
+            "FRESH_BLOOD"
+          ],
+          "added": [
+            "BLOOD_TRACE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F26",
+          "kind": "bounded_encounter_arrival",
+          "label": "F26从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "FRESH_BLOOD",
+            "BLOOD_TRACE"
+          ],
+          "added": [
+            "PAYLOAD_F26"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "BLOOD_TRACE",
+        "CLOCK",
+        "FRESH_BLOOD",
+        "GLASS_WARNING",
+        "NEW_SHIFT",
+        "PAYLOAD_F26",
+        "RETURNED_ITEM",
+        "SAFE_ROUTE",
+        "SALE_RECEIPT",
+        "SALE_RECEIPT_1",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F27",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 34,
+      "relevant_operators": 8,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F27"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_PLAN_DELIVERY",
+          "kind": "trusted_setup",
+          "label": "班前登记真实配送单与时刻",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "DELIVERY_PLAN"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_RECEIVE_CARGO",
+          "kind": "actual_action",
+          "label": "配送到场实际收一箱货；记录同一箱ID",
+          "requires": [
+            "DELIVERY_PLAN",
+            "SUPPLIES"
+          ],
+          "added": [
+            "CARGO",
+            "RECEIVING_RECEIPT"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_RESERVE_ORDER_F27",
+          "kind": "actual_slot_reservation",
+          "label": "F27首兆前预留一个尚未到场的基础订单槽，保留原订单ID及领取/浏览类型；实际来客到场才转为等待订单。",
+          "requires": [
+            "SCHEDULE",
+            "SUPPLIES"
+          ],
+          "added": [
+            "RESERVED_ORDER_F27"
+          ],
+          "removed": [],
+          "order_instance": "base_slot_reserved_for_F27"
+        },
+        {
+          "operator": "P_TWO_CARGO_UNITS",
+          "kind": "actual_action",
+          "label": "把本单实际可分的两件货登记为两个运输单位，数量不增加",
+          "requires": [
+            "CARGO"
+          ],
+          "added": [
+            "TWO_CARGO_UNITS"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F27",
+          "kind": "bounded_encounter_arrival",
+          "label": "F27从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "TWO_CARGO_UNITS",
+            "RESERVED_ORDER_F27"
+          ],
+          "added": [
+            "PAYLOAD_F27"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CARGO",
+        "CLOCK",
+        "DELIVERY_PLAN",
+        "NEW_SHIFT",
+        "PAYLOAD_F27",
+        "RECEIVING_RECEIPT",
+        "RESERVED_ORDER_F27",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "TWO_CARGO_UNITS"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F28",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 10,
+      "relevant_operators": 5,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F28"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_KNOWN_WET",
+          "kind": "telegraphed_event",
+          "label": "只激活已绘湿图或怪本身带入的登记源；保留干路",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "WET_REGION"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F28",
+          "kind": "bounded_encounter_arrival",
+          "label": "F28从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "WET_REGION"
+          ],
+          "added": [
+            "PAYLOAD_F28"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAYLOAD_F28",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "WET_REGION"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F29",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 8,
+      "relevant_operators": 6,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F29"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_SEE_F29",
+          "kind": "bounded_visible_appearance",
+          "label": "同一F29实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+          "requires": [
+            "SCHEDULE",
+            "BASIC_RULES",
+            "SAFE_ROUTE"
+          ],
+          "added": [
+            "VISITOR_F29"
+          ],
+          "removed": [],
+          "entity_owner": "F29"
+        },
+        {
+          "operator": "P_OFFER_F29",
+          "kind": "actual_action",
+          "label": "该F29本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+          "requires": [
+            "VISITOR_F29"
+          ],
+          "added": [
+            "OFFER_F29"
+          ],
+          "removed": [],
+          "entity_owner": "F29"
+        },
+        {
+          "operator": "P_ARRIVE_F29",
+          "kind": "bounded_encounter_arrival",
+          "label": "F29已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "OFFER_F29"
+          ],
+          "added": [
+            "PAYLOAD_F29"
+          ],
+          "removed": [],
+          "entity_owner": "F29"
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "OFFER_F29",
+        "PAYLOAD_F29",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "VISITOR_F29"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F30",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 14,
+      "relevant_operators": 6,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F30"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_PLAN_DELIVERY",
+          "kind": "trusted_setup",
+          "label": "班前登记真实配送单与时刻",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "DELIVERY_PLAN"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_RECEIVE_CARGO",
+          "kind": "actual_action",
+          "label": "配送到场实际收一箱货；记录同一箱ID",
+          "requires": [
+            "DELIVERY_PLAN",
+            "SUPPLIES"
+          ],
+          "added": [
+            "CARGO",
+            "RECEIVING_RECEIPT"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F30",
+          "kind": "bounded_encounter_arrival",
+          "label": "F30从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "CARGO"
+          ],
+          "added": [
+            "PAYLOAD_F30"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CARGO",
+        "CLOCK",
+        "DELIVERY_PLAN",
+        "NEW_SHIFT",
+        "PAYLOAD_F30",
+        "RECEIVING_RECEIPT",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F31",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 10,
+      "relevant_operators": 5,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F31"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FATIGUE_OPPORTUNITY",
+          "kind": "scheduled_action",
+          "label": "出现可选休息机会，不要求资源必然降到零",
+          "requires": [
+            "CLOCK",
+            "STAFF"
+          ],
+          "added": [
+            "REST_OPPORTUNITY"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F31",
+          "kind": "bounded_encounter_arrival",
+          "label": "F31从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "REST_OPPORTUNITY"
+          ],
+          "added": [
+            "PAYLOAD_F31"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAYLOAD_F31",
+        "REST_OPPORTUNITY",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F32",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 143,
+      "relevant_operators": 16,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F32"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ORDER_ARRIVAL",
+          "kind": "scheduled_action",
+          "label": "派发预排的一个真实订单与对应顾客",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "ORDER"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CHECKOUT",
+          "kind": "actual_action",
+          "label": "实际拿货、接待并完成唯一订单结账",
+          "requires": [
+            "ORDER",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SALE_RECEIPT",
+            "SALE_RECEIPT_1"
+          ],
+          "removed": [
+            "ORDER"
+          ],
+          "earliest_phase": "N01",
+          "order_instance": "night-slot-01-pickup"
+        },
+        {
+          "operator": "P_RETURN_ARRIVAL",
+          "kind": "visible_arrival",
+          "label": "顾客携对应原销售回执和同一退货物实际到场",
+          "requires": [
+            "SALE_RECEIPT"
+          ],
+          "added": [
+            "RETURNED_ITEM"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_GLASS_WARNING",
+          "kind": "telegraphed_event",
+          "label": "退回玻璃容器确有裂口，隔离/刷扫仍可预防事故",
+          "requires": [
+            "RETURNED_ITEM",
+            "SUPPLIES"
+          ],
+          "added": [
+            "GLASS_WARNING"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_REAL_CUT",
+          "kind": "real_failure_receipt",
+          "label": "可见警告至少3世界秒后实际危险接触，消耗一次事故许可",
+          "requires": [
+            "GLASS_WARNING",
+            "STAFF"
+          ],
+          "added": [
+            "FRESH_BLOOD"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F32",
+          "kind": "bounded_encounter_arrival",
+          "label": "F32从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "FRESH_BLOOD"
+          ],
+          "added": [
+            "PAYLOAD_F32"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "FRESH_BLOOD",
+        "GLASS_WARNING",
+        "NEW_SHIFT",
+        "PAYLOAD_F32",
+        "RETURNED_ITEM",
+        "SAFE_ROUTE",
+        "SALE_RECEIPT",
+        "SALE_RECEIPT_1",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F33",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 6,
+      "relevant_operators": 4,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F33"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F33",
+          "kind": "bounded_encounter_arrival",
+          "label": "F33从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "SUPPLIES"
+          ],
+          "added": [
+            "PAYLOAD_F33"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAYLOAD_F33",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F34",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 26,
+      "relevant_operators": 7,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F34"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_KNOWN_WET",
+          "kind": "telegraphed_event",
+          "label": "只激活已绘湿图或怪本身带入的登记源；保留干路",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "WET_REGION"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_PLAN_DELIVERY",
+          "kind": "trusted_setup",
+          "label": "班前登记真实配送单与时刻",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "DELIVERY_PLAN"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_RECEIVE_CARGO",
+          "kind": "actual_action",
+          "label": "配送到场实际收一箱货；记录同一箱ID",
+          "requires": [
+            "DELIVERY_PLAN",
+            "SUPPLIES"
+          ],
+          "added": [
+            "CARGO",
+            "RECEIVING_RECEIPT"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F34",
+          "kind": "bounded_encounter_arrival",
+          "label": "F34从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "CARGO",
+            "WET_REGION"
+          ],
+          "added": [
+            "PAYLOAD_F34"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CARGO",
+        "CLOCK",
+        "DELIVERY_PLAN",
+        "NEW_SHIFT",
+        "PAYLOAD_F34",
+        "RECEIVING_RECEIPT",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "WET_REGION"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F35",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 14,
+      "relevant_operators": 7,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F35"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_DUTY",
+          "kind": "scheduled_action",
+          "label": "本阶段发出真实尚未完成的工作对象",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "PENDING_JOB"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_SEE_F35",
+          "kind": "bounded_visible_appearance",
+          "label": "同一F35实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+          "requires": [
+            "SCHEDULE",
+            "BASIC_RULES",
+            "SAFE_ROUTE"
+          ],
+          "added": [
+            "VISITOR_F35"
+          ],
+          "removed": [],
+          "entity_owner": "F35"
+        },
+        {
+          "operator": "P_OFFER_F35",
+          "kind": "actual_action",
+          "label": "该F35本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+          "requires": [
+            "VISITOR_F35"
+          ],
+          "added": [
+            "OFFER_F35"
+          ],
+          "removed": [],
+          "entity_owner": "F35"
+        },
+        {
+          "operator": "P_ARRIVE_F35",
+          "kind": "bounded_encounter_arrival",
+          "label": "F35已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "PENDING_JOB",
+            "OFFER_F35"
+          ],
+          "added": [
+            "PAYLOAD_F35"
+          ],
+          "removed": [],
+          "entity_owner": "F35"
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "OFFER_F35",
+        "PAYLOAD_F35",
+        "PENDING_JOB",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "VISITOR_F35"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F36",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 8,
+      "relevant_operators": 6,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F36"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_SEE_F36",
+          "kind": "bounded_visible_appearance",
+          "label": "同一F36实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+          "requires": [
+            "SCHEDULE",
+            "BASIC_RULES",
+            "SAFE_ROUTE"
+          ],
+          "added": [
+            "VISITOR_F36"
+          ],
+          "removed": [],
+          "entity_owner": "F36"
+        },
+        {
+          "operator": "P_OFFER_F36",
+          "kind": "actual_action",
+          "label": "该F36本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+          "requires": [
+            "VISITOR_F36"
+          ],
+          "added": [
+            "OFFER_F36"
+          ],
+          "removed": [],
+          "entity_owner": "F36"
+        },
+        {
+          "operator": "P_ARRIVE_F36",
+          "kind": "bounded_encounter_arrival",
+          "label": "F36已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "OFFER_F36"
+          ],
+          "added": [
+            "PAYLOAD_F36"
+          ],
+          "removed": [],
+          "entity_owner": "F36"
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "OFFER_F36",
+        "PAYLOAD_F36",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "VISITOR_F36"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F37",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 8,
+      "relevant_operators": 6,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F37"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_SEE_F37",
+          "kind": "bounded_visible_appearance",
+          "label": "同一F37实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+          "requires": [
+            "SCHEDULE",
+            "BASIC_RULES",
+            "SAFE_ROUTE"
+          ],
+          "added": [
+            "VISITOR_F37"
+          ],
+          "removed": [],
+          "entity_owner": "F37"
+        },
+        {
+          "operator": "P_OFFER_F37",
+          "kind": "actual_action",
+          "label": "该F37本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+          "requires": [
+            "VISITOR_F37"
+          ],
+          "added": [
+            "CLAIM_F37"
+          ],
+          "removed": [],
+          "entity_owner": "F37"
+        },
+        {
+          "operator": "P_ARRIVE_F37",
+          "kind": "bounded_encounter_arrival",
+          "label": "F37已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "CLAIM_F37",
+            "SAFE_ROUTE"
+          ],
+          "added": [
+            "PAYLOAD_F37"
+          ],
+          "removed": [],
+          "entity_owner": "F37"
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLAIM_F37",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAYLOAD_F37",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "VISITOR_F37"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F38",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 78,
+      "relevant_operators": 10,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F38"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_BASELINE",
+          "kind": "actual_action",
+          "label": "在可信班前场景实际核验并保存独立基准",
+          "requires": [
+            "STAFF"
+          ],
+          "added": [
+            "BASELINE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_WORK_TRACE_1",
+          "kind": "actual_action",
+          "label": "在第1个不同工位完成真实工作并留下本班回执",
+          "requires": [
+            "SCHEDULE",
+            "SUPPLIES"
+          ],
+          "added": [
+            "WORK_TRACE_1"
+          ],
+          "removed": [],
+          "earliest_phase": "N01"
+        },
+        {
+          "operator": "P_WORK_TRACE_2",
+          "kind": "actual_action",
+          "label": "在第2个不同工位完成真实工作并留下本班回执",
+          "requires": [
+            "SCHEDULE",
+            "SUPPLIES"
+          ],
+          "added": [
+            "WORK_TRACE_2"
+          ],
+          "removed": [],
+          "earliest_phase": "N02"
+        },
+        {
+          "operator": "P_WORK_TRACE_3",
+          "kind": "actual_action",
+          "label": "在第3个不同工位完成真实工作并留下本班回执",
+          "requires": [
+            "SCHEDULE",
+            "SUPPLIES"
+          ],
+          "added": [
+            "WORK_TRACE_3"
+          ],
+          "removed": [],
+          "earliest_phase": "N03"
+        },
+        {
+          "operator": "P_THREE_WORK_TRACES",
+          "kind": "actual_action",
+          "label": "关联三处不同工位、同班次且未被覆盖的实际结果，仍不自动授身份",
+          "requires": [
+            "WORK_TRACE_1",
+            "WORK_TRACE_2",
+            "WORK_TRACE_3"
+          ],
+          "added": [
+            "THREE_WORK_TRACES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CONTINUITY",
+          "kind": "actual_action",
+          "label": "观察同一身体从已核验基准经过三处实际作业；链断则不生成，允许改走安全拒交分支",
+          "requires": [
+            "BASELINE",
+            "THREE_WORK_TRACES"
+          ],
+          "added": [
+            "CONTINUITY_RECORD"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F38",
+          "kind": "bounded_encounter_arrival",
+          "label": "F38从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "BASELINE",
+            "THREE_WORK_TRACES",
+            "CONTINUITY_RECORD"
+          ],
+          "added": [
+            "PAYLOAD_F38"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASELINE",
+        "BASIC_RULES",
+        "CLOCK",
+        "CONTINUITY_RECORD",
+        "NEW_SHIFT",
+        "PAYLOAD_F38",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "THREE_WORK_TRACES",
+        "WORK_TRACE_1",
+        "WORK_TRACE_2",
+        "WORK_TRACE_3"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F39",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 22,
+      "relevant_operators": 8,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F39"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_DUTY",
+          "kind": "scheduled_action",
+          "label": "本阶段发出真实尚未完成的工作对象",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "PENDING_JOB"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_DEVICE_USE",
+          "kind": "actual_action",
+          "label": "实际启用有任务的工位",
+          "requires": [
+            "PENDING_JOB",
+            "SUPPLIES"
+          ],
+          "added": [
+            "DEVICE_IN_USE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_DEVICE_WARNING",
+          "kind": "telegraphed_event",
+          "label": "设备发生明确子型故障，出现可见预告",
+          "requires": [
+            "DEVICE_IN_USE"
+          ],
+          "added": [
+            "DEVICE_WARNING"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_REPLACEMENT_PLAN",
+          "kind": "actual_action",
+          "label": "玩家确认更换真实故障设备并预留已在库备用灶",
+          "requires": [
+            "DEVICE_WARNING",
+            "SUPPLIES"
+          ],
+          "added": [
+            "REPLACEMENT_PLAN"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F39",
+          "kind": "bounded_encounter_arrival",
+          "label": "F39从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "REPLACEMENT_PLAN"
+          ],
+          "added": [
+            "PAYLOAD_F39"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "DEVICE_IN_USE",
+        "DEVICE_WARNING",
+        "NEW_SHIFT",
+        "PAYLOAD_F39",
+        "PENDING_JOB",
+        "REPLACEMENT_PLAN",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F40",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 14,
+      "relevant_operators": 6,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F40"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_PLAN_DELIVERY",
+          "kind": "trusted_setup",
+          "label": "班前登记真实配送单与时刻",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "DELIVERY_PLAN"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_RECEIVE_CARGO",
+          "kind": "actual_action",
+          "label": "配送到场实际收一箱货；记录同一箱ID",
+          "requires": [
+            "DELIVERY_PLAN",
+            "SUPPLIES"
+          ],
+          "added": [
+            "CARGO",
+            "RECEIVING_RECEIPT"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F40",
+          "kind": "bounded_encounter_arrival",
+          "label": "F40从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "RECEIVING_RECEIPT"
+          ],
+          "added": [
+            "PAYLOAD_F40"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CARGO",
+        "CLOCK",
+        "DELIVERY_PLAN",
+        "NEW_SHIFT",
+        "PAYLOAD_F40",
+        "RECEIVING_RECEIPT",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F41",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 10,
+      "relevant_operators": 5,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F41"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_LOST_HANDIN",
+          "kind": "visible_arrival",
+          "label": "在当前实际发生失物交存，或读取明确白班传入的原始记录",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "DEPOSIT_RECEIPT",
+            "LOST_ITEM"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F41",
+          "kind": "bounded_encounter_arrival",
+          "label": "F41从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "LOST_ITEM",
+            "DEPOSIT_RECEIPT"
+          ],
+          "added": [
+            "PAYLOAD_F41"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "DEPOSIT_RECEIPT",
+        "LOST_ITEM",
+        "NEW_SHIFT",
+        "PAYLOAD_F41",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F42",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 14,
+      "relevant_operators": 6,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F42"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_PLAN_DELIVERY",
+          "kind": "trusted_setup",
+          "label": "班前登记真实配送单与时刻",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "DELIVERY_PLAN"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_RECEIVE_CARGO",
+          "kind": "actual_action",
+          "label": "配送到场实际收一箱货；记录同一箱ID",
+          "requires": [
+            "DELIVERY_PLAN",
+            "SUPPLIES"
+          ],
+          "added": [
+            "CARGO",
+            "RECEIVING_RECEIPT"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F42",
+          "kind": "bounded_encounter_arrival",
+          "label": "F42从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "CARGO",
+            "SAFE_ROUTE"
+          ],
+          "added": [
+            "PAYLOAD_F42"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CARGO",
+        "CLOCK",
+        "DELIVERY_PLAN",
+        "NEW_SHIFT",
+        "PAYLOAD_F42",
+        "RECEIVING_RECEIPT",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F43",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 34,
+      "relevant_operators": 8,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F43"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_BASELINE",
+          "kind": "actual_action",
+          "label": "在可信班前场景实际核验并保存独立基准",
+          "requires": [
+            "STAFF"
+          ],
+          "added": [
+            "BASELINE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_DUTY",
+          "kind": "scheduled_action",
+          "label": "本阶段发出真实尚未完成的工作对象",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "PENDING_JOB"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_PRE_SHIFT_TASK",
+          "kind": "actual_action",
+          "label": "班前实际领钥匙/围裙或清点，产生有真实时刻与主体的记录；不是临时补造历史",
+          "requires": [
+            "BASELINE",
+            "SUPPLIES"
+          ],
+          "added": [
+            "PRE_SHIFT_WORK_TRACE"
+          ],
+          "removed": [],
+          "earliest_phase": "D04"
+        },
+        {
+          "operator": "P_CLAIM_WINDOW_EVIDENCE",
+          "kind": "actual_action",
+          "label": "所选请求声称的时刻必须落在已有连续见证区间；不覆盖就不能当作矛盾证据",
+          "requires": [
+            "PRE_SHIFT_WORK_TRACE",
+            "BASELINE"
+          ],
+          "added": [
+            "CLAIM_WINDOW_RECORD"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F43",
+          "kind": "bounded_encounter_arrival",
+          "label": "F43从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "BASELINE",
+            "PENDING_JOB",
+            "CLAIM_WINDOW_RECORD"
+          ],
+          "added": [
+            "PAYLOAD_F43"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASELINE",
+        "BASIC_RULES",
+        "CLAIM_WINDOW_RECORD",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAYLOAD_F43",
+        "PENDING_JOB",
+        "PRE_SHIFT_WORK_TRACE",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F44",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 10,
+      "relevant_operators": 5,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F44"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_RESERVE_ORDER_F44",
+          "kind": "actual_slot_reservation",
+          "label": "F44首兆前预留一个尚未到场的基础订单槽，保留原订单ID及领取/浏览类型；实际来客到场才转为等待订单。",
+          "requires": [
+            "SCHEDULE",
+            "SUPPLIES"
+          ],
+          "added": [
+            "RESERVED_ORDER_F44"
+          ],
+          "removed": [],
+          "order_instance": "base_slot_reserved_for_F44"
+        },
+        {
+          "operator": "P_ARRIVE_F44",
+          "kind": "bounded_encounter_arrival",
+          "label": "F44从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "RESERVED_ORDER_F44"
+          ],
+          "added": [
+            "PAYLOAD_F44"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAYLOAD_F44",
+        "RESERVED_ORDER_F44",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F45",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 14,
+      "relevant_operators": 6,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F45"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_PLAN_DELIVERY",
+          "kind": "trusted_setup",
+          "label": "班前登记真实配送单与时刻",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "DELIVERY_PLAN"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_RECEIVE_CARGO",
+          "kind": "actual_action",
+          "label": "配送到场实际收一箱货；记录同一箱ID",
+          "requires": [
+            "DELIVERY_PLAN",
+            "SUPPLIES"
+          ],
+          "added": [
+            "CARGO",
+            "RECEIVING_RECEIPT"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F45",
+          "kind": "bounded_encounter_arrival",
+          "label": "F45从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "CARGO",
+            "RECEIVING_RECEIPT"
+          ],
+          "added": [
+            "PAYLOAD_F45"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CARGO",
+        "CLOCK",
+        "DELIVERY_PLAN",
+        "NEW_SHIFT",
+        "PAYLOAD_F45",
+        "RECEIVING_RECEIPT",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F46",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 14,
+      "relevant_operators": 6,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F46"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_DUTY",
+          "kind": "scheduled_action",
+          "label": "本阶段发出真实尚未完成的工作对象",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "PENDING_JOB"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_LOOSE_TOOL",
+          "kind": "actual_action",
+          "label": "一件真实轻工具离开上锁槽位、正被当前工作使用",
+          "requires": [
+            "SUPPLIES",
+            "PENDING_JOB"
+          ],
+          "added": [
+            "LOOSE_TOOL"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F46",
+          "kind": "bounded_encounter_arrival",
+          "label": "F46从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "LOOSE_TOOL"
+          ],
+          "added": [
+            "PAYLOAD_F46"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "LOOSE_TOOL",
+        "NEW_SHIFT",
+        "PAYLOAD_F46",
+        "PENDING_JOB",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F47",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 8,
+      "relevant_operators": 6,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F47"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_SEE_F47",
+          "kind": "bounded_visible_appearance",
+          "label": "同一F47实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+          "requires": [
+            "SCHEDULE",
+            "BASIC_RULES",
+            "SAFE_ROUTE"
+          ],
+          "added": [
+            "VISITOR_F47"
+          ],
+          "removed": [],
+          "entity_owner": "F47"
+        },
+        {
+          "operator": "P_OFFER_F47",
+          "kind": "actual_action",
+          "label": "该F47本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+          "requires": [
+            "VISITOR_F47"
+          ],
+          "added": [
+            "OFFER_F47"
+          ],
+          "removed": [],
+          "entity_owner": "F47"
+        },
+        {
+          "operator": "P_ARRIVE_F47",
+          "kind": "bounded_encounter_arrival",
+          "label": "F47已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "OFFER_F47"
+          ],
+          "added": [
+            "PAYLOAD_F47"
+          ],
+          "removed": [],
+          "entity_owner": "F47"
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "OFFER_F47",
+        "PAYLOAD_F47",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "VISITOR_F47"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F48",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 10,
+      "relevant_operators": 5,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F48"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_RESERVE_ORDER_F48",
+          "kind": "actual_slot_reservation",
+          "label": "F48首兆前预留一个尚未到场的基础订单槽，保留原订单ID及领取/浏览类型；实际来客到场才转为等待订单。",
+          "requires": [
+            "SCHEDULE",
+            "SUPPLIES"
+          ],
+          "added": [
+            "RESERVED_ORDER_F48"
+          ],
+          "removed": [],
+          "order_instance": "base_slot_reserved_for_F48"
+        },
+        {
+          "operator": "P_ARRIVE_F48",
+          "kind": "bounded_encounter_arrival",
+          "label": "F48从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "RESERVED_ORDER_F48"
+          ],
+          "added": [
+            "PAYLOAD_F48"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAYLOAD_F48",
+        "RESERVED_ORDER_F48",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F49",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 22,
+      "relevant_operators": 8,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F49"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_DUTY",
+          "kind": "scheduled_action",
+          "label": "本阶段发出真实尚未完成的工作对象",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "PENDING_JOB"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_HOT_FOOD",
+          "kind": "actual_action",
+          "label": "实际制作登记热食，温档/品质计时从完成动作开始",
+          "requires": [
+            "SUPPLIES",
+            "PENDING_JOB"
+          ],
+          "added": [
+            "HOT_FOOD_SALEABLE",
+            "HOT_PRODUCTION_RECEIPT"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ACTUAL_DISCARD",
+          "kind": "actual_action",
+          "label": "玩家对真实退单/到期批次实际执行弃置，生成废物用途回执；不对所有热食全局改标签",
+          "requires": [
+            "HOT_FOOD_SALEABLE",
+            "HOT_PRODUCTION_RECEIPT"
+          ],
+          "added": [
+            "WASTE_DESIGNATION_RECEIPT"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_HOT_WASTE",
+          "kind": "actual_action",
+          "label": "同一批次实际转入废物盘，取消其可售状态；只能将另一批次用于F58供热",
+          "requires": [
+            "HOT_FOOD_SALEABLE",
+            "WASTE_DESIGNATION_RECEIPT"
+          ],
+          "added": [
+            "HOT_WASTE"
+          ],
+          "removed": [
+            "HOT_FOOD_SALEABLE"
+          ]
+        },
+        {
+          "operator": "P_ARRIVE_F49",
+          "kind": "bounded_encounter_arrival",
+          "label": "F49从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "HOT_WASTE"
+          ],
+          "added": [
+            "PAYLOAD_F49"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "HOT_PRODUCTION_RECEIPT",
+        "HOT_WASTE",
+        "NEW_SHIFT",
+        "PAYLOAD_F49",
+        "PENDING_JOB",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "WASTE_DESIGNATION_RECEIPT"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F50",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 6,
+      "relevant_operators": 4,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F50"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F50",
+          "kind": "bounded_encounter_arrival",
+          "label": "F50从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "SAFE_ROUTE"
+          ],
+          "added": [
+            "PAYLOAD_F50"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAYLOAD_F50",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F51",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 118,
+      "relevant_operators": 12,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F51"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ORDER_2",
+          "kind": "scheduled_action",
+          "label": "派发另一个实际预排名额night-slot-01-browse",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "ORDER_2"
+          ],
+          "removed": [],
+          "earliest_phase": "N01",
+          "order_instance": "night-slot-01-browse"
+        },
+        {
+          "operator": "P_CHECKOUT_2",
+          "kind": "actual_action",
+          "label": "实际完成此独立订单，不复用前一个订单回执",
+          "requires": [
+            "ORDER_2",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SALE_RECEIPT_2"
+          ],
+          "removed": [
+            "ORDER_2"
+          ],
+          "earliest_phase": "N01",
+          "order_instance": "night-slot-01-browse"
+        },
+        {
+          "operator": "P_ORDER_3",
+          "kind": "scheduled_action",
+          "label": "派发另一个实际预排名额night-slot-02-pickup",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "ORDER_3"
+          ],
+          "removed": [],
+          "earliest_phase": "N02",
+          "order_instance": "night-slot-02-pickup"
+        },
+        {
+          "operator": "P_CHECKOUT_3",
+          "kind": "actual_action",
+          "label": "实际完成此独立订单，不复用前一个订单回执",
+          "requires": [
+            "ORDER_3",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SALE_RECEIPT_3"
+          ],
+          "removed": [
+            "ORDER_3"
+          ],
+          "earliest_phase": "N02",
+          "order_instance": "night-slot-02-pickup"
+        },
+        {
+          "operator": "P_ORDER_ARRIVAL",
+          "kind": "scheduled_action",
+          "label": "派发预排的一个真实订单与对应顾客",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "ORDER"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CHECKOUT",
+          "kind": "actual_action",
+          "label": "实际拿货、接待并完成唯一订单结账",
+          "requires": [
+            "ORDER",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SALE_RECEIPT",
+            "SALE_RECEIPT_1"
+          ],
+          "removed": [
+            "ORDER"
+          ],
+          "earliest_phase": "N01",
+          "order_instance": "night-slot-01-pickup"
+        },
+        {
+          "operator": "P_THREE_SALES",
+          "kind": "actual_action",
+          "label": "完成三个不同预排销售订单并保存三张真实回执，最早N02；不能裁一张充三张",
+          "requires": [
+            "SALE_RECEIPT_1",
+            "SALE_RECEIPT_2",
+            "SALE_RECEIPT_3"
+          ],
+          "added": [
+            "THREE_SALE_RECEIPTS"
+          ],
+          "removed": [],
+          "earliest_phase": "N02"
+        },
+        {
+          "operator": "P_F51_CURRENT_ORDER",
+          "kind": "scheduled_action",
+          "label": "三张实际历史销售回执已存在后，首兆前预留N05尚未到场的基础订单；保留同一订单ID，不生成第四张已完成收据。",
+          "requires": [
+            "SCHEDULE",
+            "THREE_SALE_RECEIPTS"
+          ],
+          "added": [
+            "F51_CURRENT_ORDER"
+          ],
+          "removed": [],
+          "earliest_phase": "N05",
+          "order_instance": "night-slot-05-pickup",
+          "entity_owner": "F51"
+        },
+        {
+          "operator": "P_ARRIVE_F51",
+          "kind": "bounded_encounter_arrival",
+          "label": "F51从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "THREE_SALE_RECEIPTS",
+            "F51_CURRENT_ORDER"
+          ],
+          "added": [
+            "PAYLOAD_F51"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "F51_CURRENT_ORDER",
+        "NEW_SHIFT",
+        "PAYLOAD_F51",
+        "SAFE_ROUTE",
+        "SALE_RECEIPT",
+        "SALE_RECEIPT_1",
+        "SALE_RECEIPT_2",
+        "SALE_RECEIPT_3",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "THREE_SALE_RECEIPTS"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F52",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 18,
+      "relevant_operators": 6,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F52"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FATIGUE_OPPORTUNITY",
+          "kind": "scheduled_action",
+          "label": "出现可选休息机会，不要求资源必然降到零",
+          "requires": [
+            "CLOCK",
+            "STAFF"
+          ],
+          "added": [
+            "REST_OPPORTUNITY"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_KNOWN_WET",
+          "kind": "telegraphed_event",
+          "label": "只激活已绘湿图或怪本身带入的登记源；保留干路",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "WET_REGION"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F52",
+          "kind": "bounded_encounter_arrival",
+          "label": "F52从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "REST_OPPORTUNITY",
+            "WET_REGION"
+          ],
+          "added": [
+            "PAYLOAD_F52"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAYLOAD_F52",
+        "REST_OPPORTUNITY",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "WET_REGION"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F53",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 8,
+      "relevant_operators": 6,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F53"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_SEE_F53",
+          "kind": "bounded_visible_appearance",
+          "label": "同一F53实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+          "requires": [
+            "SCHEDULE",
+            "BASIC_RULES",
+            "SAFE_ROUTE"
+          ],
+          "added": [
+            "VISITOR_F53"
+          ],
+          "removed": [],
+          "entity_owner": "F53"
+        },
+        {
+          "operator": "P_OFFER_F53",
+          "kind": "actual_action",
+          "label": "该F53本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+          "requires": [
+            "VISITOR_F53"
+          ],
+          "added": [
+            "OFFER_F53"
+          ],
+          "removed": [],
+          "entity_owner": "F53"
+        },
+        {
+          "operator": "P_ARRIVE_F53",
+          "kind": "bounded_encounter_arrival",
+          "label": "F53已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "OFFER_F53"
+          ],
+          "added": [
+            "PAYLOAD_F53"
+          ],
+          "removed": [],
+          "entity_owner": "F53"
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "OFFER_F53",
+        "PAYLOAD_F53",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "VISITOR_F53"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F54",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 14,
+      "relevant_operators": 6,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F54"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_PLAN_DELIVERY",
+          "kind": "trusted_setup",
+          "label": "班前登记真实配送单与时刻",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "DELIVERY_PLAN"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_RECEIVE_THREE_MANIFEST",
+          "kind": "actual_action",
+          "label": "实际接收清单上三件不同ID物件并逐件验收；不是从两件复制第三件",
+          "requires": [
+            "DELIVERY_PLAN",
+            "SUPPLIES"
+          ],
+          "added": [
+            "THREE_CARGO_UNITS"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F54",
+          "kind": "bounded_encounter_arrival",
+          "label": "F54从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "THREE_CARGO_UNITS",
+            "SAFE_ROUTE"
+          ],
+          "added": [
+            "PAYLOAD_F54"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "DELIVERY_PLAN",
+        "NEW_SHIFT",
+        "PAYLOAD_F54",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "THREE_CARGO_UNITS"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F55",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 20,
+      "relevant_operators": 8,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F55"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_PLAN_DELIVERY",
+          "kind": "trusted_setup",
+          "label": "班前登记真实配送单与时刻",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "DELIVERY_PLAN"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_RECEIVE_CARGO",
+          "kind": "actual_action",
+          "label": "配送到场实际收一箱货；记录同一箱ID",
+          "requires": [
+            "DELIVERY_PLAN",
+            "SUPPLIES"
+          ],
+          "added": [
+            "CARGO",
+            "RECEIVING_RECEIPT"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_SEE_F55",
+          "kind": "bounded_visible_appearance",
+          "label": "同一F55实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+          "requires": [
+            "SCHEDULE",
+            "BASIC_RULES",
+            "SAFE_ROUTE"
+          ],
+          "added": [
+            "VISITOR_F55"
+          ],
+          "removed": [],
+          "entity_owner": "F55"
+        },
+        {
+          "operator": "P_OFFER_F55",
+          "kind": "actual_action",
+          "label": "该F55本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+          "requires": [
+            "VISITOR_F55"
+          ],
+          "added": [
+            "OFFER_F55"
+          ],
+          "removed": [],
+          "entity_owner": "F55"
+        },
+        {
+          "operator": "P_ARRIVE_F55",
+          "kind": "bounded_encounter_arrival",
+          "label": "F55已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "CARGO",
+            "OFFER_F55",
+            "SAFE_ROUTE"
+          ],
+          "added": [
+            "PAYLOAD_F55"
+          ],
+          "removed": [],
+          "entity_owner": "F55"
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CARGO",
+        "CLOCK",
+        "DELIVERY_PLAN",
+        "NEW_SHIFT",
+        "OFFER_F55",
+        "PAYLOAD_F55",
+        "RECEIVING_RECEIPT",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "VISITOR_F55"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F56",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 26,
+      "relevant_operators": 7,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F56"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_KNOWN_WET",
+          "kind": "telegraphed_event",
+          "label": "只激活已绘湿图或怪本身带入的登记源；保留干路",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "WET_REGION"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_PLAN_DELIVERY",
+          "kind": "trusted_setup",
+          "label": "班前登记真实配送单与时刻",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "DELIVERY_PLAN"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_RECEIVE_CARGO",
+          "kind": "actual_action",
+          "label": "配送到场实际收一箱货；记录同一箱ID",
+          "requires": [
+            "DELIVERY_PLAN",
+            "SUPPLIES"
+          ],
+          "added": [
+            "CARGO",
+            "RECEIVING_RECEIPT"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F56",
+          "kind": "bounded_encounter_arrival",
+          "label": "F56从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "CARGO",
+            "WET_REGION"
+          ],
+          "added": [
+            "PAYLOAD_F56"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CARGO",
+        "CLOCK",
+        "DELIVERY_PLAN",
+        "NEW_SHIFT",
+        "PAYLOAD_F56",
+        "RECEIVING_RECEIPT",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "WET_REGION"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F57",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 14,
+      "relevant_operators": 6,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F57"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_PLAN_DELIVERY",
+          "kind": "trusted_setup",
+          "label": "班前登记真实配送单与时刻",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "DELIVERY_PLAN"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_RECEIVE_CARGO",
+          "kind": "actual_action",
+          "label": "配送到场实际收一箱货；记录同一箱ID",
+          "requires": [
+            "DELIVERY_PLAN",
+            "SUPPLIES"
+          ],
+          "added": [
+            "CARGO",
+            "RECEIVING_RECEIPT"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F57",
+          "kind": "bounded_encounter_arrival",
+          "label": "F57从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "CARGO",
+            "SAFE_ROUTE"
+          ],
+          "added": [
+            "PAYLOAD_F57"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CARGO",
+        "CLOCK",
+        "DELIVERY_PLAN",
+        "NEW_SHIFT",
+        "PAYLOAD_F57",
+        "RECEIVING_RECEIPT",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F58",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 14,
+      "relevant_operators": 6,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F58"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_DUTY",
+          "kind": "scheduled_action",
+          "label": "本阶段发出真实尚未完成的工作对象",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "PENDING_JOB"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_HOT_FOOD",
+          "kind": "actual_action",
+          "label": "实际制作登记热食，温档/品质计时从完成动作开始",
+          "requires": [
+            "SUPPLIES",
+            "PENDING_JOB"
+          ],
+          "added": [
+            "HOT_FOOD_SALEABLE",
+            "HOT_PRODUCTION_RECEIPT"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F58",
+          "kind": "bounded_encounter_arrival",
+          "label": "F58从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "HOT_FOOD_SALEABLE"
+          ],
+          "added": [
+            "PAYLOAD_F58"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "HOT_FOOD_SALEABLE",
+        "HOT_PRODUCTION_RECEIPT",
+        "NEW_SHIFT",
+        "PAYLOAD_F58",
+        "PENDING_JOB",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F59",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 32,
+      "relevant_operators": 10,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F59"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_DUTY",
+          "kind": "scheduled_action",
+          "label": "本阶段发出真实尚未完成的工作对象",
+          "requires": [
+            "SCHEDULE"
+          ],
+          "added": [
+            "PENDING_JOB"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_DEVICE_USE",
+          "kind": "actual_action",
+          "label": "实际启用有任务的工位",
+          "requires": [
+            "PENDING_JOB",
+            "SUPPLIES"
+          ],
+          "added": [
+            "DEVICE_IN_USE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_DEVICE_WARNING",
+          "kind": "telegraphed_event",
+          "label": "设备发生明确子型故障，出现可见预告",
+          "requires": [
+            "DEVICE_IN_USE"
+          ],
+          "added": [
+            "DEVICE_WARNING"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_SEE_F59",
+          "kind": "bounded_visible_appearance",
+          "label": "同一F59实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+          "requires": [
+            "SCHEDULE",
+            "BASIC_RULES",
+            "SAFE_ROUTE"
+          ],
+          "added": [
+            "VISITOR_F59"
+          ],
+          "removed": [],
+          "entity_owner": "F59"
+        },
+        {
+          "operator": "P_OFFER_F59",
+          "kind": "actual_action",
+          "label": "该F59本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+          "requires": [
+            "VISITOR_F59"
+          ],
+          "added": [
+            "OFFER_F59"
+          ],
+          "removed": [],
+          "entity_owner": "F59"
+        },
+        {
+          "operator": "P_UNFINISHED_REPAIR",
+          "kind": "actual_action",
+          "label": "真实故障尚未被玩家或同事修好",
+          "requires": [
+            "DEVICE_WARNING"
+          ],
+          "added": [
+            "REPAIR_JOB"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F59",
+          "kind": "bounded_encounter_arrival",
+          "label": "F59已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "REPAIR_JOB",
+            "OFFER_F59"
+          ],
+          "added": [
+            "PAYLOAD_F59"
+          ],
+          "removed": [],
+          "entity_owner": "F59"
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "DEVICE_IN_USE",
+        "DEVICE_WARNING",
+        "NEW_SHIFT",
+        "OFFER_F59",
+        "PAYLOAD_F59",
+        "PENDING_JOB",
+        "REPAIR_JOB",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES",
+        "VISITOR_F59"
+      ],
+      "replay_valid": true
+    },
+    {
+      "id": "F60",
+      "scenario_seed": [
+        "NEW_SHIFT"
+      ],
+      "proof_kind": "source_dependency_only",
+      "states_examined": 6,
+      "relevant_operators": 4,
+      "removed_producers": [],
+      "status": "REACHABLE",
+      "goal_facts": [
+        "PAYLOAD_F60"
+      ],
+      "steps": [
+        {
+          "operator": "P_OPEN_SHIFT",
+          "kind": "trusted_setup",
+          "label": "班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+          "requires": [
+            "NEW_SHIFT"
+          ],
+          "added": [
+            "CLOCK",
+            "SCHEDULE",
+            "STAFF",
+            "SUPPLIES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_CLEAR_ROUTE",
+          "kind": "world_observation",
+          "label": "按当前门与占用状态确认一条可达路径；几何由外部验证",
+          "requires": [
+            "CLOCK",
+            "SUPPLIES"
+          ],
+          "added": [
+            "SAFE_ROUTE"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_FREE_INSTRUCTION",
+          "kind": "instruction",
+          "label": "针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+          "requires": [
+            "CLOCK"
+          ],
+          "added": [
+            "BASIC_RULES"
+          ],
+          "removed": []
+        },
+        {
+          "operator": "P_ARRIVE_F60",
+          "kind": "bounded_encounter_arrival",
+          "label": "F60从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+          "requires": [
+            "BASIC_RULES",
+            "SAFE_ROUTE",
+            "SAFE_ROUTE"
+          ],
+          "added": [
+            "PAYLOAD_F60"
+          ],
+          "removed": []
+        }
+      ],
+      "final_facts": [
+        "BASIC_RULES",
+        "CLOCK",
+        "NEW_SHIFT",
+        "PAYLOAD_F60",
+        "SAFE_ROUTE",
+        "SCHEDULE",
+        "STAFF",
+        "SUPPLIES"
+      ],
+      "replay_valid": true
+    }
+  ],
+  "negative_source_tests": [
+    {
+      "remove_producers": [
+        "P_F21_REAL_CUT",
+        "P_REAL_CUT"
+      ],
+      "expected_unreachable": [
+        "F26",
+        "F32"
+      ],
+      "results": [
+        {
+          "id": "F26",
+          "states_examined": 5,
+          "relevant_operators": 5,
+          "removed_producers": [
+            "P_F21_REAL_CUT",
+            "P_REAL_CUT"
+          ],
+          "status": "UNREACHABLE",
+          "search_exhausted": true,
+          "goal_facts": [
+            "PAYLOAD_F26"
+          ]
+        },
+        {
+          "id": "F32",
+          "states_examined": 5,
+          "relevant_operators": 4,
+          "removed_producers": [
+            "P_F21_REAL_CUT",
+            "P_REAL_CUT"
+          ],
+          "status": "UNREACHABLE",
+          "search_exhausted": true,
+          "goal_facts": [
+            "PAYLOAD_F32"
+          ]
+        }
+      ]
+    },
+    {
+      "remove_producers": [
+        "P_REPAIR"
+      ],
+      "expected_unreachable": [
+        "F10"
+      ],
+      "results": [
+        {
+          "id": "F10",
+          "states_examined": 5,
+          "relevant_operators": 4,
+          "removed_producers": [
+            "P_REPAIR"
+          ],
+          "status": "UNREACHABLE",
+          "search_exhausted": true,
+          "goal_facts": [
+            "PAYLOAD_F10"
+          ]
+        }
+      ]
+    },
+    {
+      "remove_producers": [
+        "P_REFUND"
+      ],
+      "expected_unreachable": [
+        "F19"
+      ],
+      "results": [
+        {
+          "id": "F19",
+          "states_examined": 13,
+          "relevant_operators": 7,
+          "removed_producers": [
+            "P_REFUND"
+          ],
+          "status": "UNREACHABLE",
+          "search_exhausted": true,
+          "goal_facts": [
+            "PAYLOAD_F19"
+          ]
+        }
+      ]
+    },
+    {
+      "remove_producers": [
+        "P_WORK_TRACE_2"
+      ],
+      "expected_unreachable": [
+        "F38"
+      ],
+      "results": [
+        {
+          "id": "F38",
+          "states_examined": 33,
+          "relevant_operators": 9,
+          "removed_producers": [
+            "P_WORK_TRACE_2"
+          ],
+          "status": "UNREACHABLE",
+          "search_exhausted": true,
+          "goal_facts": [
+            "PAYLOAD_F38"
+          ]
+        }
+      ]
+    },
+    {
+      "remove_producers": [
+        "P_CHECKOUT_2"
+      ],
+      "expected_unreachable": [
+        "F51"
+      ],
+      "results": [
+        {
+          "id": "F51",
+          "states_examined": 37,
+          "relevant_operators": 10,
+          "removed_producers": [
+            "P_CHECKOUT_2"
+          ],
+          "status": "UNREACHABLE",
+          "search_exhausted": true,
+          "goal_facts": [
+            "PAYLOAD_F51"
+          ]
+        }
+      ]
+    },
+    {
+      "remove_producers": [
+        "P_CLAIM_WINDOW_EVIDENCE"
+      ],
+      "expected_unreachable": [
+        "F43"
+      ],
+      "results": [
+        {
+          "id": "F43",
+          "states_examined": 17,
+          "relevant_operators": 6,
+          "removed_producers": [
+            "P_CLAIM_WINDOW_EVIDENCE"
+          ],
+          "status": "UNREACHABLE",
+          "search_exhausted": true,
+          "goal_facts": [
+            "PAYLOAD_F43"
+          ]
+        }
+      ]
+    },
+    {
+      "remove_producers": [
+        "P_RECEIVE_THREE_MANIFEST"
+      ],
+      "expected_unreachable": [
+        "F54"
+      ],
+      "results": [
+        {
+          "id": "F54",
+          "states_examined": 5,
+          "relevant_operators": 4,
+          "removed_producers": [
+            "P_RECEIVE_THREE_MANIFEST"
+          ],
+          "status": "UNREACHABLE",
+          "search_exhausted": true,
+          "goal_facts": [
+            "PAYLOAD_F54"
+          ]
+        }
+      ]
+    }
+  ],
+  "nonmonotonic_tests": [
+    {
+      "name": "same_food_instance_not_both_saleable_and_waste",
+      "states_examined": 6,
+      "relevant_operators": 5,
+      "removed_producers": [],
+      "status": "UNREACHABLE",
+      "search_exhausted": true,
+      "goal_facts": [
+        "HOT_FOOD_SALEABLE",
+        "HOT_WASTE"
+      ]
+    }
+  ],
+  "explicit_phase_metadata_checks": [
+    {
+      "id": "F01",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N02",
+        "N05"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F02",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N01",
+        "N06"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F03",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N02",
+        "N04"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F04",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N02",
+        "N03"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F05",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N03",
+        "N04"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F06",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N03"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F07",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N01",
+        "N03",
+        "N05"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F08",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N05"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F09",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N01",
+        "N05"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F10",
+      "earliest_declared_source_phase": "N01",
+      "allowed_phases": [
+        "N04"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F11",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N05"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F12",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N02",
+        "N04"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F13",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N03"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F14",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N03",
+        "N05"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F15",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N05"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F16",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N01",
+        "N05"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F17",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N05"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F18",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N01",
+        "N02"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F19",
+      "earliest_declared_source_phase": "N01",
+      "allowed_phases": [
+        "N02",
+        "N05"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F20",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N01",
+        "N03"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F21",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N03",
+        "N04"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F22",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N04",
+        "N05"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F23",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N05"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F24",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N02",
+        "N04"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F25",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N01",
+        "N06"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F26",
+      "earliest_declared_source_phase": "N04",
+      "allowed_phases": [
+        "N04"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F27",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N02"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F28",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N03"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F29",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N03"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F30",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N02"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F31",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N06"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F32",
+      "earliest_declared_source_phase": "N03",
+      "allowed_phases": [
+        "N03",
+        "N04"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F33",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N01",
+        "N06"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F34",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N01",
+        "N04"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F35",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N05"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F36",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N02"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F37",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N01",
+        "N04"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F38",
+      "earliest_declared_source_phase": "N03",
+      "allowed_phases": [
+        "N05",
+        "N06"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F39",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N03"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F40",
+      "earliest_declared_source_phase": "N01",
+      "allowed_phases": [
+        "N02",
+        "N05"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F41",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N04",
+        "N05",
+        "N06"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F42",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N02",
+        "N04"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F43",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N01",
+        "N04",
+        "N06"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F44",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N01",
+        "N05"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F45",
+      "earliest_declared_source_phase": "N01",
+      "allowed_phases": [
+        "N02",
+        "N05"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F46",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N02",
+        "N04",
+        "N05"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F47",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N03",
+        "N05"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F48",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N01",
+        "N03",
+        "N06"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F49",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N03",
+        "N04"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F50",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N02",
+        "N04",
+        "N05"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F51",
+      "earliest_declared_source_phase": "N02",
+      "allowed_phases": [
+        "N05"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F52",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N05",
+        "N06"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F53",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N01",
+        "N02"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F54",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N02",
+        "N04"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F55",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N04",
+        "N06"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F56",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N02",
+        "N04"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F57",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N02",
+        "N04"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F58",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N03",
+        "N05"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F59",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N05"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    },
+    {
+      "id": "F60",
+      "earliest_declared_source_phase": "D04",
+      "allowed_phases": [
+        "N01",
+        "N05",
+        "N06"
+      ],
+      "scope": "ordinal metadata only; within-phase omen/action/deadline feasibility not proved"
+    }
+  ],
+  "errors": []
+}

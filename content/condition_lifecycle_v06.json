@@ -1,0 +1,4225 @@
+{
+  "version": "0.6",
+  "status": "design_with_bounded_headless_reference_not_playtested",
+  "client_implemented": false,
+  "authority": {
+    "scope": "条件产生、身份/物件来源、时钟、到场复核、终态、06:00结算顺序；覆盖V0.5中含糊或冲突的同类描述",
+    "encounter_cards": "content/encounters_v05.json",
+    "canonical_f12_f13": "content/encounter_blueprints.json",
+    "never_execute_prose_guards": true,
+    "all_runtime_candidates_remain_disabled_until_client_adapter_exists": true
+  },
+  "clock_contract": {
+    "world_clock": "仅未暂停的世界模拟推进；移动、受击宽限、伤口、脚印、顾客耐心、短时辅助与现场警告使用它",
+    "shift_budget_clock": "世界运行时间＋开始后结算一次的精度特写明示成本；每120秒进入下一游戏小时，720秒为真实06:00",
+    "schedule_clock": "shift_budget_clock",
+    "scheduled_markers": [
+      "orders",
+      "far_omens",
+      "near_omens",
+      "threshold_cues",
+      "scheduled_arrivals",
+      "phase_end",
+      "manager_arrival",
+      "true_06_00"
+    ],
+    "local_qte_clock": "只用于已开始精度操作的本地判定；系统暂停时也停止",
+    "precision_admission": "尝试成本不能跨过下一尚未派发的日程标记或阶段边界；同刻标记先派发再准入。允许恰好到边界，退出先提交动作再派发。",
+    "critical_resolution_budget_reserved_before_optional_precision": true,
+    "precision_cost_reserved_on_start_committed_once_on_finish_cancel_or_failure": true,
+    "precision_commit_never_replays_unseen_enemy_or_wound_movement": true,
+    "pause_advances_no_clock_or_regeneration": true,
+    "daytime_elapsed_game_hours_settle_energy_satiety_once": true,
+    "phase_boundary_does_not_delete_world_conditions": true
+  },
+  "lifecycle": {
+    "states": [
+      "CANDIDATE",
+      "RESERVED",
+      "ANNOUNCED",
+      "ACTIVE",
+      "RESOLVED",
+      "PREVENTED",
+      "DECLINED",
+      "SAFE_RETURNED",
+      "FAILED_LOCAL",
+      "CANCELLED_UNAVAILABLE",
+      "WITHDRAWN"
+    ],
+    "terminal_states": [
+      "RESOLVED",
+      "PREVENTED",
+      "DECLINED",
+      "SAFE_RETURNED",
+      "FAILED_LOCAL",
+      "CANCELLED_UNAVAILABLE",
+      "WITHDRAWN"
+    ],
+    "preflight_order": [
+      "implemented capabilities",
+      "taught safety rule",
+      "actual producing receipts",
+      "eligible phase and remaining clocks",
+      "same actor and item instances",
+      "free solution supplies and slots",
+      "observed cue access",
+      "route and rescue budget",
+      "actor and shared resource reservation",
+      "entity and pursuit pressure"
+    ],
+    "revalidate_at": [
+      "before_first_omen",
+      "before_each_omen",
+      "before_arrival",
+      "before_player_action_commit",
+      "on_source_removal",
+      "on_phase_boundary",
+      "before_handover"
+    ],
+    "source_kinds": {
+      "shift_setup": "班前可见放置且仅一次的常备工具、食品、时间基准、私人约定；不是历史工作已经完成",
+      "actual_work_receipt": "真实玩家/已核验同事动作完成后产生，带主体、对象、时刻与独立来源；只能引用不能追补",
+      "declared_arrival_payload": "来客/配送入场携带的有限可见物件；只在已预留槽创建一次",
+      "telegraphed_environment_event": "按事件触发条件出现的可观察水迹/设备/玻璃故障；伤害仍须实际碰到并错过提示",
+      "player_accepted_contract": "条款可见且玩家明示接受后的未来义务",
+      "real_failure_receipt": "实际失败/接触生成的后果，不能由导演直接写伤口或伪造违规"
+    },
+    "missing_before_omen": "不投放；可从仍符合预算的候选中另选，也可保留安静工作；不伪造前置历史。",
+    "removed_by_player_after_omen": "有实际动作凭证且核心危险被切断则PREVENTED；给可见退去/无害经过反馈，占用原主遭遇名额。",
+    "expired_naturally_after_omen": "按本怪无目标/安全离场分支收尾；不称玩家主动解决，不伪造奖励。",
+    "removed_by_external_invalid_state": "CANCELLED_UNAVAILABLE并说明事件作废；不罚玩家、不即时补刷另一主怪。",
+    "refusal": "仅未接受的可选交易/请求/帮助可DECLINED；强制追逐不能通过拒绝按钮清除。",
+    "early_solution_does_not_regenerate_prerequisite": true,
+    "post_announcement_slot_refill": false,
+    "terminal_states_absorbing": true,
+    "completion_receipt_idempotent": true,
+    "root_episode_reward_max": 1,
+    "failure_derived_blood_encounters_grant_no_farmable_bonus": true,
+    "whole_shift_withdrawal_is_not_local_monster_success": true
+  },
+  "actors": {
+    "real_staff_ids": [
+      "PLAYER",
+      "COWORKER"
+    ],
+    "manager_id": "MANAGER",
+    "manager_is_not_third_regular_employee": true,
+    "one_live_task_per_actor": true,
+    "queued_task_must_be_cancelable": true,
+    "injured_actor_stays_same_instance": true,
+    "disguises_copy_appearance_not_true_id_or_authority": true,
+    "free_critical_actions_do_not_require_assistant": true,
+    "cooperative_branch_requires_present_verified_unreserved_coworker": true,
+    "missing_coworker_branch": "玩家单人可暂停新客接待后完成基础解；若某怪必需双人，则准入时不选。",
+    "compound_encounter": "一个主遭遇包可预留最多两只具名实体，仍逐只占实体/压力额度；不能用联动临时补生第二只。"
+  },
+  "wounds": {
+    "fictional_game_status_only": true,
+    "bleeding_duration_world_seconds": 90,
+    "minor_injury_duration_world_seconds": 30,
+    "minor_injury_stamina_regen_multiplier": 0.85,
+    "minor_injury_changes_walk_speed_or_core_f12_f13_actions": false,
+    "minor_injury_is_hp_bar": false,
+    "minor_injury_implies_bleeding": false,
+    "allowed_bleeding_actor_ids": [
+      "PLAYER",
+      "COWORKER"
+    ],
+    "max_active_bleeding_per_actor": 1,
+    "max_bleeding_episodes_per_actor_per_night": 1,
+    "max_bleeding_episodes_per_night": 2,
+    "repeated_same_incident_refreshes_deadline": false,
+    "incident_receipt_required": true,
+    "minimum_visible_hazard_warning_world_seconds": 3,
+    "ordinary_monster_contact": "原F12/F13接触仍按既定SAN/轻伤/宽限处理；不自动追加流血或吸血鬼。",
+    "producers": [
+      {
+        "id": "GLASS_RETURN_CONTACT",
+        "event_id": "E003",
+        "phase_options": [
+          "N01",
+          "N02",
+          "N03",
+          "N04",
+          "N05"
+        ],
+        "setup": "已有退货单中真实收到一件破损玻璃容器；放入隔离槽时可见裂口并发出提示。",
+        "cut_requires": "提示至少3秒后仍完成徒手危险取件或进入已登记碎片危险格的实际接触；不是选择怪物后直接赋伤。",
+        "prevention": "用店配刷扫套收集并封入玻璃废物袋，或隔离该物件。",
+        "actor_binding": "实际执行者PLAYER或已分配该工位的唯一COWORKER；同事先停工请求工具，只有玩家明确要求继续危险作业才会继续。",
+        "max_cuts_per_incident": 1,
+        "warning_world_seconds": 3
+      },
+      {
+        "id": "F21_GLASS_FAULT",
+        "encounter_id": "F21",
+        "phase_options": [
+          "N03",
+          "N04"
+        ],
+        "setup": "F21只能在已激活的热食防护玻璃故障变体中产生割伤；机械旗和哭声预告40秒。",
+        "cut_requires": "到期时实际指定人员仍在该设备的小范围危险格，且设备未隔离；其他故障只产生各自后果。",
+        "prevention": "把真实人员调离并停机；成功防止割伤也切断后续血腥联动。",
+        "max_cuts_per_incident": 1,
+        "warning_world_seconds": 40
+      }
+    ],
+    "first_aid": {
+      "supply_id": "SUP_FIRST_AID",
+      "night_free_dressings": 2,
+      "pickup_anchor": "cashier",
+      "pickup_world_seconds": 1,
+      "world_action_seconds": 3,
+      "requires_qte": false,
+      "allows_self_treatment": true,
+      "requires_target_distance_tiles_max": 1.5,
+      "completed_effects": [
+        "bleeding_to_dressed",
+        "remove_minor_injury",
+        "stop_new_blood_traces"
+      ],
+      "reserve_on_start_consume_on_success_once": true,
+      "cancel_returns_same_reserved_dressing_and_stops_progress": true,
+      "timeout_during_treatment": "伤口先自然止血则停止包扎、退还预留敷料，不重复结算。",
+      "blood_ttl_runs_during_treatment": true,
+      "no_stabilization_san_restore_or_monster_auto_clear": true,
+      "paid_item_id": "I19",
+      "paid_action_seconds": 1,
+      "paid_item_is_optional_same_status_effect": true,
+      "visiting_f33_uses_its_own_declared_kit": true
+    },
+    "natural_expiry": "90世界秒后变dry，不再是fresh_blood目标；不扣额外生命，也不自动恢复仍未到期的其他状态。",
+    "blood_trace": {
+      "created_only_by_actual_movement_while_fresh": true,
+      "min_travel_tiles_between_marks": 2,
+      "max_live_marks_per_actor": 6,
+      "lifetime_world_seconds": 30,
+      "wipe_world_seconds": 1.5,
+      "no_continuous_fluid_simulation": true,
+      "dressed_actor_does_not_remove_existing_marks": true,
+      "dried_marks_cannot_emit_new_fresh_blood": true
+    },
+    "reactive_consumers": {
+      "ids": [
+        "F26",
+        "F32"
+      ],
+      "one_consumer_per_incident": true,
+      "required_slot": "未占用且已预留的当阶段主遭遇位，或事前已占双实体预算的F21→F32联动包",
+      "announcement_lead_world_seconds": 12,
+      "minimum_remaining_shift_budget_seconds": 45,
+      "minimum_remaining_fresh_blood_world_seconds_at_announcement": 45,
+      "max_base_response_action_and_travel_seconds": 24,
+      "recovery_budget_seconds": 6,
+      "exit_feedback_budget_seconds": 3,
+      "may_force_wound_to_fill_slot": false,
+      "treated_before_arrival": "F32最后登记伤口止血即PREVENTED；F26须同时无活动血源、绑定痕迹清除/到期且实际沾染物已封存。仅包扎不删除旧血迹。",
+      "source_dries_before_arrival": "安全无目标收尾；不扣分、不奖励主动救治。",
+      "f26_additional_requirement": "至少一枚实际移动产生、可见且未过期的血迹，最多绑定三枚；到场时已有真实痕迹可继续成立，不重新制造伤口。",
+      "f32_target_scope": "仅已登记真实员工的fresh_blood，不读地面旧血、不读F33访客外观伤痕。",
+      "minimum_remaining_current_phase_budget_seconds": 45,
+      "compound_reservation_not_fact_creation": "F21→F32可事先预留条件型子席位与预算，不创建血事实；只有真正事故发生并重检时间/物资才激活，预防事故则释放子席位。"
+    },
+    "f32_invitation": {
+      "automatic_welcome_emits_only_on_actual_threshold_approach": true,
+      "greeting_enabled_is_not_already_invited": true,
+      "pre_invitation_warning_world_seconds": 3,
+      "stop_greeting_during_warning_prevents_invitation": true,
+      "valid_invitation_scope": "public_customer_zone",
+      "employee_boundary_id": "OBJ_COUNTER_BOUNDARY",
+      "employee_boundary_must_be_closed_and_ungranted": false,
+      "boundary_blocks_f32_only_not_all_monsters": true,
+      "boundary_cannot_auto_clear_encounter": true,
+      "dressed_or_dry_last_target": "当前实例进入离场，3世界秒后结束；已有邀请也不制造新的伤口。",
+      "same_tick_priority": "完成合法包扎/伤口自然到期先于F32目标检查与接触伤害。",
+      "employee_boundary_required_state": "marked",
+      "employee_boundary_requires_no_staff_invitation": true,
+      "mark_boundary_world_seconds": 1
+    }
+  },
+  "evidence": {
+    "receipt_required_fields": [
+      "id",
+      "source_action_id",
+      "actor_id",
+      "object_instance_id",
+      "world_at",
+      "shift_at",
+      "root_evidence_id",
+      "independence_domain",
+      "scope"
+    ],
+    "historical_receipt_retention": "到本夜结束及回顾保留；只能证明当时完成了某项工作。",
+    "live_presence_snapshot_world_ttl_seconds": 8,
+    "historical_photo_expires_as_history": false,
+    "two_evidence_threshold_grants_identity_automatically": false,
+    "current_identity_requires_bound_continuity_or_current_species_test": true,
+    "lookalike_continuity_break": "两者保持高风险限权；安全拒交/等真实来源复核可结束当前请求，不强迫猜一个。",
+    "schedule_is_presence_proof": false,
+    "claimed_past_event_can_create_receipt": false,
+    "old_order_substitution_requires_actual_receipt": true,
+    "initial_trust": "班前可信场景形成的私人约定＋可观察身体/行为基准，分别保存；当夜失去保管链或被偷听时可污染。"
+  },
+  "stock_and_instances": {
+    "supply_types": [
+      "reusable_shop_tool",
+      "finite_shop_consumable",
+      "visitor_owned_payload",
+      "existing_task_instance",
+      "optional_trade_stock"
+    ],
+    "reserve_before_omen": true,
+    "free_instructions_do_not_spawn_supply": true,
+    "same_item_instance_has_one_location": true,
+    "same_consumable_cannot_satisfy_two_reservations": true,
+    "must_preserve_personal_daily_food": true,
+    "unneeded_reserved_supplies_released_on_terminal": true,
+    "encounter_loans_cannot_be_sold_eaten_or_farmed": true,
+    "missing_tools_before_omen": "不投放对应怪；提示日间/班前整备缺件。",
+    "legitimate_tool_consumed_after_omen": "已预留任务物不能被无关消耗；发生真实外部丢失走取消/备用路径，不能凭空补发。",
+    "canonical_f12_f13_instances_are_never_overridden": true,
+    "reusable_tools_also_require_nonoverlapping_actor_time_reservations": true,
+    "future_reservation_may_steal_current_tool": false,
+    "release_does_not_teleport_physical_item": true,
+    "optional_supply_required_only_after_acceptance": true,
+    "station_fixture_policy": "秤、操作盘、固定帘、手动门/阀、基础纸票和现有容器槽属于已登记地图工位；不是随时生成的背包道具。各自工位与操作位被占时不能并行使用，随身物只在实际取走时离开原槽。",
+    "produced_component_contract": "SUP_REPAIR_COMPONENT的quantity=1是实例容量，班前库存为0；必须真实加工才可领取，清故障必须安装和测试。",
+    "water_offer_contract": "SUP_WATER_OFFER是独立可见6瓶，接受时2瓶承诺、4瓶可售；不得把同一瓶双记，个人保底饮食不在此库存。取消只放弃未获得的契约奖励，不新增现金债务。"
+  },
+  "end_of_shift": {
+    "true_six_budget_seconds": 720,
+    "manager_arrival_budget_seconds": 700,
+    "manager_producer": "班前排定的唯一真实MANAGER于05:50公开回店；不是新增员工。入口与核验位在N06预留。",
+    "arrival_is_not_identity_proof": true,
+    "handover_evidence": "班前保存的店长独立基准/约定与现场核验；密封工单只证明任务范围。伪装能力若覆盖两路则不准入该交班组合。",
+    "order": [
+      "commit_already_completed_valid_actions",
+      "settle_contracts_due_at_true_06_00",
+      "release_satisfied_or_declined_optional_reservations",
+      "evaluate_unresolved_critical_threat",
+      "close_service_and_enter_handover_only",
+      "verify_manager_and_transfer_receipts_and_keys",
+      "settle_wage_and_unique_rewards"
+    ],
+    "f53_contract_settles_before_threat_check": true,
+    "handover_only_allows": [
+      "read_existing_evidence",
+      "complete_predeclared_identity_check",
+      "transfer_existing_keys_and_records",
+      "predeclared_counter_identity_action_generates_only_its_scoped_observation"
+    ],
+    "handover_only_forbids": [
+      "new_orders",
+      "finish_old_duties_for_bonus",
+      "new_monsters",
+      "resource_regeneration",
+      "new_paid_rewards",
+      "free_extra_chase_time"
+    ],
+    "unresolved_hostile_at_six": "明确结束为未完成夜班；不是进入无时间限制的追逐补时。",
+    "new_mandatory_threat_needs_finish_budget_before_six": true,
+    "cross_night_favors": "保存限次奖励或下夜预约，不让本夜实体/占槽不明地无限驻留。",
+    "handover_verification_clock": "独立交班交互状态；不是世界暂停面板。只允许预先登记的柜台核验与交物，不推进战斗/资源钟、不产生额外工作收益。",
+    "entry_requires_no_active_hostile": true,
+    "any_active_panic_blocks_handover_even_before_deadline": true
+  },
+  "condition_definitions": [
+    {
+      "id": "FRESH_BLOOD",
+      "scope": "actor",
+      "producer_kind": "real_failure_receipt",
+      "lifetime_end": "dressed_or_world_90",
+      "note": "仅GLASS_RETURN_CONTACT/F21_GLASS_FAULT，当前伤口而非普通轻伤",
+      "server_truth_not_auto_revealed_to_player": true
+    },
+    {
+      "id": "MINOR_INJURY",
+      "scope": "actor",
+      "producer_kind": "real_failure_receipt",
+      "lifetime_end": "treatment_or_world_30",
+      "note": "动作恢复倍率0.85；保持走路和关键取放可用",
+      "server_truth_not_auto_revealed_to_player": true
+    },
+    {
+      "id": "BLOOD_TRACE",
+      "scope": "world_object",
+      "producer_kind": "actual_work_receipt",
+      "lifetime_end": "wipe_or_world_30",
+      "note": "带伤者真实走过2格产生，最多6枚，不由文案或快照生成",
+      "server_truth_not_auto_revealed_to_player": true
+    },
+    {
+      "id": "DECLARED_PAYLOAD",
+      "scope": "item",
+      "producer_kind": "declared_arrival_payload",
+      "lifetime_end": "handoff_return_or_cleanup",
+      "note": "来者携带的有限物件在已登记槽出现；不伪造过去工作",
+      "server_truth_not_auto_revealed_to_player": true
+    },
+    {
+      "id": "TASK_ITEM",
+      "scope": "item",
+      "producer_kind": "actual_work_receipt",
+      "lifetime_end": "task_receipt_or_safe_return",
+      "note": "实际收货/配货/清洁的同一物件实例",
+      "server_truth_not_auto_revealed_to_player": true
+    },
+    {
+      "id": "WORK_RECEIPT",
+      "scope": "record",
+      "producer_kind": "actual_work_receipt",
+      "lifetime_end": "night_archive",
+      "note": "真实工作结果；没有发生就不能提供",
+      "server_truth_not_auto_revealed_to_player": true
+    },
+    {
+      "id": "IDENTITY_CONTINUITY",
+      "scope": "actor_record",
+      "producer_kind": "actual_work_receipt",
+      "lifetime_end": "observed_continuity_break",
+      "note": "工作记录与当前身体的连续连接；中断则保持待核",
+      "server_truth_not_auto_revealed_to_player": true
+    },
+    {
+      "id": "ACTIVE_ORDER",
+      "scope": "order",
+      "producer_kind": "shift_setup",
+      "lifetime_end": "served_left_or_cancelled",
+      "note": "每夜12个名额，特殊客替换，实际到店产生等待状态",
+      "server_truth_not_auto_revealed_to_player": true
+    },
+    {
+      "id": "WET_CONNECTION",
+      "scope": "edge_set",
+      "producer_kind": "telegraphed_environment_event",
+      "lifetime_end": "specific_cut_source_close_or_owner_end",
+      "note": "5个已定义湿区及对应支阀；不以全局水开关代替",
+      "server_truth_not_auto_revealed_to_player": true
+    },
+    {
+      "id": "DEVICE_WARNING",
+      "scope": "station",
+      "producer_kind": "telegraphed_environment_event",
+      "lifetime_end": "safe_shutdown_or_fault_receipt",
+      "note": "设备上可见标记、实际人员/工位绑定及明确倒计时",
+      "server_truth_not_auto_revealed_to_player": true
+    },
+    {
+      "id": "HOT_OR_COOLED_CONTENT",
+      "scope": "item",
+      "producer_kind": "actual_work_receipt",
+      "lifetime_end": "cooling_heat_expiry_or_sealing",
+      "note": "对具体合规食物/废物记温档，不能混成全店总温度",
+      "server_truth_not_auto_revealed_to_player": true
+    },
+    {
+      "id": "SEAT_OCCUPANCY",
+      "scope": "slot",
+      "producer_kind": "declared_arrival_payload",
+      "lifetime_end": "reservation_period_or_guest_exit",
+      "note": "可见凹陷/保留牌；安全放弃浏览客也有终态",
+      "server_truth_not_auto_revealed_to_player": true
+    },
+    {
+      "id": "ACCEPTED_PROMISE",
+      "scope": "contract",
+      "producer_kind": "player_accepted_contract",
+      "lifetime_end": "fulfill_decline_before_accept_or_explicit_breach",
+      "note": "对象范围期限代价退路事先可见",
+      "server_truth_not_auto_revealed_to_player": true
+    },
+    {
+      "id": "LIMITED_PERMISSION",
+      "scope": "actor_zone",
+      "producer_kind": "player_accepted_contract",
+      "lifetime_end": "revocation_expiry_or_exit",
+      "note": "顾客通行不等于员工权限",
+      "server_truth_not_auto_revealed_to_player": true
+    },
+    {
+      "id": "INVITATION",
+      "scope": "actor_zone",
+      "producer_kind": "actual_work_receipt",
+      "lifetime_end": "encounter_exit",
+      "note": "迎宾实际对目标发声或明示邀请才产生",
+      "server_truth_not_auto_revealed_to_player": true
+    },
+    {
+      "id": "OBSERVABLE_TRANSFORMATION",
+      "scope": "entity",
+      "producer_kind": "declared_arrival_payload",
+      "lifetime_end": "same_instance_departure",
+      "note": "连续变形/循环对照必须在场可观察，不能假定玩家看过",
+      "server_truth_not_auto_revealed_to_player": true
+    },
+    {
+      "id": "ASSIST_CHARGE",
+      "scope": "pet_or_device",
+      "producer_kind": "shift_setup",
+      "lifetime_end": "use_or_night_end",
+      "note": "只读真实照料/装备次数，不因事件自动补满",
+      "server_truth_not_auto_revealed_to_player": true
+    },
+    {
+      "id": "TRUE_SIX",
+      "scope": "clock",
+      "producer_kind": "shift_setup",
+      "lifetime_end": "end_of_shift",
+      "note": "预算时钟720；窗外假黎明或NPC语音不能生成",
+      "server_truth_not_auto_revealed_to_player": true
+    }
+  ],
+  "supply_catalog": [
+    {
+      "id": "SUP_FIRST_AID",
+      "name": "固定急救包",
+      "type": "finite_shop_consumable",
+      "anchor": "cashier",
+      "quantity": 2,
+      "used_by": [
+        "F26",
+        "F32"
+      ],
+      "reservation": "按真实库存预留；可选食物在接受前展示具体品种和份量，不足可拒绝；访客自带物仅在其入场时出现。",
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_CLEANING",
+      "name": "刷扫拖把套",
+      "type": "reusable_shop_tool",
+      "anchor": "mop_station",
+      "quantity": 1,
+      "used_by": [
+        "F05",
+        "F08",
+        "F26",
+        "F35",
+        "F52",
+        "F24",
+        "F34",
+        "F56"
+      ],
+      "reservation": "按真实库存预留；可选食物在接受前展示具体品种和份量，不足可拒绝；访客自带物仅在其入场时出现。",
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_DRY_CLOTH",
+      "name": "常备干布",
+      "type": "reusable_shop_tool",
+      "anchor": "mop_station",
+      "quantity": 2,
+      "used_by": [
+        "F05",
+        "F24",
+        "F28",
+        "F52",
+        "F56"
+      ],
+      "reservation": "按真实库存预留；可选食物在接受前展示具体品种和份量，不足可拒绝；访客自带物仅在其入场时出现。",
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_MEASURE",
+      "name": "量杯量尺组合",
+      "type": "reusable_shop_tool",
+      "anchor": "packing",
+      "quantity": 1,
+      "used_by": [
+        "F01",
+        "F04",
+        "F11"
+      ],
+      "reservation": "按真实库存预留；可选食物在接受前展示具体品种和份量，不足可拒绝；访客自带物仅在其入场时出现。",
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_PRESERVE_TRAY",
+      "name": "可合盖保湿盘",
+      "type": "reusable_shop_tool",
+      "anchor": "sink",
+      "quantity": 1,
+      "used_by": [
+        "F04"
+      ],
+      "reservation": "按真实库存预留；可选食物在接受前展示具体品种和份量，不足可拒绝；访客自带物仅在其入场时出现。",
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_EMERGENCY_WATER",
+      "name": "工作应急清水",
+      "type": "finite_shop_consumable",
+      "anchor": "sink",
+      "quantity": 2,
+      "used_by": [
+        "F04",
+        "F28"
+      ],
+      "reservation": "按真实库存预留；可选食物在接受前展示具体品种和份量，不足可拒绝；访客自带物仅在其入场时出现。",
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_SEALING",
+      "name": "封装绳带与袋",
+      "type": "finite_shop_consumable",
+      "anchor": "packing",
+      "quantity": 6,
+      "used_by": [
+        "F15",
+        "F17",
+        "F20",
+        "F26",
+        "F47",
+        "F49"
+      ],
+      "reservation": "按真实库存预留；可选食物在接受前展示具体品种和份量，不足可拒绝；访客自带物仅在其入场时出现。",
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_KEEP_SIGN",
+      "name": "保留牌与等候导向牌",
+      "type": "reusable_shop_tool",
+      "anchor": "customer_wait",
+      "quantity": 1,
+      "used_by": [
+        "F07"
+      ],
+      "reservation": "按真实库存预留；可选食物在接受前展示具体品种和份量，不足可拒绝；访客自带物仅在其入场时出现。",
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_LOST_CONTAINER",
+      "name": "公共失物保管盒",
+      "type": "reusable_shop_tool",
+      "anchor": "isolation_cage",
+      "quantity": 1,
+      "used_by": [
+        "F18",
+        "F23",
+        "F25",
+        "F30"
+      ],
+      "reservation": "按真实库存预留；可选食物在接受前展示具体品种和份量，不足可拒绝；访客自带物仅在其入场时出现。",
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_LURE_COIN",
+      "name": "单枚显色记号币",
+      "type": "reusable_shop_tool",
+      "anchor": "cashier",
+      "quantity": 1,
+      "used_by": [
+        "F16"
+      ],
+      "reservation": "按真实库存预留；可选食物在接受前展示具体品种和份量，不足可拒绝；访客自带物仅在其入场时出现。",
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_MATERIAL_REPAIR",
+      "name": "定量维修材料",
+      "type": "finite_shop_consumable",
+      "anchor": "storage_shelf",
+      "quantity": 3,
+      "used_by": [
+        "F08",
+        "F39",
+        "F59"
+      ],
+      "reservation": "按真实库存预留；可选食物在接受前展示具体品种和份量，不足可拒绝；访客自带物仅在其入场时出现。",
+      "cannot_replace_canonical_quest_item": true,
+      "quantity_required_per_job": {
+        "F08": 1,
+        "F39": 1,
+        "F59": 3
+      }
+    },
+    {
+      "id": "SUP_SIEVE",
+      "name": "固定筛罩",
+      "type": "reusable_shop_tool",
+      "anchor": "storage_shelf",
+      "quantity": 1,
+      "used_by": [
+        "F46"
+      ],
+      "reservation": "按真实库存预留；可选食物在接受前展示具体品种和份量，不足可拒绝；访客自带物仅在其入场时出现。",
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_TEMP_COVER",
+      "name": "隔热盖与温度牌",
+      "type": "reusable_shop_tool",
+      "anchor": "hot_food",
+      "quantity": 1,
+      "used_by": [
+        "F49",
+        "F58"
+      ],
+      "reservation": "按真实库存预留；可选食物在接受前展示具体品种和份量，不足可拒绝；访客自带物仅在其入场时出现。",
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_ALARM",
+      "name": "机械杯铃闹钟",
+      "type": "reusable_shop_tool",
+      "anchor": "staff_desk",
+      "quantity": 1,
+      "used_by": [
+        "F31"
+      ],
+      "reservation": "按真实库存预留；可选食物在接受前展示具体品种和份量，不足可拒绝；访客自带物仅在其入场时出现。",
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_INSPECTION_LAMP",
+      "name": "低位手压检查灯",
+      "type": "reusable_shop_tool",
+      "anchor": "staff_desk",
+      "quantity": 1,
+      "used_by": [
+        "F17",
+        "F52"
+      ],
+      "reservation": "按真实库存预留；可选食物在接受前展示具体品种和份量，不足可拒绝；访客自带物仅在其入场时出现。",
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_DEPTH_PROBE",
+      "name": "定长探水杆",
+      "type": "reusable_shop_tool",
+      "anchor": "mop_station",
+      "quantity": 1,
+      "used_by": [
+        "F56"
+      ],
+      "reservation": "按真实库存预留；可选食物在接受前展示具体品种和份量，不足可拒绝；访客自带物仅在其入场时出现。",
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_WOOD_PLAQUE",
+      "name": "有登记的旧灶木牌",
+      "type": "existing_task_instance",
+      "anchor": "hot_food",
+      "quantity": 1,
+      "used_by": [
+        "F39"
+      ],
+      "reservation": "按真实库存预留；可选食物在接受前展示具体品种和份量，不足可拒绝；访客自带物仅在其入场时出现。",
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_VISITOR_KIT",
+      "name": "伤者随身急救包",
+      "type": "visitor_owned_payload",
+      "anchor": "forecourt_handoff",
+      "quantity": 1,
+      "used_by": [
+        "F33"
+      ],
+      "reservation": "按真实库存预留；可选食物在接受前展示具体品种和份量，不足可拒绝；访客自带物仅在其入场时出现。",
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_QUEUE_NUMBER",
+      "name": "纸号与工位小票",
+      "type": "reusable_shop_tool",
+      "anchor": "cashier",
+      "quantity": 1,
+      "used_by": [
+        "F06",
+        "F19",
+        "F44",
+        "F51"
+      ],
+      "reservation": "按真实库存预留；可选食物在接受前展示具体品种和份量，不足可拒绝；访客自带物仅在其入场时出现。",
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_HOT_DRINK",
+      "name": "热饮制作配额",
+      "type": "finite_shop_consumable",
+      "anchor": "hot_food",
+      "quantity": 2,
+      "item_kind": "hot_drink_portion",
+      "used_by": [
+        "F06"
+      ],
+      "reserve_only_for_accepted_or_mandatory_branch": true,
+      "requires_actual_preparation_for_hot_state": true,
+      "personal_food_is_separate": true,
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_HOT_MEAL",
+      "name": "合规热食制作配额",
+      "type": "finite_shop_consumable",
+      "anchor": "hot_food",
+      "quantity": 2,
+      "item_kind": "hot_meal_portion",
+      "used_by": [
+        "F58"
+      ],
+      "reserve_only_for_accepted_or_mandatory_branch": true,
+      "requires_actual_preparation_for_hot_state": true,
+      "personal_food_is_separate": true,
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_BUCKWHEAT",
+      "name": "荞麦交换份",
+      "type": "optional_trade_stock",
+      "anchor": "hot_food",
+      "quantity": 1,
+      "item_kind": "buckwheat_portion",
+      "used_by": [
+        "F11"
+      ],
+      "reserve_only_for_accepted_or_mandatory_branch": true,
+      "requires_actual_preparation_for_hot_state": true,
+      "personal_food_is_separate": true,
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_SNACK",
+      "name": "可选小份零食",
+      "type": "optional_trade_stock",
+      "anchor": "hot_food",
+      "quantity": 2,
+      "item_kind": "snack_portion",
+      "used_by": [
+        "F07"
+      ],
+      "reserve_only_for_accepted_or_mandatory_branch": true,
+      "requires_actual_preparation_for_hot_state": true,
+      "personal_food_is_separate": true,
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_MEAL",
+      "name": "单份交换餐",
+      "type": "optional_trade_stock",
+      "anchor": "hot_food",
+      "quantity": 2,
+      "item_kind": "meal_portion",
+      "used_by": [
+        "F20",
+        "F22",
+        "F55"
+      ],
+      "reserve_only_for_accepted_or_mandatory_branch": true,
+      "requires_actual_preparation_for_hot_state": true,
+      "personal_food_is_separate": true,
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_PORRIDGE",
+      "name": "粥份",
+      "type": "optional_trade_stock",
+      "anchor": "hot_food",
+      "quantity": 1,
+      "item_kind": "porridge_portion",
+      "used_by": [
+        "F29"
+      ],
+      "reserve_only_for_accepted_or_mandatory_branch": true,
+      "requires_actual_preparation_for_hot_state": true,
+      "personal_food_is_separate": true,
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_BUTTER",
+      "name": "黄油份",
+      "type": "optional_trade_stock",
+      "anchor": "hot_food",
+      "quantity": 1,
+      "item_kind": "butter_portion",
+      "used_by": [
+        "F29"
+      ],
+      "reserve_only_for_accepted_or_mandatory_branch": true,
+      "requires_actual_preparation_for_hot_state": true,
+      "personal_food_is_separate": true,
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_WATER_OFFER",
+      "name": "契约独立饮水六瓶",
+      "type": "optional_trade_stock",
+      "anchor": "storage_shelf",
+      "quantity": 6,
+      "used_by": [
+        "F53"
+      ],
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_SWEEP_VISITOR",
+      "name": "访客自带扫帚和边界牌",
+      "type": "visitor_owned_payload",
+      "anchor": "construction_zone",
+      "quantity": 1,
+      "used_by": [
+        "F35"
+      ],
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_RETRIEVAL_LINES",
+      "name": "登记货物回收绳",
+      "type": "reusable_shop_tool",
+      "anchor": "receiving",
+      "quantity": 3,
+      "used_by": [
+        "F54"
+      ],
+      "cannot_replace_canonical_quest_item": true
+    },
+    {
+      "id": "SUP_REPAIR_COMPONENT",
+      "name": "本故障专用有限替换组件",
+      "type": "existing_task_instance",
+      "anchor": "construction_zone",
+      "quantity": 1,
+      "used_by": [
+        "F59"
+      ],
+      "cannot_replace_canonical_quest_item": true,
+      "initial_quantity": 0,
+      "quantity_is_max_live_capacity": true,
+      "producer": "F59将3份实际维修材料投入三槽，累计8世界秒未被直视施工后产生同一fault_id组件；完成消耗材料一次，取消未完成退回未用材料。",
+      "consumer": "玩家携带同一组件到对应已有操作位，安装2秒、测试1秒成功才清故障。",
+      "on_fault_removed_elsewhere": "停工退回未用材料；已制成组件作为该已关闭故障的剩余物回收，不转换成通用修复或新奖励。"
+    }
+  ],
+  "encounter_contracts": [
+    {
+      "id": "F01",
+      "name": "狐精",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "已声明且只创建一次的有限来客与混合货箱，入口和交付槽已预留；实际货箱到场时创建并复核，不要求首兆前已收货。",
+        "秤、量杯、隔离与退回槽可用。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_PLAN_DELIVERY：班前登记真实配送单与时刻",
+        "P_ARRIVE_F01：F01从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "visible_visitor_delivery",
+        "baseline_tool_reservation"
+      ],
+      "supplies_required": [
+        "SUP_MEASURE"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "未上架前整箱退回可结束；已验货不得被换回幻货。",
+      "on_source_expired": "临近阶段末未验货统一隔离，不能变成已售商品或阻断交班。",
+      "on_refused": "未接货可拒收；已接货可整箱退货。",
+      "normal_resolution": "本实例货箱全部分入已验货槽或整箱实际退回；假货不再占待售槽。未接受到货可拒收结束，不记销售。",
+      "recovery": "错上架时只停售该格；把同一箱撤回隔离盘重测，或整箱退回。已交付真货不回滚，已隔离未验货可安全留作普通后续任务。",
+      "witness_fact": "PAYLOAD_F01",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "量杯与记账券只在文案声明；幻货与真货的逐件总数、整箱退货操作尚未登记。",
+        "N05不自然生成D02货箱，不能要求旧货箱仍待验。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F02",
+      "name": "画皮鬼",
+      "activation_mode": "history_gated",
+      "requires_before_omen": [
+        "可信班前同事基准及真实本班工作记录已存在；来客观察在到场后取得。",
+        "基础侧光和独立记录可取，不先读隐藏真实身份。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_BASELINE：在可信班前场景实际核验并保存独立基准",
+        "P_ARRIVE_F02：F02从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "pre_shift_verified_baseline",
+        "actual_shift_receipts",
+        "visitor_claim"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "来者入店前保持锁柜/权限边界可防止冒名接岗。",
+      "on_source_expired": "未核验者从公开出口离去；权限仍为访客。",
+      "on_refused": "不接受高风险请求可以安全结束访客请求。",
+      "normal_resolution": "异常来者请求被拒绝或核验完毕并实际离场，高风险权限未扩大；交接物由已核验玩家或真人保管。",
+      "recovery": "误递围裙有越线预告，撤回权限并收柜可止损。首班记录不足或真人迟到时维持访客权限，可等待或拒绝请求；不伪造连续在岗记录，不扣真人关系。",
+      "witness_fact": "PAYLOAD_F02",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "N01开始尚无本班连续作业记录，E028真人迟到时“交围裙给已核实真人”可能不可完成。",
+        "结局仅写异常未获权限，没有明确待核者何时离场。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F03",
+      "name": "僵尸",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "两件实际登记货物或已声明配送清单、目标槽与短通道可用。",
+        "实际吐气才产生雾点，点位寿命与安全侧可呈现；不要求怪物到场前先完成试跑。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_PLAN_DELIVERY：班前登记真实配送单与时刻",
+        "P_RECEIVE_CARGO：配送到场实际收一箱货；记录同一箱ID",
+        "P_TWO_CARGO_UNITS：把本单实际可分的两件货登记为两个运输单位，数量不增加",
+        "P_ARRIVE_F03：F03从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "phase_job_instance",
+        "player_action_trace"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "breath_point_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 6,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "jump_cycle_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 4,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "landing_safe_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 2,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "maximum_breath_hold_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 4,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "已送到的箱子计入本实例且不搬回。",
+      "on_source_expired": "剩余货箱封存为普通店务损失；怪物撤离条件和未完成工单分别登记，不能无期限占主怪位。",
+      "on_refused": "中途可放在预留中继槽，进度保留。",
+      "normal_resolution": "两只登记货箱已送到目标槽且最后有效雾点失效，僵尸退回入口；拒收本次加运任务则封存货箱、失去该项收益后离场。",
+      "recovery": "命中掉下当前箱并产生一次已定义轻伤，不能自动视作出血。箱留可达点，可在安全侧喘息；零体力仍可利用落地停顿分段走，不要求屏息才能完成。",
+      "witness_fact": "PAYLOAD_F03",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "两箱在N04没有生产者，屏息与雾点寿命未列入共享状态。",
+        "0体力只承诺普通步行可退，却没有证明不屏息也能完成货箱目标。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F04",
+      "name": "鲛人",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "已声明来客携带的一件湿纱及合法交付槽；实际到场才接收并启动暴露计时。",
+        "有盖保湿盘、量尺、两份工作应急水中所需一份可用。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_ARRIVE_F04：F04从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "visible_visitor_delivery",
+        "baseline_tool_reservation",
+        "exposure_timer"
+      ],
+      "supplies_required": [
+        "SUP_MEASURE",
+        "SUP_PRESERVE_TRAY",
+        "SUP_EMERGENCY_WATER"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "uncovered_drying_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 20,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "rewet_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 2,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "先准备盘和水可避免缠绕。",
+      "on_source_expired": "纱保持可恢复、不销毁；未接交易安全离去，已接交易可退回。",
+      "on_refused": "未同意寄售可退回同一湿纱；取消特写已开始成本仍结算。",
+      "normal_resolution": "湿纱已实际量过、保湿盘合盖并交入寄售槽；未接受寄售可退回同一湿纱，接受后退货也终止交易但不发成交回报。",
+      "recovery": "纱收紧时回湿台恢复，已验长度保留。离盘暴露、合盖暂停和回湿台恢复使用同一可见计时；特写冻结期间不暗扣干燥时间。任务水与盘须先预留，不能索取个人保底餐。",
+      "witness_fact": "PAYLOAD_F04",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "湿纱收紧速度、重新浸湿时间、各容器槽无统一状态；无供水备用瓶未登记。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F05",
+      "name": "河童",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "WET_COLD激活且目标篮与水源连通",
+        "割点、对应阀、干侧回收槽"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_PLAN_DELIVERY：班前登记真实配送单与时刻",
+        "P_RECEIVE_CARGO：配送到场实际收一箱货；记录同一箱ID",
+        "P_KNOWN_WET：只激活已绘湿图或怪本身带入的登记源；保留干路",
+        "P_ARRIVE_F05：F05从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "visible_environment_event",
+        "existing_wet_graph",
+        "actual_item_binding"
+      ],
+      "supplies_required": [
+        "SUP_CLEANING",
+        "SUP_DRY_CLOTH"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "到场前已断水并把目标篮移干侧则PREVENTED。",
+      "on_source_expired": "关闭水源只撤本实例生成的流动效果，普通积水按清洁任务处理。",
+      "on_refused": "随时松手退干侧，篮子原实例保留。",
+      "normal_resolution": "登记篮已回干槽且与本实例水源断开，经一次世界更新确认后结束。到场前已断水并移回目标篮同样记为预防完成。",
+      "recovery": "误抓先牵一步并给挣脱预告；松手退干地再断水，篮不销毁。提前关阀/擦断不被强制重新湿化；完成只撤本实例牵引，普通雨水仍按店务处理。",
+      "witness_fact": "PAYLOAD_F05",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "湿图从干变湿的可见事件、篮子初始绑定和“短结算”时长未登记。",
+        "玩家在远兆阶段擦掉/关闭水源后的提前成功未定义。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F06",
+      "name": "雪女",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "首兆前预留尚未到场的基础订单槽、热饮材料与设备；接受订单和制热在实际动作后发生。",
+        "广播开关、纸号、交付槽及2.5格隔离可用。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_RESERVE_ORDER_F06：F06首兆前预留一个尚未到场的基础订单槽，保留原订单ID及领取/浏览类型；实际来客到场才转为等待订单。",
+        "P_ARRIVE_F06：F06从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "actual_order_acceptance",
+        "food_production_receipt",
+        "quality_timer"
+      ],
+      "supplies_required": [
+        "SUP_QUEUE_NUMBER",
+        "SUP_HOT_DRINK"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "quality_window_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 30,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "accepted_special_order_deadline_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 45,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "提前关广播/备套可缩短暴露。",
+      "on_source_expired": "品质过期只重做该杯或退单，不能把任务永远留在等待交付。",
+      "on_refused": "接受前拒单安全；接受后允许退单、无交易奖励并清除保密任务。",
+      "normal_resolution": "登记热饮与纸单实际进入同一槽，保密限制解除；明确退单或未接受即拒绝也会结束本单，均不记营业成功。",
+      "recovery": "误广播先结霜预告；关广播、封单并补救，至多影响一个非唯一工位。热饮品质过期可用已预留替换份重做或退单；来客离去后不保留永久保密限制。",
+      "witness_fact": "PAYLOAD_F06",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "普通24秒顾客耐心与制作/保温/路线是不同计时器，特殊单未覆盖；可能先排队超时。",
+        "低温后重做数量和冻住工位的恢复未定义。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F07",
+      "name": "座敷童子",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "当前阶段尚未入店的一名浏览客",
+        "45秒保留期和第二等候位"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_ARRIVE_F07：F07从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "pending_order_reservation",
+        "encounter_owned_occupancy_timer"
+      ],
+      "supplies_required": [
+        "SUP_KEEP_SIGN"
+      ],
+      "supplies_on_accept": [
+        "SUP_SNACK"
+      ],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "reserved_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 45,
+          "kind": "admission_minimum"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "来客前先挂保留牌并改路径有效。",
+      "on_source_expired": "到场后45秒座位保护完成；冲突客若未进店，耐心到期也满足无占座结局。",
+      "on_refused": "未供食无需承诺；可以放弃顾客收益。",
+      "normal_resolution": "自到场起保留45秒，期间无人占椅；冲突浏览客已改道，或因未入店而离去/取消，均可结束本实例。未入店不记成交，回报至多一次。",
+      "recovery": "顾客触椅先有哭声与回弹预告，及时改道仍可挽回；若继续占用则童子离去并失本次回报。窗口拒客不导致永远等待改道，已取消客单不再补生成。",
+      "witness_fact": "PAYLOAD_F07",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "终态强制“浏览客已改道”，但全夜窗口让该客离开合法；没有入店就不能真正改道，会留下未结束实例。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F08",
+      "name": "付丧神",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "实际旧工具及合法维修/退役工位存在。",
+        "敲击、断电后持续与观察是预兆/后续反馈，不要求玩家首兆前已经完成它。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_DUTY：本阶段发出真实尚未完成的工作对象",
+        "P_OLD_TOOL：实际使用已登记旧工具并触发可见磨损/故障",
+        "P_ARRIVE_F08：F08从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "ordinary_fault_then_visible_anomaly",
+        "replacement_variant_semantics"
+      ],
+      "supplies_required": [
+        "SUP_CLEANING",
+        "SUP_MATERIAL_REPAIR"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "先看异常、直接退役有效。",
+      "on_source_expired": "工具已隔离可安全撤班，普通替用工具维持工作；不永远反复弹回。",
+      "on_refused": "只暂停修补不清除；移入退役格可主动结束。",
+      "normal_resolution": "同一工具完成实际修补试作，或交入退役槽；两种都是终态。工具已退休不再从垃圾口反复返回。",
+      "recovery": "错丢让同一物件回到维修托盘并打断整理一次；可取回重修或退役。替用件保持普通营业，未接受维修可直接隔离退役。",
+      "witness_fact": "PAYLOAD_F08",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "F08-E021变体要求两条异常线索，与基础E021的无异常前提直接冲突。",
+        "裂纹、修补材料、试作结果及退役槽只写文案。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F09",
+      "name": "轆轤首",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "首兆前预留尚未到场的基础订单及固定2/3件商品清单；同一来客的身体、头、篮在到场创建。",
+        "两处等候格可通行，接受后的70世界秒完整路程能容纳。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_RESERVE_ORDER_F09：F09首兆前预留一个尚未到场的基础订单槽，保留原订单ID及领取/浏览类型；实际来客到场才转为等待订单。",
+        "P_ARRIVE_F09：F09从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "actual_browse_entry",
+        "special_order_contract"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "accepted_special_order_deadline_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 70,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "预先拣好的登记货仍算有效。",
+      "on_source_expired": "只失该单收益，顾客带已归属物离店，未买物归店内槽。",
+      "on_refused": "接受前可放弃浏览单；接受后退货归槽即可退单。",
+      "normal_resolution": "指定商品全部进入同一身体篮且本单实际结清；未接受时可放弃该顾客，已接受可退单归槽并让顾客离店，不留下永久未完成单。",
+      "recovery": "递向头时同一商品顶回可达低层槽，取回送篮即可。长颈和身体只占预留位置，不能封唯一通路；退单不重复生成货或订单。",
+      "witness_fact": "PAYLOAD_F09",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "继承普通浏览客24秒耐心时，三件拣货90秒方案会失效。",
+        "身体移动、头指货和长颈占格没有明确两站状态；若都占唯一通道可能相互阻塞。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F10",
+      "name": "海坊主",
+      "activation_mode": "history_gated",
+      "requires_before_omen": [
+        "真实本班问题回执已存在且能到后门证据槽核对；普通签到不能替代。",
+        "证据操作点、服务窗和干侧路线可用。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_DUTY：本阶段发出真实尚未完成的工作对象",
+        "P_DEVICE_USE：实际启用有任务的工位",
+        "P_DEVICE_WARNING：设备发生明确子型故障，出现可见预告",
+        "P_REPAIR：实际隔离/维修已发生的普通故障，留下问题处理回执",
+        "P_ARRIVE_F10：F10从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "historical_actual_problem_receipt",
+        "immutable_copy_not_fabrication"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "故障修好保留回执，正常履职不取消可用证据。",
+      "on_source_expired": "展示真实凭据后停止涨水，排水和关窗完成锁终态；未到场预订可取消。",
+      "on_refused": "证据引用失效由系统取消遭遇、不罚玩家。",
+      "normal_resolution": "本班实物记录已展示、水位回落且小窗关闭。",
+      "recovery": "误开先喷一格水；关回交单缝、取回同一回执再排水。不存在本班问题回执就不投放；丢失纸张只能复制原日志，原始事实失效则安全取消且不罚玩家。",
+      "witness_fact": "PAYLOAD_F10",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "“真实问题/故障回执”与“普通开班验岗回执”语义不一致；没有可指向某种故障的实际生产记录。",
+        "到近兆前已修好故障，原回执应继续有效，不能因为故障当前为false而删证。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F11",
+      "name": "韩国鬼怪",
+      "activation_mode": "optional_offer",
+      "requires_before_omen": [
+        "已声明可选赌注及有限报价，尚未接受；必须保留拒绝分支。",
+        "比赛圈、体力需求与食物替代清楚，选定分支才预留对应物资。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_SEE_F11：同一F11实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+        "P_OFFER_F11：该F11本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+        "P_ARRIVE_F11：F11已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺"
+      ],
+      "source_kinds": [
+        "optional_offer_acceptance",
+        "reserved_exchange_food"
+      ],
+      "supplies_required": [
+        "SUP_MEASURE"
+      ],
+      "supplies_on_accept": [
+        "SUP_BUCKWHEAT"
+      ],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "不入圈即不成立赌局。",
+      "on_source_expired": "未接受邀请到期为DECLINED；已接受局按明示时限结算并离场。",
+      "on_refused": "OFFERED可拒绝；接受后退出只结算明示赌注。",
+      "normal_resolution": "两轮平衡完成或实际交付一份荞麦即成功；未接受邀请的拒绝/到期离场也是结束但无奖励。已接受后的退出仅结算事先明示赌注。",
+      "recovery": "失衡可退圈重整或退出当前赌局；只失明示可选赌注。体力不足保留已预留食品替代与未接受前无损拒绝，不强迫继续QTE。",
+      "witness_fact": "PAYLOAD_F11",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "resolution_condition只列两轮成功/食物交付，没有拒绝与离场终态。",
+        "荞麦未进入基础供给登记，体力不足时替代路线未真正保证。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F12",
+      "name": "不可杀伊",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "蓝图规定回形针盒、有效诱饵点、出口、出生安全距离"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_PAPERCLIP_PREP：按F12蓝图备主盒与备用盒、合法出口和撒点",
+        "P_ARRIVE_F12：F12从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "canonical_encounter_blueprint"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "F12默认追逐；必须依蓝图实际取回形针、散落、引出店外。",
+      "on_source_expired": "任务物件不因普通时限销毁；不满足规范化蓝图结束条件就仍占同一实例，跨阶段/06:00按关键威胁策略处理。",
+      "on_refused": "没有局部拒绝清怪按钮；整班撤离只记WITHDRAWN，不记怪物成功。",
+      "normal_resolution": "完全按 encounter_blueprints F12：诱饵锁定规则有效，整身诱至门外0.25秒，立即锁定本实例成功，不要求关门。",
+      "recovery": "命中按旧蓝图只造成一次轻伤与2秒保护；掉点仍可补撒，保底盒与可达出口先准入，终态不复活。",
+      "witness_fact": "PAYLOAD_F12",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "V0.5泛型导演若在预兆后重取快照而重新生成物品，会破坏既有实例及提前布局。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "canonical_file": "content/encounter_blueprints.json"
+    },
+    {
+      "id": "F13",
+      "name": "飞头女鬼",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "同一登记生肉、有效柜/容量和可达路线"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_PLAN_DELIVERY：班前登记真实配送单与时刻",
+        "P_RECEIVE_CARGO：配送到场实际收一箱货；记录同一箱ID",
+        "P_REGISTER_MEAT：从真实到货箱登记唯一任务肉及可用柜，提前入柜有效",
+        "P_ARRIVE_F13：F13从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "canonical_encounter_blueprint",
+        "actual_phase_job_completion"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "F13未触肉前也可将同一任务肉箱入有效冰柜并关门；已解决不回滚。",
+      "on_source_expired": "任务物件不因普通时限销毁；不满足规范化蓝图结束条件就仍占同一实例，跨阶段/06:00按关键威胁策略处理。",
+      "on_refused": "没有局部拒绝清怪按钮；整班撤离只记WITHDRAWN，不记怪物成功。",
+      "normal_resolution": "完全按 encounter_blueprints F13：本实例登记肉存入有效柜并关门原子提交；同帧胜利优先，之后开柜/停电不复活。",
+      "recovery": "触肉进入追逐而非肉被偷走；受击保护与旧蓝图一致，松手能暂放但不重置怒态，重新拿同一肉完成即可。",
+      "witness_fact": "PAYLOAD_F13",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "若D03在怪第20秒到场前已完成，泛型遭遇启动不得把肉重置为库房暴露来强制追逐。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。",
+      "canonical_file": "content/encounter_blueprints.json"
+    },
+    {
+      "id": "F14",
+      "name": "饕食附身灵",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "真实且已核验同事在岗",
+        "可用两份等重独立测试餐、三个固定台面、封盒"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_BASELINE：在可信班前场景实际核验并保存独立基准",
+        "P_ARRIVE_F14：F14从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "verified_actor_reservation",
+        "optional_feature_gate"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "发现后先停食品岗位可止损。",
+      "on_source_expired": "不把同事消失/死亡当解除；封影成功恢复原权限范围。",
+      "on_refused": "组件不完整一律禁投；系统丢失宿主引用安全撤销。",
+      "normal_resolution": "同一影子实际封入登记盒并送出，真人留店；恢复其原有权限范围，再按当前可用岗位安排，不瞬移回已被占用工位。",
+      "recovery": "合盖过早只退上一台面，盒与影保留同一实例；误暂停真人不扣信任。真人不在、三台面未预留或影子模块未完成时禁投，运行中宿主引用丢失则安全取消。",
+      "witness_fact": "PAYLOAD_F14",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "若E028迟到/同事被指派外出，没有可附着真实宿主。",
+        "三个台面角色和测试餐库存无具体绑定；若解除后宿主原岗已另占，直接“恢复岗位”可能冲突。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F15",
+      "name": "蓬蒂雅娜",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "记忆灯箱、布与铃盒已声明，固定观察位可达。",
+        "到场后播放并可重播两段片段，不要求首兆前已经观察其答案。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_ARRIVE_F15：F15从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "visible_encounter_prop_delivery",
+        "authored_demonstration_not_history"
+      ],
+      "supplies_required": [
+        "SUP_SEALING"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "stability_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 3,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "已完成的灯/布步骤保留。",
+      "on_source_expired": "3秒世界稳定后锁完成；装置离场清理，不遗留持续响铃。",
+      "on_refused": "重播只读可暂停，不生成新线索或奖励。",
+      "normal_resolution": "本实例灯、布、铃盒按顺序完成并稳定3世界秒后离场；未接受装置可拒收，未完成交回不发奖励。",
+      "recovery": "错序只让铃盒重开，已正确的前置动作保留；回看片段后补下一步。",
+      "witness_fact": "PAYLOAD_F15",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "“已有记忆灯箱”未登记生成者；可重播片段若称本班旧事但没有经历会成为伪历史。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F16",
+      "name": "图尤尔",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "零钱盘至少存在可偷的小币",
+        "三处痕迹、显色测试币、封袋和回收槽"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_CHANGE_FLOAT：开班公开登记三枚找零小币实例；不靠现金余额凭空扣钱",
+        "P_ARRIVE_F16：F16从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "actual_cash_float",
+        "visible_item_transfer",
+        "player_prevention"
+      ],
+      "supplies_required": [
+        "SUP_LURE_COIN"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "steal_interval_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 4,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "远兆后先封盘可阻止新损失；若尚未偷到币应允许阻止型结局。",
+      "on_source_expired": "所有已偷钱只能在登记回收槽，未取回按有限店损结算，不能每4秒无限扣。",
+      "on_refused": "封袋后停止损失，追踪可稍后处理但保留上限和物件。",
+      "normal_resolution": "本实例实际转移的钱已回封袋且测试币回工具槽，偷取路径关闭；尚未丢币就封盘并收回诱饵也算预防，不能要求故意被偷满三次。",
+      "recovery": "封盘即停新损失，跟错痕迹只多绕行。实际被偷小币最多三枚，留在可达回收槽；找零盘无小币不投放该题型，不能从个人钱凭空扣除。",
+      "witness_fact": "PAYLOAD_F16",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "实际现金/小币库存和偷取上限未登记；E002零钱告急可能一枚也没有。",
+        "E023要求比对三次转移，但玩家第一枚后封袋会主动阻止后两次，成功玩法反而无法生成要求证据。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F17",
+      "name": "裹尸鬼",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "已声明同一来客携带一个三结包裹；到场才真实交付。",
+        "公共台近槽可用并能保留2.5格等待距离。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_ARRIVE_F17：F17从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "visible_visitor_delivery",
+        "actual_pickup_receipt"
+      ],
+      "supplies_required": [
+        "SUP_SEALING",
+        "SUP_INSPECTION_LAMP"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "不允许剪绳替代解结；正确进度保留。",
+      "on_source_expired": "来客未领取不得凭空删除，阶段结束可安全封存退还而不虚报交付。",
+      "on_refused": "退出特写不清除遭遇，保留已解结。",
+      "normal_resolution": "同一包裹三个结已松开并放交付槽；玩家实际退出2.5格安全距离，来客领取同一物件后才提交交付成功。未接寄存可拒收。",
+      "recovery": "错步只重紧当前结，已松开的结保留；退出特写或退开不自动清除。未领取包裹不消失，必要时交回原来客结束且无完成奖励。",
+      "witness_fact": "PAYLOAD_F17",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "卡片终态比地图实际交付条件更早，玩家仍站在槽旁时可能先结束并令包裹消失。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F18",
+      "name": "阿斯旺",
+      "activation_mode": "history_gated",
+      "requires_before_omen": [
+        "可信无人粉垫基准及独立入口尺寸/计数来源已存在。",
+        "一次连续爪鞋变化必须到场后实际观察；不能当作首兆前已发生的事实。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_BASELINE：在可信班前场景实际核验并保存独立基准",
+        "P_ARRIVE_F18：F18从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "actual_entry_trace",
+        "sensor_capability_contract"
+      ],
+      "supplies_required": [
+        "SUP_LOST_CONTAINER"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "先保留粉垫有效；普通动物救助不等于授权。",
+      "on_source_expired": "证据不足应以访客离去终止，不无限等待重走。",
+      "on_refused": "不接受身份请求安全，不能强制玩家猜。",
+      "normal_resolution": "连续爪鞋变化与独立入口记录核验后，来者仍未获越界权限并离去；证据不足时保持访客权限并拒绝请求，也可安全结束但不算辨认成功。",
+      "recovery": "误擦先封存剩余痕迹，可请求来者实际重新过公共粉垫一次；不保证配合，也不补造旧足迹。无法补核就维持访客限权直到离去，普通动物脚印不能单独定身份。",
+      "witness_fact": "PAYLOAD_F18",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "“一次小体型通过、成人门框未响”超出了普通计数器能力。",
+        "误擦后“等一次新过垫机会”没有怪为何会重走、多久重走的生产机制。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F19",
+      "name": "吠陀罗尸鬼",
+      "activation_mode": "history_gated",
+      "requires_before_omen": [
+        "本班已经发生、可对照的同一订单两份凭据",
+        "同一寄存包裹和两停放台/匹配柜"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_ORDER_ARRIVAL：派发预排的一个真实订单与对应顾客",
+        "P_CHECKOUT：实际拿货、接待并完成唯一订单结账",
+        "P_RETURN_ARRIVAL：顾客携对应原销售回执和同一退货物实际到场",
+        "P_REFUND：收回同一商品后实际退款，首次产生退款凭据",
+        "P_RECEIPT_CHAIN：从已发生销售/退款关联同一订单链，不能补造第二记录",
+        "P_ARRIVE_F19：F19从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "historical_order_chain",
+        "immutable_receipt_copy"
+      ],
+      "supplies_required": [
+        "SUP_QUEUE_NUMBER"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "事先归档的真实凭据可直接使用。",
+      "on_source_expired": "证据源意外失效由系统安全取消；不可等永不存在的退款。",
+      "on_refused": "不接寄存可拒绝；搬运回应只退上一节点，不删票。",
+      "normal_resolution": "两个节点挂入同一真实订单链的对应凭据，同一包裹实际入匹配寄存格；未接寄存可拒收，源记录失效时安全取消。",
+      "recovery": "回应只退回上一节点，已挂凭据保留；打印失败可复制已有日志。没有匹配历史链就不出这道题，不能补开一笔没发生过的付款或退款。",
+      "witness_fact": "PAYLOAD_F19",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "N02可能只做零单或只有一次付款，没有两个匹配凭据。",
+        "退款变体尤其需要原销售和实际退款两条历史，不能打印按钮直接伪造。",
+        "匹配寄存柜未有命名槽，只有pickup_shelf。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F20",
+      "name": "罗刹访客",
+      "activation_mode": "optional_offer",
+      "requires_before_omen": [
+        "已声明条款清楚的可选食物报价；实际提出后仍未接受，可以拒绝。接受后才预留并建立承诺，不从未来承诺生成当前预兆。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_SEE_F20：同一F20实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+        "P_OFFER_F20：该F20本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+        "P_ARRIVE_F20：F20已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺"
+      ],
+      "source_kinds": [
+        "player_acceptance",
+        "reserved_exchange_food",
+        "conditional_permission_record"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [
+        "SUP_SEALING",
+        "SUP_MEAL"
+      ],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "不接受额外范围，尚未答应前无欠账。",
+      "on_source_expired": "来客离场时撤销请求，不产生跨夜未知无限供食义务。",
+      "on_refused": "未接受免费拒绝；接受后可履行单份或明示撤约成本。",
+      "normal_resolution": "一份实际食品交付且额外库存和钥匙未越界即成功；未接受请求可拒绝或等来客离场，均无供食欠债。",
+      "recovery": "多推一盘先有越线预告，及时收回仍可止损。只有玩家明确接受的有限范围生效；不存在的白天合同不能作为处罚依据。",
+      "witness_fact": "PAYLOAD_F20",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "没有玩家接受承诺的动作，正常出现就默认欠一份食物。",
+        "E031变体引用白天原本，玩家白天可能根本没签这项合同。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F21",
+      "name": "报丧女妖",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "某实际工位即将发生的已预告故障",
+        "目标人员当时确实在该工位、可达安全点"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_DUTY：本阶段发出真实尚未完成的工作对象",
+        "P_DEVICE_USE：实际启用有任务的工位",
+        "P_DEVICE_WARNING：设备发生明确子型故障，出现可见预告",
+        "P_STATION_OCCUPIED：真实人员实际到工位，无人员则不触发点名事故",
+        "P_ARRIVE_F21：F21从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "actual_equipment_hazard",
+        "actual_actor_occupancy",
+        "future_accident_timer"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "accident_warning_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 40,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "预警前真实检修/停机可使险情不发生，记录预防而不强造伤口。",
+      "on_source_expired": "40秒只触发一次事故或确认已避险，停机锁住直到真实维修，不循环伤人。",
+      "on_refused": "故障或目标引用失效，警报安全取消。",
+      "normal_resolution": "目标已实际离开危险区且设备安全停机，即使在警告前完成也记为预防；设备与人员结果只提交一次。",
+      "recovery": "警告40世界秒后仍在实际玻璃故障危险位且设备未隔离，才产生一次登记割伤；无人在位、提前调岗或停机均不造伤。其他故障只有其明示后果。事故后仍可调离、隔离和免费包扎；F32仅在事前预留且余量合格时形成后续条件遭遇。",
+      "witness_fact": "PAYLOAD_F21",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "store_systems条件联动却称未移岗会产生伤口给F32，与本卡后果矛盾。",
+        "未登记事故生成者、实际危险工位、人员占位和闭锁重启；map_binding未含热食设备等具体危险工位。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F22",
+      "name": "布朗尼家务精",
+      "activation_mode": "optional_offer",
+      "requires_before_omen": [
+        "尚未完成且可代做的一项真实工单点",
+        "食物、固定工区与不注视空间"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_DUTY：本阶段发出真实尚未完成的工作对象",
+        "P_ARRIVE_F22：F22从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "existing_unfinished_work_point",
+        "optional_help_acceptance"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [
+        "SUP_MEAL"
+      ],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "unobserved_work_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 8,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "玩家自己完成登记点有效，取消帮工而不重置脏槽。",
+      "on_source_expired": "临近阶段末未完成则帮手离去、剩余点回普通任务，不锁整夜。",
+      "on_refused": "未供食可拒绝；错误供钱后离去，玩家仍可自己做。",
+      "normal_resolution": "登记的现有工单点由帮手完成并实际验收，只记一次；若玩家或同事先完成，该实例以目标已完成退场，不重复发代工奖励。未接受帮助可拒绝。",
+      "recovery": "回头只暂停当前进度，背开继续；塞工钱让帮手离去，剩余点仍可自己做。登记点被他人完成、没有食物或阶段余量不足时不再重新造一个脏槽。",
+      "witness_fact": "PAYLOAD_F22",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "工单已被玩家或同事先做完时，帮手没有目标但终态强制“由帮手完成”。",
+        "没有不注视工作时长；同事/监控是否算注视未定义。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F23",
+      "name": "塞尔基海豹人",
+      "activation_mode": "history_gated",
+      "requires_before_omen": [
+        "已登记皮衣实物及历史归属线索存在。",
+        "最多两个声明认领者的到场名额与中立台、出口预留，不要求预告前已经见到两人。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_LOST_HANDIN：在当前实际发生失物交存，或读取明确白班传入的原始记录",
+        "P_ARRIVE_F23：F23从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "real_lost_property_deposit",
+        "bounded_claimant_arrival"
+      ],
+      "supplies_required": [
+        "SUP_LOST_CONTAINER"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "提前封存与编号保留，不因新访客重置登记。",
+      "on_source_expired": "未领取物继续合法保管；交付须实际拿走并离开，不凭空消失。",
+      "on_refused": "证据不足可保持封存并令认领者离去，未交付不奖励。",
+      "normal_resolution": "皮衣实际交还匹配认领者并离店才奖励一次；证据不足可保留原封存并请认领者离去，安全结束且无交付回报。",
+      "recovery": "错交先给拉扯与水线预告，可叫停并收回同一皮衣；不瞬移删除物件。开班已有记录须注明白班来源，本班新记录只能来自真实交存，不能补造过去。",
+      "witness_fact": "PAYLOAD_F23",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "皮衣何时被谁捡到、真实登记如何形成未定义；不能在玩家检查空柜后偷偷补造过去。",
+        "两名认领者是否占订单/队列名额未区分。",
+        "同一人说出两个细节不应被算成两类独立证据。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F24",
+      "name": "凯尔皮水马",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "实际送货车/箱与WET_REAR源连接",
+        "干侧割点及主/备交接格"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_PLAN_DELIVERY：班前登记真实配送单与时刻",
+        "P_RECEIVE_CARGO：配送到场实际收一箱货；记录同一箱ID",
+        "P_KNOWN_WET：只激活已绘湿图或怪本身带入的登记源；保留干路",
+        "P_ARRIVE_F24：F24从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "visible_delivery_instance",
+        "existing_wet_graph"
+      ],
+      "supplies_required": [
+        "SUP_CLEANING",
+        "SUP_DRY_CLOTH"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "预先卸到干线内算防止牵引。",
+      "on_source_expired": "来客离去撤本实例牵引；普通货按原所有权收/退。",
+      "on_refused": "退干侧放车暂停但不销毁货物。",
+      "normal_resolution": "同一登记货物位于干侧交付槽且与本实例源不连通；到场前已卸货或断水同样记为预防，来者结束牵引后离去。",
+      "recovery": "越线只将同一车/箱移到下一预设停点，退干侧断边仍可取回。失去主干槽时只能用已登记备用槽；两槽都失效则安全取消，不临时凭空生成交付点。",
+      "witness_fact": "PAYLOAD_F24",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "卡说推车下一点/备用干格，却没有哪一物件移动、哪些点的具体绑定。",
+        "预兆前已断水/卸货的提前防范可能被忽略。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F25",
+      "name": "普卡变形精",
+      "activation_mode": "history_gated",
+      "requires_before_omen": [
+        "有同一退回物对应的真实原始销售回执（本班成交或明示交接的前班原单），透明保管槽和唯一退款登记额度可用；首次实际退款后才生成本班退款回执。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_ORDER_ARRIVAL：派发预排的一个真实订单与对应顾客",
+        "P_CHECKOUT：实际拿货、接待并完成唯一订单结账",
+        "P_ORIGINAL_SALE_CURRENT：选择当前真实销售记录作为该退货商品来源",
+        "P_BASELINE：在可信班前场景实际核验并保存独立基准",
+        "P_PREVIOUS_SALE_LEDGER：班前实际接收明确白班/前夜销售存根；保留原班次，绝不标为本班成交",
+        "P_ORIGINAL_SALE_PRIOR：选择已传入的原班次真实记录，与退货物件ID匹配",
+        "P_RETURN_FROM_ORIGINAL：顾客实际交回与原始存根匹配的物件；不先创建退款凭据",
+        "P_ARRIVE_F25：F25从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "actual_sale_record",
+        "actual_first_refund_receipt",
+        "same_item_repeat_claim"
+      ],
+      "supplies_required": [
+        "SUP_LOST_CONTAINER"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "第一笔退货尚未受理可拒绝待核。",
+      "on_source_expired": "第二请求拒绝/到期离场，实物已在店内且一笔退款回执即完成。",
+      "on_refused": "缺真实销售记录按普通待核退货结束，不靠猜外貌处罚。",
+      "normal_resolution": "同一实物已收回且退款最多提交一次，重复索款被拒绝或到期离场；缺原销售记录则按待核退货结束，不能凭外貌猜。",
+      "recovery": "误开第二笔先有重复确认；尚未交出的退款袋可收回，已错付只计本次有限店损。换貌不把已收槽商品复制到来客手里，也不重开营业订单。",
+      "witness_fact": "PAYLOAD_F25",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "开场已存在第一张退款回执但尚未首次退款，前后顺序矛盾。",
+        "商品已由玩家收进透明槽后，下一变形顾客不能又拿着同一件商品到柜台。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F26",
+      "name": "红帽妖",
+      "activation_mode": "reactive_actual_state",
+      "requires_before_omen": [
+        "E003实际玻璃接触或已激活F21玻璃事故产生真实活动伤口；伤者实际移动留下至少1枚、最多绑定3枚血迹；预留空封袋和免费清理工具，尚不要求沾染物已存在。",
+        "同事故尚无其他血源消费者；当前阶段剩余预算和血源剩余世界寿命均≥45秒；预留12秒条件预告及路线/物资。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_ORDER_ARRIVAL：派发预排的一个真实订单与对应顾客",
+        "P_CHECKOUT：实际拿货、接待并完成唯一订单结账",
+        "P_RETURN_ARRIVAL：顾客携对应原销售回执和同一退货物实际到场",
+        "P_GLASS_WARNING：退回玻璃容器确有裂口，隔离/刷扫仍可预防事故",
+        "P_REAL_CUT：可见警告至少3世界秒后实际危险接触，消耗一次事故许可",
+        "P_DUTY：本阶段发出真实尚未完成的工作对象",
+        "P_DEVICE_USE：实际启用有任务的工位",
+        "P_DEVICE_WARNING：设备发生明确子型故障，出现可见预告",
+        "P_STATION_OCCUPIED：真实人员实际到工位，无人员则不触发点名事故",
+        "P_ARRIVE_F21：F21从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+        "P_F21_GLASS_VARIANT：已到场F21选择登记的玻璃护罩故障；只建立故障子型，不造伤",
+        "P_F21_REAL_CUT：预告40秒后仍在玻璃故障危险位且未隔离，产生一次实际割伤；预防事故不会执行",
+        "P_BLOOD_MOVEMENT：带伤的同一员工实际移动至少2格生成有限地面标记",
+        "P_ARRIVE_F26：F26从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "actual_telegraphed_cut_accident",
+        "bounded_bleeding_status",
+        "bounded_blood_trace"
+      ],
+      "supplies_required": [
+        "SUP_FIRST_AID",
+        "SUP_CLEANING",
+        "SUP_SEALING"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "blood_source_ttl",
+          "clock": "world_simulation",
+          "seconds": 90
+        },
+        {
+          "id": "trace_ttl",
+          "clock": "world_simulation",
+          "seconds": 30
+        },
+        {
+          "id": "wipe_action",
+          "clock": "world_simulation",
+          "seconds": 1.5
+        },
+        {
+          "id": "reaction_warning",
+          "clock": "world_simulation",
+          "seconds": 12
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "预告后真实包扎/处理切断已登记来源记PREVENTED并占原波次；不得为完成本怪重新造伤。",
+      "on_source_expired": "伤口90秒自然止血、绑定痕迹30秒失效且实际沾染物已封存则SAFE_RETURNED。",
+      "on_refused": "不是可选交易，不提供拒绝即清怪；允许用真实止血、痕迹处理和合法退路解局。",
+      "normal_resolution": "本次血源已包扎或自然止血、绑定血迹均失效/清除，且实际产生的沾染物已封存；未到场前达成记预防，完全自然消退记安全离去。无新伤、无新迹，不为完成交袋再造污物。",
+      "recovery": "只绑定本次真实移动留下的最多三枚血迹；包扎停止新滴迹，已有痕迹每枚30世界秒后失效或可擦除。实际擦血形成的沾染物须封袋；没有发生擦拭就不凭空要求一袋污物。普通碰撞轻伤不自动出血。",
+      "witness_fact": "PAYLOAD_F26",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "无普通清洁伤害生产动作、出血计时、滴迹间隔、停止条件、基础绷带供给。",
+        "即使已自然止血，resolution还要求“伤口处理”可能与无伤状态矛盾。",
+        "E026说新增邻格与最多三迹，缺替换/上限规则。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F27",
+      "name": "山林巨魔",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "真实两批货物或有数量的配送清单与一笔尚未到场的大件订单槽已预留。",
+        "前场交付槽、整段搬运路线和接受后90秒预算可用，同一验货动作不重复计时。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_PLAN_DELIVERY：班前登记真实配送单与时刻",
+        "P_RECEIVE_CARGO：配送到场实际收一箱货；记录同一箱ID",
+        "P_TWO_CARGO_UNITS：把本单实际可分的两件货登记为两个运输单位，数量不增加",
+        "P_RESERVE_ORDER_F27：F27首兆前预留一个尚未到场的基础订单槽，保留原订单ID及领取/浏览类型；实际来客到场才转为等待订单。",
+        "P_ARRIVE_F27：F27从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "reserved_special_order_slot",
+        "actual_two_batch_delivery"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "accepted_special_order_deadline_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 90,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "route_lower_bound_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 54.83,
+          "kind": "admission_minimum"
+        },
+        {
+          "id": "minimum_actions_and_recovery_reserved_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 22,
+          "kind": "admission_minimum"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "提前分好两批、清空交付格有效。",
+      "on_source_expired": "到期收回未交部分或结算已交部分并离场；不能成为永远未完成主怪。",
+      "on_refused": "接受前拒单安全；取消后按一笔订单处理库存，不复制第一批。",
+      "normal_resolution": "同一大件单的两批实际交付、主通路清空后成功；未接受可拒单，取消或到期按明示规则结算已交部分并收回未交部分，来客离场。",
+      "recovery": "过早邀请先压缩门口并预告；撤邀请、移开未交货可退回门外，不永久封逃路。任务截止须容纳真实两批路线与补救，不能继承24秒普通耐心。",
+      "witness_fact": "PAYLOAD_F27",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "若特殊订单仍继承24秒耐心，正常搬完两批前客人必然离开。",
+        "N02唯一预订单默认第10秒，主怪第20秒到场；需要明确其替换订单的到达时刻与类型，不能等第10秒已完成后又计额外单。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F28",
+      "name": "诺肯水乐灵",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "三个可试的局部支路、一处异常源槽和槽盖",
+        "源纹理与试阀响应"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_KNOWN_WET：只激活已绘湿图或怪本身带入的登记源；保留干路",
+        "P_ARRIVE_F28：F28从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "visible_encounter_source",
+        "station_local_discrete_response"
+      ],
+      "supplies_required": [
+        "SUP_DRY_CLOTH",
+        "SUP_EMERGENCY_WATER"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "观察前已关总水不会自动解决，也不会让异常盘不可观察。",
+      "on_source_expired": "完成关闭本实例声路，普通漏水另结算，不全店永久断水。",
+      "on_refused": "手离倒影退干侧即可继续，错误试阀可复位。",
+      "normal_resolution": "本实例实际源支路被隔离、源盘盖好，乐曲与水纹都停止；普通供水和其他漏水独立处理。",
+      "recovery": "触倒影有局部拖近预告，退干侧可继续。普通停水不删除异常浅盘，也不会让局部支路失去响应；已正确封源不重新打开。",
+      "witness_fact": "PAYLOAD_F28",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "如果正常水已停，关支路对异常水是否仍有效未定义；“无水也有水纹”可能无真实载体。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F29",
+      "name": "托姆特家园精灵",
+      "activation_mode": "optional_offer",
+      "requires_before_omen": [
+        "已声明一份可选供食报价，接受在后续明示动作后发生；可以拒绝。",
+        "粥、黄油、供物槽及独立顾客库存可用。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_SEE_F29：同一F29实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+        "P_OFFER_F29：该F29本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+        "P_ARRIVE_F29：F29已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺"
+      ],
+      "source_kinds": [
+        "optional_offer_acceptance",
+        "reserved_exchange_food"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [
+        "SUP_PORRIDGE",
+        "SUP_BUTTER"
+      ],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "提前备好表层黄油和运输盖有效。",
+      "on_source_expired": "到期离去无无限库存诅咒；奖品仅实际正确交付一次。",
+      "on_refused": "未接受可拒绝；已接受可按明示规则退回供物。",
+      "normal_resolution": "已接受的单份粥与表层黄油实际交付才成功，库存令牌只发一次；未接受可拒绝/到期离场，无无限供食欠债。",
+      "recovery": "摆错则退回同一碗并给提示，可重摆。食材在预兆预订时已从非个人保底库存预留；后来基础份失效就取消请求，不扣玩家食物或强迫购买。",
+      "witness_fact": "PAYLOAD_F29",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "无接受动作就写成已答应；拒绝没有终态。",
+        "库存可能在远兆到到场间被顾客消耗，抽选检查一次不能保证稍后存在。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F30",
+      "name": "海亡灵",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "真正到货的单一箱、合法货单与额外压箱石",
+        "秤及主/备封存槽"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_PLAN_DELIVERY：班前登记真实配送单与时刻",
+        "P_RECEIVE_CARGO：配送到场实际收一箱货；记录同一箱ID",
+        "P_ARRIVE_F30：F30从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "visible_delivery_extra_item",
+        "current_state_not_ever_history"
+      ],
+      "supplies_required": [
+        "SUP_LOST_CONTAINER"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "验货立即分离并封存可以防止水线。",
+      "on_source_expired": "封存撤本实例水线；曾误用后改正仍可完成。",
+      "on_refused": "放到已登记隔离格可暂存，不允许当通用门楔。",
+      "normal_resolution": "同一压箱石与合法商品分离、已放登记封存槽，当前不再充当任何门挡。曾经误用但已经纠正仍可完成。",
+      "recovery": "误用门挡会产生本地水线与预告；拿开并封存后水线退去，只计本次有限损失。主封存点失效时使用预登记备用槽，两处都失效则保持室内隔离并安全取消外运目标。",
+      "witness_fact": "PAYLOAD_F30",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "若玩家曾误作门挡后纠正，终态“未被用作任何门挡”若按历史ever判断将永远不满足，与补救冲突。",
+        "压箱石和封存盘未登记实际实例及归属；变体后门封存点不在map_binding明示。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F31",
+      "name": "马拉梦魇",
+      "activation_mode": "optional_offer",
+      "requires_before_omen": [
+        "真实休息需求；椅位、杯、机械钟可用；安全特写准入且SAN>0。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_FATIGUE_OPPORTUNITY：出现可选休息机会，不要求资源必然降到零",
+        "P_ARRIVE_F31：F31从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "encounter_offer+existing_player_state"
+      ],
+      "supplies_required": [
+        "SUP_ALARM"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；未接受到期离去；已开始按一次成本退出；不坐或提前安定是安全防范，不能强制扣SAN让玩家入梦。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；未接受到期离去；已开始按一次成本退出；不坐或提前安定是安全防范，不能强制扣SAN让玩家入梦。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；未接受到期离去；已开始按一次成本退出；不坐或提前安定是安全防范，不能强制扣SAN让玩家入梦。",
+      "normal_resolution": "准备后的唤醒完成可结算一次休息收益；拒绝短休并停用该椅位也能安全结束，不发休息收益，不阻止06:00交班。",
+      "recovery": "未准备先给压迫警告，可取消落座补摆；梦里误按保留正确步骤。退出已开始尝试只扣一次成本且不给休息收益，不把玩家锁在SAN为0而不能再开QTE的梦境。",
+      "witness_fact": "PAYLOAD_F31",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "当前成功强制进入梦境并醒来，没有不坐/已恢复/同事失联不能交岗的结束分支。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F32",
+      "name": "夜返吸血鬼",
+      "activation_mode": "reactive_actual_state",
+      "requires_before_omen": [
+        "同一真实员工有登记活动伤口；基础急救物可达；欢迎语可能实际发出的声道可检查，但首兆前不要求已经邀请。",
+        "同事故尚无其他血源消费者；当前阶段剩余预算和血源剩余世界寿命均≥45秒；预留12秒条件预告及路线/物资。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_ORDER_ARRIVAL：派发预排的一个真实订单与对应顾客",
+        "P_CHECKOUT：实际拿货、接待并完成唯一订单结账",
+        "P_RETURN_ARRIVAL：顾客携对应原销售回执和同一退货物实际到场",
+        "P_GLASS_WARNING：退回玻璃容器确有裂口，隔离/刷扫仍可预防事故",
+        "P_REAL_CUT：可见警告至少3世界秒后实际危险接触，消耗一次事故许可",
+        "P_DUTY：本阶段发出真实尚未完成的工作对象",
+        "P_DEVICE_USE：实际启用有任务的工位",
+        "P_DEVICE_WARNING：设备发生明确子型故障，出现可见预告",
+        "P_STATION_OCCUPIED：真实人员实际到工位，无人员则不触发点名事故",
+        "P_ARRIVE_F21：F21从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史",
+        "P_F21_GLASS_VARIANT：已到场F21选择登记的玻璃护罩故障；只建立故障子型，不造伤",
+        "P_F21_REAL_CUT：预告40秒后仍在玻璃故障危险位且未隔离，产生一次实际割伤；预防事故不会执行",
+        "P_ARRIVE_F32：F32从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "reactive_actual_accident"
+      ],
+      "supplies_required": [
+        "SUP_FIRST_AID"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "bleeding_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 90,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "bandage_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 3,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "announcement_lead_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 12,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "minimum_remaining_phase_budget_seconds",
+          "clock": "shift_budget",
+          "seconds": 45,
+          "kind": "admission_minimum"
+        },
+        {
+          "id": "minimum_remaining_fresh_blood_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 45,
+          "kind": "admission_minimum"
+        },
+        {
+          "id": "welcome_warning_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 3,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "targetless_departure_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 3,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "预告后真实包扎/处理切断已登记来源记PREVENTED并占原波次；不得为完成本怪重新造伤。",
+      "on_source_expired": "最后真实伤口停止流血后3秒离场，SAFE_RETURNED；关声道不抹去已发生邀请。",
+      "on_refused": "不是可选交易，不提供拒绝即清怪；允许用真实止血、痕迹处理和合法退路解局。",
+      "normal_resolution": "本实例登记员工不再流血（包扎或90世界秒自然止血），来客失去全部合法目标并完成3秒离场；预告中包扎记PREVENTED，源自然消退记SAFE_RETURNED。已处理的伤口不被重开。",
+      "recovery": "只有真实对本来客发出的公共区邀请和仍活动伤口同时成立，才启动追踪。关闭语音不撤销已经发生的邀请；标记员工边界且不授员工权限可争取包扎站位，但不自动止血或清怪。碰撞普通轻伤不追加新伤口，伤口到期不复活。",
+      "witness_fact": "PAYLOAD_F32",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "出血原来没有生产动作/期限，伤口均处理与自然停止流血的结束含义不一致。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F33",
+      "name": "狼人",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "已声明同一来客携带可见伤迹、专用急救包和有限物件，并预留合法到场位。",
+        "形态连续变化及伤迹对照必须到场后展示，错过时提供同实例重复观察，不要求玩家提前见过。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_ARRIVE_F33：F33从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "encounter_arrival_actor"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [
+        "SUP_VISITOR_KIT"
+      ],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；援助后离店；未接受可保留出口让其离去；禁止因玩家没目击一次性动画永久锁关。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；援助后离店；未接受可保留出口让其离去；禁止因玩家没目击一次性动画永久锁关。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；援助后离店；未接受可保留出口让其离去；禁止因玩家没目击一次性动画永久锁关。",
+      "normal_resolution": "来客接受公共急救物后沿公开路线离店，或在玩家未接受援助时保持出口畅通自行离去；只有实际援助回执给对应奖励，猜对姓名不是结束条件。",
+      "recovery": "堵路使来客焦躁并预告冲撞；退开并清路可恢复，不强制新增第二追逐。",
+      "witness_fact": "PAYLOAD_F33",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "要求玩家此前亲眼见过狼形伤口，但可能错过入场，无法再取得唯一证据。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F34",
+      "name": "鲁萨尔卡水灵",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "WET_FRONT实际激活；登记货袋存在；休拍包含擦地和退干格时长。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_PLAN_DELIVERY：班前登记真实配送单与时刻",
+        "P_RECEIVE_CARGO：配送到场实际收一箱货；记录同一箱ID",
+        "P_KNOWN_WET：只激活已绘湿图或怪本身带入的登记源；保留干路",
+        "P_ARRIVE_F34：F34从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "encounter_wet_graph+existing_cargo"
+      ],
+      "supplies_required": [
+        "SUP_CLEANING"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "cycle_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 8,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "strong_beat_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 2,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "rest_beat_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 6,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "wipe_cut_point_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 1.5,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；按世界时间循环；暂停不推进；提前断水/货物已安全可PREVENTED，不重湿已擦断点。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；按世界时间循环；暂停不推进；提前断水/货物已安全可PREVENTED，不重湿已擦断点。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；按世界时间循环；暂停不推进；提前断水/货物已安全可PREVENTED，不重湿已擦断点。",
+      "normal_resolution": "目标湿边已断开、登记货物已在干侧即可结束；预兆期提前完成同样有效，不要求为重演节拍把货物放回水中。",
+      "recovery": "强拍踩湿边先预告拖拽；退干侧停止并保留已擦割点。休拍必须能容纳擦地与退回动作；已提前断水时直接从干侧取袋，不重新激活湿边。",
+      "witness_fact": "PAYLOAD_F34",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "节拍没有长度，若休拍短于实际动作就无合法解；提前断水后仍可能要求湿格节拍。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F35",
+      "name": "芭芭雅嘎",
+      "activation_mode": "optional_offer",
+      "requires_before_omen": [
+        "真实垃圾/脏槽尚未处理；声明来客携带本次扫帚和边界牌，到场创建一次。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_DUTY：本阶段发出真实尚未完成的工作对象",
+        "P_SEE_F35：同一F35实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+        "P_OFFER_F35：该F35本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+        "P_ARRIVE_F35：F35已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺"
+      ],
+      "source_kinds": [
+        "actual_dirt+encounter_supplied_tools"
+      ],
+      "supplies_required": [
+        "SUP_CLEANING"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [
+        "SUP_SWEEP_VISITOR"
+      ],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；清扫进度只在未注视且世界运行时推进；完成或取消即收回工具；玩家提前清洁不重新制造垃圾。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；清扫进度只在未注视且世界运行时推进；完成或取消即收回工具；玩家提前清洁不重新制造垃圾。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；清扫进度只在未注视且世界运行时推进；完成或取消即收回工具；玩家提前清洁不重新制造垃圾。",
+      "normal_resolution": "指定垃圾处理、工具归还时结算一次有限帮助；接受前拒绝、任务提前被清理或提前收回工具均可安全结束，不重新制造垃圾。",
+      "recovery": "边界漏放先推动邻物并警示，可拿起扫帚停工、补边界继续；不随机增加第四个任务。",
+      "witness_fact": "PAYLOAD_F35",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "只有完整委托成功终点；店已干净或玩家拒绝时没有退出；未观察施工持续多久缺失。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F36",
+      "name": "精灵访客",
+      "activation_mode": "optional_offer",
+      "requires_before_omen": [
+        "一个可借空槽；边界、20秒许可；同一F36实例具备remote_voice才能使用E030。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_SEE_F36：同一F36实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+        "P_OFFER_F36：该F36本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+        "P_ARRIVE_F36：F36已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺"
+      ],
+      "source_kinds": [
+        "optional_scoped_contract"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；20秒到期先撤权再结算；接受前拒绝安全离去，接受后提前撤销仅放弃未赚帮助。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；20秒到期先撤权再结算；接受前拒绝安全离去，接受后提前撤销仅放弃未赚帮助。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；20秒到期先撤权再结算；接受前拒绝安全离去，接受后提前撤销仅放弃未赚帮助。",
+      "normal_resolution": "20秒到期或玩家提前撤销后，该访客对该槽的权限失效并离开；清理纸条和空槽后可领已完成的有限帮助。接受前拒绝也结束邀请。",
+      "recovery": "越界先显示圈向外延伸，可撤销本次许可再补边界。许可到20秒自动失效，不能因为纸条尚未收回而永久有效；拒绝尚未接受的借用不受罚。",
+      "witness_fact": "PAYLOAD_F36",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "20秒到期仍依赖玩家抢回纸条才撤权，实体条遗失可能形成永久授权；不接契约缺结束。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F37",
+      "name": "古尔荒野妖",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "真实尚未完成取件单与登记袋；至少一个固定安全交付槽。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_SEE_F37：同一F37实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+        "P_OFFER_F37：该F37本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+        "P_ARRIVE_F37：F37已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺"
+      ],
+      "source_kinds": [
+        "existing_pending_order"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；来者退去后结束诱离，未交物不计订单完成；已提前合法交付时PREVENTED，禁止重新生成同一包裹。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；来者退去后结束诱离，未交物不计订单完成；已提前合法交付时PREVENTED，禁止重新生成同一包裹。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；来者退去后结束诱离，未交物不计订单完成；已提前合法交付时PREVENTED，禁止重新生成同一包裹。",
+      "normal_resolution": "玩家停止追随并保留权限和物件归属，诱离请求结束即可安全收场；合法订单可以已交付或仍保管待取，未交物不虚报成交。",
+      "recovery": "越过第一条线先出现拉远警告；退回可见标记再固定交接。错误电话不自动改任务。",
+      "witness_fact": "PAYLOAD_F37",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "成功强制合法交付，但没有真实待取单或不可信来者无法合法交货；初期订单可能在主怪到场前已做完。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F38",
+      "name": "双重身",
+      "activation_mode": "history_gated",
+      "requires_before_omen": [
+        "异常前同一真实同事的三段工作事实，以及能连接到当前身体的独立连续观察。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_BASELINE：在可信班前场景实际核验并保存独立基准",
+        "P_WORK_TRACE_1：在第1个不同工位完成真实工作并留下本班回执",
+        "P_WORK_TRACE_2：在第2个不同工位完成真实工作并留下本班回执",
+        "P_WORK_TRACE_3：在第3个不同工位完成真实工作并留下本班回执",
+        "P_THREE_WORK_TRACES：关联三处不同工位、同班次且未被覆盖的实际结果，仍不自动授身份",
+        "P_CONTINUITY：观察同一身体从已核验基准经过三处实际作业；链断则不生成，允许改走安全拒交分支",
+        "P_ARRIVE_F38：F38从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "actual_history+observable_actor_continuity"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；前史不足不投放；后续证据被合法事件遮断则降级安全限权结束，无身份奖励；不伪造过去或生第三员工。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；前史不足不投放；后续证据被合法事件遮断则降级安全限权结束，无身份奖励；不伪造过去或生第三员工。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；前史不足不投放；后续证据被合法事件遮断则降级安全限权结束，无身份奖励；不伪造过去或生第三员工。",
+      "normal_resolution": "可证实时仅向真实连续轨迹对应者恢复权限；不可证实时保留钥匙、停止高风险交接并结束冒名请求也算安全处置，不发身份识破奖励。",
+      "recovery": "误授权先暴露权限异常，可撤销该次权限后重核。连续见证已中断时不猜真人，安全待核不会扣信任，也不凭空生成过去的录像补答案。",
+      "witness_fact": "PAYLOAD_F38",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "三个作业结果只证明工作发生，不自动证明当前两张同脸中的哪一个做过；强制恢复真同事权限可无解。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F39",
+      "name": "多莫沃伊家宅灵",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "实际设备迁移需求；ATT08旧新两槽；同一木牌物件；备用位可用。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_DUTY：本阶段发出真实尚未完成的工作对象",
+        "P_DEVICE_USE：实际启用有任务的工位",
+        "P_DEVICE_WARNING：设备发生明确子型故障，出现可见预告",
+        "P_REPLACEMENT_PLAN：玩家确认更换真实故障设备并预留已在库备用灶",
+        "P_ARRIVE_F39：F39从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "actual_fault_or_scheduled_maintenance"
+      ],
+      "supplies_required": [
+        "SUP_MATERIAL_REPAIR",
+        "SUP_WOOD_PLAQUE"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "new_hearth_warmup_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 3,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；迁移前问题已修好就取消需求；提前完成正确迁移算防范，不把木牌送回原处制造难题。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；迁移前问题已修好就取消需求；提前完成正确迁移算防范，不把木牌送回原处制造难题。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；迁移前问题已修好就取消需求；提前完成正确迁移算防范，不把木牌送回原处制造难题。",
+      "normal_resolution": "实际迁移需求对应的木牌已在新槽安定、旧设备安全停用即可结束；若故障提前修复且无需迁移，则撤销本次邀请，不倒放木牌重做。",
+      "recovery": "先关旧位会敲碗并暂时停工；重新亮起旧标记，再按顺序搬迁即可。",
+      "witness_fact": "PAYLOAD_F39",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "旧新灶槽已有，但迁移理由和木牌生产者缺合同；停电却要求正常工作恢复矛盾。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F40",
+      "name": "列希森林灵",
+      "activation_mode": "history_gated",
+      "requires_before_omen": [
+        "真实误收树苗物件；三实物路标可达；归还槽空。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_PLAN_DELIVERY：班前登记真实配送单与时刻",
+        "P_RECEIVE_CARGO：配送到场实际收一箱货；记录同一箱ID",
+        "P_ARRIVE_F40：F40从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "actual_misdelivery"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；提前隔离/归还树苗即PREVENTED；中途取消保留原物和标记，不刷出第二株。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；提前隔离/归还树苗即PREVENTED；中途取消保留原物和标记，不刷出第二株。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；提前隔离/归还树苗即PREVENTED；中途取消保留原物和标记，不刷出第二株。",
+      "normal_resolution": "同一登记树苗已归还或合法隔离，林影退去；预兆期提前归还同样有效。路标是安全辨路方法，不要求已正确归还后再走一遍。",
+      "recovery": "走错仅进入预设绕路并预告重复，回最近实物标记可继续，不无限重置已走路线。",
+      "witness_fact": "PAYLOAD_F40",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "误收来源未定义，正常玩家可能未收错；归还后还强迫走一遍路线会成为无意义任务。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F41",
+      "name": "哭泣女",
+      "activation_mode": "history_gated",
+      "requires_before_omen": [
+        "已有登记失物袋；真实封存时间；柜台游戏内求助面板与合法收存槽。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_LOST_HANDIN：在当前实际发生失物交存，或读取明确白班传入的原始记录",
+        "P_ARRIVE_F41：F41从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "actual_lost_property+encounter_claim"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；已认领袋不能再投放；请求结束保留失物不算失败；E005每袋独立物件与归属，不自动新增一单收益。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；已认领袋不能再投放；请求结束保留失物不算失败；E005每袋独立物件与归属，不自动新增一单收益。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；已认领袋不能再投放；请求结束保留失物不算失败；E005每袋独立物件与归属，不自动新增一单收益。",
+      "normal_resolution": "求助已登记，失物袋仍在合规保管或已合法交付，诱离请求结束即可安全收场；不能把向未知哭泣者交袋设为强制胜利条件。",
+      "recovery": "越线先出现拉扯预告；放下袋、退回干侧可解除牵引，已核对的物件不用重查。",
+      "witness_fact": "PAYLOAD_F41",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "要求正确袋交给哭泣者，可能违反失物归属；未登记袋/联系不通/拒绝假请求没有终态。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F42",
+      "name": "哨声亡灵",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "本班实际待搬箱或垃圾；当前后门可用；机械牌明确周期。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_PLAN_DELIVERY：班前登记真实配送单与时刻",
+        "P_RECEIVE_CARGO：配送到场实际收一箱货；记录同一箱ID",
+        "P_ARRIVE_F42：F42从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "actual_cargo+encounter_cycle"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "cycle_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 14,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "safe_low_pressure_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 8,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "unsafe_high_pressure_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 6,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "manual_gate_open_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 1,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "manual_gate_close_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 1,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；已搬完且门闭可结束；安全期不足不开始下一批；取消未开始批次只保留普通待办，不传送已搬物。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；已搬完且门闭可结束；安全期不足不开始下一批；取消未开始批次只保留普通待办，不传送已搬物。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；已搬完且门闭可结束；安全期不足不开始下一批；取消未开始批次只保留普通待办，不传送已搬物。",
+      "normal_resolution": "本次登记批次已合法搬运且后门关闭即可结束；已提前搬完可直接关闸结束，不要求再开门表演一次。",
+      "recovery": "错期开闸先敲门预警；关闸退回可保留已搬批次，只有暴露的这一箱需重新候运。",
+      "witness_fact": "PAYLOAD_F42",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "声段长度未声明；额外货无上限；全部货已搬仍可能要求开闸；E025开闭语义混乱需全局统一。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F43",
+      "name": "图恩达",
+      "activation_mode": "history_gated",
+      "requires_before_omen": [
+        "第3夜起可疑请求候选；真实任务、可信班前基准与覆盖请求声称时段的记录已经存在。",
+        "同事和唯一假实体按预算占位；木足等当前身体观察到场后取得，缺身份绑定可待核拒绝。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_BASELINE：在可信班前场景实际核验并保存独立基准",
+        "P_DUTY：本阶段发出真实尚未完成的工作对象",
+        "P_PRE_SHIFT_TASK：班前实际领钥匙/围裙或清点，产生有真实时刻与主体的记录；不是临时补造历史",
+        "P_CLAIM_WINDOW_EVIDENCE：所选请求声称的时刻必须落在已有连续见证区间；不覆盖就不能当作矛盾证据",
+        "P_ARRIVE_F43：F43从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "actual_staff_history+encounter_forged_claim"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；怪拒绝站公共垫并退去也可安全结束；拒绝不需要证明其为怪；已有正常任务按原范围继续。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；怪拒绝站公共垫并退去也可安全结束；拒绝不需要证明其为怪；已有正常任务按原范围继续。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；怪拒绝站公共垫并退去也可安全结束；拒绝不需要证明其为怪；已有正常任务按原范围继续。",
+      "normal_resolution": "高风险权限没有交给未核验者，越界请求结束即可安全处置；只有独立证据成立才归档为假。真实普通交接按原任务另行结算，没有交接物时不制造空任务。",
+      "recovery": "误跟随先给越界预告；退回交接垫可中止。已交钥匙可封停对应权限，补核后恢复。",
+      "witness_fact": "PAYLOAD_F43",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "N01未必有垃圾交接；记录不覆盖便签时刻却仍必须归档为假；拒绝待核请求缺明确结束。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F44",
+      "name": "巨帽夜曲客",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "尚未到场的基础订单槽与商品已预留；实际交易发生后才有销售回执。",
+        "单曲30世界秒完成期限与路线可容纳。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_RESERVE_ORDER_F44：F44首兆前预留一个尚未到场的基础订单槽，保留原订单ID及领取/浏览类型；实际来客到场才转为等待订单。",
+        "P_ARRIVE_F44：F44从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "encounter_special_order_replacing_base_slot"
+      ],
+      "supplies_required": [
+        "SUP_QUEUE_NUMBER"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "accepted_special_order_deadline_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 30,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；离店或拒绝结束无收入；已交付不追回；待确认续段最多一个，确认铃本身不生成新已接受合同。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；离店或拒绝结束无收入；已交付不追回；待确认续段最多一个，确认铃本身不生成新已接受合同。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；离店或拒绝结束无收入；已交付不追回；待确认续段最多一个，确认铃本身不生成新已接受合同。",
+      "normal_resolution": "本单实际交付且未授新续约，或接受前明确拒绝并关闭托盘，均结束本次邀请；只有真实交付计收入。确认铃不自行生成新已接受合同。",
+      "recovery": "误续单只新增一个可见待确认段；合上该托盘可撤销未接受续约，已交货不追回。",
+      "witness_fact": "PAYLOAD_F44",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "未接受可拒绝的文字与成功只写成交矛盾；自动确认铃可能被重复触发产生无限续约。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F45",
+      "name": "逆足林守",
+      "activation_mode": "history_gated",
+      "requires_before_omen": [
+        "真实批次箱及实际移动生成的轮痕；三候选槽。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_PLAN_DELIVERY：班前登记真实配送单与时刻",
+        "P_RECEIVE_CARGO：配送到场实际收一箱货；记录同一箱ID",
+        "P_ARRIVE_F45：F45从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "actual_delivery_trace"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；提前正确入架PREVENTED；撤回只移动同一箱；旧痕不覆盖当前唯一辨认线索。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；提前正确入架PREVENTED；撤回只移动同一箱；旧痕不覆盖当前唯一辨认线索。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；提前正确入架PREVENTED；撤回只移动同一箱；旧痕不覆盖当前唯一辨认线索。",
+      "normal_resolution": "同一登记箱进入轮痕对应正确货格并有实际回执即可结束；提前正确上架有效，不撤回已完成货箱重做。",
+      "recovery": "错误格先出现反向脚印封边；撤回箱子可重走，批次身份与已查痕迹保留。",
+      "witness_fact": "PAYLOAD_F45",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "轮痕可被当作凭空历史；箱已正确上架仍强制撤回重做；交叉痕迹缺批次身份。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F46",
+      "name": "红帽萨西",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "可被拿走的普通轻工具实际存在且未被占用；三个停点；免费筛罩；E069需出勤宠物。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_DUTY：本阶段发出真实尚未完成的工作对象",
+        "P_LOOSE_TOOL：一件真实轻工具离开上锁槽位、正被当前工作使用",
+        "P_ARRIVE_F46：F46从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "actual_noncritical_tool+optional_active_pet"
+      ],
+      "supplies_required": [
+        "SUP_SIEVE"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "candidate_dwell_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 4,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；4秒候选停点容纳3秒宠物转移；玩家仍截一次风；无合法工具不投放，不能临时生成宠物或复制工具。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；4秒候选停点容纳3秒宠物转移；玩家仍截一次风；无合法工具不投放，不能临时生成宠物或复制工具。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；4秒候选停点容纳3秒宠物转移；玩家仍截一次风；无合法工具不投放，不能临时生成宠物或复制工具。",
+      "normal_resolution": "工具物件回到玩家或原工具槽，旋风在固定槽被截住一次。",
+      "recovery": "放错筛只让旋风绕过一次；工具不删除，关键工序有已登记替用件。仅能偷未预留的普通轻工具；已归还或已被P06预留的同一工具不再被本实例偷回。",
+      "witness_fact": "PAYLOAD_F46",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "可偷走唯一关键工具导致别的任务无解；E069在未带宠物时不可触发；P06转移后风重新偷回会抹收益。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F47",
+      "name": "水歌伊阿拉",
+      "activation_mode": "optional_offer",
+      "requires_before_omen": [
+        "安全QTE准入；至少一个8秒尝试预算；未兑现与已兑现奖物分开。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_SEE_F47：同一F47实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+        "P_OFFER_F47：该F47本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+        "P_ARRIVE_F47：F47已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺"
+      ],
+      "source_kinds": [
+        "optional_offer+actual_qte_receipts"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [
+        "SUP_SEALING"
+      ],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；最多3段，不能开始就不收费；下一段预算不足则结束并保留已兑现所得；拒绝/安全退出均是合法终态。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；最多3段，不能开始就不收费；下一段预算不足则结束并保留已兑现所得；拒绝/安全退出均是合法终态。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；最多3段，不能开始就不收费；下一段预算不足则结束并保留已兑现所得；拒绝/安全退出均是合法终态。",
+      "normal_resolution": "任一已完成段实际封袋领取后退出，或未接受前拒绝，或失败/预算不足时安全退出，均结束本次邀请；奖励只按既有完成回执结算，不反复开页产奖。",
+      "recovery": "错过窗口停止下一段，仅失去尚未兑现的加码；已完成段的实物奖励保留。第一段未完成就没有凭空基础奖。退出已开始尝试扣明示8秒一次，不再补扣。",
+      "witness_fact": "PAYLOAD_F47",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "第一段未成功就写基础所得不明确；接受前拒绝与开始后退出成本边界需一致。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F48",
+      "name": "河海豚化人客",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "预留同一访客及尚未到场的基础订单槽；员工帽是声明物件。",
+        "帽子不产生员工权限，当前入口可做公共区交付。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_RESERVE_ORDER_F48：F48首兆前预留一个尚未到场的基础订单槽，保留原订单ID及领取/浏览类型；实际来客到场才转为等待订单。",
+        "P_ARRIVE_F48：F48从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "encounter_visitor+actual_order+optional_real_manager"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "accepted_special_order_deadline_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 30,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；未获员工权限即可公开路线离店；先归帽/先关员工门是有效防范；未成交只损失此单不锁关。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；未获员工权限即可公开路线离店；先归帽/先关员工门是有效防范；未成交只损失此单不锁关。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；未获员工权限即可公开路线离店；先归帽/先关员工门是有效防范；未成交只损失此单不锁关。",
+      "normal_resolution": "访客没有借购物或工作帽取得未授权员工权限并沿公开路线离店，即安全结束；只有实际交付商品才计订单收益。",
+      "recovery": "帽子被拿起先触发门禁预告；回收帽子或撤销该次通行后可继续普通交易。",
+      "witness_fact": "PAYLOAD_F48",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "E035可能既有怪访客又有假店长，隐含第二冒充实体；拒售/已提前归帽没有完整出口。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F49",
+      "name": "火蛇博伊塔塔",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "真实热食工作产生的热垃圾；同一废物袋、隔热盖、冷却档与可达垃圾箱。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_DUTY：本阶段发出真实尚未完成的工作对象",
+        "P_HOT_FOOD：实际制作登记热食，温档/品质计时从完成动作开始",
+        "P_ACTUAL_DISCARD：玩家对真实退单/到期批次实际执行弃置，生成废物用途回执；不对所有热食全局改标签",
+        "P_HOT_WASTE：同一批次实际转入废物盘，取消其可售状态；只能将另一批次用于F58供热",
+        "P_ARRIVE_F49：F49从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "actual_hot_food_waste"
+      ],
+      "supplies_required": [
+        "SUP_SEALING",
+        "SUP_TEMP_COVER"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "covered_cooling_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 20,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；已冷却/已投放记PREVENTED；关闭袋留安全位可RESOLVED(result=contained)并转普通垃圾待办；不强制此时跨店绕行才结束威胁。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；已冷却/已投放记PREVENTED；关闭袋留安全位可RESOLVED(result=contained)并转普通垃圾待办；不强制此时跨店绕行才结束威胁。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；已冷却/已投放记PREVENTED；关闭袋留安全位可RESOLVED(result=contained)并转普通垃圾待办；不强制此时跨店绕行才结束威胁。",
+      "normal_resolution": "冷却后实际投放记完整清运；封闭安全暂存并结束火蛇活动也可安全收场，不虚报已投垃圾箱。提前冷却或已投放物不会重新生成热目标。",
+      "recovery": "误开盖先出现橙色警戒圈；立即重新合盖可撤出，未冷却袋仍留在原位，不凭空焚毁库存。",
+      "witness_fact": "PAYLOAD_F49",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "热垃圾生产、冷却时间和盖状态未定义；E025需明确卡闭才强制外绕。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F50",
+      "name": "泽西恶魔",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "当前一组窗目标、可达板槽和安全点；8秒动作预算。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_ARRIVE_F50：F50从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "encounter_telegraphed_attack"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "warning_seconds",
+          "clock": "world_simulation",
+          "seconds": 8,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "empty_hands_or_release_budget_seconds",
+          "clock": "world_simulation",
+          "seconds": 0.25,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；8秒仅从目标锁定开始；目标不暗换；已提前正确防护合法生效；第二轮必须另经预算且不复活已结算轮次。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；8秒仅从目标锁定开始；目标不暗换；已提前正确防护合法生效；第二轮必须另经预算且不复活已结算轮次。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；8秒仅从目标锁定开始；目标不暗换；已提前正确防护合法生效；第二轮必须另经预算且不复活已结算轮次。",
+      "normal_resolution": "正确板防护且玩家离开受击带，可结算完整防御；错窗后拉帘、关闭该窗业务并撤到安全点，也能结束本轮危险但不发正确防护奖励。已提前合法防护有效，不能暗换目标补题。",
+      "recovery": "错窗先留下破裂预告，可拉近帘保守撤出，停止该窗业务；不瞬间从窗外传送追人。",
+      "witness_fact": "PAYLOAD_F50",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "错误窗补救写拉帘停用，但成功仍只认正确板，补救缺终态。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F51",
+      "name": "蜘蛛故事商",
+      "activation_mode": "history_gated",
+      "requires_before_omen": [
+        "只在N05；远兆之前存在三张不同本班销售回执及真实未取消的当前订单槽，免费基础规则已教。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_ORDER_ARRIVAL：派发预排的一个真实订单与对应顾客",
+        "P_CHECKOUT：实际拿货、接待并完成唯一订单结账",
+        "P_ORDER_2：派发另一个实际预排名额night-slot-01-browse",
+        "P_CHECKOUT_2：实际完成此独立订单，不复用前一个订单回执",
+        "P_ORDER_3：派发另一个实际预排名额night-slot-02-pickup",
+        "P_CHECKOUT_3：实际完成此独立订单，不复用前一个订单回执",
+        "P_THREE_SALES：完成三个不同预排销售订单并保存三张真实回执，最早N02；不能裁一张充三张",
+        "P_F51_CURRENT_ORDER：三张实际历史销售回执已存在后，首兆前预留N05尚未到场的基础订单；保留同一订单ID，不生成第四张已完成收据。",
+        "P_ARRIVE_F51：F51从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "actual_completed_order_history+optional_trade"
+      ],
+      "supplies_required": [
+        "SUP_QUEUE_NUMBER"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "accepted_special_order_deadline_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 45,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；成交/拒绝/预算结束均可终止；原回执不修改；礼盒隔离不生成已接受义务。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；成交/拒绝/预算结束均可终止；原回执不修改；礼盒隔离不生成已接受义务。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；成交/拒绝/预算结束均可终止；原回执不修改；礼盒隔离不生成已接受义务。",
+      "normal_resolution": "真实回执支持的一次有限交易实际交付即可结算；接受前拒绝或在未承诺下一段时退出也安全结束。没有本班真实旧回执则不发此题，不能倒造过去交易。",
+      "recovery": "压错只让本轮优惠暂停，原收据不改写；可收回未签牌重摆，拒绝未接受的续约不受罚。",
+      "witness_fact": "PAYLOAD_F51",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "若本班零成交就无真实回执；不接交易却必须交物才算结束；故事把未收礼盒说已同意可能改写事实。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F52",
+      "name": "矮水灵托科洛舍",
+      "activation_mode": "optional_offer",
+      "requires_before_omen": [
+        "WET_CHAIR真实激活；固定低灯与干站位；可选择休息。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_FATIGUE_OPPORTUNITY：出现可选休息机会，不要求资源必然降到零",
+        "P_KNOWN_WET：只激活已绘湿图或怪本身带入的登记源；保留干路",
+        "P_ARRIVE_F52：F52从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "encounter_chair_water+optional_rest"
+      ],
+      "supplies_required": [
+        "SUP_CLEANING",
+        "SUP_DRY_CLOTH",
+        "SUP_INSPECTION_LAMP"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；拒坐可直接停用椅位至该时段结束；提前断线记PREVENTED；未休息不阻止交班。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；拒坐可直接停用椅位至该时段结束；提前断线记PREVENTED；未休息不阻止交班。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；拒坐可直接停用椅位至该时段结束；提前断线记PREVENTED；未休息不阻止交班。",
+      "normal_resolution": "椅线断开、低位检查确认影子离去即解除危险；6秒短休只决定额外恢复回执，不是交班必须满足的条件。",
+      "recovery": "误坐先出现抓脚预告，起身退到干站点可挣脱；重查后仍能短休，不抹去先前工作。",
+      "witness_fact": "PAYLOAD_F52",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "怪已被断水驱走仍要求实际坐6秒才清除，与不想休息/已满资源/即将06冲突。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F53",
+      "name": "水之母来访",
+      "activation_mode": "optional_offer",
+      "requires_before_omen": [
+        "独立6瓶实际库存、2瓶保留/4瓶可售及双槽可用，真实06:00期限可见。",
+        "取消只放弃尚未得到的契约奖励，不要求新现金、押金或补购，个人保底饮食独立。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_SEE_F53：同一F53实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+        "P_OFFER_F53：该F53本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+        "P_ARRIVE_F53：F53已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺"
+      ],
+      "source_kinds": [
+        "optional_long_lived_contract+reserved_actual_stock"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [
+        "SUP_WATER_OFFER"
+      ],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "F53明示契约在真实06:00先结算；其他已接受步骤不得超出预留可用预算，未接受可选报价在本阶段末离去。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "接受前拒绝不耗水；接受后可取消，只放弃尚未获得的契约奖励并释放剩余瓶/槽，不新增债务。",
+      "on_source_expired": "真实06:00先结履约或有限违约并释放占用，再做关键威胁检查与交班。",
+      "on_refused": "未接受可以DECLINED；已接受取消按上述已明示代价结清，不需要新现金或补购物件。",
+      "normal_resolution": "真实06:00先结算履约并释放占用，或此前按明示条件取消契约；两者都结束本契约。契约终态必须先于关键威胁检查与H20交班，不能循环等待交班后解封。",
+      "recovery": "误移未售瓶可放回；已售物不复制补回。接受前明示取消只放弃尚未获得的契约奖励，无新现金扣款、欠债或必须补购的物品；取消释放剩余物占用。",
+      "witness_fact": "PAYLOAD_F53",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "06履约与交班后解封形成顺序循环；违约要求付款可能余额不足卡关；长期占槽未明压力记账。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F54",
+      "name": "吞世巨兽",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "三件不同实例的登记普通商品与三个缓冲槽、三条回收绳可用。",
+        "实际吞入顺序须在到场后可观察、可回看，不能首兆前生成已吞入状态。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_PLAN_DELIVERY：班前登记真实配送单与时刻",
+        "P_RECEIVE_THREE_MANIFEST：实际接收清单上三件不同ID物件并逐件验收；不是从两件复制第三件",
+        "P_ARRIVE_F54：F54从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "actual_eligible_cargo+encounter_action_log"
+      ],
+      "supplies_required": [
+        "SUP_RETRIEVAL_LINES"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；没凑足3件不投放；已收回不重新吞；终态队列清空按原ID回仓，不能额外生成三件奖品。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；没凑足3件不投放；已收回不重新吞；终态队列清空按原ID回仓，不能额外生成三件奖品。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；没凑足3件不投放；已收回不重新吞；终态队列清空按原ID回仓，不能额外生成三件奖品。",
+      "normal_resolution": "三件原物依序回到实际暂存槽、吞入队列为空即结束；没有足够合法对象和空槽就不投放，不复制物件凑三件。",
+      "recovery": "错拉先让该结绷紧，松手可重试；已取回物不重新吞入，不因一次错误把全部成果抹掉。",
+      "witness_fact": "PAYLOAD_F54",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "可吞到任务肉/钥匙/契约库存就破坏其他解；错过三次动画无顺序证据。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F55",
+      "name": "护夜犬卡德霍",
+      "activation_mode": "optional_offer",
+      "requires_before_omen": [
+        "未食用可赠食物；真实待交物；固定干路线；返回所需预算。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_PLAN_DELIVERY：班前登记真实配送单与时刻",
+        "P_RECEIVE_CARGO：配送到场实际收一箱货；记录同一箱ID",
+        "P_SEE_F55：同一F55实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+        "P_OFFER_F55：该F55本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+        "P_ARRIVE_F55：F55已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺"
+      ],
+      "source_kinds": [
+        "actual_pending_delivery+optional_food_contract"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [
+        "SUP_MEAL"
+      ],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "receiver_wait_world_seconds_max",
+          "clock": "world_simulation",
+          "seconds": 6,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "off_route_warning_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 3,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "off_route_protection_expires_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 6,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；等待有上限，离线可取消庇护并带原物返回；06前必须留足返程时间；未接受拒绝不消耗食物。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；等待有上限，离线可取消庇护并带原物返回；06前必须留足返程时间；未接受拒绝不消耗食物。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；等待有上限，离线可取消庇护并带原物返回；06前必须留足返程时间；未接受拒绝不消耗食物。",
+      "normal_resolution": "完成限定护送并返回店内即可结束：实际交付才记订单完成，超时带物返回只记安全护送及待办。次夜预警绑定实际下一夜ID、跨周仍限一次且到期失效，N06不生成第七小时。",
+      "recovery": "踩出线先让犬停步示警，返回最近节点可续行；离开过久则本次庇护结束，交接物仍保留。",
+      "witness_fact": "PAYLOAD_F55",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "迟到超时带货返回与必须终点交物的成功条件冲突；免费赠食来源与个人保底餐未分开；最后夜奖励期限含糊。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F56",
+      "name": "深水邦耶普",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "WET_AISLE及实际低层货；固定尺/割点/干路。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_PLAN_DELIVERY：班前登记真实配送单与时刻",
+        "P_RECEIVE_CARGO：配送到场实际收一箱货；记录同一箱ID",
+        "P_KNOWN_WET：只激活已绘湿图或怪本身带入的登记源；保留干路",
+        "P_ARRIVE_F56：F56从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "encounter_wet_graph+actual_goods"
+      ],
+      "supplies_required": [
+        "SUP_CLEANING",
+        "SUP_DRY_CLOTH",
+        "SUP_DEPTH_PROBE"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；提前排干取货PREVENTED；货物只移固定保留格，不消失；没有货或无干路不投放。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；提前排干取货PREVENTED；货物只移固定保留格，不消失；没有货或无干路不投放。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；提前排干取货PREVENTED；货物只移固定保留格，不消失；没有货或无干路不投放。",
+      "normal_resolution": "已确认目标分支排干、登记物从干侧实际取回即结束；测深用于辨认边界，若玩家已提前断水并安全取回，不强迫在干地重复测深。",
+      "recovery": "误入边缘先给下沉预告，退到刚登记的干格可中止；目标货仅滑到下一固定格，不随机沉没消失。",
+      "witness_fact": "PAYLOAD_F56",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "成功强制测深记录，即使玩家已在预兆期断水把货取回也被判没完成。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F57",
+      "name": "水路守护塔尼瓦",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "实际待过箱、ATT15、维护窗口；受保护主渠畅通。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_PLAN_DELIVERY：班前登记真实配送单与时刻",
+        "P_RECEIVE_CARGO：配送到场实际收一箱货；记录同一箱ID",
+        "P_ARRIVE_F57：F57从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "actual_cargo+protected_water_contract"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "maintenance_pause_max_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 8,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；8秒维护到期须安全撤销；已搬箱不传回；箱提前送达且渠畅通记PREVENTED。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；8秒维护到期须安全撤销；已搬箱不传回；箱提前送达且渠畅通记PREVENTED。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；8秒维护到期须安全撤销；已搬箱不传回；箱提前送达且渠畅通记PREVENTED。",
+      "normal_resolution": "同一登记箱通过合法维护路线或登记外绕到达，主渠畅通且无遗留踏板即可结束；提前送达且渠畅通同样有效。",
+      "recovery": "窗口将结束先提示归位，可放箱到缓冲槽退回；仅本轮未完成，已移箱不回传、不整片倒灌。",
+      "witness_fact": "PAYLOAD_F57",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "重箱超预算允许外绕，但主成功强制踏板完成，替代解无终点。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F58",
+      "name": "雾笛访客",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "真实热食/温度状态或可手动封闭冷区；至少有受影响的服务或工作。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_DUTY：本阶段发出真实尚未完成的工作对象",
+        "P_HOT_FOOD：实际制作登记热食，温档/品质计时从完成动作开始",
+        "P_ARRIVE_F58：F58从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "actual_food_state+timed_encounter_environment"
+      ],
+      "supplies_required": [
+        "SUP_TEMP_COVER",
+        "SUP_HOT_MEAL"
+      ],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "fog_offer_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 30,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "hot_portion_quality_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 40,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；热食耗尽可立即转安全封区；提前封区是防范，计真实服务机会损失不硬扣虚构订单；不为制造风险把已热食变冷。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；热食耗尽可立即转安全封区；提前封区是防范，计真实服务机会损失不硬扣虚构订单；不为制造风险把已热食变冷。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；热食耗尽可立即转安全封区；提前封区是防范，计真实服务机会损失不硬扣虚构订单；不为制造风险把已热食变冷。",
+      "normal_resolution": "暖边界维持到本次明确退雾时点，或冷区普通业务已实际停用且玩家安全退出，均结束本次遭遇；提前封区有效，只有真实受影响服务才计机会损失。",
+      "recovery": "误取最后热食先给边界收缩预告，放回或封区可补救；HUD和撤离方向不被雾覆盖。",
+      "witness_fact": "PAYLOAD_F58",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "退雾没有时间；热食可永久热；封区可能堵F13必要冰柜/退路；无冷区业务时保食取舍无意义。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F59",
+      "name": "梅内胡内工队",
+      "activation_mode": "optional_offer",
+      "requires_before_omen": [
+        "真实未修普通故障、3份维修材料与3材料槽可用；原设备操作位可安装并测试。",
+        "首兆前不存在制成组件；未注视施工8秒后才产出，同一组件实际安装2秒和测试1秒才清故障。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_DUTY：本阶段发出真实尚未完成的工作对象",
+        "P_DEVICE_USE：实际启用有任务的工位",
+        "P_DEVICE_WARNING：设备发生明确子型故障，出现可见预告",
+        "P_UNFINISHED_REPAIR：真实故障尚未被玩家或同事修好",
+        "P_SEE_F59：同一F59实例在公共位置出现并占已预约主位；此时尚未接受承诺",
+        "P_OFFER_F59：该F59本人提出有对象/范围/时限的请求，后续仅消费同一实体的提案",
+        "P_ARRIVE_F59：F59已可见的同一实体进入可交互状态；不再次生成身体，不自动接受承诺"
+      ],
+      "source_kinds": [
+        "actual_equipment_fault"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [
+        "SUP_MATERIAL_REPAIR"
+      ],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [
+        "SUP_REPAIR_COMPONENT"
+      ],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "unobserved_construction_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 8,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "install_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 2,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "test_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 1,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；故障提前修复就撤销委托并返还未用材料；接受前拒绝安全离去，误看只暂停进度；本次修复不免疫下次故障。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；故障提前修复就撤销委托并返还未用材料；接受前拒绝安全离去，误看只暂停进度；本次修复不免疫下次故障。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；故障提前修复就撤销委托并返还未用材料；接受前拒绝安全离去，误看只暂停进度；本次修复不免疫下次故障。",
+      "normal_resolution": "真实故障对应组件已制作、安装并通过实际测试时结算一次帮助；故障提前修好或接受前拒绝则安全结束，返还未用材料，不产生故障免疫。",
+      "recovery": "误看或开灯只暂停进度，转开可继续；材料不重扣，不因一眼抹掉所有已做工。",
+      "witness_fact": "PAYLOAD_F59",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "无故障虽然文案说不投，但没结构化门槛；E024门铃在前门，工区在店内，修完如何作用目标未交代。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    },
+    {
+      "id": "F60",
+      "name": "马面引路者",
+      "activation_mode": "scheduled_visible_scene",
+      "requires_before_omen": [
+        "声明该单一实体与其可用转身预告反馈；当前玩家、帘与操作位几何满足。",
+        "实际转身与8秒预告在世界内发生，不要求首兆前已经转身；可安全停用局部服务位。"
+      ],
+      "producer_steps": [
+        "P_OPEN_SHIFT：班前实际开班，登记两个员工、唯一店长、时钟、物资与订单表",
+        "P_FREE_INSTRUCTION：针对拟投放现象进行免费基础动作教学；不要求先遭遇或付费学习",
+        "P_CLEAR_ROUTE：按当前门与占用状态确认一条可达路径；几何由外部验证",
+        "P_ARRIVE_F60：F60从已预约的入口/物件/现象实际出现；只带当前卡声明的有限对象，不补写历史"
+      ],
+      "source_kinds": [
+        "encounter_gaze_state+actual_geometry"
+      ],
+      "supplies_required": [],
+      "supplies_on_accept": [],
+      "supplies_arrival_payload": [],
+      "supplies_produced_by_work": [],
+      "timers": [
+        {
+          "id": "registered_deadline",
+          "clock": "shift_budget",
+          "deadline": "120秒阶段边界复核：可选未接受安全离去；已接受非威胁按卡片结算；活动威胁保留同实例且最多跨一个阶段，06:00仍未解除则本班失败。"
+        },
+        {
+          "id": "turn_warning_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 8,
+          "kind": "declared_duration_or_window"
+        },
+        {
+          "id": "targetless_departure_world_seconds",
+          "clock": "world_simulation",
+          "seconds": 3,
+          "kind": "declared_duration_or_window"
+        }
+      ],
+      "on_missing_inputs": "do_not_admit_no_history_fabrication",
+      "on_player_prevented": "有实际动作切断核心危险时按下述卡片结束条件判定；实体退场等2秒按世界时间；提前遮线PREVENTED；无法隔断则保留背向退出且不锁必经路。",
+      "on_source_expired": "真实来源自然消失时走卡片离场/保管分支；实体退场等2秒按世界时间；提前遮线PREVENTED；无法隔断则保留背向退出且不锁必经路。",
+      "on_refused": "仅卡片明确的未接受交易/邀请可拒绝；实体退场等2秒按世界时间；提前遮线PREVENTED；无法隔断则保留背向退出且不锁必经路。",
+      "normal_resolution": "实际实体视线已被有效遮挡或玩家保持未朝向，该服务位实际停用并完成2秒世界退场等待即结束；提前拉帘或停用有效。帘只在真实位于两者之间时阻视，镜证据仍为可选奖励。",
+      "recovery": "误转头先给可见的惊惧警告，拉帘或侧退可恢复；帘不得在同一遭遇里无预告失效。",
+      "witness_fact": "PAYLOAD_F60",
+      "witness_file": "content/condition_reachability_v06.json",
+      "actor_policy_file": "content/condition_lifecycle_v06.json",
+      "client_implemented": false,
+      "original_gaps_reviewed": [
+        "转身预告长度未当前化；已关闭服务位仍必须重复关；帘仅在固定样例有效而非所有站位。"
+      ],
+      "remediation_status": "design_fields_updated_client_adapter_pending",
+      "producer_graph_scope": "各卡独立依赖见证；算子可包含不同来源的替代分支，列表不是必须全部执行的线性流程。"
+    }
+  ],
+  "audit_notes": [
+    {
+      "scope": "20条规则、60卡、72事件、120当前变体",
+      "finding": "缺源、来源循环、历史伪造、提前处理无终态、身份不绑定、并发库存重复、双时钟与终局顺序均纳入本次设计检查。",
+      "limitations": "依赖见证与有限无画面状态测试只覆盖已建模的生产与状态逻辑，不证明60个客户端实现、所有路线组合、全部数值平衡或实际趣味性。"
+    },
+    {
+      "scope": "历史联动",
+      "disabled_current_ids": [
+        "S03",
+        "S11",
+        "S12"
+      ],
+      "reason": "缺少实际收益生产者，或同一伤口重复派生两个响应怪；保留历史条目供追溯，不进当前候选。"
+    }
+  ],
+  "panic_stabilization": {
+    "authority": "content/balance.json#/resources/san",
+    "portable": true,
+    "panic_window_world_seconds": 20,
+    "stabilization_world_seconds": 8,
+    "san_on_success": 15,
+    "free_uses_per_night": 1,
+    "walking_allowed": true,
+    "sprint_or_parallel_work_allowed": false,
+    "hit_or_other_work_interrupts_without_resetting_progress": true,
+    "world_and_enemy_time_continue": true,
+    "pause_generates_no_progress": true,
+    "first_zero_starts_one_deadline_repeated_zero_does_not_refresh": true,
+    "not_a_physical_damage_shield": true,
+    "reason": "垃圾箱到柜台54格/18秒加8秒稳定已超过旧20秒；固定点要求会使首次免费解因几何无解。"
+  },
+  "order_timing": {
+    "ordinary_waiting_world_seconds": 24,
+    "special_deadline_starts_after_actual_acceptance": true,
+    "special_deadline_does_not_reset_on_reacceptance": true,
+    "cancelled_completed_or_arrived_base_slots_not_reusable": true,
+    "accepted_order_ids": [
+      "F06",
+      "F09",
+      "F27",
+      "F44",
+      "F48",
+      "F51"
+    ],
+    "source": "content/encounters_v05.json#runtime_parameters",
+    "normal_work_action_credit_and_time_count_once": true
+  },
+  "pet_startle_contract": "content/events.json#E070",
+  "active_carryover": {
+    "max_additional_phases": 1,
+    "same_instance_and_reservations_persist": true,
+    "conflicting_next_primary_suppressed": true,
+    "no_free_phase_boundary_reset": true,
+    "unresolved_at_true_six_fails_shift": true,
+    "registered_nonhostile_dawn_contracts_use_their_own_deadline": true
+  }
+}

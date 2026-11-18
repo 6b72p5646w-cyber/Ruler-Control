@@ -1,5 +1,5 @@
 {
-  "version": "0.5",
+  "version": "0.6",
   "status": "authored_overlay_not_client_implemented",
   "client_implemented": false,
   "base_map": "content/maps.json",
@@ -353,7 +353,16 @@
         "marked"
       ],
       "barrier_policy": "仅提供清楚的边界视觉；是否阻拦必须由怪物契约注册，默认不阻拦。F12不获永久柜台免疫。",
-      "no_global_safe_zone": true
+      "no_global_safe_zone": true,
+      "f32_scope_contract": {
+        "required_state": "marked",
+        "requires_no_employee_zone_invitation": true,
+        "mark_world_seconds": 1,
+        "affects_monster_ids": [
+          "F32"
+        ],
+        "does_not_clear_wound_or_encounter": true
+      }
     },
     {
       "id": "OBJ_TREE_RETURN",
@@ -466,7 +475,7 @@
     {
       "id": "GRP_RED_TRACE",
       "owner_anchor": "customer_wait",
-      "purpose": "F26三处伤迹",
+      "purpose": "F26教学示例路线；正式血迹只能由实际移动产生，不按这三个点凭空创建",
       "positions": [
         [
           6.5,
@@ -481,7 +490,8 @@
           24.5
         ]
       ],
-      "blocks_navigation": false
+      "blocks_navigation": false,
+      "runtime_trace_spawning_from_group_forbidden": true
     },
     {
       "id": "GRP_LURE_RETREAT",
@@ -1351,7 +1361,15 @@
     "immutable_encounter_receipts": true,
     "free_critical_actions_require_power": false,
     "authored_core_chase_radius_tiles": 0.3,
-    "size_growth_enabled": false
+    "size_growth_enabled": false,
+    "blood_trace_positions": {
+      "producer": "actual_actor_grid_movement_while_fresh",
+      "max_live_per_actor": 6,
+      "f26_bound_max": 3,
+      "blocks_navigation": false,
+      "static_group_is_not_teleport_target": true,
+      "lifetime_world_seconds": 30
+    }
   },
   "main_corridors": [
     {
@@ -1601,5 +1619,6 @@
       "new_world_positions": false,
       "purpose": "F28三支阀/源槽在同一水阀工位的局部面板读取；只切换离散源状态，不增三张地图或流体模拟。"
     }
-  ]
+  ],
+  "condition_lifecycle_contract": "content/condition_lifecycle_v06.json"
 }
