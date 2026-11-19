@@ -1,5 +1,7 @@
 # TD04：七夜建设费用、库存保留与周清
 
+> **TD05版本说明：** 本页保留历史设计与当时的验证记录。当前同格同伤的位移计费、无总额上限电链、易感、货架面积补偿、1秒纸偶、追逐速度、班前预购陷阱及七夜经济，以[TD05总览](51_td05_revision_overview.md)与52—56号文档为准；历史参数与检查结果不表示新机制已接入游戏运行器。
+
 2026-11-19。权威数据：[economy_week_td04.json](../content/economy_week_td04.json)。这是一套标准七夜防御模式的设计与有限参考回放，**不是已接入客户端的存档迁移**。
 
 [总览](45_td04_balance_overview.md) · [塔树](47_td04_tower_balance.md) · [陷阱](48_td04_traps_map_matchups.md) · [参考结果](50_td04_balance_results.md)

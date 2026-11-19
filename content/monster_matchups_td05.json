@@ -1,0 +1,4657 @@
+{
+  "version": "TD05",
+  "runtime_integrated": false,
+  "source_commit": "2de5054a12ee1655ad817dae73ce643d1db82047",
+  "status": "complete_design_matchup_and_chase_review_not_live_ai",
+  "source_sha256": {
+    "content/monster_migration_td02.json": "2d909bcd4f3b526c6020198855d6a853e3d5c3ee0a0850cf99778eb44fc2ae60",
+    "content/monster_matchups_td03.json": "6f7d35441ef10aec0f44228844a4d8294a4c8c68631b8e7bb69fb91084a78a5b",
+    "content/monster_matchups_td04.json": "d223ccb3e430cd2124be3934c0882eb9f9f0ae603afa207463d0cf7e8e2db5d7"
+  },
+  "source_files": [
+    "content/monster_migration_td02.json",
+    "content/monster_matchups_td04.json",
+    "content/chase_profiles_td05.json",
+    "content/combat_contracts_td05.json",
+    "content/tower_defense_td05.json",
+    "content/traps_facilities_td05.json"
+  ],
+  "source_urls": [
+    "https://github.com/6b72p5646w-cyber/Ruler-Control/blob/574221f503e8b49d989534f9e014aff230771c44/content/monster_migration_td02.json",
+    "https://github.com/6b72p5646w-cyber/Ruler-Control/blob/574221f503e8b49d989534f9e014aff230771c44/docs/38_monster_tower_matchups_td02.md",
+    "https://github.com/6b72p5646w-cyber/Ruler-Control/blob/574221f503e8b49d989534f9e014aff230771c44/content/maps.json",
+    "https://github.com/6b72p5646w-cyber/Ruler-Control/blob/d13cef757309004a48f6bdb026a082cd872dda09/content/monster_matchups_td03.json"
+  ],
+  "authority_notes": [
+    "Original id/name/action/default_enabled remain unchanged. All60 entries were reviewed; F14 remains disabled.",
+    "Manifested hostiles pursue the player. Ordinary encounters use1–2 independent enemies; later crowds remain explicit authored cases.",
+    "Correct real responses weaken the existing ability, armor or targeting behavior and never auto-clear the hostile manifestation.",
+    "T10 phase cell damage equals ordinary cell damage. Extra reward comes from billing committed phase lines once despite existing deadlines, then refreshing deadlines; no teleport damage multiplier.",
+    "A phase audit is not a physical path: ordinary floor traps, appliance contact, residence damage and airborne legality still require real geometry.",
+    "Electricity searches the full live connected component; ordinary positive electric damage adds1 charge, native authored+2 replaces rather than duplicates that generic+1. No total wave feedback cap or charge-storage cap. Actual deaths remove nodes before the next wave.",
+    "Paper interception is at most1s per target with a6s shared target interval; new dolls or towers cannot extend it. Local safety windows are intended.",
+    "Susceptible is nonstacking threshold minus1: heat7/frost3/curse3/electric4. Persistent poison has no burst threshold. Actual immunity and legal target checks still apply.",
+    "Trap recommendations mean stock bought and deployed before opening; business cannot replenish, redeploy, repair or upgrade traps.",
+    "Favorable/conditional/weak are specialization judgments, not universal DPS rankings. No new summoning, splitting or mirror ability is assigned just to justify crowd towers."
+  ],
+  "branch_id_format": "T01.A1 ... T10.B2",
+  "known_l3_ids": [
+    "T01.A1",
+    "T01.A2",
+    "T01.B1",
+    "T01.B2",
+    "T02.A1",
+    "T02.A2",
+    "T02.B1",
+    "T02.B2",
+    "T03.A1",
+    "T03.A2",
+    "T03.B1",
+    "T03.B2",
+    "T04.A1",
+    "T04.A2",
+    "T04.B1",
+    "T04.B2",
+    "T05.A1",
+    "T05.A2",
+    "T05.B1",
+    "T05.B2",
+    "T06.A1",
+    "T06.A2",
+    "T06.B1",
+    "T06.B2",
+    "T07.A1",
+    "T07.A2",
+    "T07.B1",
+    "T07.B2",
+    "T08.A1",
+    "T08.A2",
+    "T08.B1",
+    "T08.B2",
+    "T09.A1",
+    "T09.A2",
+    "T09.B1",
+    "T09.B2",
+    "T10.A1",
+    "T10.A2",
+    "T10.B1",
+    "T10.B2"
+  ],
+  "applied_root_overrides": {
+    "T02.A1": "new-dose maturity once after 8 seconds, not continuous-lock doubling",
+    "T06.B1": "first real main-rule receipt while source active gives rule-synergy vulnerability 15% for 6 seconds; no historical replay",
+    "T09.B2": "outer-ring real exit transfers one earliest-expiring unreserved charge from >=2-layer nonready donor to nearest uncharged independent pool, preserving expiry and D; not old equalization",
+    "T10.B1": "TD05 same damage per ordinary/phase cell; benefit is reliable reconfiguration/coverage and fresh phase event settlement, never double phase damage.",
+    "T10.B2": "TD05 arrival cell uses ordinary3 damage; visible preannouncement + actual legal arrival may request1s/.6s position root under shared control and8s per-target gate.",
+    "T09.network": "Positive electric damage adds1 charge; native authored+2 replaces rather than duplicates generic+1. Full live connected components, recipient-local N+E, D6 native source, no global feedback or storage cap, no feedback potency decay. Death removes node next wave.",
+    "T05": "All paper sources share per-target1s maximum interception and6s restart interval; tiers reassemble4/3.5/3s after exit or destruction.",
+    "susceptible": "T04.A2 after1s actual light gives2s; T06.B2 actual first rule response gives6s; R08.B3 real trigger gives5s. Nonstacking threshold-1."
+  },
+  "movement_modes": [
+    "continuous",
+    "phase",
+    "airborne",
+    "anchored",
+    "mixed"
+  ],
+  "monsters": [
+    {
+      "id": "F01",
+      "name": "狐精",
+      "action": "同箱称量、真货上架、幻货退回",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "本体步行；有限诱像不自动具有独立生命池或真实换位路径。",
+      "favorable": [
+        "T01.B1",
+        "T02.A2"
+      ],
+      "conditional": [
+        "T03.A1",
+        "T07.B1"
+      ],
+      "weak": [
+        "T01.A1",
+        "T04.B1"
+      ],
+      "branch_rationale": {
+        "T01.B1": "真实幻货封存后本体不再换像扰锁，稳定连续命中能兑现热量",
+        "T02.A2": "短射界内两枚小票能留在同一真实本体，外观变化不清毒",
+        "T03.A1": "仅对明确ground的本体及合法独立战斗诱像起作用，纯装饰影不计数",
+        "T07.B1": "需要胶带、纸偶或真实引怪让本体留在小区内 纸偶单次只加至多1秒接触，不保证独立点燃或整轮持续覆盖。",
+        "T01.A1": "未解除换像前长装填容易把单发机会浪费在错误射界",
+        "T04.B1": "未稳定真身前换目标会重置曝光，不能把识破身份当灯的自动功能"
+      },
+      "recommended_traps": [
+        "R01",
+        "R02",
+        "R07"
+      ],
+      "condition": "保留同箱称量、真货上架、幻货退回；先得到合法显形目标，再谈连续锁定收益。",
+      "constraints": [
+        "诱像数量不等于独立血池数量",
+        "没有给狐精追加分裂或召唤",
+        "灯与自动选敌不代交身份核验",
+        "纸偶的1秒只是一段真实短窗，不能把1.5–3秒工位动作全算免费安全；应叠加既有停食/恢复或可取消累计动作。"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "称量不凭空生产商品；塔不在伪装期验明身份。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F01"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F01"
+      },
+      "movement_speed_review": {
+        "profile_id": "WALK",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.3,
+        "post_response_base_speed": 3.3,
+        "correct_response": "显形分拣拆诱像、维持本体锁定；不额外降移速。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F02",
+      "name": "画皮鬼",
+      "action": "侧光查皮缘、访客限权、围裙交真人",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "显形本体步行，遮挡后换皮不自动等于空间瞬移。",
+      "favorable": [
+        "T01.A1",
+        "T08.B1"
+      ],
+      "conditional": [
+        "T04.A2",
+        "T06.B1",
+        "T06.B2"
+      ],
+      "weak": [
+        "T01.A2",
+        "T10.A1"
+      ],
+      "branch_rationale": {
+        "T01.A1": "真实侧光与核验开放皮缘后，用单点重弹打明确受击窗",
+        "T08.B1": "尚未被权限操作永久封掉的设施夺控有明确可封准备时，可短打断",
+        "T04.A2": "只在实际光斑形成正确侧光且本体已显形时辅助路线，不给完整身份答案 对合法显形敌连续照1秒后易感2秒，可让火/冰/咒/电各少1层触发；不减少永久毒层数。",
+        "T06.B1": "本塔在首次真实规则成功时有效，才给后续6秒规则协作收益",
+        "T01.A2": "单一本体没有纵列独立目标可穿，面积投资难兑现",
+        "T10.A1": "换皮本身不跨区，收益依赖额外实际长距离步行",
+        "T06.B2": "本塔在首次真实主要规则回应时在有效域内，才给该已显形敌易感6秒；既有层数可更早触发火/冰/咒/电，无历史回执重放。"
+      },
+      "recommended_traps": [
+        "R07",
+        "R08"
+      ],
+      "condition": "核验、收权限、交围裙是不同真实动作；公证在能力仍存在时有价值，权限已收回后不能重复领取打断收益。",
+      "constraints": [
+        "不新增无限夺控",
+        "源已永久封印后不为塔补造新技能",
+        "侧光不构成两份独立身份凭证"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "真工牌不能直接验真；撤权不让原钥匙瞬移。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F02"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F02"
+      },
+      "movement_speed_review": {
+        "profile_id": "WALK",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.3,
+        "post_response_base_speed": 3.3,
+        "correct_response": "核验破皮、撤权封夺控；普通追逐保留。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F03",
+      "name": "僵尸",
+      "action": "看呼吸雾点、遮挡/短屏息、分段送货",
+      "default_enabled": true,
+      "movement_mode": "mixed",
+      "movement_condition": "分段跳跃与地面落地恢复；空中段不属于ground连续轨迹。",
+      "favorable": [
+        "T01.A1",
+        "T02.A2"
+      ],
+      "conditional": [
+        "T03.B1",
+        "T10.B2"
+      ],
+      "weak": [
+        "T10.A1",
+        "T07.B2"
+      ],
+      "branch_rationale": {
+        "T01.A1": "失锁后的已锁落点与恢复窗适合储存重弹预瞄",
+        "T02.A2": "短暂合法显形内连续两次真实命中，比长时间锁定要求更可靠",
+        "T03.B1": "仅在目标落地或处于该塔可命中低空层时冻结，冻结不迫降",
+        "T10.B2": "落点预告真实已看见、地面区能提前投影完成时才截停；实际到达合法可控高度后申请普通1秒/精英0.6秒束缚固定位置，受共享硬控与8秒目标门槛，落格仍按普通3伤；不是仅封下一跳。 普通跳跃/跃出仅按实际落格与原有格冷却结算；只有真实转场才审计整段并刷新期限。",
+        "T10.A1": "跳跃中间没有地面逐格计费，不能按平面投影打满",
+        "T07.B2": "小焰芯不瞬移追上跳跃终点，容易在转场时丢驻留"
+      },
+      "recommended_traps": [
+        "R02",
+        "R13"
+      ],
+      "condition": "呼吸雾点过期后固定旧落点，不允许塔或陷阱让怪偷偷改落点；实际落地才用地面机关。",
+      "constraints": [
+        "跳跃不是默认真瞬移",
+        "空中不触发地面夹具",
+        "不用冲刺作为唯一躲避条件"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "0体力仍可用步行/遮挡；1.5秒预告锁定后不得追着玩家改落点。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F03"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F03"
+      },
+      "movement_speed_review": {
+        "profile_id": "LEAP",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.2745,
+        "post_response_base_speed": null,
+        "correct_response": "雾点失效后仍锁旧落点，落地恢复由1秒延至2.5秒；旧点方向可进一步降低实际追近。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F04",
+      "name": "鲛人",
+      "action": "同一湿纱量长、封盘、寄售",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "低速贴地滑行；需明确ground受击层，不由水影外观推断潜行。",
+      "favorable": [
+        "T04.B1",
+        "T07.B1"
+      ],
+      "conditional": [
+        "T03.B2",
+        "T01.A1"
+      ],
+      "weak": [
+        "T10.A1",
+        "T06.A2"
+      ],
+      "branch_rationale": {
+        "T04.B1": "纱幕收束后绕到可见侧后射界，慢速同体适合持续曝光",
+        "T07.B1": "在真实护幕缺口一侧固定小区，低速驻留兑现持续伤",
+        "T03.B2": "需要另一座物理塔在后续批次消费脆冰，且命中来自护幕允许方向",
+        "T01.A1": "受击角度已打开时单发价值高，不能穿过完整朝向护幕",
+        "T10.A1": "低速同区驻留的跨区数量有限，难发挥移动税专长",
+        "T06.A2": "单体本已低速，群体收拢收益低且需明确可推动标签"
+      },
+      "recommended_traps": [
+        "R01",
+        "R02",
+        "R13"
+      ],
+      "condition": "同一湿纱、封盘与寄售保留；护幕从全向干扰收束为实际单向，射线仍要检查。",
+      "constraints": [
+        "不把护幕当所有方向无条件免疫",
+        "不新增眷属",
+        "状态火不破坏任务湿纱",
+        "稳定后若奖励包含陷阱修理/补线/补给，营业中只授予下一班前可用、明确面额的采购折扣；仍须实际购得材料再装填/维修。不直接恢复已布陷阱HP/次数，不直接生成硬件；奖励去重且周末清理。"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "不逼哭刷珠，不从量纱复制材料，护幕不能同时360度免伤。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F04"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F04"
+      },
+      "movement_speed_review": {
+        "profile_id": "HEAVY",
+        "base_speed": 3.24,
+        "reference_effective_speed": 3.24,
+        "post_response_base_speed": 3.24,
+        "correct_response": "护幕固定单一朝向，背侧能命中；不虚构额外减速。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F05",
+      "name": "河童",
+      "action": "关指定冷区阀、擦断割点、取原篮入干槽",
+      "default_enabled": true,
+      "movement_mode": "mixed",
+      "movement_condition": "真实连通水路阶段与干侧显形地面阶段分开；未声明连续扫掠的水遁不算地面路径。",
+      "favorable": [
+        "T02.A2",
+        "T10.B2"
+      ],
+      "conditional": [
+        "T09.B1",
+        "T05.A1"
+      ],
+      "weak": [
+        "T10.A1",
+        "T07.B2"
+      ],
+      "branch_rationale": {
+        "T02.A2": "在水边合法显形窗先附着毒，转场不清掉已付剂量",
+        "T10.B2": "断支流后已经预告的干侧落点可提前安排区域截停；实际到达合法可控高度后申请普通1秒/精英0.6秒束缚固定位置，受共享硬控与8秒目标门槛，落格仍按普通3伤；不是仅封下一跳。 普通跳跃/跃出仅按实际落格与原有格冷却结算；只有真实转场才审计整段并刷新期限。",
+        "T09.B1": "只有引到当前通电C2电器真实感应域、目标层合法时才有家电联防收益 普通正电伤继续+1层（原生+2替代而不再叠加这份+1），每波无总反馈上限；实际死亡会缩图，不能把装饰部件或真人计入数量。",
+        "T05.A1": "断流后确实成为可阻挡ground实体，纸偶才可守干侧入口 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。",
+        "T10.A1": "未断水时不能把未登记的水遁轨迹按地面逐格收费",
+        "T07.B2": "水中不可选中阶段没有持续跟随小炉的合法目标"
+      },
+      "recommended_traps": [
+        "R01",
+        "R02",
+        "R09",
+        "R12"
+      ],
+      "condition": "指定冷区阀、真实割点与原篮入干槽共同限制水路；完全隔断后再使用地面控制。",
+      "constraints": [
+        "孤立湿点不是传送点",
+        "水路不自动成为全店导电网",
+        "其他主渠阀不替代冷区阀"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "孤立湿点不能当传送点；不把另一主渠阀误作冷区阀。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F05"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F05"
+      },
+      "movement_speed_review": {
+        "profile_id": "WATER_LANE",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.3,
+        "post_response_base_speed": 2.85,
+        "correct_response": "断真实支流后干侧显形，封水遁、水甲；转2.85格/秒实体。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F06",
+      "name": "雪女",
+      "action": "原热饮+纸单同槽、无声交付",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "慢步行与真实地面冰带，霜环不是空间瞬移。",
+      "favorable": [
+        "T02.A1",
+        "T04.B1"
+      ],
+      "conditional": [
+        "T09.B1",
+        "T07.B1"
+      ],
+      "weak": [
+        "T03.A1",
+        "T10.A1"
+      ],
+      "branch_rationale": {
+        "T02.A1": "显形保持时间足够时可兑现8秒一次成熟，毒只持续掉血",
+        "T04.B1": "慢速可见本体适合长射界曝光，仍读取实际ward",
+        "T09.B1": "热食/冷柜区只有当前通电且未封停的C2设备才计入感应 普通正电伤继续+1层（原生+2替代而不再叠加这份+1），每波无总反馈上限；实际死亡会缩图，不能把装饰部件或真人计入数量。",
+        "T07.B1": "在真实慢行路线或停顿点驻留时可灼烧易伤，不凭雪女名字加倍",
+        "T03.A1": "既有冷雾减速有明示折减，广域慢场的边际价值较低",
+        "T10.A1": "慢步同区停留多、跨区少，不是移动税的优势对局"
+      },
+      "recommended_traps": [
+        "R13",
+        "R14",
+        "R08"
+      ],
+      "condition": "原热饮与纸单同槽、无声交付后封本场扩霜与冻塔能力；战斗火不代交热饮。",
+      "constraints": [
+        "不凭名字推出火伤翻倍或冻结全免",
+        "正常保温/拒绝路径仍存在",
+        "毒不附赠回复抑制"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "规则禁止订单广播而非禁止玩家查规则；微波炉失效仍有保温/拒绝安全路径。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F06"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F06"
+      },
+      "movement_speed_review": {
+        "profile_id": "HEAVY",
+        "base_speed": 3.24,
+        "reference_effective_speed": 3.24,
+        "post_response_base_speed": 3.24,
+        "correct_response": "同份合格热饮永久封扩霜与冻塔；保持沉重追逐。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F07",
+      "name": "座敷童子",
+      "action": "保护同一空椅、改道原客、可选供物",
+      "default_enabled": true,
+      "movement_mode": "mixed",
+      "movement_condition": "预告短跳到登记椅边，随后真实坐椅停顿；跳跃类型和高度按实体轨迹判断。",
+      "favorable": [
+        "T01.A1",
+        "T02.A2"
+      ],
+      "conditional": [
+        "T07.B1",
+        "T10.B2"
+      ],
+      "weak": [
+        "T04.B1",
+        "T01.A2"
+      ],
+      "branch_rationale": {
+        "T01.A1": "椅边已知短停顿适合预先装填的一发重击",
+        "T02.A2": "短停顿内两发小票留下后续毒伤，不要求四秒持续曝光",
+        "T07.B1": "椅边实际接地且留在小区时可支付当段持续伤，短停顿不保证独立点燃",
+        "T10.B2": "预告椅旁落点可见且投影提前完成时才有截停；实际到达合法可控高度后申请普通1秒/精英0.6秒束缚固定位置，受共享硬控与8秒目标门槛，落格仍按普通3伤；不是仅封下一跳。 普通跳跃/跃出仅按实际落格与原有格冷却结算；只有真实转场才审计整段并刷新期限。",
+        "T04.B1": "基础1.5秒坐椅窗口不足四秒最高曝光，不能预设已升档",
+        "T01.A2": "单个童子影不提供三个独立目标的纵列收益"
+      },
+      "recommended_traps": [
+        "R01",
+        "R02",
+        "R13"
+      ],
+      "condition": "保护同一空椅、改道原客和可选供物保留；累积进度影响实际停顿，不制造多个孩子。",
+      "constraints": [
+        "不强迫无限等待",
+        "停顿延长需来自真实保护进度",
+        "投影击退不伤害儿童原型",
+        "纸偶的1秒只是一段真实短窗，不能把1.5–3秒工位动作全算免费安全；应叠加既有停食/恢复或可取消累计动作。",
+        "稳定后若奖励包含陷阱修理/补线/补给，营业中只授予下一班前可用、明确面额的采购折扣；仍须实际购得材料再装填/维修。不直接恢复已布陷阱HP/次数，不直接生成硬件；奖励去重且周末清理。"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "不能凭不存在的顾客增添座位冲突；坐椅停止追逐是明示弱点而非天生友好。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F07"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F07"
+      },
+      "movement_speed_review": {
+        "profile_id": "WALK",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.3,
+        "post_response_base_speed": 3.3,
+        "correct_response": "椅位真实保护逐项封干扰；每次坐下至多1.5秒给短窗，累计期间仍可追逐。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F08",
+      "name": "付丧神",
+      "action": "原工具从垃圾取出，贴原裂纹或退役",
+      "default_enabled": true,
+      "movement_mode": "mixed",
+      "movement_condition": "工具附灵的短跳、漂浮与落地翻滚分别登记高度；退役后活动锁在槽边。",
+      "favorable": [
+        "T02.A2",
+        "T08.B1"
+      ],
+      "conditional": [
+        "T01.A1",
+        "T07.B1"
+      ],
+      "weak": [
+        "T05.A1",
+        "T10.A1"
+      ],
+      "branch_rationale": {
+        "T02.A2": "漂浮/翻滚间合法显形窗可附毒，原工具身份不因姿态变化清掉剂量",
+        "T08.B1": "特殊敲击连打仍有可封准备时短打断，为修补争取时间",
+        "T01.A1": "修补或退役产生明确稳定受击窗后再用长装填重击",
+        "T07.B1": "只在工具真正落地或合法地面载体阶段支付场伤",
+        "T05.A1": "漂浮与跳跃阶段不能被地面纸偶默认拦住 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。",
+        "T10.A1": "中间空中运动不能按地面跨格收费"
+      },
+      "recommended_traps": [
+        "R02",
+        "R04",
+        "R13"
+      ],
+      "condition": "从垃圾取回同一工具，贴真实裂纹或退役；完整修补封特殊连打，普通追击仍存在。",
+      "constraints": [
+        "多段连打不自动等于多个独立attack_id",
+        "工具部件不自动变眷属",
+        "保留任务物身份"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "断电重启不代替修复；不能制造新坏工具维持刷怪。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F08"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F08"
+      },
+      "movement_speed_review": {
+        "profile_id": "WALK",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.3,
+        "post_response_base_speed": 3.3,
+        "correct_response": "修补封连打；只有真实退役槽选择限制槽边活动，不能靠动画白送永久定身。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F09",
+      "name": "轆轤首",
+      "action": "同一身体篮号装货，身体到柜台结算",
+      "default_enabled": true,
+      "movement_mode": "mixed",
+      "movement_condition": "身体地面步行、头部越低架；同一根同一生命池，头身体的合法高度分别检查。",
+      "favorable": [
+        "T02.A1",
+        "T01.B1"
+      ],
+      "conditional": [
+        "T03.B1",
+        "T05.A1"
+      ],
+      "weak": [
+        "T09.A2",
+        "T01.A2"
+      ],
+      "branch_rationale": {
+        "T02.A1": "同一共池本体长期积毒，伸颈或缩头不清负荷",
+        "T01.B1": "合法受击部位仍属于同一池，能累积同一份热量",
+        "T03.B1": "须命中当前合法部位，冻结如何约束整个共池载体依明确身体合同",
+        "T05.A1": "真实结算令头部回缩后，地面身体阻挡才不会被越架头攻绕过 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。",
+        "T09.A2": "头与身体不是两个独立带电池，无法互弹或占双极名额 单池仍有5伤/1.2秒的基础通路，弱项指不能兑现双池互弹，而非无法输出。 普通正电伤继续+1层（原生+2替代而不再叠加这份+1），每波无总反馈上限；实际死亡会缩图，不能把装饰部件或真人计入数量。",
+        "T01.A2": "同一射线经过头身体也只计一次同池伤害"
+      },
+      "recommended_traps": [
+        "R02",
+        "R14"
+      ],
+      "condition": "同一身体篮号装货并真实到柜台结算，使伸颈优势关闭；多个部位统一生命池。",
+      "constraints": [
+        "无双份热印毒量",
+        "共池部位不结两次奖励",
+        "拦身体不默认取消已发出的头部攻击"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "头和身体不能算两只怪或两份订单，颈线不穿实体墙。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F09"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F09"
+      },
+      "movement_speed_review": {
+        "profile_id": "WALK",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.3,
+        "post_response_base_speed": 3.3,
+        "correct_response": "真实成交回缩头部、失去越架攻击并增转向时间；头身仍一池。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F10",
+      "name": "海坊主",
+      "action": "真实问题证据卡、排水杆降水、关服务窗",
+      "default_enabled": true,
+      "movement_mode": "anchored",
+      "movement_condition": "窗口投影在合法窗位攻击；换窗未登记为连续地面移动，不给虚构中间路径。",
+      "favorable": [
+        "T02.A1",
+        "T01.A1"
+      ],
+      "conditional": [
+        "T04.B1",
+        "T08.B1"
+      ],
+      "weak": [
+        "T05.A1",
+        "T10.A1"
+      ],
+      "branch_rationale": {
+        "T02.A1": "可见锚定投影保留毒量，足够长的遭遇可兑现8秒成熟",
+        "T01.A1": "长射程单点重击打真实窗投影，不依赖巨体进入通道",
+        "T04.B1": "关闭小窗后残留同窗且可见时间足够才有持续曝光",
+        "T08.B1": "仅对仍存在且明确可封的灌水/波浪准备生效，主要规则封掉后不补造",
+        "T05.A1": "窗面投影不是纸偶能在地面拦住的身体 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。",
+        "T10.A1": "锚定换窗不提供地面八格连续收费路径"
+      },
+      "recommended_traps": [],
+      "condition": "证据卡、排水杆和关窗仍各处理真实条件；当前地图未证明地面机关能接触窗影体积，因此不硬推荐地面陷阱。",
+      "constraints": [
+        "不把巨体塞窄道",
+        "不把换窗动画当真实地面冲刺",
+        "未明确设备就不新增电器倍率"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "无真实问题不造题；普通排水不能删除别的怪的独立水源。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F10"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F10"
+      },
+      "movement_speed_review": {
+        "profile_id": "ANCHORED",
+        "base_speed": 0,
+        "reference_effective_speed": 0,
+        "post_response_base_speed": 0,
+        "correct_response": "逐档降水关闭波浪路径，窗前残影可打；继续锚定威胁。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F11",
+      "name": "韩国鬼怪",
+      "action": "有限两轮比赛或同一荞麦份交付",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "步行与有预告的突进，只有实际连续地面段才使用移动税。",
+      "favorable": [
+        "T01.A1",
+        "T07.B1"
+      ],
+      "conditional": [
+        "T08.A2",
+        "T06.B1"
+      ],
+      "weak": [
+        "T02.B1",
+        "T10.B1"
+      ],
+      "branch_rationale": {
+        "T01.A1": "真实赢比赛或荞麦进食产生明确破绽，储弹单击可利用",
+        "T07.B1": "进食或纸偶留下的实际驻留支持小区持续伤 纸偶单次只加至多1秒接触，不保证独立点燃或整轮持续覆盖。",
+        "T08.A2": "削减真实攻击威胁，不把每个连击画面当独立攻击完成",
+        "T06.B1": "本塔已生效时首次真实规则回执才触发15%规则协作6秒",
+        "T02.B1": "单个斗手没有邻近独立池承接分流毒份额",
+        "T10.B1": "普通预告突进不等于真正空间转场 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。"
+      },
+      "recommended_traps": [
+        "R01",
+        "R08",
+        "R13"
+      ],
+      "condition": "有限两轮比赛或同一荞麦份交付保留；塔技能不生成比赛胜利回执。",
+      "constraints": [
+        "不复制奖品",
+        "不追加召唤",
+        "进食停顿有限"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "不无限邀战刷新赌注；奖品不是击退币的第二次结算。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F11"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F11"
+      },
+      "movement_speed_review": {
+        "profile_id": "DASH",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.28125,
+        "post_response_base_speed": 3.3,
+        "correct_response": "胜轮卸斗气，真实荞麦进食3秒暂封突进；其余时间普通追逐。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F12",
+      "name": "不可杀伊",
+      "action": "真实取盒、撒可达回形针链、引入设施火力区",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "慢重步行与真实纸夹诱导停食，不增加吃铁成长、啃门或瞬移。",
+      "favorable": [
+        "T01.A1",
+        "T02.A1"
+      ],
+      "conditional": [
+        "T07.B1",
+        "T04.B1"
+      ],
+      "weak": [
+        "T01.B2",
+        "T09.A2"
+      ],
+      "branch_rationale": {
+        "T01.A1": "首次破壳后及后续1.5秒接缝窗可集中单点重击，穿甲是明确属性",
+        "T02.A1": "慢重投影的持续战可积累永久毒并兑现8秒一次成熟",
+        "T07.B1": "真实停食时支付小区驻留伤，但1.5秒本身不保证独立点燃",
+        "T04.B1": "永久破壳后引入足够长的无遮挡路线，才能达到四秒曝光",
+        "T01.B2": "孤立耐久目标不能利用多目标残血调度和副签",
+        "T09.A2": "同一投影只有一个生命池，不能充作双极的两个目标 单池仍有5伤/1.2秒的基础通路，弱项指不能兑现双池互弹，而非无法输出。 普通正电伤继续+1层（原生+2替代而不再叠加这份+1），每波无总反馈上限；实际死亡会缩图，不能把装饰部件或真人计入数量。"
+      },
+      "recommended_traps": [
+        "R07",
+        "R13",
+        "R14"
+      ],
+      "condition": "同盒真实配给和纸夹链身份保留；首次完整停食永久破壳，后续接缝有限，出店不再直接胜利。",
+      "constraints": [
+        "毒作用于显形稳定度不是杀死神话本体",
+        "R10不生成原纸夹",
+        "同一部位/模型不重置谱系"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "无吃铁成长或啃门；回形针不是任意金币；不得无限造饵。驱退投影不等于杀死本体；停止进食不回滚主规则破壳。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F12"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F12"
+      },
+      "movement_speed_review": {
+        "profile_id": "HEAVY",
+        "base_speed": 3.24,
+        "reference_effective_speed": 3.24,
+        "post_response_base_speed": 3.24,
+        "correct_response": "实际纸夹停食1.5秒；首次完成永久破壳，离开停食后仍3.24追逐。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F13",
+      "name": "飞头女鬼",
+      "action": "同一登记任务肉装入有效冰柜并合盖",
+      "default_enabled": true,
+      "movement_mode": "airborne",
+      "movement_condition": "高空越低台、低空扑击；封肉后明确仍low_air，只有R03合法迫降才成为ground。",
+      "favorable": [
+        "T01.A1",
+        "T02.A2"
+      ],
+      "conditional": [
+        "T03.B1",
+        "T09.A1"
+      ],
+      "weak": [
+        "T10.A1",
+        "T05.A1"
+      ],
+      "branch_rationale": {
+        "T01.A1": "合法对空射线内可把重弹投入高低空可见窗口",
+        "T02.A2": "短显形内两次真实对空命中留毒，转低空不清旧量",
+        "T03.B1": "封肉后low_air在该塔覆盖内可固定高度，不能当迫降",
+        "T09.A1": "仅在合法低空与真实通电C2设备局部范围内利用电器倍率 普通正电伤继续+1层（原生+2替代而不再叠加这份+1），每波无总反馈上限；实际死亡会缩图，不能把装饰部件或真人计入数量。",
+        "T10.A1": "地面分区不覆盖高低空飞行轨迹",
+        "T05.A1": "纸偶不能以地面阻挡拦截飞头 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。"
+      },
+      "recommended_traps": [
+        "R03",
+        "R08"
+      ],
+      "condition": "同一登记肉入有效冰柜合盖永久切断觅肉、高速高飞和回复；低空与地面保持区分。",
+      "constraints": [
+        "冻结不迫降",
+        "普通地针/小灶需真实落地",
+        "任务肉不被塔烧掉",
+        "毒不再默认减疗"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "任务肉不被吃掉；旧0.6秒提交原子性与同帧优先保留；开柜/断电不复活封印。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F13"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F13"
+      },
+      "movement_speed_review": {
+        "profile_id": "FLY",
+        "base_speed": 3.45,
+        "reference_effective_speed": 3.45,
+        "post_response_base_speed": 3.0,
+        "correct_response": "同一肉合柜后封高速高飞和食物恢复，低空3.0格/秒；低空仍不等于地面。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F14",
+      "name": "饕食附身灵",
+      "action": "同一影子入盒合盖、搬门外槽、真人恢复岗位",
+      "default_enabled": false,
+      "movement_mode": "mixed",
+      "movement_condition": "默认关闭；未来仅讨论已与宿主分离、明确可选中的影或盒载体。",
+      "favorable": [
+        "T01.A1",
+        "T02.A1"
+      ],
+      "conditional": [
+        "T07.B1",
+        "T03.B1"
+      ],
+      "weak": [
+        "T01.A2",
+        "T08.A1"
+      ],
+      "branch_rationale": {
+        "T01.A1": "仅对独立显形的合法封印载体单点射击，不把真人当目标",
+        "T02.A1": "仅在分离后同一影生命池仍存续时积毒，绝不给宿主试毒验真",
+        "T07.B1": "盒载体确实与地面小场相交且不含真人时才可用",
+        "T03.B1": "已分离影的实际高度在覆盖内才可冻结，不借冻结伤宿主",
+        "T01.A2": "宿主与影不构成两个敌方池，不能获取穿线双伤",
+        "T08.A1": "真人与一个合法影不是群体目标，广域覆盖缺少价值"
+      },
+      "recommended_traps": [
+        "R08"
+      ],
+      "condition": "保持default_enabled=false；任何推荐都不构成开放投放授权，先完成同影入盒与真人恢复的设计验收。",
+      "constraints": [
+        "真人永不被试射",
+        "不新增已实现AI声明",
+        "来源的默认关闭状态原样保留"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "当前F14默认排除仍保留，需要独立启用评审；不能对真人开火验证附身。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F14"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F14"
+      },
+      "movement_speed_review": {
+        "profile_id": "ANCHORED",
+        "base_speed": 0,
+        "reference_effective_speed": 0,
+        "post_response_base_speed": 0,
+        "correct_response": "默认禁用；不得把宿主作为追逐敌人或塔目标。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F15",
+      "name": "蓬蒂雅娜",
+      "action": "点灯→盖原布→合铃并保持",
+      "default_enabled": true,
+      "movement_mode": "phase",
+      "movement_condition": "带起止预兆的真实短距转场，主规则完成后转普通追逐。 已提交的真转场按两点连线所穿有效计伤格逐格结算，并把这些格期限刷新为抵达+2秒；不会生成中途实体接触。",
+      "favorable": [
+        "T02.A2",
+        "T10.B1",
+        "T10.A1"
+      ],
+      "conditional": [
+        "T10.B2",
+        "T08.B1"
+      ],
+      "weak": [
+        "T04.B1",
+        "T05.A1"
+      ],
+      "branch_rationale": {
+        "T02.A2": "合法起落窗口内两发附毒，既有毒不被转场洗掉",
+        "T10.B1": "真实转场按起终点连线的有效区结算，每格与普通通过同为3伤；绕过本次既有计伤期限后刷新。分支优势是可靠布区与预约，不附加瞬移倍伤。",
+        "T10.B2": "真实预告已公开且投影提前完成，才对落点申请束缚固定；实际到达合法可控高度后申请普通1秒/精英0.6秒束缚固定位置，受共享硬控与8秒目标门槛，落格仍按普通3伤；不是仅封下一跳。 普通跳跃/跃出仅按实际落格与原有格冷却结算；只有真实转场才审计整段并刷新期限。",
+        "T08.B1": "尚未被合铃永久封掉的转场有可封准备时可短打断",
+        "T10.A1": "连片有效格现在直接惩罚真转场连线，覆盖长线路可多格结算；各格仍需实际部署在合法可走面。",
+        "T04.B1": "未限制转场前难持续四秒曝光，不能视为即时位移克星",
+        "T05.A1": "频繁真转场打断持续锁定或绕过地面阻挡；封掉转场后才改变这一弱项。 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。"
+      },
+      "recommended_traps": [
+        "R04",
+        "R14",
+        "R09"
+      ],
+      "condition": "点灯显示起点、原布关闭终点、合铃保持完成永久规则；针垫只在合法ground起落阶段触发。",
+      "constraints": [
+        "点灯不自动完成盖布/合铃",
+        "本实例永久封印不会因临时状态到期回滚",
+        "沿线分区税是专门相位审计；不生成实际中途触发、碰撞、普通场伤或电器经过。"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "动作顺序错误保留能验证的完成项，不能观察刷新原计时；新增位移明确是新店内改编。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F15"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F15"
+      },
+      "movement_speed_review": {
+        "profile_id": "TRUE_PHASE",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.3045,
+        "post_response_base_speed": 3.3,
+        "correct_response": "合铃真实累计3秒永久封特殊位移，改3.3基础追逐。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F16",
+      "name": "图尤尔",
+      "action": "封现金盘、跟测试币取回同批钱、封原袋",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "沿真实收银底部路径快速步行，封袋后实体快跑；外观和闪避不清同池毒。",
+      "favorable": [
+        "T10.A1",
+        "T01.B1"
+      ],
+      "conditional": [
+        "T05.B1",
+        "T07.A2"
+      ],
+      "weak": [
+        "T09.B1",
+        "T07.B2"
+      ],
+      "branch_rationale": {
+        "T10.A1": "实体快跑经过多个真实区，利用连续路径计费",
+        "T01.B1": "封盘/回钱/封袋并由胶带延长射界后，高频能稳定积热",
+        "T05.B1": "需要真实双偶侧后站位及可阻挡目标，才有夹击 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。",
+        "T07.A2": "实际通过预置热幕才直接得热，不能给未穿幕目标补点燃",
+        "T09.B1": "收银POS首版关闭，收银路径旁不能凭柜台外观获得家电感应 普通正电伤继续+1层（原生+2替代而不再叠加这份+1），每波无总反馈上限；实际死亡会缩图，不能把装饰部件或真人计入数量。",
+        "T07.B2": "未减速的快影能甩开最大2.2格每秒的焰芯"
+      },
+      "recommended_traps": [
+        "R01",
+        "R09",
+        "R12",
+        "R08"
+      ],
+      "condition": "实际封盘关回复、取回失币削闪避、封原袋；普通收银台不计电器。",
+      "constraints": [
+        "偷走现金是实际转移而非额外奖励",
+        "不把测试币变收入",
+        "不新增眷属",
+        "可把班前已装载的R08.B3放在真实跑线：先易感5秒再2咒；从0层触发后仍未满3层，需要后续命中。"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "偷走的是实际转移现金，不抹去总收入；测试币不可兑换；追逐不额外生币。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F16"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F16"
+      },
+      "movement_speed_review": {
+        "profile_id": "AGILE",
+        "base_speed": 3.45,
+        "reference_effective_speed": 3.45,
+        "post_response_base_speed": 3.45,
+        "correct_response": "封盘断偷币回血、逐币去闪避；实体快跑3.45仍在。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F17",
+      "name": "裹尸鬼",
+      "action": "同包裹松三结、交槽并退2.5格",
+      "default_enabled": true,
+      "movement_mode": "mixed",
+      "movement_condition": "短距跳跃与真实包裹领取停顿；地面恢复与空中阶段分开。",
+      "favorable": [
+        "T01.A1",
+        "T02.A2"
+      ],
+      "conditional": [
+        "T07.B1",
+        "T08.B1"
+      ],
+      "weak": [
+        "T10.A1",
+        "T05.A1"
+      ],
+      "branch_rationale": {
+        "T01.A1": "真实退开后的固定领取窗适合已装填重弹",
+        "T02.A2": "短窗两次命中留下毒，不要求连续长照",
+        "T07.B1": "只在目标真正落地并处于小区的领取段支付场伤",
+        "T08.B1": "尚存的拉扯连段只有明确准备可封时可打断",
+        "T10.A1": "跳跃中间不产生地面跨格税",
+        "T05.A1": "空中跳跃能越过地面接触点，不能默认一直拦住 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。"
+      },
+      "recommended_traps": [
+        "R02",
+        "R13"
+      ],
+      "condition": "原包裹松三结、交槽、退2.5格保留；已合法松结不会被冻层消费回滚。",
+      "constraints": [
+        "不清任务包裹身份",
+        "多段拉扯不重复奖励",
+        "地面机关不捕空中平面投影",
+        "纸偶的1秒只是一段真实短窗，不能把1.5–3秒工位动作全算免费安全；应叠加既有停食/恢复或可取消累计动作。"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "不能在包裹未到手时远程记交付；塔窗开始看实际接近而非UI点击。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F17"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F17"
+      },
+      "movement_speed_review": {
+        "profile_id": "LEAP",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.2745,
+        "post_response_base_speed": null,
+        "correct_response": "松结逐段取消拉扯；退出2.5格后真实领取2秒形成输出窗。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F18",
+      "name": "阿斯旺",
+      "action": "连续爪鞋足迹+独立入口记录、保持员工内门权限",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "步行与预告兽形疾走；换形保持同一躯体，不等于空间瞬移。",
+      "favorable": [
+        "T02.A1",
+        "T10.A1"
+      ],
+      "conditional": [
+        "T05.A2",
+        "T07.A2"
+      ],
+      "weak": [
+        "T10.B1",
+        "T04.A1"
+      ],
+      "branch_rationale": {
+        "T02.A1": "真实同体持续积毒，外形变化不抹掉8秒成熟预约",
+        "T10.A1": "实际兽形地面疾走经过多个区域才收跨区伤",
+        "T05.A2": "玩家在设施4格范围内执行真实物件操作时，纸偶可沿路径护送 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。",
+        "T07.A2": "员工捷径封闭后真实公共路线经过热幕才得灼伤",
+        "T10.B1": "改变形态不是已声明的真正转场，不能领取跨相对位 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。",
+        "T04.A1": "照明不会自动提供足迹与入口的两份独立证据"
+      },
+      "recommended_traps": [
+        "R09",
+        "R14",
+        "R01"
+      ],
+      "condition": "连续爪鞋足迹与独立入口记录核验同体，关闭员工内门只封明确捷径。",
+      "constraints": [
+        "不追加飞行或传送",
+        "纸偶不瞬移救玩家",
+        "真人权限证据仍需实际核验"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "关门不堵死正常人类撤离；不能用无录像的过去当证据。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F18"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F18"
+      },
+      "movement_speed_review": {
+        "profile_id": "DASH",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.28125,
+        "post_response_base_speed": null,
+        "correct_response": "核验同体不再清锁，关闭内门封捷径；既有兽形疾走不因核验凭空消失。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F19",
+      "name": "吠陀罗尸鬼",
+      "action": "同一原包裹挂入同订单链两回执并关对应柜",
+      "default_enabled": true,
+      "movement_mode": "phase",
+      "movement_condition": "原寄存站间有预告回跳；真实回跳起终点与封柜后固定显形分别处理。 已提交的真转场按两点连线所穿有效计伤格逐格结算，并把这些格期限刷新为抵达+2秒；不会生成中途实体接触。",
+      "favorable": [
+        "T02.A2",
+        "T10.B1",
+        "T10.A1"
+      ],
+      "conditional": [
+        "T10.B2",
+        "T07.B1"
+      ],
+      "weak": [
+        "T05.B1",
+        "T04.B1"
+      ],
+      "branch_rationale": {
+        "T02.A2": "回跳前后短窗能付出小票，旧毒不因换站重置",
+        "T10.B1": "真实转场按起终点连线的有效区结算，每格与普通通过同为3伤；绕过本次既有计伤期限后刷新。分支优势是可靠布区与预约，不附加瞬移倍伤。",
+        "T10.B2": "下一合法站预告可见并在投影范围内才预约截停；实际到达合法可控高度后申请普通1秒/精英0.6秒束缚固定位置，受共享硬控与8秒目标门槛，落格仍按普通3伤；不是仅封下一跳。 普通跳跃/跃出仅按实际落格与原有格冷却结算；只有真实转场才审计整段并刷新期限。",
+        "T07.B1": "同订单链关柜后固定ground显形才有稳定小区伤",
+        "T10.A1": "连片有效格现在直接惩罚真转场连线，覆盖长线路可多格结算；各格仍需实际部署在合法可走面。",
+        "T05.B1": "未封回跳前两纸偶不能阻断无实体转场 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。",
+        "T04.B1": "频繁真转场打断持续锁定或绕过地面阻挡；封掉转场后才改变这一弱项。"
+      },
+      "recommended_traps": [
+        "R04",
+        "R13",
+        "R14",
+        "R09"
+      ],
+      "condition": "同一原包裹与同订单链两回执保持，关对应柜才封回跳。",
+      "constraints": [
+        "不把多个寄存站当多个怪物",
+        "原包裹不复制",
+        "沿线分区税是专门相位审计；不生成实际中途触发、碰撞、普通场伤或电器经过。"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "错误票让原物回上个标记站，不复制；身体与包裹共一实例稳定度。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F19"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F19"
+      },
+      "movement_speed_review": {
+        "profile_id": "TRUE_PHASE",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.3045,
+        "post_response_base_speed": 3.3,
+        "correct_response": "真回执逐个关锚，关柜永久封回跳；固定显形指可持续锁定，仍3.3追逐而非永久站桩。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F20",
+      "name": "罗刹访客",
+      "action": "原单份食品交付、收回额外托盘、关交单缝",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "本体步行，长影手越低障碍；影手不是新生命池或本体位移。",
+      "favorable": [
+        "T01.A1",
+        "T07.B1"
+      ],
+      "conditional": [
+        "T03.B2",
+        "T08.B1"
+      ],
+      "weak": [
+        "T05.A1",
+        "T02.B1"
+      ],
+      "branch_rationale": {
+        "T01.A1": "单份摄食短站桩与已缩短影手的受击窗适合重弹",
+        "T07.B1": "真实摄食或已控制的本体驻留才兑现小区持续伤",
+        "T03.B2": "需要另一物理塔从合法方向消费脆冰，冻结不追溯取消已发出的影手",
+        "T08.B1": "全排索取等尚存明示特殊准备可封，普攻保留",
+        "T05.A1": "长影手仍能越低障碍，纸偶守口不能承担所有远伸攻击 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。",
+        "T02.B1": "单一本体没有独立邻体承接传染份额"
+      },
+      "recommended_traps": [
+        "R02",
+        "R08",
+        "R13"
+      ],
+      "condition": "交同一份原食品、收额外托盘、关交单缝保留，缩手与封索取为不同变化。",
+      "constraints": [
+        "手与身体共池",
+        "不制造免费食品",
+        "不给普通摄食无限延长"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "不能因为一句客套话取得全库权限；原食物转移而非重复扣。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F20"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F20"
+      },
+      "movement_speed_review": {
+        "profile_id": "WALK",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.3,
+        "post_response_base_speed": 3.3,
+        "correct_response": "每收真空盘缩影手射程，合缝封整排索取；基础步行3.3。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F21",
+      "name": "报丧女妖",
+      "action": "同fault_id人员离危险位、设备停机挂待修",
+      "default_enabled": true,
+      "movement_mode": "airborne",
+      "movement_condition": "缓慢飘行的显形影，实际高度须登记；普通地面网不得因速度慢就命中。",
+      "favorable": [
+        "T08.B1",
+        "T08.A2"
+      ],
+      "conditional": [
+        "T04.B1",
+        "T07.A2"
+      ],
+      "weak": [
+        "T05.A1",
+        "T10.A1"
+      ],
+      "branch_rationale": {
+        "T08.B1": "尖啸的明确准备期可被公证短断，为实际停机操作争时间",
+        "T08.A2": "真实攻击按咒印降伤/厄运，尖啸多段共用同一个攻击身份",
+        "T04.B1": "已显形且持续射线足够四秒时，慢飘目标可维持曝光",
+        "T07.A2": "只有处于热幕明确低空体积并实际穿过时才上热",
+        "T05.A1": "飘行不默认为地面可阻挡 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。",
+        "T10.A1": "地面分区没有覆盖飘行高度的默认权限"
+      },
+      "recommended_traps": [
+        "R08"
+      ],
+      "condition": "同fault_id人员撤离与设备停机各产生真实弱化；故障设备停机后也退出电器计数。",
+      "constraints": [
+        "不把任务停机反当更多电器",
+        "没有停机故障来源就不投",
+        "多段尖啸不重复失攻抽签"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "故障先产生，不能为抽卡制造割伤；正常同事不成为怪物弹药。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F21"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F21"
+      },
+      "movement_speed_review": {
+        "profile_id": "FLY",
+        "base_speed": 3.24,
+        "reference_effective_speed": 3.24,
+        "post_response_base_speed": 3.24,
+        "correct_response": "真实停机封同故障放大共鸣，慢飘3.24保留。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F22",
+      "name": "布朗尼家务精",
+      "action": "同份供物、不直视工区、验收原工单",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "沿真实登记脏区短冲、在原工单位置工作；不默认空间跳跃。",
+      "favorable": [
+        "T01.A1",
+        "T10.A2"
+      ],
+      "conditional": [
+        "T07.B1",
+        "T06.B1"
+      ],
+      "weak": [
+        "T10.B1",
+        "T02.B1"
+      ],
+      "branch_rationale": {
+        "T01.A1": "不注视时的真实工作窗口适合预装重弹",
+        "T10.A2": "短冲方向和节拍可读时可安排亮暗格区，而非随机追踪伤害",
+        "T07.B1": "工作确实固定在小区内才能持续炙烤",
+        "T06.B1": "本塔已有效且原工单主要规则首次成功时才给15%规则协作6秒",
+        "T10.B1": "扫帚连续短冲不是双端空间转场 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。",
+        "T02.B1": "一个扫帚影不因多处脏点变成多个传染目标"
+      },
+      "recommended_traps": [
+        "R09",
+        "R13",
+        "R01"
+      ],
+      "condition": "同份供物、不直视工区、验收原工单保留；完成后封特殊冲刺但保留普通追击。",
+      "constraints": [
+        "不重复清同一脏点收钱",
+        "不新增工队眷属",
+        "工作动作与战斗固定不混同"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "扫完不制造新垃圾；塔射线不算玩家注视，T04显相巡灯不等于玩家目光，默认不暂停工作。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F22"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F22"
+      },
+      "movement_speed_review": {
+        "profile_id": "DASH",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.28125,
+        "post_response_base_speed": 3.3,
+        "correct_response": "背向真实工单给工作窗，完工封扫帚冲刺，基础3.3追逐。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F23",
+      "name": "塞尔基海豹人",
+      "action": "原皮衣特征核验、中立台归还、留出离店线",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "步行与靠湿衣短冲，真实取回动作停步；归衣后封冲刺。",
+      "favorable": [
+        "T01.A1",
+        "T07.B1"
+      ],
+      "conditional": [
+        "T02.A1",
+        "T03.B2"
+      ],
+      "weak": [
+        "T10.B1",
+        "T04.A1"
+      ],
+      "branch_rationale": {
+        "T01.A1": "取回皮衣的真实短停顿可吃到集中单发",
+        "T07.B1": "原衣归还与慢行后，固定小区更容易获得驻留",
+        "T02.A1": "若实际战斗足够长，可兑现8秒成熟；不因换回皮衣清毒",
+        "T03.B2": "需要另一座物理塔与合法侧射接续脆冰",
+        "T10.B1": "披衣和短冲不等于已登记空间转场 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。",
+        "T04.A1": "影路与身份信息收益有限，灯不核验原皮衣特征"
+      },
+      "recommended_traps": [
+        "R01",
+        "R02",
+        "R13"
+      ],
+      "condition": "原皮衣特征核验、中立台归还和离店线保持可行，不能用栅堵死真实退场。",
+      "constraints": [
+        "不把原衣当毒层清除器",
+        "不生成额外海豹子体",
+        "离店线与战斗陷阱预览同时验证"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "不能用任意衣物达成；出口被路障占时先显示冲突并禁止完成摆放。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F23"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F23"
+      },
+      "movement_speed_review": {
+        "profile_id": "DASH",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.28125,
+        "post_response_base_speed": 3.3,
+        "correct_response": "原衣实际归还卸护膜、封冲刺，基础3.3追逐。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F24",
+      "name": "凯尔皮水马",
+      "action": "擦干交接割点、同货与原车退干线",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "真实湿路上的地面冲锋，只有明确扫掠轨迹才逐区；切水后在边界结束。",
+      "favorable": [
+        "T10.A1",
+        "T07.A2"
+      ],
+      "conditional": [
+        "T01.A1",
+        "T07.B1"
+      ],
+      "weak": [
+        "T05.A1",
+        "T10.B1"
+      ],
+      "branch_rationale": {
+        "T10.A1": "真实冲锋跨多个有效格，移动越多付费越多",
+        "T07.A2": "已限定的连续冲锋路线实际穿热幕可直接施灼伤",
+        "T01.A1": "预告后的恢复点可预瞄，未锁方向时重弹可能落空",
+        "T07.B1": "切断水路后真实踉跄/停留在小区才有输出",
+        "T05.A1": "宽体冲锋不默认被普通纸偶稳挡，须另有阻挡标签与容量 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。",
+        "T10.B1": "湿路冲锋不是自动拥有双端传送能力 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。"
+      },
+      "recommended_traps": [
+        "R09",
+        "R13",
+        "R01"
+      ],
+      "condition": "擦干真实割点、同货与原车退干线，切路使冲锋按实际边界提前结束。",
+      "constraints": [
+        "不能向玩家无限铺水",
+        "马体不穿窄门",
+        "水路不自动导通全店电器"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "马体不穿窄门；水路只来自已定义源，不能追玩家自动铺无限水。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F24"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F24"
+      },
+      "movement_speed_review": {
+        "profile_id": "DASH",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.28125,
+        "post_response_base_speed": 3.24,
+        "correct_response": "切水使既定冲锋在真实边界结束并踉跄2秒；干侧3.24基础追逐。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F25",
+      "name": "普卡变形精",
+      "action": "原退货入隔离槽、按唯一原回执退款",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "同一普卡身体步行并改变轮廓；视觉变形不等于新实体或空间瞬移。",
+      "favorable": [
+        "T02.A1",
+        "T01.B1"
+      ],
+      "conditional": [
+        "T04.B1",
+        "T08.A2",
+        "T06.B2"
+      ],
+      "weak": [
+        "T04.A1",
+        "T10.B1"
+      ],
+      "branch_rationale": {
+        "T02.A1": "同体毒库与8秒成熟预约穿越外形变化保留",
+        "T01.B1": "正确封物和退款后同体可持续命中积热",
+        "T04.B1": "已锁定真体且长射线成立后才可稳定四秒曝光",
+        "T08.A2": "只按真实攻击事件加咒，变形动画不算攻击完成",
+        "T04.A1": "灯不自动验证唯一退款回执或识破所有外形",
+        "T10.B1": "外观切换不提供真实转场端点事件 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。",
+        "T06.B2": "本塔在首次真实主要规则回应时在有效域内，才给该已显形敌易感6秒；既有层数可更早触发火/冰/咒/电，无历史回执重放。"
+      },
+      "recommended_traps": [
+        "R14",
+        "R01",
+        "R08"
+      ],
+      "condition": "原退货入隔离槽、唯一原回执退款，封索款护盾，不能靠伤害代替退款真实性。",
+      "constraints": [
+        "不通过换模型清状态",
+        "不复制退款",
+        "没有新增分裂"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "幻形不是新实体；退款次数与HP相位无关，不每转相给退款。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F25"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F25"
+      },
+      "movement_speed_review": {
+        "profile_id": "WALK",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.3,
+        "post_response_base_speed": 3.3,
+        "correct_response": "同物封存保持锁定、唯一退款关盾；外形切换不清持续状态。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F26",
+      "name": "红帽妖",
+      "action": "止同伤、清绑定真实迹、污布封原袋",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "常态步行与沿真实活血迹的明示地面突进；仅真实连续段计路径税。",
+      "favorable": [
+        "T10.A1",
+        "T08.A2"
+      ],
+      "conditional": [
+        "T05.A1",
+        "T02.A1"
+      ],
+      "weak": [
+        "T09.B1",
+        "T10.B1"
+      ],
+      "branch_rationale": {
+        "T10.A1": "可读血路上的实际突进跨区受税，清迹后走普通地面仍可伤",
+        "T08.A2": "贴身攻击威胁用减攻与攻击失败管理，不把血迹出现当攻击事件",
+        "T05.A1": "包扎/清迹后在无血捷径一侧拦截，仍检查blockable TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。",
+        "T02.A1": "长战积毒只提供持续伤，回复来源仍靠真实封袋处理",
+        "T09.B1": "活血路线不保证附近有三台合法C2设备 普通正电伤继续+1层（原生+2替代而不再叠加这份+1），每波无总反馈上限；实际死亡会缩图，不能把装饰部件或真人计入数量。",
+        "T10.B1": "血迹突进未声明为真转场，不能虚构跨相税 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。"
+      },
+      "recommended_traps": [
+        "R09",
+        "R08",
+        "R12"
+      ],
+      "condition": "止同伤、清绑定真实迹、污布封原袋保留；普通战斗伤害不新增真实血源。",
+      "constraints": [
+        "毒不再免费抑复",
+        "电击不把血迹变导线",
+        "不会为触发怪物临时造伤口",
+        "可把班前已装载的R08.B3放在真实跑线：先易感5秒再2咒；从0层触发后仍未满3层，需要后续命中。"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "无血不投；普通塔弹/怪物攻击不默认造伤；旧血不因止血瞬间消失。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F26"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F26"
+      },
+      "movement_speed_review": {
+        "profile_id": "DASH",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.28125,
+        "post_response_base_speed": 3.3,
+        "correct_response": "包扎封新增追血加速、清真实血迹撤突进点、入袋封回血，基础3.3。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F27",
+      "name": "山林巨魔",
+      "action": "同单两批称交、保留主通道",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "宽体慢行与预告推击，按实际可通宽路行动。",
+      "favorable": [
+        "T01.A1",
+        "T02.A1"
+      ],
+      "conditional": [
+        "T04.B1",
+        "T06.B1"
+      ],
+      "weak": [
+        "T05.B1",
+        "T06.A1"
+      ],
+      "branch_rationale": {
+        "T01.A1": "真实货担护甲使明确穿甲狙击有用途，交货后仍可打短转向窗",
+        "T02.A1": "慢重长期受击适合永久积毒及8秒一次成熟",
+        "T04.B1": "卸货后在实际长射界保持四秒曝光，仍读取真实ward",
+        "T06.B1": "两批真实称交完成主规则时才有15%协作6秒，不补领历史回执",
+        "T05.B1": "两名脆纸偶不能凭数量永久夹住宽体巨怪 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。",
+        "T06.A1": "质量与可推标签限制位移，不能将巨魔任意推过多区"
+      },
+      "recommended_traps": [
+        "R07",
+        "R12",
+        "R14"
+      ],
+      "condition": "两批同单称交卸两层货担并延长转向停顿；主要通道必须能供其真实体宽通过。",
+      "constraints": [
+        "多脚不多踩同一陷阱",
+        "不穿柜挤窄连接",
+        "纸偶容量与推力不能代替体型规则"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "不会挤穿窄连接；体积导航只用明示宽通道与锚定攻击，不硬穿柜体。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F27"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F27"
+      },
+      "movement_speed_review": {
+        "profile_id": "HEAVY",
+        "base_speed": 3.24,
+        "reference_effective_speed": 3.24,
+        "post_response_base_speed": 3.24,
+        "correct_response": "交真实货担逐层卸甲且增加转向停顿；仍3.24沉重追逐，不新增冲刺。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F28",
+      "name": "诺肯水乐灵",
+      "action": "逐支试阀、识别乐曲真源、干侧封盖",
+      "default_enabled": true,
+      "movement_mode": "phase",
+      "movement_condition": "真源附近显形与有限源点转移；封真源后固定显形。 已提交的真转场按两点连线所穿有效计伤格逐格结算，并把这些格期限刷新为抵达+2秒；不会生成中途实体接触。",
+      "favorable": [
+        "T02.A2",
+        "T10.B1",
+        "T10.A1"
+      ],
+      "conditional": [
+        "T04.B1",
+        "T07.B1"
+      ],
+      "weak": [
+        "T04.A1",
+        "T05.A1"
+      ],
+      "branch_rationale": {
+        "T02.A2": "合法源边短显形内留下毒，换源不清既有负荷",
+        "T10.B1": "真实转场按起终点连线的有效区结算，每格与普通通过同为3伤；绕过本次既有计伤期限后刷新。分支优势是可靠布区与预约，不附加瞬移倍伤。",
+        "T04.B1": "封真源后不再换位且射线保持四秒，曝光才稳定",
+        "T07.B1": "固定影的实际受击体积与地面小区相交才可驻留伤",
+        "T10.A1": "连片有效格现在直接惩罚真转场连线，覆盖长线路可多格结算；各格仍需实际部署在合法可走面。",
+        "T04.A1": "照明不替代逐支试阀或把普通水声变成独立真源证据",
+        "T05.A1": "频繁真转场打断持续锁定或绕过地面阻挡；封掉转场后才改变这一弱项。 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。"
+      },
+      "recommended_traps": [
+        "R04",
+        "R08",
+        "R13",
+        "R09"
+      ],
+      "condition": "逐支试阀、识别真乐曲源、干侧封盖；关错支路仍有恢复动作。",
+      "constraints": [
+        "不同水网不自动合并",
+        "电场不替玩家鉴真源",
+        "封印后不恢复换源来喂塔收益",
+        "沿线分区税是专门相位审计；不生成实际中途触发、碰撞、普通场伤或电器经过。"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "普通水声不是第二独立证据；先关错支路影响可恢复，不把水当万能同一网络。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F28"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F28"
+      },
+      "movement_speed_review": {
+        "profile_id": "TRUE_PHASE",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.3045,
+        "post_response_base_speed": 3.3,
+        "correct_response": "辨真源并封闭后封换源，固定显形但继续3.3基础追逐。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F29",
+      "name": "托姆特家园精灵",
+      "action": "同碗热粥+表层原黄油、供物台揭盖",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "小步快行、敲碗脉冲，热粥引向固定台并形成实际停顿。",
+      "favorable": [
+        "T01.A1",
+        "T07.B1"
+      ],
+      "conditional": [
+        "T08.B1",
+        "T03.B2"
+      ],
+      "weak": [
+        "T02.B1",
+        "T10.B1"
+      ],
+      "branch_rationale": {
+        "T01.A1": "固定供物位置与停止脉冲后的本体窗口适合单击",
+        "T07.B1": "实际供物台驻留可兑现小范围持续伤",
+        "T08.B1": "仍在准备的敲碗脉冲有可封标签才可短断",
+        "T03.B2": "目标高度合法且有另一物理塔接续脆冰才兑现额外伤",
+        "T02.B1": "单个精灵没有接触传染群体可分流",
+        "T10.B1": "小步快行和敲碗不是空间转场 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。"
+      },
+      "recommended_traps": [
+        "R01",
+        "R02",
+        "R13"
+      ],
+      "condition": "同碗热粥、原黄油和揭盖动作保留；战斗火不制造合格粥。",
+      "constraints": [
+        "原赠品唯一结算",
+        "不增殖热食",
+        "脉冲多段只按真实attack_id判断"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "黄油埋底不满足表层；任务供物不可先吃再登记。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F29"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F29"
+      },
+      "movement_speed_review": {
+        "profile_id": "AGILE",
+        "base_speed": 3.45,
+        "reference_effective_speed": 3.45,
+        "post_response_base_speed": 3.45,
+        "correct_response": "合格同碗热粥给3秒进食窗并止脉冲准备；正常快步3.45。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F30",
+      "name": "海亡灵",
+      "action": "分出额外原压箱石、送合法封存槽",
+      "default_enabled": true,
+      "movement_mode": "mixed",
+      "movement_condition": "慢行与贴石短位移；只有实际登记为phase的位移才有沿线相位审计，连续段另算。",
+      "favorable": [
+        "T02.A1",
+        "T01.A1"
+      ],
+      "conditional": [
+        "T10.B1",
+        "T07.B1"
+      ],
+      "weak": [
+        "T02.B1",
+        "T09.A2"
+      ],
+      "branch_rationale": {
+        "T02.A1": "同一海亡灵投影慢战积毒，贴石换位不洗毒",
+        "T01.A1": "封石后普通慢行与护体下降提供稳定单点射界",
+        "T10.B1": "只有本次动作真实登记为转场，才按沿线有效区普通3伤结算并刷新计伤期限；视觉换形、遮挡和转身都不算。",
+        "T07.B1": "封石后的合法地面本体驻留时才有固定场收益",
+        "T02.B1": "单体没有可分配的独立邻池",
+        "T09.A2": "一条稳定度不构成两个电极目标 单池仍有5伤/1.2秒的基础通路，弱项指不能兑现双池互弹，而非无法输出。 普通正电伤继续+1层（原生+2替代而不再叠加这份+1），每波无总反馈上限；实际死亡会缩图，不能把装饰部件或真人计入数量。"
+      },
+      "recommended_traps": [
+        "R04",
+        "R13",
+        "R14",
+        "R09"
+      ],
+      "condition": "分出额外原压箱石并送合法封存槽，才封回石与湿线增益。",
+      "constraints": [
+        "不凭短位移一词自动造穿墙路径",
+        "不制造额外石头",
+        "群体功能只在真实独立池存在时计"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "误当门挡可恢复；历史误用不永久判死；不能拿石头到处刷水并领奖。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F30"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F30"
+      },
+      "movement_speed_review": {
+        "profile_id": "CONDITIONAL_PHASE",
+        "base_speed": 3.24,
+        "reference_effective_speed": 3.24,
+        "post_response_base_speed": 2.85,
+        "correct_response": "同石封存封回石和潮甲恢复，转2.85慢行；只登记的真转场才有跨区审计。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F31",
+      "name": "马拉梦魇",
+      "action": "杯与机械钟准备，选有限短休或停用椅位",
+      "default_enabled": true,
+      "movement_mode": "mixed",
+      "movement_condition": "椅边投影与预告扑袭；出生锚不自动等于可被双端计费的瞬移。",
+      "favorable": [
+        "T01.A1",
+        "T08.B1"
+      ],
+      "conditional": [
+        "T02.A1",
+        "T07.B1"
+      ],
+      "weak": [
+        "T10.B1",
+        "T09.A2"
+      ],
+      "branch_rationale": {
+        "T01.A1": "机械钟节拍与真实杯反射暴露的窗口适合预装重弹",
+        "T08.B1": "被原机械钟标定为可中断的扑袭准备可短断",
+        "T02.A1": "真实可命中影仍存续足够久时，附着毒与8秒成熟继续",
+        "T07.B1": "投影实际在地面小区驻留时才付伤，不把椅名当接地证据",
+        "T10.B1": "椅边出生锚本身没有证明一次真实真实转场 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。",
+        "T09.A2": "孤立梦魇影没有第二独立带电池 单池仍有5伤/1.2秒的基础通路，弱项指不能兑现双池互弹，而非无法输出。 普通正电伤继续+1层（原生+2替代而不再叠加这份+1），每波无总反馈上限；实际死亡会缩图，不能把装饰部件或真人计入数量。"
+      },
+      "recommended_traps": [
+        "R08",
+        "R13"
+      ],
+      "condition": "杯、机械钟与有限短休/停用椅位保留；短休为可选风险收益，不是塔玩法必需前提。",
+      "constraints": [
+        "不强迫玩家睡觉才能打",
+        "不能用纸偶冒充玩家的休息",
+        "投影高度需明确"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "战斗中不能强行锁玩家长休；P08补偿仍有限，免费停用可达。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F31"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F31"
+      },
+      "movement_speed_review": {
+        "profile_id": "LEAP",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.2745,
+        "post_response_base_speed": 3.3,
+        "correct_response": "钟与杯提供实际节拍/本体线索，停用椅位封扑袭出生锚，保留3.3实体追逐。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F32",
+      "name": "夜返吸血鬼",
+      "action": "关迎宾声道/转窗口、包扎同伤",
+      "default_enabled": true,
+      "movement_mode": "mixed",
+      "movement_condition": "快步接近与门槛邀请后的跃击分开；空中跃击不按整段地面税。",
+      "favorable": [
+        "T02.A2",
+        "T08.B1"
+      ],
+      "conditional": [
+        "T10.A1",
+        "T05.A1"
+      ],
+      "weak": [
+        "T10.B1",
+        "T04.A1"
+      ],
+      "branch_rationale": {
+        "T02.A2": "门槛显形或跃击恢复短窗可附毒，关门不清残影毒库",
+        "T08.B1": "尚未被声道规则封掉的越门跃击若有可封准备可打断",
+        "T10.A1": "只计算真实快步和明确ground连续突进段，不计算空中投影",
+        "T05.A1": "关声道和包扎后余下地面实体可阻挡时才有效 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。",
+        "T10.B1": "跃门没有自动声明真空间转场 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。",
+        "T04.A1": "照明不会代替邀请声道关闭或实际止血"
+      },
+      "recommended_traps": [
+        "R01",
+        "R08",
+        "R14"
+      ],
+      "condition": "关迎宾声道/改窗口、包扎同伤分别关闭邀请与嗅血回复。",
+      "constraints": [
+        "毒不附赠减疗",
+        "真实关门不直接删除门内影",
+        "血源仍只来自既有合法来源"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "门外尚未入场时可真实预防消耗此波，不重开伤口；主动请入是明示选择。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F32"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F32"
+      },
+      "movement_speed_review": {
+        "profile_id": "LEAP",
+        "base_speed": 3.45,
+        "reference_effective_speed": 3.38925,
+        "post_response_base_speed": 3.45,
+        "correct_response": "关声道封越门跃击，包扎封追血回复；仍3.45地面接近。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F33",
+      "name": "狼人",
+      "action": "连续伤迹核验、隔台递其原专用急救物、保离店线",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "四足地面疾走与双足慢行交替，包扎后封四足突进。",
+      "favorable": [
+        "T03.B1",
+        "T07.B1"
+      ],
+      "conditional": [
+        "T10.A1",
+        "T05.B1"
+      ],
+      "weak": [
+        "T10.B1",
+        "T04.A1"
+      ],
+      "branch_rationale": {
+        "T03.B1": "接受真实急救后慢行目标可固定在明确位置，便于玩家继续操作",
+        "T07.B1": "双足慢行加纸偶/冻结更容易留在小区，持续伤和热量独立采样 纸偶单次只加至多1秒接触，不保证独立点燃或整轮持续覆盖。",
+        "T10.A1": "四足真实疾走阶段跨区多，规则封突进后收益自然降低",
+        "T05.B1": "可阻挡本体与另一偶实际侧后位置同时成立才有夹击 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。",
+        "T10.B1": "走姿改变和四足变双足不是空间传送 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。",
+        "T04.A1": "没有实际阴影节点可关闭时路线功能有限"
+      },
+      "recommended_traps": [
+        "R01",
+        "R02",
+        "R13",
+        "R08"
+      ],
+      "condition": "连续伤迹核验、隔台递原专用急救物、保持离店线；塔不能给自己制造包扎成功回执。",
+      "constraints": [
+        "不从狼人名字推出银弱点",
+        "不把投影击退等同杀死人",
+        "外形变化不重置状态",
+        "可把班前已装载的R08.B3放在真实跑线：先易感5秒再2咒；从0层触发后仍未满3层，需要后续命中。"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "原型伤迹只属于它，不自动成为玩家流血或F26来源。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F33"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F33"
+      },
+      "movement_speed_review": {
+        "profile_id": "DASH",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.28125,
+        "post_response_base_speed": 3.24,
+        "correct_response": "专用包扎封四足突进、近战前摇加长，双足改3.24。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F34",
+      "name": "鲁萨尔卡水灵",
+      "action": "休拍擦断湿边、原货移干侧",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "沿指定湿边真实滑行，强拍扑击的空中/地面段按实际轨迹分开。",
+      "favorable": [
+        "T10.A2",
+        "T07.A2"
+      ],
+      "conditional": [
+        "T01.A1",
+        "T03.B1"
+      ],
+      "weak": [
+        "T10.B1",
+        "T09.B1"
+      ],
+      "branch_rationale": {
+        "T10.A2": "休拍与强拍的已知节拍可对齐亮暗区，真实滑行才逐区",
+        "T07.A2": "仍合法湿边路线真实经过热幕时上灼伤",
+        "T01.A1": "休拍和断边后的明确短窗口可预瞄",
+        "T03.B1": "断边后真实ground或合法low_air载体才可固定",
+        "T10.B1": "湿边滑行不自动成为真实转场 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。",
+        "T09.B1": "水边不是电器网络，附近没有登记C2设备就没有家电感应 普通正电伤继续+1层（原生+2替代而不再叠加这份+1），每波无总反馈上限；实际死亡会缩图，不能把装饰部件或真人计入数量。"
+      },
+      "recommended_traps": [
+        "R01",
+        "R09",
+        "R13"
+      ],
+      "condition": "在休拍擦断真实湿边，把原货移到干侧；每断段减少对应出手点。",
+      "constraints": [
+        "热幕不自动擦干任务水路",
+        "不合并不同湿网",
+        "已完成的货物安全事实不随状态到期撤销"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "不能在已经排干时强迫造水重演；节拍字幕不会被低SAN全遮蔽。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F34"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F34"
+      },
+      "movement_speed_review": {
+        "profile_id": "DASH",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.28125,
+        "post_response_base_speed": 3.3,
+        "correct_response": "擦断哪条真实湿边就关哪处攻击点；基础追逐不被凭空清空。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F35",
+      "name": "芭芭雅嘎",
+      "action": "限定原脏槽、不直视工作、完工收回原扫帚",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "扫帚贴地连续冲刺，原工区限制方向；工作位置真实可见。",
+      "favorable": [
+        "T10.A1",
+        "T10.A2"
+      ],
+      "conditional": [
+        "T07.A2",
+        "T07.B1"
+      ],
+      "weak": [
+        "T10.B1",
+        "T09.B2"
+      ],
+      "branch_rationale": {
+        "T10.A1": "本名册中清楚的连续地面位移例子，可逐区支付路径税",
+        "T10.A2": "工区方向与冲刺预告可用来安排明暗格节拍",
+        "T07.A2": "受限路线实际穿过热幕才获得8热",
+        "T07.B1": "背向不注视时它真实工作在小区内才有驻留伤",
+        "T10.B1": "贴地扫帚冲刺不是空间瞬移 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。",
+        "T09.B2": "单一扫帚影缺少外环转电的未带电独立接收者 普通正电伤继续+1层（原生+2替代而不再叠加这份+1），每波无总反馈上限；实际死亡会缩图，不能把装饰部件或真人计入数量。"
+      },
+      "recommended_traps": [
+        "R09",
+        "R13",
+        "R11"
+      ],
+      "condition": "限定原脏槽、不直视工作、完工收原扫帚；工区牌不移动真实货架。",
+      "constraints": [
+        "不把连续冲刺画面抽象成瞬移",
+        "清洁回执唯一",
+        "不因扫帚图像分叉生成眷属"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "收回道具不是把怪物HP直接清零；不重复清同一脏点收费。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F35"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F35"
+      },
+      "movement_speed_review": {
+        "profile_id": "DASH",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.28125,
+        "post_response_base_speed": 3.3,
+        "correct_response": "标工区约束真实冲刺方向、背向给工作窗，收原扫帚永久封撞击，基础3.3。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F36",
+      "name": "精灵访客",
+      "action": "限定单槽20秒，到期收回通行条",
+      "default_enabled": true,
+      "movement_mode": "phase",
+      "movement_condition": "许可槽边带预告闪移，撤条后限制跨槽并产生失败恢复。 已提交的真转场按两点连线所穿有效计伤格逐格结算，并把这些格期限刷新为抵达+2秒；不会生成中途实体接触。",
+      "favorable": [
+        "T02.A2",
+        "T10.B2",
+        "T10.A1"
+      ],
+      "conditional": [
+        "T10.B1",
+        "T07.B1"
+      ],
+      "weak": [
+        "T05.A1",
+        "T04.B1"
+      ],
+      "branch_rationale": {
+        "T02.A2": "短闪移窗口的两发真命中留下持续毒",
+        "T10.B2": "合法落点已被许可边界限定且预告可见时可预约截停；实际到达合法可控高度后申请普通1秒/精英0.6秒束缚固定位置，受共享硬控与8秒目标门槛，落格仍按普通3伤；不是仅封下一跳。 普通跳跃/跃出仅按实际落格与原有格冷却结算；只有真实转场才审计整段并刷新期限。",
+        "T10.B1": "真实转场按起终点连线的有效区结算，每格与普通通过同为3伤；绕过本次既有计伤期限后刷新。分支优势是可靠布区与预约，不附加瞬移倍伤。",
+        "T07.B1": "撤条后的真实僵直与合法地面体积相交时支付场伤",
+        "T10.A1": "连片有效格现在直接惩罚真转场连线，覆盖长线路可多格结算；各格仍需实际部署在合法可走面。",
+        "T05.A1": "尚未限制闪移前可越过固定纸偶接触点 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。",
+        "T04.B1": "频繁真转场打断持续锁定或绕过地面阻挡；封掉转场后才改变这一弱项。"
+      },
+      "recommended_traps": [
+        "R04",
+        "R13",
+        "R14",
+        "R09"
+      ],
+      "condition": "单槽20秒许可、到期收原通行条保留；塔不能延长真实许可到期。",
+      "constraints": [
+        "不凭光影外观赋予高空",
+        "不把撤条伤害当自动终态",
+        "已锁点不能因陷阱临时换掉",
+        "沿线分区税是专门相位审计；不生成实际中途触发、碰撞、普通场伤或电器经过。"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "自动到期读取世界钟，不因暂停免费收租；权限边界与碰撞边界分离。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F36"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F36"
+      },
+      "movement_speed_review": {
+        "profile_id": "TRUE_PHASE",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.3045,
+        "post_response_base_speed": 3.3,
+        "correct_response": "许可到期/撤条封跨槽，当前闪移取消并在原点恢复2秒，基础3.3。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F37",
+      "name": "古尔荒野妖",
+      "action": "在固定台交接、保管原物、停止跟随",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "步行与门外诱声掩护疾走，回到可信台后真实方向可辨。",
+      "favorable": [
+        "T01.A1",
+        "T01.B1"
+      ],
+      "conditional": [
+        "T05.A2",
+        "T10.A1"
+      ],
+      "weak": [
+        "T04.A1",
+        "T10.B1"
+      ],
+      "branch_rationale": {
+        "T01.A1": "可信台核对后清楚的追逐方向使长射程单点更可靠",
+        "T01.B1": "取消伪店长加速令并留在真实射界后可连续积热",
+        "T05.A2": "原物交接路线在设施4格内时可真实护送持物玩家 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。",
+        "T10.A1": "只在实际地面疾走经过投影区时有多格收益",
+        "T04.A1": "灯不识别伪店长命令的权限真实性",
+        "T10.B1": "诱声掩护不等于空间转场 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。"
+      },
+      "recommended_traps": [
+        "R01",
+        "R08",
+        "R09"
+      ],
+      "condition": "固定台交接、保管原物、停止跟随，保留真实交接语义。",
+      "constraints": [
+        "不在门外生成无法核验的安全指令",
+        "不把声音位置当瞬移端点",
+        "没有新增群体"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "音声不授予权限，退回柜台是弱点触发位置不是无限安全格。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F37"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F37"
+      },
+      "movement_speed_review": {
+        "profile_id": "DASH",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.28125,
+        "post_response_base_speed": 3.3,
+        "correct_response": "可信台实证封伪令加速，真实追逐方向可见，基础3.3。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F38",
+      "name": "双重身",
+      "action": "收权限、亲查三处原工作结果、短连续见证",
+      "default_enabled": true,
+      "movement_mode": "mixed",
+      "movement_condition": "双影步行与明示交换位置预告；只有实际空间转场才用沿线相位审计规则，真人不进敌集。",
+      "favorable": [
+        "T02.A2",
+        "T08.B1"
+      ],
+      "conditional": [
+        "T10.B1",
+        "T04.B1"
+      ],
+      "weak": [
+        "T04.A1",
+        "T09.A2"
+      ],
+      "branch_rationale": {
+        "T02.A2": "真实核验锁定异常后，短射界可附着同一异常毒库",
+        "T08.B1": "未被主要规则封掉的明确换位/权限能力准备可短断",
+        "T10.B1": "只有本次动作真实登记为转场，才按沿线有效区普通3伤结算并刷新计伤期限；视觉换形、遮挡和转身都不算。",
+        "T04.B1": "核验完成后锁定真异常并保持射线四秒才可升曝光",
+        "T04.A1": "照明与轮廓不能代替三份原工作结果和连续见证",
+        "T09.A2": "真人与异常不能被当作两个独立带电敌人 单池仍有5伤/1.2秒的基础通路，弱项指不能兑现双池互弹，而非无法输出。 普通正电伤继续+1层（原生+2替代而不再叠加这份+1），每波无总反馈上限；实际死亡会缩图，不能把装饰部件或真人计入数量。"
+      },
+      "recommended_traps": [
+        "R04",
+        "R08",
+        "R01",
+        "R09"
+      ],
+      "condition": "收权限、亲查三个原结果和短连续见证保留；塔始终只对显形异常开火。",
+      "constraints": [
+        "真同事不可选敌",
+        "双影不自动有两份生命池",
+        "没有用攻击试身份"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "真历史只说明历史；凭证8秒/断链失效要可见；不能射两人试真伪。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F38"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F38"
+      },
+      "movement_speed_review": {
+        "profile_id": "CONDITIONAL_PHASE",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.3,
+        "post_response_base_speed": 3.3,
+        "correct_response": "当前双证锁异常影并封已登记的位置交换；真人从不加入敌池。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F39",
+      "name": "多莫沃伊家宅灵",
+      "action": "亮新位、原木牌搬新槽、关旧位",
+      "default_enabled": true,
+      "movement_mode": "phase",
+      "movement_condition": "灶位锚定短闪移，迁牌和关旧位逐步关闭真实跳边。 已提交的真转场按两点连线所穿有效计伤格逐格结算，并把这些格期限刷新为抵达+2秒；不会生成中途实体接触。",
+      "favorable": [
+        "T10.B1",
+        "T10.B2",
+        "T10.A1"
+      ],
+      "conditional": [
+        "T09.A1",
+        "T07.B1"
+      ],
+      "weak": [
+        "T01.A2",
+        "T04.B1"
+      ],
+      "branch_rationale": {
+        "T10.B1": "真实转场按起终点连线的有效区结算，每格与普通通过同为3伤；绕过本次既有计伤期限后刷新。分支优势是可靠布区与预约，不附加瞬移倍伤。",
+        "T10.B2": "下一落点已由亮新位实际诱导且预告可见时可预约；实际到达合法可控高度后申请普通1秒/精英0.6秒束缚固定位置，受共享硬控与8秒目标门槛，落格仍按普通3伤；不是仅封下一跳。 普通跳跃/跃出仅按实际落格与原有格冷却结算；只有真实转场才审计整段并刷新期限。",
+        "T09.A1": "只计当前通电的真实AP_HOT_FOOD；旧新灶槽属于一个设备，不能算两台 普通正电伤继续+1层（原生+2替代而不再叠加这份+1），每波无总反馈上限；实际死亡会缩图，不能把装饰部件或真人计入数量。",
+        "T07.B1": "迁牌关旧位后真实停留在合法地面热区才有持续伤",
+        "T10.A1": "连片有效格现在直接惩罚真转场连线，覆盖长线路可多格结算；各格仍需实际部署在合法可走面。",
+        "T01.A2": "两个灶位不是两个独立怪物或血池",
+        "T04.B1": "频繁真转场打断持续锁定或绕过地面阻挡；封掉转场后才改变这一弱项。"
+      },
+      "recommended_traps": [
+        "R04",
+        "R13",
+        "R14",
+        "R09"
+      ],
+      "condition": "亮新位、搬同一原木牌、关旧位；实际供电与照明各按真实字段，关灯不自动等于设备断电。",
+      "constraints": [
+        "ATT08两个槽只算一个电器组件",
+        "不增加灶灵分身",
+        "关闭旧跳边不恢复",
+        "沿线分区税是专门相位审计；不生成实际中途触发、碰撞、普通场伤或电器经过。"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "故障修好无需迁移时不倒放木牌；不以塔可选供电控制必需安全设备。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F39"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F39"
+      },
+      "movement_speed_review": {
+        "profile_id": "TRUE_PHASE",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.3045,
+        "post_response_base_speed": 3.3,
+        "correct_response": "新灯诱导合法节点、迁原牌关旧锚、关旧灶封回跳；基础3.3。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F40",
+      "name": "列希森林灵",
+      "action": "自贴路标、拿同树苗、归还/隔离",
+      "default_enabled": true,
+      "movement_mode": "mixed",
+      "movement_condition": "真实步行与固定树影节点之间的真实影跃分开：步行按连续轨迹，影跃按起终点连线有效区逐格结算并刷新格期限；归苗后转普通步行。",
+      "favorable": [
+        "T04.A2",
+        "T10.B1"
+      ],
+      "conditional": [
+        "T04.A1",
+        "T10.A1"
+      ],
+      "weak": [
+        "T07.B2",
+        "T05.A1"
+      ],
+      "branch_rationale": {
+        "T04.A2": "两个无遮挡稳定光斑可关闭两个真实影入口，改变可用路线 对合法显形敌连续照1秒后易感2秒，可让火/冰/咒/电各少1层触发；不减少永久毒层数。",
+        "T10.B1": "真实转场按起终点连线的有效区结算，每格与普通通过同为3伤；绕过本次既有计伤期限后刷新。分支优势是可靠布区与预约，不附加瞬移倍伤。",
+        "T04.A1": "扫光当时关闭照到节点，扫后节点可恢复，不能当永久封印",
+        "T10.A1": "影跃可按长连线有效格收税，归苗或关节点后仍能按真实步行跨区；封跳会降低瞬时位移税但提升其他塔驻留。",
+        "T07.B2": "小焰芯不能瞬移追随无实体影跳",
+        "T05.A1": "未关节点前可绕过地面门卫接触点 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。"
+      },
+      "recommended_traps": [
+        "R05",
+        "R04",
+        "R09"
+      ],
+      "condition": "自贴真实路标、拿同树苗归还/隔离；归苗主事实与灯的临时照区分开。",
+      "constraints": [
+        "不移动真实货架",
+        "没有误收树苗不投",
+        "阴影节点不是镜子",
+        "原事实不随灯熄灭回滚"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "只改装饰/节点能力，不移动真实货架；没有误收树苗不投放。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F40"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F40"
+      },
+      "movement_speed_review": {
+        "profile_id": "SHADOW_PHASE",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.3045,
+        "post_response_base_speed": 2.85,
+        "correct_response": "路标切真实影边，原树苗归还后关闭影跃并失影甲，改2.85可见步行。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F41",
+      "name": "哭泣女",
+      "action": "核对原寻人物、门内登记求助、保管合规",
+      "default_enabled": true,
+      "movement_mode": "mixed",
+      "movement_condition": "贴地飘行与门线扑袭；先登记实际高度，贴地外观不能自动当ground。",
+      "favorable": [
+        "T01.A1",
+        "T02.A2"
+      ],
+      "conditional": [
+        "T10.A1",
+        "T03.B1"
+      ],
+      "weak": [
+        "T10.B1",
+        "T09.A2"
+      ],
+      "branch_rationale": {
+        "T01.A1": "可见门线的后退/扑袭准备窗适合储弹单击",
+        "T02.A2": "短显形内两枚真实命中留下毒，后退不清剂量",
+        "T10.A1": "只有实际登记ground的连续段才收地面税，low_air段不适用",
+        "T03.B1": "真实地面或低空均可按该塔高度固定，但不迫降",
+        "T10.B1": "后退后扑袭没有自动给出空间转场 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。",
+        "T09.A2": "一个伴随影没有独立第二电极 单池仍有5伤/1.2秒的基础通路，弱项指不能兑现双池互弹，而非无法输出。 普通正电伤继续+1层（原生+2替代而不再叠加这份+1），每波无总反馈上限；实际死亡会缩图，不能把装饰部件或真人计入数量。"
+      },
+      "recommended_traps": [
+        "R08",
+        "R02"
+      ],
+      "condition": "核对原寻人物、门内登记求助和合规保管原物；R02仅在真实落地触发。",
+      "constraints": [
+        "不把求助者真身当敌人",
+        "登记封远程拉扯不生成新扑袭",
+        "高度未明前不得推荐地面硬控"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "不强迫把失物交未知来者；未交物不计成交；电话不是直接抹HP按钮。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F41"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F41"
+      },
+      "movement_speed_review": {
+        "profile_id": "FLY",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.3,
+        "post_response_base_speed": 3.3,
+        "correct_response": "真实登记求助封远程拉扯，门线扑袭仍有预告；实际高度逐段判断。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F42",
+      "name": "哨声亡灵",
+      "action": "看实体压力表，在低压窗转运原货、退回关闸",
+      "default_enabled": true,
+      "movement_mode": "mixed",
+      "movement_condition": "后门锚点的预告冲袭；只有已登记连续ground段才计路径，锚点不自动构成瞬移。",
+      "favorable": [
+        "T01.A1",
+        "T08.B1"
+      ],
+      "conditional": [
+        "T07.B1",
+        "T10.A2"
+      ],
+      "weak": [
+        "T10.B1",
+        "T04.A1"
+      ],
+      "branch_rationale": {
+        "T01.A1": "关闸后的撞闸破绽有明确位置和时机，适合重弹",
+        "T08.B1": "真实低压或合格准备窗允许短打断，不能伪造压力事实",
+        "T07.B1": "封印后残影实际与小区相交并停留才受持续伤",
+        "T10.A2": "明确连续地面冲袭的预告节拍可对齐亮区，空中/转场段另判",
+        "T10.B1": "一个后门出生锚不证明真实空间转场 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。",
+        "T04.A1": "照明不提供实体压力表的实时读数"
+      },
+      "recommended_traps": [
+        "R04",
+        "R13",
+        "R08"
+      ],
+      "condition": "看实体压力表、低压窗转运同货、退回关闸；条件时钟不因查看重置。",
+      "constraints": [
+        "不凭塔声场替压力表",
+        "未知轨迹不补地面收费",
+        "旧货身份保持"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "听觉远近故意相反但压力提示可靠；开关不重开原攻击期限。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F42"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F42"
+      },
+      "movement_speed_review": {
+        "profile_id": "DASH",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.28125,
+        "post_response_base_speed": 3.3,
+        "correct_response": "真实压力事实决定可关闸窗口，撞闸暴露2.5秒；不把出生锚当瞬移。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F43",
+      "name": "图恩达",
+      "action": "公共粉垫交物+同刻工作连续性核验",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "步行与利用盲角的真实短冲，木足揭露后转向和前摇变长。",
+      "favorable": [
+        "T10.A1",
+        "T01.A1"
+      ],
+      "conditional": [
+        "T06.A1",
+        "T05.B1"
+      ],
+      "weak": [
+        "T10.B1",
+        "T04.A1"
+      ],
+      "branch_rationale": {
+        "T10.A1": "可见实体短冲通过真实转角区产生多格税",
+        "T01.A1": "木足揭露后的较长前摇使集中单击更可靠",
+        "T06.A1": "本体确有可推标签且路径合法时，推向新分区；旧区不重复税",
+        "T05.B1": "两纸偶真实站在公共交接转角才能形成侧后夹击 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。",
+        "T10.B1": "盲角遮挡不等于瞬移 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。",
+        "T04.A1": "灯不代替同刻工作连续性与真实粉印两份证据"
+      },
+      "recommended_traps": [
+        "R01",
+        "R09",
+        "R11",
+        "R08"
+      ],
+      "condition": "公共粉垫交物与同刻工作连续性核验保留，揭木足不是改写真实脚印历史。",
+      "constraints": [
+        "不把看不见的路径自动当传送",
+        "不生成第二木足怪",
+        "纸偶不提供身份见证",
+        "可把班前已装载的R08.B3放在真实跑线：先易感5秒再2咒；从0层触发后仍未满3层，需要后续命中。"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "不能从没有记录的时段杜撰第二证据；普通交接无物则不制造空任务。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F43"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F43"
+      },
+      "movement_speed_review": {
+        "profile_id": "DASH",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.36375,
+        "post_response_base_speed": null,
+        "correct_response": "粉印揭木足使突进前摇由1.0延至1.8秒、转向变慢，已收权限永久保留。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F44",
+      "name": "巨帽夜曲客",
+      "action": "实体价牌锁一歌一单、原货交付并封单",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "步行与帽缘展开弹幕，帽盾按真实朝向存在。",
+      "favorable": [
+        "T01.A1",
+        "T08.B1"
+      ],
+      "conditional": [
+        "T03.B2",
+        "T07.B1"
+      ],
+      "weak": [
+        "T05.A1",
+        "T02.B1"
+      ],
+      "branch_rationale": {
+        "T01.A1": "封单后从帽盾侧面实际射线打高单发，不默认穿盾",
+        "T08.B1": "尚存的乐曲重奏或弹幕准备有可封标签时可短断",
+        "T03.B2": "固定目标后仍需另一物理塔从合法侧面消费脆冰",
+        "T07.B1": "小区中心和目标之间实际不被帽盾/墙遮挡时才支付伤害",
+        "T05.A1": "正面地面阻挡无法承接所有帽缘远程弹幕 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。",
+        "T02.B1": "一顶帽多个弹片不是多个独立中毒目标"
+      },
+      "recommended_traps": [
+        "R02",
+        "R07",
+        "R08"
+      ],
+      "condition": "实体价牌锁一歌一单，原货交付后封单；不能靠塔伤伪造结账。",
+      "constraints": [
+        "帽缘不是额外生命池",
+        "弹幕多段不多掷厄运",
+        "合规射角须真实存在"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "确认铃不自动签新约；不得把旧单当无限钱源。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F44"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F44"
+      },
+      "movement_speed_review": {
+        "profile_id": "HEAVY",
+        "base_speed": 3.24,
+        "reference_effective_speed": 3.24,
+        "post_response_base_speed": 3.24,
+        "correct_response": "价牌绑定与封单关重奏/扩大帽缘，定向帽盾留下侧击窗；3.24追逐。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F45",
+      "name": "逆足林守",
+      "action": "按真实轮痕把原箱送回对应货格",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "反向朝向步行与短冲；收费跟实际位置轨迹而不是脚印/朝向。",
+      "favorable": [
+        "T10.A1",
+        "T01.A1"
+      ],
+      "conditional": [
+        "T07.A2",
+        "T03.B1"
+      ],
+      "weak": [
+        "T10.B1",
+        "T04.A1"
+      ],
+      "branch_rationale": {
+        "T10.A1": "按真实移动轨迹扫区，不被反向脚印骗出虚构方向",
+        "T01.A1": "原箱归位解除背护层后，侧向射界和长单发可利用",
+        "T07.A2": "实际身体穿热幕才加热，不按脚尖指向判穿越",
+        "T03.B1": "合法地面体冻结其真实朝向，仍保留已发出攻击",
+        "T10.B1": "改变朝向不是空间转场 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。",
+        "T04.A1": "照明不能替玩家判断原箱真实轮痕"
+      },
+      "recommended_traps": [
+        "R09",
+        "R01",
+        "R07"
+      ],
+      "condition": "按真实轮痕把同一原箱送对应货格；背面护层和误导脚印按主要规则关闭。",
+      "constraints": [
+        "不因朝向相反反转物理位置",
+        "不凭名字加阴影跳",
+        "原箱不复制"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "脚朝向不等于速度方向，必须始终有地面位移箭头；不给倒走输入惩罚。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F45"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F45"
+      },
+      "movement_speed_review": {
+        "profile_id": "DASH",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.28125,
+        "post_response_base_speed": null,
+        "correct_response": "原箱归位封伪足迹并去背护层；实际轨迹一直是伤害依据。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F46",
+      "name": "红帽萨西",
+      "action": "把原筛罩先置下一预告停点的专用侧槽，捕获范围覆盖落点但不占实体落脚格、取回原工具",
+      "default_enabled": true,
+      "movement_mode": "mixed",
+      "movement_condition": "固定节点短跃与4秒停点，旋风高低层需分别登记，捕风后实体暴露。",
+      "favorable": [
+        "T10.B2",
+        "T02.A2"
+      ],
+      "conditional": [
+        "T07.B1",
+        "T04.B1"
+      ],
+      "weak": [
+        "T10.A1",
+        "T05.A1"
+      ],
+      "branch_rationale": {
+        "T10.B2": "真实公开预告停点可在到达前安排截停区；实际到达合法可控高度后申请普通1秒/精英0.6秒束缚固定位置，受共享硬控与8秒目标门槛，落格仍按普通3伤；不是仅封下一跳。 普通跳跃/跃出仅按实际落格与原有格冷却结算；只有真实转场才审计整段并刷新期限。",
+        "T02.A2": "短跃后显形窗内付出两枚小票，转场不洗毒",
+        "T07.B1": "捕风后实体真正ground且处于固定小区才烤；旋风平面投影不算",
+        "T04.B1": "捕风封节点换位后保持长射界，才保证四秒曝光",
+        "T10.A1": "未确认连续接地区间的旋风短跃不按地面中段收费",
+        "T05.A1": "高低旋风阶段不保证能被普通地面纸偶拦住 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。"
+      },
+      "recommended_traps": [
+        "R04",
+        "R03",
+        "R13"
+      ],
+      "condition": "原筛罩放专用侧槽覆盖落点但不占脚格，取回同一原工具；不能摆新物迫使已锁落点暗改。",
+      "constraints": [
+        "高度未登记前不用地面网",
+        "原筛罩不是可复制新捕网",
+        "节点封印不恢复",
+        "保留每节点4秒停点，不为达到普通追逐移速而凭空把短跃扩大到十余格。",
+        "显形实体步态预先固定1.2格/秒；成功截风只解除节点跳跃与旋风规避，不升成3.3格/秒追逐。"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "落点先锁后跳，不因陷阱改点；原筛罩用专用侧槽覆盖捕获体积，不占已锁实体落脚格。工具只有原实例；锁点真被封/占时取消位移并在当前合法点恢复。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F46"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F46"
+      },
+      "movement_speed_review": {
+        "profile_id": "NODE_DWELL",
+        "base_speed": 0,
+        "reference_effective_speed": 1.36363636,
+        "post_response_base_speed": 1.2,
+        "correct_response": "真实筛罩截住预告节点，永久封短跃并撤旋风规避；进入预先定义的显形实体1.2格/秒笨拙步态沿合法地面路追人，取原工具再封缴械，不升级成普通怪3.3。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F47",
+      "name": "水歌伊阿拉",
+      "action": "停拍内封当前原奖袋并实际取走",
+      "default_enabled": true,
+      "movement_mode": "mixed",
+      "movement_condition": "水边滑行与歌段引导冲击，实际高度/连续路径需按该段明确登记。",
+      "favorable": [
+        "T08.B1",
+        "T02.A2"
+      ],
+      "conditional": [
+        "T07.B1",
+        "T06.B1"
+      ],
+      "weak": [
+        "T10.B1",
+        "T04.A1"
+      ],
+      "branch_rationale": {
+        "T08.B1": "准备中的明确歌段能力可短封，为玩家真实封袋取走争时间",
+        "T02.A2": "停拍合法窗口内留下毒，既有护层仍按真实防御计算",
+        "T07.B1": "提前封袋后实体真正处于地面小区，才有持续伤",
+        "T06.B1": "本塔已在场时首次真实封袋主规则成功，给15%协作6秒",
+        "T10.B1": "歌段引导与滑行不自动等于空间传送 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。",
+        "T04.A1": "灯不让未承诺歌段变成已完成规则证据"
+      },
+      "recommended_traps": [
+        "R08",
+        "R01",
+        "R13"
+      ],
+      "condition": "停拍内封当前原奖袋并实际取走；玩家早封可以降低护层与压力。",
+      "constraints": [
+        "回报一次",
+        "不为高塔加伤追加歌段",
+        "地面陷阱需要实际ground而非水影外观"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "0.8秒旧窗在新战斗中须加反应预算或远程预输入，不能照抄旧特写数值。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F47"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F47"
+      },
+      "movement_speed_review": {
+        "profile_id": "WATER_LANE",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.3,
+        "post_response_base_speed": 3.3,
+        "correct_response": "封真实袋使未承诺歌段失效，封魅惑吸取；保留水边合法基础追逐。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F48",
+      "name": "河海豚化人客",
+      "action": "商品放访客托盘，工作帽钥匙留员工侧",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "步行与帽影掩护扑袭；遮挡不自动成为影跃。",
+      "favorable": [
+        "T08.B1",
+        "T01.A1"
+      ],
+      "conditional": [
+        "T05.A2",
+        "T08.A2"
+      ],
+      "weak": [
+        "T04.A1",
+        "T10.B1"
+      ],
+      "branch_rationale": {
+        "T08.B1": "未被原权限操作封掉的设施夺控准备可短打断",
+        "T01.A1": "真实帽檐暴露窗口使单点重弹可预瞄",
+        "T05.A2": "真实公共交接动作在设施4格护送范围内才有效 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。",
+        "T08.A2": "对合法攻击施减攻/厄运，身份未显形前不施咒",
+        "T04.A1": "灯不验证工作帽钥匙与员工权限",
+        "T10.B1": "帽影遮视线不是已登记空间转场 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。"
+      },
+      "recommended_traps": [
+        "R08",
+        "R02",
+        "R07"
+      ],
+      "condition": "商品交访客托盘，帽钥匙留员工侧；主规则封员工捷径与夺控。",
+      "constraints": [
+        "名字为河海豚化人客而非河豚",
+        "帽影不制造分身",
+        "不以攻击验身份"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "呼吸外貌只证明非人不证明当前攻击阶段；没有越界动作不要让自动塔先手射击。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F48"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F48"
+      },
+      "movement_speed_review": {
+        "profile_id": "LEAP",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.2745,
+        "post_response_base_speed": 3.3,
+        "correct_response": "商品与原帽钥匙权限分开封捷径/夺控；基础3.3。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F49",
+      "name": "火蛇博伊塔塔",
+      "action": "同热袋合盖、温标确认、真实冷却投放",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "贴地蛇行与沿真实热垃圾锚的连续冲刺，若另有转场必须另登记而非默认。",
+      "favorable": [
+        "T02.A1",
+        "T10.A1"
+      ],
+      "conditional": [
+        "T08.B1",
+        "T07.B1"
+      ],
+      "weak": [
+        "T03.A1",
+        "T09.B1"
+      ],
+      "branch_rationale": {
+        "T02.A1": "已显形载体可积毒，灵毒不因火色外观失效，8秒成熟按真实剂量",
+        "T10.A1": "实际贴地蛇行/冲刺沿路径逐区收费",
+        "T08.B1": "仍存在的喷火准备明确可封时可短断，原袋合盖后不补造",
+        "T07.B1": "只有实际防御允许且本体真在小区驻留时有收益，不由名字判免疫或加倍",
+        "T03.A1": "单蛇快速离开固定霜幕且没有群体覆盖收益，不能凭冰火名字保证克制",
+        "T09.B1": "热垃圾与热锚不是登记家电，没有设备就无家电感应 普通正电伤继续+1层（原生+2替代而不再叠加这份+1），每波无总反馈上限；实际死亡会缩图，不能把装饰部件或真人计入数量。"
+      },
+      "recommended_traps": [
+        "R14",
+        "R09",
+        "R01"
+      ],
+      "condition": "同热袋合盖、温标确认、实际冷却投放；热甲剥落来自真实冷却条件。",
+      "constraints": [
+        "塔火不升高任务温标",
+        "冰不自动完成冷却订单",
+        "无全店火灾或无限热垃圾生成"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "热食台不算热垃圾；封暂存不虚报投垃圾箱。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F49"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F49"
+      },
+      "movement_speed_review": {
+        "profile_id": "DASH",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.28125,
+        "post_response_base_speed": 3.24,
+        "correct_response": "原袋合盖封喷火热锚扩散，实际冷却逐段卸热甲；其余实体3.24。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F50",
+      "name": "泽西恶魔",
+      "action": "两次同窗线索、原板入正确槽、离冲击条带",
+      "default_enabled": true,
+      "movement_mode": "airborne",
+      "movement_condition": "窗外高飞→锁窗俯冲→低空恢复；合法迫降后才新增ground阶段。",
+      "favorable": [
+        "T01.A1",
+        "T02.A2"
+      ],
+      "conditional": [
+        "T03.B1",
+        "T09.A1"
+      ],
+      "weak": [
+        "T10.A1",
+        "T05.A1"
+      ],
+      "branch_rationale": {
+        "T01.A1": "长射程合法对空窗口可集中一发，适合可预告俯冲恢复",
+        "T02.A2": "对空短窗附毒，离开射界与高低切换不清剂量",
+        "T03.B1": "挡板后的low_air恢复可冻结当前高度，不是迫降",
+        "T09.A1": "只有引到真实通电C2设备且在地面/低空合法放电体积才有设备倍率 普通正电伤继续+1层（原生+2替代而不再叠加这份+1），每波无总反馈上限；实际死亡会缩图，不能把装饰部件或真人计入数量。",
+        "T10.A1": "地面格不沿整条俯冲平面投影收费",
+        "T05.A1": "地面纸偶不能拦住高低空飞行 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。"
+      },
+      "recommended_traps": [
+        "R03",
+        "R08"
+      ],
+      "condition": "两次同窗线索、原板入正确槽、离开冲击条带；错窗仍可撤离但无完美回执。",
+      "constraints": [
+        "8秒期限不因看预告刷新",
+        "落点锁定不暗换",
+        "冻结不自动接地"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "8秒期限不因观察刷新，目标锁定不暗换；错窗撤离保命但不发完美回执。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F50"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F50"
+      },
+      "movement_speed_review": {
+        "profile_id": "FLY",
+        "base_speed": 3.45,
+        "reference_effective_speed": 3.45,
+        "post_response_base_speed": 3.0,
+        "correct_response": "正确原板挡俯冲，低空失衡3.5秒按2.7缓移；两次独立挡击后封高空加速，低空3.0。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F51",
+      "name": "蜘蛛故事商",
+      "action": "用原回执压矛盾段、折扣牌与原货封同单",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "显形本体步行、从真实交易节点牵护体契约丝，丝不是已登记独立子体。",
+      "favorable": [
+        "T01.B1",
+        "T01.A1"
+      ],
+      "conditional": [
+        "T02.A1",
+        "T06.B1",
+        "T06.B2"
+      ],
+      "weak": [
+        "T01.A2",
+        "T09.A2"
+      ],
+      "branch_rationale": {
+        "T01.B1": "同一合法本体在护丝解除后可持续命中积热",
+        "T01.A1": "核账拆丝后明确本体受击窗适合单点狙击",
+        "T02.A1": "毒只附着合法同池载体，足够长遭遇兑现8秒成熟；纯装饰丝不领剂量",
+        "T06.B1": "原回执核账并封同单后才响应真实主要规则成功15%协作6秒",
+        "T01.A2": "多个护丝模型不自动提供多个独立生命池穿透收益",
+        "T09.A2": "同一护丝本体不能占两个电极并互弹 单池仍有5伤/1.2秒的基础通路，弱项指不能兑现双池互弹，而非无法输出。 普通正电伤继续+1层（原生+2替代而不再叠加这份+1），每波无总反馈上限；实际死亡会缩图，不能把装饰部件或真人计入数量。",
+        "T06.B2": "本塔在首次真实主要规则回应时在有效域内，才给该已显形敌易感6秒；既有层数可更早触发火/冰/咒/电，无历史回执重放。"
+      },
+      "recommended_traps": [
+        "R07",
+        "R08",
+        "R14"
+      ],
+      "condition": "原回执压矛盾段、折扣牌和原货封同单；塔伤不能代替核账。",
+      "constraints": [
+        "不把复制丝变成召唤怪",
+        "没有无限合同或回执复制",
+        "已完成真实交易只结一次"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "没有历史回执不投题，不生成复制商品，故事最多有限段。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F51"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F51"
+      },
+      "movement_speed_review": {
+        "profile_id": "HEAVY",
+        "base_speed": 3.24,
+        "reference_effective_speed": 3.24,
+        "post_response_base_speed": 3.24,
+        "correct_response": "核对真实回执断护丝、封单令复制丝失效；同体同池3.24。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F52",
+      "name": "矮水灵托科洛舍",
+      "action": "干侧擦椅南割点、低位检查",
+      "default_enabled": true,
+      "movement_mode": "mixed",
+      "movement_condition": "低位爬行与湿椅节点扑袭/回潜；水下或遮挡状态不默认合法地面受击。",
+      "favorable": [
+        "T02.A1",
+        "T03.B1"
+      ],
+      "conditional": [
+        "T07.B1",
+        "T05.A2"
+      ],
+      "weak": [
+        "T04.A1",
+        "T10.B1"
+      ],
+      "branch_rationale": {
+        "T02.A1": "原低位检查使合法影稳定显露后，可积毒和成熟",
+        "T03.B1": "真实可见的ground/low_air载体可固定，为玩家离椅留窗",
+        "T07.B1": "断水封回潜后目标真正停在合法地面小区时才有持续伤",
+        "T05.A2": "椅侧真实操作在设施护送范围内且敌可阻挡时才接应 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。",
+        "T04.A1": "高位灯不代替原低位检查或自动看穿椅下遮挡",
+        "T10.B1": "回潜不等于已登记双端瞬移，不能虚构起终点清算 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。"
+      },
+      "recommended_traps": [
+        "R02",
+        "R14",
+        "R13"
+      ],
+      "condition": "干侧擦椅南真实割点、低位检查；战后休息仍是可选收益。",
+      "constraints": [
+        "不造新漏水满足投放",
+        "水中路径不自动地面计费",
+        "高度和可选敌须真实成立"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "从上看未见不判无怪；0SAN恢复不能被强绑这把危险椅。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F52"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F52"
+      },
+      "movement_speed_review": {
+        "profile_id": "WATER_LANE",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.3,
+        "post_response_base_speed": 3.0,
+        "correct_response": "断真实割点封回潜、低位观察显形，地面3.0；休息仅战后。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F53",
+      "name": "水之母来访",
+      "action": "同两原瓶封保留槽，售货只另一箱",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "沿保留容器边界慢行并发波纹，双瓶锁定后水幕朝向固定。",
+      "favorable": [
+        "T01.A1",
+        "T04.B1"
+      ],
+      "conditional": [
+        "T06.B1",
+        "T07.B1"
+      ],
+      "weak": [
+        "T10.A1",
+        "T02.B1"
+      ],
+      "branch_rationale": {
+        "T01.A1": "真实固定水幕侧面有受击射线时单点重弹有效",
+        "T04.B1": "慢行同体从合法侧面保持四秒曝光",
+        "T06.B1": "双瓶真正锁定时即取得本场主规则回执，15%协作6秒不拖到交班",
+        "T07.B1": "地面载体在侧翼小区驻留且遮挡合法才付持续伤",
+        "T10.A1": "慢行少跨区，移动税难体现多格优势",
+        "T02.B1": "两个瓶不是两个独立敌方池，不提供传染邻体"
+      },
+      "recommended_traps": [
+        "R07",
+        "R08",
+        "R13"
+      ],
+      "condition": "同两原瓶封保留槽，售货只用另一箱；承诺物仍须留到真实交班。",
+      "constraints": [
+        "不把容器变电器或子体",
+        "交班奖励与战斗回执分开",
+        "不通过灼烧销毁原瓶"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "战斗结束不提前支付720的SAN；同瓶不能边打边卖刷进度。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F53"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F53"
+      },
+      "movement_speed_review": {
+        "profile_id": "HEAVY",
+        "base_speed": 3.24,
+        "reference_effective_speed": 3.24,
+        "post_response_base_speed": 3.24,
+        "correct_response": "每份原瓶锁定减连击，双瓶保留令水幕定向；沉重3.24追逐。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F54",
+      "name": "吞世巨兽",
+      "action": "三件原物按真实吞入逆序拉回暂存槽",
+      "default_enabled": true,
+      "movement_mode": "anchored",
+      "movement_condition": "有限巨大投影慢推进/固定宽口攻击；多个部位共享同一稳定度，未证明可放地面机关的接触体积。",
+      "favorable": [
+        "T01.A1",
+        "T02.A1"
+      ],
+      "conditional": [
+        "T04.B1",
+        "T07.B1"
+      ],
+      "weak": [
+        "T09.A2",
+        "T05.A1"
+      ],
+      "branch_rationale": {
+        "T01.A1": "逐层救回原物拆甲后的宽口投影适合明确穿甲单击",
+        "T02.A1": "同池锚定投影适合长期积毒，8秒成熟不会按部位复制",
+        "T04.B1": "同一可见宽口射线稳定四秒后可维持曝光",
+        "T07.B1": "仅当明确ground受击投影实际与小区相交；不能隔空烤未接地的嘴",
+        "T09.A2": "多部位共一池，不是双极电网的两个单位 单池仍有5伤/1.2秒的基础通路，弱项指不能兑现双池互弹，而非无法输出。 普通正电伤继续+1层（原生+2替代而不再叠加这份+1），每波无总反馈上限；实际死亡会缩图，不能把装饰部件或真人计入数量。",
+        "T05.A1": "巨大锚定投影没有普通纸偶可拦的地面行走身体 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。"
+      },
+      "recommended_traps": [],
+      "condition": "三原物按真实吞入逆序救回，拆相应护甲与吸入招式；先完成投影几何，暂不硬推荐地面陷阱。",
+      "constraints": [
+        "共池AOE一次",
+        "无虚构分裂/眷属",
+        "不把大体积碰撞当多格移动",
+        "不吞唯一救命工具"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "只吞登记三物，不吞唯一救命工具/全部背包；三绳和槽位先预留。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F54"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F54"
+      },
+      "movement_speed_review": {
+        "profile_id": "ANCHORED",
+        "base_speed": 0,
+        "reference_effective_speed": 0,
+        "post_response_base_speed": 0,
+        "correct_response": "逆序救原货逐层拆甲、全救封吞噬；宽口投影仍有预告基础扫击。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F55",
+      "name": "护夜犬卡德霍",
+      "action": "原赠食、按真实限定节点交接并返店",
+      "default_enabled": true,
+      "movement_mode": "mixed",
+      "movement_condition": "疾走与近身扑击交替；真实地面奔跑和空中扑段分别判断。",
+      "favorable": [
+        "T03.B1",
+        "T01.A1"
+      ],
+      "conditional": [
+        "T05.A1",
+        "T10.A1"
+      ],
+      "weak": [
+        "T10.B1",
+        "T04.A1"
+      ],
+      "branch_rationale": {
+        "T03.B1": "原赠食与节点路线限制后固定合法身体，降低连扑压力",
+        "T01.A1": "预告节点和扑击恢复可投入预装单发",
+        "T05.A1": "只拦可阻挡地面段，原赠食诱饵仍优先于纸偶 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。",
+        "T10.A1": "实际疾走经过多区才计路径，空中扑段不铺平收费",
+        "T10.B1": "疾扑和节点交接不自动构成空间传送 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。",
+        "T04.A1": "未登记阴影节点时照影路线功能有限"
+      },
+      "recommended_traps": [
+        "R01",
+        "R02",
+        "R09"
+      ],
+      "condition": "原赠食、真实限定节点交接并返店，返店提交永久封连扑，普通追击仍在。",
+      "constraints": [
+        "不把护送帮助提前发放",
+        "犬体与影子不拆成两池",
+        "不让路障封死返店线"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "不能先免费无敌护送再重复战斗领奖；同原订单交付是否完成另记事实。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F55"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F55"
+      },
+      "movement_speed_review": {
+        "profile_id": "LEAP",
+        "base_speed": 3.45,
+        "reference_effective_speed": 3.38925,
+        "post_response_base_speed": 3.45,
+        "correct_response": "真实赠食给有限进食窗、逐节点减少连扑；返店只提交规则，余下3.45基本追逐。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F56",
+      "name": "深水邦耶普",
+      "action": "从干侧测深划界、擦断真实供水割点取原物",
+      "default_enabled": true,
+      "movement_mode": "mixed",
+      "movement_condition": "深水潜点与边缘跃出分开；断流后真实着地才是ground。",
+      "favorable": [
+        "T02.A2",
+        "T10.B2"
+      ],
+      "conditional": [
+        "T07.B1",
+        "T03.B1"
+      ],
+      "weak": [
+        "T10.A1",
+        "T05.A1"
+      ],
+      "branch_rationale": {
+        "T02.A2": "已显形出水窗口可附毒，潜行不抹去合法既有负荷",
+        "T10.B2": "测深/断流给出真实已知边缘落点，投影提前完成才截停；实际到达合法可控高度后申请普通1秒/精英0.6秒束缚固定位置，受共享硬控与8秒目标门槛，落格仍按普通3伤；不是仅封下一跳。 普通跳跃/跃出仅按实际落格与原有格冷却结算；只有真实转场才审计整段并刷新期限。",
+        "T07.B1": "真正跃出着地并在小区驻留才有伤害",
+        "T03.B1": "合法低空/地面载体可固定，不能用冻结直接把水下目标迫出",
+        "T10.A1": "没有可受击地面实体的潜水路径不收格税",
+        "T05.A1": "未跃出前水影不是纸偶可拦身体 TD05每怪至多拦1秒、全纸偶共享6秒再拦截；重组更快只补岗位，不延长同怪拦截。"
+      },
+      "recommended_traps": [
+        "R02",
+        "R13"
+      ],
+      "condition": "干侧测深、擦断真实供水割点取原物；提前全排干可跳过测深而不使正确操作失效。",
+      "constraints": [
+        "量尺不造水",
+        "水下不可选中不接受新锁定",
+        "无额外潜点凭空生成"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "量尺不是造水工具；完全排干可跳过测深，不让提前正确应对失效。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F56"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F56"
+      },
+      "movement_speed_review": {
+        "profile_id": "WATER_LANE",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.3,
+        "post_response_base_speed": 3.0,
+        "correct_response": "测深公开真潜点，排干封深水护体回潜，真实落地后3.0追逐。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F57",
+      "name": "水路守护塔尼瓦",
+      "action": "原箱走北干绕或8秒维护过渠，收板复流",
+      "default_enabled": true,
+      "movement_mode": "mixed",
+      "movement_condition": "依真实主渠移动并预告横扫，恢复主渠后固定在渠边可压制投影。",
+      "favorable": [
+        "T01.A1",
+        "T02.A1"
+      ],
+      "conditional": [
+        "T08.B1",
+        "T06.B1"
+      ],
+      "weak": [
+        "T10.A1",
+        "T06.A1"
+      ],
+      "branch_rationale": {
+        "T01.A1": "预告横扫恢复与固定渠边投影可投入单发",
+        "T02.A1": "合法显形的同一水影可持续积毒与8秒成熟",
+        "T08.B1": "仅对明确可封的暴涨/横扫准备短断，不能代替恢复主渠",
+        "T06.B1": "本塔已有效且真实维护/干绕产生主要规则成功回执时才给协作6秒",
+        "T10.A1": "主渠移动未证明是地面连续扫掠，不能画直线补税",
+        "T06.A1": "大水影不默认拥有可推动地面实体"
+      },
+      "recommended_traps": [],
+      "condition": "原箱北干绕或8秒维护过渠、收板复流；地图未证实地面机关能接触水影体积，暂不硬推荐。",
+      "constraints": [
+        "主渠与河童冷区支流独立",
+        "不封唯一北侧安全路",
+        "没有水路就不造水投怪"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "不能故意堵再疏无限刷；主渠与F05冷支路不同，封水并非所有水怪通解。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F57"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F57"
+      },
+      "movement_speed_review": {
+        "profile_id": "WATER_LANE",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.3,
+        "post_response_base_speed": 0,
+        "correct_response": "收真实堵物复流缩横扫、封暴涨，实体固定渠边可压制；不伪造地面追身。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F58",
+      "name": "雾笛访客",
+      "action": "同份热食留保温槽或实际封普通冷区",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "雾内快步、出雾慢行，封区后在原位置显形；雾遮挡不自动等于空间转场。",
+      "favorable": [
+        "T07.B2",
+        "T04.B1"
+      ],
+      "conditional": [
+        "T04.A1",
+        "T08.A2"
+      ],
+      "weak": [
+        "T10.B1",
+        "T02.B1"
+      ],
+      "branch_rationale": {
+        "T07.B2": "真实出雾且速度不高于焰芯可跟踪范围时，小区随行补短移动",
+        "T04.B1": "封区后同体显露且有长射界，慢行可持续曝光",
+        "T04.A1": "仅帮助看已显形轨迹与实际照区，不替热食/封区驱雾主规则",
+        "T08.A2": "对真实攻击施咒，不把环境雾本身当攻击事件",
+        "T10.B1": "进出雾不产生真实真实转场 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。",
+        "T02.B1": "一团影的雾粒不是多个可传毒独立池"
+      },
+      "recommended_traps": [
+        "R01",
+        "R08",
+        "R13"
+      ],
+      "condition": "同份真实热食留保温槽或实际封普通冷区；热食质量按世界钟到期。",
+      "constraints": [
+        "R13战斗火不代替热食驱雾",
+        "封区不关任务冰柜/逃生门",
+        "雾不凭空造导电器"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "热食品质按真实世界钟到期；封区不关任务冰柜与逃生门。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F58"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F58"
+      },
+      "movement_speed_review": {
+        "profile_id": "AGILE",
+        "base_speed": 3.45,
+        "reference_effective_speed": 3.45,
+        "post_response_base_speed": 2.85,
+        "correct_response": "真实暖域破隐蔽，封雾源后原地显形转2.85慢行。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F59",
+      "name": "梅内胡内工队",
+      "action": "同三份材料放固定槽，关局部灯、不注视施工，实际装回",
+      "default_enabled": true,
+      "movement_mode": "mixed",
+      "movement_condition": "施工位短冲与有预告换位；实际连续段与真正转场段分别登记，飞工具不自动成为独立生命池。",
+      "favorable": [
+        "T01.A1",
+        "T02.A2"
+      ],
+      "conditional": [
+        "T08.B1",
+        "T10.B2"
+      ],
+      "weak": [
+        "T01.A2",
+        "T09.A2"
+      ],
+      "branch_rationale": {
+        "T01.A1": "不注视原工区时出现的固定工作窗适合预装狙击",
+        "T02.A2": "短工作窗付出两枚小票，工具外观变化不清同池毒",
+        "T08.B1": "尚未装回原设备前的明确飞工具准备可短封，主要规则封后不再喂触发",
+        "T10.B2": "本次换位落点真实公开且载体落在合法区域，投影提前完成才触发；实际到达合法可控高度后申请普通1秒/精英0.6秒束缚固定位置，受共享硬控与8秒目标门槛，落格仍按普通3伤；不是仅封下一跳。 普通跳跃/跃出仅按实际落格与原有格冷却结算；只有真实转场才审计整段并刷新期限。",
+        "T01.A2": "多个飞工具图像未登记独立血池，不能领取群体穿线收益",
+        "T09.A2": "同一工具影不能由两个模型占据双极名额 单池仍有5伤/1.2秒的基础通路，弱项指不能兑现双池互弹，而非无法输出。 普通正电伤继续+1层（原生+2替代而不再叠加这份+1），每波无总反馈上限；实际死亡会缩图，不能把装饰部件或真人计入数量。"
+      },
+      "recommended_traps": [
+        "R04",
+        "R09",
+        "R13"
+      ],
+      "condition": "同三材料到固定槽、关局部灯、不注视施工、实际装回原设备；维修只响应真实损坏。",
+      "constraints": [
+        "不新增工队召唤卡",
+        "装回设备不刷新次数/电量",
+        "R09对实际连续ground段正常收费；明确的真实转场另按沿线审计，飞工具图像不自动提供转场事件",
+        "原任务要求装回设备仍可完成，这是恢复该唯一任务设备原功能，不提供陷阱装填/修复/部署接口。"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "无损坏不造维修事件；不借施工刷新原设备次数/电量；不是免费复位同等收益。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F59"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F59"
+      },
+      "movement_speed_review": {
+        "profile_id": "CONDITIONAL_PHASE",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.3,
+        "post_response_base_speed": 3.3,
+        "correct_response": "三份真材料逐项封飞工具，背向8秒施工累计；装回封特殊工具，基础3.3。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    },
+    {
+      "id": "F60",
+      "name": "马面引路者",
+      "action": "凸镜安全观察，预告内拉真实中间帘或锁朝向退离",
+      "default_enabled": true,
+      "movement_mode": "continuous",
+      "movement_condition": "马面步行与转身凝视锥；凸镜只用于安全观察，不存在镜穿。",
+      "favorable": [
+        "T01.A1",
+        "T03.B2"
+      ],
+      "conditional": [
+        "T07.B1",
+        "T06.B1"
+      ],
+      "weak": [
+        "T04.A1",
+        "T10.B1"
+      ],
+      "branch_rationale": {
+        "T01.A1": "正确遮线或背向后的后颈窗口适合单点高伤",
+        "T03.B2": "固定真实身体朝向后，另一物理塔可在后续批次接脆冰",
+        "T07.B1": "实际地面停顿在小区内且射线合法时有驻留伤",
+        "T06.B1": "两次不同attack_id的真实遮线完成主规则后，才响应一次协作回执",
+        "T04.A1": "塔灯不替代玩家的真实中间帘、背向和凝视条件",
+        "T10.B1": "镜中观察不构成空间真实转场，不能为镜子凭空加镜穿 普通合法跨区仍按同格伤结算；只是没有真实转场的提前再结算/刷新优势。"
+      },
+      "recommended_traps": [
+        "R02",
+        "R01",
+        "R07"
+      ],
+      "condition": "凸镜安全观察，预告内拉真实中间帘或锁朝向退离；两次独立成功遮线才永久封追踪转头。",
+      "constraints": [
+        "R06明确不适配",
+        "帘须真实位于两者之间",
+        "低SAN保留转头预告"
+      ],
+      "no_invented_abilities": true,
+      "existing_invariant": "镜中看不等于双向直视；帘必须在两者之间，不能全球遮蔽；低SAN保留转头预告。",
+      "source_entry": {
+        "file": "content/monster_migration_td02.json",
+        "id": "F60"
+      },
+      "crowd_abilities_added": false,
+      "chase_profile_ref": {
+        "file": "content/chase_profiles_td05.json",
+        "entry_id": "F60"
+      },
+      "movement_speed_review": {
+        "profile_id": "WALK",
+        "base_speed": 3.3,
+        "reference_effective_speed": 3.3,
+        "post_response_base_speed": 3.3,
+        "correct_response": "正确遮线/背向露后颈，两个独立凝视攻击回应封追踪转头；仍3.3普通追逐，不获镜穿。",
+        "new_movement_ability_added": false,
+        "runtime_integrated": false
+      },
+      "susceptible_fit": "可见合法受击窗内有效；若已有足够火/冰/咒/电层，按中央契约结算降阈值。永久毒没有爆发阈值。",
+      "balance_review_td05": {
+        "reviewed": true,
+        "identity_action_enabled_unchanged": true,
+        "all_three_branch_categories_reviewed": true,
+        "phase_same_unit_damage_and_frequency_reset": true,
+        "paper_maximum_one_second": true,
+        "electric_no_total_feedback_cap_and_death_shrink": true,
+        "pre_shift_trap_inventory_only": true,
+        "susceptible_minus_one_not_stacking": true,
+        "does_not_grant_new_split_summon_or_mirror_ability": true
+      }
+    }
+  ],
+  "crowd_test_scenarios": [
+    {
+      "id": "CROWD_LINE",
+      "title": "三个独立地面池排成纵列",
+      "is_new_monster_card": false,
+      "existing_monsters_assigned": [],
+      "favorable": [
+        "T01.A2",
+        "T03.A2"
+      ],
+      "conditional": [
+        "T07.A1",
+        "T05.A1"
+      ],
+      "weak": [
+        "T01.A1",
+        "T04.B1"
+      ],
+      "recommended_traps": [
+        "R12",
+        "R09"
+      ],
+      "condition": "三池沿实际无遮挡窄通道排列且合法高度相同；不能拿F09/F54共池部位凑数量。 纸偶只提供单怪1秒短停，不能默认长时站桩把纵列永久固定。",
+      "what_it_validates": "线性穿透与前后波覆盖，分别按独立池一次命中。"
+    },
+    {
+      "id": "CROWD_SCATTER",
+      "title": "四至六个独立低耐久地面池",
+      "is_new_monster_card": false,
+      "existing_monsters_assigned": [],
+      "favorable": [
+        "T01.B2",
+        "T08.A1",
+        "T05.B2"
+      ],
+      "conditional": [
+        "T06.A2",
+        "T07.A1"
+      ],
+      "weak": [
+        "T01.A1",
+        "T02.A1"
+      ],
+      "recommended_traps": [
+        "R01",
+        "R07",
+        "R08"
+      ],
+      "condition": "有限真实子体具有独立池，分散时清签与双纸偶更易分配伤害；收拢必须真实路径与可推动标签。",
+      "what_it_validates": "低过量清理、广域减攻、聚拢后铺烧伤，不能因装饰人数膨胀伤害。"
+    },
+    {
+      "id": "CROWD_POISON",
+      "title": "同根独立存续子体的传毒",
+      "is_new_monster_card": false,
+      "existing_monsters_assigned": [],
+      "favorable": [
+        "T02.B1",
+        "T02.B2"
+      ],
+      "conditional": [
+        "T06.B2",
+        "T07.A1"
+      ],
+      "weak": [
+        "T04.B1",
+        "T01.A1"
+      ],
+      "recommended_traps": [
+        "R14",
+        "R15"
+      ],
+      "condition": "接收池独立、同根且仍存续，真实邻近符合2.5格；依附子体随母体同时崩解时不是遗毒接收者。",
+      "what_it_validates": "T02.B1只分配本次新剂量；B2真终态将该塔毒贡献总量50%分给同根最多两池，每剂量只继承一代，跨根不传。"
+    },
+    {
+      "id": "CROWD_DUO",
+      "title": "两只保持邻近的独立耐久目标",
+      "is_new_monster_card": false,
+      "existing_monsters_assigned": [],
+      "favorable": [
+        "T04.B2",
+        "T09.A2"
+      ],
+      "conditional": [
+        "T05.B1",
+        "T06.A2",
+        "T06.B2"
+      ],
+      "weak": [
+        "T01.B2",
+        "T01.A2"
+      ],
+      "recommended_traps": [
+        "R01",
+        "R08"
+      ],
+      "condition": "两池实际距离与射线满足双路和电跳范围；不能用同一身体部件分配两路。 应答接力只在真实规则回执发生时给该主体易感；两池同场不会自动复制回执。",
+      "what_it_validates": "两条独立曝光、交替上电与同一波生命池去重；孤立一池不享双路合并伤害。"
+    },
+    {
+      "id": "CROWD_CASTERS",
+      "title": "两个真实准备中的技能目标",
+      "is_new_monster_card": false,
+      "existing_monsters_assigned": [],
+      "favorable": [
+        "T08.B2",
+        "T08.B1"
+      ],
+      "conditional": [
+        "T08.A1",
+        "T06.A2"
+      ],
+      "weak": [
+        "T02.A1",
+        "T10.A1"
+      ],
+      "recommended_traps": [
+        "R08",
+        "R04"
+      ],
+      "condition": "两个测试池都明示可封准备、可见、在合法小公示区；场外和已提交攻击不追溯取消。",
+      "what_it_validates": "群体短封与双储印窗口，不把概率厄运和确定封技混成永久控制。 易感少1层只改变爆发门槛，不降低封技准备合法性或跳过控制免疫。"
+    },
+    {
+      "id": "CROWD_C2_GRID",
+      "title": "有限生命、真实C2电器与无总反馈上限连锁",
+      "is_new_monster_card": false,
+      "existing_monsters_assigned": [],
+      "favorable": [
+        "T09.B1",
+        "T09.B2"
+      ],
+      "conditional": [
+        "T09.A1",
+        "T06.A2",
+        "T07.A1"
+      ],
+      "weak": [
+        "T10.B1",
+        "T04.A1"
+      ],
+      "recommended_traps": [
+        "R16",
+        "R11"
+      ],
+      "condition": "只登记AP_HOT_FOOD/AP_FREEZER/AP_COLD_CABINET，AP_POS关闭；实际2.5格且无遮挡的单位/电器边组成连通分量，可中继到种子半径之外。B2外环转移仍保留原截止与来源D贡献，不复制电荷。 常态必须先测1池/2池、少量电器与实际死亡；6池只能是后期压力案例。",
+      "what_it_validates": "完整连通图与局部N+E；每份正电伤继续加1层，无单波总反馈上限。有限HP使敌人死亡并在下波移除，源死亡取消待发；不得用无限血六怪理论来削弱常态。"
+    },
+    {
+      "id": "CROWD_STAGGER",
+      "title": "小目标先结束再处理主目标",
+      "is_new_monster_card": false,
+      "existing_monsters_assigned": [],
+      "favorable": [
+        "T06.B2",
+        "T01.A1"
+      ],
+      "conditional": [
+        "T07.A1",
+        "T02.B2"
+      ],
+      "weak": [
+        "T10.B1",
+        "T04.A1"
+      ],
+      "recommended_traps": [
+        "R07",
+        "R13"
+      ],
+      "condition": "多个独立生命池依次真正结束，低频友塔确在装填；共池部位和依附召唤自动崩解不冒充新终态。",
+      "what_it_validates": "一次终态只有一次20%装填进度，广播同族2秒共享，进度不生成递归伤害或额外奖励。"
+    },
+    {
+      "id": "CROWD_SPLIT",
+      "title": "非致死真分裂的预算守恒",
+      "is_new_monster_card": false,
+      "existing_monsters_assigned": [],
+      "favorable": [
+        "T07.A1",
+        "T08.A1"
+      ],
+      "conditional": [
+        "T02.B1",
+        "T10.A1",
+        "T09.B1"
+      ],
+      "weak": [
+        "T04.B1",
+        "T01.A1"
+      ],
+      "recommended_traps": [
+        "R09",
+        "R14",
+        "R15"
+      ],
+      "condition": "先结完整批伤害，父池未终态才替换为独立子池；剩余血、毒q、8秒未成熟预算、状态贡献和原截止按份额分配。",
+      "what_it_validates": "分裂不复制毒、ready队列、首债资格、区伤截止、已处理phase_event_id或电荷能量；电网优势来自新独立池，奖励仍根级一次。 真实子池死亡后从电图删除；共享父根奖励不会因新池数量复制。"
+    }
+  ],
+  "objective_limits": [
+    "All 60 are design entries, not 60 implemented AIs.",
+    "Exact HP/armor/ward, legal heights and geometry still need per-encounter runtime implementation.",
+    "F10/F54/F57 have no unconditional ground-trap recommendation before projected collision geometry is proven.",
+    "F14 remains disabled.",
+    "No existing catalogue monster is assumed to summon or split merely to justify a crowd specialization.",
+    "Low-air F13/F50 are not ground; freeze never grants ground contact.",
+    "F15 true phase pays all valid audit cells between its committed endpoints; F54 multiple parts remain one pool.",
+    "F16 cashier POS is disabled; only actual C2 devices count.",
+    "T09.B2 is recommended only in an explicit crowd test until a real independent recipient scenario is available.",
+    "The proposed TD05 weekly economy and complete static tree review are design calculations; no seven-night gameplay or mobile client performance is claimed.",
+    "Ordinary pursuit reference bands do not override F46 mandatory dwell, F10/F54 anchored bodies, legitimate corner losses or successful slowdown/control."
+  ],
+  "review_counts": {
+    "monsters": 60,
+    "categories_per_monster": 3,
+    "min_branch_ids_per_category": 2,
+    "crowd_test_scenarios": 8,
+    "no_invented_abilities": true,
+    "phase_rule_confirmed_entries_updated": [
+      "F15",
+      "F19",
+      "F28",
+      "F36",
+      "F39",
+      "F40"
+    ],
+    "conditional_true_phase_entries_reviewed": [
+      "F30",
+      "F38",
+      "F59"
+    ],
+    "all_entries_reviewed_for_td05": 60,
+    "daily_count_test_scenarios": 3,
+    "chase_profiles": 12
+  },
+  "daily_count_test_scenarios": [
+    {
+      "id": "DAILY_ONE",
+      "independent_pools": 1,
+      "powered_appliance_counts": [
+        0,
+        1,
+        2
+      ],
+      "goals": [
+        "single-targetD6 discharge remains useful",
+        "realHP death cancels queued next discharge",
+        "poison takes time, sniper has immediate low-frequency impact"
+      ]
+    },
+    {
+      "id": "DAILY_TWO",
+      "independent_pools": 2,
+      "powered_appliance_counts": [
+        0,
+        1,
+        2
+      ],
+      "goals": [
+        "ordinary bounce andoverload feedback canchain without a totalwavecap",
+        "one death reduces localN andcomponent before next wave",
+        "two enemies retain pursuit pressure outside localpapercontact"
+      ]
+    },
+    {
+      "id": "LATE_FINITE_CROWD",
+      "independent_pools": [
+        3,
+        6,
+        8
+      ],
+      "goals": [
+        "explicit finiteHP andunevenHP",
+        "no reward multiplication",
+        "large connected chains allowed, not forcibly equalized to burnDPS"
+      ]
+    }
+  ]
+}

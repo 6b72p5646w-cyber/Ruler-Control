@@ -6,25 +6,25 @@
 
 本仓库包含设计、结构化内容、精确地图、有限世界执行器、两怪独立HTML练习及静态和无画面检查。**当前没有微信发行客户端；60张设计卡不等于60个已实现AI，图形界面和手机操作仍待实测。**
 
-## TD04 最新玩法设计：位移惩罚、电击连锁与七夜建设
+## TD05 最新玩法设计：追逐、连锁电击与班前布防
 
-保留 **10塔族→20个L2→40个L3** 和16类陷阱，已逐节点复核70个塔节点、80个陷阱节点。真瞬移/影跃/镜穿沿全部有效分区收费并重计时；圆形小范围至少半径1格且排除柜体；过载遍历真实空间连通分量，电伤继续叠层；同周保留建设，第七夜结算后清场。
+完整保留 **10塔族→20个L2→40个L3** 与16系80节点陷阱，更新60条既有怪物适配。位移塔同格同伤，真实转场增加计伤机会与保底；电击原生D=6，每个正伤受体回填1电，**没有每波反馈总量上限或代际衰减**；货架遮挡以合法有效面积补偿；新增易感；纸偶最多拖1秒并快速重组；普通怪略快于玩家；陷阱先购买、每日班前布置，营业后不可补充。
 
-**TD04是当前设计和参考模型调校版，尚未接入V0.10运行器。** 八行为、三条七夜库存收支、地图静态例和经济绕过检查已运行；实际AI、射线、手机与七夜实战仍待接入验证。
+**TD05是当前设计与可执行参考模型，尚未接入V0.10游戏运行器。** 本轮以1–2只有限生命敌人为电击主调校，再看提前减员与群体；七夜保留真实装置与库存，第七夜结算后统一清空。本轮继续完成设计，未进入美术。
 
 | 入口 | 内容 |
 |---|---|
-| [设计总览](docs/45_td04_balance_overview.md) | 当前权威、位移/范围/电网改写与整体取舍 |
-| [战斗合同](docs/46_td04_spatial_chain_contracts.md) | 沿线审计、有效圆场、完整连通电链、分数荷与队列 |
-| [完整塔树和平衡](docs/47_td04_tower_balance.md) | 全70节点、两级特化、参数、敌人适配及改动理由 |
-| [陷阱、地图、怪物](docs/48_td04_traps_map_matchups.md) | 全80陷阱节点、12个落场例、60怪适配 |
-| [七夜经济](docs/49_td04_week_economy.md) | 定价、充能、维修、保留/周清与三档采购回放 |
-| [八行为实算结果](docs/50_td04_balance_results.md) | 短窗/长窗、控制、全树指标、电网及验证边界 |
-| [塔数据](content/tower_defense_td04.json) / [合同数据](content/combat_contracts_td04.json) | 待实现的结构化参数 |
-| [陷阱设备](content/traps_facilities_td04.json) / [怪物适配](content/monster_matchups_td04.json) | 原型身份与新策略对应 |
-| [周经济](content/economy_week_td04.json) / [八行为场景](content/balance_scenarios_td04.json) | 可复算收支、库存和模型输入 |
+| [设计总览](docs/51_td05_revision_overview.md) | 玩家澄清、完整循环、分支改动与当前权威 |
+| [战斗合同](docs/52_td05_combat_contracts.md) | 同价跨区、易感、无总额上限电链、死亡缩图、范围与纸偶 |
+| [完整塔树](docs/53_td05_tower_tree.md) | 70节点、两级特化、数值、敌人适配与代价 |
+| [陷阱/几何/经济](docs/54_td05_traps_geometry_economy.md) | 80节点、班前实物库存、12挂点补偿与七夜定价 |
+| [追逐与60怪](docs/55_td05_chase_monsters.md) | 移速、完整位移周期、正确回应、逐怪分支适配 |
+| [调校结果](docs/56_td05_balance_results.md) | 八行为、有限生命电击、提前减员、库存与周清 |
+| [塔数据](content/tower_defense_td05.json) / [合同数据](content/combat_contracts_td05.json) | 当前拟实现的绝对参数与事件合同 |
+| [陷阱设备](content/traps_facilities_td05.json) / [怪物适配](content/monster_matchups_td05.json) | 实际空间与原型身份对应 |
+| [追逐数据](content/chase_profiles_td05.json) / [周经济](content/economy_week_td05.json) / [场景](content/balance_scenarios_td05.json) | 可复算速度、库存收支与模型输入 |
 
-运行 `python3 scripts/check_td04_balance.py` 重算；当前[机器报告](docs/td04_balance_report.json)通过521项结构与参考检查。它不替代客户端战斗与手机实测。[TD03](docs/40_td03_system_rework.md)、[TD02底案](docs/35_pursuit_tower_defense_td02.md)保留历史，只有未被当前合同改写的营业、设施、原物规则继续沿用。本轮不新增怪物原型或美术。
+运行 `python3 scripts/check_td05_balance.py` 重算；当前[机器报告](docs/td05_balance_report.json)通过 **718 项**，0失败，保留输入与脚本哈希。它不替代客户端战斗、动态导航和手机试玩。TD04及更早TD文档是历史记录；未被TD05修改的既有营业、身份与原物规则继续保留。
 
 ## 两怪规则实操
 

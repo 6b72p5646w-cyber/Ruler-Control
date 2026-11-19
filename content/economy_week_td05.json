@@ -1,0 +1,297 @@
+{
+  "version": "TD05",
+  "runtime_integrated": false,
+  "source_commit": "2de5054a12ee1655ad817dae73ce643d1db82047",
+  "scope": "standard_seven_night_defense_campaign_design",
+  "wallet_policy": {
+    "week_days": 7,
+    "starting_coin": 120,
+    "starting_spirit": 0,
+    "free_job_tower": "T02",
+    "free_job_tower_sellable": false,
+    "free_tower_counts_toward_limit": true,
+    "free_tower_base_sell_refund": 0,
+    "defense_coin_is_week_scoped": true,
+    "spirit_is_week_scoped": true,
+    "previous_week_income_can_buy_current_week_defense": false,
+    "note": "本文件定义七夜防御模式的当周金币和灵能账，不修改V0.10尚未迁移的个人长期财产。旧周余额进入成绩记录，不转换为下周防御购买力；知识、图鉴和已定义永久解锁保留。"
+  },
+  "income": {
+    "coin_per_valid_order": 6,
+    "order_limit_per_night": 12,
+    "coin_per_unique_root_defeat": 12,
+    "spirit_per_unique_root_defeat": 4,
+    "spirit_bonus_per_real_major_rule": 2,
+    "major_rule_bonus_paid_with_root_terminal": true,
+    "new_root_slots_per_night": 6,
+    "completed_handover_wage": 80,
+    "performance_bonus_max": 40,
+    "performance_bonus_in_base_replays": 0,
+    "hit_child_split_or_dot_income": 0,
+    "future_wage_spendable": false,
+    "phase_pause_produces_income": false
+  },
+  "costs": {
+    "tower_l1_coin_range": [
+      35,
+      45
+    ],
+    "tower_l2_increment": {
+      "coin": 28,
+      "spirit": 4
+    },
+    "tower_l3_increment": {
+      "coin": 52,
+      "spirit": 12
+    },
+    "trap_l2_increment_except_R12": {
+      "coin": 10,
+      "spirit": 2
+    },
+    "trap_l3_increment_except_R12": {
+      "coin": 16,
+      "spirit": 4
+    },
+    "barrier_l2_per_tile": {
+      "coin": 6,
+      "spirit": 1
+    },
+    "barrier_l3_per_tile": {
+      "coin": 8,
+      "spirit": 2
+    },
+    "ordinary_firing_or_dot_cost": 0,
+    "same_tower_family_same_tier_same_price": true,
+    "prices_are_incremental_not_cumulative": true
+  },
+  "resupply": {
+    "base_initial_consumable_fraction": 0.3,
+    "base_hardware_fraction_for_charged_trap": 0.7,
+    "charge_coin_formula": "max(1,ceil(0.30*actual_size_L1_coin/L1_initial_capacity))",
+    "charge_formula_uses_L1_capacity_not_upgraded_capacity": true,
+    "repair_coin_formula": "max(1,ceil(0.125*refundable_hardware_principal))",
+    "repair_hardware_principal_charged_trap": "0.70*paid_actual_size_L1_coin+paid_upgrade_coin",
+    "repair_hardware_principal_uncharged_barrier": "paid_actual_size_L1_coin+paid_upgrade_coin",
+    "repair_coin_hardware_fraction": 0.125,
+    "repair_max_hp_fraction": 0.25,
+    "repair_partial_fraction_still_pays_one_service": true,
+    "service_world_seconds": 2,
+    "requires_continuous_peaceful_area": true,
+    "upgrade_additional_capacity_starts_empty": true,
+    "no_per_night_free_charge_or_repair": true,
+    "purchase_starts_with_paid_L1_charge_count_only": true,
+    "allowed_phase": "pre_shift_only",
+    "peaceful_business_allows_service": false,
+    "purchase_creates_paid_refill_stock": true,
+    "loading_consumes_existing_paid_stock": true,
+    "loose_refill_stock_is_week_scoped": true,
+    "backpack_can_supply_open_shift": false,
+    "coin_income_during_business_can_buy_traps_now": false,
+    "last_paid_field_completes_after_final_charge": true
+  },
+  "sale_and_reselection": {
+    "sale_peaceful_preparation_only": true,
+    "hardware_refund_fraction": 0.5,
+    "refund_rounding": "floor_each_component_then_apply_total_net_paid_ceiling",
+    "hardware_refund_multiplied_by_hp_ratio": true,
+    "charge_refund_fraction_of_recharge_value": 0.5,
+    "net_paid_coin_refund_ceiling_fraction": 0.5,
+    "free_base_or_week_cleanup_refund": 0,
+    "spirit_refund": 0,
+    "reselection_coin_fraction_of_paid_specializations": 0.2,
+    "reselection_rounding": "ceil",
+    "reselection_preserves_stage_investment": true,
+    "reselection_resets_hp_charge_or_cooldown": false,
+    "inventory_relocation_preserves_identity": true,
+    "sold_instance_id_cannot_claim_previous_week_or_old_receipts": true,
+    "allowed_phase": "pre_shift_only"
+  },
+  "persistence": {
+    "across_nights": [
+      "instance_id",
+      "tower_family",
+      "selected_branch",
+      "paid_tier",
+      "location",
+      "trap_footprint",
+      "actual_charge_count",
+      "durability",
+      "paid_investment",
+      "unspent_week_coin",
+      "unspent_week_spirit",
+      "purchased_undeployed_item_instances",
+      "unused_paid_refill_stock",
+      "loaded_paid_charge_receipts"
+    ],
+    "legitimate_between_night_service": [
+      "ordinary_attack_reload_ready",
+      "paper_guard_rebuild_ready"
+    ],
+    "not_a_free_service": [
+      "trap_refill",
+      "trap_repair",
+      "tower_upgrade",
+      "branch_reselection"
+    ],
+    "night_transition_requires_settled_handover": true,
+    "unresolved_encounter_does_not_disappear_for_free_handover": true,
+    "failed_attempt_mode": "restore_the_same_pre_night_checkpoint_in_one_transaction",
+    "failed_attempt_restores_income_and_expense_and_build_state_together": true,
+    "week_terminal_order": [
+      "settle_all_due_combat_order_and_handover_receipts_once",
+      "write_week_score_and_permanent_unlock_receipts",
+      "close_week_and_invalidate_old_week_commands",
+      "clear_all_defense_instances_tiers_locations_hp_loaded_charges_loose_refill_stock_unopened_items_and_combat_ledgers",
+      "close_unspent_week_coin_and_spirit_without_asset_refund",
+      "create_new_week_id_and_issue_120_coin_0_spirit_and_one_free_T02"
+    ],
+    "week_reset_is_idempotent": true,
+    "week_clear_includes_undeployed_defense_inventory": true,
+    "week_close_invalidates_unfinished_build_refill_repair_reselection_reservations": true,
+    "late_receipt_applies_only_to_its_original_week_id": true,
+    "old_week_refund_or_income_can_credit_new_week": false,
+    "preclear_can_sell_for_next_week_money": false,
+    "durable_meta": [
+      "knowledge_pages",
+      "bestiary_observation_records",
+      "authored_permanent_unlocks",
+      "week_results"
+    ],
+    "wall_clock_or_login_resets_week": false,
+    "week_boundary": "seventh_night_final_settlement_not_calendar_monday",
+    "business_reopening_without_settled_handover_is_new_preparation": false
+  },
+  "capacity": {
+    "tower_anchors": 12,
+    "active_towers": 8,
+    "trap_objects": 8,
+    "trap_footprint_tiles": 16,
+    "barrier_tiles": 6
+  },
+  "replay_assumptions": {
+    "purchases_at_pre_night_only": true,
+    "non_defense_consumables_per_completed_night_coin": 24,
+    "non_defense_consumables_is_test_reserve_not_new_automatic_tax": true,
+    "trap_uses_per_night": {
+      "R01": 2,
+      "R14": 2,
+      "R16": 2
+    },
+    "barrier_hp_fraction_lost_per_night": 0.25,
+    "free_guard_rebuild_does_not_repair_barrier": true,
+    "night_seven_wage_not_counted_for_night_seven_build": true,
+    "scenarios": [
+      {
+        "id": "cautious",
+        "label": "谨慎完成",
+        "orders": 6,
+        "roots": 3,
+        "major_rules": 1
+      },
+      {
+        "id": "standard",
+        "label": "常规完成",
+        "orders": 8,
+        "roots": 4,
+        "major_rules": 3
+      },
+      {
+        "id": "proficient",
+        "label": "熟练完成",
+        "orders": 10,
+        "roots": 6,
+        "major_rules": 5
+      }
+    ],
+    "no_claim_about_actual_completion_probability": true,
+    "minimum_starting_build": [
+      "free_T02",
+      "T01_L1",
+      "T05_L1",
+      "R01_L1",
+      "R12_1x2_L1"
+    ],
+    "purchase_priority": [
+      "T01.A",
+      "T01.A1",
+      "T02.A",
+      "R01.A",
+      "T07",
+      "R14",
+      "T07.B",
+      "T07.B1",
+      "T05.A",
+      "R14.A",
+      "T09",
+      "T09.B",
+      "R16",
+      "R16.A",
+      "T02.A1",
+      "T03",
+      "T03.B",
+      "T05.A1",
+      "T08",
+      "T08.A",
+      "T09.B1",
+      "R01.A3",
+      "R14.A3",
+      "T10",
+      "T10.B",
+      "T03.B1",
+      "T08.A1",
+      "R16.A3",
+      "T10.B1",
+      "R12.A",
+      "R12.A3"
+    ],
+    "priority_can_skip_unaffordable_but_never_missing_parent": true,
+    "target_not_a_mandatory_player_build": true,
+    "traps_can_be_purchased_or_serviced_during_business": false,
+    "every_trap_purchase_is_backpack_then_same_item_deployment": true,
+    "every_refill_is_paid_stock_purchase_then_load_before_opening": true
+  },
+  "trap_preparation": {
+    "authorized_phase": "pre_shift",
+    "opening_phase": "open",
+    "ordering": [
+      "purchase",
+      "paid_stock_inventory",
+      "deploy_or_load",
+      "validate_route_and_capacity",
+      "open_and_freeze_manifest"
+    ],
+    "blocked_while_open": [
+      "purchase",
+      "deploy",
+      "move",
+      "pack",
+      "upgrade",
+      "reselect",
+      "reload_purchase",
+      "reload_load",
+      "repair",
+      "sell",
+      "reward_replenish"
+    ],
+    "allowed_while_open": [
+      "legal_hostile_trigger_consume",
+      "actual_combat_damage_to_trap",
+      "finish_already_paid_effect"
+    ],
+    "normal_human_or_player_interaction": false,
+    "daily_repurchase_of_retained_asset_required": false,
+    "purchased_spares_may_wait_for_next_preparation": true,
+    "instance_identity_on_backpack_to_floor_changes": false,
+    "accounting": "purchase spends coin once; deploy moves existing item; reload purchase spends coin into week-scoped stock; load transfers stock to item with zero second payment",
+    "zero_stock_or_destroyed_item": "remains unavailable for the rest of this shift; prepaid spare deployment waits until next preparation",
+    "not_applied_to_tower_management": "this new timing restriction concerns traps; tower permissions follow their own shared contract",
+    "command_guards": [
+      "current_week_id",
+      "correct_shift_phase",
+      "unique_receipt_id",
+      "previously_paid_item_or_stock",
+      "active_capacity_and_legal_geometry",
+      "sufficient_current_wallet"
+    ]
+  }
+}

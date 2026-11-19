@@ -1,0 +1,137 @@
+{
+  "version": "TD05",
+  "runtime_integrated": false,
+  "purpose": "finite_health_sparse_encounter_first_calibration_with_full_tree_nominal_and_control_review_not_runtime_playtest",
+  "source_commit": "2de5054a12ee1655ad817dae73ce643d1db82047",
+  "clock": "world_simulation_seconds",
+  "measurement_window": "[0,horizon); due hits exactly at horizon belong to the next window",
+  "default_fixture": {
+    "infinite_health_pools": "only the separately labelled nominal offense integrals; electric primary comparisons use finite health",
+    "legal_manifested_targets": true,
+    "line_of_sight_is_given_not_solved": true,
+    "armor_fraction": 0,
+    "ward_fraction": 0,
+    "external_vulnerability_fraction": 0,
+    "tower_is_paid_and_legitimately_ready": true,
+    "horizons_s": [
+      8,
+      24,
+      60
+    ],
+    "not_included": [
+      "pathfinding_AI",
+      "target_selection_errors_except_explicit_retarget",
+      "phone_input",
+      "automatic_rule_completion",
+      "unknown_monster_skills"
+    ]
+  },
+  "behaviors": [
+    {
+      "id": "sniper",
+      "label": "狙击",
+      "representative": "T01.A1",
+      "measure": "short_window_hit_packets_armor_penetration_overkill",
+      "anti_case": "eight_low_hp_independent_pools"
+    },
+    {
+      "id": "permanent_poison",
+      "label": "永久积毒",
+      "representative": "T02.A1",
+      "measure": "direct_plus_q_time_integral_and_one_maturation_per_dose",
+      "anti_case": "short_exposure_or_high_spiritual_ward"
+    },
+    {
+      "id": "broad_burn",
+      "label": "广域烧伤",
+      "representative": "T07.A1",
+      "measure": "six_valid_targets_burn_uptime_and_increment_to_fixed_ally_damage",
+      "anti_case": "one_isolated_target_no_allies"
+    },
+    {
+      "id": "small_sustain",
+      "label": "小范围持续",
+      "representative": "T07.B1",
+      "measure": "actual_0_75_2_25_6_second_residence_and_24_second_duty_cycle",
+      "anti_case": "repeated_real_exit_or_phase_without_residence"
+    },
+    {
+      "id": "group_curse",
+      "label": "群咒",
+      "representative": "T08.A1",
+      "measure": "expected_incoming_damage_prevented_on_real_attack_schedule",
+      "anti_case": "fear_or_task_penalties_outside_direct_attack_domain"
+    },
+    {
+      "id": "appliance_resonance",
+      "label": "电器共振",
+      "representative": "T09.B1",
+      "measure": "one_two_finite_hp_pools_then_early_death_and_dense_cascade; actual_damage_overkill_wave_count_and_death_times",
+      "anti_case": "one_isolated_unpowered_or_disconnected_target; no fabricated extra monsters"
+    },
+    {
+      "id": "continuous_toll",
+      "label": "连续跨区",
+      "representative": "T10.A1",
+      "measure": "positive_length_real_segments_with_per_pool_cell_absolute_deadlines",
+      "anti_case": "same_cooling_cells_repeated_without_new_phase_event"
+    },
+    {
+      "id": "phase_toll",
+      "label": "真实转场",
+      "representative": "T10.B1",
+      "measure": "same_cell_unit_damage_as_walk; committed_phase_bypasses_old_deadlines_once_and_retimes",
+      "anti_case": "blocked_or_unprojected_cells_canceled_or_duplicate_phase_event"
+    }
+  ],
+  "electric": {
+    "native_overload_D": 6,
+    "threshold_charge_units": 5,
+    "susceptible_threshold_charge_units": 4,
+    "feedback_charge_budget_per_wave": null,
+    "feedback_per_positive_hit_pool": 1,
+    "feedback_D_factor": 1,
+    "ordinary_bounce_per_source_attack_phase": 1,
+    "ordinary_bounce_damage": 3,
+    "ordinary_bounce_charge_units": 1,
+    "overload_generates_ordinary_bounce": false,
+    "overload_scheduler_s": 0.25,
+    "native_mark_duration_s": 8,
+    "normal_pool_counts": [
+      1,
+      2
+    ],
+    "supplemental_pool_counts": [
+      3,
+      6,
+      8
+    ],
+    "finite_hp_primary": 180,
+    "finite_hp_fragile": 45,
+    "finite_hp_durable": 360,
+    "hp_values_are_calibration_bodies_not_claimed_existing_monster_stats": true,
+    "native_induction_cycle_s": 1.8,
+    "finite_health_and_early_terminal_cleanup": true,
+    "local_counts_recomputed_each_wave": true,
+    "no_requirement_charge_decrease_each_wave": true,
+    "input_hit_and_graph_eligibility_is_explicit": true,
+    "actual_store_two_pool_fixture": "traps_facilities_td05.json#/map_constraints/electric_two_pool_store_fixture"
+  },
+  "decisions": {
+    "sniper_does_not_need_to_win_long_poison_horizon": true,
+    "broad_burn_support_damage_is_reported_separately": true,
+    "group_curse_is_not_scored_only_by_dps": true,
+    "small_circle_area_is_not_assumed_enemy_residence": true,
+    "electric_upper_fixture_is_not_guaranteed_real_map_output": true,
+    "normal_and_phase_toll_have_different_deadline_semantics": true,
+    "all_70_tower_nodes_and_80_trap_nodes_reviewed": true,
+    "no_universal_dps_equalization": true,
+    "electric_crowd_payoff_is_intended": true,
+    "feedback_charge_has_no_wave_budget": true,
+    "electric_death_removes_next_wave_counts": true,
+    "ordinary_paper_hold_is_one_second": true,
+    "trap_supply_is_locked_at_opening": true,
+    "shelf_occlusion_is_compensated_with_bounded_radius": true,
+    "no_claim_of_full_runtime_or_whole_week_playtest": true
+  }
+}
