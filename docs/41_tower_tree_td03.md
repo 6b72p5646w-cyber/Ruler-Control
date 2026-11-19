@@ -1,5 +1,7 @@
 # TD03 十塔族、二十个二级特化与四十个三级分支
 
+> **TD04版本说明：** 本页保留历史设计。当前位移计伤、至少一格半径的可用圆场、电伤反馈连锁、塔/陷阱数值与七夜费用保留/周清，以[TD04总览](45_td04_balance_overview.md)及46—50号文档为准；旧版检查结果不证明新机制已接入运行器。
+
 2026-11-19。基线：574221f503e8b49d989534f9e014aff230771c44。本文替代TD02塔树与塔数值。**状态：完整设计与灰盒参数，运行器尚未接入；不表示实战平衡已验证。**
 
 [系统改版](40_td03_system_rework.md) · [状态、空间与电击合同](42_status_spatial_electric_td03.md) · [陷阱与电器](43_traps_facilities_td03.md) · [适配与验收](44_td03_matchups_and_validation.md) · [完整结构化参数](../content/tower_defense_td03.json)

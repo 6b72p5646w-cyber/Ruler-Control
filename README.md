@@ -6,25 +6,25 @@
 
 本仓库包含设计、结构化内容、精确地图、有限世界执行器、两怪独立HTML练习及静态和无画面检查。**当前没有微信发行客户端；60张设计卡不等于60个已实现AI，图形界面和手机操作仍待实测。**
 
-## TD03 最新玩法设计：十塔族、异常与空间战术
+## TD04 最新玩法设计：位移惩罚、电击连锁与七夜建设
 
-按最新反馈重构为 **10塔族→20个二级特化→40个三级终点**。每座塔只启用一条L1→L2→L3路线。烧伤附易伤、永久无限线性积毒、寒意冻结、诅咒失攻、电器共振、分区跨越和小范围持续场具有各自战术职责；16类陷阱提供尺寸、充能、耐久与两路升级。
+保留 **10塔族→20个L2→40个L3** 和16类陷阱，已逐节点复核70个塔节点、80个陷阱节点。真瞬移/影跃/镜穿沿全部有效分区收费并重计时；圆形小范围至少半径1格且排除柜体；过载遍历真实空间连通分量，电伤继续叠层；同周保留建设，第七夜结算后清场。
 
-**TD03是最新设计，尚未接入当前V0.10执行器。** 完整树与参数已交付，实际移动/射线/手机/七夜平衡需按新灰盒合同验证。
+**TD04是当前设计和参考模型调校版，尚未接入V0.10运行器。** 八行为、三条七夜库存收支、地图静态例和经济绕过检查已运行；实际AI、射线、手机与七夜实战仍待接入验证。
 
 | 入口 | 内容 |
 |---|---|
-| [重构总览](docs/40_td03_system_rework.md) | 差异化、版本权威、经济与设施衔接 |
-| [完整塔树](docs/41_tower_tree_td03.md) | 10族、20个L2、40个L3及具体参数、适用与短板 |
-| [异常与空间规则](docs/42_status_spatial_electric_td03.md) | 烧伤/毒/冻/咒/电、区域计费、真实转场、队列与分裂 |
-| [陷阱与电器](docs/43_traps_facilities_td03.md) | 16类、32个L2方向、32个对应L3，真实设备与摆放 |
-| [怪物适配和验证](docs/44_td03_matchups_and_validation.md) | 60条既有目录、群体测试体、检查结果与实现顺序 |
-| [塔数据](content/tower_defense_td03.json) / [战斗合同](content/combat_contracts_td03.json) | 待实现的结构化设计参数 |
-| [陷阱设备数据](content/traps_facilities_td03.json) / [怪物适配数据](content/monster_matchups_td03.json) | 真实来源、尺寸、状态与分支映射 |
+| [设计总览](docs/45_td04_balance_overview.md) | 当前权威、位移/范围/电网改写与整体取舍 |
+| [战斗合同](docs/46_td04_spatial_chain_contracts.md) | 沿线审计、有效圆场、完整连通电链、分数荷与队列 |
+| [完整塔树和平衡](docs/47_td04_tower_balance.md) | 全70节点、两级特化、参数、敌人适配及改动理由 |
+| [陷阱、地图、怪物](docs/48_td04_traps_map_matchups.md) | 全80陷阱节点、12个落场例、60怪适配 |
+| [七夜经济](docs/49_td04_week_economy.md) | 定价、充能、维修、保留/周清与三档采购回放 |
+| [八行为实算结果](docs/50_td04_balance_results.md) | 短窗/长窗、控制、全树指标、电网及验证边界 |
+| [塔数据](content/tower_defense_td04.json) / [合同数据](content/combat_contracts_td04.json) | 待实现的结构化参数 |
+| [陷阱设备](content/traps_facilities_td04.json) / [怪物适配](content/monster_matchups_td04.json) | 原型身份与新策略对应 |
+| [周经济](content/economy_week_td04.json) / [八行为场景](content/balance_scenarios_td04.json) | 可复算收支、库存和模型输入 |
 
-TD03设计检查：`python3 scripts/check_td03_design.py`。结果见[机器报告](docs/td03_design_check_report.json)。静态结构与微型参考算例通过不等于战斗运行器或手机实测通过。
-
-TD02的[设施/营业/追逐底案](docs/35_pursuit_tower_defense_td02.md)中未被TD03改写的基础继续沿用；旧塔树与状态合同仅作历史参考。现有可核实名册为60个民俗条目，约45项SCP属于后续目录工作，本轮不扩怪。
+运行 `python3 scripts/check_td04_balance.py` 重算；当前[机器报告](docs/td04_balance_report.json)通过521项结构与参考检查。它不替代客户端战斗与手机实测。[TD03](docs/40_td03_system_rework.md)、[TD02底案](docs/35_pursuit_tower_defense_td02.md)保留历史，只有未被当前合同改写的营业、设施、原物规则继续沿用。本轮不新增怪物原型或美术。
 
 ## 两怪规则实操
 
