@@ -1,0 +1,977 @@
+{
+  "version": "MD01",
+  "runtime_integrated": false,
+  "baseline_commit": "835c782a4b786558166791421d9c2df2af2c6bea",
+  "status": "complete_individual_design_and_bounded_reference_not_playtested",
+  "total": 105,
+  "existing_folklore": 60,
+  "new_scp_adaptations": 45,
+  "data_files": [
+    "content/monster_folklore_md01.json",
+    "content/monster_scp_a_md01.json",
+    "content/monster_scp_b_md01.json"
+  ],
+  "outcome_counts": {
+    "rule_weaken": 38,
+    "rule_leave": 45,
+    "kill_unlocked": 22
+  },
+  "id_namespace": "monster:{id}; S01等只在怪物命名空间内使用，既有composition:S01组合保持原义。跨文件必须带文件路径/类型。",
+  "contract": "content/monster_contracts_md01.json",
+  "lottery_direction": "content/lottery_direction_md01.json",
+  "source_attribution": "content/scp_attribution_md01.json",
+  "baseline_catalog": "content/monsters.json 保持60民俗来源索引；105设计在本索引三分片，不向旧运行器偷塞新实体。",
+  "runtime_admission": "逐怪default_enabled仅为设计候选；运行准入均关闭，需完成世界动作/地图/AI适配后逐项验收。",
+  "file_sha256": {
+    "content/monster_folklore_md01.json": "f7b019223130f255b49a5a7ce8aa44811db096542c235c36d5aa8c5d44ae01ae",
+    "content/monster_scp_a_md01.json": "23faa741c2aff38e6c2f254a46f5d9671a88620f73d9a67d0f53b51218272f01",
+    "content/monster_scp_b_md01.json": "2ec35fb9e9436474054f0ad3b8be488cc8b995bb6062e4f9f4b8a836e0526a38"
+  },
+  "entries": [
+    {
+      "entity_key": "monster:F01",
+      "id": "F01",
+      "name": "狐精",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 1,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F02",
+      "id": "F02",
+      "name": "画皮鬼",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 2,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F03",
+      "id": "F03",
+      "name": "僵尸",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 2,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F04",
+      "id": "F04",
+      "name": "鲛人",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 2,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F05",
+      "id": "F05",
+      "name": "河童",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 1,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F06",
+      "id": "F06",
+      "name": "雪女",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 2,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F07",
+      "id": "F07",
+      "name": "座敷童子",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 1,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F08",
+      "id": "F08",
+      "name": "付丧神",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "kill_unlocked",
+      "first_day": 2,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F09",
+      "id": "F09",
+      "name": "轆轤首",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 2,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F10",
+      "id": "F10",
+      "name": "海坊主",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F11",
+      "id": "F11",
+      "name": "韩国鬼怪",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 2,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F12",
+      "id": "F12",
+      "name": "不可杀伊",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F13",
+      "id": "F13",
+      "name": "飞头女鬼",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "kill_unlocked",
+      "first_day": 2,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F14",
+      "id": "F14",
+      "name": "饕食附身灵",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 5,
+      "default_enabled": false
+    },
+    {
+      "entity_key": "monster:F15",
+      "id": "F15",
+      "name": "蓬蒂雅娜",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F16",
+      "id": "F16",
+      "name": "图尤尔",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 2,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F17",
+      "id": "F17",
+      "name": "裹尸鬼",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 1,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F18",
+      "id": "F18",
+      "name": "阿斯旺",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F19",
+      "id": "F19",
+      "name": "吠陀罗尸鬼",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "kill_unlocked",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F20",
+      "id": "F20",
+      "name": "罗刹访客",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F21",
+      "id": "F21",
+      "name": "报丧女妖",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 2,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F22",
+      "id": "F22",
+      "name": "布朗尼家务精",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 2,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F23",
+      "id": "F23",
+      "name": "塞尔基海豹人",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 2,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F24",
+      "id": "F24",
+      "name": "凯尔皮水马",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F25",
+      "id": "F25",
+      "name": "普卡变形精",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "kill_unlocked",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F26",
+      "id": "F26",
+      "name": "红帽妖",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F27",
+      "id": "F27",
+      "name": "山林巨魔",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F28",
+      "id": "F28",
+      "name": "诺肯水乐灵",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "kill_unlocked",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F29",
+      "id": "F29",
+      "name": "托姆特家园精灵",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 1,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F30",
+      "id": "F30",
+      "name": "海亡灵",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "kill_unlocked",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F31",
+      "id": "F31",
+      "name": "马拉梦魇",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "kill_unlocked",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F32",
+      "id": "F32",
+      "name": "夜返吸血鬼",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F33",
+      "id": "F33",
+      "name": "狼人",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 2,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F34",
+      "id": "F34",
+      "name": "鲁萨尔卡水灵",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F35",
+      "id": "F35",
+      "name": "芭芭雅嘎",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F36",
+      "id": "F36",
+      "name": "精灵访客",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F37",
+      "id": "F37",
+      "name": "古尔荒野妖",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 2,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F38",
+      "id": "F38",
+      "name": "双重身",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "kill_unlocked",
+      "first_day": 5,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F39",
+      "id": "F39",
+      "name": "多莫沃伊家宅灵",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F40",
+      "id": "F40",
+      "name": "列希森林灵",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "kill_unlocked",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F41",
+      "id": "F41",
+      "name": "哭泣女",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F42",
+      "id": "F42",
+      "name": "哨声亡灵",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F43",
+      "id": "F43",
+      "name": "图恩达",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F44",
+      "id": "F44",
+      "name": "巨帽夜曲客",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F45",
+      "id": "F45",
+      "name": "逆足林守",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F46",
+      "id": "F46",
+      "name": "红帽萨西",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "kill_unlocked",
+      "first_day": 2,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F47",
+      "id": "F47",
+      "name": "水歌伊阿拉",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F48",
+      "id": "F48",
+      "name": "河海豚化人客",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 2,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F49",
+      "id": "F49",
+      "name": "火蛇博伊塔塔",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F50",
+      "id": "F50",
+      "name": "泽西恶魔",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F51",
+      "id": "F51",
+      "name": "蜘蛛故事商",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "kill_unlocked",
+      "first_day": 5,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F52",
+      "id": "F52",
+      "name": "矮水灵托科洛舍",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "kill_unlocked",
+      "first_day": 2,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F53",
+      "id": "F53",
+      "name": "水之母来访",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F54",
+      "id": "F54",
+      "name": "吞世巨兽",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "kill_unlocked",
+      "first_day": 6,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F55",
+      "id": "F55",
+      "name": "护夜犬卡德霍",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F56",
+      "id": "F56",
+      "name": "深水邦耶普",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F57",
+      "id": "F57",
+      "name": "水路守护塔尼瓦",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F58",
+      "id": "F58",
+      "name": "雾笛访客",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 2,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F59",
+      "id": "F59",
+      "name": "梅内胡内工队",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:F60",
+      "id": "F60",
+      "name": "马面引路者",
+      "file": "content/monster_folklore_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S01",
+      "id": "S01",
+      "name": "凝视塑像",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 2,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S02",
+      "id": "S02",
+      "name": "腐蚀穿墙者",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 5,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S03",
+      "id": "S03",
+      "name": "遮面追逐者",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 5,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S04",
+      "id": "S04",
+      "name": "诊疫医者",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S05",
+      "id": "S05",
+      "name": "拟声猎群",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S06",
+      "id": "S06",
+      "name": "不灭爬行者",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 7,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S07",
+      "id": "S07",
+      "name": "附面假人",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S08",
+      "id": "S08",
+      "name": "燃料分身",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "kill_unlocked",
+      "first_day": 5,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S09",
+      "id": "S09",
+      "name": "失眠潜猎者",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S10",
+      "id": "S10",
+      "name": "余光攀行者",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "kill_unlocked",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S11",
+      "id": "S11",
+      "name": "铃声后的瘦影",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S12",
+      "id": "S12",
+      "name": "棘触心核",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 6,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S13",
+      "id": "S13",
+      "name": "楼梯口无面影",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S14",
+      "id": "S14",
+      "name": "缝材造物熊",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "kill_unlocked",
+      "first_day": 5,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S15",
+      "id": "S15",
+      "name": "孵卵拟人群",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "kill_unlocked",
+      "first_day": 6,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S16",
+      "id": "S16",
+      "name": "刀肢蟹队",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S17",
+      "id": "S17",
+      "name": "塑料火烈鸟群",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 5,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S18",
+      "id": "S18",
+      "name": "双灯猎行者",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 5,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S19",
+      "id": "S19",
+      "name": "食宴巨客",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 5,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S20",
+      "id": "S20",
+      "name": "沼液伏客",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S21",
+      "id": "S21",
+      "name": "九尾伪装客",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S22",
+      "id": "S22",
+      "name": "畏光烟影",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "kill_unlocked",
+      "first_day": 5,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S23",
+      "id": "S23",
+      "name": "路口焰眼犬",
+      "file": "content/monster_scp_a_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S24",
+      "id": "S24",
+      "name": "黑刃复归者",
+      "file": "content/monster_scp_b_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 6,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S25",
+      "id": "S25",
+      "name": "吞影小像",
+      "file": "content/monster_scp_b_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S26",
+      "id": "S26",
+      "name": "幼猫幻相虎",
+      "file": "content/monster_scp_b_md01.json",
+      "resolution_type": "kill_unlocked",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S27",
+      "id": "S27",
+      "name": "红池支口",
+      "file": "content/monster_scp_b_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 7,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S28",
+      "id": "S28",
+      "name": "离体肉殖团",
+      "file": "content/monster_scp_b_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 6,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S29",
+      "id": "S29",
+      "name": "暗育蜈群",
+      "file": "content/monster_scp_b_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S30",
+      "id": "S30",
+      "name": "银丝猎婆",
+      "file": "content/monster_scp_b_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 5,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S31",
+      "id": "S31",
+      "name": "鹿骨饥壳",
+      "file": "content/monster_scp_b_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S32",
+      "id": "S32",
+      "name": "涌兽陶瓮",
+      "file": "content/monster_scp_b_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 5,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S33",
+      "id": "S33",
+      "name": "镜头霉巢",
+      "file": "content/monster_scp_b_md01.json",
+      "resolution_type": "kill_unlocked",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S34",
+      "id": "S34",
+      "name": "寻声线团",
+      "file": "content/monster_scp_b_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S35",
+      "id": "S35",
+      "name": "失控重载玩具车",
+      "file": "content/monster_scp_b_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 3,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S36",
+      "id": "S36",
+      "name": "惊笑偶像",
+      "file": "content/monster_scp_b_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 2,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S37",
+      "id": "S37",
+      "name": "噬口排水虫",
+      "file": "content/monster_scp_b_md01.json",
+      "resolution_type": "kill_unlocked",
+      "first_day": 5,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S38",
+      "id": "S38",
+      "name": "立体镜旁观者",
+      "file": "content/monster_scp_b_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 2,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S39",
+      "id": "S39",
+      "name": "游走骨龙",
+      "file": "content/monster_scp_b_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 5,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S40",
+      "id": "S40",
+      "name": "取述影客",
+      "file": "content/monster_scp_b_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 6,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S41",
+      "id": "S41",
+      "name": "地窖食客群",
+      "file": "content/monster_scp_b_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 6,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S42",
+      "id": "S42",
+      "name": "断拍窥猎者",
+      "file": "content/monster_scp_b_md01.json",
+      "resolution_type": "kill_unlocked",
+      "first_day": 5,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S43",
+      "id": "S43",
+      "name": "闭店巡场员",
+      "file": "content/monster_scp_b_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 4,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S44",
+      "id": "S44",
+      "name": "双灯影幕",
+      "file": "content/monster_scp_b_md01.json",
+      "resolution_type": "rule_leave",
+      "first_day": 5,
+      "default_enabled": true
+    },
+    {
+      "entity_key": "monster:S45",
+      "id": "S45",
+      "name": "缝合外科客",
+      "file": "content/monster_scp_b_md01.json",
+      "resolution_type": "rule_weaken",
+      "first_day": 5,
+      "default_enabled": true
+    }
+  ]
+}

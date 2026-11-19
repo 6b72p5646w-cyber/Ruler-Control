@@ -1228,5 +1228,7 @@
   },
   "day_cycle_contract": "content/integration_v09.json#/calendar",
   "auxiliary_effect_contract": "content/auxiliary_effects_v010.json",
-  "auxiliary_client_implemented": false
+  "auxiliary_client_implemented": false,
+  "current_planned_lottery_direction": "content/lottery_direction_md01.json",
+  "lottery_direction_runtime_integrated": false
 }

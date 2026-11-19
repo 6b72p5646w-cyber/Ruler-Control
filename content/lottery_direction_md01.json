@@ -1,0 +1,165 @@
+{
+  "version": "MD01-direction",
+  "runtime_integrated": false,
+  "status": "方向定稿，保留已有概率与保底；奖池比例/全新装备/界面和抽样器暂不扩写。",
+  "baseline_contract": "content/items.json#/lottery",
+  "round_definition": {
+    "round": "一晚00:00–06:00的正式营业班次，完成06:00交班回执。",
+    "not_round": [
+      "一只怪物",
+      "一个小时阶段",
+      "一波子体",
+      "一个七日周期",
+      "练习或回放"
+    ],
+    "one_ticket_per_successful_shift": 1,
+    "rating_requirement": null,
+    "grade_policy": "A/B/C只改变原工资/评价，不再决定这张基础券；成功完成且交班即有。",
+    "failure_policy": "失败、主动提前退场、只退出练习均不产生本张券；既有持券与保底不被失败清零。",
+    "dedupe_key": "campaign_id:week_id:night_id:completed_handover",
+    "commit": "与该班工资结算同一原子提交，重复读档/点交班不会再给。",
+    "baseline_week_tickets": 7,
+    "legacy_optional_fragment": "E065仍按已存在完成回执每夜至多1碎片、3片换1券；这是额外既有可选收益，不计入7张基础券，没完成不发。",
+    "safe_handover": "必须满足既有真实06:00、无未解决关键威胁、店长身份核验与原物交班；1HP锁血/压制不是根终结，纯生存到时刻不发完成券。"
+  },
+  "machine": {
+    "id": "LOTTERY_COUNTER_01",
+    "placement": "店内交班/休息区靠墙的一格固定机器，另留一格交互站位，不占货架挂点、主通道或必需任务锚点；准确坐标接入时验证。",
+    "footprint_tiles": [
+      1,
+      1
+    ],
+    "interaction_reach_tiles": 1,
+    "phases": [
+      "06:00–08:00交班后休整",
+      "20:00–22:00班前采购整备"
+    ],
+    "active_business_enabled": false,
+    "operation_cost": {
+      "tickets": 1,
+      "preparation_minutes": 15
+    },
+    "phase_budget": "同一15游戏分钟计入实际准备窗口，剩余不足拒绝，不靠开奖冻结营业时钟。",
+    "power": "仅准备窗启用，营业中断电封闭；不注册为TD05战斗电器节点、不让抽奖机增加电链倍率。",
+    "tower_anchor": false,
+    "can_be_destroyed_for_loot": false,
+    "empty_or_ineligible_pool": "不扣券、不耗准备分钟、不显示结果、不动保底；当前缺少处理器时保持此状态。"
+  },
+  "retained_probability_and_pity": {
+    "base_tier_probabilities": {
+      "common": 0.6,
+      "uncommon": 0.3,
+      "rare": 0.1
+    },
+    "within_tier": "uniform_over_current_tier_pool",
+    "noncommon_pity_after_common_draws": 4,
+    "rare_pity_after_nonrare_draws": 9,
+    "noncommon_pity_weights": {
+      "uncommon": 0.75,
+      "rare": 0.25
+    },
+    "rare_pity_has_priority": true,
+    "pity_persistence": {
+      "save_scope": "campaign",
+      "across_nights": true,
+      "across_weeks": true,
+      "reset_on_night_start": false,
+      "reset_on_week_start": false,
+      "reset_on_night_failure": false,
+      "reset_on_reload": false,
+      "initial_counter_value_for_new_campaign": 0
+    },
+    "pity_counter_updates": {
+      "common": {
+        "increment": [
+          "consecutive_common",
+          "consecutive_nonrare"
+        ],
+        "reset": []
+      },
+      "uncommon": {
+        "increment": [
+          "consecutive_nonrare"
+        ],
+        "reset": [
+          "consecutive_common"
+        ]
+      },
+      "rare": {
+        "increment": [],
+        "reset": [
+          "consecutive_common",
+          "consecutive_nonrare"
+        ]
+      }
+    },
+    "save_before_reveal": true,
+    "atomic_ticket_reward_counter_save": true
+  },
+  "pity_interpretation": {
+    "noncommon": "连续4次普通后，第5次强制非普通；少见/稀有重置普通连续数。",
+    "rare": "连续9次非稀有后，第10次强制稀有；稀有优先于第5次保底。",
+    "carry_across_weeks": true
+  },
+  "reward_direction": {
+    "equipment": "沿现有手持/灯具/制服/鞋/护符/背包六槽做有取舍的侧向能力，不新增全槽永久加速、万能识破或直接免解规则。",
+    "equipment_examples": [
+      "Q02检视镜：合法间接观察，占一手",
+      "Q06头灯：腾手照明但耗电",
+      "Q14轻步鞋：空手3.0→3.15，仍低于常规追逐3.3",
+      "Q15搬运靴：减轻真实负重减速，占鞋位",
+      "Q23证据包：证据容量，不能复制任务物"
+    ],
+    "consumables": "个人食物、体力/SAN恢复、一次核验、应急照明与一次性缓冲；仍逐件遵守真实目标、耗时、占手和效果合同。",
+    "consumable_examples": [
+      "I03葡萄糖片",
+      "I04薄荷糖",
+      "I06个人灯具用备用电池",
+      "I18一次性核验封签",
+      "I19游戏急救贴"
+    ],
+    "forbidden_pool_ids": [
+      "I22",
+      "I23",
+      "Q03",
+      "Q11"
+    ],
+    "activation_filter": [
+      "acquisition_enabled",
+      "lottery_enabled未显式关闭",
+      "该构建实际有处理器",
+      "存在已定义消费者",
+      "品质映射明确"
+    ],
+    "no_guaranteed_admission": "新SCP使用声音/污染等词汇不自动让停用旧装备复活，须单独补消费者后才可入池。",
+    "not_in_pool": [
+      "完整塔",
+      "现场陷阱/弹药/免费修复",
+      "必需钥匙或规则答案",
+      "直接造周建造币/灵能的可循环奖品"
+    ],
+    "duplicate_direction": "首版同名装备不升级、不叠数值。抽中已拥有装备时保留唯一抽奖回执，改为一次明确普通个人补给选择，不能回收成建造币；具体补给表后续奖池阶段定稿。",
+    "duplicate_not_reroll": "候选与是否重复在扣券前快照并保存，重进不再抽；实际抽中品质更新保底一次。",
+    "rarity_mapping_pending": "个人装备旧standard/uncommon/rare/special与三品质奖池的最终映射、各品质装备/道具占比，留待下一阶段奖池设计，当前不伪造已实现概率。"
+  },
+  "trap_boundary": {
+    "during_business": "开班后无法再开奖；班前得到的一次性个人道具可依原规则使用，但不得购买/安装/补充任何塔防陷阱。",
+    "I07": "旧B01部署修补的历史效果不能映射为TD05地面陷阱R系的营业中修复或加次数；若需迁移，限定班前并购买真实材料。",
+    "I06": "仅已有个人灯具/允许的独立储备电用途；不充R系陷阱，不延长营业中布防装置存量。",
+    "I16_and_old_deployables": "旧辅助部署规则不是TD05新陷阱的旁路；进入TD05模式的固定地面装置须班前预置，营业中不得从包里新增占地布防。"
+  },
+  "persistence": {
+    "tickets_pity_owned_equipment": "战役持久；七日周清不删除，装备只有一槽一个且无同名数值叠加。",
+    "consumables": "沿现有个人物品存量，使用真实扣件；不与周清的R系陷阱背包/弹药混账。",
+    "overflow": "满包可留机器领取箱/个人仓库，或安全使用/手动替换；不自动丢失已支付奖品。",
+    "week7_order": "先提交第七夜工资与基础券，再执行TD05周装置/建造币清理；券和保底不在清理集合中。"
+  },
+  "real_money_purchase": false,
+  "essential_mechanism_requires_draw": false,
+  "next_stage": [
+    "敲定可用奖池与装备品质映射",
+    "确定重复装备补给表",
+    "再做机器交互与美术",
+    "接入现有事务保存/正式交班回执后做整周实玩"
+  ]
+}

@@ -1,0 +1,190 @@
+{
+  "version": "MD01",
+  "runtime_integrated": false,
+  "baseline_commit": "835c782a4b786558166791421d9c2df2af2c6bea",
+  "scope": "105条怪物/异常遭遇的结局、个体参数与跨系统合同；现有60民俗+本轮新增45SCP改编，不宣称旧仓已有105个实现。",
+  "precedence": {
+    "monster_terminal_and_stats": "content/monster_roster_md01.json 所引用的三个逐怪文件优先于TD05怪物战后去向与粗略属性；明确保留的原物、操作与身份限制继续生效。",
+    "combat_states": "TD05火毒冰咒电/易感/位移计伤/纸偶/空间/塔陷阱节点不变；MD01补充生命下限与终态的适配。",
+    "legacy_actions": "F01–F60的既有机制动作引用V0.10合同；MD01注明转化点，不能同时执行旧离场和新削弱两个互斥终态。",
+    "live_game": "V0.10运行器、HTML练习与历史60记录仍是现有运行内容，本轮新数据尚未接入。"
+  },
+  "units": {
+    "monster_hp": "可被塔削减的当次身体/显体/压制耐久；不是原作世界观的永久存在强度。",
+    "armor": "物理伤害减免比例，0.30表示减30%，不是伤害倍率0.30。",
+    "ward": "灵能伤害减免比例；电击在灵能通道内，但其他灵能伤害不自动产电。",
+    "attack_damage": "对玩家实际命中的基础SAN扣减；不新增玩家HP条。诅咒先乘攻击削弱，再在同一攻击提交点判失败。",
+    "speed": "格/世界秒；玩家空手3.0，任务肉2.6；0体力不阻断基本移动。",
+    "time": "默认世界秒；既有有限动作若明确budget/game-minute则保持原时钟，不能让冻结世界时DoT/追逐偷跑。"
+  },
+  "damage": {
+    "formula": "settled = raw * (1 - clamp(defense - applicable_penetration, 0, 0.75)) * (1 + min(vulnerability,0.40))",
+    "damage_taken_multiplier": "1 - armor/ward；逐怪表同时给出减免比例，正常目标不以防御=1模拟机制免疫。",
+    "actual_hp_loss": "min(settled, max(0, current_hp - current_floor))；伤害批次的有效扣血、溢出和锁血阻挡分开记。",
+    "status_requirements": "真实有效命中与合法状态来源；命中保留的物理/灵能/高度/射界合同。电反馈额外要求actual_hp_loss>0。",
+    "baseline_stats_no_daily_scaling": true,
+    "day_progression": "靠新机制、移动组合、首现日与有限同场数量提高难度；不把同一怪第七夜无提示翻倍。"
+  },
+  "resolution_types": {
+    "kill_unlocked": {
+      "name": "解锁击退/击杀",
+      "hp_floor_before_rule": 1,
+      "hp_floor_after_rule": 0,
+      "before": "塔和DoT可以预削至1，怪仍按自身行为施压；不因锁血获得额外回血、复制或随机逃脱。",
+      "on_rule": "接受一次真实完成回执，永久撤销该根/指定池死亡门槛，保留当前HP与毒/电等状态；不回放旧伤害。",
+      "terminal": "解锁之后的新有效伤害/正常到期DoT使必要生命池归零；世界观不死者只能击退本次显体。",
+      "floor_target_priority": "塔默认把无可扣HP的锁血池排在可有效伤害的池之后，玩家仍可手动指定；机制不会由自动锁定代做。"
+    },
+    "rule_leave": {
+      "name": "完成机制即离场",
+      "hp_floor_before_rule": 1,
+      "on_rule": "完成回执立刻撤销该实例所有尚未提交攻击、派生生产与事件占用，按原路线离场或收容；不等塔补刀。",
+      "targetable_manifestation_suppression": {
+        "trigger": "真实伤害从高于1降到1；已有floor状态或0扣血不能重新触发。",
+        "suppressed_seconds": 3,
+        "recovery_telegraph_seconds": 1.5,
+        "during": "该显体停止追逐与新攻击，退出可受击/电图集合；原有毒量和电量仍属同一池，限时层按世界时正常到期，毒计伤暂停且无补算。",
+        "recovery": "4.5秒末显式恢复到max(1,最大HP×25%)，恢复后可重新压制；实际永久毒量不清。仅此类压制耐久允许该明示重构。",
+        "purpose": "重构进度条预告敌人将回归。毒塔长期压制和重复控制可换时间，但永远不能替代离场机制或领取终结奖励。",
+        "rule_during_suppression": "任意时刻真实完成主机制都直接结束实例，取消重构。",
+        "custom_overrides": "逐怪若有锚定/友好不可攻击对象则hp=0且完全不进伤害流程；具体恢复值有明示时由逐怪覆盖。",
+        "control_budget_classification": "这是压制耐久被打破后的显体暂退/重构阶段，退出可受击集合，不是普通冰冻/眩晕。TD05普通硬控1.5/0.8秒与免控间隔仍不改；普通控制不能刷新或延长这4.5秒。",
+        "collision_and_return": "保留原先可见且合法的占位规则，不新增隐形墙或把飞行影像变成地面路障。重构点若已不合法，先重新给安全合法点的1.5秒可见预告；不可与玩家重叠复位或在复位同帧命中。"
+      }
+    },
+    "rule_weaken": {
+      "name": "机制削弱、仍需击退",
+      "hp_floor_before_rule": 0,
+      "hp_floor_after_rule": 0,
+      "before": "可通过布防/引怪直接打空必要生命池；完整追逐、技能与防御带来更高代价。",
+      "on_rule": "保留当前HP；应用已列明的低防御/慢速/低攻击/封能力。正确回应不能导致数值反升，也不能重置当前已付出的伤害。",
+      "terminal": "前后皆可因必要生命池归零结束；提前击退不会补造主规则完成回执。"
+    }
+  },
+  "same_time_order": [
+    "验证并提交已真正完成的玩家机制动作；发生规则离场则注销该实例待发攻击。",
+    "应用本时刻合法移动的真实起终点，包括真实转场伤害区审计，不把虚拟中间点当接触陷阱。",
+    "生成本批射击/DoT/电波快照，先按本时刻有效规则与最低HP结算全批有效伤害。",
+    "有效电伤逐受体回填电；不对0实际扣血、已离场或压制不可受击池回填。",
+    "原子提交死亡/压制、删除终结池的状态与排队项；随后才判合法分裂，死亡池不能先分裂逃死。",
+    "结算根完成与唯一奖励；新电波重新读取活池与实际电器，不能沿用上一波已死节点。"
+  ],
+  "electric_gate_adapter": {
+    "native_base_damage": 6,
+    "threshold": 5,
+    "susceptible_threshold": 4,
+    "retained_rules": "完整合法连通分量；受体D×(该受体一跳带电池含自身+一跳真实通电电器)，不设每波反馈总量上限、不设电荷总上限、不做代际衰减。",
+    "positive_damage_definition": "actual_hp_loss>0；只写视觉命中/锁血阻挡不算受到电伤害。",
+    "floor_pool": "仍然活着且有电荷的未解锁池可作中继和波种子；每次过载真实消耗k层，自己无可扣HP便不由这次伤害回填。其他有HP受体照常受伤回填。",
+    "suppressed_pool": "暂时不可被连上，取消其ready请求但保留未过期电荷；恢复时重新判合法图与阈值，不保留旧图或旧队列优先号。",
+    "leave_or_death": "永久移除池、电荷、ready请求与派生挂接，不发幽灵电波。",
+    "finite_termination_scope": "全体到锁血下限且无外部输入时，每波仍消耗阈值并产生0反馈，有限存量会耗尽；有正常HP受体时真实死亡继续缩图。",
+    "not_a_charge_cap": true,
+    "task_prop_registration": "任务文案提到灯、冷藏盒或封存设备，不自动增加电器图节点。只有通过TD05实际电器注册、通电/碰撞/高度/视线与位置验证的设备才计E；本轮未新增战斗电器节点。"
+  },
+  "identity_and_children": {
+    "humans": "真实普通人和被附身的人类宿主不是合法塔/陷阱目标；伪装者须有已登记敌对实体/真实暴露证据，塔不能看模型自动判真伪。",
+    "shared_parts": "F09头/身、F54部位等共享一个池。同一AOE/波/移动批次只结一次；不能凭部件数放大电公式。",
+    "split": "完整伤害批次后才拆；总当前HP、毒q、电荷与来源量守恒，子体不凭空补满HP或各复制整条永久毒。防御变更另计有效耐久，不以HP守恒冒充总难度守恒。",
+    "summon": "只耗逐怪声明的一次根预算；有前摇、占位校验、同场数量与总出生量；冷却结束不绕过当晚剩余预算。",
+    "root_end": "按逐怪停止生产/召回/解体条款处理，取消待提交敌对动作；只有必须清完的真实独立池全部结束或规则定义的回收完成才结根。",
+    "status_inheritance": "新召唤池不是分裂，不默认继承母体永久毒/电；传染必须另有真实传递来源与有限额度。",
+    "no_farming": "子体、蛋、部件、临时复构只继承root_id，不发独立币、灵能、券或工作完成回执。",
+    "split_floor": "分裂提交时逐子池核对分配后HP不得低于各自仍有效的死亡下限。两个未解锁池各须至少1，则母池当前HP不足2时取消此次分裂；不把0.5补成1、不凭空治疗。"
+  },
+  "rewards": {
+    "ledger_key": "campaign_id:week_id:night_id:root_instance_id",
+    "successful_root": {
+      "coins": 12,
+      "spirit": 4
+    },
+    "real_main_rule_bonus_spirit": 2,
+    "bonus_payment": "主规则成功先记录资格，在该根成功结局时与基础奖励一并提交；重复/部分动作/持续debuff不重复给。",
+    "successful_leave_equals_kill": true,
+    "decline_timeout_failure": "不发根完成奖励；真实独立普通订单仍按其订单回执结算，不伪造销售。",
+    "friendly_rule_event": "完成真实委托可结该根，安全拒绝/光路过不结；仍占当晚实际导演名额。",
+    "week_income_compatibility": "TD05保守3根、常规4根、熟练6根收入轨迹保持基础12C4E/根；不同结局均可贡献，不再只按死亡数算经济。",
+    "lottery": "怪物根/子体/规则步骤均不直接发整张工资券。"
+  },
+  "pressure_and_admission": {
+    "simultaneous_root_max_by_day": [
+      1,
+      1,
+      2,
+      2,
+      2,
+      3,
+      3
+    ],
+    "pressure_budget_by_day": [
+      1.5,
+      2,
+      2.5,
+      3,
+      3,
+      3.5,
+      3.5
+    ],
+    "independent_hostile_pool_reference_cap": 8,
+    "pool_cap_meaning": "初版导演受压预算而非电击目标上限；遇实际既存合法池时电图仍全部连接，不把第9只免伤。未来增加人群须重测导航与操作窗口。",
+    "max_new_main_encounters_per_night": 6,
+    "ordinary_reference": "日常1–2个实际威胁；召唤/分裂根占更多压力，不能在强制长工序上再塞同等追逐者。",
+    "first_day": "逐怪最早可进入设计候选池，不是必出日；还需已教学、工具到位、地图锚点、路线与压力预算均通过。",
+    "late_arrival": "当夜剩余时间容不下明确工作/追逐/恢复余量则延后或放弃投放，不把失败当玩家没买道具。",
+    "mechanism_tools": "先给免费必要工具与可见线索，再开始强制危险；商店/抽奖只给余裕。",
+    "work_window": "长动作必须有实际恢复/停食/退让窗口或既有可取消进度点；纸偶最多1秒不能当3秒工序保护。",
+    "runtime_admission_enabled": false,
+    "composition_policy": "新105目录的组合须重新核对实际主机制窗口与互斥朝向/视线/双手占用；旧V0.10组合在旧运行器中保留，但不自动证明改结局后的MD01组合公平。初版每组最多一个强制多点双手搬运主规则，未验证新组合不投。",
+    "new_task_props": "新增SCP任务用品须以独立实例在预告前进入实际可达槽位，具备免费来源和清退规则；不能仅写在工具清单里就当地图已经提供。角色与器具的确切锚点未接入前仍禁运行准入。"
+  },
+  "player_contact": {
+    "resource": "san",
+    "global_hit_grace_seconds": 2,
+    "usual_attack_damage_range": [
+      8,
+      14
+    ],
+    "elite_attack_damage_range": [
+      14,
+      18
+    ],
+    "telegraph_seconds_minimum": 1.5,
+    "preserve_longer_specific_warnings": true,
+    "committed_attack_geometry_locked": true,
+    "first_injury_auto_slow": false,
+    "zero_san": "继续既有恐慌、稳定化与退场规则；不新增隐形死亡阈值或锁住保底动作。",
+    "fear_vs_contact": "普通目击fear仍受旧同源冷却/阶段上限与Q19等限制；真实命中为contact_attack，不把fear减伤重复作用到接触。",
+    "blood": "本轮怪物接触只登记轻伤，不自动产生新的可追踪流血；既有真实玻璃血源规则保持。"
+  },
+  "weekly_scope": {
+    "towers_traps": "TD05七夜保留同实例/升级/HP/剩余次数，周结算后清空；营业中无采购、补充、拆装、修复。",
+    "persistent_campaign": "知识、图鉴、既有个人装备/个人库存、工资抽奖券及保底沿旧战役规则；不把个人物品当陷阱弹药旁路。",
+    "separate_wallets": "TD05建造币/灵能的周清与既有个人钱包分开；本轮抽奖不能无成本兑换成周建造本金。"
+  },
+  "validation_scope": "检查逐条结构/身份来源/终态守恒、合成生命周期与选定塔伤参考；不声称105个AI、动态路线、移动端体验或整周随机池已经实玩。",
+  "terminal_event_mapping": {
+    "true_combat_defeat": "解锁后的kill_unlocked或任意阶段rule_weaken的必要独立池HP真实归零；才可触发TD05允许的击退传毒/装填接力。",
+    "withdrawal": "rule_leave完成；根奖励可结，但不伪装成true_combat_defeat，不触发T06.B2击退装填或任何死亡传染。",
+    "suppression": "rule_leave到1进入4.5秒压制重构，不是死亡/离场，不触发死亡收益、分尸、装填接力或传播。",
+    "fission_replacement": "只是同预算池分裂替换，不触发击杀效果。",
+    "dependent_summon_auto_dissolve": "源停止后规则指定的眷属回收/解体，不作真实击杀；若子体先被塔真实击败，则按TD05独立生命池触发有效战斗反馈但没有独立根货币奖。",
+    "rule_cooperation_timing": "先提交主规则终态。若subject已离场，不将T06.B1易伤/T06.B2易感移给其他怪或将离场者重新注册；塔的独立友军光环仍工作。"
+  },
+  "night_completion": {
+    "authority": "保留content/balance.json#/night_completion及既有正式交班合同的安全门槛。",
+    "still_hostile": "1HP死亡锁、压制重构中的显体、待孵化/待回收的必要子体，都不因暂时不追人就当作根已解决。",
+    "at_true_six": "真实06:00必须没有未解决关键威胁且完成身份核验与原物交班；纯生存到时刻不自动给完成工资/基础券。",
+    "no_time_extension": "截止后不新开机制操作，不借抽奖或特写冻结补办；不满足完成条件则沿旧未完成/撤班结算，不把怪自动视为击杀。",
+    "peaceful_decline": "本条明确的安全拒绝/自然离开可以解除关键威胁、允许安全交班，但不产生那只怪的成功根奖励。",
+    "admission": "末段只准入预计可在截止前完成真实路线、主机制与击退余量的遭遇；不能在最后几秒硬刷未教过的死亡门槛怪。"
+  },
+  "task_facilities": {
+    "large_fixture_timing": "收容笼、密闭槽、源封闭架等大型剧情装置在当班预排时预约并在班前布防前实体落位；不在营业追逐中凭空刷出新墙/新陷阱。",
+    "reuse_and_capacity": "复用收货/前院既有可用场地的一个大型任务位。首版同班至多预约一件大型收容模块，必须保留玩家侧门、回控线、顾客通路与疏散路线；未绑定真实可用几何的条目不准入。",
+    "task_only": "固定任务装置只接受本次绑定实体/原物的任务回执，不可卖、搬、升级、抽奖取得或用于代替R系通用陷阱；不是新塔挂点。",
+    "small_tools": "必要手持工具免费从实际岗位柜领取；事件自带原物按已登记交付进入世界，保持同一实例，不能在提示按钮里生成。",
+    "navigation": "笼尾诱导位必须有玩家侧门/回控路径或该怪真实响应的独立诱饵；不能把追人AI当作自动进入死胡同。",
+    "geometry": "当班装置先纳入实际碰撞/可达地面，再计算塔的面积补偿和陷阱可布区；营业中不能搬装置刷范围。",
+    "persistent_defenses": "任务模块占位与侧门通路须在整周可布区域中预留；不得为随机事件自动拆除/搬移玩家已存在的塔陷阱。实际占位冲突就不准入该事件，或在班前由玩家正常整备后重新校验。"
+  }
+}

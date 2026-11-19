@@ -1,0 +1,3573 @@
+{
+  "version": "MD01",
+  "runtime_integrated": false,
+  "status": "design_baseline_not_playtested",
+  "source_scope": "23 newly authored SCP adaptations, not preexisting repository entries",
+  "monsters": [
+    {
+      "id": "S01",
+      "name": "凝视塑像",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-173",
+          "title": "SCP-173",
+          "url": "https://scp-wiki.wikidot.com/scp-173",
+          "author": "Moto42",
+          "author_status": "verified_official_credit_or_attribution_metadata",
+          "license": "CC BY-SA 3.0"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：直接视线限制其运动。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "conditional_visitor",
+      "first_day": 2,
+      "pressure_cost": 1.5,
+      "resolution": {
+        "type": "rule_leave",
+        "rationale": "同一塑像在收容笼内部、笼门锁闭、无玩家/顾客被夹在笼内。",
+        "terminal_description": "真实机制回执立即使本店事件离场/收容；无需补刀。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "视线移开时石屑与刮擦声前移；直视会停止。",
+        "free_tools": [
+          "观察线内固定收容笼",
+          "侧置手摇闸",
+          "地面引导线"
+        ],
+        "steps": [
+          {
+            "id": "S01:step1",
+            "action": "在保持直视的侧置控制位打开收容笼",
+            "seconds": 1,
+            "anchor": "shipping_cage_control"
+          },
+          {
+            "id": "S01:step2",
+            "action": "玩家从笼尾隔栏诱导位短暂转视，让本体沿真实追逐路线进入笼区，再经玩家侧门移到回控线；移动时间另计真实路径，不以本步1秒代替行走。",
+            "seconds": 1,
+            "anchor": "shipping_cage_lure_line"
+          },
+          {
+            "id": "S01:step3",
+            "action": "恢复直视并压下侧置闸柄，关门提交笼内实体检测",
+            "seconds": 1,
+            "anchor": "shipping_cage_control"
+          }
+        ],
+        "success_condition": "同一塑像在收容笼内部、笼门锁闭、无玩家/顾客被夹在笼内。",
+        "failure_recovery": "动作被打断保留已提交物件位置与完成步骤；未完成当前步骤不提交，不删除免费任务工具；按可见线索重试同一实例。",
+        "work_window": "控制位与笼内可直接相视；一秒单手关门不转身。未观察时仍需1.5秒锁点攻击预告；压制窗亦可用。",
+        "completion_receipt": "S01:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false,
+        "map_admission": "遵守MD01大型任务位：预排时预约，班前落位；笼尾隔栏诱导位与玩家侧门/回控路线同时可达，怪物真实寻路可进入笼区。侧门只供玩家离开、不把玩家关在笼内；任一拓扑条件不满足则本卡不准入。"
+      },
+      "stats": {
+        "hp": 300,
+        "armor": 0.55,
+        "ward": 0.15,
+        "move_speed": 3.45,
+        "attack_damage": 14,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "normal"
+      },
+      "post_rule": {
+        "armor": 0.55,
+        "ward": 0.15,
+        "move_speed": 0,
+        "attack_damage": 0,
+        "removed_abilities": [
+          "unobserved_approach",
+          "stone_grab"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "observation_gated_walk",
+        "profile_ref": "MD01:species_explicit",
+        "description": "直视速度0，视线断开后3.45沿真实路线行走；无真实转场；闪烁预告提前1.5秒。",
+        "actual_transition": false,
+        "height": "ground"
+      },
+      "combat": {
+        "hp_meaning": "本次敌对显化/化身的战斗耐久；不把HP归零写成原作实体在所有世界永久死亡。",
+        "target_policy": "仅已揭示且有hostile战斗标记的真实独立血池；不攻击普通顾客、装饰、任务物件或人类宿主。",
+        "pre_rule_zero_hp": "HP下限1；3秒压制+1.5秒公开恢复后恢复至25%HP。压制恢复期退出电图且暂停受伤/DoT，永久毒剂量保留。",
+        "post_rule_zero_hp": "机制已终结，不再接受伤害或重复奖励。",
+        "rule_completion_effect": "取消攻击并离场/收容，清除本实例规则占用。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "unobserved_approach",
+          "name": "unobserved_approach",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 1.5,
+          "cooldown_seconds": 8,
+          "effect": "被玩家直接看见时速度0；未观察时以3.45真实行走，非瞬移。自动巡灯不是人类眼睛。",
+          "counterplay": "保持视线、安排可回看路线；不用付费观察设备。"
+        }
+      ],
+      "children": {
+        "kind": "none",
+        "max_spawned": 0,
+        "independent_reward": false
+      },
+      "matchups": {
+        "favorable": [
+          "T03.B1",
+          "T08.B1"
+        ],
+        "conditional": [
+          "T05.A2",
+          "T01.A1"
+        ],
+        "unfavorable": [
+          "T02.A1",
+          "T04.A1"
+        ],
+        "traps": [
+          "R01",
+          "R02",
+          "R12"
+        ],
+        "explanation": "冻结/打断争取关闸窗；积毒不能替代收容；照明不会自动满足凝视。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false
+    },
+    {
+      "id": "S02",
+      "name": "腐蚀穿墙者",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-106",
+          "title": "SCP-106",
+          "url": "https://scp-wiki.wikidot.com/scp-106",
+          "author": "Dr Gears",
+          "author_status": "verified_official_credit_or_attribution_metadata",
+          "license": "CC BY-SA 3.0"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：腐蚀、穿越固体与口袋空间。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "hunter",
+      "first_day": 5,
+      "pressure_cost": 2.5,
+      "resolution": {
+        "type": "rule_leave",
+        "rationale": "同一显化体实际进入隔离槽，液槽与双层封板均完成物理锁闭。",
+        "terminal_description": "真实机制回执立即使本店事件离场/收容；无需补刀。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "墙角先渗出黑色腐痕，真实出入口同时出现1.5秒预告。",
+        "free_tools": [
+          "常备铅衬封板",
+          "任务液槽",
+          "无受害者的机械诱振器"
+        ],
+        "steps": [
+          {
+            "id": "S02:step1",
+            "action": "在收货区装入铅衬封板，完成可见双层隔离槽",
+            "seconds": 1,
+            "anchor": "containment_tray"
+          },
+          {
+            "id": "S02:step2",
+            "action": "用机械诱振器预约槽内落点并退到旁侧安全线",
+            "seconds": 1,
+            "anchor": "containment_lure"
+          },
+          {
+            "id": "S02:step3",
+            "action": "本体真实到槽后合拢两块隔离板并锁闸",
+            "seconds": 1,
+            "anchor": "containment_control"
+          }
+        ],
+        "success_condition": "同一显化体实际进入隔离槽，液槽与双层封板均完成物理锁闭。",
+        "failure_recovery": "动作被打断保留已提交物件位置与完成步骤；未完成当前步骤不提交，不删除免费任务工具；按可见线索重试同一实例。",
+        "work_window": "诱振器的真实入槽动作后有3秒不攻击的检查/恢复；关闸1秒。没有活人诱饵，也不能远程点一下清怪。",
+        "completion_receipt": "S02:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false,
+        "map_admission": "遵守MD01大型任务位：预排时预约，班前落位；笼尾隔栏诱导位与玩家侧门/回控路线同时可达，怪物真实寻路可进入笼区。侧门只供玩家离开、不把玩家关在笼内；任一拓扑条件不满足则本卡不准入。"
+      },
+      "stats": {
+        "hp": 360,
+        "armor": 0.4,
+        "ward": 0.25,
+        "move_speed": 3.24,
+        "attack_damage": 16,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "elite"
+      },
+      "post_rule": {
+        "armor": 0.4,
+        "ward": 0.25,
+        "move_speed": 0,
+        "attack_damage": 0,
+        "removed_abilities": [
+          "corrosion_phase",
+          "corrosive_grab"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "true_teleport",
+        "profile_ref": "MD01:species_explicit",
+        "description": "步行3.24；真实穿墙转场绝不由镜子或影子替代。",
+        "actual_transition": true,
+        "height": "ground",
+        "phase_audit": "content/combat_contracts_td05.json: real origin-arrival cells, same damage, reset arrival+2s",
+        "pursuit_cycle": {
+          "walk_seconds": 6,
+          "walk_speed": 3.24,
+          "windup_seconds": 1.5,
+          "transition_distance": 8,
+          "transition_seconds": 0,
+          "recovery_seconds": 0.8,
+          "reference_speed": 3.306024096385542,
+          "distance_is_upper_bound_not_guaranteed": true
+        },
+        "transition_event_type": "true_teleport"
+      },
+      "combat": {
+        "hp_meaning": "本次敌对显化/化身的战斗耐久；不把HP归零写成原作实体在所有世界永久死亡。",
+        "target_policy": "仅已揭示且有hostile战斗标记的真实独立血池；不攻击普通顾客、装饰、任务物件或人类宿主。",
+        "pre_rule_zero_hp": "HP下限1；3秒压制+1.5秒公开恢复后恢复至25%HP。压制恢复期退出电图且暂停受伤/DoT，永久毒剂量保留。",
+        "post_rule_zero_hp": "机制已终结，不再接受伤害或重复奖励。",
+        "rule_completion_effect": "取消攻击并离场/收容，清除本实例规则占用。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "corrosion_phase",
+          "name": "corrosion_phase",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 1.5,
+          "cooldown_seconds": 8.3,
+          "effect": "追逐6秒后，预告1.5秒，从真实起点转到8格内已登记腐痕落点，恢复0.8秒。",
+          "counterplay": "封板切断该腐痕通道；所有真实转场吃T10区间数×同单位伤害。"
+        }
+      ],
+      "children": {
+        "kind": "none",
+        "max_spawned": 0,
+        "independent_reward": false
+      },
+      "matchups": {
+        "favorable": [
+          "T10.B1",
+          "T10.B2"
+        ],
+        "conditional": [
+          "T03.B1",
+          "T04.B1"
+        ],
+        "unfavorable": [
+          "T05.A1",
+          "T07.B1"
+        ],
+        "traps": [
+          "R04",
+          "R09",
+          "R08"
+        ],
+        "explanation": "跨相对位覆盖真实出入口；地面路障不能封住合法穿墙通道，固定炉需先把落点约束到炉内。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false
+    },
+    {
+      "id": "S03",
+      "name": "遮面追逐者",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-096",
+          "title": "SCP-096",
+          "url": "https://scp-wiki.wikidot.com/scp-096",
+          "author": "Dr Dan",
+          "author_status": "verified_official_credit_or_attribution_metadata",
+          "license": "CC BY-SA 3.0"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：观看脸部引发追逐，通常不宜普通击杀。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "conditional_visitor",
+      "first_day": 5,
+      "pressure_cost": 2.5,
+      "resolution": {
+        "type": "rule_leave",
+        "rationale": "影像源已隔离，同一实体在本事件运输舱内且舱门锁闭。已经目击的暴怒不会因遮脸就被抹掉；是实体重新收容结束门店威胁。",
+        "terminal_description": "真实机制回执立即使本店事件离场/收容；无需补刀。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "运输舱遮面布松脱；监控预览明确遮蔽脸部，先提供警示再允许主动打开。",
+        "free_tools": [
+          "不透明遮面罩",
+          "固定加固运输舱",
+          "非成像在位检测器"
+        ],
+        "steps": [
+          {
+            "id": "S03:step1",
+            "action": "关闭本事件唯一事故影像屏并封存实体照片",
+            "seconds": 1,
+            "anchor": "incident_display"
+          },
+          {
+            "id": "S03:step2",
+            "action": "本体仍在舱内时直接从侧位拉下遮面罩；若已暴怒出舱，玩家用笼尾隔栏诱导位与侧门回控路线引它真实入舱；若未激怒但已出舱，免费遮光返程连杆展开一条真实暗路线，本作事件约定其以2.0步行返舱。",
+            "seconds": 1,
+            "anchor": "shipping_cage_side"
+          },
+          {
+            "id": "S03:step3",
+            "action": "在本体真实留舱时锁闭舱门并提交非成像在位检测",
+            "seconds": 1,
+            "anchor": "shipping_cage_control"
+          }
+        ],
+        "success_condition": "影像源已隔离，同一实体在本事件运输舱内且舱门锁闭。已经目击的暴怒不会因遮脸就被抹掉；是实体重新收容结束门店威胁。",
+        "failure_recovery": "动作被打断保留已提交物件位置与完成步骤；未完成当前步骤不提交，不删除免费任务工具；按可见线索重试同一实例。",
+        "work_window": "本作运输事件提供舱内3秒拘束窗口与侧向不见脸按钮；不要求玩家先看脸。误看后仍可绕行送入舱，基础工具不变。",
+        "completion_receipt": "S03:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false,
+        "map_admission": "遵守MD01大型任务位：预排时预约，班前落位；笼尾隔栏诱导位与玩家侧门/回控路线同时可达，怪物真实寻路可进入笼区。侧门只供玩家离开、不把玩家关在笼内；任一拓扑条件不满足则本卡不准入。",
+        "initial_state": "正常开场本体遮面且在运输舱内，舱门待锁；可不目击直接隔离影像并关舱。只有玩家主动打开已警示影像/面罩或事件先行暴露分支才进入敌对出舱追逐。",
+        "return_branch_note": "趋暗返舱是明确的本店运输事件改编，不是删除照片解除已触发暴怒；暴怒目标必须继续按真实追逐路线入舱，直到实际锁闭。"
+      },
+      "stats": {
+        "hp": 420,
+        "armor": 0.2,
+        "ward": 0.25,
+        "move_speed": 3.45,
+        "attack_damage": 18,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "elite"
+      },
+      "post_rule": {
+        "armor": 0.2,
+        "ward": 0.25,
+        "move_speed": 0,
+        "attack_damage": 0,
+        "removed_abilities": [
+          "rage_chase",
+          "face_exposure"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "continuous_walk",
+        "profile_ref": "MD01:species_explicit",
+        "description": "沿实际合法地面追逐；速度为格/秒，玩家基准3.0。",
+        "actual_transition": false,
+        "height": "ground"
+      },
+      "combat": {
+        "hp_meaning": "本次敌对显化/化身的战斗耐久；不把HP归零写成原作实体在所有世界永久死亡。",
+        "target_policy": "未激怒的遮面舱内个体不设hostile标记，塔不先手攻击；只有确认敌对显化才可压制，普通人类永不成为目标。",
+        "pre_rule_zero_hp": "HP下限1；3秒压制+1.5秒公开恢复后恢复至25%HP。压制恢复期退出电图且暂停受伤/DoT，永久毒剂量保留。",
+        "post_rule_zero_hp": "机制已终结，不再接受伤害或重复奖励。",
+        "rule_completion_effect": "取消攻击并离场/收容，清除本实例规则占用。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "rage_chase",
+          "name": "rage_chase",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 3,
+          "cooldown_seconds": 10,
+          "effect": "本作目击后有3秒明确抱头预告，再以3.45持续追逐，伤害18SAN且遵守共享受击保护。不会搬入原作无法逃离的必死判定。",
+          "counterplay": "隔离影像防止激怒；已激怒时完成真实收容，不能靠删图宣称已忘记。"
+        }
+      ],
+      "children": {
+        "kind": "none",
+        "max_spawned": 0,
+        "independent_reward": false
+      },
+      "matchups": {
+        "favorable": [
+          "T03.B1",
+          "T08.A2"
+        ],
+        "conditional": [
+          "T05.A2",
+          "T01.A1"
+        ],
+        "unfavorable": [
+          "T02.A1",
+          "T07.A1"
+        ],
+        "traps": [
+          "R01",
+          "R02",
+          "R12"
+        ],
+        "explanation": "单体控制减少送舱压力；无限毒不能解开不死事件。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false
+    },
+    {
+      "id": "S04",
+      "name": "诊疫医者",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-049",
+          "title": "SCP-049",
+          "url": "https://scp-wiki.wikidot.com/scp-049",
+          "author": "Gabriel Jade; rewritten by djkaktus & Gabriel Jade",
+          "author_status": "verified_official_credit_or_attribution_metadata",
+          "license": "CC BY-SA 3.0"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：疫病判断、接触危险、薰衣草镇静。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "conditional_visitor",
+      "first_day": 3,
+      "pressure_cost": 1.5,
+      "resolution": {
+        "type": "rule_leave",
+        "rationale": "真实样品已隔离，薰衣草袋在封盒外，本体接受返程并通过离场边界。",
+        "terminal_description": "真实机制回执立即使本店事件离场/收容；无需补刀。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "它指向隔离盘内的污染样品，靠近薰衣草封袋时姿态明显缓和。",
+        "free_tools": [
+          "免费薰衣草封袋",
+          "样品夹",
+          "封闭检疫盒"
+        ],
+        "steps": [
+          {
+            "id": "S04:step1",
+            "action": "用长夹把事件样品放入检疫盒",
+            "seconds": 1,
+            "anchor": "quarantine_counter"
+          },
+          {
+            "id": "S04:step2",
+            "action": "在盒外固定薰衣草袋并封闭原样品",
+            "seconds": 1,
+            "anchor": "quarantine_counter"
+          },
+          {
+            "id": "S04:step3",
+            "action": "把封盒送入退回口，在其安静检查时确认离场",
+            "seconds": 1,
+            "anchor": "return_hatch"
+          }
+        ],
+        "success_condition": "真实样品已隔离，薰衣草袋在封盒外，本体接受返程并通过离场边界。",
+        "failure_recovery": "动作被打断保留已提交物件位置与完成步骤；未完成当前步骤不提交，不删除免费任务工具；按可见线索重试同一实例。",
+        "work_window": "检疫盒有侧向长夹操作位；每次观察袋子暂停3秒，玩家只需完成一个1秒动作。没有接触即死或用顾客当实验材料。",
+        "completion_receipt": "S04:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false
+      },
+      "stats": {
+        "hp": 260,
+        "armor": 0.2,
+        "ward": 0.35,
+        "move_speed": 3.24,
+        "attack_damage": 14,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "normal"
+      },
+      "post_rule": {
+        "armor": 0.2,
+        "ward": 0.35,
+        "move_speed": 0,
+        "attack_damage": 0,
+        "removed_abilities": [
+          "pestilence_grab"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "continuous_walk",
+        "profile_ref": "MD01:species_explicit",
+        "description": "沿实际合法地面追逐；速度为格/秒，玩家基准3.0。",
+        "actual_transition": false,
+        "height": "ground"
+      },
+      "combat": {
+        "hp_meaning": "本次敌对显化/化身的战斗耐久；不把HP归零写成原作实体在所有世界永久死亡。",
+        "target_policy": "仅已揭示且有hostile战斗标记的真实独立血池；不攻击普通顾客、装饰、任务物件或人类宿主。",
+        "pre_rule_zero_hp": "HP下限1；3秒压制+1.5秒公开恢复后恢复至25%HP。压制恢复期退出电图且暂停受伤/DoT，永久毒剂量保留。",
+        "post_rule_zero_hp": "机制已终结，不再接受伤害或重复奖励。",
+        "rule_completion_effect": "取消攻击并离场/收容，清除本实例规则占用。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "pestilence_grab",
+          "name": "pestilence_grab",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 1.5,
+          "cooldown_seconds": 8,
+          "effect": "本作异常显化在1.5秒伸手预告后造成14SAN，不实现原作直接触碰致死。",
+          "counterplay": "离开锁定扇区；薰衣草只在真实靠近时令其检查停留。"
+        }
+      ],
+      "children": {
+        "kind": "none",
+        "max_spawned": 0,
+        "independent_reward": false
+      },
+      "matchups": {
+        "favorable": [
+          "T03.B1",
+          "T08.B1"
+        ],
+        "conditional": [
+          "T05.A2",
+          "T04.B1"
+        ],
+        "unfavorable": [
+          "T07.A1",
+          "T02.A1"
+        ],
+        "traps": [
+          "R01",
+          "R10"
+        ],
+        "explanation": "以争取实际检疫操作为主；大范围输出对单个诊疫者价值低。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false,
+      "disabled_source_abilities": [
+        "本版不启用手术复生或僵尸召唤，不把未启用能力写成机制削弱收益。"
+      ]
+    },
+    {
+      "id": "S05",
+      "name": "拟声猎群",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-939",
+          "title": "SCP-939",
+          "url": "https://scp-wiki.wikidot.com/scp-939",
+          "author": "Adam Smascher and EchoFourDelta",
+          "author_status": "verified_official_credit_or_attribution_metadata",
+          "license": "CC BY-SA 3.0"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：拟声、群居捕猎与记忆相关气雾。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "hunter",
+      "first_day": 3,
+      "pressure_cost": 1.5,
+      "resolution": {
+        "type": "rule_weaken",
+        "rationale": "两路位置证据与本体目击对应，同一事件气流隔断关闭；仅该根失去拟声改锁与记忆雾。",
+        "terminal_description": "可直接击退；先做机制则按post_rule降低难度，同一根只结算一次。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "喊话内容可来自真同事，但其声音所在走道与两路固定人员位置记录不符。",
+        "free_tools": [
+          "双路人员位置板",
+          "通风控制器",
+          "隔离窗"
+        ],
+        "steps": [
+          {
+            "id": "S05:step1",
+            "action": "同时查看两个真实人员位置指示，定位不可能的求救声",
+            "seconds": 1,
+            "anchor": "staff_location_board"
+          },
+          {
+            "id": "S05:step2",
+            "action": "关闭该走道连到柜台的气流隔断",
+            "seconds": 1,
+            "anchor": "ventilation_switch"
+          },
+          {
+            "id": "S05:step3",
+            "action": "在隔离窗确认红色无眼实体并登记同一敌人",
+            "seconds": 1,
+            "anchor": "verification_window"
+          }
+        ],
+        "success_condition": "两路人员位置证据与本体目击对应，同一事件气流隔断关闭；取消拟声假提示与本事件提示雾，按post_rule降低移动和攻击。",
+        "failure_recovery": "动作被打断保留已提交物件位置与完成步骤；未完成当前步骤不提交，不删除免费任务工具；按可见线索重试同一实例。",
+        "work_window": "求救声为可拒绝诱骗，不强制开门；隔断按钮位于柜台侧，释放拟声时本体停留2.5秒，足够单步1秒。",
+        "completion_receipt": "S05:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false
+      },
+      "stats": {
+        "hp": 220,
+        "armor": 0.15,
+        "ward": 0.25,
+        "move_speed": 3.45,
+        "attack_damage": 12,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "normal"
+      },
+      "post_rule": {
+        "armor": 0.1,
+        "ward": 0.15,
+        "move_speed": 3.2,
+        "attack_damage": 10,
+        "removed_abilities": [
+          "voice_misdirection",
+          "amnestic_mist"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "continuous_walk",
+        "profile_ref": "MD01:species_explicit",
+        "description": "沿实际合法地面追逐；速度为格/秒，玩家基准3.0。",
+        "actual_transition": false,
+        "height": "ground"
+      },
+      "combat": {
+        "hp_meaning": "本次敌对显化/化身的战斗耐久；不把HP归零写成原作实体在所有世界永久死亡。",
+        "target_policy": "仅已揭示且有hostile战斗标记的真实独立血池；不攻击普通顾客、装饰、任务物件或人类宿主。",
+        "pre_rule_zero_hp": "允许归零并完成真实击退；未做机制不领取规则灵能。",
+        "post_rule_zero_hp": "合法后续伤害/DoT归零结算根事件；禁止回放旧伤害补杀。",
+        "rule_completion_effect": "应用post_rule，保留当前HP、真实状态剂量及子体预算。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "voice_misdirection",
+          "name": "voice_misdirection",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 1.5,
+          "cooldown_seconds": 8,
+          "effect": "每8秒拟声1.5秒，制造可由人员位置板核对的假工位提示；不改变塔的锁定、不伪造真实订单、不接管玩家输入。",
+          "counterplay": "双独立位置证据后识别，塔保留已记录的同一血池。"
+        },
+        {
+          "id": "amnestic_mist",
+          "name": "amnestic_mist",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 1.5,
+          "cooldown_seconds": 8,
+          "effect": "1.5秒预告后留下半径1.5、3秒气雾，玩家停留会延迟下一次非关键提示1秒；不擦除已提交工单。",
+          "counterplay": "避开气雾或关闭真实隔断。"
+        }
+      ],
+      "children": {
+        "kind": "none",
+        "max_spawned": 0,
+        "independent_reward": false
+      },
+      "matchups": {
+        "favorable": [
+          "T01.B1",
+          "T02.A2"
+        ],
+        "conditional": [
+          "T03.B1",
+          "T01.A1",
+          "T04.B1"
+        ],
+        "unfavorable": [
+          "T07.A1",
+          "T09.B1"
+        ],
+        "traps": [
+          "R01",
+          "R08",
+          "R14"
+        ],
+        "explanation": "高频火印与短窗双投适应3.45敏捷体在真实货架转角间进出射界；长而稳定射界下狙击与连续曝光仍有效。拟声本身不洗塔锁。单池使广域覆盖和电器群脉冲的范围收益较低。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false
+    },
+    {
+      "id": "S06",
+      "name": "不灭爬行者",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-682",
+          "title": "SCP-682",
+          "url": "https://scp-wiki.wikidot.com/scp-682",
+          "author": "Dr Gears and Epic Phail Spy",
+          "author_status": "verified_official_credit_or_attribution_metadata",
+          "license": "CC BY-SA 3.0"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：强再生、适应能力及无法可靠消灭。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "hunter",
+      "first_day": 7,
+      "pressure_cost": 3,
+      "resolution": {
+        "type": "rule_leave",
+        "rationale": "同一实体完整入槽、门锁与密闭循环均正常；完成本次收容而非杀死SCP-682。",
+        "terminal_description": "真实机制回执立即使本店事件离场/收容；无需补刀。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "大型运输槽旁有剩余封闭循环标记；伤口会再组织，但本次压制耐久清晰显示。",
+        "free_tools": [
+          "固定回收槽",
+          "封闭循环操作台",
+          "防回流闸"
+        ],
+        "steps": [
+          {
+            "id": "S06:step1",
+            "action": "在安全侧关闭回收槽外泄支路",
+            "seconds": 1,
+            "anchor": "containment_valve"
+          },
+          {
+            "id": "S06:step2",
+            "action": "开启槽内返程诱导，让本体沿真实通道跨过在位线",
+            "seconds": 1,
+            "anchor": "containment_lure"
+          },
+          {
+            "id": "S06:step3",
+            "action": "本体真实入槽后合拢防回流闸并恢复密闭循环",
+            "seconds": 1.5,
+            "anchor": "containment_control"
+          }
+        ],
+        "success_condition": "同一实体完整入槽、门锁与密闭循环均正常；完成本次收容而非杀死SCP-682。",
+        "failure_recovery": "动作被打断保留已提交物件位置与完成步骤；未完成当前步骤不提交，不删除免费任务工具；按可见线索重试同一实例。",
+        "work_window": "扑击落空有3秒恢复；控制位不在扑击线内，1.5秒关闸可在这一窗口完成。准入必须保证大型体型可走通道与回收槽。",
+        "completion_receipt": "S06:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false,
+        "map_admission": "遵守MD01大型任务位：预排时预约，班前落位；笼尾隔栏诱导位与玩家侧门/回控路线同时可达，怪物真实寻路可进入笼区。侧门只供玩家离开、不把玩家关在笼内；任一拓扑条件不满足则本卡不准入。"
+      },
+      "stats": {
+        "hp": 620,
+        "armor": 0.6,
+        "ward": 0.4,
+        "move_speed": 3.24,
+        "attack_damage": 18,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "elite"
+      },
+      "post_rule": {
+        "armor": 0.6,
+        "ward": 0.4,
+        "move_speed": 0,
+        "attack_damage": 0,
+        "removed_abilities": [
+          "adaptive_shell",
+          "heavy_lunge"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "continuous_walk",
+        "profile_ref": "MD01:species_explicit",
+        "description": "远距3.24正常步行追人；4格内才可能使用2秒前摇+4格/0.4秒真实扑击+3秒收招。扑击是连续地面运动，按真实地面跨区计税，不触发真实转场刷新。",
+        "actual_transition": false,
+        "height": "ground"
+      },
+      "combat": {
+        "hp_meaning": "本次敌对显化/化身的战斗耐久；不把HP归零写成原作实体在所有世界永久死亡。",
+        "target_policy": "仅已揭示且有hostile战斗标记的真实独立血池；不攻击普通顾客、装饰、任务物件或人类宿主。",
+        "pre_rule_zero_hp": "HP下限1；3秒压制+1.5秒公开恢复后恢复至25%HP。压制恢复期退出电图且暂停受伤/DoT，永久毒剂量保留。",
+        "post_rule_zero_hp": "机制已终结，不再接受伤害或重复奖励。",
+        "rule_completion_effect": "取消攻击并离场/收容，清除本实例规则占用。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "adaptive_shell",
+          "name": "adaptive_shell",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 2,
+          "cooldown_seconds": 10,
+          "effect": "每受到累计80实际伤害，下次打击前显示外壳重组，最多两次把当前较高防御提高0.05，上限0.7；不清毒、不加HP、不免疫伤害类型。",
+          "counterplay": "换用另一通道或穿甲狙击削出压制窗口；主任务仍是收容。"
+        },
+        {
+          "id": "heavy_lunge",
+          "name": "heavy_lunge",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 2,
+          "cooldown_seconds": 8,
+          "effect": "仅目标距本体4格内且存在合法直线时启动：预告2秒，沿锁定直线实际移动最多4格/0.4秒，命中18SAN，随后停3秒；目标远于4格时不启动扑击，继续3.24步行。",
+          "counterplay": "横移出锁线，利用停顿完成阀门动作。"
+        }
+      ],
+      "children": {
+        "kind": "none",
+        "max_spawned": 0,
+        "independent_reward": false
+      },
+      "matchups": {
+        "favorable": [
+          "T01.A1",
+          "T03.B1"
+        ],
+        "conditional": [
+          "T02.A1",
+          "T09.A1"
+        ],
+        "unfavorable": [
+          "T01.B2",
+          "T07.A1"
+        ],
+        "traps": [
+          "R07",
+          "R01",
+          "R08"
+        ],
+        "explanation": "高甲单体让穿甲与控制有用；积毒降低后续压制成本但永远不替代收容，不追加无上限自适应。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false
+    },
+    {
+      "id": "S07",
+      "name": "附面假人",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-035",
+          "title": "SCP-035",
+          "url": "https://scp-wiki.wikidot.com/scp-035",
+          "author": "Kain Pathos Crow",
+          "author_status": "verified_official_credit_or_attribution_metadata",
+          "license": "CC BY-SA 3.0"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：可附着人形物件、腐蚀分泌物与诱导影响。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "hunter",
+      "first_day": 4,
+      "pressure_cost": 1.5,
+      "resolution": {
+        "type": "rule_leave",
+        "rationale": "面具实际脱离同一非人假人并封入匣；本体与污染占用终结，假人不另发击杀奖。",
+        "terminal_description": "真实机制回执立即使本店事件离场/收容；无需补刀。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "店内无人展示假人开始活动，面具下渗出的腐液只从正面可见；人类顾客始终不加入目标表。",
+        "free_tools": [
+          "长柄夹具",
+          "常备不透明玻璃封匣",
+          "假人固定支架"
+        ],
+        "steps": [
+          {
+            "id": "S07:step1",
+            "action": "在支架侧打开固定扣，保持撤离通道",
+            "seconds": 1,
+            "anchor": "mannequin_stand"
+          },
+          {
+            "id": "S07:step2",
+            "action": "诱使假人抓空后，用长柄夹具把面具摘入封匣",
+            "seconds": 1,
+            "anchor": "mannequin_side"
+          },
+          {
+            "id": "S07:step3",
+            "action": "合上不透明封匣并把原假人留在固定架上",
+            "seconds": 1,
+            "anchor": "quarantine_counter"
+          }
+        ],
+        "success_condition": "面具实际脱离同一非人假人并封入匣；本体与污染占用终结，假人不另发击杀奖。",
+        "failure_recovery": "动作被打断保留已提交物件位置与完成步骤；未完成当前步骤不提交，不删除免费任务工具；按可见线索重试同一实例。",
+        "work_window": "抓取落空固定恢复3秒，摘取1秒；免费固定支架可提供同等窗口，故不要求纸偶连续拖住3秒。",
+        "completion_receipt": "S07:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false
+      },
+      "stats": {
+        "hp": 240,
+        "armor": 0.2,
+        "ward": 0.35,
+        "move_speed": 3.3,
+        "attack_damage": 12,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "normal"
+      },
+      "post_rule": {
+        "armor": 0.2,
+        "ward": 0.35,
+        "move_speed": 0,
+        "attack_damage": 0,
+        "removed_abilities": [
+          "mask_host_motion",
+          "corrosive_grasp"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "continuous_walk",
+        "profile_ref": "TD05:WALK",
+        "description": "沿实际合法地面追逐；速度为格/秒，玩家基准3.0。",
+        "actual_transition": false,
+        "height": "ground"
+      },
+      "combat": {
+        "hp_meaning": "本次敌对显化/化身的战斗耐久；不把HP归零写成原作实体在所有世界永久死亡。",
+        "target_policy": "仅已揭示且有hostile战斗标记的真实独立血池；不攻击普通顾客、装饰、任务物件或人类宿主。",
+        "pre_rule_zero_hp": "HP下限1；3秒压制+1.5秒公开恢复后恢复至25%HP。压制恢复期退出电图且暂停受伤/DoT，永久毒剂量保留。",
+        "post_rule_zero_hp": "机制已终结，不再接受伤害或重复奖励。",
+        "rule_completion_effect": "取消攻击并离场/收容，清除本实例规则占用。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "corrosive_grasp",
+          "name": "corrosive_grasp",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 1.5,
+          "cooldown_seconds": 8,
+          "effect": "1.5秒前方抓取预告后造成12SAN，并在原位置留2秒腐蚀格；腐蚀格只在真实驻留时按共享保护命中。",
+          "counterplay": "侧移出锁定扇面，利用3秒恢复摘面具。"
+        }
+      ],
+      "children": {
+        "kind": "none",
+        "max_spawned": 0,
+        "independent_reward": false
+      },
+      "matchups": {
+        "favorable": [
+          "T03.B1",
+          "T08.B1"
+        ],
+        "conditional": [
+          "T01.A1",
+          "T05.A2"
+        ],
+        "unfavorable": [
+          "T07.A1",
+          "T02.B2"
+        ],
+        "traps": [
+          "R02",
+          "R08"
+        ],
+        "explanation": "控制真实假人争取摘取时间；不会把宿主击杀当解法，也没有面具离体继承杀怪装填。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false
+    },
+    {
+      "id": "S08",
+      "name": "燃料分身",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-457",
+          "title": "SCP-457",
+          "url": "https://scp-wiki.wikidot.com/scp-457",
+          "author": "agatharights",
+          "author_status": "verified_official_credit_or_attribution_metadata",
+          "license": "CC BY-SA 3.0"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：依赖燃料成长、可分为两个火形。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "hunter",
+      "first_day": 5,
+      "pressure_cost": 2.5,
+      "resolution": {
+        "type": "kill_unlocked",
+        "rationale": "供料已截断，两份燃料真实封盖，全部现存火形获得本次冷凝标记；解除整个根谱系的致死门槛。",
+        "terminal_description": "机制解锁后当前合法战斗池归零，结束本次本地显化。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "火形指向两份实际燃料，积累后中央燃芯拉成两条；燃料表显示本次最多一次分裂。",
+        "free_tools": [
+          "防火盖板",
+          "常备供料截止阀",
+          "任务冷凝喷口"
+        ],
+        "steps": [
+          {
+            "id": "S08:step1",
+            "action": "关闭本事件供料支路，切断继续取燃料",
+            "seconds": 1,
+            "anchor": "fuel_cutoff"
+          },
+          {
+            "id": "S08:step2",
+            "action": "逐一盖住两份可见任务燃料，保留原物ID",
+            "seconds": 1.5,
+            "anchor": "fuel_isolation"
+          },
+          {
+            "id": "S08:step3",
+            "action": "打开固定冷凝喷口，让当前全部火形通过已见湿区",
+            "seconds": 1,
+            "anchor": "mist_control"
+          }
+        ],
+        "success_condition": "供料已截断，两份燃料真实封盖，全部现存火形获得本次冷凝标记；解除整个根谱系的致死门槛。",
+        "failure_recovery": "动作被打断保留已提交物件位置与完成步骤；未完成当前步骤不提交，不删除免费任务工具；按可见线索重试同一实例。",
+        "work_window": "取燃料有2秒低头动作，操作可拆成每份0.75秒；喷口按钮与燃料位不重合，准入须预留安全侧路线。",
+        "completion_receipt": "S08:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false
+      },
+      "stats": {
+        "hp": 300,
+        "armor": 0.1,
+        "ward": 0.5,
+        "move_speed": 3.3,
+        "attack_damage": 14,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "normal"
+      },
+      "post_rule": {
+        "armor": 0.05,
+        "ward": 0.15,
+        "move_speed": 3.0,
+        "attack_damage": 10,
+        "removed_abilities": [
+          "fuel_split",
+          "fuel_shield"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "continuous_walk",
+        "profile_ref": "TD05:WALK",
+        "description": "沿实际合法地面追逐；速度为格/秒，玩家基准3.0。",
+        "actual_transition": false,
+        "height": "ground"
+      },
+      "combat": {
+        "hp_meaning": "本次火形总耐久300；分裂后每池最大150，当前总HP守恒。灵性灼印侵蚀异常显化，不向实体添加可燃物。",
+        "target_policy": "仅已揭示且有hostile战斗标记的真实独立血池；不攻击普通顾客、装饰、任务物件或人类宿主。",
+        "pre_rule_zero_hp": "HP下限1，实际扣血不超过HP-1；0实际伤害不给电荷，仍可移动及作为合法既有带电中继。解锁不治疗或清毒。",
+        "post_rule_zero_hp": "合法后续伤害/DoT归零结算根事件；禁止回放旧伤害补杀。",
+        "rule_completion_effect": "应用post_rule，保留当前HP、真实状态剂量及子体预算。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "fuel_split",
+          "name": "fuel_split",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 2,
+          "cooldown_seconds": 99,
+          "effect": "尚未切断供料且总HP首次降至60%时预告2秒，分成两份真实血池；全根只发生一次。",
+          "counterplay": "在阈值前关料可取消尚未提交分裂；已分裂则用广域火印、冰与电分别应对。"
+        }
+      ],
+      "children": {
+        "kind": "split",
+        "trigger": "root_total_hp_first_at_or_below_60_percent_and_supply_open",
+        "max_split_events": 1,
+        "max_live_pools": 2,
+        "max_spawned": 1,
+        "child_template": {
+          "hp_policy": "split_current_hp_and_max_hp_equally",
+          "armor": 0.1,
+          "ward": 0.5,
+          "move_speed": 3.3,
+          "attack_damage": 10,
+          "attack_telegraph": 1.5,
+          "attack_cooldown": 3.5
+        },
+        "conservation": "在当前伤害批次及死亡处理之后提交分裂；各子池HP之和等于母体当前HP，最大HP总和不变；毒q、未到期成熟预算、来源记录均按相同比例分配，不复制；电荷及其他状态实有份额分配，不复制。",
+        "root_terminal": "机制已解且全部真实子池归零；中间池死亡不发根奖励。",
+        "independent_reward": false,
+        "new_children_after_rule": false,
+        "new_children_after_root_terminal": false,
+        "split_commit_guard": "预告结束时仍有未断燃料，且母体当前HP>=2，才允许拆为两个各至少1HP的池；当前HP<2则本次唯一分裂尝试取消，保留母体与全部原状态，不补HP，不反复重开预告。",
+        "child_hp_floor": 1,
+        "post_rule_child_stats": {
+          "armor": 0.05,
+          "ward": 0.15,
+          "move_speed": 3.0,
+          "attack_damage": 8
+        },
+        "charge_and_status_allocation": "毒q与未兑现成熟预算可按比例分；电/热/寒/咒的每一实际层及其来源/截止逐层分配到一个子池，不能把整层复制到两池，不能由分配额外触发爆发。"
+      },
+      "matchups": {
+        "favorable": [
+          "T09.A2",
+          "T03.A1"
+        ],
+        "conditional": [
+          "T07.A1",
+          "T01.A1"
+        ],
+        "unfavorable": [
+          "T02.A1",
+          "T05.A1"
+        ],
+        "traps": [
+          "R01",
+          "R16",
+          "R08"
+        ],
+        "explanation": "双池有利于铺电；未断燃料不能补刀，冷凝后低灵防使范围输出有效。热塔的灵性灼印不计作物理燃料，不能越烧越免费增殖。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false
+    },
+    {
+      "id": "S09",
+      "name": "失眠潜猎者",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-966",
+          "title": "SCP-966",
+          "url": "https://scp-wiki.wikidot.com/scp-966",
+          "author": "Enma Ai",
+          "author_status": "verified_official_credit_or_attribution_metadata",
+          "license": "CC BY-SA 3.0"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：只在红外波段可见、身体脆弱、干扰睡眠。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "hunter",
+      "first_day": 3,
+      "pressure_cost": 1.5,
+      "resolution": {
+        "type": "rule_weaken",
+        "rationale": "同一猎者经过真实红外门，轮廓标签提交且遮波挡片闭合；永久取消本事件隐匿与干扰波。",
+        "terminal_description": "可直接击退；先做机制则按post_rule降低难度，同一根只结算一次。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "空走道留浅足印；常备红外检测窗可见瘦小猎者；释放干扰波前胸口轮廓发亮。",
+        "free_tools": [
+          "固定红外检测窗",
+          "遮波挡片",
+          "可转向的任务标记灯"
+        ],
+        "steps": [
+          {
+            "id": "S09:step1",
+            "action": "在红外窗确认同一足印对应的真实实体",
+            "seconds": 1,
+            "anchor": "infrared_window"
+          },
+          {
+            "id": "S09:step2",
+            "action": "关闭该走道遮波挡片，阻断本事件干扰源",
+            "seconds": 1,
+            "anchor": "wave_screen"
+          },
+          {
+            "id": "S09:step3",
+            "action": "让目标真实通过检测门并提交轮廓标记",
+            "seconds": 1,
+            "anchor": "infrared_gate"
+          }
+        ],
+        "success_condition": "同一猎者经过真实红外门，轮廓标签提交且遮波挡片闭合；永久取消本事件隐匿与干扰波。",
+        "failure_recovery": "动作被打断保留已提交物件位置与完成步骤；未完成当前步骤不提交，不删除免费任务工具；按可见线索重试同一实例。",
+        "work_window": "仅玩家距它5格内且技能冷却就绪时才进入3秒监听/放波，间隔至少8秒；远距持续3.45追逐不强制停。检测门按钮有柜台侧操作位，每步1秒可在可见近距监听窗完成；范围攻击可打中真实脚印位置。",
+        "completion_receipt": "S09:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false
+      },
+      "stats": {
+        "hp": 150,
+        "armor": 0,
+        "ward": 0.2,
+        "move_speed": 3.45,
+        "attack_damage": 9,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "normal"
+      },
+      "post_rule": {
+        "armor": 0,
+        "ward": 0.1,
+        "move_speed": 3.2,
+        "attack_damage": 8,
+        "removed_abilities": [
+          "infrared_concealment",
+          "sleep_wave"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "continuous_walk",
+        "profile_ref": "MD01:species_explicit",
+        "description": "沿实际合法地面追逐；速度为格/秒，玩家基准3.0。",
+        "actual_transition": false,
+        "height": "ground"
+      },
+      "combat": {
+        "hp_meaning": "本次敌对显化/化身的战斗耐久；不把HP归零写成原作实体在所有世界永久死亡。",
+        "target_policy": "免费红外证据确认敌对来源后，未建立永久轮廓的真实敌对血池仍能被合法落点范围伤害击中；单点塔只在真实红外/烧伤轮廓和射线条件成立时锁定，不透视自动瞄准。普通顾客永不设敌对标记。",
+        "pre_rule_zero_hp": "允许归零并完成真实击退；未做机制不领取规则灵能。",
+        "post_rule_zero_hp": "合法后续伤害/DoT归零结算根事件；禁止回放旧伤害补杀。",
+        "rule_completion_effect": "应用post_rule，保留当前HP、真实状态剂量及子体预算。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "infrared_concealment",
+          "name": "infrared_concealment",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 1.5,
+          "cooldown_seconds": 8,
+          "effect": "未解机制时单点塔须由真实红外门或当前烧伤轮廓获得合法目标；范围攻击可击中真实空间，无凭空闪避。",
+          "counterplay": "先用免费红外门，或以火塔真实命中产生4秒轮廓窗口。"
+        },
+        {
+          "id": "sleep_wave",
+          "name": "sleep_wave",
+          "trigger": "玩家距本体5格内、8秒冷却就绪、目标区存在可撤离侧路；远距不释放也不监听停步。",
+          "telegraph_seconds": 2,
+          "cooldown_seconds": 8,
+          "effect": "2秒预告后在半径1.5内造成一次8SAN；不搬入不可逆永久失眠或取消玩家睡眠系统。",
+          "counterplay": "遮波挡片阻断；不能把屏障外看不见的敌人自动指定为靶。"
+        }
+      ],
+      "children": {
+        "kind": "none",
+        "max_spawned": 0,
+        "independent_reward": false
+      },
+      "matchups": {
+        "favorable": [
+          "T07.A1",
+          "T01.B1"
+        ],
+        "conditional": [
+          "T04.B1",
+          "T02.A2"
+        ],
+        "unfavorable": [
+          "T01.A1",
+          "T05.A1"
+        ],
+        "traps": [
+          "R13",
+          "R01"
+        ],
+        "explanation": "范围火印可对无锁定的真实位置施加烧伤并暂显轮廓，永久处理则开放稳定狙击；低HP保留脆弱特色。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false
+    },
+    {
+      "id": "S10",
+      "name": "余光攀行者",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-372",
+          "title": "SCP-372",
+          "url": "https://scp-wiki.wikidot.com/scp-372",
+          "author": "Sylocat",
+          "author_status": "verified_official_credit_or_attribution_metadata",
+          "license": "CC BY-SA 3.0"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：利用视野盲区与精确攀附运动。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "hunter",
+      "first_day": 4,
+      "pressure_cost": 1.5,
+      "resolution": {
+        "type": "kill_unlocked",
+        "rationale": "两路真实观测与同一次过门对象一致，跟踪牌锁定提交；解除本作显化体死亡门槛并封闭避视改锁。",
+        "terminal_description": "机制解锁后当前合法战斗池归零，结束本次本地显化。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "货架侧面出现与转头同步的掠影，两个固定检测窗口同时照见同一细长身体。",
+        "free_tools": [
+          "两侧固定观测窗",
+          "红外动作检测器",
+          "编号跟踪牌"
+        ],
+        "steps": [
+          {
+            "id": "S10:step1",
+            "action": "先看左侧固定窗记录其真实过栏时刻",
+            "seconds": 1,
+            "anchor": "left_observation_window"
+          },
+          {
+            "id": "S10:step2",
+            "action": "在右侧固定窗确认同一对象，不追着余光转圈",
+            "seconds": 1,
+            "anchor": "right_observation_window"
+          },
+          {
+            "id": "S10:step3",
+            "action": "目标实际越过中间检测门时压下跟踪牌锁定器",
+            "seconds": 1,
+            "anchor": "tracking_gate"
+          }
+        ],
+        "success_condition": "两路真实观测与同一次过门对象一致，跟踪牌锁定提交；解除本作显化体死亡门槛并封闭避视改锁。",
+        "failure_recovery": "动作被打断保留已提交物件位置与完成步骤；未完成当前步骤不提交，不删除免费任务工具；按可见线索重试同一实例。",
+        "work_window": "每次攀越货架后有2秒抓附恢复；观测动作每次1秒，不要求同时按两按钮。自动灯不能代交双路身份事实。",
+        "completion_receipt": "S10:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false
+      },
+      "stats": {
+        "hp": 180,
+        "armor": 0.1,
+        "ward": 0.25,
+        "move_speed": 3.45,
+        "attack_damage": 10,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "normal"
+      },
+      "post_rule": {
+        "armor": 0.05,
+        "ward": 0.1,
+        "move_speed": 3.2,
+        "attack_damage": 8,
+        "removed_abilities": [
+          "saccade_lock_break",
+          "surface_climb"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "surface_climb",
+        "profile_ref": "MD01:species_explicit",
+        "description": "地面3.45，货架外沿低空攀附3.2，落地恢复2秒；必须有实际路线，攀附不是穿柜或真实转场。",
+        "actual_transition": false,
+        "height": "mixed"
+      },
+      "combat": {
+        "hp_meaning": "本次敌对显化/化身的战斗耐久；不把HP归零写成原作实体在所有世界永久死亡。",
+        "target_policy": "仅已揭示且有hostile战斗标记的真实独立血池；不攻击普通顾客、装饰、任务物件或人类宿主。",
+        "pre_rule_zero_hp": "HP下限1，实际扣血不超过HP-1；0实际伤害不给电荷，仍可移动及作为合法既有带电中继。解锁不治疗或清毒。",
+        "post_rule_zero_hp": "合法后续伤害/DoT归零结算根事件；禁止回放旧伤害补杀。",
+        "rule_completion_effect": "应用post_rule，保留当前HP、真实状态剂量及子体预算。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "saccade_lock_break",
+          "name": "saccade_lock_break",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 1.5,
+          "cooldown_seconds": 6,
+          "effect": "每6秒在1.5秒掠影预告后沿货架外侧真实攀行，若被遮挡才失去单点锁定；不瞬移，不清除毒。",
+          "counterplay": "双检测锁定后沿实际射线继续追踪；地面与低空接触分开结算。"
+        }
+      ],
+      "children": {
+        "kind": "none",
+        "max_spawned": 0,
+        "independent_reward": false
+      },
+      "matchups": {
+        "favorable": [
+          "T02.A2",
+          "T10.A1"
+        ],
+        "conditional": [
+          "T04.B2",
+          "T01.B2"
+        ],
+        "unfavorable": [
+          "T05.A1",
+          "T04.B1"
+        ],
+        "traps": [
+          "R03",
+          "R09"
+        ],
+        "explanation": "短射界双投留住永久毒；T10.A1与R09只在真实地面行走/落地段有效，低空攀附不缴地面分区伤，R03可在合法高度限制攀附。纸偶不拦低空。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false
+    },
+    {
+      "id": "S11",
+      "name": "铃声后的瘦影",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-513",
+          "title": "SCP-513",
+          "url": "https://scp-wiki.wikidot.com/scp-513",
+          "author": "beefwit",
+          "author_status": "verified_official_credit_or_attribution_metadata",
+          "license": "CC BY-SA 3.0"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：铃声暴露与余光瘦影跟踪。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "hunter",
+      "first_day": 3,
+      "pressure_cost": 1.5,
+      "resolution": {
+        "type": "rule_leave",
+        "rationale": "原铃钟舌被真实固定且全铃封箱；本店局部听觉显化随源隔离离场。并非宣称原作暴露后果能普遍被封箱治愈。",
+        "terminal_description": "真实机制回执立即使本店事件离场/收容；无需补刀。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "原铃铛固定在隔音盘内，钟舌有松动声；暴露后瘦影从视野边缘沿走道接近。",
+        "free_tools": [
+          "原铃铛固定夹",
+          "隔音填料",
+          "不透明运输箱"
+        ],
+        "steps": [
+          {
+            "id": "S11:step1",
+            "action": "从带侧挡板的位置夹住原铃钟舌",
+            "seconds": 1,
+            "anchor": "bell_tray"
+          },
+          {
+            "id": "S11:step2",
+            "action": "在不晃动铃体的情况下填入隔音材料",
+            "seconds": 1,
+            "anchor": "bell_tray"
+          },
+          {
+            "id": "S11:step3",
+            "action": "把同一固定铃放入运输箱并锁盖",
+            "seconds": 1,
+            "anchor": "soundproof_box"
+          }
+        ],
+        "success_condition": "原铃钟舌被真实固定且全铃封箱；本店局部听觉显化随源隔离离场。并非宣称原作暴露后果能普遍被封箱治愈。",
+        "failure_recovery": "动作被打断保留已提交物件位置与完成步骤；未完成当前步骤不提交，不删除免费任务工具；按可见线索重试同一实例。",
+        "work_window": "每次瘦影被正视后会沿真实路线退开3秒，可在该窗完成一个1秒动作；没有必须购入耳塞的门槛。",
+        "completion_receipt": "S11:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false
+      },
+      "stats": {
+        "hp": 180,
+        "armor": 0.15,
+        "ward": 0.45,
+        "move_speed": 3.3,
+        "attack_damage": 10,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "normal"
+      },
+      "post_rule": {
+        "armor": 0.15,
+        "ward": 0.45,
+        "move_speed": 0,
+        "attack_damage": 0,
+        "removed_abilities": [
+          "peripheral_stalk",
+          "bell_echo"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "continuous_walk",
+        "profile_ref": "TD05:WALK",
+        "description": "沿实际合法地面追逐；速度为格/秒，玩家基准3.0。",
+        "actual_transition": false,
+        "height": "ground"
+      },
+      "combat": {
+        "hp_meaning": "本次敌对显化/化身的战斗耐久；不把HP归零写成原作实体在所有世界永久死亡。",
+        "target_policy": "仅已揭示且有hostile战斗标记的真实独立血池；不攻击普通顾客、装饰、任务物件或人类宿主。",
+        "pre_rule_zero_hp": "HP下限1；3秒压制+1.5秒公开恢复后恢复至25%HP。压制恢复期退出电图且暂停受伤/DoT，永久毒剂量保留。",
+        "post_rule_zero_hp": "机制已终结，不再接受伤害或重复奖励。",
+        "rule_completion_effect": "取消攻击并离场/收容，清除本实例规则占用。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "peripheral_stalk",
+          "name": "peripheral_stalk",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 1.5,
+          "cooldown_seconds": 8,
+          "effect": "瘦影在已登记走道边缘出现后以3.3沿真实路线逼近；被正视则退行3秒。不赋予镜面穿越。",
+          "counterplay": "安排回看节奏，固定源物而非追着瘦影累计伤害。"
+        }
+      ],
+      "children": {
+        "kind": "none",
+        "max_spawned": 0,
+        "independent_reward": false
+      },
+      "matchups": {
+        "favorable": [
+          "T03.B1",
+          "T08.B1"
+        ],
+        "conditional": [
+          "T05.A2",
+          "T04.B2"
+        ],
+        "unfavorable": [
+          "T02.A1",
+          "T10.B1"
+        ],
+        "traps": [
+          "R01",
+          "R08"
+        ],
+        "explanation": "控制提供封铃时间，永久毒只能压制；镜旁出现不等于镜穿，不给跨相塔虚构专长。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false
+    },
+    {
+      "id": "S12",
+      "name": "棘触心核",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-058",
+          "title": "SCP-058",
+          "url": "https://scp-wiki.wikidot.com/scp-058",
+          "author": "Unknown author",
+          "author_status": "official_unknown_author",
+          "license": "CC BY-SA 3.0"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：具有棘触与尖刺的心脏形实体。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "hunter",
+      "first_day": 6,
+      "pressure_cost": 2.5,
+      "resolution": {
+        "type": "rule_weaken",
+        "rationale": "本次黏液原物完成封存、事件支路关闭、棘触外膜被回收槽实际夹住；取消长鞭与污染恢复。",
+        "terminal_description": "可直接击退；先做机制则按post_rule降低难度，同一根只结算一次。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "心核每次抽打前四根棘触依次绷直，排污槽里的本事件燃性黏液正在聚集。",
+        "free_tools": [
+          "带柄隔污栅",
+          "任务封闭吸附筒",
+          "排污截止板"
+        ],
+        "steps": [
+          {
+            "id": "S12:step1",
+            "action": "关闭事件黏液支路，保留普通排水",
+            "seconds": 1,
+            "anchor": "sludge_cutoff"
+          },
+          {
+            "id": "S12:step2",
+            "action": "在抽打落空后把原黏液吸入封闭筒",
+            "seconds": 1.5,
+            "anchor": "sludge_tray"
+          },
+          {
+            "id": "S12:step3",
+            "action": "将带柄隔污栅插入棘触回收槽，锁住强化外膜",
+            "seconds": 1,
+            "anchor": "spine_recovery_slot"
+          }
+        ],
+        "success_condition": "本次黏液原物完成封存、事件支路关闭、棘触外膜被回收槽实际夹住；取消长鞭并降低表内黏液外膜防御。本版没有额外回血能力。",
+        "failure_recovery": "动作被打断保留已提交物件位置与完成步骤；未完成当前步骤不提交，不删除免费任务工具；按可见线索重试同一实例。",
+        "work_window": "长鞭锁定直线2秒预告，落空后3秒回收；吸附1.5秒由安全侧进行，不用玩家贴近攻击中心。",
+        "completion_receipt": "S12:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false
+      },
+      "stats": {
+        "hp": 380,
+        "armor": 0.35,
+        "ward": 0.2,
+        "move_speed": 3.3,
+        "attack_damage": 16,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "elite"
+      },
+      "post_rule": {
+        "armor": 0.2,
+        "ward": 0.1,
+        "move_speed": 3.1,
+        "attack_damage": 12,
+        "removed_abilities": [
+          "long_spine_whip"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "continuous_walk",
+        "profile_ref": "TD05:WALK",
+        "description": "沿实际合法地面追逐；速度为格/秒，玩家基准3.0。",
+        "actual_transition": false,
+        "height": "ground"
+      },
+      "combat": {
+        "hp_meaning": "本次敌对显化/化身的战斗耐久；不把HP归零写成原作实体在所有世界永久死亡。",
+        "target_policy": "仅已揭示且有hostile战斗标记的真实独立血池；不攻击普通顾客、装饰、任务物件或人类宿主。",
+        "pre_rule_zero_hp": "允许归零并完成真实击退；未做机制不领取规则灵能。",
+        "post_rule_zero_hp": "合法后续伤害/DoT归零结算根事件；禁止回放旧伤害补杀。",
+        "rule_completion_effect": "应用post_rule，保留当前HP、真实状态剂量及子体预算。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "long_spine_whip",
+          "name": "long_spine_whip",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 2,
+          "cooldown_seconds": 7,
+          "effect": "2秒预告后沿3格窄线抽打，命中16SAN，3秒收回；四触须共享本体血池与攻击ID，不四次连击。",
+          "counterplay": "横移，趁回收操作；真伤判定受全局2秒保护。"
+        }
+      ],
+      "children": {
+        "kind": "shared_parts",
+        "parts": [
+          "core",
+          "four_spine_tentacles",
+          "stinger"
+        ],
+        "independent_pools": 1,
+        "max_spawned": 0,
+        "hit_deduplication": "每一攻击事件对共享池最多一次；本怪自身只贡献1个带电池，局部N仍计入其他真实邻近带电池；毒q只记一次。",
+        "independent_reward": false
+      },
+      "matchups": {
+        "favorable": [
+          "T01.A1",
+          "T02.A1"
+        ],
+        "conditional": [
+          "T08.A2",
+          "T03.B1"
+        ],
+        "unfavorable": [
+          "T07.A1",
+          "T09.A2"
+        ],
+        "traps": [
+          "R07",
+          "R08",
+          "R14"
+        ],
+        "explanation": "单个重装血池适合穿甲与长时积毒；四触须不增加电网N或范围伤害次数。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false
+    },
+    {
+      "id": "S13",
+      "name": "楼梯口无面影",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-087",
+          "title": "SCP-087",
+          "url": "https://scp-wiki.wikidot.com/scp-087",
+          "author": "Zaeyde",
+          "author_status": "verified_official_credit_or_attribution_metadata",
+          "license": "CC BY-SA 3.0"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：异常楼梯、无法靠近的声音与门口无面影。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "anchored_hazard",
+      "first_day": 3,
+      "pressure_cost": 1,
+      "resolution": {
+        "type": "rule_leave",
+        "rationale": "原检修门闭合、隔音垫固定且门内没有玩家/普通顾客；局部门口显化终结。",
+        "terminal_description": "真实机制回执立即使本店事件离场/收容；无需补刀。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "后场检修门内的脚步与哭声不会因下探而接近，门口面影总挡住同一视距。",
+        "free_tools": [
+          "原检修门锁杆",
+          "工业隔音垫",
+          "免费测距标线"
+        ],
+        "steps": [
+          {
+            "id": "S13:step1",
+            "action": "在门外测距标线确认声源距离不随下探改变",
+            "seconds": 1,
+            "anchor": "stairwell_threshold"
+          },
+          {
+            "id": "S13:step2",
+            "action": "保持在门外，把隔音垫卡入原检修门槽",
+            "seconds": 1,
+            "anchor": "stairwell_door"
+          },
+          {
+            "id": "S13:step3",
+            "action": "退出门槛并锁闭原门，确认无人留在内侧",
+            "seconds": 1,
+            "anchor": "stairwell_lock"
+          }
+        ],
+        "success_condition": "原检修门闭合、隔音垫固定且门内没有玩家/普通顾客；局部门口显化终结。",
+        "failure_recovery": "动作被打断保留已提交物件位置与完成步骤；未完成当前步骤不提交，不删除免费任务工具；按可见线索重试同一实例。",
+        "work_window": "无需走入无限楼梯；门外机械操作每步1秒，面影每次范围预告2秒、释放后安静3秒。",
+        "completion_receipt": "S13:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false
+      },
+      "stats": {
+        "hp": 180,
+        "armor": 0.1,
+        "ward": 0.4,
+        "move_speed": 0,
+        "attack_damage": 10,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "normal"
+      },
+      "post_rule": {
+        "armor": 0.1,
+        "ward": 0.4,
+        "move_speed": 0,
+        "attack_damage": 0,
+        "removed_abilities": [
+          "threshold_dread",
+          "receding_cry"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "anchored",
+        "profile_ref": "MD01:species_explicit",
+        "description": "固定于本事件检修门口，移速0；门口压迫不冒充追逐。未绑定合法门与外侧撤离空间时不准入。",
+        "actual_transition": false,
+        "height": "anchored"
+      },
+      "combat": {
+        "hp_meaning": "本次敌对显化/化身的战斗耐久；不把HP归零写成原作实体在所有世界永久死亡。",
+        "target_policy": "仅已揭示且有hostile战斗标记的真实独立血池；不攻击普通顾客、装饰、任务物件或人类宿主。",
+        "pre_rule_zero_hp": "HP下限1；3秒压制+1.5秒公开恢复后恢复至25%HP。压制恢复期退出电图且暂停受伤/DoT，永久毒剂量保留。",
+        "post_rule_zero_hp": "机制已终结，不再接受伤害或重复奖励。",
+        "rule_completion_effect": "取消攻击并离场/收容，清除本实例规则占用。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "threshold_dread",
+          "name": "threshold_dread",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 2,
+          "cooldown_seconds": 7,
+          "effect": "仅威胁门口半径1.5可走区域，2秒预告后造成10SAN；不沿全店追人，不生成真受困儿童。",
+          "counterplay": "退到边界外、利用安静窗封门；源外没有凭空扣SAN。"
+        }
+      ],
+      "children": {
+        "kind": "none",
+        "max_spawned": 0,
+        "independent_reward": false
+      },
+      "matchups": {
+        "favorable": [
+          "T08.B1",
+          "T03.B1"
+        ],
+        "conditional": [
+          "T04.B1",
+          "T01.A1"
+        ],
+        "unfavorable": [
+          "T10.B1",
+          "T02.A1"
+        ],
+        "traps": [
+          "R08"
+        ],
+        "explanation": "固定源适合打断与压制；没有真实转场，不给跨相收益；塔不能代锁门。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false
+    },
+    {
+      "id": "S14",
+      "name": "缝材造物熊",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-1048",
+          "title": "SCP-1048",
+          "url": "https://scp-wiki.wikidot.com/scp-1048",
+          "author": "trennerdios",
+          "author_status": "verified_official_credit_or_attribution_metadata",
+          "license": "CC BY-SA 3.0"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：收集材料制作危险的熊形造物。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "swarm_root",
+      "first_day": 5,
+      "pressure_cost": 2.5,
+      "resolution": {
+        "type": "kill_unlocked",
+        "rationale": "三份原料分别已封存或其造物已击退且残片封存，工作台断扣关闭；解除母体致死门槛并永久停止本根生产。",
+        "terminal_description": "机制解锁后当前合法战斗池归零，结束本次本地显化。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "小熊将三份带标签的任务缝材分别运向工作台；每份原料只能做出一个不同造物。",
+        "free_tools": [
+          "三只免费封材盒",
+          "长柄取料夹",
+          "工作台断扣"
+        ],
+        "steps": [
+          {
+            "id": "S14:step1",
+            "action": "用长柄夹取走尚未消耗的带标签缝材，或工作台同ID已扣料半成品，逐份封盒；每份仅一次，已成造物的材料转步骤2处理。",
+            "seconds": 1.5,
+            "anchor": "craft_material_bins"
+          },
+          {
+            "id": "S14:step2",
+            "action": "若某份材料已制成造物，先击退该造物并封存其真实残片",
+            "seconds": 1,
+            "anchor": "craft_salvage_tray"
+          },
+          {
+            "id": "S14:step3",
+            "action": "切断工作台原断扣，核对三份材料去向全部闭合",
+            "seconds": 1,
+            "anchor": "craft_table_latch"
+          }
+        ],
+        "success_condition": "三份材料分别处于已封原料、已封半成品、或已击退造物的已封残片之一，工作台断扣关闭。子体原本可正常死亡；仅母体的致死门槛此时解开。",
+        "failure_recovery": "动作被打断保留已提交物件位置与完成步骤；未完成当前步骤不提交，不删除免费任务工具；按可见线索重试同一实例。",
+        "work_window": "母体每次搬料固定停留3秒，单份封材0.5秒分段提交；已生成造物必须处理，但总共只有三份预算。",
+        "completion_receipt": "S14:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false
+      },
+      "stats": {
+        "hp": 200,
+        "armor": 0.15,
+        "ward": 0.3,
+        "move_speed": 3.45,
+        "attack_damage": 10,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "normal"
+      },
+      "post_rule": {
+        "armor": 0.1,
+        "ward": 0.15,
+        "move_speed": 3.2,
+        "attack_damage": 8,
+        "removed_abilities": [
+          "craft_replica",
+          "material_decoy"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "continuous_walk",
+        "profile_ref": "MD01:species_explicit",
+        "description": "沿实际合法地面追逐；速度为格/秒，玩家基准3.0。",
+        "actual_transition": false,
+        "height": "ground"
+      },
+      "combat": {
+        "hp_meaning": "本次敌对显化/化身的战斗耐久；不把HP归零写成原作实体在所有世界永久死亡。",
+        "target_policy": "仅已揭示且有hostile战斗标记的真实独立血池；不攻击普通顾客、装饰、任务物件或人类宿主。",
+        "pre_rule_zero_hp": "HP下限1，实际扣血不超过HP-1；0实际伤害不给电荷，仍可移动及作为合法既有带电中继。解锁不治疗或清毒。",
+        "post_rule_zero_hp": "合法后续伤害/DoT归零结算根事件；禁止回放旧伤害补杀。",
+        "rule_completion_effect": "应用post_rule，保留当前HP、真实状态剂量及子体预算。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "craft_replica",
+          "name": "craft_replica",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 3,
+          "cooldown_seconds": 10,
+          "effect": "每10秒尝试消耗一份真实材料，先3秒可见装配；最多造出3只，顺序与材料对应。",
+          "counterplay": "偷走未消耗材料阻止生成；打断只延迟，不返还已花材料也不刷新总预算。"
+        }
+      ],
+      "children": {
+        "kind": "summon",
+        "max_spawned": 3,
+        "max_live_pools": 4,
+        "production_budget": "三份预置任务材料各消耗一次；没有实际材料不生成，root终结立即取消未提交装配。",
+        "child_templates": [
+          {
+            "id": "cloth",
+            "hp": 50,
+            "armor": 0,
+            "ward": 0.1,
+            "move_speed": 3.3,
+            "attack_damage": 8,
+            "attack_telegraph": 1.5,
+            "attack_cooldown": 4
+          },
+          {
+            "id": "scrap",
+            "hp": 70,
+            "armor": 0.4,
+            "ward": 0,
+            "move_speed": 3.24,
+            "attack_damage": 10,
+            "attack_telegraph": 1.5,
+            "attack_cooldown": 4
+          },
+          {
+            "id": "paper",
+            "hp": 40,
+            "armor": 0,
+            "ward": 0.2,
+            "move_speed": 3.45,
+            "attack_damage": 8,
+            "attack_telegraph": 1.5,
+            "attack_cooldown": 4
+          }
+        ],
+        "status_initialization": "真实生成的新造物q=0且电荷=0；不复制母体剂量或待成熟预算。",
+        "root_terminal": "材料全部封存、母体门槛已解且母体归零；此时三份预算都已回收，不能残留仍可攻击的造物。",
+        "independent_reward": false,
+        "new_children_after_rule": false,
+        "new_children_after_root_terminal": false,
+        "gate_scope": "mother_only",
+        "child_hp_floor": 0,
+        "interrupted_assembly": "已消耗材料形成同ID半成品留在真实工作台；打断只暂停装配。半成品可由长夹送入对应封材盒，也可由母体之后续作；不回生已花原料、不丢弃半成品、不生成第四份预算。"
+      },
+      "matchups": {
+        "favorable": [
+          "T01.B2",
+          "T07.A1"
+        ],
+        "conditional": [
+          "T09.B1",
+          "T08.A1"
+        ],
+        "unfavorable": [
+          "T02.A1",
+          "T01.A1"
+        ],
+        "traps": [
+          "R08",
+          "R13",
+          "R16"
+        ],
+        "explanation": "残血清理/广域易伤处理造物；电器共振需真的把独立造物带近电器，不给母体装饰缝线增加N。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false
+    },
+    {
+      "id": "S15",
+      "name": "孵卵拟人群",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-3199",
+          "title": "SCP-3199",
+          "url": "https://scp-wiki.wikidot.com/scp-3199",
+          "author": "bittermixin",
+          "author_status": "verified_official_credit_or_attribution_metadata",
+          "license": "CC BY-SA 3.0"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：成体可被伤害、强韧卵与持续繁殖。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "swarm_root",
+      "first_day": 6,
+      "pressure_cost": 3,
+      "resolution": {
+        "type": "kill_unlocked",
+        "rationale": "本次三份繁殖源均实际冷封；已经孵化的子体均已击退。母体失去本作复起门槛，可以被后续伤害击退。",
+        "terminal_description": "机制解锁后当前合法战斗池归零，结束本次本地显化。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "运输巢只携带三份清楚编号的本次繁殖源；两个外卵位发热，母体腹部可见备用卵轮廓。",
+        "free_tools": [
+          "三格免费冷封盒",
+          "长柄捕卵漏斗",
+          "孵化供温截止片"
+        ],
+        "steps": [
+          {
+            "id": "S15:step1",
+            "action": "关闭本事件供温，阻止两个外卵继续孵化",
+            "seconds": 1,
+            "anchor": "incubator_cutoff"
+          },
+          {
+            "id": "S15:step2",
+            "action": "逐格封存未孵化外卵；已孵化者击退后收走真实备用卵",
+            "seconds": 1.5,
+            "anchor": "incubator_slots"
+          },
+          {
+            "id": "S15:step3",
+            "action": "母体吐卵预告后，用固定漏斗把内部备用卵导入第三格并封盖",
+            "seconds": 1,
+            "anchor": "egg_capture_chute"
+          }
+        ],
+        "success_condition": "本次三份繁殖源均实际冷封；已经孵化的子体均已击退。母体失去本作复起门槛，可以被后续伤害击退。",
+        "failure_recovery": "动作被打断保留已提交物件位置与完成步骤；未完成当前步骤不提交，不删除免费任务工具；按可见线索重试同一实例。",
+        "work_window": "吐卵3秒预告后母体固定恢复3秒，漏斗预先就位、封盖1秒；每个外卵分开0.75秒操作。不存在无限后代或凭空销毁已经孵化的孩子。",
+        "completion_receipt": "S15:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false
+      },
+      "stats": {
+        "hp": 320,
+        "armor": 0.1,
+        "ward": 0.2,
+        "move_speed": 3.3,
+        "attack_damage": 14,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "normal"
+      },
+      "post_rule": {
+        "armor": 0.05,
+        "ward": 0.1,
+        "move_speed": 3.0,
+        "attack_damage": 10,
+        "removed_abilities": [
+          "finite_incubation",
+          "backup_egg_gate"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "continuous_walk",
+        "profile_ref": "TD05:WALK",
+        "description": "沿实际合法地面追逐；速度为格/秒，玩家基准3.0。",
+        "actual_transition": false,
+        "height": "ground"
+      },
+      "combat": {
+        "hp_meaning": "本次敌对显化/化身的战斗耐久；不把HP归零写成原作实体在所有世界永久死亡。",
+        "target_policy": "仅已揭示且有hostile战斗标记的真实独立血池；不攻击普通顾客、装饰、任务物件或人类宿主。",
+        "pre_rule_zero_hp": "HP下限1，实际扣血不超过HP-1；0实际伤害不给电荷，仍可移动及作为合法既有带电中继。解锁不治疗或清毒。",
+        "post_rule_zero_hp": "合法后续伤害/DoT归零结算根事件；禁止回放旧伤害补杀。",
+        "rule_completion_effect": "应用post_rule，保留当前HP、真实状态剂量及子体预算。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "finite_incubation",
+          "name": "finite_incubation",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 3,
+          "cooldown_seconds": 10,
+          "effect": "两个外卵各在本事件第10/20秒尝试孵化，提前3秒亮起；真实断温即暂停，最多两只新追逐体。",
+          "counterplay": "先断温再取卵；高伤不替代封存，不能用火塔把尚未准入的卵自动生成更多敌人。"
+        },
+        {
+          "id": "backup_egg_transfer",
+          "name": "backup_egg_transfer",
+          "trigger": "两份外部繁殖源已经封存（含相应已孵化子体先击退并回收卵）、真实供温关闭、母体备用卵尚未转送；同一实例只提交一次。",
+          "telegraph_seconds": 3,
+          "cooldown_seconds": 10,
+          "effect": "上述条件首次满足即预告3秒，再把唯一内部备用卵送向固定漏斗，母体恢复3秒；漏接则同一卵落入预先可达托盘，不孵化、不复制，可再由长夹拾取封入第三格。没有需要等待却永不生产的步骤。",
+          "counterplay": "预先放好免费固定漏斗，沿侧位用1秒封盖；打断则同一枚卵仍留原位，不复制。"
+        }
+      ],
+      "children": {
+        "kind": "summon",
+        "max_spawned": 2,
+        "max_live_pools": 3,
+        "production_budget": "本次运输巢固定两个外卵+母体一枚备用卵，不把原作物种的无限潜力搬进单个营业事件。",
+        "child_template": {
+          "hp": 90,
+          "armor": 0.05,
+          "ward": 0.1,
+          "move_speed": 3.3,
+          "attack_damage": 9,
+          "attack_telegraph": 1.5,
+          "attack_cooldown": 4
+        },
+        "gate_scope": "仅母体本作复起门槛；两只子体可正常击退，死亡留下同一预算的备用卵，不继续孵化。",
+        "status_initialization": "新孵化独立池无母体毒/电；击退后留下的卵是不可战斗任务物件，不接收毒转移或电图计数。",
+        "root_terminal": "三枚繁殖源真实封存、所有已孵化子体击退、母体后续归零；只结算一次根。",
+        "independent_reward": false,
+        "new_children_after_rule": false,
+        "new_children_after_root_terminal": false,
+        "missed_internal_egg": "同一内部卵落在可达托盘，可重拾；繁殖世代预算已结束，落地不孵化。"
+      },
+      "matchups": {
+        "favorable": [
+          "T07.A1",
+          "T08.A1"
+        ],
+        "conditional": [
+          "T09.A2",
+          "T03.A1"
+        ],
+        "unfavorable": [
+          "T01.A1",
+          "T02.A1"
+        ],
+        "traps": [
+          "R08",
+          "R01",
+          "R16"
+        ],
+        "explanation": "范围减益处理母子围堵，单发狙击可补刀但不能封住剩余卵；寒意塔只控制实体，不能代交冷封工单。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false
+    },
+    {
+      "id": "S16",
+      "name": "刀肢蟹队",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-098",
+          "title": "SCP-098",
+          "url": "https://scp-wiki.wikidot.com/scp-098",
+          "author": "DrEverettMann",
+          "author_status": "verified_official_credit_or_attribution_metadata",
+          "license": "CC BY-SA 3.0"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：刀状肢体、浅水隐蔽和协同围猎。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "swarm_root",
+      "first_day": 4,
+      "pressure_cost": 2,
+      "resolution": {
+        "type": "rule_weaken",
+        "rationale": "对应浅水区已排净且隔水，侧翼挡板到位；四个既有池全根取消协同围切并减速。",
+        "terminal_description": "可直接击退；先做机制则按post_rule降低难度，同一根只结算一次。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "四个不同实体在浅积水旁互相模仿脚步，侧翼蟹会等正面蟹开始挥刀才靠近。",
+        "free_tools": [
+          "固定排水盖柄",
+          "任务挡水片",
+          "侧翼警示挡板"
+        ],
+        "steps": [
+          {
+            "id": "S16:step1",
+            "action": "从安全侧打开本事件浅水排口",
+            "seconds": 1,
+            "anchor": "shallow_water_drain"
+          },
+          {
+            "id": "S16:step2",
+            "action": "把挡水片落下，阻止同一小水区再次连通",
+            "seconds": 1,
+            "anchor": "water_gate"
+          },
+          {
+            "id": "S16:step3",
+            "action": "合上侧翼通道的矮挡板，确认四只都离开藏身积水",
+            "seconds": 1,
+            "anchor": "flank_screen"
+          }
+        ],
+        "success_condition": "对应浅水区排净且隔水、侧翼挡板到位；四个原编号中，存活者已离开藏身积水，死者有同根真实击退回执；对存活池取消协同围切并减速。",
+        "failure_recovery": "动作被打断保留已提交物件位置与完成步骤；未完成当前步骤不提交，不删除免费任务工具；按可见线索重试同一实例。",
+        "work_window": "正面蟹挥刀1.5秒预告、落空2秒恢复；低挡板侧按钮可在恢复窗提交。其他蟹照常存在，不靠纸偶包办安全。",
+        "completion_receipt": "S16:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false,
+        "early_casualty_policy": "本根已击退成员用真实死亡/编号回执代替再次站位或过门；机制只要求所有存活成员完成对应空间条件，并只对存活池应用post_rule。最后一池已经击退则根已终结，不再接受主机制回执或追加规则奖。"
+      },
+      "stats": {
+        "hp": 65,
+        "armor": 0.4,
+        "ward": 0,
+        "move_speed": 3.3,
+        "attack_damage": 8,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "normal"
+      },
+      "post_rule": {
+        "armor": 0.25,
+        "ward": 0,
+        "move_speed": 2.9,
+        "attack_damage": 6,
+        "removed_abilities": [
+          "coordinated_flank",
+          "shallow_water_concealment"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "continuous_walk",
+        "profile_ref": "TD05:WALK",
+        "description": "沿实际合法地面追逐；速度为格/秒，玩家基准3.0。",
+        "actual_transition": false,
+        "height": "ground"
+      },
+      "combat": {
+        "hp_meaning": "每只刀肢蟹65HP，固定四只总260HP；不是四模型共享65HP。",
+        "target_policy": "仅已揭示且有hostile战斗标记的真实独立血池；不攻击普通顾客、装饰、任务物件或人类宿主。",
+        "pre_rule_zero_hp": "允许归零并完成真实击退；未做机制不领取规则灵能。",
+        "post_rule_zero_hp": "合法后续伤害/DoT归零结算根事件；禁止回放旧伤害补杀。",
+        "rule_completion_effect": "应用post_rule，保留当前HP、真实状态剂量及子体预算。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "coordinated_flank",
+          "name": "coordinated_flank",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 1.5,
+          "cooldown_seconds": 8,
+          "effect": "四只独立蟹最多同时两只进入攻击准备；其他沿真实路径占位。一次命中8SAN，不附不可逆断腿。",
+          "counterplay": "排水断藏身点，范围咒印降低多次攻击压力。"
+        }
+      ],
+      "children": {
+        "kind": "summon",
+        "production_mode": "preplaced_pack_no_during_shift_generation",
+        "max_spawned": 3,
+        "initial_independent_pools": 4,
+        "max_live_pools": 4,
+        "child_template": {
+          "hp": 65,
+          "armor": 0.4,
+          "ward": 0,
+          "move_speed": 3.3,
+          "attack_damage": 8,
+          "attack_telegraph": 1.5,
+          "attack_cooldown": 4
+        },
+        "status_initialization": "四只均在准入时各自q=0/电=0，非分裂；伤害、状态、电网N均按真实独立池。",
+        "root_terminal": "四只实际池全部击退；最后一只触发一次根奖励，早死成员不会再被电网计数。",
+        "independent_reward": false,
+        "new_children_after_rule": false,
+        "new_children_after_root_terminal": false,
+        "post_rule_scope": "all_living_pools_in_this_fixed_root",
+        "post_rule_child_stats": {
+          "armor": 0.25,
+          "ward": 0,
+          "move_speed": 2.9,
+          "attack_damage": 6
+        }
+      },
+      "matchups": {
+        "favorable": [
+          "T03.A1",
+          "T08.A1"
+        ],
+        "conditional": [
+          "T09.B1",
+          "T01.A2"
+        ],
+        "unfavorable": [
+          "T01.A1",
+          "T02.A1"
+        ],
+        "traps": [
+          "R01",
+          "R13",
+          "R16"
+        ],
+        "explanation": "低血量真群体适合范围状态和贯道；单体毒成熟可能晚于击退，重甲狙击易过量。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false
+    },
+    {
+      "id": "S17",
+      "name": "塑料火烈鸟群",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-1507",
+          "title": "SCP-1507",
+          "url": "https://scp-wiki.wikidot.com/scp-1507",
+          "author": "Anonymous; rewritten by Rex Atlas",
+          "author_status": "verified_official_credit_or_attribution_metadata",
+          "license": "CC BY-SA 3.0",
+          "attribution_url": "https://scp-wiki.wikidot.com/attribution-metadata"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：园艺塑料鸟的领地攻击与群体行为。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "swarm_root",
+      "first_day": 5,
+      "pressure_cost": 2.5,
+      "resolution": {
+        "type": "rule_weaken",
+        "rationale": "原框、原牌与六个实物匹配，领地隔栏到位；取消全店追击与同步围刺，现存鸟仍可被塔击退。",
+        "terminal_description": "可直接击退；先做机制则按post_rule降低难度，同一根只结算一次。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "六只园艺塑料鸟护着同一运输框，越过原领地标线后才合围；不会凭空复制出三十只。",
+        "free_tools": [
+          "原运输框",
+          "免费领地隔栏",
+          "原物流牌"
+        ],
+        "steps": [
+          {
+            "id": "S17:step1",
+            "action": "把同一运输框沿合法路线推回领地标线",
+            "seconds": 1.5,
+            "anchor": "flamingo_territory"
+          },
+          {
+            "id": "S17:step2",
+            "action": "在外侧固定原物流牌，核对六个原编号；已死亡的塑料鸟用实际残片/死亡回执核对，不要求复活或回到框边。",
+            "seconds": 1,
+            "anchor": "flamingo_manifest"
+          },
+          {
+            "id": "S17:step3",
+            "action": "从玩家侧合拢领地隔栏，留下对外撤离口",
+            "seconds": 1,
+            "anchor": "flamingo_barrier"
+          }
+        ],
+        "success_condition": "原框原牌与六个原编号及其存活/击退状态匹配，隔栏到位；只对仍存活的鸟取消全店追击并降低数值。",
+        "failure_recovery": "动作被打断保留已提交物件位置与完成步骤；未完成当前步骤不提交，不删除免费任务工具；按可见线索重试同一实例。",
+        "work_window": "推框分三次0.5秒并保留位置；鸟回护运输框时每次停2秒，按钮在外侧。领地内不能锁死玩家。",
+        "completion_receipt": "S17:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false,
+        "early_casualty_policy": "本根已击退成员用真实死亡/编号回执代替再次站位或过门；机制只要求所有存活成员完成对应空间条件，并只对存活池应用post_rule。最后一池已经击退则根已终结，不再接受主机制回执或追加规则奖。"
+      },
+      "stats": {
+        "hp": 45,
+        "armor": 0.2,
+        "ward": 0.05,
+        "move_speed": 3.3,
+        "attack_damage": 8,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "normal"
+      },
+      "post_rule": {
+        "armor": 0.1,
+        "ward": 0.05,
+        "move_speed": 2.8,
+        "attack_damage": 6,
+        "removed_abilities": [
+          "territorial_pincer",
+          "synchronized_peck"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "continuous_walk",
+        "profile_ref": "TD05:WALK",
+        "description": "沿实际合法地面追逐；速度为格/秒，玩家基准3.0。",
+        "actual_transition": false,
+        "height": "ground"
+      },
+      "combat": {
+        "hp_meaning": "每只塑料鸟45HP，六只总270HP；全部独立受伤与独立状态。",
+        "target_policy": "仅已揭示且有hostile战斗标记的真实独立血池；不攻击普通顾客、装饰、任务物件或人类宿主。",
+        "pre_rule_zero_hp": "允许归零并完成真实击退；未做机制不领取规则灵能。",
+        "post_rule_zero_hp": "合法后续伤害/DoT归零结算根事件；禁止回放旧伤害补杀。",
+        "rule_completion_effect": "应用post_rule，保留当前HP、真实状态剂量及子体预算。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "territorial_pincer",
+          "name": "territorial_pincer",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 1.5,
+          "cooldown_seconds": 8,
+          "effect": "六只独立鸟沿合法路径合围，最多两只同时预告；全部仍共享玩家受击保护。",
+          "counterplay": "归还真实运输框并分割领地；AOE削减成员后下一次电网按活体重算。"
+        }
+      ],
+      "children": {
+        "kind": "summon",
+        "production_mode": "preplaced_pack_no_during_shift_generation",
+        "max_spawned": 5,
+        "initial_independent_pools": 6,
+        "max_live_pools": 6,
+        "child_template": {
+          "hp": 45,
+          "armor": 0.2,
+          "ward": 0.05,
+          "move_speed": 3.3,
+          "attack_damage": 8,
+          "attack_telegraph": 1.5,
+          "attack_cooldown": 4
+        },
+        "status_initialization": "六个固定独立池；无新生成/复活，真实死亡立刻退出图。",
+        "root_terminal": "全部六只塑料分体击退后一次根奖励；退回框是削弱事实，不直接发离场完成奖。",
+        "independent_reward": false,
+        "new_children_after_rule": false,
+        "new_children_after_root_terminal": false,
+        "post_rule_scope": "all_living_pools_in_this_fixed_root",
+        "post_rule_child_stats": {
+          "armor": 0.1,
+          "ward": 0.05,
+          "move_speed": 2.8,
+          "attack_damage": 6
+        }
+      },
+      "matchups": {
+        "favorable": [
+          "T01.B2",
+          "T07.A1"
+        ],
+        "conditional": [
+          "T09.B1",
+          "T08.A1"
+        ],
+        "unfavorable": [
+          "T01.A1",
+          "T02.A1"
+        ],
+        "traps": [
+          "R13",
+          "R16",
+          "R01"
+        ],
+        "explanation": "45HP成员使残血清理收益高，也专门检验电击提前减员；毒不靠人为保活凑六只回报。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false
+    },
+    {
+      "id": "S18",
+      "name": "双灯猎行者",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-745",
+          "title": "SCP-745",
+          "url": "https://scp-wiki.wikidot.com/scp-745",
+          "author": "Sorts",
+          "author_status": "verified_official_credit_or_attribution_metadata",
+          "license": "CC BY-SA 3.0"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：成对模拟车灯、沿直线高速猎行。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "hunter",
+      "first_day": 5,
+      "pressure_cost": 2,
+      "resolution": {
+        "type": "rule_weaken",
+        "rationale": "两个独立实体均有追踪记录，挡板/遮光闸到位；永久取消同步冲锋与伪车锁定。",
+        "terminal_description": "可直接击退；先做机制则按post_rule降低难度，同一根只结算一次。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "两个灯头始终保持车灯间距；本店门外没有对应车身，长走道上会同时亮起直线冲锋预告。",
+        "free_tools": [
+          "门口实体反光挡板",
+          "原到货登记板",
+          "通道遮光闸"
+        ],
+        "steps": [
+          {
+            "id": "S18:step1",
+            "action": "核对原到货记录与门口实体，确认两个灯头不是车辆",
+            "seconds": 1,
+            "anchor": "delivery_board"
+          },
+          {
+            "id": "S18:step2",
+            "action": "在走道侧放下固定反光挡板，使两实体走不同真实路线",
+            "seconds": 1,
+            "anchor": "headlight_divider"
+          },
+          {
+            "id": "S18:step3",
+            "action": "存活两池已分离时合上遮光闸并记录两牌；如已死一只，保留其真实击退回执，仅让存活者经过本侧检测位。",
+            "seconds": 1,
+            "anchor": "headlight_shutter"
+          }
+        ],
+        "success_condition": "两枚原编号均由真实追踪或同根击退回执闭合，挡板/遮光闸到位；对存活者取消同步冲锋并按post_rule弱化。",
+        "failure_recovery": "动作被打断保留已提交物件位置与完成步骤；未完成当前步骤不提交，不删除免费任务工具；按可见线索重试同一实例。",
+        "work_window": "同步冲锋1.5秒锁线，冲完0.5秒恢复；先验货1秒在发动前，分流与关闸可各在侧置安全按钮操作，不靠0.5秒独自覆盖1秒。",
+        "completion_receipt": "S18:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false,
+        "early_casualty_policy": "本根已击退成员用真实死亡/编号回执代替再次站位或过门；机制只要求所有存活成员完成对应空间条件，并只对存活池应用post_rule。最后一池已经击退则根已终结，不再接受主机制回执或追加规则奖。"
+      },
+      "stats": {
+        "hp": 140,
+        "armor": 0.1,
+        "ward": 0.15,
+        "move_speed": 3.24,
+        "attack_damage": 10,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "normal"
+      },
+      "post_rule": {
+        "armor": 0.05,
+        "ward": 0.1,
+        "move_speed": 3.0,
+        "attack_damage": 8,
+        "removed_abilities": [
+          "paired_lane_charge",
+          "headlight_disguise"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "ground_dash",
+        "profile_ref": "MD01:species_explicit",
+        "description": "步行3.24，冲锋沿真实地面路线，不是转场。",
+        "actual_transition": false,
+        "height": "ground",
+        "pursuit_cycle": {
+          "walk_seconds": 6,
+          "walk_speed": 3.24,
+          "windup_seconds": 1.5,
+          "dash_distance": 10,
+          "dash_seconds": 0.8,
+          "recovery_seconds": 0.5,
+          "reference_speed": 3.3454545454545452,
+          "distance_is_upper_bound_not_guaranteed": true
+        }
+      },
+      "combat": {
+        "hp_meaning": "每只灯头140HP，固定一对共280HP。",
+        "target_policy": "仅已揭示且有hostile战斗标记的真实独立血池；不攻击普通顾客、装饰、任务物件或人类宿主。",
+        "pre_rule_zero_hp": "允许归零并完成真实击退；未做机制不领取规则灵能。",
+        "post_rule_zero_hp": "合法后续伤害/DoT归零结算根事件；禁止回放旧伤害补杀。",
+        "rule_completion_effect": "应用post_rule，保留当前HP、真实状态剂量及子体预算。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "paired_lane_charge",
+          "name": "paired_lane_charge",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 1.5,
+          "cooldown_seconds": 8.8,
+          "effect": "步行6秒后预告1.5秒，两者分别沿同向合法长通道最多冲10格/0.8秒，再恢复0.5秒；没有10格直道就截短，不补偿瞬移。",
+          "counterplay": "横移离开锁线并放下分流板；真实跨格受T10普通跨区税，不作为瞬移重置。"
+        }
+      ],
+      "children": {
+        "kind": "summon",
+        "production_mode": "preplaced_pair",
+        "max_spawned": 1,
+        "initial_independent_pools": 2,
+        "max_live_pools": 2,
+        "child_template": {
+          "hp": 140,
+          "armor": 0.1,
+          "ward": 0.15,
+          "move_speed": 3.24,
+          "attack_damage": 10,
+          "attack_telegraph": 1.5,
+          "attack_cooldown": 4
+        },
+        "status_initialization": "两只独立池不复制状态；一只死亡立即取消尚未提交的同步冲锋，存活者仍正常步行。",
+        "root_terminal": "两只都击退后一次根奖励。",
+        "independent_reward": false,
+        "new_children_after_rule": false,
+        "new_children_after_root_terminal": false,
+        "post_rule_scope": "all_living_pools_in_this_fixed_root",
+        "post_rule_child_stats": {
+          "armor": 0.05,
+          "ward": 0.1,
+          "move_speed": 3.0,
+          "attack_damage": 8
+        }
+      },
+      "matchups": {
+        "favorable": [
+          "T10.A1",
+          "T09.A2"
+        ],
+        "conditional": [
+          "T03.A2",
+          "T01.A2"
+        ],
+        "unfavorable": [
+          "T07.B1",
+          "T04.B1"
+        ],
+        "traps": [
+          "R09",
+          "R11",
+          "R01"
+        ],
+        "explanation": "连续长冲锋让连续跨区比蹲守小炉更可靠；两池适合双极接线，先死亡一只后按单池模式。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false
+    },
+    {
+      "id": "S19",
+      "name": "食宴巨客",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-082",
+          "title": "SCP-082",
+          "url": "https://scp-wiki.wikidot.com/scp-082",
+          "author": "FritzWillie",
+          "author_status": "verified_official_credit_or_attribution_metadata",
+          "license": "CC BY-SA 3.0"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：异常巨人体型、礼貌交谈与危险进食。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "conditional_visitor",
+      "first_day": 5,
+      "pressure_cost": 2.5,
+      "resolution": {
+        "type": "rule_weaken",
+        "rationale": "同一试餐实际交付并被消费，服务隔栏闭合，余餐封存；取消暴食扑咬并降低体型外甲优势。",
+        "terminal_description": "可直接击退；先做机制则按post_rule降低难度，同一根只结算一次。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "体型异常的食宴客用礼貌闲谈掩盖张口动作，桌上的指定试餐盘有本事件独立封签。",
+        "free_tools": [
+          "事件专用不可出售试餐",
+          "长柄推餐盘",
+          "固定服务隔栏"
+        ],
+        "steps": [
+          {
+            "id": "S19:step1",
+            "action": "核对原试餐封签，把指定盘送到服务隔栏外侧",
+            "seconds": 1,
+            "anchor": "banquet_service"
+          },
+          {
+            "id": "S19:step2",
+            "action": "在巨客真正进食时关上侧向服务隔栏",
+            "seconds": 1,
+            "anchor": "banquet_screen"
+          },
+          {
+            "id": "S19:step3",
+            "action": "收走本事件剩余试餐并封存，结束追加索食",
+            "seconds": 1,
+            "anchor": "banquet_return"
+          }
+        ],
+        "success_condition": "同一试餐实际交付并被消费，服务隔栏闭合，余餐封存；取消暴食扑咬并降低体型外甲优势。",
+        "failure_recovery": "动作被打断保留已提交物件位置与完成步骤；未完成当前步骤不提交，不删除免费任务工具；按可见线索重试同一实例。",
+        "work_window": "进食4秒但只在盘内确有本次份额时触发一次；三次1秒操作由安全侧分段完成。试餐无普通回血/销售功能，不扣主角保底餐。",
+        "completion_receipt": "S19:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false
+      },
+      "stats": {
+        "hp": 400,
+        "armor": 0.45,
+        "ward": 0.1,
+        "move_speed": 3.24,
+        "attack_damage": 18,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "elite"
+      },
+      "post_rule": {
+        "armor": 0.25,
+        "ward": 0.05,
+        "move_speed": 2.9,
+        "attack_damage": 12,
+        "removed_abilities": [
+          "feast_lunge",
+          "conversation_feint"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "continuous_walk",
+        "profile_ref": "MD01:species_explicit",
+        "description": "沿实际合法地面追逐；速度为格/秒，玩家基准3.0。",
+        "actual_transition": false,
+        "height": "ground"
+      },
+      "combat": {
+        "hp_meaning": "本次敌对显化/化身的战斗耐久；不把HP归零写成原作实体在所有世界永久死亡。",
+        "target_policy": "仅已揭示且有hostile战斗标记的真实独立血池；不攻击普通顾客、装饰、任务物件或人类宿主。",
+        "pre_rule_zero_hp": "允许归零并完成真实击退；未做机制不领取规则灵能。",
+        "post_rule_zero_hp": "合法后续伤害/DoT归零结算根事件；禁止回放旧伤害补杀。",
+        "rule_completion_effect": "应用post_rule，保留当前HP、真实状态剂量及子体预算。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "feast_lunge",
+          "name": "feast_lunge",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 2,
+          "cooldown_seconds": 8,
+          "effect": "仅目标4格内才用2秒锁线扑咬，真实前进最多2格/0.5秒，随后恢复3秒；远距仍3.24步行。",
+          "counterplay": "横移并把试餐导入服务位；普通顾客绝不是食材或可攻击对象。"
+        }
+      ],
+      "children": {
+        "kind": "none",
+        "max_spawned": 0,
+        "independent_reward": false
+      },
+      "matchups": {
+        "favorable": [
+          "T01.A1",
+          "T02.A1"
+        ],
+        "conditional": [
+          "T08.A2",
+          "T03.B1"
+        ],
+        "unfavorable": [
+          "T07.A1",
+          "T01.B2"
+        ],
+        "traps": [
+          "R07",
+          "R14",
+          "R01"
+        ],
+        "explanation": "重甲高耐久给穿甲与永久积毒时间；单个目标不奖励广域刷状态，多次攻击被咒印持续压低。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false
+    },
+    {
+      "id": "S20",
+      "name": "沼液伏客",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-811",
+          "title": "SCP-811",
+          "url": "https://scp-wiki.wikidot.com/scp-811",
+          "author": "Pig_catapult",
+          "author_status": "verified_official_credit_or_attribution_metadata",
+          "license": "CC BY-SA 3.0"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：分泌分解有机物的黏液及伏击摄食。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "conditional_visitor",
+      "first_day": 4,
+      "pressure_cost": 1.5,
+      "resolution": {
+        "type": "rule_weaken",
+        "rationale": "唯一事件有机废料真实隔离、对应回流口关闭；取消吐沼攻击和黏液外层，保持当前HP。",
+        "terminal_description": "可直接击退；先做机制则按post_rule降低难度，同一根只结算一次。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "黑液只沿同一份有机废料流向它，掌足附近会有带边界的绿色黏痕。",
+        "free_tools": [
+          "常备无机隔污盘",
+          "废料长夹",
+          "本事件排污封帽"
+        ],
+        "steps": [
+          {
+            "id": "S20:step1",
+            "action": "用长夹把事件有机废料收进无机隔污盘",
+            "seconds": 1,
+            "anchor": "organic_waste_tray"
+          },
+          {
+            "id": "S20:step2",
+            "action": "盖住该事件排污口，阻断摄食回流",
+            "seconds": 1,
+            "anchor": "waste_flow_cap"
+          },
+          {
+            "id": "S20:step3",
+            "action": "把原废料盘送入封闭废物柜，确认地上无该份残留",
+            "seconds": 1,
+            "anchor": "sealed_waste_cabinet"
+          }
+        ],
+        "success_condition": "唯一事件有机废料真实隔离、对应回流口关闭；取消吐沼攻击和黏液外层，保持当前HP。",
+        "failure_recovery": "动作被打断保留已提交物件位置与完成步骤；未完成当前步骤不提交，不删除免费任务工具；按可见线索重试同一实例。",
+        "work_window": "吐沼2秒锁地预告，吐完3秒回收；长夹按钮在毒斑外，单步1秒。未主动威胁或饥饿的普通访客态不被塔强行敌对。",
+        "completion_receipt": "S20:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false
+      },
+      "stats": {
+        "hp": 230,
+        "armor": 0.1,
+        "ward": 0.4,
+        "move_speed": 3.3,
+        "attack_damage": 12,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "normal"
+      },
+      "post_rule": {
+        "armor": 0.05,
+        "ward": 0.15,
+        "move_speed": 3.0,
+        "attack_damage": 8,
+        "removed_abilities": [
+          "sludge_spit",
+          "organic_feed_shell"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "continuous_walk",
+        "profile_ref": "TD05:WALK",
+        "description": "沿实际合法地面追逐；速度为格/秒，玩家基准3.0。",
+        "actual_transition": false,
+        "height": "ground"
+      },
+      "combat": {
+        "hp_meaning": "本次敌对显化/化身的战斗耐久；不把HP归零写成原作实体在所有世界永久死亡。",
+        "target_policy": "仅已揭示且有hostile战斗标记的真实独立血池；不攻击普通顾客、装饰、任务物件或人类宿主。",
+        "pre_rule_zero_hp": "允许归零并完成真实击退；未做机制不领取规则灵能。",
+        "post_rule_zero_hp": "合法后续伤害/DoT归零结算根事件；禁止回放旧伤害补杀。",
+        "rule_completion_effect": "应用post_rule，保留当前HP、真实状态剂量及子体预算。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "sludge_spit",
+          "name": "sludge_spit",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 2,
+          "cooldown_seconds": 8,
+          "effect": "2秒预告半径1.5毒斑，生成后持续3秒，真实接触造成8SAN并服从全局受击保护；最多保留一片。",
+          "counterplay": "断其真实食物流，走出已锁定区域；不能用同一片残渣反复取免费物资。"
+        }
+      ],
+      "children": {
+        "kind": "none",
+        "max_spawned": 0,
+        "independent_reward": false
+      },
+      "matchups": {
+        "favorable": [
+          "T01.A1",
+          "T03.B1"
+        ],
+        "conditional": [
+          "T02.A1",
+          "T08.B1"
+        ],
+        "unfavorable": [
+          "T07.B1",
+          "T09.A2"
+        ],
+        "traps": [
+          "R01",
+          "R07",
+          "R08"
+        ],
+        "explanation": "较高灵防使物理狙击先有价值；封污后灵防降低，毒塔进入有效长战。固定火炉需避开玩家撤离线上的毒斑。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false
+    },
+    {
+      "id": "S21",
+      "name": "九尾伪装客",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-953",
+          "title": "SCP-953",
+          "url": "https://scp-wiki.wikidot.com/scp-953",
+          "author": "DrClef",
+          "author_status": "verified_official_credit_or_attribution_metadata",
+          "license": "CC BY-SA 3.0"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：保留狐形特征的变化与认知暗示。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "hunter",
+      "first_day": 4,
+      "pressure_cost": 1.5,
+      "resolution": {
+        "type": "rule_weaken",
+        "rationale": "两个独立物理证据绑定同一来客，原假订单已撤回；取消外观改锁和玩家提示暗示，不改变既有真实工单历史。",
+        "terminal_description": "可直接击退；先做机制则按post_rule降低难度，同一根只结算一次。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "身体外观会变，独立固定侧窗仍能看到未藏妥的狐形特征；同一订单的实物内容不会跟着暗示改变。",
+        "free_tools": [
+          "两侧固定验货窗",
+          "原订单实物",
+          "封闭退单盘"
+        ],
+        "steps": [
+          {
+            "id": "S21:step1",
+            "action": "把原订单实物放入固定验货窗，不接受口头改写",
+            "seconds": 1,
+            "anchor": "verification_window"
+          },
+          {
+            "id": "S21:step2",
+            "action": "从另一个不受遮挡的侧窗确认同一对象的狐形特征",
+            "seconds": 1,
+            "anchor": "side_verification_window"
+          },
+          {
+            "id": "S21:step3",
+            "action": "撤回实际假订单并封入退单盘，给本体记录身份牌",
+            "seconds": 1,
+            "anchor": "sealed_return_tray"
+          }
+        ],
+        "success_condition": "两个独立物理证据绑定同一来客，原假订单已撤回；取消外观干扰与提示暗示，按post_rule降低数值；不改变既有真实工单历史，外观本身不洗掉已确认塔锁。",
+        "failure_recovery": "动作被打断保留已提交物件位置与完成步骤；未完成当前步骤不提交，不删除免费任务工具；按可见线索重试同一实例。",
+        "work_window": "只有玩家进入本体5格内、8秒冷却结束且启动本事件说服动作时，才固定停留3秒；远距不站桩说服，持续以3.45格/秒追逐。每个验货步骤1秒可单独完成，出现袭击先撤离，不丢已提交证据。",
+        "completion_receipt": "S21:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false
+      },
+      "stats": {
+        "hp": 200,
+        "armor": 0.15,
+        "ward": 0.35,
+        "move_speed": 3.45,
+        "attack_damage": 12,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "normal"
+      },
+      "post_rule": {
+        "armor": 0.05,
+        "ward": 0.15,
+        "move_speed": 3.2,
+        "attack_damage": 9,
+        "removed_abilities": [
+          "polymorphic_distraction",
+          "suggestive_false_prompt"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "continuous_walk",
+        "profile_ref": "MD01:species_explicit",
+        "description": "远距沿实际合法地面以3.45格/秒持续追逐；仅5格内发起说服时进入明示3秒停顿，不能用全程每8秒强制停步冒充敏捷追速。",
+        "actual_transition": false,
+        "height": "ground"
+      },
+      "combat": {
+        "hp_meaning": "本次敌对显化/化身的战斗耐久；不把HP归零写成原作实体在所有世界永久死亡。",
+        "target_policy": "仅已揭示且有hostile战斗标记的真实独立血池；不攻击普通顾客、装饰、任务物件或人类宿主。",
+        "pre_rule_zero_hp": "允许归零并完成真实击退；未做机制不领取规则灵能。",
+        "post_rule_zero_hp": "合法后续伤害/DoT归零结算根事件；禁止回放旧伤害补杀。",
+        "rule_completion_effect": "应用post_rule，保留当前HP、真实状态剂量及子体预算。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "polymorphic_distraction",
+          "name": "polymorphic_distraction",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 1.5,
+          "cooldown_seconds": 8,
+          "effect": "每8秒在1.5秒预告后改外观；同一血池不重置毒/电/伤害。只有真实遮挡射线才失锁，外观本身不骗已确认的塔。",
+          "counterplay": "先建立双证据，避免把普通人误识为怪；稳定射界让单点曝光起效。"
+        },
+        {
+          "id": "suggestive_false_prompt",
+          "name": "suggestive_false_prompt",
+          "trigger": "玩家在5格内、8秒冷却已结束、真实进入本事件说服阶段；远距不触发停步。",
+          "telegraph_seconds": 1.5,
+          "cooldown_seconds": 8,
+          "effect": "真实说服阶段固定停留3秒，只改变本事件一条可复核工作提示；不接管输入，不改变真实物件内容，不洗掉已确认的塔锁。",
+          "counterplay": "用原实物与外侧观察对照，按证据而非单一口令。"
+        }
+      ],
+      "children": {
+        "kind": "shared_parts",
+        "parts": [
+          "body",
+          "nine_tails"
+        ],
+        "independent_pools": 1,
+        "max_spawned": 0,
+        "hit_deduplication": "九尾全属一个真实血池；尾部外观既不吸收独立弹道，也不增加电图N。",
+        "independent_reward": false
+      },
+      "matchups": {
+        "favorable": [
+          "T01.B1",
+          "T02.A2"
+        ],
+        "conditional": [
+          "T04.B1",
+          "T01.A1"
+        ],
+        "unfavorable": [
+          "T07.A1",
+          "T09.B1"
+        ],
+        "traps": [
+          "R01",
+          "R14",
+          "R08"
+        ],
+        "explanation": "高频与短窗投毒适应敏捷进出射界；群体塔面对唯一真身收益低，九尾不等于九个电网节点。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false
+    },
+    {
+      "id": "S22",
+      "name": "畏光烟影",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-280",
+          "title": "SCP-280",
+          "url": "https://scp-wiki.wikidot.com/scp-280",
+          "author": "Dr Gears",
+          "author_status": "verified_official_credit_or_attribution_metadata",
+          "license": "CC BY-SA 3.0"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：向人缓慢滑行、遇强光退散与防御性转移。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "hunter",
+      "first_day": 5,
+      "pressure_cost": 2,
+      "resolution": {
+        "type": "kill_unlocked",
+        "rationale": "三处原暗节点均真实持续受照且手柄锁定，本次显化的最后锚点已封；取消逃光转场并解除局部显化致死门槛。",
+        "terminal_description": "机制解锁后当前合法战斗池归零，结束本次本地显化。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "黑影正面接近；强光来到时亮出白眼并向远离玩家的暗处退散，三个真实暗节点提前可见。",
+        "free_tools": [
+          "三处预置可持续点亮的任务检修灯",
+          "安全侧有线灯控手柄",
+          "最后节点封牌器"
+        ],
+        "steps": [
+          {
+            "id": "S22:step1",
+            "action": "先打开并锁定A、B两处持续任务灯，保留C为唯一暗节点。",
+            "seconds": 1.5,
+            "anchor": "shadow_node_safe_controls"
+          },
+          {
+            "id": "S22:step2",
+            "action": "从安全侧照向本体，等它真实转至C；若本已在C，则通过同一实体在位检测，触发一次1.5秒公开防御确认停顿（共享8秒冷却）。必须保证玩家可站在使C更远的安全控制位；原位确认不是转场事件。",
+            "seconds": 1,
+            "anchor": "shadow_node_safe_controls"
+          },
+          {
+            "id": "S22:step3",
+            "action": "在C真实到达后的1.5秒恢复，或原位确认的1.5秒停顿内，从同一安全有线控制位用1秒同时提交C灯亮起与封牌闭合。",
+            "seconds": 1,
+            "anchor": "shadow_node_safe_controls"
+          }
+        ],
+        "success_condition": "A、B持续任务灯已锁定；本体真实在C且C灯亮起/封牌同时提交；三节点均受持续照明，解除本次局部显化致死门槛并禁用逃光转场。",
+        "failure_recovery": "末步未提交则C仍保持暗，封牌不闭合；A/B已完成状态保留，重新驱至C即可重试同一实例。漏掉恢复窗口不使三个节点全部关闭造成软锁。",
+        "work_window": "三灯都是班前预置有线任务灯，不是把一盏手电当成三处同时受照，也不自动成为电图AP。先封A/B保留C，不能先全照亮再要求去不存在的暗点。C到达有1.5秒公开恢复，末步1秒在已到位安全控制端操作，保留0.5秒余量；路径/感应/计时不满足则不准入。 初始已在C的分支同样给1.5秒公开确认停顿；该确认共享8秒冷却，重复点击不刷新，漏掉可等冷却后重新真实检测，不永久丢失完成路径。原位不发送movement事件、不收跨区伤或刷新T10计时。",
+        "completion_receipt": "S22:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false,
+        "stationary_confirmation": {
+          "requires_actual_subject_at_C": true,
+          "pause_seconds": 1.5,
+          "shared_cooldown_seconds": 8,
+          "repeated_click_refreshes": false,
+          "can_retry_after_cooldown": true,
+          "actual_transition_event": false
+        }
+      },
+      "stats": {
+        "hp": 240,
+        "armor": 0.45,
+        "ward": 0.15,
+        "move_speed": 3.24,
+        "attack_damage": 12,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "normal"
+      },
+      "post_rule": {
+        "armor": 0.15,
+        "ward": 0.05,
+        "move_speed": 3.0,
+        "attack_damage": 9,
+        "removed_abilities": [
+          "defensive_phase",
+          "incorporeal_shell"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "glide_with_defensive_phase",
+        "profile_ref": "MD01:species_explicit",
+        "description": "贴地低空滑行3.24；仅强光驱离时在已登记暗节点间真实转场，不能用来追近玩家。",
+        "actual_transition": true,
+        "height": "low_air",
+        "phase_audit": "content/combat_contracts_td05.json: real origin-arrival cells, same damage, reset arrival+2s",
+        "pursuit_cycle": {
+          "kind": "conditional_defensive_escape",
+          "windup_seconds": 1.5,
+          "transition_distance_max": 8,
+          "transition_seconds": 0,
+          "recovery_seconds": 1.5,
+          "advance_toward_player_allowed": false,
+          "reference_speed": 3.24
+        },
+        "transition_event_type": "true_teleport"
+      },
+      "combat": {
+        "hp_meaning": "本次敌对显化/化身的战斗耐久；不把HP归零写成原作实体在所有世界永久死亡。",
+        "target_policy": "仅已揭示且有hostile战斗标记的真实独立血池；不攻击普通顾客、装饰、任务物件或人类宿主。",
+        "pre_rule_zero_hp": "HP下限1，实际扣血不超过HP-1；0实际伤害不给电荷，仍可移动及作为合法既有带电中继。解锁不治疗或清毒。",
+        "post_rule_zero_hp": "合法后续伤害/DoT归零结算根事件；禁止回放旧伤害补杀。",
+        "rule_completion_effect": "应用post_rule，保留当前HP、真实状态剂量及子体预算。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "defensive_phase",
+          "name": "defensive_phase",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 1.5,
+          "cooldown_seconds": 8,
+          "effect": "受到强光且仍有合法暗节点时，1.5秒预告后真实转到8格内、更远离玩家的节点，恢复1.5秒；只作防御逃光，不主动瞬移贴脸。",
+          "counterplay": "照亮真实暗节点减少落点；每次实际转场按起终点穿过的T10有效格同额计伤并重计时。"
+        }
+      ],
+      "children": {
+        "kind": "none",
+        "max_spawned": 0,
+        "independent_reward": false
+      },
+      "matchups": {
+        "favorable": [
+          "T10.B1",
+          "T04.A1"
+        ],
+        "conditional": [
+          "T10.B2",
+          "T02.A2"
+        ],
+        "unfavorable": [
+          "T05.A1",
+          "T07.B1"
+        ],
+        "traps": [
+          "R05",
+          "R04",
+          "R09"
+        ],
+        "explanation": "灯压缩逃光节点，跨相塔惩罚真正逃光路线；固定小炉必须覆盖真实抵达区域，纸偶挡不住烟化转场。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false
+    },
+    {
+      "id": "S23",
+      "name": "路口焰眼犬",
+      "origin": "new_scp_adaptation",
+      "default_enabled": true,
+      "runtime_admission": false,
+      "source_refs": [
+        {
+          "id": "SCP-023",
+          "title": "SCP-023",
+          "url": "https://scp-wiki.wikidot.com/scp-023",
+          "author": "Pig_catapult",
+          "author_status": "verified_official_credit_or_attribution_metadata",
+          "license": "CC BY-SA 3.0"
+        }
+      ],
+      "adaptation_note": "首次新增的本店改编条目；原作仅提供以下母题：焰眼危险、十字路口偏好与穿墙返回。门店流程、可受击显化体、全部数值、有限群体预算与可恢复失败均为原创玩法，不声称原作已有这些规则。",
+      "encounter_role": "hunter",
+      "first_day": 4,
+      "pressure_cost": 2,
+      "resolution": {
+        "type": "rule_leave",
+        "rationale": "同一犬只真实停在合法十字路口，两眼均遮蔽且相关反射面遮帘关闭，经预定返程通道离场。",
+        "terminal_description": "真实机制回执立即使本店事件离场/收容；无需补刀。"
+      },
+      "mechanism": {
+        "source_contract": "MD01原创SCP门店改编，无既有F族工单覆盖",
+        "cue": "犬只离开交叉路口就向墙边聚火；眼窝有明显焰亮预告，反射面上的眼光同样可辨。",
+        "free_tools": [
+          "两个免费不透明眼罩片",
+          "固定长柄套罩器",
+          "既有十字路口引导栏"
+        ],
+        "steps": [
+          {
+            "id": "S23:step1",
+            "action": "把十字路口两条真实通道的引导栏放到原标线",
+            "seconds": 1,
+            "anchor": "crossroad_guides"
+          },
+          {
+            "id": "S23:step2",
+            "action": "犬只在路口停驻后用长柄套罩器依次装上两枚不透明眼罩片",
+            "seconds": 1.5,
+            "anchor": "crossroad_cover_control"
+          },
+          {
+            "id": "S23:step3",
+            "action": "确认两片到位并关闭前场反射面遮帘，放行返程通道",
+            "seconds": 1,
+            "anchor": "crossroad_return_gate"
+          }
+        ],
+        "success_condition": "同一犬只真实停在合法十字路口，两眼均遮蔽且相关反射面遮帘关闭，经预定返程通道离场。",
+        "failure_recovery": "动作被打断保留已提交物件位置与完成步骤；未完成当前步骤不提交，不删除免费任务工具；按可见线索重试同一实例。",
+        "work_window": "犬回到路口会停留4秒，套罩分两次0.75秒；不要求玩家先与焰眼对视。误看只触发本局可解除压力，不改写现实家庭或一年后必死。",
+        "completion_receipt": "S23:main_rule(instance_id,actual_object_ids)",
+        "ordered_steps": true,
+        "reward_from_clicking_hint": false
+      },
+      "stats": {
+        "hp": 260,
+        "armor": 0.25,
+        "ward": 0.35,
+        "move_speed": 3.3,
+        "attack_damage": 12,
+        "attack_damage_unit": "SAN",
+        "attack_telegraph": 1.5,
+        "attack_cooldown": 3.5,
+        "control_class": "normal"
+      },
+      "post_rule": {
+        "armor": 0.25,
+        "ward": 0.35,
+        "move_speed": 0,
+        "attack_damage": 0,
+        "removed_abilities": [
+          "crossroad_relocation",
+          "ember_gaze"
+        ],
+        "added_effects": [],
+        "hp_policy": "preserve_current_no_heal"
+      },
+      "movement": {
+        "mode": "crossroad_phase",
+        "profile_ref": "TD05:WALK",
+        "description": "平时3.3地面追逐；离开路口后触发一次公开回路口转场。到路口停4秒，仅这段让玩家处理眼罩；不无限瞬移追人。",
+        "actual_transition": true,
+        "height": "ground",
+        "phase_audit": "content/combat_contracts_td05.json: real origin-arrival cells, same damage, reset arrival+2s",
+        "pursuit_cycle": {
+          "kind": "conditional_return_to_crossroads",
+          "windup_seconds": 2,
+          "transition_distance_max": 8,
+          "transition_seconds": 0,
+          "recovery_seconds": 4,
+          "advance_toward_player_allowed": false,
+          "reference_speed": 3.3
+        },
+        "transition_event_type": "true_teleport"
+      },
+      "combat": {
+        "hp_meaning": "本次敌对显化/化身的战斗耐久；不把HP归零写成原作实体在所有世界永久死亡。",
+        "target_policy": "仅已揭示且有hostile战斗标记的真实独立血池；不攻击普通顾客、装饰、任务物件或人类宿主。",
+        "pre_rule_zero_hp": "HP下限1；3秒压制+1.5秒公开恢复后恢复至25%HP。压制恢复期退出电图且暂停受伤/DoT，永久毒剂量保留。",
+        "post_rule_zero_hp": "机制已终结，不再接受伤害或重复奖励。",
+        "rule_completion_effect": "取消攻击并离场/收容，清除本实例规则占用。",
+        "approach_pressure": "攻击锁定预告点，1.5秒后提交；所有怪共享玩家2秒受击保护，接触不瞬杀。"
+      },
+      "abilities": [
+        {
+          "id": "crossroad_relocation",
+          "name": "crossroad_relocation",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 2,
+          "cooldown_seconds": 10,
+          "effect": "只有偏离已登记十字路口时才预告2秒并转回路口，起终点公开，落点不能占玩家或顾客；不会选择更近的玩家位置。",
+          "counterplay": "先准备合法路口引导，跨相阵可削出压制窗；只是等它回路口不能完成套罩。"
+        },
+        {
+          "id": "ember_gaze",
+          "name": "ember_gaze",
+          "trigger": "本条明示触发条件成立且本体尚未终结",
+          "telegraph_seconds": 2,
+          "cooldown_seconds": 8,
+          "effect": "2秒焰亮预告后，在真实朝向扇区造成一次10SAN；普通反射面按预先可见反射区处理，不产生全图不可逃伤害。",
+          "counterplay": "关闭真实遮帘或侧移；眼罩从侧面操作。"
+        }
+      ],
+      "children": {
+        "kind": "none",
+        "max_spawned": 0,
+        "independent_reward": false
+      },
+      "matchups": {
+        "favorable": [
+          "T10.B2",
+          "T03.B1"
+        ],
+        "conditional": [
+          "T08.B1",
+          "T04.B1"
+        ],
+        "unfavorable": [
+          "T02.A1",
+          "T07.A1"
+        ],
+        "traps": [
+          "R04",
+          "R09",
+          "R01"
+        ],
+        "explanation": "真实回路口转场给落点控制用武之地；积毒不能代套罩或把预兆犬写成普通击杀。"
+      },
+      "reward": {
+        "ledger": "encounter_root_once",
+        "base_coins": 12,
+        "base_spirit": 4,
+        "rule_bonus_spirit": 2,
+        "eligibility": "真实根终态12C4E；本次真实主机制成功另2E一次。拒绝/超时/压制不发完成奖励；子体无独立根奖励；离场不触发击杀装填。"
+      },
+      "lottery_required": false
+    }
+  ]
+}

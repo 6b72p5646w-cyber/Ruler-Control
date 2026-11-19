@@ -1,0 +1,9020 @@
+{
+  "version": "MD01",
+  "runtime_integrated": false,
+  "passed": 1672,
+  "failed": 0,
+  "coverage": {
+    "total": 105,
+    "origin_counts": {
+      "existing_folklore": 60,
+      "new_scp_adaptation": 45
+    },
+    "resolution_counts": {
+      "rule_weaken": 38,
+      "rule_leave": 45,
+      "kill_unlocked": 22
+    },
+    "default_design_candidates": 104,
+    "noncombat_hp0": [
+      "F14",
+      "S27",
+      "S32"
+    ],
+    "actual_phase_ids": [
+      "F15",
+      "F19",
+      "F28",
+      "F30",
+      "F36",
+      "F38",
+      "F39",
+      "F40",
+      "F59",
+      "S02",
+      "S22",
+      "S23",
+      "S40"
+    ],
+    "independent_scp_articles": 45
+  },
+  "hp_summary": {
+    "min_positive": 45,
+    "max": 620,
+    "median_positive": 235.0
+  },
+  "input_sha256": {
+    "content/monster_roster_md01.json": "71ed578983f3cc532595599921971ed2048121abd0abd7c8fc9fc25393326050",
+    "content/monster_folklore_md01.json": "f7b019223130f255b49a5a7ce8aa44811db096542c235c36d5aa8c5d44ae01ae",
+    "content/monster_scp_a_md01.json": "23faa741c2aff38e6c2f254a46f5d9671a88620f73d9a67d0f53b51218272f01",
+    "content/monster_scp_b_md01.json": "2ec35fb9e9436474054f0ad3b8be488cc8b995bb6062e4f9f4b8a836e0526a38",
+    "content/monsters.json": "52b18e8f8fd636103cd1206f55f17d161711c8d55bb28e7ca48317b3efdff2df",
+    "content/tower_defense_td05.json": "35c6331a786739249c5b96676a11acf76cf1a068134b8ab5a507f0e087a716a5",
+    "content/traps_facilities_td05.json": "18eb56afd481a15eb8fc14694cc1e26ab44f0f0a54be8276362c8761599a8efa",
+    "content/chase_profiles_td05.json": "770c2304944733edc791632d17de3f542cfeab28edf8b1a658a0878d64d34e12",
+    "content/monster_contracts_md01.json": "de33f7de86d4cca8bd152a11ad403e47ea2f674f32c380f2b89c5dbc5c554a69",
+    "content/lottery_direction_md01.json": "745531abd2d376aa43a58af3e0167478f614621c4d3ebb1c33c244fe26fa7bf0",
+    "content/items.json": "908185763f8f9e74eb3de5e18c1fd3b5dfd16f39eeecb4b2547e23bc1fe401e8",
+    "content/scp_attribution_md01.json": "a9f23b7ec3eb2063d630f2d9e11571a5266bc78de46301690343f056c0642c57",
+    "scripts/td05_reference.py": "59b8d4094199975742d0d06e2d79439748fcfd942a2ee16bec15bf5109616a02",
+    "scripts/md01_reference.py": "698fb19b65a81376521e10d6d4f95df93cf2e6c4ca5e46c37f3c5bacc136f0b6",
+    "scripts/check_md01_design.py": "98448f7a612dfc9a60e6ab8fdf12e4d23b43158f0685579c5c84a2d28b655bad"
+  },
+  "scenarios": {
+    "floor_charge_5": {
+      "waves": 1,
+      "remaining": 0,
+      "actual_damage": 0
+    },
+    "floor_charge_100": {
+      "waves": 20,
+      "remaining": 0,
+      "actual_damage": 0
+    },
+    "floor_charge_1001": {
+      "waves": 200,
+      "remaining": 1,
+      "actual_damage": 0
+    },
+    "six_rule_weaken": {
+      "waves": 5,
+      "feedback_total": 30,
+      "total_actual_loss": 1080,
+      "first_wave": {
+        "seed": "0",
+        "coefficients": {
+          "0": 6,
+          "1": 6,
+          "2": 6,
+          "3": 6,
+          "4": 6,
+          "5": 6
+        },
+        "losses": {
+          "0": 36,
+          "1": 36,
+          "2": 36,
+          "3": 36,
+          "4": 36,
+          "5": 36
+        },
+        "feedback": 6,
+        "remaining_charge": {
+          "0": 1,
+          "1": 6,
+          "2": 6,
+          "3": 6,
+          "4": 6,
+          "5": 6
+        }
+      }
+    },
+    "six_kill_unlocked": {
+      "waves": 12,
+      "feedback_total": 30,
+      "total_actual_loss": 1074,
+      "first_wave": {
+        "seed": "0",
+        "coefficients": {
+          "0": 6,
+          "1": 6,
+          "2": 6,
+          "3": 6,
+          "4": 6,
+          "5": 6
+        },
+        "losses": {
+          "0": 36,
+          "1": 36,
+          "2": 36,
+          "3": 36,
+          "4": 36,
+          "5": 36
+        },
+        "feedback": 6,
+        "remaining_charge": {
+          "0": 1,
+          "1": 6,
+          "2": 6,
+          "3": 6,
+          "4": 6,
+          "5": 6
+        }
+      }
+    },
+    "relay_graph": {
+      "seed": "A",
+      "coefficients": {
+        "A": 3,
+        "B": 3,
+        "C": 2
+      },
+      "losses": {
+        "A": 18,
+        "B": 18,
+        "C": 12
+      },
+      "feedback": 3,
+      "remaining_charge": {
+        "A": 1,
+        "B": 6,
+        "C": 6
+      }
+    },
+    "income_profiles": {
+      "cautious": {
+        "coins": 152,
+        "spirit": 14
+      },
+      "normal": {
+        "coins": 176,
+        "spirit": 22
+      },
+      "proficient": {
+        "coins": 212,
+        "spirit": 34
+      }
+    },
+    "actual_branch_snapshots": [
+      {
+        "id": "F02",
+        "name": "画皮鬼",
+        "category": "rule_leave",
+        "hp": 200,
+        "armor": 0.35,
+        "ward": 0.2,
+        "sniper_actual_per_shot_before": 48,
+        "sniper_actual_per_shot_after": null,
+        "sniper_hits_to_full_hp_equivalent": 5,
+        "poison24_legal_stationary_infinite_hp_budget": {
+          "primary": 16,
+          "poison": 130.24,
+          "burn": 0,
+          "partner_extra": 0,
+          "burn_uptime_s": 0,
+          "hits": 10,
+          "damage": 146.24,
+          "poison_q_per_hit_target": 27,
+          "target_count": 1,
+          "horizon_s": 24,
+          "scope": "legal_hit_and_residence_fixture_not_AI_or_TTK"
+        },
+        "limits": "门槛/离场不把此值当击杀时间；不包含射界、转场、身高、前摇和真实走位。"
+      },
+      {
+        "id": "F03",
+        "name": "僵尸",
+        "category": "rule_weaken",
+        "hp": 300,
+        "armor": 0.4,
+        "ward": 0.15,
+        "sniper_actual_per_shot_before": 45.6,
+        "sniper_actual_per_shot_after": 48,
+        "sniper_hits_to_full_hp_equivalent": 7,
+        "poison24_legal_stationary_infinite_hp_budget": {
+          "primary": 17,
+          "poison": 138.38,
+          "burn": 0,
+          "partner_extra": 0,
+          "burn_uptime_s": 0,
+          "hits": 10,
+          "damage": 155.38,
+          "poison_q_per_hit_target": 27,
+          "target_count": 1,
+          "horizon_s": 24,
+          "scope": "legal_hit_and_residence_fixture_not_AI_or_TTK"
+        },
+        "limits": "门槛/离场不把此值当击杀时间；不包含射界、转场、身高、前摇和真实走位。"
+      },
+      {
+        "id": "F12",
+        "name": "不可杀伊",
+        "category": "rule_weaken",
+        "hp": 420,
+        "armor": 0.65,
+        "ward": 0.35,
+        "sniper_actual_per_shot_before": 33.6,
+        "sniper_actual_per_shot_after": 48,
+        "sniper_hits_to_full_hp_equivalent": 13,
+        "poison24_legal_stationary_infinite_hp_budget": {
+          "primary": 13,
+          "poison": 105.82,
+          "burn": 0,
+          "partner_extra": 0,
+          "burn_uptime_s": 0,
+          "hits": 10,
+          "damage": 118.82,
+          "poison_q_per_hit_target": 27,
+          "target_count": 1,
+          "horizon_s": 24,
+          "scope": "legal_hit_and_residence_fixture_not_AI_or_TTK"
+        },
+        "limits": "门槛/离场不把此值当击杀时间；不包含射界、转场、身高、前摇和真实走位。"
+      },
+      {
+        "id": "F13",
+        "name": "飞头女鬼",
+        "category": "kill_unlocked",
+        "hp": 180,
+        "armor": 0.1,
+        "ward": 0.2,
+        "sniper_actual_per_shot_before": 48,
+        "sniper_actual_per_shot_after": 48,
+        "sniper_hits_to_full_hp_equivalent": 4,
+        "poison24_legal_stationary_infinite_hp_budget": {
+          "primary": 16,
+          "poison": 130.24,
+          "burn": 0,
+          "partner_extra": 0,
+          "burn_uptime_s": 0,
+          "hits": 10,
+          "damage": 146.24,
+          "poison_q_per_hit_target": 27,
+          "target_count": 1,
+          "horizon_s": 24,
+          "scope": "legal_hit_and_residence_fixture_not_AI_or_TTK"
+        },
+        "limits": "门槛/离场不把此值当击杀时间；不包含射界、转场、身高、前摇和真实走位。"
+      },
+      {
+        "id": "F46",
+        "name": "红帽萨西",
+        "category": "kill_unlocked",
+        "hp": 160,
+        "armor": 0.15,
+        "ward": 0.35,
+        "sniper_actual_per_shot_before": 48,
+        "sniper_actual_per_shot_after": 48,
+        "sniper_hits_to_full_hp_equivalent": 4,
+        "poison24_legal_stationary_infinite_hp_budget": {
+          "primary": 13,
+          "poison": 105.82,
+          "burn": 0,
+          "partner_extra": 0,
+          "burn_uptime_s": 0,
+          "hits": 10,
+          "damage": 118.82,
+          "poison_q_per_hit_target": 27,
+          "target_count": 1,
+          "horizon_s": 24,
+          "scope": "legal_hit_and_residence_fixture_not_AI_or_TTK"
+        },
+        "limits": "门槛/离场不把此值当击杀时间；不包含射界、转场、身高、前摇和真实走位。"
+      },
+      {
+        "id": "F54",
+        "name": "吞世巨兽",
+        "category": "kill_unlocked",
+        "hp": 540,
+        "armor": 0.6,
+        "ward": 0.35,
+        "sniper_actual_per_shot_before": 36,
+        "sniper_actual_per_shot_after": 48,
+        "sniper_hits_to_full_hp_equivalent": 15,
+        "poison24_legal_stationary_infinite_hp_budget": {
+          "primary": 13,
+          "poison": 105.82,
+          "burn": 0,
+          "partner_extra": 0,
+          "burn_uptime_s": 0,
+          "hits": 10,
+          "damage": 118.82,
+          "poison_q_per_hit_target": 27,
+          "target_count": 1,
+          "horizon_s": 24,
+          "scope": "legal_hit_and_residence_fixture_not_AI_or_TTK"
+        },
+        "limits": "门槛/离场不把此值当击杀时间；不包含射界、转场、身高、前摇和真实走位。"
+      },
+      {
+        "id": "S05",
+        "name": "拟声猎群",
+        "category": "rule_weaken",
+        "hp": 220,
+        "armor": 0.15,
+        "ward": 0.25,
+        "sniper_actual_per_shot_before": 48,
+        "sniper_actual_per_shot_after": 48,
+        "sniper_hits_to_full_hp_equivalent": 5,
+        "poison24_legal_stationary_infinite_hp_budget": {
+          "primary": 15,
+          "poison": 122.1,
+          "burn": 0,
+          "partner_extra": 0,
+          "burn_uptime_s": 0,
+          "hits": 10,
+          "damage": 137.1,
+          "poison_q_per_hit_target": 27,
+          "target_count": 1,
+          "horizon_s": 24,
+          "scope": "legal_hit_and_residence_fixture_not_AI_or_TTK"
+        },
+        "limits": "门槛/离场不把此值当击杀时间；不包含射界、转场、身高、前摇和真实走位。"
+      },
+      {
+        "id": "S08",
+        "name": "燃料分身",
+        "category": "kill_unlocked",
+        "hp": 300,
+        "armor": 0.1,
+        "ward": 0.5,
+        "sniper_actual_per_shot_before": 48,
+        "sniper_actual_per_shot_after": 48,
+        "sniper_hits_to_full_hp_equivalent": 7,
+        "poison24_legal_stationary_infinite_hp_budget": {
+          "primary": 10,
+          "poison": 81.4,
+          "burn": 0,
+          "partner_extra": 0,
+          "burn_uptime_s": 0,
+          "hits": 10,
+          "damage": 91.4,
+          "poison_q_per_hit_target": 27,
+          "target_count": 1,
+          "horizon_s": 24,
+          "scope": "legal_hit_and_residence_fixture_not_AI_or_TTK"
+        },
+        "limits": "门槛/离场不把此值当击杀时间；不包含射界、转场、身高、前摇和真实走位。"
+      },
+      {
+        "id": "S15",
+        "name": "孵卵拟人群",
+        "category": "kill_unlocked",
+        "hp": 320,
+        "armor": 0.1,
+        "ward": 0.2,
+        "sniper_actual_per_shot_before": 48,
+        "sniper_actual_per_shot_after": 48,
+        "sniper_hits_to_full_hp_equivalent": 7,
+        "poison24_legal_stationary_infinite_hp_budget": {
+          "primary": 16,
+          "poison": 130.24,
+          "burn": 0,
+          "partner_extra": 0,
+          "burn_uptime_s": 0,
+          "hits": 10,
+          "damage": 146.24,
+          "poison_q_per_hit_target": 27,
+          "target_count": 1,
+          "horizon_s": 24,
+          "scope": "legal_hit_and_residence_fixture_not_AI_or_TTK"
+        },
+        "limits": "门槛/离场不把此值当击杀时间；不包含射界、转场、身高、前摇和真实走位。"
+      },
+      {
+        "id": "S28",
+        "name": "离体肉殖团",
+        "category": "rule_weaken",
+        "hp": 360,
+        "armor": 0.3,
+        "ward": 0.15,
+        "sniper_actual_per_shot_before": 48,
+        "sniper_actual_per_shot_after": 48,
+        "sniper_hits_to_full_hp_equivalent": 8,
+        "poison24_legal_stationary_infinite_hp_budget": {
+          "primary": 17,
+          "poison": 138.38,
+          "burn": 0,
+          "partner_extra": 0,
+          "burn_uptime_s": 0,
+          "hits": 10,
+          "damage": 155.38,
+          "poison_q_per_hit_target": 27,
+          "target_count": 1,
+          "horizon_s": 24,
+          "scope": "legal_hit_and_residence_fixture_not_AI_or_TTK"
+        },
+        "limits": "门槛/离场不把此值当击杀时间；不包含射界、转场、身高、前摇和真实走位。"
+      },
+      {
+        "id": "S43",
+        "name": "闭店巡场员",
+        "category": "rule_leave",
+        "hp": 240,
+        "armor": 0.25,
+        "ward": 0.15,
+        "sniper_actual_per_shot_before": 48,
+        "sniper_actual_per_shot_after": null,
+        "sniper_hits_to_full_hp_equivalent": 5,
+        "poison24_legal_stationary_infinite_hp_budget": {
+          "primary": 17,
+          "poison": 138.38,
+          "burn": 0,
+          "partner_extra": 0,
+          "burn_uptime_s": 0,
+          "hits": 10,
+          "damage": 155.38,
+          "poison_q_per_hit_target": 27,
+          "target_count": 1,
+          "horizon_s": 24,
+          "scope": "legal_hit_and_residence_fixture_not_AI_or_TTK"
+        },
+        "limits": "门槛/离场不把此值当击杀时间；不包含射界、转场、身高、前摇和真实走位。"
+      }
+    ],
+    "eight_behavior_regression": {
+      "sniper": {
+        "primary": 384,
+        "poison": 0,
+        "burn": 0,
+        "partner_extra": 0,
+        "burn_uptime_s": 0,
+        "hits": 8,
+        "damage": 384,
+        "poison_q_per_hit_target": 0,
+        "target_count": 1,
+        "horizon_s": 24,
+        "scope": "legal_hit_and_residence_fixture_not_AI_or_TTK"
+      },
+      "permanent_poison": {
+        "8": {
+          "primary": 8,
+          "poison": 17.6,
+          "burn": 0,
+          "partner_extra": 0,
+          "burn_uptime_s": 0,
+          "hits": 4,
+          "damage": 25.6,
+          "poison_q_per_hit_target": 8,
+          "target_count": 1,
+          "horizon_s": 8,
+          "scope": "legal_hit_and_residence_fixture_not_AI_or_TTK"
+        },
+        "24": {
+          "primary": 20,
+          "poison": 162.8,
+          "burn": 0,
+          "partner_extra": 0,
+          "burn_uptime_s": 0,
+          "hits": 10,
+          "damage": 182.8,
+          "poison_q_per_hit_target": 27,
+          "target_count": 1,
+          "horizon_s": 24,
+          "scope": "legal_hit_and_residence_fixture_not_AI_or_TTK"
+        },
+        "60": {
+          "primary": 50,
+          "poison": 1074.8,
+          "burn": 0,
+          "partner_extra": 0,
+          "burn_uptime_s": 0,
+          "hits": 25,
+          "damage": 1124.8,
+          "poison_q_per_hit_target": 72,
+          "target_count": 1,
+          "horizon_s": 60,
+          "scope": "legal_hit_and_residence_fixture_not_AI_or_TTK"
+        }
+      },
+      "wide_burn": {
+        "primary": 315,
+        "poison": 0,
+        "burn": 219,
+        "partner_extra": 219,
+        "burn_uptime_s": 14.6,
+        "hits": 8,
+        "damage": 534,
+        "poison_q_per_hit_target": 0,
+        "target_count": 6,
+        "horizon_s": 24,
+        "scope": "legal_hit_and_residence_fixture_not_AI_or_TTK"
+      },
+      "small_continuous": {
+        "0.75": {
+          "primary": 9,
+          "poison": 0,
+          "burn": 0,
+          "partner_extra": 0,
+          "burn_uptime_s": 0,
+          "hits": 0,
+          "damage": 9,
+          "poison_q_per_hit_target": 0,
+          "target_count": 1,
+          "horizon_s": 0.75,
+          "scope": "legal_hit_and_residence_fixture_not_AI_or_TTK"
+        },
+        "2.25": {
+          "primary": 27,
+          "poison": 0,
+          "burn": 0,
+          "partner_extra": 0,
+          "burn_uptime_s": 0,
+          "hits": 0,
+          "damage": 27,
+          "poison_q_per_hit_target": 0,
+          "target_count": 1,
+          "horizon_s": 2.25,
+          "scope": "legal_hit_and_residence_fixture_not_AI_or_TTK"
+        },
+        "6": {
+          "primary": 77.4,
+          "poison": 0,
+          "burn": 6.9,
+          "partner_extra": 0,
+          "burn_uptime_s": 3,
+          "hits": 0,
+          "damage": 84.3,
+          "poison_q_per_hit_target": 0,
+          "target_count": 1,
+          "horizon_s": 6,
+          "scope": "legal_hit_and_residence_fixture_not_AI_or_TTK"
+        }
+      },
+      "mass_curse": {
+        "incoming_without_curse": 420,
+        "expected_incoming_with_curse": 277.2,
+        "expected_prevented": 142.8,
+        "prevented_fraction": 0.34,
+        "pools": 5,
+        "attacks_per_pool": 7,
+        "doom_attacks_per_pool": 5,
+        "attack_trace": [
+          {
+            "at_s": 3,
+            "marks": 4,
+            "doom": true,
+            "expected_damage_per_pool": 7.056
+          },
+          {
+            "at_s": 6,
+            "marks": 4,
+            "doom": true,
+            "expected_damage_per_pool": 7.056
+          },
+          {
+            "at_s": 9,
+            "marks": 4,
+            "doom": false,
+            "expected_damage_per_pool": 10.08
+          },
+          {
+            "at_s": 12,
+            "marks": 4,
+            "doom": true,
+            "expected_damage_per_pool": 7.056
+          },
+          {
+            "at_s": 15,
+            "marks": 4,
+            "doom": true,
+            "expected_damage_per_pool": 7.056
+          },
+          {
+            "at_s": 18,
+            "marks": 4,
+            "doom": false,
+            "expected_damage_per_pool": 10.08
+          },
+          {
+            "at_s": 21,
+            "marks": 4,
+            "doom": true,
+            "expected_damage_per_pool": 7.056
+          }
+        ],
+        "does_not_include_fear_or_order_penalty": true
+      },
+      "electrical_resonance": "MD01固定合法图与floor/压制见上方；完整FIFO、实际电器与提前减员见TD05报告。",
+      "continuous_zones": {
+        "mode": "cell_zone",
+        "window_s": 24,
+        "range_tiles": 5,
+        "target_cap": 8,
+        "layers": [
+          "ground"
+        ],
+        "simultaneously_active_cells": 8,
+        "fresh_full_corridor_damage": 24,
+        "phase_full_corridor_damage": 24,
+        "raw_direct_damage_nominal_24s": 36,
+        "raw_direct_dps_nominal": 1.5,
+        "fixture_note": "stationary-cell nominal ceiling before downtime; crossing/phase use dedicated traces"
+      },
+      "real_phase": {
+        "mode": "alternating_cell_zone",
+        "window_s": 24,
+        "range_tiles": 5,
+        "target_cap": 8,
+        "layers": [
+          "ground"
+        ],
+        "simultaneously_active_cells": 3,
+        "fresh_full_corridor_damage": 18,
+        "phase_full_corridor_damage": 18,
+        "all_authored_cells_over_multiple_correctly_timed_passages": 36,
+        "raw_direct_damage_nominal_24s": 72,
+        "raw_direct_dps_nominal": 3,
+        "fixture_note": "stationary-cell nominal ceiling before downtime; crossing/phase use dedicated traces"
+      }
+    }
+  },
+  "checks": [
+    {
+      "id": "roster.exact_105_unique",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "roster.baseline_is_60",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "roster.design_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "roster.origin_truth",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "roster.three_real_outcomes",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F01.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F01.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F01.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F01.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F01.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F01.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F01.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F01.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F01.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F01.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F01.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F01.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F01.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F01.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F01.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F02.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F02.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F02.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F02.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F02.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F02.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F02.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F02.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F02.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F02.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F02.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F02.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F02.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F02.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F02.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F03.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F03.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F03.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F03.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F03.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F03.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F03.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F03.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F03.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F03.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F03.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F03.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F03.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F03.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F03.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F04.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F04.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F04.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F04.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F04.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F04.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F04.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F04.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F04.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F04.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F04.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F04.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F04.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F04.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F04.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F05.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F05.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F05.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F05.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F05.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F05.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F05.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F05.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F05.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F05.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F05.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F05.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F05.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F05.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F05.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F06.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F06.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F06.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F06.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F06.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F06.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F06.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F06.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F06.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F06.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F06.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F06.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F06.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F06.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F06.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F07.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F07.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F07.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F07.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F07.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F07.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F07.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F07.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F07.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F07.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F07.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F07.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F07.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F07.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F07.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F08.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F08.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F08.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F08.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F08.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F08.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F08.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F08.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F08.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F08.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F08.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F08.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F08.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F08.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F08.gate_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F09.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F09.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F09.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F09.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F09.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F09.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F09.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F09.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F09.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F09.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F09.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F09.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F09.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F09.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F09.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F10.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F10.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F10.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F10.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F10.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F10.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F10.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F10.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F10.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F10.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F10.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F10.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F10.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F10.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F10.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F11.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F11.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F11.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F11.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F11.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F11.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F11.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F11.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F11.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F11.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F11.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F11.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F11.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F11.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F11.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F12.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F12.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F12.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F12.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F12.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F12.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F12.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F12.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F12.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F12.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F12.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F12.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F12.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F12.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F12.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F13.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F13.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F13.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F13.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F13.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F13.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F13.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F13.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F13.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F13.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F13.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F13.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F13.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F13.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F13.gate_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F14.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F14.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F14.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F14.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F14.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F14.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F14.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F14.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F14.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F14.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F14.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F14.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F14.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F14.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F14.noncombat_not_dead",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F14.noncombat_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F15.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F15.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F15.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F15.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F15.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F15.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F15.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F15.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F15.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F15.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F15.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F15.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F15.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F15.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F15.phase_contract",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F15.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F16.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F16.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F16.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F16.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F16.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F16.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F16.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F16.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F16.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F16.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F16.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F16.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F16.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F16.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F16.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F17.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F17.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F17.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F17.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F17.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F17.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F17.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F17.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F17.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F17.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F17.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F17.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F17.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F17.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F17.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F18.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F18.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F18.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F18.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F18.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F18.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F18.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F18.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F18.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F18.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F18.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F18.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F18.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F18.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F18.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F19.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F19.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F19.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F19.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F19.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F19.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F19.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F19.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F19.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F19.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F19.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F19.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F19.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F19.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F19.phase_contract",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F19.gate_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F20.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F20.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F20.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F20.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F20.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F20.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F20.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F20.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F20.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F20.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F20.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F20.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F20.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F20.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F20.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F21.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F21.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F21.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F21.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F21.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F21.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F21.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F21.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F21.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F21.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F21.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F21.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F21.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F21.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F21.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F22.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F22.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F22.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F22.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F22.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F22.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F22.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F22.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F22.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F22.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F22.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F22.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F22.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F22.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F22.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F23.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F23.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F23.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F23.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F23.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F23.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F23.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F23.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F23.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F23.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F23.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F23.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F23.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F23.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F23.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F24.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F24.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F24.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F24.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F24.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F24.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F24.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F24.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F24.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F24.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F24.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F24.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F24.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F24.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F24.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F25.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F25.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F25.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F25.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F25.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F25.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F25.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F25.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F25.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F25.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F25.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F25.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F25.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F25.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F25.gate_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F26.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F26.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F26.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F26.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F26.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F26.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F26.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F26.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F26.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F26.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F26.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F26.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F26.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F26.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F26.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F27.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F27.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F27.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F27.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F27.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F27.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F27.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F27.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F27.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F27.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F27.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F27.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F27.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F27.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F27.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F28.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F28.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F28.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F28.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F28.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F28.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F28.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F28.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F28.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F28.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F28.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F28.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F28.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F28.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F28.phase_contract",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F28.gate_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F29.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F29.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F29.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F29.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F29.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F29.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F29.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F29.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F29.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F29.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F29.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F29.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F29.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F29.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F29.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F30.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F30.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F30.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F30.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F30.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F30.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F30.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F30.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F30.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F30.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F30.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F30.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F30.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F30.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F30.phase_contract",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F30.gate_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F31.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F31.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F31.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F31.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F31.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F31.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F31.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F31.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F31.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F31.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F31.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F31.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F31.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F31.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F31.gate_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F32.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F32.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F32.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F32.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F32.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F32.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F32.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F32.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F32.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F32.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F32.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F32.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F32.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F32.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F32.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F33.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F33.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F33.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F33.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F33.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F33.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F33.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F33.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F33.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F33.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F33.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F33.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F33.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F33.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F33.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F34.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F34.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F34.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F34.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F34.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F34.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F34.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F34.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F34.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F34.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F34.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F34.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F34.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F34.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F34.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F35.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F35.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F35.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F35.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F35.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F35.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F35.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F35.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F35.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F35.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F35.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F35.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F35.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F35.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F35.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F36.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F36.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F36.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F36.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F36.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F36.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F36.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F36.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F36.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F36.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F36.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F36.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F36.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F36.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F36.phase_contract",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F36.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F37.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F37.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F37.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F37.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F37.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F37.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F37.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F37.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F37.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F37.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F37.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F37.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F37.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F37.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F37.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F38.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F38.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F38.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F38.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F38.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F38.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F38.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F38.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F38.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F38.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F38.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F38.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F38.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F38.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F38.phase_contract",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F38.gate_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F39.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F39.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F39.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F39.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F39.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F39.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F39.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F39.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F39.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F39.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F39.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F39.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F39.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F39.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F39.phase_contract",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F39.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F40.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F40.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F40.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F40.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F40.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F40.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F40.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F40.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F40.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F40.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F40.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F40.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F40.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F40.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F40.phase_contract",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F40.gate_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F41.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F41.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F41.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F41.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F41.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F41.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F41.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F41.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F41.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F41.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F41.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F41.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F41.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F41.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F41.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F42.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F42.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F42.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F42.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F42.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F42.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F42.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F42.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F42.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F42.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F42.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F42.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F42.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F42.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F42.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F43.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F43.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F43.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F43.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F43.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F43.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F43.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F43.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F43.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F43.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F43.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F43.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F43.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F43.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F43.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F44.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F44.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F44.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F44.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F44.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F44.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F44.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F44.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F44.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F44.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F44.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F44.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F44.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F44.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F44.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F45.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F45.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F45.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F45.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F45.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F45.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F45.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F45.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F45.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F45.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F45.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F45.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F45.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F45.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F45.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F46.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F46.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F46.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F46.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F46.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F46.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F46.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F46.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F46.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F46.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F46.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F46.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F46.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F46.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F46.gate_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F47.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F47.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F47.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F47.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F47.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F47.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F47.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F47.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F47.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F47.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F47.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F47.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F47.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F47.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F47.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F48.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F48.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F48.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F48.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F48.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F48.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F48.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F48.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F48.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F48.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F48.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F48.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F48.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F48.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F48.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F49.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F49.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F49.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F49.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F49.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F49.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F49.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F49.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F49.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F49.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F49.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F49.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F49.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F49.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F49.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F50.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F50.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F50.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F50.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F50.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F50.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F50.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F50.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F50.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F50.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F50.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F50.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F50.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F50.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F50.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F51.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F51.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F51.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F51.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F51.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F51.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F51.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F51.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F51.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F51.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F51.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F51.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F51.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F51.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F51.gate_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F52.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F52.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F52.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F52.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F52.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F52.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F52.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F52.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F52.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F52.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F52.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F52.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F52.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F52.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F52.gate_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F53.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F53.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F53.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F53.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F53.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F53.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F53.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F53.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F53.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F53.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F53.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F53.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F53.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F53.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F53.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F54.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F54.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F54.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F54.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F54.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F54.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F54.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F54.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F54.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F54.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F54.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F54.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F54.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F54.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F54.gate_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F55.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F55.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F55.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F55.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F55.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F55.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F55.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F55.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F55.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F55.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F55.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F55.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F55.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F55.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F55.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F56.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F56.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F56.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F56.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F56.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F56.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F56.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F56.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F56.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F56.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F56.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F56.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F56.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F56.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F56.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F57.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F57.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F57.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F57.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F57.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F57.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F57.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F57.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F57.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F57.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F57.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F57.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F57.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F57.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F57.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F58.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F58.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F58.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F58.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F58.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F58.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F58.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F58.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F58.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F58.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F58.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F58.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F58.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F58.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F58.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F59.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F59.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F59.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F59.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F59.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F59.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F59.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F59.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F59.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F59.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F59.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F59.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F59.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F59.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F59.phase_contract",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F59.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F60.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F60.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F60.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F60.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F60.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F60.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F60.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F60.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F60.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F60.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F60.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F60.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F60.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F60.identity_retained",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F60.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S01.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S01.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S01.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S01.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S01.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S01.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S01.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S01.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S01.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S01.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S01.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S01.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S01.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S01.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S01.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S02.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S02.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S02.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S02.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S02.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S02.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S02.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S02.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S02.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S02.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S02.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S02.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S02.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S02.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S02.phase_contract",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S02.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S03.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S03.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S03.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S03.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S03.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S03.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S03.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S03.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S03.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S03.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S03.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S03.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S03.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S03.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S03.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S04.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S04.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S04.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S04.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S04.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S04.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S04.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S04.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S04.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S04.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S04.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S04.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S04.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S04.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S04.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S05.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S05.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S05.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S05.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S05.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S05.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S05.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S05.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S05.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S05.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S05.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S05.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S05.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S05.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S05.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S06.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S06.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S06.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S06.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S06.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S06.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S06.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S06.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S06.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S06.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S06.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S06.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S06.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S06.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S06.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S07.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S07.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S07.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S07.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S07.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S07.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S07.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S07.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S07.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S07.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S07.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S07.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S07.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S07.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S07.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S08.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S08.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S08.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S08.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S08.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S08.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S08.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S08.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S08.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S08.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S08.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S08.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S08.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S08.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S08.gate_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S08.single_pool_does_not_auto_pay_root",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S09.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S09.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S09.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S09.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S09.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S09.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S09.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S09.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S09.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S09.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S09.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S09.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S09.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S09.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S09.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S10.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S10.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S10.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S10.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S10.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S10.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S10.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S10.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S10.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S10.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S10.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S10.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S10.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S10.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S10.gate_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S11.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S11.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S11.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S11.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S11.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S11.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S11.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S11.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S11.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S11.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S11.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S11.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S11.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S11.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S11.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S12.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S12.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S12.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S12.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S12.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S12.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S12.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S12.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S12.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S12.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S12.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S12.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S12.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S12.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S12.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S13.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S13.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S13.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S13.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S13.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S13.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S13.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S13.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S13.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S13.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S13.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S13.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S13.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S13.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S13.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S14.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S14.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S14.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S14.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S14.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S14.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S14.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S14.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S14.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S14.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S14.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S14.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S14.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S14.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S14.gate_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S14.single_pool_does_not_auto_pay_root",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S15.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S15.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S15.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S15.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S15.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S15.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S15.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S15.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S15.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S15.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S15.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S15.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S15.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S15.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S15.gate_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S15.single_pool_does_not_auto_pay_root",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S16.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S16.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S16.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S16.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S16.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S16.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S16.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S16.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S16.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S16.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S16.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S16.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S16.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S16.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S16.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S16.single_pool_does_not_auto_pay_root",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S17.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S17.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S17.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S17.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S17.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S17.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S17.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S17.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S17.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S17.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S17.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S17.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S17.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S17.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S17.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S17.single_pool_does_not_auto_pay_root",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S18.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S18.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S18.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S18.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S18.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S18.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S18.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S18.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S18.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S18.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S18.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S18.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S18.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S18.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S18.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S18.single_pool_does_not_auto_pay_root",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S19.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S19.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S19.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S19.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S19.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S19.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S19.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S19.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S19.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S19.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S19.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S19.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S19.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S19.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S19.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S20.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S20.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S20.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S20.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S20.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S20.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S20.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S20.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S20.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S20.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S20.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S20.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S20.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S20.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S20.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S21.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S21.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S21.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S21.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S21.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S21.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S21.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S21.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S21.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S21.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S21.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S21.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S21.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S21.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S21.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S22.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S22.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S22.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S22.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S22.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S22.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S22.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S22.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S22.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S22.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S22.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S22.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S22.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S22.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S22.phase_contract",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S22.gate_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S23.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S23.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S23.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S23.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S23.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S23.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S23.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S23.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S23.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S23.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S23.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S23.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S23.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S23.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S23.phase_contract",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S23.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S24.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S24.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S24.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S24.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S24.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S24.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S24.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S24.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S24.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S24.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S24.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S24.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S24.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S24.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S24.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S25.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S25.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S25.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S25.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S25.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S25.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S25.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S25.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S25.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S25.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S25.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S25.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S25.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S25.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S25.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S26.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S26.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S26.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S26.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S26.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S26.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S26.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S26.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S26.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S26.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S26.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S26.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S26.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S26.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S26.gate_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S27.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S27.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S27.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S27.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S27.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S27.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S27.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S27.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S27.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S27.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S27.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S27.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S27.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S27.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S27.noncombat_not_dead",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S27.noncombat_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S27.single_pool_does_not_auto_pay_root",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S28.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S28.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S28.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S28.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S28.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S28.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S28.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S28.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S28.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S28.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S28.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S28.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S28.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S28.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S28.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S28.single_pool_does_not_auto_pay_root",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S29.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S29.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S29.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S29.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S29.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S29.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S29.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S29.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S29.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S29.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S29.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S29.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S29.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S29.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S29.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S30.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S30.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S30.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S30.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S30.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S30.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S30.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S30.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S30.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S30.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S30.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S30.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S30.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S30.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S30.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S31.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S31.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S31.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S31.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S31.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S31.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S31.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S31.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S31.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S31.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S31.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S31.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S31.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S31.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S31.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S32.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S32.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S32.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S32.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S32.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S32.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S32.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S32.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S32.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S32.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S32.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S32.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S32.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S32.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S32.noncombat_not_dead",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S32.noncombat_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S32.single_pool_does_not_auto_pay_root",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S33.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S33.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S33.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S33.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S33.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S33.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S33.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S33.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S33.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S33.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S33.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S33.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S33.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S33.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S33.gate_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S34.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S34.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S34.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S34.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S34.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S34.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S34.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S34.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S34.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S34.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S34.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S34.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S34.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S34.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S34.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S35.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S35.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S35.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S35.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S35.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S35.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S35.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S35.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S35.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S35.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S35.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S35.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S35.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S35.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S35.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S36.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S36.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S36.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S36.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S36.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S36.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S36.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S36.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S36.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S36.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S36.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S36.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S36.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S36.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S36.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S37.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S37.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S37.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S37.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S37.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S37.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S37.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S37.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S37.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S37.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S37.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S37.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S37.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S37.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S37.gate_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S38.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S38.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S38.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S38.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S38.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S38.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S38.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S38.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S38.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S38.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S38.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S38.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S38.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S38.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S38.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S39.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S39.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S39.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S39.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S39.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S39.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S39.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S39.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S39.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S39.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S39.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S39.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S39.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S39.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S39.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S40.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S40.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S40.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S40.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S40.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S40.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S40.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S40.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S40.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S40.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S40.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S40.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S40.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S40.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S40.phase_contract",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S40.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S41.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S41.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S41.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S41.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S41.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S41.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S41.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S41.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S41.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S41.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S41.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S41.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S41.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S41.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S41.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S41.single_pool_does_not_auto_pay_root",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S42.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S42.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S42.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S42.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S42.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S42.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S42.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S42.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S42.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S42.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S42.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S42.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S42.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S42.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S42.gate_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S43.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S43.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S43.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S43.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S43.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S43.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S43.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S43.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S43.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S43.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S43.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S43.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S43.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S43.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S43.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S44.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S44.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S44.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S44.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S44.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S44.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S44.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S44.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S44.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S44.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S44.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S44.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S44.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S44.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S44.leave_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S45.schema",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S45.numeric_bounds",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S45.response_never_numeric_buff",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S45.weakening_has_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S45.no_health_reset_on_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S45.mechanism_complete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S45.no_lottery_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S45.real_tower_branches",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S45.real_trap_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S45.telegraphed_contact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S45.admission_fields",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S45.root_reward_only",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S45.explicit_carrier_and_outcome",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S45.official_source",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S45.both_routes_witness",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "identity.F14_excluded",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "identity.F46_slow_body",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "identity.F10_F54_anchored",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "identity.F60_no_mirror_travel",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "sources.45_distinct_original_articles",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "sources.credits_present",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "gate.requires_verified_same_root",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "gate.no_fake_electric_feedback_at_floor",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "gate.rule_does_not_replay_old_damage",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "gate.next_hit_finishes_and_cleans",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "leave.explicit_reformation_preserves_poison",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "leave.no_catchup_ticks",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "leave.no_post_terminal_reformation_or_damage",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "leave.timer_cancelled",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "leave.not_a_kill_proc",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "defeat.real_kill_proc",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "suppression.not_a_kill_proc",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "electric.native_two_not_three_deduped",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "electric.floor_drain_5",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "electric.floor_drain_100",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "electric.floor_drain_1001",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "electric.rule_weaken.six_feedback_no_cap",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "electric.rule_weaken.real_end_state",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "electric.kill_unlocked.six_feedback_no_cap",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "electric.kill_unlocked.real_end_state",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "electric.suppressed_not_a_node",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "electric.reformed_can_rejoin",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "electric.left_never_joins",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "electric.full_graph_local_counts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "split.conservation_2",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "split.conservation_3",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "split.conservation_8",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "split.dead_pool_cannot_escape",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "split.insufficient_hp_for_two_lethal_gates_cancels",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "split.exact_two_gate_floors_no_heal",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "reward.children_share_root",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "reward.timeout_no_pay",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "reward.qualified_mother_before_last_child",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "reward.root_qualification_not_child_rule_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "reward.no_pay_with_required_live_child",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "reward.no_pay_while_future_births_possible",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "reward.closed_source_all_pools_ends_once",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "economy.td05_income_preserved",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "lottery.seven_C_shifts_seven_tickets_no_replay",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "lottery.week_clear_preserves_ticket_pity",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "lottery.practice_no_ticket",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "lottery.failure_no_ticket",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "lottery.next_week_unique",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "lottery.pity_unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "lottery.probability_sum",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "lottery.closed_during_business",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "lottery.disabled_items_stay_disabled",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "lottery.no_essential_gate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F02.sniper_not_worse_after_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F03.sniper_not_worse_after_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F12.sniper_not_worse_after_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F13.sniper_not_worse_after_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F46.sniper_not_worse_after_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "F54.sniper_not_worse_after_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S05.sniper_not_worse_after_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S08.sniper_not_worse_after_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S15.sniper_not_worse_after_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S28.sniper_not_worse_after_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "S43.sniper_not_worse_after_rule",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "tower.exact70_nodes40_leaves",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "id": "tower.T10_A2_only_three_active_cells",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "limitations": [
+    "实际规则完成回执由fixture注入，未实现105个世界适配器。",
+    "未做SCP地图几何/完整AI/手机交互与真实随机周试玩。",
+    "damage预算使用明确合法命中或静止目标，不能当实际击杀用时。",
+    "电门槛fixture是固定合法图同D瞬时反应，只验证生命边界；全时序仍由TD05参考负责。",
+    "抽奖只检查方向与发券去重，不实现随机采样与完整奖池。"
+  ]
+}
