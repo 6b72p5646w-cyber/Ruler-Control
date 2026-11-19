@@ -1,5 +1,5 @@
 {
-  "version": "0.8",
+  "version": "0.10",
   "total": 18,
   "evaluation_order": [
     "default_enabled",
@@ -28,7 +28,8 @@
       "status": "hand_authored_design_case_not_runtime_predicate",
       "enabled_current": true,
       "runtime_enabled": false,
-      "source_revalidation_contract": "content/condition_lifecycle_v06.json"
+      "source_revalidation_contract": "content/condition_lifecycle_v06.json",
+      "composition_contract_v010": "content/composition_contracts_v010.json#/S01"
     },
     {
       "id": "S02",
@@ -39,14 +40,40 @@
       "event_ids": [],
       "effect_type": "mixed",
       "stress_delta_proposal": 2,
-      "condition": "F05绑定WET_COLD，F57绑定独立后院渠，双实体预算及支路工具可用。",
-      "effect": "玩家须保留指定水道，同时用可见隔离挡板把它与营业湿格分开。",
-      "hard_admission_gate": "必须有独立可隔离的水道、足够挡板和干燥人行通道；仅靠反复关水不能同时满足时禁投。",
+      "condition": "N03的真实F05到N04仍未解除，原240预算截止固定在N04末；N04仅出现一个尚未接受的F57邀请。WET_COLD与WET_REAR源及支阀不同，具名S02最多同时两区。",
+      "effect": "同一晚在两个不同位置处理用水取舍：冷区关CTRL_COLD_BRANCH并擦断割点取篮，后院保持CTRL_REAR_SOURCE运行，仅用ATT15本地8秒维护过箱。无额外隔离挡板。",
+      "hard_admission_gate": "仅S02可同时登记COLD/REAR两湿源，干路、实际源ID和control_id均独立。必须从玩家当前位置预约解除旧F05、后院操作及补救预算；未开始的F57邀请可拒绝，已停流/铺板的风险仍须实际收板复流。无任何额外购买或挡板要求。",
       "player_response": "只断冷区拖篮支路；后院维护按8秒窗口恢复水流，不能关全店总水。",
       "status": "hand_authored_design_case_not_runtime_predicate",
       "enabled_current": true,
       "runtime_enabled": false,
-      "source_revalidation_contract": "content/condition_lifecycle_v06.json"
+      "source_revalidation_contract": "content/condition_lifecycle_v06.json",
+      "temporal_contract_v010": {
+        "prior_primary": "F05",
+        "prior_phase": "N03",
+        "current_new_primary": "F57",
+        "current_phase": "N04",
+        "requires_F05_actually_still_active": true,
+        "maximum_player_pursuers": 1,
+        "F57_offer_can_be_refused": true,
+        "do_not_spawn_both_as_new_primary": true,
+        "dry_cold_cut_and_protected_rear_channel_must_be_distinct": true,
+        "original_F05_deadline_still_at_end_N04": true,
+        "F05_deadline_origin": "N03_phase_start_budget_240",
+        "F05_original_deadline_budget": 480,
+        "F57_preoffer_refusal_allowed": true,
+        "F57_active_maintenance_cannot_be_cleared_by_decline": true,
+        "decline_preserves_same_cargo_and_channel_debris": true
+      },
+      "composition_contract_v010": "content/composition_contracts_v010.json#/S02",
+      "water_control_contract_v010": {
+        "F05_close": "CTRL_COLD_BRANCH",
+        "F57_wrong_remote_cut": "CTRL_REAR_SOURCE",
+        "F57_correct_local_maintenance": "ATT15_local_lever",
+        "same_anchor_distinct_control_ids": true,
+        "requires_purchase_of_dividers": false,
+        "unregistered_barriers_created": 0
+      }
     },
     {
       "id": "S03",
@@ -65,7 +92,8 @@
       "enabled_current": false,
       "runtime_enabled": false,
       "source_revalidation_contract": "content/condition_lifecycle_v06.json",
-      "disabled_reason": "当前F57没有产生洪水限界保护的已定义回报，禁止消费不存在的令牌。"
+      "disabled_reason": "当前F57没有产生洪水限界保护的已定义回报，禁止消费不存在的令牌。",
+      "composition_contract_v010": "content/composition_contracts_v010.json#/S03"
     },
     {
       "id": "S04",
@@ -77,15 +105,34 @@
       ],
       "effect_type": "harder",
       "stress_delta_proposal": 1,
-      "condition": "F13任务生肉尚未入柜，同时E012热浪正在影响食品质量。",
-      "effect": "未冷藏任务肉更快降低食品质量，影响后续报损与收入；不生成气味路线，不改变触肉后追玩家及入柜解除规则。",
-      "hard_admission_gate": "必须保留可达的工作冰柜和预留格；质量降低不能销毁任务箱或禁止入柜。变质后仍可完成隔离入柜，随后按经营报损处理。",
-      "player_response": "先开通路，再把任务箱尽快搬入冰柜；保温道具仅保护食品质量，不能直接解除怪物。",
-      "status": "v03_quality_modifier_reuses_food_clock_not_scent_ai",
+      "condition": "F13同一任务肉尚未入柜，E012热浪下原有一笔普通饮水pickup订单已到且未过耐心；不新增订单。",
+      "effect": "先服务饮水需在原冷区取同一瓶并交付，可能错过飞头女鬼触肉前的预防机会；优先入柜则可能放弃该普通单收益。",
+      "hard_admission_gate": "保留原任务冰柜、空位、路线和全部基础解；本订单不得占任务肉唯一格，不创建普通食品品质销毁机制。导演按两条真实路线计时，水单可放弃，不能强制先卖水。",
+      "player_response": "判断先抢提前入柜还是争取已有水单；只有真实同单交付才有收入，任务肉仍须由同物入有效冰柜并合盖解除。",
+      "status": "v010_actual_order_attention_tradeoff_no_unimplemented_quality_clock",
       "enabled_default": true,
       "enabled_current": true,
       "runtime_enabled": false,
-      "source_revalidation_contract": "content/condition_lifecycle_v06.json"
+      "source_revalidation_contract": "content/condition_lifecycle_v06.json",
+      "legacy_effect": "未冷藏任务肉更快降低食品质量，影响后续报损与收入；不生成气味路线，不改变触肉后追玩家及入柜解除规则。",
+      "composition_contract_v010": "content/composition_contracts_v010.json#/S04",
+      "order_tradeoff_contract_v010": {
+        "phase": "N03",
+        "order_kind": "existing_pickup_water_order",
+        "order_arrived": true,
+        "order_not_expired": true,
+        "new_order_slots_created": 0,
+        "new_food_quality_clock": false,
+        "source_water_bottle_not_task_meat_or_promised_stock": true,
+        "checkout_seconds_by_existing_mode": {
+          "normal": 1.5,
+          "window_or_silent": 3.5
+        },
+        "carry_and_route_from_actual_player_position_additionally_reserved": true,
+        "water_order_may_be_abandoned": true,
+        "F13_primary_resolution_remains_same_meat_freezer_atomic_commit": true,
+        "if_meat_already_stored": "do_not_reactivate_F13_or_create_unstored_replacement_meat"
+      }
     },
     {
       "id": "S05",
@@ -102,9 +149,11 @@
       "player_response": "当前版本先解除已入场的一个追逐遭遇，另一项保留为后续时段候选；不要求玩家同时清两种痕迹。",
       "status": "deferred_double_pursuer_combination_requires_runtime_validation",
       "enabled_default": false,
-      "enabled_current": true,
+      "enabled_current": false,
       "runtime_enabled": false,
-      "source_revalidation_contract": "content/condition_lifecycle_v06.json"
+      "source_revalidation_contract": "content/condition_lifecycle_v06.json",
+      "disabled_reason": "双追逐仍违反当前至多一名主动追逐者；从现行联动池移出，不能用“current=true/default=false”混称可玩。",
+      "composition_contract_v010": "content/composition_contracts_v010.json#/S05"
     },
     {
       "id": "S06",
@@ -150,7 +199,8 @@
         "time_and_route_must_be_measured_before_admission": true,
         "canonical_blueprint_file": "content/encounter_blueprints.json",
         "canonical_encounter_id": "F12"
-      }
+      },
+      "composition_contract_v010": "content/composition_contracts_v010.json#/S06"
     },
     {
       "id": "S07",
@@ -169,7 +219,8 @@
       "status": "hand_authored_design_case_not_runtime_predicate",
       "enabled_current": true,
       "runtime_enabled": false,
-      "source_revalidation_contract": "content/condition_lifecycle_v06.json"
+      "source_revalidation_contract": "content/condition_lifecycle_v06.json",
+      "composition_contract_v010": "content/composition_contracts_v010.json#/S07"
     },
     {
       "id": "S08",
@@ -180,7 +231,7 @@
       "event_ids": [],
       "effect_type": "easier",
       "stress_delta_proposal": -1,
-      "condition": "本班较早N03/N04的F21已实际产生预警记录或事故回执；N05/N06的F38现身时，玩家可以读取该真实历史，并有独立连续观察把当时所见对象连接到当前身体。旧F21实体不要求仍在场。",
+      "condition": "本班较早N03/N04的F21实际留下同一COWORKER的预警或预防回执，且有独立第二证据域。历史来源在F38首兆前已存在；当前身体核验在临近实际到场的局部窗口完成，之后8世界秒内保持短链并授权，不能把首兆前60秒等待塞进8秒凭证。无当前凭证则不启用恢复权限路线，仍可安全限权。",
       "effect": "既有险情记录提供一项过去工位与动作的核对线索，帮助缩小F38三段真实作业轨迹的核验范围；它不是当前身份结论，也不让已结束的女妖再次预警。",
       "hard_admission_gate": "只引用已实际发生并由玩家合法观察到的F21本次预警/事故记录及其原始对象、时刻和来源ID，不补造纸条或事故。F21同次预警、事故、预防回执共用一条根来源，不能凑成两类独立证据。恢复当前身体权限仍需H04的不同根来源与不同证据域，并有实际连续观察或本怪合法现场测试；过期快照只证明当时事实，不能证明现在位置。缺旧源不启用这项减难；后续连续性断裂则保持待核，不强迫猜人。",
       "player_response": "先在既有日志核对F21当时的工位、预警对象和实际避险/事故结果，再和另一独立来源及连接当前身体的观察链核对。证据不足就保留钥匙并限制两者高风险权限，允许冒名请求安全结束；不要把两张同源记录当作两份身份证明。",
@@ -218,7 +269,13 @@
         "F21_must_remain_active": false,
         "reopens_F21_warning": false,
         "missing_prior_source": "disable_this_easier_combination_F38_still_uses_its_own_admission",
-        "continuity_lost_after_arrival": "safe_pending_identity_no_forced_guess_no_identity_reward"
+        "continuity_lost_after_arrival": "safe_pending_identity_no_forced_guess_no_identity_reward",
+        "current_body_continuity_starts_from": "F38_current_free_in_person_verification_not_old_F21_record",
+        "fresh_body_check_required_before_first_far_omen": false,
+        "fresh_body_check_is_late_local_authorization_guard": true,
+        "current_credential_world_seconds": 8,
+        "normal_current_chain_world_seconds": 5.833333333333334,
+        "no_automatic_refresh_by_passive_observation": true
       },
       "temporal_witness_v08": {
         "scope": "Sequential evidence example, not simultaneous F21/F38 and not a full NPC/navigation playtest.",
@@ -237,42 +294,96 @@
           {
             "budget": 440,
             "phase": "N04",
-            "event": "F38首兆前已有三个独立实际工作来源，核对其中可用的F21历史线索与真实观察链；不制造新预警"
+            "event": "F38远首兆；三份旧实际工作来源与独立基线已存在，当前身体8秒凭证尚不要求生成。"
+          },
+          {
+            "budget": 496.6666666666667,
+            "phase": "N05",
+            "event": "当前同一身体两项现场比对实际完成；8世界秒凭证从此刻起算，第二身体同时开始原前门到待核格10格入场路。"
           },
           {
             "budget": 500,
             "phase": "N05",
-            "event": "F38实际出现；读取旧源并与独立当前观察绑定，只有其覆盖的事实有效，不要求F21同场"
+            "event": "第二身体以3格/秒真实走10格到待核格；已见证A仍在北侧相隔2格处，玩家无需转头或离开核验点。"
           },
           {
-            "budget": 530,
+            "budget": 502.5,
             "phase": "N05",
-            "event": "若另一独立证据与身体连续性均成立，按F38原规则恢复有限权限；否则继续待核并安全结束冒名请求"
+            "event": "真实1秒分位、1.5秒权限提交完成，距当前核验5.833333世界秒，少于8秒；错误授权再撤销路线为7.333333秒，也不靠自动刷新。"
           }
         ],
         "historical_presence_age_at_F38_arrival_world_seconds": 120,
         "old_snapshot_age_does_not_refresh_or_serve_as_current_presence": true,
         "new_primary_in_N04": "F21",
         "new_primary_in_N05": "F38"
+      },
+      "composition_contract_v010": "content/composition_contracts_v010.json#/S08",
+      "historical_subject_contract_v010": {
+        "requires_record_observed_actor_id_to_match_current_tracked_COWORKER": true,
+        "eligible_examples": [
+          "F21_warning_actually_identified_same_COWORKER",
+          "same_COWORKER_actually_completed_observed_F21_prevention_action"
+        ],
+        "PLAYER_only_or_unrelated_actor_receipt_qualifies": false,
+        "same_warning_accident_prevention_root_counts_as_one": true,
+        "requires_distinct_second_root_and_domain": true,
+        "requires_unbroken_current_body_chain": true,
+        "old_photo_does_not_refresh_presence_ttl": true,
+        "pure_frozen_read_ui_does_not_create_new_observation_or_false_break": true,
+        "real_world_occlusion_or_offscreen_breaks_chain": true,
+        "does_not_reduce_F38_three_actual_work_sources": true,
+        "does_not_grant_permission_automatically": true,
+        "requires_continuous_observation_since_F21": false,
+        "current_body_chain_starts_from": "fresh_actual_F38_free_verification",
+        "fresh_body_check_required_before_first_far_omen": false,
+        "fresh_body_check_is_late_local_authorization_guard": true,
+        "current_credential_world_seconds": 8,
+        "normal_current_chain_world_seconds": 5.833333333333334,
+        "no_automatic_refresh_by_passive_observation": true
       }
     },
     {
       "id": "S09",
       "monster_ids": [
-        "F22",
         "F38"
       ],
       "event_ids": [],
       "effect_type": "harder",
       "stress_delta_proposal": 1,
-      "condition": "布朗尼的工作需要玩家离开其视线，同事身份又待核。",
-      "effect": "后仓委托与前台核验争夺玩家位置，考验交接和任务延期。",
-      "hard_admission_gate": "委托可暂停，高风险权限保持冻结；不得强迫未核验者独自守关键区域。",
-      "player_response": "先完成身份核验，再离开后仓，或放弃这次家务收益。",
-      "status": "hand_authored_design_case_not_runtime_predicate",
+      "condition": "N05的F38已经真实出现，同时恰有N04留下且尚未过期的同一普通清洁店务债；原污格在货架背面可见，保持原task_id、cell_id和债务回执。N06不采此变体。",
+      "effect": "转向擦同一原污格会与当前身体连续观察争夺注意力；玩家可先维持观察，或先安全限权并保留钥匙再清理原任务。清洁不生产额外怪物或第二份收益。",
+      "hard_admission_gate": "只在N05且N04原债未完成、未过期时成立；已由玩家/同事/F22清完不得再造脏点。到N05末仍未完成，只沿原工单扣一次5币且受每夜20币上限，不加联动罚；到N06不得把过期债重新计费。普通延期不能强迫打断唯一身份链。",
+      "player_response": "优先保持有价值的现场观察，或接受安全限权、保留钥匙并转做普通工作；两条均不凭空识破假身。",
+      "status": "v010_one_primary_actual_work_attention_conflict",
       "enabled_current": true,
       "runtime_enabled": false,
-      "source_revalidation_contract": "content/condition_lifecycle_v06.json"
+      "source_revalidation_contract": "content/condition_lifecycle_v06.json",
+      "legacy_monster_pair": [
+        "F22",
+        "F38"
+      ],
+      "active_monster_ids": [
+        "F38"
+      ],
+      "composition_kind": "current_identity_encounter_with_actual_optional_cleaning_task",
+      "composition_contract_v010": "content/composition_contracts_v010.json#/S09",
+      "cleaning_debt_contract_v010": {
+        "origin_phase": "N04",
+        "current_phase": "N05",
+        "expiry_phase_end": "N05",
+        "expiry_budget": 600,
+        "maximum_active_work_debts": 1,
+        "requires_original_task_and_cell_instance_ids": true,
+        "requires_real_uncompleted_cleaning_not_newly_spawned_stain": true,
+        "must_not_have_completion_receipt": true,
+        "completed_by_F22_is_already_completed": true,
+        "N06_eligible": false,
+        "expiry_penalty_coins": 5,
+        "night_existing_penalty_cap_coins": 20,
+        "same_root_penalty_once": true,
+        "new_penalty_from_this_composition": 0,
+        "no_independent_F22_spawn": true
+      }
     },
     {
       "id": "S10",
@@ -289,7 +400,8 @@
       "status": "hand_authored_design_case_not_runtime_predicate",
       "enabled_current": true,
       "runtime_enabled": false,
-      "source_revalidation_contract": "content/condition_lifecycle_v06.json"
+      "source_revalidation_contract": "content/condition_lifecycle_v06.json",
+      "composition_contract_v010": "content/composition_contracts_v010.json#/S10"
     },
     {
       "id": "S11",
@@ -308,7 +420,8 @@
       "enabled_current": false,
       "runtime_enabled": false,
       "source_revalidation_contract": "content/condition_lifecycle_v06.json",
-      "disabled_reason": "当前F39没有产生免梦魇安全休息保护的已定义回报，禁止消费不存在的令牌。"
+      "disabled_reason": "当前F39没有产生免梦魇安全休息保护的已定义回报，禁止消费不存在的令牌。",
+      "composition_contract_v010": "content/composition_contracts_v010.json#/S11"
     },
     {
       "id": "S12",
@@ -327,7 +440,8 @@
       "enabled_current": false,
       "runtime_enabled": false,
       "source_revalidation_contract": "content/condition_lifecycle_v06.json",
-      "disabled_reason": "当前同一事故只允许一个血腥消费者，F26/F32双怪共享伤口与追逐预算尚未实现。"
+      "disabled_reason": "当前同一事故只允许一个血腥消费者，F26/F32双怪共享伤口与追逐预算尚未实现。",
+      "composition_contract_v010": "content/composition_contracts_v010.json#/S12"
     },
     {
       "id": "S13",
@@ -346,7 +460,8 @@
       "status": "hand_authored_design_case_not_runtime_predicate",
       "enabled_current": true,
       "runtime_enabled": false,
-      "source_revalidation_contract": "content/condition_lifecycle_v06.json"
+      "source_revalidation_contract": "content/condition_lifecycle_v06.json",
+      "composition_contract_v010": "content/composition_contracts_v010.json#/S13"
     },
     {
       "id": "S14",
@@ -356,16 +471,49 @@
       "event_ids": [
         "E010"
       ],
-      "effect_type": "harder",
-      "stress_delta_proposal": 1,
-      "condition": "雨水削弱地面搬运痕迹。",
-      "effect": "逆足林守的足迹方向更容易误导，需要对照货物来源与推车实际轨迹。",
-      "hard_admission_gate": "来源记录和至少一种移动对照必须可见；不能把两条信息一起遮掉。",
-      "player_response": "启用已验货标签、安排同事守接货点，减少追错方向。",
-      "status": "hand_authored_design_case_not_runtime_predicate",
-      "enabled_current": true,
+      "effect_type": "presentation_variant",
+      "stress_delta_proposal": 0,
+      "condition": "现行后门到货路线与E010前门雨线没有实际交集生产链。",
+      "effect": "历史机制方案归档。普通下雨可与F45同场呈现，但额外动作、费用和压力均为0，不计作机制联动。",
+      "hard_admission_gate": "enabled_current=false；不得为使本组合出现而补造原箱前门运输记录、强迫玩家搬箱绕路或把雨水延伸入室内。",
+      "player_response": "按F45现行室内原箱封签与连续轮迹正常处理；同场雨景不改变解法。",
+      "status": "archived_unreachable_rear_delivery_front_rain_intersection",
+      "enabled_current": false,
       "runtime_enabled": false,
-      "source_revalidation_contract": "content/condition_lifecycle_v06.json"
+      "source_revalidation_contract": "content/condition_lifecycle_v06.json",
+      "composition_contract_v010": "content/composition_contracts_v010.json#/S14",
+      "presentation_contract_v010": {
+        "essential_indoor_clues_retained": true,
+        "extra_actions_or_cost": 0,
+        "visual_variety_is_not_additional_mechanical_difficulty": true,
+        "optional_entry_trace_cannot_be_required_for_base_resolution": true,
+        "no_new_countermeasure_required": true
+      },
+      "disabled_reason": "F45现行EP_REAR_DELIVERY原箱只经后门验收线；E010只湿WET_FRONT，当前没有同箱前门过雨线的正常动作来源。归档机制联动，不补造历史、不要求无意义绕路。普通雨同场仍可作零压力氛围。",
+      "legacy_condition": "同一F45原箱确有真实移动回执，已在这次E010活动期间通过WET_FRONT雨线，且同箱入口轮迹仍在该处可见；室内验收标签与室内连续轮迹保持正常。",
+      "historical_trace_intersection_contract_v010": {
+        "rain_region": "WET_FRONT",
+        "same_box_instance_id_required": true,
+        "movement_receipt_fields": [
+          "object_instance_id",
+          "actual_crossed_cells",
+          "world_at",
+          "source_root_id"
+        ],
+        "requires_crossing_during_same_rain_instance": true,
+        "affected_trace_positions_must_intersect_actual_WET_FRONT_cells": true,
+        "affected_trace_kind": "same_box_optional_entrance_wheel_trace_visual_only",
+        "effect": "entry_trace_render_variant_blurred",
+        "effect_end": "same_E010_rain_end_or_same_trace_wiped_or_owner_terminal",
+        "ordinary_E010_rain_world_seconds": 30,
+        "indoor_receiving_trace_changes": false,
+        "indoor_storage_trace_changes": false,
+        "cargo_label_changes": false,
+        "identity_or_trace_records_deleted": false,
+        "extra_san_or_inventory_charge": 0,
+        "requires_new_global_trace_system": false,
+        "if_box_never_crossed_rain_line": "do_not_admit_S14_F45_base_still_possible"
+      }
     },
     {
       "id": "S15",
@@ -398,7 +546,8 @@
         "missing_required_inputs": "do_not_admit_or_decline_before_acceptance_without_penalty",
         "requires_no_purchase_to_become_eligible": true,
         "same_bottle_not_duplicated_between_retained_saleable_or_cleaning": true
-      }
+      },
+      "composition_contract_v010": "content/composition_contracts_v010.json#/S15"
     },
     {
       "id": "S16",
@@ -410,14 +559,45 @@
       ],
       "effect_type": "easier",
       "stress_delta_proposal": -1,
-      "condition": "工队已承接可修复的照明供电支线且材料到位。",
-      "effect": "施工完成可提前恢复一个营业区域的照明。",
-      "hard_admission_gate": "只修具体支线，不消除整个区域停电；保留绕行路和独立应急灯。",
-      "player_response": "玩家暂时缩小营业面，用材料和时间换取后半夜安全工作区。",
+      "condition": "E019在首兆前固定为damaged_component，同一既有可选快照/辅助照明设备确实损坏，F59提出工作邀请，现有3份维修材料、3施工槽和原故障操作位可用；首兆前没有组件。trip子型不投此组合。",
+      "effect": "把同3材料放槽，局部关灯并累计8世界秒未注视施工，才产生1个绑定原fault_id组件；实际搬到该设备装2秒、测1秒，恢复同设备原有可选功能。30秒仅初始闪烁/遮罩，不使损坏设备自动修好。",
+      "hard_admission_gate": "首兆前固定损坏件子型及实际可选设备ID，只验真实故障、原材料、槽位，不要求尚未制造的组件。计入当前玩家真实路线、制作、运件、安装测试、一次补救及下一预告；预算不足不投。6秒普通处理对本子型只安全隔离，不能修受损件；同件装测后不再要求二次手动维修。基本冷藏、手动门及必要免费证据不受影响。",
+      "player_response": "选择安全隔离并放弃设备本夜后续辅助功能，或在短时不观察施工的规则下换回该真实功能；只有安装测试完成才获得恢复，无额外万能保护。",
       "status": "hand_authored_design_case_not_runtime_predicate",
       "enabled_current": true,
       "runtime_enabled": false,
-      "source_revalidation_contract": "content/condition_lifecycle_v06.json"
+      "source_revalidation_contract": "content/condition_lifecycle_v06.json",
+      "composition_contract_v010": "content/composition_contracts_v010.json#/S16",
+      "downstream_products_v010": {
+        "initial_component_exists": false,
+        "produced_only_after": "same_three_materials_placed_and_eight_unobserved_world_seconds",
+        "product": "one_component_bound_to_original_fault_id",
+        "material_units_consumed_once": 3,
+        "installation_world_seconds": 2,
+        "test_world_seconds": 1,
+        "success_requires_actual_component_transfer_install_test": true,
+        "fault_resolved_elsewhere_before_production": "cancel_offer_and_return_same_unused_materials_physically",
+        "fault_resolved_elsewhere_after_production": "retain_same_fault_bound_component_for_return_no_second_reward_or_generic_immunity"
+      },
+      "repair_completion_contract_v010": {
+        "fault_instance_id_must_match": true,
+        "fault_subtype": "damaged_component",
+        "subtype_fixed_before_first_omen": true,
+        "trip_subtype_eligible": false,
+        "required_device": "existing_registered_optional_snapshot_or_auxiliary_light_device",
+        "critical_free_evidence_manual_doors_and_task_freezer_excluded": true,
+        "ambient_flicker_world_seconds": 30,
+        "fault_not_auto_repaired_when_flicker_ends": true,
+        "manual_six_seconds_for_this_subtype": "isolate_fault_and_restore_safe_access_only_not_repair_damaged_device",
+        "F59_completion": "actual_same_component_install_2_and_test_1_world_seconds_restores_same_registered_function",
+        "do_not_require_second_manual_repair": true,
+        "one_completion_receipt_per_fault_instance": true,
+        "F59_completion_closes_same_E019_fault": true,
+        "source_rechecked_before_material_conversion_and_installation": true,
+        "admission_budget": "从当前玩家真实位置累计原材料取放、施工8世界秒、运原组件、安装2秒与测试1秒；另预留一次实际补救及下一预告。只用本阶段实际剩余预算，不用30秒初始遮罩作为故障寿命。",
+        "safe_decline": "保留已完成的安全隔离；放弃该可选设备本夜后续功能，无凭空额外惩罚。",
+        "source_end": "实际绑定组件安装测试，或交班收工安全隔离；后者不伪造修复或收益。"
+      }
     },
     {
       "id": "S17",
@@ -530,6 +710,33 @@
           "retained_and_saleable_anchors_outside_lease_rect": true,
           "actual_slot_coordinates_and_actor_travel_still_revalidated": true
         }
+      },
+      "composition_contract_v010": "content/composition_contracts_v010.json#/S17",
+      "water_layout_contract_v010": {
+        "retained_container_anchor": "goods_shelf",
+        "retained_item_ids": [
+          "same_original_A",
+          "same_original_B"
+        ],
+        "retained_container_count": 1,
+        "saleable_container_anchor": "pickup_shelf",
+        "saleable_item_ids": [
+          "same_original_C",
+          "same_original_D",
+          "same_original_E",
+          "same_original_F"
+        ],
+        "saleable_container_count": 1,
+        "lease_object_id": "OBJ_LEASE_MARKER",
+        "all_three_container_slot_ids_distinct": true,
+        "new_storage_shelf_bottle_slots_created": 0,
+        "F53_actual_sealed_pair_receipt_phase": "N01",
+        "F36_offer_phase": "N02",
+        "F36_offer_requires_prior_water_receipts": true,
+        "F36_acceptance_never_transfers_inventory_ownership": true,
+        "F36_20_world_seconds_start": "actual_permission_grant_commit",
+        "F36_permission_expiry_does_not_remote_clear_contents": true,
+        "F53_deadline": "true_six_720"
       }
     },
     {
@@ -549,7 +756,8 @@
       "status": "hand_authored_design_case_not_runtime_predicate",
       "enabled_current": true,
       "runtime_enabled": false,
-      "source_revalidation_contract": "content/condition_lifecycle_v06.json"
+      "source_revalidation_contract": "content/condition_lifecycle_v06.json",
+      "composition_contract_v010": "content/composition_contracts_v010.json#/S18"
     }
   ],
   "condition_lifecycle_contract": "content/condition_lifecycle_v06.json"

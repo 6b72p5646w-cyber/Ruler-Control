@@ -1,6 +1,6 @@
 # 午夜便利店 Ruler Control
 
-面向微信小游戏的2D俯瞰规则怪谈游戏。**当前V0.9：把F12回形针诱离、F13生肉搬运接到原五屏地图，并统一日夜资源、SAN、物品债务和交班结算；继续验证条件是否能真实发生、被处理并结束。**
+面向微信小游戏的2D俯瞰规则怪谈游戏。**当前V0.10：完成既有60民俗遭遇、72事件与辅助系统的条件/操作/到期/收益设计闭环，并以有限模型和实际地图路线复核；先发布此步，再开展约45项SCP收容事件。**
 
 每晚00:00—06:00，玩家边工作边判断：欢迎语是不是邀请、空座是否有人、湿路把货拖向哪里、叫自己名字的同事能否信任。普通扫码和找零简化；搬运、朝向、距离、取放、封存、声音窗口和门槛保持实际操作。
 
@@ -16,6 +16,11 @@
 
 | 文档 | 内容 |
 |---|---|
+| [第一步收口与独立反例](docs/34_stage_one_freeze_v010.md) | 本轮接续、真实截止、末次效果、债单预算及第一步/第二步顺序 |
+| [V0.10修订与权威边界](docs/00_revision_v010.md) | 本轮逻辑闭环、趣味取舍、当前13组合与真实实现边界 |
+| [全局机制和20条店规复核](docs/33_logic_completion_and_fun_v010.md) | 四资源、实际血源、身份、物件、双时钟和收益消费者 |
+| [F01–30逐卡审计](docs/29_mechanism_audit_v010_a.md) / [F31–60逐卡审计](docs/30_mechanism_audit_v010_b.md) | 每卡实际正常操作、错误恢复、预防/拒绝、到期和趣味性 |
+| [事件与组合](docs/32_events_combinations_closure_v010.md) / [辅助系统](docs/31_auxiliary_closure_v010.md) | 72事件、18组合目录/13当前候选、64道具装备宠物部署 |
 | [V0.9修订与权威边界](docs/00_revision_v09.md) | 实际走位、日夜资源、统一结算与实现边界 |
 | [运行集成审计](docs/27_runtime_integration_v09.md) | 多份SAN、精确咖啡到期、世界与预算时钟、F53与店长、工资去重 |
 | [两怪实操指南](docs/28_playable_slice_v09.md) | 控制、实际工作、黑视与恢复、日间计划、独立副本和保存 |
@@ -35,15 +40,15 @@
 
 ## 本轮具体修正
 
-- 在原30×30门店中实际执行寻路、门、有限工作、诱饵和搬运。F12只有原正门外区域能解除，门关闭可操作、诱饵消失可恢复；F13零体力仍能搬运，必须同一箱肉真正入柜并合盖。
-- 攻击前摇继续真实追近，避免“开始距离比命中距离远、又停止移动”导致永远打不中；实际受击只提交一次SAN后果，不误套被动惊吓上限。
-- 夜间SAN和恐慌只认条件控制器，世界、物品和资源同步结果；暂停同时冻结追逐、动作、资源、债务与恐慌，不会偷偷恢复体力。
-- 咖啡按实际消费后60游戏分钟到期，跨06:00、白天行动与保存继续。六格日间、早餐、整备、通勤及夜班统一实际日历；精度预算不会暗中消耗顾客世界耐心。
-- 正式交班只认F53同两瓶资格，禁止旧单物示例混用。最后一次QTE及合法动作结果先于720危机检查；未来SAN奖励不能提前补救恐慌。
-- 05:50到场、当前身体的两类独立核验、实际交钥匙账目、领取工资分别成立。稳定的战役/夜晚账本防止换尝试编号重复领奖。
-- 修复小步连续推进的浮点边界：恰好8秒安定完成与真正晚0.01秒有不同结果。背包使用失败保留暂停、原物与说明，不先关闭窗口恢复追逐。
+- 60卡从来源到终态都具有可执行的有限动作合同；每步核对原物、当前条件、实际路线和提交结果，取消不偷耗物资，失败和自然到期也有明确结果。
+- 实际流血仍只来自已定义的玻璃接触，90世界秒；每走2格留下30秒血迹。没有血源就不投相关条件怪，不让导演为抽中的怪物补写伤口。
+- 修正F38长达数小时的连续盯人要求、F53错误瓶槽及06:00后补走交班、F59维修收益被免费复位完全替代的问题。
+- 百鬼夜行固定队列与两张原订单使用可达窗口，期间仅世界内动作；QTE不再花光班次预算却让世界队列停在门前。
+- S05双追逐和S14前雨/后门货物不相交的伪联动归档，当前保留13项有实际来源的组合；不通过增加新主怪或虚构历史制造难度。
+- F57保留真实北侧安全路线，限时维护换SAN+4一次；F07/F52等有限奖励有实际领取或完成读点，旧卡资源草案不重复生效。
+- 24道具、24装备、8宠物、8部署共64目录项逐项对应消费者、时长、消耗和失效；无消费者的耐久维修、通用门撑等保持关闭。
 
-上一轮的实际血源、跨阶段来源、有限奖励、赠食同物核验、方法页与宠物消费者修正继续生效，详见[第三轮自洽审计](docs/26_third_consistency_audit_v08.md)。
+完整改变见[V0.10说明](docs/00_revision_v010.md)。有限模型通过与设计可玩性审查不等于已经完成移动AI、手机触控或一周试玩；[机器报告](docs/validation_v010_report.json)保留输入哈希和确切范围。
 
 ## 门店机制与保留决定
 
@@ -67,6 +72,10 @@
 
 | 文件 | 当前用途 |
 |---|---|
+| [mechanism_closure_v010.json](content/mechanism_closure_v010.json) | 当前统一闭环定义、作用边界、时钟与消费者 |
+| [mechanism_cases_v010_a.json](content/mechanism_cases_v010_a.json) / [mechanism_cases_v010_b.json](content/mechanism_cases_v010_b.json) | 60怪实际有限状态、动作、计时器、误操作和终态见证 |
+| [event_contracts_v010.json](content/event_contracts_v010.json) / [composition_contracts_v010.json](content/composition_contracts_v010.json) | 72事件与18组合目录的现行来源、操作与准入 |
+| [auxiliary_effects_v010.json](content/auxiliary_effects_v010.json) | 64辅助目录项的具体效果与消费者 |
 | [integration_v09.json](content/integration_v09.json) | 两怪练习范围、状态归属、24小时日历、债务与正式交班顺序 |
 | [consumer_closure_v08.json](content/consumer_closure_v08.json) | 赠食核验、有限友好收益、F53履约与交班、F31/P08短休、E062睡眠 |
 | [temporal_resource_contract_v07.json](content/temporal_resource_contract_v07.json) | 实际时限、历史交接、角色到场、局部路线与有限奖励补充 |
@@ -85,12 +94,14 @@
 | [items.json](content/items.json) / [equipment.json](content/equipment.json) | 道具、抽奖、装备；I06电池用途互斥消费 |
 | [pets.json](content/pets.json) / [deployables.json](content/deployables.json) | 通用/专属宠物帮助与有限部署 |
 
-V0.4的[完整旧卡](docs/12_all_encounters_v04.md)和[机制模块](docs/14_systems_and_director_v04.md)作为历史推导与组件参考保留，不能覆盖当前V0.9合同。Claude的[审查](docs/16_review_rules_maps_v04.md)与[预兆提案](docs/17_omen_system_proposal_v04.md)保留原文；[PR #2](https://github.com/6b72p5646w-cyber/Ruler-Control/pull/2)原提案通过固定提交引用，未直接合并。
+V0.4的[完整旧卡](docs/12_all_encounters_v04.md)和[机制模块](docs/14_systems_and_director_v04.md)作为历史推导与组件参考保留，不能覆盖当前V0.10合同。Claude的[审查](docs/16_review_rules_maps_v04.md)与[预兆提案](docs/17_omen_system_proposal_v04.md)保留原文；[PR #2](https://github.com/6b72p5646w-cyber/Ruler-Control/pull/2)原提案通过固定提交引用，未直接合并。
 
 ## 验证与复现
 
 ```sh
 python3 scripts/build_playable_v09.py
+python3 scripts/run_validation_v010.py
+# 以下为各组单独复现入口
 python3 scripts/validate_content.py
 python3 scripts/validate_design_v05.py
 python3 scripts/validate_maps.py
@@ -99,6 +110,9 @@ python3 scripts/validate_conditions_v06.py
 python3 scripts/validate_consistency_v07.py
 python3 scripts/validate_closure_v08.py
 python3 scripts/validate_integration_v09.py
+python3 scripts/validate_mechanisms_v010.py
+python3 scripts/validate_auxiliary_v010.py
+python3 scripts/validate_events_compositions_v010.py
 node prototype/check_rule_core.mjs
 node prototype/check_store_core_v05.mjs
 node prototype/check_condition_core_v06.mjs

@@ -1,5 +1,5 @@
 {
-  "version": "0.8",
+  "version": "0.10",
   "slots": [
     "hand",
     "light",
@@ -17,15 +17,18 @@
       "name": "夹取钳",
       "rarity": "standard",
       "price": 60,
-      "benefit": "隔离小物的体力成本-20%",
-      "tradeoff": "持用期间需要换手才能扫码",
+      "benefit": "手持时，已见登记小物取放距离由1格增至1.5格。",
+      "tradeoff": "占1手；普通双手重箱前须收起，不隔墙取物、不搬任务肉/钥匙或活跃实体。",
       "design_origin": "original_game_item",
       "hands_required": 1,
       "acquisition_enabled": true,
       "world_transfer_tags": [
         "ordinary_light_tool"
       ],
-      "pet_transfer_condition": "同一已持有夹取钳已实际放在可见工位，未装备、未手持、未被任务或其他动作预留；普通取物只搬到可取槽，不自动装备或使用。"
+      "pet_transfer_condition": "同一已持有夹取钳已实际放在可见工位，未装备、未手持、未被任务或其他动作预留；普通取物只搬到可取槽，不自动装备或使用。",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q01",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "Q02",
@@ -33,11 +36,14 @@
       "name": "检视镜",
       "rarity": "uncommon",
       "price": 95,
-      "benefit": "在安全位置扩大可检查角度",
-      "tradeoff": "观察时占用手持位",
+      "benefit": "手持检视镜，在2格内用1世界秒查看已登记可镜观物的预制间接视图；保持玩家朝向。",
+      "tradeoff": "占1手；只能读当前已存在、与镜面通路有效的线索，不照出墙后内容，不自动判身份。",
       "design_origin": "original_game_item",
       "hands_required": 1,
-      "acquisition_enabled": true
+      "acquisition_enabled": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q02",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "Q03",
@@ -45,8 +51,8 @@
       "name": "铜铃",
       "rarity": "rare",
       "price": 150,
-      "benefit": "生成可控声源，用于已知适用对象",
-      "tradeoff": "会惊动其他听觉型目标",
+      "benefit": "历史提案：当前效果停用，所有新获取渠道关闭。",
+      "tradeoff": "旧实例原样保留，不扣使用资源、不生成效果；不可按归档文字加载。",
       "design_origin": "original_game_item",
       "hands_required": 1,
       "acquisition_enabled": false,
@@ -55,7 +61,19 @@
       "crafting_enabled": false,
       "disabled_reason": "当前没有明确登记的声音诱导消费者；保留历史铜铃提案，不向玩家出售或随机发放无合法目标装备。",
       "current_target_contract": "content/auxiliary_targets_v07.json",
-      "reward_enabled": false
+      "reward_enabled": false,
+      "historical_archive_v010": {
+        "status": "inactive_unimplemented_proposal",
+        "retained_from": "V0.9",
+        "text": {
+          "benefit": "生成可控声源，用于已知适用对象",
+          "tradeoff": "会惊动其他听觉型目标"
+        },
+        "may_load_as_current_effect": false,
+        "existing_instances_preserved": true
+      },
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q03",
+      "effect_handler_implemented": false
     },
     {
       "id": "Q04",
@@ -63,12 +81,15 @@
       "name": "契约印板",
       "rarity": "special",
       "price": 240,
-      "benefit": "对当前实际存在且已阅读的契约提供一次范围复核，不改变条款或自动判断真伪",
-      "tradeoff": "每次实际复核精力-2；须有同一份可观察契约和已完成的免费基础教学，不以日间方法页为使用门槛",
+      "benefit": "对当前实际存在、已读的合约，用1世界秒把对象、范围、期限三字段固定在HUD 12世界秒。",
+      "tradeoff": "每次成功复核精力−2，同一合约最多一次；不改条款、不判真伪、不增加免费教学以外知识门槛。",
       "design_origin": "original_game_item",
       "hands_required": 1,
       "acquisition_enabled": true,
-      "paid_knowledge_page_required": false
+      "paid_knowledge_page_required": false,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q04",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "Q05",
@@ -76,11 +97,14 @@
       "name": "手电",
       "rarity": "standard",
       "price": 65,
-      "benefit": "持续照亮前方",
-      "tradeoff": "使用时占1手，单一区域，需要电池",
+      "benefit": "开灯时前方90°、3格照明，局部黑视半径+0.5格；电量30，每世界秒耗0.5。",
+      "tradeoff": "占1手与唯一light装备位；电量耗尽熄灭，不恢复SAN，不透墙；I06可补25但不超过30。",
       "design_origin": "original_game_item",
       "hands_required": 1,
-      "acquisition_enabled": true
+      "acquisition_enabled": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q05",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "Q06",
@@ -88,11 +112,14 @@
       "name": "头灯",
       "rarity": "uncommon",
       "price": 110,
-      "benefit": "搬运时仍可照明，占0手",
-      "tradeoff": "耗电较普通手电快",
+      "benefit": "开灯时前方90°、3格照明，局部黑视半径+0.5格；电量30，每世界秒耗1。",
+      "tradeoff": "占0手与唯一light装备位；电量耗尽熄灭，不恢复SAN，不透墙；I06可补25但不超过30。",
       "design_origin": "original_game_item",
       "hands_required": 0,
-      "acquisition_enabled": true
+      "acquisition_enabled": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q06",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "Q07",
@@ -100,12 +127,15 @@
       "name": "偏振检视灯",
       "rarity": "rare",
       "price": 180,
-      "benefit": "让当前视域内实际存在的反射线索更清楚，不生成不存在或被遮挡的线索，也不要求付费学习页",
-      "tradeoff": "使用时占1手，普通照明范围较小",
+      "benefit": "开灯时前方90°、2格照明，局部黑视半径+0.5格；电量30，每世界秒耗1。",
+      "tradeoff": "占1手与唯一light装备位；电量耗尽熄灭，不恢复SAN，不透墙；I06可补25但不超过30。只高亮当前真实反射线索。",
       "design_origin": "original_game_item",
       "hands_required": 1,
       "acquisition_enabled": true,
-      "paid_knowledge_page_required": false
+      "paid_knowledge_page_required": false,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q07",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "Q08",
@@ -113,13 +143,23 @@
       "name": "双点灯组",
       "rarity": "special",
       "price": 260,
-      "benefit": "放置两处短程灯点，放置后占0手",
-      "tradeoff": "架设或回收占2手；架设消耗体力12，搬家需回收",
+      "benefit": "可分别到两个既有灯槽架灯，每点2.5格、局部黑视半径+0.5格，共享30电量；每亮点每世界秒耗1。",
+      "tradeoff": "每点架设1秒、2手、体力6、占1部署槽，全部两点合计2秒/12体力/2槽，走路另算；每点回收1秒，电量不刷新。",
       "design_origin": "original_game_item",
       "hands_required": 0,
       "setup_hands_required": 2,
       "recovery_hands_required": 2,
-      "acquisition_enabled": true
+      "acquisition_enabled": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q08",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "setup_world_seconds": 1,
+      "setup_stamina_cost": 6,
+      "counts_toward_deployable_cap": true,
+      "deployment_slots_required": 2,
+      "setup_cost_scope": "per_point",
+      "max_points": 2,
+      "deployment_slots_required_per_point": 1
     },
     {
       "id": "Q09",
@@ -127,11 +167,14 @@
       "name": "工作围裙",
       "rarity": "standard",
       "price": 60,
-      "benefit": "减少普通污物带来的清理返工",
-      "tradeoff": "不防止身份或精神异常",
+      "benefit": "穿戴时，W08实际普通污迹清洁的进度耗时×0.8。",
+      "tradeoff": "占制服位；不改血迹1.5秒专用擦除、湿边2秒割点、怪物等待或身份；不生成污物/返工状态。",
       "design_origin": "original_game_item",
       "hands_required": 0,
-      "acquisition_enabled": true
+      "acquisition_enabled": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q09",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "Q10",
@@ -139,11 +182,14 @@
       "name": "检修围裙",
       "rarity": "uncommon",
       "price": 105,
-      "benefit": "降低游戏中低级设备检修的体力成本",
-      "tradeoff": "移动工作效率小幅下降",
+      "benefit": "穿戴时，W12已登记普通设备简修的实际进度耗时×0.8。",
+      "tradeoff": "占制服位；只减玩家维修进度，不缩怪物预警、QTE预算、F59制作8秒/安装2秒/测试1秒。",
       "design_origin": "original_game_item",
       "hands_required": 0,
-      "acquisition_enabled": true
+      "acquisition_enabled": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q10",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "Q11",
@@ -151,8 +197,8 @@
       "name": "净纹外套",
       "rarity": "rare",
       "price": 190,
-      "benefit": "对选定已学污染类型减少一次负面积累",
-      "tradeoff": "每夜有限耐久，需维修",
+      "benefit": "历史提案：当前效果停用，所有新获取渠道关闭。",
+      "tradeoff": "旧实例原样保留，不扣使用资源、不生成效果；不可按归档文字加载。",
       "design_origin": "original_game_item",
       "hands_required": 0,
       "acquisition_enabled": false,
@@ -161,7 +207,19 @@
       "reward_enabled": false,
       "crafting_enabled": false,
       "disabled_reason": "当前没有污染积累、该装备耐久损失与维修的已定义生产和消费合同；保留历史目录与已有实例，暂停一切新获取，不为此新增污染或装备损耗系统。",
-      "current_target_contract": "content/auxiliary_targets_v07.json"
+      "current_target_contract": "content/auxiliary_targets_v07.json",
+      "historical_archive_v010": {
+        "status": "inactive_unimplemented_proposal",
+        "retained_from": "V0.9",
+        "text": {
+          "benefit": "对选定已学污染类型减少一次负面积累",
+          "tradeoff": "每夜有限耐久，需维修"
+        },
+        "may_load_as_current_effect": false,
+        "existing_instances_preserved": true
+      },
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q11",
+      "effect_handler_implemented": false
     },
     {
       "id": "Q12",
@@ -169,11 +227,14 @@
       "name": "匿名制服",
       "rarity": "special",
       "price": 230,
-      "benefit": "遮蔽多余姓名信息并保留员工编号",
-      "tradeoff": "真实同事也需先按编号确认",
+      "benefit": "使用公开员工编号记录；W14已经完成证据核对后的实物交接进度耗时×0.8。",
+      "tradeoff": "占制服位；只省交接动作，不能遮蔽F21实际目标、跳过身份核对或给来客权限。",
       "design_origin": "original_game_item",
       "hands_required": 0,
-      "acquisition_enabled": true
+      "acquisition_enabled": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q12",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "Q13",
@@ -181,11 +242,14 @@
       "name": "防滑鞋",
       "rarity": "standard",
       "price": 70,
-      "benefit": "湿区普通行走更稳定",
-      "tradeoff": "不能穿越灵体禁区",
+      "benefit": "穿戴时，从既有干侧操作位擦断登记湿边的2世界秒进度减至1.6秒。",
+      "tradeoff": "占鞋位；不准入深水/灵体禁区，不创造免滑状态，不替玩家选正确水源。",
       "design_origin": "original_game_item",
       "hands_required": 0,
-      "acquisition_enabled": true
+      "acquisition_enabled": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q13",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "Q14",
@@ -193,11 +257,14 @@
       "name": "轻步鞋",
       "rarity": "uncommon",
       "price": 115,
-      "benefit": "行走声音减小",
-      "tradeoff": "重搬体力成本增加",
+      "benefit": "空手普通步行速度×1.05：3→3.15格/世界秒。",
+      "tradeoff": "占鞋位；不改冲刺、重搬、任务肉速度或禁区，不声称有无人消费的脚步降噪。",
       "design_origin": "original_game_item",
       "hands_required": 0,
-      "acquisition_enabled": true
+      "acquisition_enabled": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q14",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "Q15",
@@ -205,11 +272,14 @@
       "name": "搬运靴",
       "rarity": "rare",
       "price": 170,
-      "benefit": "重搬体力成本-20%",
-      "tradeoff": "冲刺声音增加",
+      "benefit": "重物减速幅度×0.8：普通重箱2.4→2.52格/秒，登记肉箱2.6→2.68格/秒。",
+      "tradeoff": "占鞋位；与B06只取更小减速倍率，不相乘，不改冲刺，也不产生额外脚步吸怪。",
       "design_origin": "original_game_item",
       "hands_required": 0,
-      "acquisition_enabled": true
+      "acquisition_enabled": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q15",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "Q16",
@@ -217,11 +287,14 @@
       "name": "路标鞋",
       "rarity": "special",
       "price": 250,
-      "benefit": "脚下留下可追溯路径标记",
-      "tradeoff": "寻迹类对象也可能利用标记",
+      "benefit": "实际每走2格留下1个本人路标，单标60世界秒，最多16个；只回溯自己已经走过的路。",
+      "tradeoff": "占鞋位；第17标移除最老标，门路失效处标断。标记不是血迹、湿脚印或诱饵，怪物不追它。",
       "design_origin": "original_game_item",
       "hands_required": 0,
-      "acquisition_enabled": true
+      "acquisition_enabled": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q16",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "Q17",
@@ -229,11 +302,14 @@
       "name": "纪念物",
       "rarity": "standard",
       "price": 60,
-      "benefit": "安全休息时SAN恢复小幅增加",
-      "tradeoff": "需要停止高耗动作",
+      "benefit": "完成白天A02短休后额外SAN+4，每个游戏日最多1次，实际收益受100上限。",
+      "tradeoff": "占护符位；需整个A02持有并佩戴，取消无收益；不加F31/F52或应急稳定收益，06:00只重置一次。",
       "design_origin": "original_game_item",
       "hands_required": 0,
-      "acquisition_enabled": true
+      "acquisition_enabled": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q17",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "Q18",
@@ -241,12 +317,15 @@
       "name": "护袋",
       "rarity": "uncommon",
       "price": 110,
-      "benefit": "携带一份已核验护身材料",
-      "tradeoff": "只对当前原物种类与已登记使用条件匹配的材料提供携带位置；不新增驱魔效果，不以研究页解锁效果",
+      "benefit": "增加1格护袋，只容纳同一已核验I18/I19/I20/I21中的1件。",
+      "tradeoff": "占护符位；不是驱魔增伤，不复制材料、不解封F53预留物；卸下前需有空格或先放回工位。",
       "design_origin": "original_game_item",
       "hands_required": 0,
       "acquisition_enabled": true,
-      "paid_knowledge_page_required": false
+      "paid_knowledge_page_required": false,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q18",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "Q19",
@@ -254,11 +333,14 @@
       "name": "定心珠",
       "rarity": "rare",
       "price": 180,
-      "benefit": "降低一次明确惊吓的SAN损失",
-      "tradeoff": "有冷却，不阻止实体伤害",
+      "benefit": "冷却结束时，对一笔真实fear类SAN损失减3，最低0；成功减损后冷却60世界秒。",
+      "tradeoff": "占护符位；先做恐惧免疫、同源20秒冷却/15点阶段上限，再减损；不挡接触伤、咖啡债务或合约支付。",
       "design_origin": "original_game_item",
       "hands_required": 0,
-      "acquisition_enabled": true
+      "acquisition_enabled": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q19",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "Q20",
@@ -266,11 +348,14 @@
       "name": "双证护牌",
       "rarity": "special",
       "price": 250,
-      "benefit": "保存一次独立核验摘要",
-      "tradeoff": "只辅助记录，不直接判真伪",
+      "benefit": "用0.5世界秒将一份已经亲见的真实核验记录固定到HUD，最多1份；保留来源、时刻和原证据根。",
+      "tradeoff": "占护符位；当前在场快照仍8世界秒失效、连续性中断即时失效，历史只证过去，不变第二独立证据。",
       "design_origin": "original_game_item",
       "hands_required": 0,
-      "acquisition_enabled": true
+      "acquisition_enabled": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q20",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "Q21",
@@ -278,8 +363,8 @@
       "name": "标准挎包",
       "rarity": "standard",
       "price": 60,
-      "benefit": "额外2格普通随身位，与基础4格合计6格",
-      "tradeoff": "关键岗位工具不占该格",
+      "benefit": "基础4格加普通2格，共6个普通位；另有保温食品0格、封存证据0格。",
+      "tradeoff": "只装备一包；专用位只收匹配同件，任务关键物不占普通格。装满拒绝拾取，换包溢出可先存回工位或取消，不销毁物件。",
       "design_origin": "original_game_item",
       "hands_required": 0,
       "capacity_bonus": {
@@ -287,7 +372,10 @@
         "insulated_food": 0,
         "sealed_evidence": 0
       },
-      "acquisition_enabled": true
+      "acquisition_enabled": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q21",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "Q22",
@@ -295,8 +383,8 @@
       "name": "保温包",
       "rarity": "uncommon",
       "price": 110,
-      "benefit": "额外2格保温食品位加2格普通位",
-      "tradeoff": "食品专用位不能装非食品",
+      "benefit": "基础4格加普通2格，共6个普通位；另有保温食品2格、封存证据0格。",
+      "tradeoff": "只装备一包；专用位只收匹配同件，任务关键物不占普通格。装满拒绝拾取，换包溢出可先存回工位或取消，不销毁物件。",
       "design_origin": "original_game_item",
       "hands_required": 0,
       "capacity_bonus": {
@@ -304,7 +392,10 @@
         "insulated_food": 2,
         "sealed_evidence": 0
       },
-      "acquisition_enabled": true
+      "acquisition_enabled": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q22",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "Q23",
@@ -312,8 +403,8 @@
       "name": "证据包",
       "rarity": "rare",
       "price": 180,
-      "benefit": "额外3格封存证据位及2格普通位",
-      "tradeoff": "证据专用位不能装普通耗材",
+      "benefit": "基础4格加普通2格，共6个普通位；另有保温食品0格、封存证据3格。",
+      "tradeoff": "只装备一包；专用位只收匹配同件，任务关键物不占普通格。装满拒绝拾取，换包溢出可先存回工位或取消，不销毁物件。",
       "design_origin": "original_game_item",
       "hands_required": 0,
       "capacity_bonus": {
@@ -321,7 +412,10 @@
         "insulated_food": 0,
         "sealed_evidence": 3
       },
-      "acquisition_enabled": true
+      "acquisition_enabled": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q23",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "Q24",
@@ -329,8 +423,8 @@
       "name": "搬运背包",
       "rarity": "special",
       "price": 260,
-      "benefit": "额外6格普通随身位，与基础4格合计10格",
-      "tradeoff": "满载时重动作体力成本+15%",
+      "benefit": "基础4格加普通6格，共10个普通位；另有保温食品0格、封存证据0格。",
+      "tradeoff": "只装备一包；专用位只收匹配同件，任务关键物不占普通格。装满拒绝拾取，换包溢出可先存回工位或取消，不销毁物件。",
       "design_origin": "original_game_item",
       "hands_required": 0,
       "capacity_bonus": {
@@ -338,7 +432,10 @@
         "insulated_food": 0,
         "sealed_evidence": 0
       },
-      "acquisition_enabled": true
+      "acquisition_enabled": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/Q24",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     }
   ],
   "baseline_inventory_slots": 4,
@@ -369,5 +466,8 @@
     "ordinary_swap_and_preparation_free": true,
     "deployable_recharge_and_I07_repair_follow_existing_own_contracts": true,
     "no_generic_repair_can_refresh_pet_or_deployable_resources": true
-  }
+  },
+  "auxiliary_effect_contract": "content/auxiliary_effects_v010.json",
+  "auxiliary_client_implemented": false,
+  "action_costs_v010": "未定义基础体力/噪声的旧加减改成具体既有动作/容量/速度效果；不添加第五资源或脚步声怪物感知。"
 }

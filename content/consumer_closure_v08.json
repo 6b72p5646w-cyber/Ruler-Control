@@ -10,8 +10,7 @@
       "I04",
       "I05",
       "I13",
-      "I14",
-      "I20"
+      "I14"
     ],
     "food_status_is_separate_from_effect_tag": true,
     "ownership_alone_makes_food_safe": false,
@@ -50,7 +49,21 @@
     "unsupported_unknown_gift_policy": "keep_sealed_or_decline_no_consumption_no_safety_claim",
     "knowledge_or_species_identification_substitutes_for_inspection": false,
     "one_food_instance_consumed_once": true,
-    "inspection_handler_required_before_promising_edible_gift": true
+    "inspection_handler_required_before_promising_edible_gift": true,
+    "material_verification_item_ids": [
+      "I20"
+    ],
+    "inspectable_item_ids": [
+      "I01",
+      "I02",
+      "I03",
+      "I04",
+      "I05",
+      "I13",
+      "I14",
+      "I20"
+    ],
+    "material_verification_does_not_grant_ingestion_effect": true
   },
   "friendly_benefits": {
     "settlement_scope": "each_predeclared_reward_key_once_per_encounter_instance",

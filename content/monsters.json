@@ -29,10 +29,10 @@
       ],
       "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
-        "energy": "完整复核精力-4，学习计量后-2。",
-        "san": "错签SAN-6一次；正确交涉+2。",
-        "satiety": "只随统一时钟变化；未验食品不可计恢复。",
-        "stamina": "普通搬放无硬体力门槛。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -41,7 +41,7 @@
         ],
         "easier": [
           "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-          "看着满箱很想直接补完；复核占一次绕路，贸然上架会出现空货格。"
+          "先投入计量时间保住真货，或保守整箱退回损失本次进货；错架后只回收那一箱。"
         ]
       },
       "impersonation": {
@@ -68,16 +68,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F01",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "本实例货箱全部分入已验货槽或整箱实际退回；假货不再占待售槽。未接受到货可拒收结束，不记销售。",
+      "current_resolution": "两件原物分别处于已验货槽与封闭退回槽、误上架限制已清；或同一整箱实际退还。计量不产生额外商品。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F01",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "完整复核精力-4，学习计量后-2。",
+        "san": "错签SAN-6一次；正确交涉+2。",
+        "satiety": "只随统一时钟变化；未验食品不可计恢复。",
+        "stamina": "普通搬放无硬体力门槛。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F01",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F02",
@@ -98,10 +110,10 @@
       ],
       "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
-        "energy": "复核精力-3。",
-        "san": "惊吓按单遭遇上限结算；不连续刷皮扣SAN。",
-        "satiety": "无直接扣除。",
-        "stamina": "开关和限权无体力门槛。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -110,7 +122,7 @@
         ],
         "easier": [
           "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-          "去核验台会离开柜台，保持待核可以继续低风险营业；不靠不停扣SAN逼迫误判。"
+          "核验可识别异常并保留信息；直接守住钥匙也能安全，但不能自动确认真人或拿辨认回报。"
         ]
       },
       "impersonation": {
@@ -138,7 +150,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F02",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -147,7 +159,19 @@
       "current_resolution": "异常来者请求被拒绝或核验完毕并实际离场，高风险权限未扩大；交接物由已核验玩家或真人保管。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F02",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "复核精力-3。",
+        "san": "惊吓按单遭遇上限结算；不连续刷皮扣SAN。",
+        "satiety": "无直接扣除。",
+        "stamina": "开关和限权无体力门槛。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F02",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F03",
@@ -168,19 +192,19 @@
       ],
       "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
-        "energy": "按常规工作疲劳，无跳跃次数税。",
-        "san": "接触最多按共享恐惧上限结算。",
-        "satiety": "随时间正常下降。",
-        "stamina": "游戏内屏息每秒-5，最多4秒；0体力仍可走到安全侧。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "在落点预告中抱箱急冲并真实被命中：SAN-10；均须实际完成且按同实例回执去重。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
           "暴露格屏息后的体力恢复延迟增加2秒。",
-          "后门不能作为绕行捷径。"
+          "同一已登记补货箱的两个运输单位实际错放到后门receiving原收货位；不是新生成两箱，货架短口与跳跃节奏不变。"
         ],
         "easier": [
           "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-          "短屏息限制迫使你分段搬货；安全点只屏蔽呼吸目标，不是所有怪的无敌格。"
+          "短屏息可省等待但吃体力；0体力仍可看落点、用2秒停顿走过短口，分两次搬同单货。"
         ]
       },
       "impersonation": {
@@ -202,16 +226,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F03",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "两只登记货箱已送到目标槽且最后有效雾点失效，僵尸退回入口；拒收本次加运任务则封存货箱、失去该项收益后离场。",
+      "current_resolution": "两个真实运输单位到预留槽、玩家退出呼吸暴露区、最后雾点6世界秒自然失效；或未接受的加运请求封存原货安全退回。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F03",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "按常规工作疲劳，无跳跃次数税。",
+        "san": "接触最多按共享恐惧上限结算。",
+        "satiety": "随时间正常下降。",
+        "stamina": "游戏内屏息每秒-5，最多4秒；0体力仍可走到安全侧。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F03",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F04",
@@ -232,19 +268,19 @@
       ],
       "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
-        "energy": "完整整理精力-3。",
-        "san": "公平交易SAN+3。",
-        "satiety": "用的是工作清水库存，不扣主角已得饱腹。",
-        "stamina": "轻物操作无硬体力需求。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
           "水槽无供水。",
-          "地面湿连接已激活。"
+          "寄售标签打印器真实卡纸，已经锁定的同一湿纱计量结果仍保留；前场暴雨不再被算成后区新增水连接。"
         ],
         "easier": [
           "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-          "要先准备容器再取货；照普通干货顺序做会被纱缠住，不能用更多力气硬拉。"
+          "先备盘再取货省下暴露压力；密封后走较安全长路仍可送到。"
         ]
       },
       "impersonation": {
@@ -266,7 +302,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F04",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -275,7 +311,19 @@
       "current_resolution": "湿纱已实际量过、保湿盘合盖并交入寄售槽；未接受寄售可退回同一湿纱，接受后退货也终止交易但不发成交回报。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F04",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "完整整理精力-3。",
+        "san": "公平交易SAN+3。",
+        "satiety": "用的是工作清水库存，不扣主角已得饱腹。",
+        "stamina": "轻物操作无硬体力需求。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F04",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F05",
@@ -296,10 +344,10 @@
       ],
       "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
-        "energy": "分段清扫精力-4。",
-        "san": "首次拖拽SAN-4，重复惊吓按共享冷却。",
-        "satiety": "无直接变化。",
-        "stamina": "完整快速拉回耗12；不足时改慢拉不耗体力，额外2秒纳入恢复预留。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -308,7 +356,7 @@
         ],
         "easier": [
           "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-          "越急着抢回货越接近水；关阀会暂时停一处水务，但必要食物和出口不断。"
+          "先关来源还是直接抢回货物，是可见因果区别；干路较绕但避免牵引。"
         ]
       },
       "impersonation": {
@@ -330,16 +378,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F05",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "登记篮已回干槽且与本实例水源断开，经一次世界更新确认后结束。到场前已断水并移回目标篮同样记为预防完成。",
+      "current_resolution": "免费路径实际关阀0.5秒、在[24.5,11.5]擦断割点2秒、干侧取原篮0.6秒并搬到[25.5,11.5]放0.6秒，经0.2秒确认。最终判断是原篮已干且无篮—源连接；若真实B07提供临时断边也可搬出完成，不强加阀永远关闭。 本卡关闭的明确是water_valve工位cold_branch，不是F57的rear_source。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F05",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "分段清扫精力-4。",
+        "san": "首次拖拽SAN-4，重复惊吓按共享冷却。",
+        "satiety": "无直接变化。",
+        "stamina": "完整快速拉回耗12；不足时改慢拉不耗体力，额外2秒纳入恢复预留。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F05",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F06",
@@ -360,10 +420,10 @@
       ],
       "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
-        "energy": "保温准备精力-3。",
-        "san": "按已提示违约处理，存在一次补救。",
-        "satiety": "减少一份热饮库存，不直接扣主角饱腹。",
-        "stamina": "局部冷区恢复速度降低20%，离开恢复；步行无门槛。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -372,7 +432,7 @@
         ],
         "easier": [
           "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-          "不能远程叫同事，玩家要自己走一趟；保持距离与保温窗口构成实际操作。"
+          "准备纸票和杯套后再制热，避免把品质时间花在找票或排队上。"
         ]
       },
       "impersonation": {
@@ -399,7 +459,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F06",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -408,7 +468,19 @@
       "current_resolution": "登记热饮与纸单实际进入同一槽，保密限制解除；明确退单或未接受即拒绝也会结束本单，均不记营业成功。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F06",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "保温准备精力-3。",
+        "san": "按已提示违约处理，存在一次补救。",
+        "satiety": "减少一份热饮库存，不直接扣主角饱腹。",
+        "stamina": "局部冷区恢复速度降低20%，离开恢复；步行无门槛。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F06",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F07",
@@ -429,19 +501,19 @@
       ],
       "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
-        "energy": "一次完整小休额外精力+3，不能超上限。",
-        "san": "安静互动SAN+2一次。",
-        "satiety": "无直接变化。",
-        "stamina": "小休按已有恢复规则，不额外重复叠加体力奖励。"
+        "energy": "只有统一时钟和明确当前actions生效，不叠加旧卡整套精力成本。",
+        "san": "真实完成同一空椅45秒并安静收牌后+2一次；无未来短休令牌。",
+        "satiety": "交换实际库存份额，不倒扣已经获得的饱腹；保底餐保持独立。",
+        "stamina": "普通步行和关键取放开合在0体力可完成；可选冲刺走统一核心。"
       },
       "synergy_conditions": {
         "harder": [
           "排队更长，空椅不能给顾客使用。",
-          "同事开班短暂迟到，玩家暂时独自应付椅旁顾客。"
+          "E028真人在事件起点后20世界秒实际返回；与N01座椅异象相遇时可能已经到门口，但当前身体尚未完成核验，不能立即代守柜台。"
         ],
         "easier": [
           "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-          "留位会挤占一处等候空间；引导同一批顾客比简单关店更合算。"
+          "留椅会占一处等候空间；引导同一顾客保住营业，也可放弃本单换较少分心。"
         ]
       },
       "impersonation": {
@@ -463,16 +535,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F07",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "自到场起保留45秒，期间无人占椅；冲突浏览客已改道，或因未入店而离去/取消，均可结束本实例。未入店不记成交，回报至多一次。",
+      "current_resolution": "实际空椅保护45世界秒、原客改道/取消、童子离去；收牌回执SAN+2一次，与日后短休无关。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F07",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "一次完整小休额外精力+3，不能超上限。",
+        "san": "安静互动SAN+2一次。",
+        "satiety": "无直接变化。",
+        "stamina": "小休按已有恢复规则，不额外重复叠加体力奖励。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F07",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F08",
@@ -493,10 +577,10 @@
       ],
       "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
-        "energy": "退役精力-2，修理-6；修好后三次对应工作各省1。",
-        "san": "妥善安置SAN+2一次。",
-        "satiety": "无直接变化。",
-        "stamina": "轻工具拿放不设门槛。"
+        "energy": "只有统一时钟和明确当前actions生效，不叠加旧卡整套精力成本。",
+        "san": "修补/退役不额外奖惩SAN，只完成实际工具状态和原工单。",
+        "satiety": "交换实际库存份额，不倒扣已经获得的饱腹；保底餐保持独立。",
+        "stamina": "普通步行和关键取放开合在0体力可完成；可选冲刺走统一核心。"
       },
       "synergy_conditions": {
         "harder": [
@@ -505,7 +589,7 @@
         ],
         "easier": [
           "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-          "修好能保住工具，退役更快但当夜少一件辅助；没有唯一购买门槛。"
+          "快退役不耗材料；维修保住原工具、完成本夜现有维修工单，材料也可能留给F59。"
         ]
       },
       "impersonation": {
@@ -527,16 +611,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F08",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "同一工具完成实际修补试作，或交入退役槽；两种都是终态。工具已退休不再从垃圾口反复返回。",
+      "current_resolution": "真实贴片试作修好原工具，或搬原工具到退役槽停敲；两条均可终结。只对维修分支预约一份材料，退役零材料可达。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F08",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "退役精力-2，修理-6；修好后三次对应工作各省1。",
+        "san": "妥善安置SAN+2一次。",
+        "satiety": "无直接变化。",
+        "stamina": "轻工具拿放不设门槛。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F08",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F09",
@@ -557,10 +653,10 @@
       ],
       "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
-        "energy": "额外送货精力-3。",
-        "san": "首次伸颈SAN-3一次。",
-        "satiety": "未售商品不会凭空减少饱腹。",
-        "stamina": "误追头部的冲刺按普通成本；步行完成不需冲刺。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -569,7 +665,7 @@
         ],
         "easier": [
           "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-          "注意会被高处头吸走；身体还随队列移动，玩家必须追踪物件归属。"
+          "沿头部指示找货，却要跟随实际身体篮交付；队列变化时看篮号而非记坐标。"
         ]
       },
       "impersonation": {
@@ -591,16 +687,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F09",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "指定商品全部进入同一身体篮且本单实际结清；未接受时可放弃该顾客，已接受可退单归槽并让顾客离店，不留下永久未完成单。",
+      "current_resolution": "同一身体篮装齐两件（E009三件）原商品并实际到柜台，按普通1.5秒收银完成唯一销售回执。到柜台前最多8秒实际移动/等待必须计入70秒窗口。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F09",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "额外送货精力-3。",
+        "san": "首次伸颈SAN-3一次。",
+        "satiety": "未售商品不会凭空减少饱腹。",
+        "stamina": "误追头部的冲刺按普通成本；步行完成不需冲刺。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F09",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F10",
@@ -621,10 +729,10 @@
       ],
       "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
-        "energy": "整理证据精力-3。",
-        "san": "无效回复最多SAN-6总计。",
-        "satiety": "无直接变化。",
-        "stamina": "疏排为基本操作，不设体力门槛。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -633,7 +741,7 @@
         ],
         "easier": [
           "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-          "不是选一句勇敢台词；玩家要把日常遗留的物件带到危险窗前争取排水时机。"
+          "真实工作留下的回执才可让巨影停水；先备布再投票，可把6秒窗口完整留给拉杆和关窗。"
         ]
       },
       "impersonation": {
@@ -655,16 +763,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F10",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "本班实物记录已展示、水位回落且小窗关闭。",
+      "current_resolution": "同一真实问题回执实际呈入、相邻ATT12排水杆把本实例三档水位降至0、服务小窗关闭。6秒读票窗不要求跑到drain_channel。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F10",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "整理证据精力-3。",
+        "san": "无效回复最多SAN-6总计。",
+        "satiety": "无直接变化。",
+        "stamina": "疏排为基本操作，不设体力门槛。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F10",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F11",
@@ -685,10 +805,10 @@
       ],
       "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
-        "energy": "参赛精力-2；包装走普通工作成本。",
-        "san": "公平输赢不扣SAN，QTE依当前SAN缩区。",
-        "satiety": "支付一份库存，不扣已获得饱腹。",
-        "stamina": "参赛20，败方再5；门槛25，非强制。"
+        "energy": "只有统一时钟和明确当前actions生效，不叠加旧卡整套精力成本。",
+        "san": "公平比赛与拒绝无额外SAN罚，QTE受统一SAN参数；同一I21×1按实际领取。",
+        "satiety": "交换实际库存份额，不倒扣已经获得的饱腹；保底餐保持独立。",
+        "stamina": "比赛可选：门槛25，成功20/失败25，食品分支无硬门槛。"
       },
       "synergy_conditions": {
         "harder": [
@@ -697,7 +817,7 @@
         ],
         "easier": [
           "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-          "挑战耗体力和操作时间，食物路线耗一份公开库存；拒绝可退出不受追罚。"
+          "保食物可花12秒和体力比两轮；缺体力或失衡后仍可用一份荞麦交换，亦可放弃。"
         ]
       },
       "impersonation": {
@@ -719,16 +839,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F11",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "两轮平衡完成或实际交付一份荞麦即成功；未接受邀请的拒绝/到期离场也是结束但无奖励。已接受后的退出仅结算事先明示赌注。",
+      "current_resolution": "一次两轮比赛完成或同一荞麦份实际交付即可结束；随来客到场的I21×1可独立领取，背包满不阻止完成。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F11",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "参赛精力-2；包装走普通工作成本。",
+        "san": "公平输赢不扣SAN，QTE依当前SAN缩区。",
+        "satiety": "支付一份库存，不扣已获得饱腹。",
+        "stamina": "参赛20，败方再5；门槛25，非强制。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F11",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F12",
@@ -749,10 +881,10 @@
       ],
       "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
-        "energy": "沿用取物工作成本，不按每枚额外扣精力。",
-        "san": "只按共享受击与预警结算。",
-        "satiety": "随统一时间流逝，诱饵不扣饱腹。",
-        "stamina": "普通步行、取物、撒点始终可用；冲刺可选。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "拿着盒站等且在蓄势后实际被打中：SAN-10；均须实际完成且按同实例回执去重。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -761,7 +893,7 @@
         ],
         "easier": [
           "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-          "要在被追与取工具间做路线选择；不加吃铁长大、持金属加速、啃门或动态体型寻路。"
+          "边走边撒真实回形针，利用停食时间把追逐路线逐段拉到门外；拿盒不等于诱饵。"
         ]
       },
       "impersonation": {
@@ -786,7 +918,7 @@
       "encounter_blueprint_id": "F12",
       "interaction_scale": "world_map_only_during_pursuit",
       "prototype_status": "mapped_to_shared_store_interactions_v03",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F12",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -795,7 +927,19 @@
       "current_resolution": "完全按 encounter_blueprints F12：诱饵锁定规则有效，整身诱至门外0.25秒，立即锁定本实例成功，不要求关门。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F12",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "沿用取物工作成本，不按每枚额外扣精力。",
+        "san": "只按共享受击与预警结算。",
+        "satiety": "随统一时间流逝，诱饵不扣饱腹。",
+        "stamina": "普通步行、取物、撒点始终可用；冲刺可选。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F12",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F13",
@@ -816,10 +960,10 @@
       ],
       "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
-        "energy": "使用基础搬运成本，不额外隐扣触肉税。",
-        "san": "共享受击规则，不因每帧触肉重复扣SAN。",
-        "satiety": "任务肉属于店存，不扣已经吃下的饱腹。",
-        "stamina": "0体力仍可拾取、2.6格/秒携带、存入；不强迫冲刺。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -828,7 +972,7 @@
         ],
         "easier": [
           "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-          "为拿肉你必须靠近她的目标；提前准备短路比等发怒后奔跑更好。基础冰柜不消耗应急电。"
+          "早送肉可直接避免追杀；取肉后必须安排干路和有效柜，丢肉不能把怒态降回去。"
         ]
       },
       "impersonation": {
@@ -853,7 +997,7 @@
       "encounter_blueprint_id": "F13",
       "interaction_scale": "world_map_only_during_pursuit",
       "prototype_status": "mapped_to_shared_store_interactions_v03",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F13",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -862,7 +1006,19 @@
       "current_resolution": "完全按 encounter_blueprints F13：本实例登记肉存入有效柜并关门原子提交；同帧胜利优先，之后开柜/停电不复活。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F13",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "使用基础搬运成本，不额外隐扣触肉税。",
+        "san": "共享受击规则，不因每帧触肉重复扣SAN。",
+        "satiety": "任务肉属于店存，不扣已经吃下的饱腹。",
+        "stamina": "0体力仍可拾取、2.6格/秒携带、存入；不强迫冲刺。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F13",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F14",
@@ -883,10 +1039,10 @@
       ],
       "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
-        "energy": "协助精力-5。",
-        "san": "目睹独立影手SAN-5，救回+3。",
-        "satiety": "耗一份员工餐库存；不扣已得饱腹，不占主角保底餐。",
-        "stamina": "普通盒搬运无硬门槛。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -895,7 +1051,7 @@
         ],
         "easier": [
           "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-          "需要暂时失去一个帮手；身份与附着物分开处理，不能套用假扮者驱逐流程。"
+          "暂时失去同事的食品协助，换取观察并把附着影子从真人身上分离；不把食量或生病当证据。"
         ]
       },
       "impersonation": {
@@ -933,7 +1089,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F14",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -942,7 +1098,19 @@
       "current_resolution": "同一影子实际封入登记盒并送出，真人留店；恢复其原有权限范围，再按当前可用岗位安排，不瞬移回已被占用工位。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F14",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "协助精力-5。",
+        "san": "目睹独立影手SAN-5，救回+3。",
+        "satiety": "耗一份员工餐库存；不扣已得饱腹，不占主角保底餐。",
+        "stamina": "普通盒搬运无硬门槛。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F14",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F15",
@@ -963,10 +1131,10 @@
       ],
       "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
-        "energy": "完整精力-4，重复操作最多额外-2。",
-        "san": "成功+4；错误最多-2总计。",
-        "satiety": "无直接变化且无必购食物。",
-        "stamina": "基础拿放开合无需体力。"
+        "energy": "只有统一时钟和明确当前actions生效，不叠加旧卡整套精力成本。",
+        "san": "真实稳定交回原装置+4一次；实际错序总计最多−2。",
+        "satiety": "交换实际库存份额，不倒扣已经获得的饱腹；保底餐保持独立。",
+        "stamina": "普通步行和关键取放开合在0体力可完成；可选冲刺走统一核心。"
       },
       "synergy_conditions": {
         "harder": [
@@ -975,7 +1143,7 @@
         ],
         "easier": [
           "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-          "玩家以摆放和顺序复原记忆；不答人物身世选择题，听不清也有等价图示。"
+          "把看到的先后关系变成真实点灯、盖布、合铃；看懂后可直接做，忘记可重播。"
         ]
       },
       "impersonation": {
@@ -1003,16 +1171,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F15",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "本实例灯、布、铃盒按顺序完成并稳定3世界秒后离场；未接受装置可拒收，未完成交回不发奖励。",
+      "current_resolution": "实际点灯、盖布、合铃正确并保持3世界秒，交回同一装置，SAN+4一次。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F15",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "完整精力-4，重复操作最多额外-2。",
+        "san": "成功+4；错误最多-2总计。",
+        "satiety": "无直接变化且无必购食物。",
+        "stamina": "基础拿放开合无需体力。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F15",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F16",
@@ -1033,19 +1213,19 @@
       ],
       "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
-        "energy": "现金复盘精力-3。",
-        "san": "首次识别SAN-2。",
-        "satiety": "无直接变化。",
-        "stamina": "普通跟踪与拿放无门槛。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
-          "可用找零少，不能继续敞盘找零。",
+          "真实E002钱匣卡滞；F16同一次偷币仍绑定原敞盘与原币ID，卡滞不等于缺零钱，也不会抹掉已有转移。",
           "在线账目不可读，使用店内离线流水。"
         ],
         "easier": [
           "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-          "先保护库存还是马上追踪形成次序选择；不用计算找零或怀疑每个普通顾客。"
+          "先封盘能立刻封住损失；跟踪回收耗行程但能拿回已丢的原币。"
         ]
       },
       "impersonation": {
@@ -1067,16 +1247,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F16",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "本实例实际转移的钱已回封袋且测试币回工具槽，偷取路径关闭；尚未丢币就封盘并收回诱饵也算预防，不能要求故意被偷满三次。",
+      "current_resolution": "实际盘封闭、同事故所有1—3枚失币回原袋、不可兑换测试币回工具槽；首偷前封盘直接预防，不要求做三次转移。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F16",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "现金复盘精力-3。",
+        "san": "首次识别SAN-2。",
+        "satiety": "无直接变化。",
+        "stamina": "普通跟踪与拿放无门槛。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F16",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F17",
@@ -1097,10 +1289,10 @@
       ],
       "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
-        "energy": "解结精力-4，学过辨识则-2。",
-        "san": "成功SAN+3。",
-        "satiety": "无直接变化。",
-        "stamina": "搬上台快速方式-8，不足时慢搬多2秒不扣体力。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -1109,7 +1301,7 @@
         ],
         "easier": [
           "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-          "靠近核绳要暂离柜台，但细节由特写清晰呈现；不是识别一个小像素结。"
+          "解结时可安全看特写，完成后必须亲自退出距离给来客领取，不能原地等自动消失。"
         ]
       },
       "impersonation": {
@@ -1131,16 +1323,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F17",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "同一包裹三个结已松开并放交付槽；玩家实际退出2.5格安全距离，来客领取同一物件后才提交交付成功。未接寄存可拒收。",
+      "current_resolution": "同一包裹三结松开并放原公共领取槽；玩家实际退至2.5格外，来客用2世界秒走近取走才算交付。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F17",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "解结精力-4，学过辨识则-2。",
+        "san": "成功SAN+3。",
+        "satiety": "无直接变化。",
+        "stamina": "搬上台快速方式-8，不足时慢搬多2秒不扣体力。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F17",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F18",
@@ -1162,10 +1366,10 @@
       ],
       "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
-        "energy": "复核精力-4。",
-        "san": "确认变形SAN-7一次。",
-        "satiety": "无直接变化。",
-        "stamina": "绕行关门正常步行；不强制消耗8体力。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -1174,7 +1378,7 @@
         ],
         "easier": [
           "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-          "清洁任务的正确本能会毁掉线索；先留痕后清洁才能保住一次核验机会。"
+          "保存可核验痕迹比急着拖干净更有价值；证据损坏可尝试一次真实重走，不能强制猜人。"
         ]
       },
       "impersonation": {
@@ -1201,7 +1405,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F18",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -1210,7 +1414,19 @@
       "current_resolution": "连续爪鞋变化与独立入口记录核验后，来者仍未获越界权限并离去；证据不足时保持访客权限并拒绝请求，也可安全结束但不算辨认成功。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F18",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "复核精力-4。",
+        "san": "确认变形SAN-7一次。",
+        "satiety": "无直接变化。",
+        "stamina": "绕行关门正常步行；不强制消耗8体力。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F18",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F19",
@@ -1231,10 +1447,10 @@
       ],
       "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
-        "energy": "完整核对精力-3，回返额外-2最多两次。",
-        "san": "正确推理+2，错误最多-4。",
-        "satiety": "无直接变化。",
-        "stamina": "每段普通搬运可慢走无门槛；推车仅省时。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -1243,7 +1459,7 @@
         ],
         "easier": [
           "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-          "器物持续说话诱你停步，真正解是安排放下的节点；答题变为带物穿行。"
+          "抱包时不口答，把已有交易事实用实物票据安放到两个站点；错答多一次真实回程但不重做历史。"
         ]
       },
       "impersonation": {
@@ -1265,16 +1481,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F19",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "两个节点挂入同一真实订单链的对应凭据，同一包裹实际入匹配寄存格；未接寄存可拒收，源记录失效时安全取消。",
+      "current_resolution": "同一原包裹在receiving和packing两站挂入同一实际订单链的两份回执后，实际搬入pickup_shelf匹配格并关门。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F19",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "完整核对精力-3，回返额外-2最多两次。",
+        "san": "正确推理+2，错误最多-4。",
+        "satiety": "无直接变化。",
+        "stamina": "每段普通搬运可慢走无门槛；推车仅省时。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F19",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F20",
@@ -1295,10 +1523,10 @@
       ],
       "safe_response": "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
       "resource_effects": {
-        "energy": "逐项核验精力-4。",
-        "san": "越权后撤回SAN-6；正确守界不扣。",
-        "satiety": "交一份库存，不扣已得饱腹；不可强夺主角免费保底餐。",
-        "stamina": "操作无体力门槛。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -1307,7 +1535,7 @@
         ],
         "easier": [
           "所述基础操作使用本店常备工具与已登记任务物件；不要求购买、抽奖、宠物或应急储备电。可选交易的食材成本须事先公开且保留主角保底餐。",
-          "善意可以履行，但交付边界必须亲手保持；无需读长篇授权协议。"
+          "接受后完成明确一份，用托盘、窗口和钥匙位置守住范围；既有团购变体会考验同物分槽而非猜台词。"
         ]
       },
       "impersonation": {
@@ -1334,16 +1562,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F20",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "一份实际食品交付且额外库存和钥匙未越界即成功；未接受请求可拒绝或等来客离场，均无供食欠债。",
+      "current_resolution": "一份真实食品已交来客，追加空盘收回、服务缝关闭，钥匙/全库权限均未越界。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F20",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "逐项核验精力-4。",
+        "san": "越权后撤回SAN-6；正确守界不扣。",
+        "satiety": "交一份库存，不扣已得饱腹；不可强夺主角免费保底餐。",
+        "stamina": "操作无体力门槛。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F20",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F21",
@@ -1364,10 +1604,10 @@
       ],
       "safe_response": "纸位置卡、机械旗、手动关机和基本调岗不耗电。",
       "resource_effects": {
-        "energy": "调岗与复位额外精力−2。",
-        "san": "成功无SAN损失；错过预告SAN−4一次。",
-        "satiety": "仅统一时间流逝扣除。",
-        "stamina": "步行调岗可在0体力完成。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -1376,7 +1616,7 @@
         ],
         "easier": [
           "纸位置卡、机械旗、手动关机和基本调岗不耗电。",
-          "救人会暂停该工位产出；预告须覆盖实际调岗与关机路程。"
+          "真正危险是被预告者仍占着实际设备；能先离岗，也能从安全侧先断电，工作收益与人身风险冲突可见。"
         ]
       },
       "impersonation": {
@@ -1398,16 +1638,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F21",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "目标已实际离开危险区且设备安全停机，即使在警告前完成也记为预防；设备与人员结果只提交一次。",
+      "current_resolution": "同fault_id的实际人员已离危险格、设备停机并挂待修牌；停机和离岗先后可交换，不能一边承认早停机预防一边禁止早停机。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F21",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "调岗与复位额外精力−2。",
+        "san": "成功无SAN损失；错过预告SAN−4一次。",
+        "satiety": "仅统一时间流逝扣除。",
+        "stamina": "步行调岗可在0体力完成。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F21",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F22",
@@ -1428,10 +1680,10 @@
       ],
       "safe_response": "使用店内免费基础供食和现有工区，不必购买宠物或设备。",
       "resource_effects": {
-        "energy": "委托布置精力−1；可省原清洁工单的精力。",
-        "san": "被看到无SAN罚；恐惧仅由现有规则累计。",
-        "satiety": "给出的是尚未食用库存，不扣已经恢复的饱腹。",
-        "stamina": "往返步行；0体力仍可完成。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -1440,7 +1692,7 @@
         ],
         "easier": [
           "使用店内免费基础供食和现有工区，不必购买宠物或设备。",
-          "少一个可看方向，换一次代工；不能让同事同时重复做该点。"
+          "消耗一份真实餐换已存在杂务的代工，但要把视线和工作安排到别处；不是白得一个新任务奖励。"
         ]
       },
       "impersonation": {
@@ -1468,16 +1720,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F22",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "登记的现有工单点由帮手完成并实际验收，只记一次；若玩家或同事先完成，该实例以目标已完成退场，不重复发代工奖励。未接受帮助可拒绝。",
+      "current_resolution": "同一真实未完工点在不直视时累计8世界秒完成，玩家回原工区验收1.5秒；只结该原工单一次，不增代工币或新脏点。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F22",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "委托布置精力−1；可省原清洁工单的精力。",
+        "san": "被看到无SAN罚；恐惧仅由现有规则累计。",
+        "satiety": "给出的是尚未食用库存，不扣已经恢复的饱腹。",
+        "stamina": "往返步行；0体力仍可完成。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F22",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F23",
@@ -1499,10 +1763,10 @@
       ],
       "safe_response": "查看皮衣、纸质认领格与中立交付均免费。",
       "resource_effects": {
-        "energy": "展开核对精力−2。",
-        "san": "错误保管SAN−4一次。",
-        "satiety": "统一时钟扣除，不要求供食。",
-        "stamina": "轻衣物不占大件任务槽。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -1511,7 +1775,7 @@
         ],
         "easier": [
           "查看皮衣、纸质认领格与中立交付均免费。",
-          "中立台与普通提货争位置；怪可能是受害者，不能凭外貌驱赶。"
+          "先固定认领说法再看衣内细节，避免两人都照着物件复述；证据不足可保管而放弃礼物。"
         ]
       },
       "impersonation": {
@@ -1533,17 +1797,29 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F23",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "同一皮衣实际交还匹配认领者并离店，即结束本次认领遭遇。有限载荷中的I21应急护身符一份按独立领取回执转移；未领取或背包满不阻止安全结束，同一礼物保留在已有槽，不复制。证据不足可保持原封存并请来者离去，安全结束但无礼物。",
+      "current_resolution": "同一真实交存皮衣经实物细节/既有归属线索对照后归还正确者并实际离场；I21×1独立领取，不阻止结束。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F23",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。",
-      "completion_condition": "同一皮衣实际交还匹配认领者并离店，即结束本次认领遭遇。有限载荷中的I21应急护身符一份按独立领取回执转移；未领取或背包满不阻止安全结束，同一礼物保留在已有槽，不复制。证据不足可保持原封存并请来者离去，安全结束但无礼物。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "completion_condition": "同一皮衣实际交还匹配认领者并离店，即结束本次认领遭遇。有限载荷中的I21应急护身符一份按独立领取回执转移；未领取或背包满不阻止安全结束，同一礼物保留在已有槽，不复制。证据不足可保持原封存并请来者离去，安全结束但无礼物。",
+      "legacy_resource_effects": {
+        "energy": "展开核对精力−2。",
+        "san": "错误保管SAN−4一次。",
+        "satiety": "统一时钟扣除，不要求供食。",
+        "stamina": "轻衣物不占大件任务槽。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F23",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F24",
@@ -1565,10 +1841,10 @@
       ],
       "safe_response": "拖把与固定干侧取物位可用，不要求吸水垫。",
       "resource_effects": {
-        "energy": "擦一个格精力−2。",
-        "san": "跨湿区失误SAN−5；反复接触受共享恐惧上限约束。",
-        "satiety": "统一时间流逝。",
-        "stamina": "拖车耗体力；放下后正常步行不受0体力禁用。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -1577,7 +1853,7 @@
         ],
         "easier": [
           "拖把与固定干侧取物位可用，不要求吸水垫。",
-          "需要额外搬运与清洁，省下越线风险；暂停迎宾不能擦掉湿路。"
+          "跟着移动目标会越推越危险；识别固定干线后把同一货拉回自己控制的交接点。"
         ]
       },
       "impersonation": {
@@ -1603,16 +1879,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F24",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "同一登记货物位于干侧交付槽且与本实例源不连通；到场前已卸货或断水同样记为预防，来者结束牵引后离去。",
+      "current_resolution": "先从mop_station实际取干布1秒，在WET_REAR的[27.5,-0.5]操作位断既有割点2秒，取同货0.6秒并放后门内干槽0.6秒。备用仅用既有isolation_cage。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F24",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "擦一个格精力−2。",
+        "san": "跨湿区失误SAN−5；反复接触受共享恐惧上限约束。",
+        "satiety": "统一时间流逝。",
+        "stamina": "拖车耗体力；放下后正常步行不受0体力禁用。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F24",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F25",
@@ -1633,10 +1921,10 @@
       ],
       "safe_response": "纸回执、透明槽与肉眼折痕可完成，联网只是便利。",
       "resource_effects": {
-        "energy": "核单精力−2。",
-        "san": "重复付款SAN−3一次。",
-        "satiety": "无额外饱腹要求。",
-        "stamina": "轻商品取放无需体力门槛。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -1645,7 +1933,7 @@
         ],
         "easier": [
           "纸回执、透明槽与肉眼折痕可完成，联网只是便利。",
-          "占用退货槽与收银时间；检查一次可避免不断补钱。"
+          "用原商品在透明槽里的位置和历史原单守住退款次数；新外貌可以干扰注意，不能改变账本键。"
         ]
       },
       "impersonation": {
@@ -1672,16 +1960,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F25",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "同一实物已收回且退款最多提交一次，重复索款被拒绝或到期离场；缺原销售记录则按待核退货结束，不能凭外貌猜。",
+      "current_resolution": "原物实收、唯一refund键原子提交一次、最多两次追加索款结束，退款后原物一直留店内透明槽。跨班同物再索赔仍命中原键。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F25",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "核单精力−2。",
+        "san": "重复付款SAN−3一次。",
+        "satiety": "无额外饱腹要求。",
+        "stamina": "轻商品取放无需体力门槛。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F25",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F26",
@@ -1702,10 +2002,10 @@
       ],
       "safe_response": "基础绷带、拖把与普通垃圾袋均由店内提供。",
       "resource_effects": {
-        "energy": "包扎与清理精力−3。",
-        "san": "接触伤害按共享SAN−10与伤情规则，无额外叠同类惊吓。",
-        "satiety": "统一时间流逝。",
-        "stamina": "持续擦地耗体力−6分摊；耗尽可停顿后继续，关键封袋不锁死。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -1714,7 +2014,7 @@
         ],
         "easier": [
           "基础绷带、拖把与普通垃圾袋均由店内提供。",
-          "先止血会延迟外运，却避免追踪继续连到队列。"
+          "先止血再擦三枚绑定痕迹最快；也可止血后等原迹自然干，省袋但牺牲世界时间。"
         ]
       },
       "impersonation": {
@@ -1736,16 +2036,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F26",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "本次血源已包扎或自然止血、绑定血迹均失效/清除，且实际产生的沾染物已封存；未到场前达成记预防，完全自然消退记安全离去。无新伤、无新迹，不为完成交袋再造污物。",
+      "current_resolution": "真实伤口止血或自然干，原绑定迹全部擦除/干燥，且仅已实际产生的污布封入原袋放ATT13；没有擦血就不要求污袋。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F26",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "包扎与清理精力−3。",
+        "san": "接触伤害按共享SAN−10与伤情规则，无额外叠同类惊吓。",
+        "satiety": "统一时间流逝。",
+        "stamina": "持续擦地耗体力−6分摊；耗尽可停顿后继续，关键封袋不锁死。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F26",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F27",
@@ -1766,10 +2078,10 @@
       ],
       "safe_response": "基本秤、搬运与门前槽足够；路线超预算就不投放该组合。",
       "resource_effects": {
-        "energy": "两次搬运精力−4。",
-        "san": "错误挤占SAN−2一次。",
-        "satiety": "统一时间流逝。",
-        "stamina": "搬运耗体力；最低仍可2.4格/秒基础负重走路。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -1778,7 +2090,7 @@
         ],
         "easier": [
           "基本秤、搬运与门前槽足够；路线超预算就不投放该组合。",
-          "多跑一趟且重物减速，换取店内道路保持畅通；两批仍只算一个名额。"
+          "接受后必须安排两次真实重物往返；外侧交付保通路，少一趟幻想传送就需要更早决策。"
         ]
       },
       "impersonation": {
@@ -1800,16 +2112,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F27",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "同一大件单的两批实际交付、主通路清空后成功；未接受可拒单，取消或到期按明示规则结算已交部分并收回未交部分，来客离场。",
+      "current_resolution": "原单两批分别从真实receiving搬到forecourt实际交付，回执只记同单两次分批、一次总结；主路清空。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F27",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "两次搬运精力−4。",
+        "san": "错误挤占SAN−2一次。",
+        "satiety": "统一时间流逝。",
+        "stamina": "搬运耗体力；最低仍可2.4格/秒基础负重走路。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F27",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F28",
@@ -1830,10 +2154,10 @@
       ],
       "safe_response": "手动支阀、水纹与基础槽盖不耗应急电，怪名不必填对。",
       "resource_effects": {
-        "energy": "排查与擦地精力−2。",
-        "san": "近水失误SAN−3一次。",
-        "satiety": "统一时间流逝。",
-        "stamina": "安全侧拿盖不需冲刺或高体力。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -1842,7 +2166,7 @@
         ],
         "easier": [
           "手动支阀、水纹与基础槽盖不耗应急电，怪名不必填对。",
-          "测试会短停对应水务；关错总阀虽安全却失去定位信息，需要恢复再试。"
+          "不能靠总音量判断，逐支路试阀看同拍水纹响应；普通停水并不消灭原异常盘。"
         ]
       },
       "impersonation": {
@@ -1864,16 +2188,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F28",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "本实例实际源支路被隔离、源盘盖好，乐曲与水纹都停止；普通供水和其他漏水独立处理。",
+      "current_resolution": "逐支路实际试阀，关同实例真正声路并盖原盘，乐曲/水纹都停；无须另消耗应急净水或干布。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F28",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "排查与擦地精力−2。",
+        "san": "近水失误SAN−3一次。",
+        "satiety": "统一时间流逝。",
+        "stamina": "安全侧拿盖不需冲刺或高体力。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F28",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F29",
@@ -1894,10 +2230,10 @@
       ],
       "safe_response": "入场前必须保证基础粥与黄油可取，不依赖购买或抽奖。",
       "resource_effects": {
-        "energy": "分餐精力−2。",
-        "san": "纠错不额外SAN损失。",
-        "satiety": "损失未食用的一份库存，玩家当前饱腹保持原值。",
-        "stamina": "端小碗按轻物，体力0仍可完成。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -1906,7 +2242,7 @@
         ],
         "easier": [
           "入场前必须保证基础粥与黄油可取，不依赖购买或抽奖。",
-          "消耗已预留的一份粥与黄油并实际搬运，换一份可留存的薄荷糖；领取后另需免费同物核验才能食用，不产生库存保护令牌。"
+          "同一食品的可见摆放与运输盖操作决定是否兑现承诺；玩家不能把主角已经吃掉的饱腹值当支付。"
         ]
       },
       "impersonation": {
@@ -1934,16 +2270,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F29",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "同一份粥与表层黄油实际交付即结束本次供食。有限I04薄荷糖一份按独立领取回执转移；赠品最初为sealed_unverified，须到柜台免费检查同件封签和真实供应批次3世界秒，合格才可食用。未领奖或未核验不阻止遭遇结束；未接受可拒绝，无供食欠债。",
+      "current_resolution": "实际同碗粥+原黄油位于表层，运到供物台并揭盖后完成；I04原赠品领取/3秒检查另结，不要求吃掉才结束。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F29",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "分餐精力−2。",
+        "san": "纠错不额外SAN损失。",
+        "satiety": "损失未食用的一份库存，玩家当前饱腹保持原值。",
+        "stamina": "端小碗按轻物，体力0仍可完成。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F29",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F30",
@@ -1964,10 +2312,10 @@
       ],
       "safe_response": "秤、普通分槽和门外托盘免费可用。",
       "resource_effects": {
-        "energy": "搬运精力−3。",
-        "san": "压门失误SAN−4一次。",
-        "satiety": "统一时间流逝。",
-        "stamina": "重物基础移动2.4格/秒，体力耗尽可继续慢搬而非卡死。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -1976,7 +2324,7 @@
         ],
         "easier": [
           "秤、普通分槽和门外托盘免费可用。",
-          "搬重物速度慢且要占一趟外侧交付，直接拿来压门虽省事却扩大潮水入口。"
+          "拆出不在货单上的额外重量后，还要放弃拿它做便利门挡的诱惑；错用仍可实际拿开纠正。"
         ]
       },
       "impersonation": {
@@ -1998,16 +2346,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F30",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "同一压箱石与合法商品分离、已放登记封存槽，当前不再充当任何门挡。曾经误用但已经纠正仍可完成。",
+      "current_resolution": "原合法货已分到已验槽，同一额外石头实际送主/备已登记封存槽，当前未作任何门挡且本地水线停止；曾误用不阻断恢复。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F30",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "搬运精力−3。",
+        "san": "压门失误SAN−4一次。",
+        "satiety": "统一时间流逝。",
+        "stamina": "重物基础移动2.4格/秒，体力耗尽可继续慢搬而非卡死。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_a.json",
+        "case_id": "F30",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F31",
@@ -2028,10 +2388,10 @@
       ],
       "safe_response": "店内杯与机械闹钟保证基础解；P08只按既有次数增加唤醒容错，不是必需钥匙。",
       "resource_effects": {
-        "energy": "实际唤醒成功总计+4；P08首次真实失败先补偿+2，后成功只补到总+4，主动取消不给新补偿。",
-        "san": "失败SAN−6一次；SAN0不可新开本精度特写，仍允许世界安定。",
-        "satiety": "仅承诺成本对应的统一时间扣除。",
-        "stamina": "特写冻结体力恢复，返回世界才恢复正常规则。"
+        "energy": "QT01首轮实际命中：精力+4；首轮真实失手，P08消耗一次补偿：精力+2；重新准入后完成P08唯一重试：精力+2；均须实际完成且按同实例回执去重。",
+        "san": "首轮真实失手，P08消耗一次补偿：SAN-6；无P08首轮失手后离开梦境：SAN-6；均须实际完成且按同实例回执去重。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -2040,7 +2400,7 @@
         ],
         "easier": [
           "店内杯与机械闹钟保证基础解；P08只按既有次数增加唤醒容错，不是必需钥匙。",
-          "短休能恢复状态却占交班时间；本地QTE沿用安全特写与一次成本结算，不另建可走梦地图。"
+          "花8预算秒争取精力，或保留收尾时间；P08改善容错但第二次仍须付8秒。"
         ]
       },
       "impersonation": {
@@ -2062,7 +2422,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F31",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -2071,8 +2431,20 @@
       "current_resolution": "准备后的实际唤醒成功只结算本次短休总精力+4。若已准备P08且第一次真实失败触发其补偿，先得到+2，之后成功只再补+2；拒绝短休并停用椅位也安全结束，不给休息收益。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F31",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。",
-      "completion_condition": "准备后的实际唤醒成功只结算本次短休总精力+4。若已准备P08且第一次真实失败触发其补偿，先得到+2，之后成功只再补+2；拒绝短休并停用椅位也安全结束，不给休息收益。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "completion_condition": "准备后的实际唤醒成功只结算本次短休总精力+4。若已准备P08且第一次真实失败触发其补偿，先得到+2，之后成功只再补+2；拒绝短休并停用椅位也安全结束，不给休息收益。",
+      "legacy_resource_effects": {
+        "energy": "实际唤醒成功总计+4；P08首次真实失败先补偿+2，后成功只补到总+4，主动取消不给新补偿。",
+        "san": "失败SAN−6一次；SAN0不可新开本精度特写，仍允许世界安定。",
+        "satiety": "仅承诺成本对应的统一时间扣除。",
+        "stamina": "特写冻结体力恢复，返回世界才恢复正常规则。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F31",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F32",
@@ -2093,10 +2465,10 @@
       ],
       "safe_response": "语音开关、固定缓冲区与基础绷带免费；门加固只是可选延时。",
       "resource_effects": {
-        "energy": "包扎撤岗精力−3。",
-        "san": "接触按共享上限结算，窥视压力不叠无限扣SAN。",
-        "satiety": "统一时间流逝。",
-        "stamina": "不用冲刺也有撤到安全柜台的可行路线。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -2105,7 +2477,7 @@
         ],
         "easier": [
           "语音开关、固定缓冲区与基础绷带免费；门加固只是可选延时。",
-          "open+silent每单3.5秒，可继续让浏览客入店；全窗口会失去未入店浏览单，不能白拿A。"
+          "即刻止血恢复工作，或用合法员工边界换取时间；关声道不能撤销已说出口的欢迎。"
         ]
       },
       "impersonation": {
@@ -2127,7 +2499,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F32",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -2136,7 +2508,19 @@
       "current_resolution": "本实例登记员工不再流血（包扎或90世界秒自然止血），来客失去全部合法目标并完成3秒离场；预告中包扎记PREVENTED，源自然消退记SAFE_RETURNED。已处理的伤口不被重开。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F32",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "包扎撤岗精力−3。",
+        "san": "接触按共享上限结算，窥视压力不叠无限扣SAN。",
+        "satiety": "统一时间流逝。",
+        "stamina": "不用冲刺也有撤到安全柜台的可行路线。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F32",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F33",
@@ -2157,10 +2541,10 @@
       ],
       "safe_response": "来客携带本实例专用急救包，伤迹对照与现有干线免费；不消耗两份员工保底敷料，不依赖银器装备。",
       "resource_effects": {
-        "energy": "查看与搬袋精力−2。",
-        "san": "实际援助并同一来客离店SAN+4一次；只让其离去无奖励，堵出口SAN−4一次。",
-        "satiety": "统一时间流逝。",
-        "stamina": "路线退让可普通步行，不能要求低体力冲刺。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "结算同一援助与离店回执：SAN+4；均须实际完成且按同实例回执去重。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -2169,7 +2553,7 @@
         ],
         "easier": [
           "来客携带本实例专用急救包，伤迹对照与现有干线免费；不消耗两份员工保底敷料，不依赖银器装备。",
-          "腾路暂占交付时间；救助不等于给钥匙，变形也不自动证明恶意。"
+          "可花时间辨认并提供公共帮助，但真正关键是保持同一来客的退路。"
         ]
       },
       "impersonation": {
@@ -2191,7 +2575,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F33",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -2200,8 +2584,20 @@
       "current_resolution": "来客实际接受其携带的专用急救物并沿公开路线离店，按同实例援助与离店回执恢复SAN+4一次；未接受援助而保留出口让其自行离去也安全结束，但没有援助奖励。当前伤迹不授予员工权限。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F33",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。",
-      "completion_condition": "来客实际接受其携带的专用急救物并沿公开路线离店，按同实例援助与离店回执恢复SAN+4一次；未接受援助而保留出口让其自行离去也安全结束，但没有援助奖励。当前伤迹不授予员工权限。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "completion_condition": "来客实际接受其携带的专用急救物并沿公开路线离店，按同实例援助与离店回执恢复SAN+4一次；未接受援助而保留出口让其自行离去也安全结束，但没有援助奖励。当前伤迹不授予员工权限。",
+      "legacy_resource_effects": {
+        "energy": "查看与搬袋精力−2。",
+        "san": "实际援助并同一来客离店SAN+4一次；只让其离去无奖励，堵出口SAN−4一次。",
+        "satiety": "统一时间流逝。",
+        "stamina": "路线退让可普通步行，不能要求低体力冲刺。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F33",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F34",
@@ -2222,10 +2618,10 @@
       ],
       "safe_response": "普通拖把、地面图形与节拍字幕足够，静音也可玩。",
       "resource_effects": {
-        "energy": "清洁精力−3。",
-        "san": "强拍失误SAN−5，遵守重复惊吓冷却。",
-        "satiety": "移走的是店存商品，不扣玩家饱腹。",
-        "stamina": "短清洁可分段恢复，基本退格步行无体力门槛。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -2234,7 +2630,7 @@
         ],
         "easier": [
           "普通拖把、地面图形与节拍字幕足够，静音也可玩。",
-          "抢一个完整擦地窗口省路程，提前退回更稳；不是随机节拍按键题。"
+          "利用节拍空档切断水线再回收真实货袋；已断线后不再强制重复节拍。"
         ]
       },
       "impersonation": {
@@ -2256,7 +2652,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F34",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -2265,7 +2661,19 @@
       "current_resolution": "目标湿边已断开、登记货物已在干侧即可结束；预兆期提前完成同样有效，不要求为重演节拍把货物放回水中。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F34",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "清洁精力−3。",
+        "san": "强拍失误SAN−5，遵守重复惊吓冷却。",
+        "satiety": "移走的是店存商品，不扣玩家饱腹。",
+        "stamina": "短清洁可分段恢复，基本退格步行无体力门槛。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F34",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F35",
@@ -2286,10 +2694,10 @@
       ],
       "safe_response": "来客提供本次扫帚与边界牌，玩家只需基础取放；不以稀有供物换解法。",
       "resource_effects": {
-        "energy": "摆边界、搬扫帚与回收按真实普通动作结算；代清的同一任务不重复收玩家全程劳动成本。",
-        "san": "拒绝或正常暂停无额外SAN，扫帚越界先给可见警告。",
-        "satiety": "无豆包、食材或供食消耗，只按统一时钟。",
-        "stamina": "只按实际取放与行走；不会因帮手清扫自动扣主角体力。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -2298,7 +2706,7 @@
         ],
         "easier": [
           "来客提供本次扫帚与边界牌，玩家只需基础取放；不以稀有供物换解法。",
-          "暂时让出对工区的注视换取现有垃圾点代清；仍要摆边界和收回扫帚。未接受可拒绝，已由自己清完就保留原工作回执，不再领取第二份帮助。"
+          "先限定真实工区，再把8秒无人注视时间用来做别的工作；提前自行清好就无需雇怪。"
         ]
       },
       "impersonation": {
@@ -2320,7 +2728,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F35",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -2329,8 +2737,20 @@
       "current_resolution": "登记的同一垃圾点已真实清洁且同一扫帚归还，清洁回执计入对应普通工单一次；清洁本身就是帮助，不另发币、食物或保护令牌。提前自行清完、未接受或提前收回工具均可安全结束，不制造新垃圾。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F35",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。",
-      "completion_condition": "登记的同一垃圾点已真实清洁且同一扫帚归还，清洁回执计入对应普通工单一次；清洁本身就是帮助，不另发币、食物或保护令牌。提前自行清完、未接受或提前收回工具均可安全结束，不制造新垃圾。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "completion_condition": "登记的同一垃圾点已真实清洁且同一扫帚归还，清洁回执计入对应普通工单一次；清洁本身就是帮助，不另发币、食物或保护令牌。提前自行清完、未接受或提前收回工具均可安全结束，不制造新垃圾。",
+      "legacy_resource_effects": {
+        "energy": "摆边界、搬扫帚与回收按真实普通动作结算；代清的同一任务不重复收玩家全程劳动成本。",
+        "san": "拒绝或正常暂停无额外SAN，扫帚越界先给可见警告。",
+        "satiety": "无豆包、食材或供食消耗，只按统一时钟。",
+        "stamina": "只按实际取放与行走；不会因帮手清扫自动扣主角体力。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F35",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F36",
@@ -2351,10 +2771,10 @@
       ],
       "safe_response": "基础边界牌、机械计时与临时纸条免费；未接受前可拒绝。",
       "resource_effects": {
-        "energy": "布置与回收精力−2。",
-        "san": "拒绝与提前撤销不罚SAN；租金只按已声明6币回执结算。",
-        "satiety": "统一时间流逝。",
-        "stamina": "空槽搬运按普通负重规则，不需冲刺。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -2363,7 +2783,7 @@
         ],
         "easier": [
           "基础边界牌、机械计时与临时纸条免费；未接受前可拒绝。",
-          "让出一个现有空槽20世界秒，换明示的6金币；主动提前撤销可保工作空间但不拿租金。不是提供没有消费者的帮助令牌。"
+          "拿空槽换6币与20秒占用，还是保留库房周转；撤销安全但放弃未赚租金。"
         ]
       },
       "impersonation": {
@@ -2390,7 +2810,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F36",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -2399,8 +2819,20 @@
       "current_resolution": "许可从实际授予起20世界秒自动到期，或由玩家提前撤销；访客离开即结束权限请求。完整20秒合法借用、按时撤权且原槽实际清空，才按同一rent回执领取6金币一次；提前撤销、拒绝或未清槽无租金。未领奖不保持活动威胁。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F36",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。",
-      "completion_condition": "许可从实际授予起20世界秒自动到期，或由玩家提前撤销；访客离开即结束权限请求。完整20秒合法借用、按时撤权且原槽实际清空，才按同一rent回执领取6金币一次；提前撤销、拒绝或未清槽无租金。未领奖不保持活动威胁。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "completion_condition": "许可从实际授予起20世界秒自动到期，或由玩家提前撤销；访客离开即结束权限请求。完整20秒合法借用、按时撤权且原槽实际清空，才按同一rent回执领取6金币一次；提前撤销、拒绝或未清槽无租金。未领奖不保持活动威胁。",
+      "legacy_resource_effects": {
+        "energy": "布置与回收精力−2。",
+        "san": "拒绝与提前撤销不罚SAN；租金只按已声明6币回执结算。",
+        "satiety": "统一时间流逝。",
+        "stamina": "空槽搬运按普通负重规则，不需冲刺。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F36",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F37",
@@ -2422,10 +2854,10 @@
       ],
       "safe_response": "纸任务夹、固定台与手动语音开关免费，不要求锁门耗电。",
       "resource_effects": {
-        "energy": "放牌与回收精力−1。",
-        "san": "越合法警戒SAN−4一次。",
-        "satiety": "统一时间流逝。",
-        "stamina": "只要求安全线内一步与普通退行。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -2434,7 +2866,7 @@
         ],
         "easier": [
           "纸任务夹、固定台与手动语音开关免费，不要求锁门耗电。",
-          "固定交接较慢，可能放弃这一单收益；店内朝门移动本身不算违禁。"
+          "完成实际取件预备但不跟随口头改址；拒绝诱离仍保留原订单继续履约。"
         ]
       },
       "impersonation": {
@@ -2461,7 +2893,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F37",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -2470,7 +2902,19 @@
       "current_resolution": "玩家停止追随并保留权限和物件归属，诱离请求结束即可安全收场；合法订单可以已交付或仍保管待取，未交物不虚报成交。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F37",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "放牌与回收精力−1。",
+        "san": "越合法警戒SAN−4一次。",
+        "satiety": "统一时间流逝。",
+        "stamina": "只要求安全线内一步与普通退行。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F37",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F38",
@@ -2491,10 +2935,10 @@
       ],
       "safe_response": "真实工作痕迹与本班个人回执可免费观察；缺少完整前史就不投放。",
       "resource_effects": {
-        "energy": "查三站精力−4，低精力可使整理增加2秒但预算已预留。",
-        "san": "双身初见SAN−5一次，反复点错不无限扣。",
-        "satiety": "统一时间流逝。",
-        "stamina": "巡查可普通步行，0体力不锁证据。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -2503,7 +2947,7 @@
         ],
         "easier": [
           "真实工作痕迹与本班个人回执可免费观察；缺少完整前史就不投放。",
-          "同时限权暂失同事代工；检查走位占时间，照片只能辅助记录不能自动标真伪。"
+          "面对刚核验的同事，短暂保持5.833333秒可见就能继续委派工作；若眼前远端工单更紧，可立即保留钥匙、停用高风险委派结束索权。没有整夜盯同事的前置负担。"
         ]
       },
       "impersonation": {
@@ -2531,16 +2975,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F38",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 1,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "可证实时仅向真实连续轨迹对应者恢复权限；不可证实时保留钥匙、停止高风险交接并结束冒名请求也算安全处置，不发身份识破奖励。",
+      "current_resolution": "近期真实双独立当前核验产生的8秒凭证内，持续同屏见证A并完成分位，才给A恢复有限工作权限；原钥匙仍封槽。断链/过期或主动选择保留钥匙并双方限权也可安全结束本次索权。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F38",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "查三站精力−4，低精力可使整理增加2秒但预算已预留。",
+        "san": "双身初见SAN−5一次，反复点错不无限扣。",
+        "satiety": "统一时间流逝。",
+        "stamina": "巡查可普通步行，0体力不锁证据。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F38",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F39",
@@ -2561,10 +3017,10 @@
       ],
       "safe_response": "基本指示灯与木牌不依赖应急储备，停电时有手动标记替代。",
       "resource_effects": {
-        "energy": "迁移精力−2。",
-        "san": "错序SAN−3一次。",
-        "satiety": "不消耗食物或玩家饱腹。",
-        "stamina": "木牌轻便，可低体力搬动。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -2573,7 +3029,7 @@
         ],
         "easier": [
           "基本指示灯与木牌不依赖应急储备，停电时有手动标记替代。",
-          "搬家期间占用两个短时工位；一次有序搬运换有限设备帮助，不获得整周免疫。"
+          "先给新位落脚，再转移旧牌；停电时完成安全迁移即可，不必把不可用设备强行复电。"
         ]
       },
       "impersonation": {
@@ -2601,7 +3057,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F39",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -2610,7 +3066,19 @@
       "current_resolution": "实际迁移需求对应的木牌已在新槽安定、旧设备安全停用即可结束；若故障提前修复且无需迁移，则撤销本次邀请，不倒放木牌重做。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F39",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "迁移精力−2。",
+        "san": "错序SAN−3一次。",
+        "satiety": "不消耗食物或玩家饱腹。",
+        "stamina": "木牌轻便，可低体力搬动。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F39",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F40",
@@ -2631,10 +3099,10 @@
       ],
       "safe_response": "普通贴纸、固定槽和可见通路免费；低SAN仍保留关键方向提示。",
       "resource_effects": {
-        "energy": "贴标与搬苗精力−3。",
-        "san": "迷失初次SAN−4，共享惊吓冷却。",
-        "satiety": "统一时间流逝。",
-        "stamina": "树苗按普通重物2.4格/秒，0体力仍能走实体路径。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -2643,7 +3111,7 @@
         ],
         "easier": [
           "普通贴纸、固定槽和可见通路免费；低SAN仍保留关键方向提示。",
-          "持苗绕行与看标记占时间；镜头装饰能迷惑观察，但不能偷偷改碰撞或传送人。"
+          "用三块实物标记换稳定导航，或凭熟悉原图直接归还；林影只改装饰、不重置地图。"
         ]
       },
       "impersonation": {
@@ -2669,7 +3137,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F40",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -2678,7 +3146,19 @@
       "current_resolution": "同一登记树苗已归还或合法隔离，林影退去；预兆期提前归还同样有效。路标是安全辨路方法，不要求已正确归还后再走一遍。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F40",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "贴标与搬苗精力−3。",
+        "san": "迷失初次SAN−4，共享惊吓冷却。",
+        "satiety": "统一时间流逝。",
+        "stamina": "树苗按普通重物2.4格/秒，0体力仍能走实体路径。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F40",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F41",
@@ -2700,10 +3180,10 @@
       ],
       "safe_response": "免费电话、现有袋和内侧服务窗即可；无需判断她是否善良。",
       "resource_effects": {
-        "energy": "完成流程额外精力-4。",
-        "san": "完成+2，首次越线-8。",
-        "satiety": "仅全局时钟扣除。",
-        "stamina": "搬轻袋不要求体力；跑回去可按普通冲刺消耗。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -2712,7 +3192,7 @@
         ],
         "easier": [
           "免费电话、现有袋和内侧服务窗即可；无需判断她是否善良。",
-          "求助占电话和手持槽；绕过她能继续收银，却会让交接位持续被占。"
+          "保护真实失物与登记求助，同时抵抗诱导离店；有证据才合法交袋。"
         ]
       },
       "impersonation": {
@@ -2734,7 +3214,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F41",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -2743,7 +3223,19 @@
       "current_resolution": "求助已登记，失物袋仍在合规保管或已合法交付，诱离请求结束即可安全收场；不能把向未知哭泣者交袋设为强制胜利条件。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F41",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "完成流程额外精力-4。",
+        "san": "完成+2，首次越线-8。",
+        "satiety": "仅全局时钟扣除。",
+        "stamina": "搬轻袋不要求体力；跑回去可按普通冲刺消耗。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F41",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F42",
@@ -2766,10 +3258,10 @@
       ],
       "safe_response": "机械闸、压力牌和字幕均不耗电；不能通过一直锁门完成必要搬运。",
       "resource_effects": {
-        "energy": "精力-3。",
-        "san": "误开最多-8一次。",
-        "satiety": "仅全局时钟。",
-        "stamina": "两箱搬运按普通2.4格/秒；0体力仍可慢搬。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -2778,7 +3270,7 @@
         ],
         "easier": [
           "机械闸、压力牌和字幕均不耗电；不能通过一直锁门完成必要搬运。",
-          "等待安全声段延后工单；一次想搬完更省走位，却可能在近档仍占着门。"
+          "提前集货换短窗口效率；剩余窗口不足就等下一轮，不把去垃圾箱的整程硬塞进8秒。"
         ]
       },
       "impersonation": {
@@ -2800,7 +3292,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F42",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -2809,7 +3301,19 @@
       "current_resolution": "本次登记最多两件货完成rear_door↔rear_threshold短转运且闸门关闭，即结束本怪危险；提前完成同样有效。上架、投垃圾箱和交易仅在其各自目的地实际完成才记功。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F42",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "精力-3。",
+        "san": "误开最多-8一次。",
+        "satiety": "仅全局时钟。",
+        "stamina": "两箱搬运按普通2.4格/秒；0体力仍可慢搬。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F42",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F43",
@@ -2831,10 +3335,10 @@
       ],
       "safe_response": "免费粉印垫与已发生的工作记录即可；缺证据时保留待核并照原路做工，不必追人。",
       "resource_effects": {
-        "energy": "精力-4。",
-        "san": "误交接-8一次。",
-        "satiety": "仅全局时钟。",
-        "stamina": "轻物和门禁无需体力门槛。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -2843,7 +3347,7 @@
         ],
         "easier": [
           "免费粉印垫与已发生的工作记录即可；缺证据时保留待核并照原路做工，不必追人。",
-          "同行占用唯一同事，需调整接客；核验花时间，但普通班表本身不能证明人在何处。"
+          "花时间取得两类证据做身份归档，或暂不委派高风险任务；原合法交接仍可自己完成。"
         ]
       },
       "impersonation": {
@@ -2870,7 +3374,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F43",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -2879,7 +3383,19 @@
       "current_resolution": "高风险权限没有交给未核验者，越界请求结束即可安全处置；只有独立证据成立才归档为假。真实普通交接按原任务另行结算，没有交接物时不制造空任务。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F43",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "精力-4。",
+        "san": "误交接-8一次。",
+        "satiety": "仅全局时钟。",
+        "stamina": "轻物和门禁无需体力门槛。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F43",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F44",
@@ -2901,10 +3417,10 @@
       ],
       "safe_response": "店内价牌、纸票和交付槽都免费；不要求完成音乐问答。",
       "resource_effects": {
-        "energy": "基本-4；处理重复服务额外-8至多一次。",
-        "san": "成功+3。",
-        "satiety": "仅全局时钟，不再因错过加餐额外扣饱腹。",
-        "stamina": "轻物无体力门槛。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -2913,7 +3429,7 @@
         ],
         "easier": [
           "店内价牌、纸票和交付槽都免费；不要求完成音乐问答。",
-          "提前收尾少拿小费，继续应和会占用收银窗口；选择作用于实物托盘和单号。"
+          "把正常一单嵌进可见音乐交付窗口；最后不贪自动续曲。"
         ]
       },
       "impersonation": {
@@ -2935,7 +3451,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F44",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -2944,7 +3460,19 @@
       "current_resolution": "本单实际交付且未授新续约，或接受前明确拒绝并关闭托盘，均结束本次邀请；只有真实交付计收入。确认铃不自行生成新已接受合同。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F44",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "基本-4；处理重复服务额外-8至多一次。",
+        "san": "成功+3。",
+        "satiety": "仅全局时钟，不再因错过加餐额外扣饱腹。",
+        "stamina": "轻物无体力门槛。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F44",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F45",
@@ -2966,10 +3494,10 @@
       ],
       "safe_response": "轮痕、箱角和固定货格都是现有物件，不依赖探测装备。",
       "resource_effects": {
-        "energy": "精力-5。",
-        "san": "误退-6至多一次。",
-        "satiety": "仅全局时钟。",
-        "stamina": "两次普通搬运按实际动作扣；0体力仍可搬。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -2978,7 +3506,7 @@
         ],
         "easier": [
           "轮痕、箱角和固定货格都是现有物件，不依赖探测装备。",
-          "空手先查更稳，带箱跟错痕会多一次搬运；无需逐箱填写新表格。"
+          "信实际轮痕而非反向脚印；封签与目的格必须同批。"
         ]
       },
       "impersonation": {
@@ -3000,7 +3528,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F45",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -3009,7 +3537,19 @@
       "current_resolution": "同一登记箱进入轮痕对应正确货格并有实际回执即可结束；提前正确上架有效，不撤回已完成货箱重做。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F45",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "精力-5。",
+        "san": "误退-6至多一次。",
+        "satiety": "仅全局时钟。",
+        "stamina": "两次普通搬运按实际动作扣；0体力仍可搬。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F45",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F46",
@@ -3031,10 +3571,10 @@
       ],
       "safe_response": "固定筛罩与三个候选槽免费。P06可用3秒搬回已揭示槽中的同一件轻工具；工具转移不清除旋风，玩家仍须布筛截住它。",
       "resource_effects": {
-        "energy": "完成-4，盲翻返工额外-4最多一次。",
-        "san": "无固有SAN伤害。",
-        "satiety": "仅全局时钟。",
-        "stamina": "筛罩布置耗4；追踪拿轻物0体力可用。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -3043,7 +3583,7 @@
         ],
         "easier": [
           "固定筛罩与三个候选槽免费。P06可用3秒搬回已揭示槽中的同一件轻工具；工具转移不清除旋风，玩家仍须布筛截住它。",
-          "耐心等一轮会延后清洁；盲追更快移动却可能再丢工具。"
+          "看停点后预放工具，利用等待风下一圈去做附近工作；P06能取物但不替玩家截风。"
         ]
       },
       "impersonation": {
@@ -3065,7 +3605,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F46",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -3074,7 +3614,19 @@
       "current_resolution": "工具物件回到玩家或原工具槽，旋风在固定槽被截住一次。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F46",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "完成-4，盲翻返工额外-4最多一次。",
+        "san": "无固有SAN伤害。",
+        "satiety": "仅全局时钟。",
+        "stamina": "筛罩布置耗4；追踪拿轻物0体力可用。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F46",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F47",
@@ -3096,10 +3648,10 @@
       ],
       "safe_response": "可不接受歌约或在第一段收手；P03专属仍是当前合法窗口额外+0.4秒，按既有上限结算。",
       "resource_effects": {
-        "energy": "全流程精力-4；操作预算按实际启动段数结算。",
-        "san": "漏拍-8至多一次。",
-        "satiety": "仅全局时钟，不强制向水边移动或饥饿。",
-        "stamina": "站台与领取奖励无需体力。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -3108,7 +3660,7 @@
         ],
         "easier": [
           "可不接受歌约或在第一段收手；P03专属仍是当前合法窗口额外+0.4秒，按既有上限结算。",
-          "追加奖励换更窄窗口与更多时间，每次尝试明示结算8秒；低SAN仍按已有QTE档收窄。"
+          "每次领到实物后再决定是否多付8预算秒加码；随时收手保留已经兑现的收益。"
         ]
       },
       "impersonation": {
@@ -3144,7 +3696,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F47",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -3153,7 +3705,19 @@
       "current_resolution": "任一已完成段实际封袋领取后退出，或未接受前拒绝，或失败/预算不足时安全退出，均结束本次邀请；奖励只按既有完成回执结算，不反复开页产奖。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F47",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "全流程精力-4；操作预算按实际启动段数结算。",
+        "san": "漏拍-8至多一次。",
+        "satiety": "仅全局时钟，不强制向水边移动或饥饿。",
+        "stamina": "站台与领取奖励无需体力。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F47",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F48",
@@ -3175,10 +3739,10 @@
       ],
       "safe_response": "公开托盘、员工槽和手动门免费，不需要照出真身才能安全卖货。",
       "resource_effects": {
-        "energy": "基本-4，错误授权返工额外-4一次。",
-        "san": "成功+2，误授权-6一次。",
-        "satiety": "仅全局时钟。",
-        "stamina": "轻物与门禁0体力可用。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -3187,7 +3751,7 @@
         ],
         "easier": [
           "公开托盘、员工槽和手动门免费，不需要照出真身才能安全卖货。",
-          "接受陌生人代搬可以省一次跑动，却会暴露员工区；自己交货或请真同事更耗岗位时间。"
+          "完成正常生意，同时避免把热心帮忙、员工帽或经理口吻当成通行许可。"
         ]
       },
       "impersonation": {
@@ -3213,7 +3777,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F48",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -3222,7 +3786,19 @@
       "current_resolution": "访客没有借购物或工作帽取得未授权员工权限并沿公开路线离店，即安全结束；只有实际交付商品才计订单收益。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F48",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "基本-4，错误授权返工额外-4一次。",
+        "san": "成功+2，误授权-6一次。",
+        "satiety": "仅全局时钟。",
+        "stamina": "轻物与门禁0体力可用。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F48",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F49",
@@ -3244,10 +3820,10 @@
       ],
       "safe_response": "固定盖与袋外温标免费；不必熄灭全店热源，也不需要购买灭火器才能解。",
       "resource_effects": {
-        "energy": "误操作额外-4一次；正常处理由工作成本结算。",
-        "san": "成功+3，误操作-4一次。",
-        "satiety": "不消耗玩家已获得的饱腹；普通热食库存独立。",
-        "stamina": "垃圾搬运按实际动作，建议总6点；0体力仍可慢移。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -3256,7 +3832,7 @@
         ],
         "easier": [
           "固定盖与袋外温标免费；不必熄灭全店热源，也不需要购买灭火器才能解。",
-          "等降温会占一个容器和时间；立即倾倒能赶工，却把危险带到后院。"
+          "封盖等待真实冷却后一次清运，或为眼前别的工作留下封闭安全暂存；I15是实际可选时间帮助。"
         ]
       },
       "impersonation": {
@@ -3278,7 +3854,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F49",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -3287,7 +3863,19 @@
       "current_resolution": "冷却后实际投放记完整清运；封闭安全暂存并结束火蛇活动也可安全收场，不虚报已投垃圾箱。提前冷却或已投放物不会重新生成热目标。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F49",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "误操作额外-4一次；正常处理由工作成本结算。",
+        "san": "成功+3，误操作-4一次。",
+        "satiety": "不消耗玩家已获得的饱腹；普通热食库存独立。",
+        "stamina": "垃圾搬运按实际动作，建议总6点；0体力仍可慢移。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F49",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F50",
@@ -3309,10 +3897,10 @@
       ],
       "safe_response": "店内固定板、近侧帘和预告都免费；启动前当前到板再到窗须不超过12格。",
       "resource_effects": {
-        "energy": "精力-3。",
-        "san": "误挡-8至多一次。",
-        "satiety": "仅全局时钟。",
-        "stamina": "推板建议8点；0体力走拉帘路线。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "同一次已锁定俯冲在原8世界秒到期时，玩家仍占实际冲击格才扣SAN8，最多一次；错误装板本身不扣，迟撤不抹命中。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -3321,7 +3909,7 @@
         ],
         "easier": [
           "店内固定板、近侧帘和预告都免费；启动前当前到板再到窗须不超过12格。",
-          "盯窗能获取目标，但也耽误搬货；花灯电可早看，机械遮板与轮廓仍是免费解。"
+          "预判一组窗位抢正确防护；错位时及时停该组生意并退出，保命但没有正确防护回执。"
         ]
       },
       "impersonation": {
@@ -3343,16 +3931,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F50",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "正确板防护且玩家离开受击带，可结算完整防御；错窗后拉帘、关闭该窗业务并撤到安全点，也能结束本轮危险但不发正确防护奖励。已提前合法防护有效，不能暗换目标补题。",
+      "current_resolution": "同一8秒撞击已实际结算、正确板在锁定窗、玩家及时离开冲击格且本轮无命中，才记录完整防御。错窗拉帘停业后及时撤离，或实际受击后撤离并停业，均可安全收场；受击记录与代价保留。提前合法防护有效，重复观察不重启8秒。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F50",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "精力-3。",
+        "san": "误挡-8至多一次。",
+        "satiety": "仅全局时钟。",
+        "stamina": "推板建议8点；0体力走拉帘路线。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F50",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F51",
@@ -3374,10 +3974,10 @@
       ],
       "safe_response": "免费基础回执与固定折扣牌足够；没有可用本班记录时导演不投放。",
       "resource_effects": {
-        "energy": "完整流程精力-6；错配返工额外-2最多一次。",
-        "san": "折扣成功+3，无固有恐惧罚。",
-        "satiety": "仅全局时钟。",
-        "stamina": "轻文件与付款无体力门槛。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -3386,7 +3986,7 @@
         ],
         "easier": [
           "免费基础回执与固定折扣牌足够；没有可用本班记录时导演不投放。",
-          "多听一段可能提高小费，也给对方续写条款的机会；复核占注意力，不要求新算术小游戏。"
+          "从自己这一晚真实完成的生意中找故事破绽，再决定是否按单档价格做当前一单。"
         ]
       },
       "impersonation": {
@@ -3408,7 +4008,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F51",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -3417,7 +4017,19 @@
       "current_resolution": "真实回执支持的一次有限交易实际交付即可结算；接受前拒绝或在未承诺下一段时退出也安全结束。没有本班真实旧回执则不发此题，不能倒造过去交易。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F51",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "完整流程精力-6；错配返工额外-2最多一次。",
+        "san": "折扣成功+3，无固有恐惧罚。",
+        "satiety": "仅全局时钟。",
+        "stamina": "轻文件与付款无体力门槛。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F51",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F52",
@@ -3439,10 +4051,10 @@
       ],
       "safe_response": "固定拖把和手压检查灯免费；SAN归零时可随身累计8秒应急稳定，普通休息仍在工位，无需购买电池。",
       "resource_effects": {
-        "energy": "唯一安全短休回执精力+5；失误-6一次，不能无限刷。",
-        "san": "误坐-6一次。",
-        "satiety": "喝水不凭空恢复饱腹，食物另计。",
-        "stamina": "拖地按工作4点，0体力仍可慢擦。"
+        "energy": "确认安全后完整坐6世界秒短休：精力+2；均须实际完成且按同实例回执去重。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -3450,8 +4062,8 @@
           "顶灯断电。"
         ],
         "easier": [
-          "固定拖把和手压检查灯免费；可先在干站点稳定，无需购买电池。",
-          "检查会推迟休息；急着恢复SAN却可能先损失SAN，留下不受影响的站立稳定解。"
+          "固定拖把和手压检查灯免费；SAN归零时可随身累计8秒应急稳定，普通休息仍在工位，无需购买电池。",
+          "先解除椅下风险，再决定是否用6世界秒换小额精力；眼前有工作时可直接继续。"
         ]
       },
       "impersonation": {
@@ -3473,7 +4085,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F52",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -3482,7 +4094,19 @@
       "current_resolution": "椅线断开、低位检查确认影子离去即解除危险；6秒短休只决定额外恢复回执，不是交班必须满足的条件。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F52",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "唯一安全短休回执精力+5；失误-6一次，不能无限刷。",
+        "san": "误坐-6一次。",
+        "satiety": "喝水不凭空恢复饱腹，食物另计。",
+        "stamina": "拖地按工作4点，0体力仍可慢擦。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F52",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F53",
@@ -3505,10 +4129,10 @@
       ],
       "safe_response": "基础饮水与双槽容器免费，接受前保证数量够；不强迫购买道具或让玩家挨饿补契约。",
       "resource_effects": {
-        "energy": "分仓工作精力-5。",
-        "san": "06履约资格成立且实际核验交班完成后+5一次；取消或未履约0，不存在可售承诺瓶的−4罚。",
-        "satiety": "只占未食用物品库存，已获得饱腹不变。",
-        "stamina": "搬瓶按实际工作，轻瓶可0体力搬。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "同次已提交交班事务中支付登记dawn奖励：SAN+5；均须实际完成且按同实例回执去重。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -3517,7 +4141,7 @@
         ],
         "easier": [
           "基础饮水与双槽容器免费，接受前保证数量够；不强迫购买道具或让玩家挨饿补契约。",
-          "占用两瓶真实库存与保留容器至06，换安全交班后的SAN+5；四瓶可售仍按已有普通订单成交，不新增客单、营业倍率或工资奖励。"
+          "用两原槽和两瓶实物跨小时换安全交班后的恢复；四瓶可售但承诺两瓶不能被普通订单悄悄卖掉。"
         ]
       },
       "impersonation": {
@@ -3539,17 +4163,29 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F53",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "真实06:00先按同两瓶的实际封存快照判履约资格并释放占槽，再检查危机与交班；已履约且核验交班完成才SAN+5一次，不能借此在危机检查前消除活动恐慌。主动取消或未履约均结束合同、无奖励与新增罚款；06以后补封不能补领。",
+      "current_resolution": "真实720冻结goods_shelf同一保留容器内原A/B已封资格并释放goods_shelf与pickup_shelf两容器预约；只有720前已完成当前店长核验及原账钥匙准备、危机检查安全，才在720同地提交交班并支付SAN+5一次。取消或未履约无奖励/新增罚，绝无720后操作宽限。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F53",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。",
-      "completion_condition": "真实06:00先按同两瓶的实际封存快照判履约资格并释放占槽，再检查危机与交班；已履约且核验交班完成才SAN+5一次，不能借此在危机检查前消除活动恐慌。主动取消或未履约均结束合同、无奖励与新增罚款；06以后补封不能补领。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "completion_condition": "真实06:00先按同两瓶的实际封存快照判履约资格并释放占槽，再检查危机与交班；已履约且核验交班完成才SAN+5一次，不能借此在危机检查前消除活动恐慌。主动取消或未履约均结束合同、无奖励与新增罚款；06以后补封不能补领。",
+      "legacy_resource_effects": {
+        "energy": "分仓工作精力-5。",
+        "san": "06履约资格成立且实际核验交班完成后+5一次；取消或未履约0，不存在可售承诺瓶的−4罚。",
+        "satiety": "只占未食用物品库存，已获得饱腹不变。",
+        "stamina": "搬瓶按实际工作，轻瓶可0体力搬。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F53",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F54",
@@ -3572,10 +4208,10 @@
       ],
       "safe_response": "固定三绳和三个暂存槽免费；只处理登记三物，不能吞掉玩家全部背包或生成腹内地图。",
       "resource_effects": {
-        "energy": "精力-5，错绳返工额外-4最多一次。",
-        "san": "站吞入扇区-8最多一次。",
-        "satiety": "仅全局时钟。",
-        "stamina": "标准三件建议总12点；0体力拉动加倍时长须纳入准入预算。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -3584,7 +4220,7 @@
         ],
         "easier": [
           "固定三绳和三个暂存槽免费；只处理登记三物，不能吞掉玩家全部背包或生成腹内地图。",
-          "拉回每件时要占手和一格暂存位；急着抢最贵的货会打乱绳序。"
+          "观察吞入实序后逆序救货，先为下一件留出物理槽和双手；动画错过仍能读真实记录。"
         ]
       },
       "impersonation": {
@@ -3606,7 +4242,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F54",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -3615,7 +4251,19 @@
       "current_resolution": "三件原物依序回到实际暂存槽、吞入队列为空即结束；没有足够合法对象和空槽就不投放，不复制物件凑三件。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F54",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "精力-5，错绳返工额外-4最多一次。",
+        "san": "站吞入扇区-8最多一次。",
+        "satiety": "仅全局时钟。",
+        "stamina": "标准三件建议总12点；0体力拉动加倍时长须纳入准入预算。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F54",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F55",
@@ -3637,10 +4285,10 @@
       ],
       "safe_response": "店内有一份免费基础赠食可用；不依赖宠物购买或抽奖，也不承诺店外无限无敌。",
       "resource_effects": {
-        "energy": "无固定额外精力扣除，实际行走计全局。",
-        "san": "本次实际护送完成返店+4一次；不发次夜预警。",
-        "satiety": "只扣未食用库存1份，已恢复的饱腹数值不减。",
-        "stamina": "搬车按普通2.4格/秒，0体力可慢行。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "玩家实际返店后结算一次护送回执：SAN+4；均须实际完成且按同实例回执去重。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -3649,7 +4297,7 @@
         ],
         "easier": [
           "店内有一份免费基础赠食可用；不依赖宠物购买或抽奖，也不承诺店外无限无敌。",
-          "赠食减少可售或可吃库存，护送占用玩家行程；可以在接受前拒绝。"
+          "用一份非保底食物换可预判路线和返店恢复；骑手迟到就带货回，不赌无限等人。"
         ]
       },
       "impersonation": {
@@ -3671,7 +4319,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F55",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -3680,8 +4328,20 @@
       "current_resolution": "完成本次登记路线并实际返店，按同一护送回执SAN+4一次；实际交付才另记原订单完成，骑手超时带原物返店只算护送成功及原待办。未接受或中途放弃无护送奖励。不再发没有明确消费者的次夜预警。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F55",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。",
-      "completion_condition": "完成本次登记路线并实际返店，按同一护送回执SAN+4一次；实际交付才另记原订单完成，骑手超时带原物返店只算护送成功及原待办。未接受或中途放弃无护送奖励。不再发没有明确消费者的次夜预警。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "completion_condition": "完成本次登记路线并实际返店，按同一护送回执SAN+4一次；实际交付才另记原订单完成，骑手超时带原物返店只算护送成功及原待办。未接受或中途放弃无护送奖励。不再发没有明确消费者的次夜预警。",
+      "legacy_resource_effects": {
+        "energy": "无固定额外精力扣除，实际行走计全局。",
+        "san": "本次实际护送完成返店+4一次；不发次夜预警。",
+        "satiety": "只扣未食用库存1份，已恢复的饱腹数值不减。",
+        "stamina": "搬车按普通2.4格/秒，0体力可慢行。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F55",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F56",
@@ -3704,10 +4364,10 @@
       ],
       "safe_response": "固定尺、拖把与干侧路线免费；不把量尺做成连续物理深度模拟。",
       "resource_effects": {
-        "energy": "精力-5。",
-        "san": "越界-8一次。",
-        "satiety": "仅全局时钟。",
-        "stamina": "操作牌和阀建议6点；0体力均有慢操作。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -3716,7 +4376,7 @@
         ],
         "easier": [
           "固定尺、拖把与干侧路线免费；不把量尺做成连续物理深度模拟。",
-          "先探边界多走几步；直接取近处货物看似更快，却会进入拖拽区。"
+          "先查水深边界再切断支线；熟悉原图且已排干时可直接救货。"
         ]
       },
       "impersonation": {
@@ -3738,7 +4398,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F56",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -3747,7 +4407,19 @@
       "current_resolution": "已确认目标分支排干、登记物从干侧实际取回即结束；测深用于辨认边界，若玩家已提前断水并安全取回，不强迫在干地重复测深。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F56",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "精力-5。",
+        "san": "越界-8一次。",
+        "satiety": "仅全局时钟。",
+        "stamina": "操作牌和阀建议6点；0体力均有慢操作。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F56",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F57",
@@ -3769,10 +4441,10 @@
       ],
       "safe_response": "ATT15踏板、拉杆与缓冲槽免费；8秒内的完整动作已静态预算，跨过并不重建寻路网格。",
       "resource_effects": {
-        "energy": "精力-4，返工额外-4至多一次。",
-        "san": "成功+4。",
-        "satiety": "只改变通路与库存位置，不恢复或扣饱腹。",
-        "stamina": "搬两箱和一次过线建议总8点；0体力慢搬可行。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "原箱经完整维护过渠且复流后领取一次SAN+4：SAN+4；均须实际完成且按同实例回执去重。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -3781,7 +4453,7 @@
         ],
         "easier": [
           "ATT15踏板、拉杆与缓冲槽免费；8秒内的完整动作已静态预算，跨过并不重建寻路网格。",
-          "绕过水渠要多走，过板要服从窗口；这里保护的是水路，与其他水怪的断支流不矛盾。"
+          "从同一清渠杆位置出发，选约5.85秒北侧干绕稳妥送货，或约6.717秒维护再花0.5秒领奖，用约1.37秒和8秒窗口风险换SAN+4。"
         ]
       },
       "impersonation": {
@@ -3803,16 +4475,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F57",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "同一登记箱通过合法维护路线或登记外绕到达，主渠畅通且无遗留踏板即可结束；提前送达且渠畅通同样有效。",
+      "current_resolution": "同一原箱经真实8秒维护或北侧登记干绕到达[29.5,-4.5]，主渠通水畅通且无遗留踏板即安全完成；只有实际完整未超时的放板→过箱→收板复流链可领SAN+4一次，干绕无此奖励。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F57",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "精力-4，返工额外-4至多一次。",
+        "san": "成功+4。",
+        "satiety": "只改变通路与库存位置，不恢复或扣饱腹。",
+        "stamina": "搬两箱和一次过线建议总8点；0体力慢搬可行。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F57",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F58",
@@ -3834,10 +4518,10 @@
       ],
       "safe_response": "免费基础热食或手动封区均可完成，不要求用最后一格电救命。",
       "resource_effects": {
-        "energy": "正常流程精力-5。",
-        "san": "温度失控-6至多一次。",
-        "satiety": "暖区路扣未食用热食库存1份；封区路不扣食品，饱腹只随全局时钟。",
-        "stamina": "摆牌及轻物0体力可用。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "本怪没有独立SAN扣补；真实3秒边界收缩改变可用操作路线，迟放回不撤销，沿免费封区退出。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -3846,7 +4530,7 @@
         ],
         "easier": [
           "免费基础热食或手动封区均可完成，不要求用最后一格电救命。",
-          "留食少一份销量，供电延长便利；封区保守解放弃一段服务但不会取消整夜基础目标。"
+          "留住一份真实热食维持暖区工作，或暂时停普通冷区业务保时间；个人任务冰柜和逃生门始终能用。"
         ]
       },
       "impersonation": {
@@ -3868,7 +4552,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F58",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -3877,7 +4561,19 @@
       "current_resolution": "暖边界维持到本次明确退雾时点，或冷区普通业务已实际停用且玩家安全退出，均结束本次遭遇；提前封区有效，只有真实受影响服务才计机会损失。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F58",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "正常流程精力-5。",
+        "san": "温度失控-6至多一次。",
+        "satiety": "暖区路扣未食用热食库存1份；封区路不扣食品，饱腹只随全局时钟。",
+        "stamina": "摆牌及轻物0体力可用。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F58",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F59",
@@ -3899,10 +4595,10 @@
       ],
       "safe_response": "基础材料与绕行牌免费；没有损坏设施就不给无意义维修任务。",
       "resource_effects": {
-        "energy": "精力-5。",
-        "san": "无固有SAN伤害。",
-        "satiety": "仅全局时钟。",
-        "stamina": "搬构件建议6点；0体力可慢搬。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -3911,7 +4607,7 @@
         ],
         "easier": [
           "基础材料与绕行牌免费；没有损坏设施就不给无意义维修任务。",
-          "等待时必须让出注意力与一段位置；关的只是局部灯，不切冷链任务柜。"
+          "故障发生后可6秒隔离保安全但暂失已有可选设备；选择工队，投入3份实际材料、8秒不注视施工与实际搬装，取回本班监控快照功能。不是用更多成本换相同的6秒维修结果。"
         ]
       },
       "impersonation": {
@@ -3933,16 +4629,28 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F59",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
       "complexity_surcharge": 0,
       "legacy_interaction_design_stage": "v04_complete_design",
-      "current_resolution": "真实故障对应组件已制作、安装并通过实际测试时结算一次帮助；故障提前修好或接受前拒绝则安全结束，返还未用材料，不产生故障免疫。",
+      "current_resolution": "同一damaged_component工单的3份原材料真实转成唯一组件，实际装回原可选设备并测试成功，故障清除、原功能恢复且原电量/次数保留；不在施工位远程修好。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F59",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "精力-5。",
+        "san": "无固有SAN伤害。",
+        "satiety": "仅全局时钟。",
+        "stamina": "搬构件建议6点；0体力可慢搬。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F59",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     },
     {
       "id": "F60",
@@ -3964,10 +4672,10 @@
       ],
       "safe_response": "固定帘与朝向锁定都免费；镜面查看不触发直视禁令，不能将二者都按facing判罚。",
       "resource_effects": {
-        "energy": "精力-4。",
-        "san": "首次直视-8；其后本实例只给空间压力不重复扣恐惧。",
-        "satiety": "仅全局时钟。",
-        "stamina": "推板8点；拉帘无需体力，方向锁定移动按共享0.8系数。"
+        "energy": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "san": "在实际无遮挡双向直视下停留3秒：SAN-6；均须实际完成且按同实例回执去重。",
+        "satiety": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。",
+        "stamina": "没有本怪独立扣补；统一时钟、实际个人物品消费及基本移动沿共享核心，不叠加历史整套成本。"
       },
       "synergy_conditions": {
         "harder": [
@@ -3976,7 +4684,7 @@
         ],
         "easier": [
           "固定帘与朝向锁定都免费；镜面查看不触发直视禁令，不能将二者都按facing判罚。",
-          "多看一秒能认清原型，晚退一步会暴露；帘同时挡住该侧信息，需换服务位。"
+          "镜子给可选识破证据；实体危险通过真实朝向和遮挡处理，手忙时可直接停服务背向退出。"
         ]
       },
       "impersonation": {
@@ -4008,7 +4716,7 @@
       "design_status": "complete_design_not_playtested",
       "rule_policy": "基础店规及该原型首次可安全接触的方法，必须在强制威胁前提供；可选择保守处理。",
       "mechanic_origin": "original_convenience_store_adaptation",
-      "interaction_design_stage": "v07_temporal_resource_audited_design",
+      "interaction_design_stage": "v010_finite_lifecycle_audited_design",
       "interaction_card_id": "F60",
       "interaction_card_file": "content/encounters_v05.json",
       "playable_client_implemented": false,
@@ -4017,7 +4725,19 @@
       "current_resolution": "实际实体视线已被有效遮挡或玩家保持未朝向，该服务位实际停用并完成3世界秒退场等待即结束；提前拉帘或停用有效。帘只在真实位于两者之间时阻视，镜证据仍为可选奖励。",
       "condition_contract_file": "content/condition_lifecycle_v06.json",
       "condition_contract_id": "F60",
-      "resource_effects_policy": "数值草案只在对应真实动作/失败回执发生时一次结算；未触发、拒绝和提前防范不暗扣整套流程成本，工作与遭遇共用动作不重复扣费。"
+      "resource_effects_policy": "仅当前有限模型的真实动作/计时器效果与统一资源核心生效；历史文案保留为legacy，不作为额外扣费或奖励。世界适配尚未完成，正式投放仍关闭。",
+      "legacy_resource_effects": {
+        "energy": "精力-4。",
+        "san": "首次直视-8；其后本实例只给空间压力不重复扣恐惧。",
+        "satiety": "仅全局时钟。",
+        "stamina": "推板8点；拉帘无需体力，方向锁定移动按共享0.8系数。"
+      },
+      "finite_mechanism_contract": {
+        "file": "content/mechanism_cases_v010_b.json",
+        "case_id": "F60",
+        "adapter_required": true,
+        "model_is_not_live_ai": true
+      }
     }
   ],
   "runtime_admission_policy": "enabled_default标识完整候选池；运行时还须完成店务映射、功能实现和可解性验证，不能仅按该标记投放。",
@@ -4089,5 +4809,6 @@
   ],
   "design_completion_is_not_runtime_implementation": true,
   "current_gameplay_catalog": "content/encounters_v05.json",
-  "condition_lifecycle_contract": "content/condition_lifecycle_v06.json"
+  "condition_lifecycle_contract": "content/condition_lifecycle_v06.json",
+  "current_resource_effects_contract": "content/mechanism_closure_v010.json"
 }

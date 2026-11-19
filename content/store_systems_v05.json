@@ -1,5 +1,5 @@
 {
-  "version": "0.8",
+  "version": "0.10",
   "status": "reviewed_design_with_partial_headless_contract_reference_not_playable_client",
   "design_goal": "每个熟悉的工作物件都有正常用途、被怪物利用的方式和玩家可改变的状态；紧张来自行动取舍、可观察的违禁后果与有限注意力。",
   "authority": {
@@ -498,7 +498,8 @@
         "units": 1,
         "world_seconds": 1,
         "effect": "从当前可用摄像区远程采集一帧；附来源和时刻。",
-        "free_alternative": "到可达现场观察；已有基准与旧快照免费阅读。"
+        "free_alternative": "到可达现场观察；已有基准与旧快照免费阅读。",
+        "enabled_current": true
       },
       {
         "id": "side_light",
@@ -506,15 +507,19 @@
         "world_seconds": 1,
         "duration_world_seconds": 20,
         "effect": "放大侧轮廓/投影线索，持续到期。",
-        "free_alternative": "基础灯下使用店内手镜/可达物件观察，最多增加3秒操作。"
+        "free_alternative": "基础灯下使用店内手镜/可达物件观察，最多增加3秒操作。",
+        "enabled_current": true
       },
       {
         "id": "brace_door",
         "units": 2,
         "world_seconds": 1,
         "duration_world_seconds": 12,
-        "effect": "暂缓明确为实体推门的入侵；紧急退出仍可用。",
-        "free_alternative": "手动门、窗口交付、按该怪条件退让。不能代替F12诱离。"
+        "effect": "历史保留，当前不显示、不扣电、不产生效果。",
+        "free_alternative": "手动门、窗口交付、按该怪条件退让。不能代替F12诱离。",
+        "enabled_current": false,
+        "archived_effect": "暂缓明确为实体推门的入侵；紧急退出仍可用。",
+        "disabled_reason": "当前60怪没有登记的实体推门冲击消费者。"
       },
       {
         "id": "route_light",
@@ -522,35 +527,37 @@
         "world_seconds": 1,
         "duration_world_seconds": 20,
         "effect": "已选回路临时增强可见范围；不改变SAN数值和QTE。",
-        "free_alternative": "默认灯、免费应急标线和普通行走仍可用。"
+        "free_alternative": "默认灯、免费应急标线和普通行走仍可用。",
+        "enabled_current": true
       },
       {
         "id": "temperature_hold",
         "units": 1,
         "world_seconds": 1,
         "duration_world_seconds": 20,
-        "effect": "只延长普通热饮/货品的优质交付窗，不影响F13基本入柜。",
-        "free_alternative": "店内保温盖与普通冰柜，按路线及时搬运。"
+        "effect": "历史保留，当前不显示、不扣电、不产生效果。",
+        "free_alternative": "店内保温盖与普通冰柜，按路线及时搬运。",
+        "enabled_current": false,
+        "archived_effect": "只延长普通热饮/货品的优质交付窗，不影响F13基本入柜。",
+        "disabled_reason": "当前没有普通食品品质计时及收益消费者；F06杯温、F49冷却有各自独立时钟，不能冒称通用食品品质。"
       }
     ],
     "budget_examples": [
       {
-        "name": "六次观察双次照明单次加固",
+        "name": "观察和两区照明",
         "uses": {
           "snapshot": 6,
           "side_light": 2,
-          "route_light": 2,
-          "brace_door": 1
+          "route_light": 4
         },
         "total_units": 12
       },
       {
-        "name": "少监控多防护",
+        "name": "少快照、多局部照明",
         "uses": {
           "snapshot": 2,
-          "side_light": 2,
-          "brace_door": 3,
-          "temperature_hold": 2
+          "side_light": 6,
+          "route_light": 4
         },
         "total_units": 12
       }
@@ -608,7 +615,18 @@
       "F32": "content/condition_lifecycle_v06.json#/wounds/reactive_consumers"
     },
     "after_announcement_source_recheck_required": true,
-    "player_prevented_encounter_keeps_primary_slot_spent": true
+    "player_prevented_encounter_keeps_primary_slot_spent": true,
+    "late_local_source_gates": {
+      "F38": {
+        "before_first_far_omen": "真实旧工作记录、独立基线、演员可到岗、两分位与实际路线可用；不要求尚未产生的8秒凭证。",
+        "local_current_check": "由玩家在原核验位实际完成；未完成或断链时保留双方面具的限权收尾，不补写身份。",
+        "fixed_schedule_example": "当前核验496.666667→10格入场500→分位/授权502.5，N05到场仍在500。",
+        "normal_chain_world_seconds": 5.833333333333334,
+        "wrong_grant_recovery_chain_world_seconds": 7.333333333333334,
+        "credential_ttl_world_seconds": 8,
+        "passive_observation_does_not_refresh": true
+      }
+    }
   },
   "information": {
     "canonical_handbook_immutable": true,
@@ -938,7 +956,10 @@
       "no_condition_can_simultaneously_require_normal_and_anomalous_branch": true,
       "variant_handling_credited_to_same_existing_action_once": true
     },
-    "consumer_closure_contract": "content/consumer_closure_v08.json"
+    "consumer_closure_contract": "content/consumer_closure_v08.json",
+    "current_semantic_contract": "content/mechanism_closure_v010.json",
+    "current_event_contract": "content/event_contracts_v010.json",
+    "current_composition_contract": "content/composition_contracts_v010.json"
   },
   "conditional_examples": [
     {
@@ -1109,6 +1130,7 @@
     ],
     "all_registered_monster_features_implemented": false,
     "extension_requirement_count": 51,
-    "extension_scope": "51个标签是具体内容扩展需求，包含同类变体和参数配置；不是已经实现的51个引擎模块，也不能因为有10个SG就省略逐条适配和验收。实现后再从实测重复代码提取共享组件。"
+    "extension_scope": "51个标签是具体内容扩展需求，包含同类变体和参数配置；不是已经实现的51个引擎模块，也不能因为有10个SG就省略逐条适配和验收。实现后再从实测重复代码提取共享组件。",
+    "v010_scope": "已完成V0.10有限设计合同/静态地图路径/纯状态机审查；V0.9只有F12/F13可交互练习和部分日班接线。其余正式60怪连续AI、完整随机导演与微信真机尚未实现。"
   }
 }

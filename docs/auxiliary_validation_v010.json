@@ -1,0 +1,293 @@
+{
+  "passed": true,
+  "checks": 2132,
+  "catalog_entries": 64,
+  "effect_contracts": 69,
+  "registered_consumers": 34,
+  "bounded_probes": 70,
+  "errors": [],
+  "probe_results": [
+    {
+      "name": "warning_from_two_to_three",
+      "passed": true
+    },
+    {
+      "name": "warning_no_difference_no_charge",
+      "passed": true
+    },
+    {
+      "name": "warning_cannot_partially_spend_across_boundary",
+      "passed": true
+    },
+    {
+      "name": "upgraded_B04_is_total_half_second",
+      "passed": true
+    },
+    {
+      "name": "expired_budget_has_no_extension",
+      "passed": true
+    },
+    {
+      "name": "Q15_ordinary_box",
+      "passed": true
+    },
+    {
+      "name": "B06_L1_raw_meat",
+      "passed": true
+    },
+    {
+      "name": "B06_and_Q15_do_not_multiply",
+      "passed": true
+    },
+    {
+      "name": "B06_L2_and_Q15_take_stronger",
+      "passed": true
+    },
+    {
+      "name": "Q19_actual_saving_san_50_damage_5",
+      "passed": true
+    },
+    {
+      "name": "Q19_actual_saving_san_2_damage_5",
+      "passed": true
+    },
+    {
+      "name": "Q19_actual_saving_san_2_damage_4",
+      "passed": true
+    },
+    {
+      "name": "Q19_actual_saving_san_0_damage_5",
+      "passed": true
+    },
+    {
+      "name": "Q19_actual_saving_san_50_damage_0",
+      "passed": true
+    },
+    {
+      "name": "I06_full_lamp_no_consume",
+      "passed": true
+    },
+    {
+      "name": "I06_partial_charge_clamp",
+      "passed": true
+    },
+    {
+      "name": "I15_cooling_cannot_be_negative",
+      "passed": true
+    },
+    {
+      "name": "P08_retry_adds_remainder_only",
+      "passed": true
+    },
+    {
+      "name": "P08_success_cannot_pay_more_after_cap",
+      "passed": true
+    },
+    {
+      "name": "Q17_day_before_06",
+      "passed": true
+    },
+    {
+      "name": "Q17_day_at_06",
+      "passed": true
+    },
+    {
+      "name": "Q17_same_day_midnight_no_reset",
+      "passed": true
+    },
+    {
+      "name": "Q16_max_16_not_50",
+      "passed": true
+    },
+    {
+      "name": "Q16_oldest_not_expired",
+      "passed": true
+    },
+    {
+      "name": "Q16_never_fresh_blood",
+      "passed": true
+    },
+    {
+      "name": "Q17_saved_receipt_cannot_repeat_gain",
+      "passed": true
+    },
+    {
+      "name": "B01_last_charge_commit",
+      "passed": true
+    },
+    {
+      "name": "B01_source_now_empty",
+      "passed": true
+    },
+    {
+      "name": "B01_last_effect_still_live",
+      "passed": true
+    },
+    {
+      "name": "B01_no_second_trigger",
+      "passed": true
+    },
+    {
+      "name": "B01_same_receipt_no_refresh",
+      "passed": true
+    },
+    {
+      "name": "B01_retired_source_keeps_child",
+      "passed": true
+    },
+    {
+      "name": "B01_exact_expiry",
+      "passed": true
+    },
+    {
+      "name": "B01_terminal_target_cleans_child",
+      "passed": true
+    },
+    {
+      "name": "B04_last_charge_commit",
+      "passed": true
+    },
+    {
+      "name": "B04_source_now_empty",
+      "passed": true
+    },
+    {
+      "name": "B04_last_effect_still_live",
+      "passed": true
+    },
+    {
+      "name": "B04_no_second_trigger",
+      "passed": true
+    },
+    {
+      "name": "B04_same_receipt_no_refresh",
+      "passed": true
+    },
+    {
+      "name": "B04_retired_source_keeps_child",
+      "passed": true
+    },
+    {
+      "name": "B04_exact_expiry",
+      "passed": true
+    },
+    {
+      "name": "B04_terminal_target_cleans_child",
+      "passed": true
+    },
+    {
+      "name": "B06_last_charge_commit",
+      "passed": true
+    },
+    {
+      "name": "B06_source_now_empty",
+      "passed": true
+    },
+    {
+      "name": "B06_last_effect_still_live",
+      "passed": true
+    },
+    {
+      "name": "B06_no_second_trigger",
+      "passed": true
+    },
+    {
+      "name": "B06_same_receipt_no_refresh",
+      "passed": true
+    },
+    {
+      "name": "B06_retired_source_keeps_child",
+      "passed": true
+    },
+    {
+      "name": "B06_exact_expiry",
+      "passed": true
+    },
+    {
+      "name": "B06_terminal_target_cleans_child",
+      "passed": true
+    },
+    {
+      "name": "B08_last_charge_commit",
+      "passed": true
+    },
+    {
+      "name": "B08_source_now_empty",
+      "passed": true
+    },
+    {
+      "name": "B08_last_effect_still_live",
+      "passed": true
+    },
+    {
+      "name": "B08_no_second_trigger",
+      "passed": true
+    },
+    {
+      "name": "B08_same_receipt_no_refresh",
+      "passed": true
+    },
+    {
+      "name": "B08_retired_source_keeps_child",
+      "passed": true
+    },
+    {
+      "name": "B08_exact_expiry",
+      "passed": true
+    },
+    {
+      "name": "B08_terminal_target_cleans_child",
+      "passed": true
+    },
+    {
+      "name": "invalid_auxiliary_commit_keeps_charge",
+      "passed": true
+    },
+    {
+      "name": "invalid_auxiliary_charge_unchanged",
+      "passed": true
+    },
+    {
+      "name": "I12_pending_permit_consumed",
+      "passed": true
+    },
+    {
+      "name": "I12_current_action_keeps_snapshot",
+      "passed": true
+    },
+    {
+      "name": "I12_no_second_action_after_cancel",
+      "passed": true
+    },
+    {
+      "name": "I12_expired_unconsumed_permit_rejected",
+      "passed": true
+    },
+    {
+      "name": "B07_uses_real_cold_dry_position",
+      "passed": true
+    },
+    {
+      "name": "B07_uses_real_cut_cell",
+      "passed": true
+    },
+    {
+      "name": "B02_default_mirror_position_not_protected",
+      "passed": true
+    },
+    {
+      "name": "B02_actual_left_screen_position_protected",
+      "passed": true
+    },
+    {
+      "name": "Q08_two_points_plus_one_B03_fits",
+      "passed": true
+    },
+    {
+      "name": "Q08_two_points_plus_two_devices_rejected",
+      "passed": true
+    }
+  ],
+  "scope": "static contract/reference coverage and finite arithmetic/anchor probes; not a complete engine, playthrough or WeChat client proof",
+  "client_implemented": false
+}

@@ -1,16 +1,16 @@
 {
-  "version": "0.8",
+  "version": "0.10",
   "events": [
     {
       "id": "E001",
       "name": "两单撞时",
       "category": "营业",
       "phase": "night",
-      "trigger": "本阶段两个基础订单均尚未到场，调度将其到达时刻集中；两单类型与唯一订单ID保持不变。",
+      "trigger": "本阶段两个尚未到场的原订单ID；保留pickup/browse原类别",
       "choices": [
         {
           "label": "先挂单分批",
-          "consequence": "按现有两单分批处理，可能放弃超时单的奖金；不增加或复制订单。",
+          "consequence": "两单各1.5秒；原耐心不刷新，收入与记录各一次",
           "time_cost": {
             "night_seconds_max": 20,
             "day_action_slots": 0,
@@ -19,7 +19,7 @@
         },
         {
           "label": "让已核验同事接台",
-          "consequence": "提高吞吐并占用同事",
+          "consequence": "交同事原篮1秒，玩家处理另一原单1.5秒；同事同时在原柜台完成其1.5秒服务；若同事尚未在岗，先额外算其实际来程。",
           "time_cost": {
             "night_seconds_max": 20,
             "day_action_slots": 0,
@@ -113,7 +113,9 @@
         "after_arrival_reschedule_allowed": false,
         "patience_restarts": false,
         "creates_extra_order": false
-      }
+      },
+      "v010_contract_id": "E001",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E002",
@@ -124,7 +126,7 @@
       "choices": [
         {
           "label": "暂存这笔订单",
-          "consequence": "同一订单维持原耐心；超时可放弃，只损失该单收益，不伪造找零。",
+          "consequence": "保持原订单和原耐心，超时放弃该单收益",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -133,7 +135,7 @@
         },
         {
           "label": "更换常备备用匣",
-          "consequence": "从柜台槽取备用匣并装入，正常自动找零恢复；不用额外呼叫店长认证。",
+          "consequence": "普通自动找零恢复，取出卡匣留原维修槽",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -205,7 +207,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E002",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E003",
@@ -216,7 +220,7 @@
       "choices": [
         {
           "label": "按原票逐单核对",
-          "consequence": "少量精力消耗，避免库存混淆",
+          "consequence": "逐件核销原销售行；退货不计新销售；危险徒手接触另走真实割伤合同",
           "time_cost": {
             "night_seconds_max": 20,
             "day_action_slots": 0,
@@ -225,7 +229,7 @@
         },
         {
           "label": "先入待核区",
-          "consequence": "占用存放格换处理时间",
+          "consequence": "占一个原待核格至交班；不返未经核实的款，不生成新血",
           "time_cost": {
             "night_seconds_max": 20,
             "day_action_slots": 0,
@@ -302,7 +306,9 @@
         "glass_incident_is_optional_subtype": true
       },
       "v06_order_policy": "退货占用既有服务名额但不计新的销售完成笔数；原销售凭证可以来自明确初始历史登记，不能为本怪补写本班成交。",
-      "v06_glass_incident_contract": "content/condition_lifecycle_v06.json#/wounds/producers"
+      "v06_glass_incident_contract": "content/condition_lifecycle_v06.json#/wounds/producers",
+      "v010_contract_id": "E003",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E004",
@@ -313,7 +319,7 @@
       "choices": [
         {
           "label": "提前制作并预约交付",
-          "consequence": "当前实际制作占用货物与12秒处理预算，下一小时另预留8秒交付；不能只收单就记制作完成",
+          "consequence": "本小时制作一次，下小时预留8秒加真实路径交付",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -322,7 +328,7 @@
         },
         {
           "label": "预约下一小时制作与交付",
-          "consequence": "当前登记最多12秒，下一小时同时预留20秒制作交付；容量不足不接受订单",
+          "consequence": "下小时预留20秒加真实路径；没有容量不接受",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -405,7 +411,9 @@
         "same_receipt_settles_once": true,
         "client_implemented": false
       },
-      "v06_order_policy": "预约的是下一小时既有pickup名额，不在当前小时新增完成交易；接受前锁定下一小时唯一订单ID及制作/交付预算。"
+      "v06_order_policy": "预约的是下一小时既有pickup名额，不在当前小时新增完成交易；接受前锁定下一小时唯一订单ID及制作/交付预算。",
+      "v010_contract_id": "E004",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E005",
@@ -416,7 +424,7 @@
       "choices": [
         {
           "label": "按可信求助流程联系",
-          "consequence": "占用电话与时间，得到关系收益",
+          "consequence": "形成求助记录，包留同一公共待核格；不发虚构关系数值",
           "time_cost": {
             "night_seconds_max": 20,
             "day_action_slots": 0,
@@ -425,7 +433,7 @@
         },
         {
           "label": "请已核验同事陪同等候",
-          "consequence": "减少自己中断，消耗同事可用性",
+          "consequence": "同事在公共区陪等20世界秒；不授予陌生人后台权限",
           "time_cost": {
             "night_seconds_max": 20,
             "day_action_slots": 0,
@@ -492,7 +500,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E005",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E006",
@@ -503,7 +513,7 @@
       "choices": [
         {
           "label": "要求完整订单范围",
-          "consequence": "延时但明确责任",
+          "consequence": "只接受已展示的本单费用，不能产生未到场者无限欠款",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -512,7 +522,7 @@
         },
         {
           "label": "转为普通现货购买",
-          "consequence": "降低订单收益而不承诺未知事项",
+          "consequence": "只售同一原货；无代付及后续承诺",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -577,7 +587,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E006",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E007",
@@ -588,7 +600,7 @@
       "choices": [
         {
           "label": "查登记与独立特征",
-          "consequence": "耗观察时间后恢复正确归属",
+          "consequence": "匹配者领取原物；不能由当前访客口述补造原记录",
           "time_cost": {
             "night_seconds_max": 16,
             "day_action_slots": 0,
@@ -597,7 +609,7 @@
         },
         {
           "label": "保持封存待核",
-          "consequence": "暂占一格，不强制猜人",
+          "consequence": "待核至白天，无强迫猜测或身份奖",
           "time_cost": {
             "night_seconds_max": 16,
             "day_action_slots": 0,
@@ -666,18 +678,20 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E007",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E008",
       "name": "骑手迟到",
       "category": "营业",
       "phase": "night",
-      "trigger": "封好外卖无人取走",
+      "trigger": "一件已经实际打包完成的原pickup订单包裹、原预约记录，骑手尚未实际到场；到场前一次预告延后8预算秒。",
       "choices": [
         {
-          "label": "保温等待",
-          "consequence": "占用保温格",
+          "label": "放入原保温格",
+          "consequence": "同包占已有保温格、释放取货台；到场前仅一次延后8预算秒。耐心在真实到场后按原24世界秒开始；已到场不能被重标未到，保温不刷新任何已开始的期限。",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -685,8 +699,8 @@
           }
         },
         {
-          "label": "联系真实订单来源改时",
-          "consequence": "占用电话，释放取货区",
+          "label": "联系取消本次提货",
+          "consequence": "同包留待退格；本时段不重生订单，不加耐心",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -760,7 +774,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E008",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E009",
@@ -771,7 +787,7 @@
       "choices": [
         {
           "label": "按编号分批交付",
-          "consequence": "稳定秩序但耗时",
+          "consequence": "三物库存守恒，仍只是一笔交易",
           "time_cost": {
             "night_seconds_max": 24,
             "day_action_slots": 0,
@@ -780,7 +796,7 @@
         },
         {
           "label": "借用空台打包",
-          "consequence": "占用可用于隔离的工作面",
+          "consequence": "占一个托盘至实际取货；放弃时归原订单待退格",
           "time_cost": {
             "night_seconds_max": 24,
             "day_action_slots": 0,
@@ -862,7 +878,9 @@
         "same_receipt_settles_once": true,
         "client_implemented": false
       },
-      "v06_order_policy": "一个既有订单包含多件真实货物，最多按同一订单计功一次；增加件数不增加订单名额。"
+      "v06_order_policy": "一个既有订单包含多件真实货物，最多按同一订单计功一次；增加件数不增加订单名额。",
+      "v010_contract_id": "E009",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E010",
@@ -873,7 +891,7 @@
       "choices": [
         {
           "label": "先铺雨垫分流",
-          "consequence": "降低湿区面积，占少量体力",
+          "consequence": "本次普通雨湿边隔断；只作用所标前场格",
           "time_cost": {
             "night_seconds_max": 16,
             "day_action_slots": 0,
@@ -882,7 +900,7 @@
         },
         {
           "label": "继续营业后清洁",
-          "consequence": "增加收益并保留明确积水风险",
+          "consequence": "保持30世界秒雨湿标记；无额外滑倒/流血系统",
           "time_cost": {
             "night_seconds_max": 16,
             "day_action_slots": 0,
@@ -932,7 +950,6 @@
         "F56V1"
       ],
       "v05_encounter_variant_ids": [
-        "F04-V05-2",
         "F10-V05-1",
         "F30-V05-1",
         "F41-V05-2",
@@ -959,7 +976,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E010",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E011",
@@ -970,7 +989,7 @@
       "choices": [
         {
           "label": "依赖室内核验",
-          "consequence": "失去部分外部预警但证据可靠",
+          "consequence": "只改变取证位置；不抹去历史事实和HUD方向",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -979,7 +998,7 @@
         },
         {
           "label": "安排安全门内观察",
-          "consequence": "耗精力与同事时间",
+          "consequence": "室外怪仍只按实际视域显示；不通过雾自动知身份",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -1056,18 +1075,20 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E011",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E012",
       "name": "热浪滞留",
       "category": "天气",
       "phase": "night",
-      "trigger": "环境温度持续偏高",
+      "trigger": "30世界秒热浪预报与真实普通饮水订单，或已准入F11/F53的具体需求分支。不存在普通食品品质自动销毁。",
       "choices": [
         {
-          "label": "优先保冷",
-          "consequence": "增加设备负载",
+          "label": "完成已有饮水单",
+          "consequence": "只服务原订单；与F53同物时只能取可售四瓶中的实际余量",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -1075,8 +1096,8 @@
           }
         },
         {
-          "label": "减少易坏货陈列",
-          "consequence": "损失营业机会换稳定",
+          "label": "收起未承诺的陈列",
+          "consequence": "放弃可选销量，既有已接受订单仍按原条款处理",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -1145,18 +1166,20 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E012",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E013",
       "name": "寒潮结霜",
       "category": "天气",
       "phase": "night",
-      "trigger": "温条与外霜预警",
+      "trigger": "一处普通饮料柜的可见外霜；关键任务冰柜不由该事件失效",
       "choices": [
         {
           "label": "暂停一处柜门检修",
-          "consequence": "降低吞吐",
+          "consequence": "停卖该柜4秒后恢复；只清外霜，无湿地再生",
           "time_cost": {
             "night_seconds_max": 18,
             "day_action_slots": 0,
@@ -1165,7 +1188,7 @@
         },
         {
           "label": "转运到备用保温容器",
-          "consequence": "占随身或工位容量",
+          "consequence": "原物原数量保留；若绑定现有订单，仅保该原订单耐心；没有订单就没有食品到期或品质时钟。",
           "time_cost": {
             "night_seconds_max": 18,
             "day_action_slots": 0,
@@ -1232,7 +1255,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E013",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E014",
@@ -1243,7 +1268,7 @@
       "choices": [
         {
           "label": "预置应急照明",
-          "consequence": "少量准备成本",
+          "consequence": "闪光时可见近侧操作位；不复制应急储备",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -1252,7 +1277,7 @@
         },
         {
           "label": "保留手持电量等待",
-          "consequence": "节省准备但牺牲一只手",
+          "consequence": "操作期间占一手，退出释放；不要求玩家买电池",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -1325,7 +1350,9 @@
       "v06_conditional_children": [
         "E070"
       ],
-      "v06_children_share_reserved_handling_budget": true
+      "v06_children_share_reserved_handling_budget": true,
+      "v010_contract_id": "E014",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E015",
@@ -1335,8 +1362,8 @@
       "trigger": "供水通知与水压下降",
       "choices": [
         {
-          "label": "节省净水留核验",
-          "consequence": "降低清洁效率",
+          "label": "分配店配必要净水",
+          "consequence": "仅转移实际净水份额；不挪F53保留瓶或个人保底餐",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -1344,8 +1371,8 @@
           }
         },
         {
-          "label": "购买一批应急用水",
-          "consequence": "耗工资币但缓解容量问题",
+          "label": "付4币领可选备用水",
+          "consequence": "明示支付4币后获得一份；不足币时第一路始终可用",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -1416,7 +1443,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E015",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E016",
@@ -1427,7 +1456,7 @@
       "choices": [
         {
           "label": "改走已核验侧边通路",
-          "consequence": "营业动线变长",
+          "consequence": "30秒内仅绕行既有通路；无滑行/隐形伤害",
           "time_cost": {
             "night_seconds_max": 20,
             "day_action_slots": 0,
@@ -1436,7 +1465,7 @@
         },
         {
           "label": "暂停短时入店清理",
-          "consequence": "少赚收益并消耗体力",
+          "consequence": "每格3秒实际完成；清理过的格不因本事件反复重生",
           "time_cost": {
             "night_seconds_max": 20,
             "day_action_slots": 0,
@@ -1513,7 +1542,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E016",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E017",
@@ -1524,7 +1555,7 @@
       "choices": [
         {
           "label": "放置安全休息点",
-          "consequence": "耗食物并可能触发后续领养",
+          "consequence": "动物等候20秒后离开；不能占个人保底食物，记录仅供白天领养参考",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -1533,7 +1564,7 @@
         },
         {
           "label": "联系白天救助记录",
-          "consequence": "耗电话时间，不直接获得宠物",
+          "consequence": "仅建立救助记录，白天仍按P系列实际领养/照料合同",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -1602,18 +1633,20 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E017",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E018",
       "name": "闷热无风",
       "category": "天气",
       "phase": "night",
-      "trigger": "通风效率下降",
+      "trigger": "30世界秒通风差预报；只给已登记F03屏息恢复或F49合盖冷却增加明示时间，不模拟纸张风吹位移。",
       "choices": [
         {
           "label": "调整风门",
-          "consequence": "可能改变纸张与声音传播",
+          "consequence": "只终止后续新操作的通风差；已开始F49冷却仍沿已锁定40秒，不重采样",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -1622,7 +1655,7 @@
         },
         {
           "label": "减少热食同时工作",
-          "consequence": "减少负载与营业额",
+          "consequence": "本次普通热食订单可放弃；不模拟纸张位移、声音传播或额外热伤",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -1691,18 +1724,20 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E018",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E019",
       "name": "片区断电",
       "category": "设备供应",
       "phase": "night",
-      "trigger": "独立应急灯仍可用",
+      "trigger": "一条已登记普通设备支线故障，首兆前固定为跳闸或损坏部件；实际受影响的可选设备与fault_id可见，基础冷藏、手动门和免费核验独立。",
       "choices": [
         {
           "label": "按回路恢复",
-          "consequence": "耗精力并保留关键设备",
+          "consequence": "实际6秒隔离/复位：跳闸型恢复原支线；损坏部件型仅隔离并恢复安全基础照明，原可选设备仍停用，只有同故障换件测试才能恢复。",
           "time_cost": {
             "night_seconds_max": 24,
             "day_action_slots": 0,
@@ -1711,7 +1746,7 @@
         },
         {
           "label": "压缩营业范围",
-          "consequence": "降低客流但减少用电需求",
+          "consequence": "实际1秒启用应急标线并暂放弃该可选设备；30世界秒只结束初始闪烁/减视距遮罩，原故障不会自动修好。",
           "time_cost": {
             "night_seconds_max": 24,
             "day_action_slots": 0,
@@ -1788,7 +1823,7 @@
       "current_contract": "content/condition_lifecycle_v06.json",
       "v06_condition_contract": {
         "producer_kind": "authored_incident",
-        "required_live_inputs": "片区断电预告；基础应急照明和最后有效任务冰柜保底",
+        "required_live_inputs": "一条已登记普通设备支线故障，首兆前固定为跳闸或损坏部件；实际受影响的可选设备与fault_id可见，基础冷藏、手动门和免费核验独立。",
         "producer_policy": "不能借事件关闭F13最后有效目标柜，也不扣应急储备当作全店电网。",
         "scheduled_by": "phase_budget_elapsed",
         "continuous_effect_clock": "world_simulation",
@@ -1802,10 +1837,26 @@
         ],
         "on_player_prevented": "retain_prevented_receipt_no_immediate_replacement_primary",
         "on_external_invalidation": "cancel_without_penalty_release_only_own_reservations",
-        "expiry_policy": "phase_end_unless_explicit_residual_registered",
+        "expiry_policy": "initial_mask_30_world_seconds_actual_fault_until_repair_or_handover",
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
+      },
+      "v010_contract_id": "E019",
+      "current_event_contract": "content/event_contracts_v010.json",
+      "v010_fault_subtypes": {
+        "trip": {
+          "manual_reset_world_seconds": 6,
+          "manual_reset_restores_same_branch": true,
+          "f59_eligible": false
+        },
+        "damaged_component": {
+          "manual_isolation_world_seconds": 6,
+          "isolation_restores_safe_baseline_only": true,
+          "same_optional_device_stays_disabled": true,
+          "f59_eligible": true,
+          "restoration_requires_same_fault_component_install_and_test": true
+        }
       }
     },
     {
@@ -1817,7 +1868,7 @@
       "choices": [
         {
           "label": "检修并暂停销售",
-          "consequence": "增加当小时工作量",
+          "consequence": "只操作故障柜，不停掉已预留唯一任务冷源",
           "time_cost": {
             "night_seconds_max": 24,
             "day_action_slots": 0,
@@ -1826,7 +1877,7 @@
         },
         {
           "label": "先转移易坏货",
-          "consequence": "占保温容量",
+          "consequence": "有限空位先预留；不复制货盒/冰柜，不宣称食品不可逆损坏",
           "time_cost": {
             "night_seconds_max": 24,
             "day_action_slots": 0,
@@ -1896,7 +1947,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E020",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E021",
@@ -1907,7 +1960,7 @@
       "choices": [
         {
           "label": "切换备用加热点",
-          "consequence": "占一个工位",
+          "consequence": "真实制作一次，原订单耐心继续；不额外刷新订单",
           "time_cost": {
             "night_seconds_max": 16,
             "day_action_slots": 0,
@@ -1916,7 +1969,7 @@
         },
         {
           "label": "退回未完成订单",
-          "consequence": "损失收益并释放时间",
+          "consequence": "取消未完成的本单收益；不产生怪物或额外债",
           "time_cost": {
             "night_seconds_max": 16,
             "day_action_slots": 0,
@@ -1992,7 +2045,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E021",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E022",
@@ -2003,7 +2058,7 @@
       "choices": [
         {
           "label": "停机清纸",
-          "consequence": "耗短时操作",
+          "consequence": "重印与原纸同根证据，不增加身份独立源",
           "time_cost": {
             "night_seconds_max": 16,
             "day_action_slots": 0,
@@ -2012,7 +2067,7 @@
         },
         {
           "label": "启用编号手写备单",
-          "consequence": "精力支出增加但保核验能力",
+          "consequence": "只是原订单副本；不凭纸笔创建历史销售",
           "time_cost": {
             "night_seconds_max": 16,
             "day_action_slots": 0,
@@ -2067,6 +2122,7 @@
         "F51V1"
       ],
       "v05_encounter_variant_ids": [
+        "F04-V05-2",
         "F06-V05-2",
         "F08-V05-2",
         "F19-V05-2",
@@ -2097,7 +2153,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E022",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E023",
@@ -2108,7 +2166,7 @@
       "choices": [
         {
           "label": "使用离线订单号",
-          "consequence": "保留交易，班末再同步",
+          "consequence": "先保存同订单回执，恢复网络同步只读相同ID，不重复收款",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -2117,7 +2175,7 @@
         },
         {
           "label": "暂停复杂支付",
-          "consequence": "营业额下降但流程简化",
+          "consequence": "原单保持耐心，到期只失该单收入",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -2191,7 +2249,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E023",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E024",
@@ -2202,7 +2262,7 @@
       "choices": [
         {
           "label": "启用人工验客",
-          "consequence": "占同事守岗时间",
+          "consequence": "同事最多守20秒并报告实际穿门，不据此认证身份",
           "time_cost": {
             "night_seconds_max": 16,
             "day_action_slots": 0,
@@ -2211,7 +2271,7 @@
         },
         {
           "label": "暂停入店修铃",
-          "consequence": "耗时后恢复自动提示",
+          "consequence": "恢复门铃提示；过去未观察过门不得补生成",
           "time_cost": {
             "night_seconds_max": 16,
             "day_action_slots": 0,
@@ -2284,7 +2344,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E024",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E025",
@@ -2294,8 +2356,8 @@
       "trigger": "后门在预告中明确卡闭（fails_to_open）或卡开（fails_to_close），子型在该实例内固定。",
       "choices": [
         {
-          "label": "加内侧安全挡板",
-          "consequence": "保边界但损失通路",
+          "label": "按卡门子型改动线",
+          "consequence": "卡闭走外环；卡开保公共边界但不能声称后门不通，两型绝不并存",
           "time_cost": {
             "night_seconds_max": 24,
             "day_action_slots": 0,
@@ -2303,8 +2365,8 @@
           }
         },
         {
-          "label": "安排同事守门并维修",
-          "consequence": "占人力与体力",
+          "label": "在安全侧复位原门",
+          "consequence": "恢复同一扇门；活动追逐不加入锁门，必要走路另算",
           "time_cost": {
             "night_seconds_max": 24,
             "day_action_slots": 0,
@@ -2358,7 +2420,6 @@
         "F54V2"
       ],
       "v05_encounter_variant_ids": [
-        "F03-V05-2",
         "F12-V05-2",
         "F26-V05-2",
         "F30-V05-2",
@@ -2397,7 +2458,9 @@
           "default_for_detour_variants": false,
           "solution": "用就近内侧边界和有限守门/维修；不能同时当作后门不可通行。"
         }
-      }
+      },
+      "v010_contract_id": "E025",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E026",
@@ -2408,7 +2471,7 @@
       "choices": [
         {
           "label": "先断水源再搬货",
-          "consequence": "耗时但减少扩散",
+          "consequence": "仅停普通漏水，湿节点按实际擦净更新",
           "time_cost": {
             "night_seconds_max": 24,
             "day_action_slots": 0,
@@ -2417,7 +2480,7 @@
         },
         {
           "label": "抢救低层货",
-          "consequence": "保库存但暂增湿区",
+          "consequence": "仅保原货，漏水仍30秒；保留干线且不复制库存",
           "time_cost": {
             "night_seconds_max": 24,
             "day_action_slots": 0,
@@ -2499,7 +2562,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E026",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E027",
@@ -2510,7 +2575,7 @@
       "choices": [
         {
           "label": "核验后留在接货格",
-          "consequence": "占存放空间",
+          "consequence": "占一个有限槽，未验不售；送货员在公共边界",
           "time_cost": {
             "night_seconds_max": 16,
             "day_action_slots": 0,
@@ -2519,7 +2584,7 @@
         },
         {
           "label": "要求按约定时段重送",
-          "consequence": "可能错过本夜额外销量",
+          "consequence": "只失可选新货机会；不删除已接收任务物",
           "time_cost": {
             "night_seconds_max": 16,
             "day_action_slots": 0,
@@ -2576,6 +2641,7 @@
       ],
       "v05_encounter_variant_ids": [
         "F01-V05-1",
+        "F03-V05-2",
         "F12-V05-1",
         "F13-V05-1",
         "F24-V05-2",
@@ -2605,18 +2671,20 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E027",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E028",
       "name": "同事迟到",
       "category": "人员身份",
       "phase": "night",
-      "trigger": "开班时同事未到",
+      "trigger": "N01班前真实同事迟到，未生成第二个常驻员工",
       "choices": [
         {
           "label": "先安全缩减营业",
-          "consequence": "减少收入并保主角资源",
+          "consequence": "暂失browse机会，现有怪不消失",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -2625,7 +2693,7 @@
         },
         {
           "label": "按已核验渠道确认",
-          "consequence": "耗精力但可获得可靠返岗时间",
+          "consequence": "回拨4秒只读取已登记return_at=事件开始+20世界秒的剩余时间，不重置到场时刻；实际回店仍核当前身体。",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -2715,7 +2783,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E028",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E029",
@@ -2726,7 +2796,7 @@
       "choices": [
         {
           "label": "暂停两者高风险权限并分别核验",
-          "consequence": "每人各取得两种独立来源证据才恢复其范围内权限；未完成者继续待核",
+          "consequence": "沿绑定F的连续性规则；断链保待核，重走两格不能重新认证",
           "time_cost": {
             "night_seconds_max": 24,
             "day_action_slots": 0,
@@ -2735,7 +2805,7 @@
         },
         {
           "label": "两者待核并分区等候",
-          "consequence": "先主动测试其中一人；另一人不自动放行，温和隔离不扣信任或绩效",
+          "consequence": "实际有交付则亲手取回原钥匙；保公共服务，不扣关系/绩效",
           "time_cost": {
             "night_seconds_max": 24,
             "day_action_slots": 0,
@@ -2834,7 +2904,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E029",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E030",
@@ -2845,7 +2917,7 @@
       "choices": [
         {
           "label": "优先回拨已核实渠道",
-          "consequence": "取得一个来源；新权限仍需另一独立本地或现场证据，不能只凭声音或口令放行",
+          "consequence": "一条通信来源，只能比对工单；单凭声音不授新权限",
           "time_cost": {
             "night_seconds_max": 20,
             "day_action_slots": 0,
@@ -2854,7 +2926,7 @@
         },
         {
           "label": "优先核对封存工单",
-          "consequence": "只执行此前已验证的有限任务；封签不认证来电者，证据不足继续待核",
+          "consequence": "只执行原允许任务；不确认新来电身份",
           "time_cost": {
             "night_seconds_max": 20,
             "day_action_slots": 0,
@@ -2949,7 +3021,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E030",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E031",
@@ -2960,7 +3034,7 @@
       "choices": [
         {
           "label": "核验当前工单与权限",
-          "consequence": "保留现有任务并耗观察时间",
+          "consequence": "不转钥匙、不扩大范围；普通/异常子型先定后读",
           "time_cost": {
             "night_seconds_max": 16,
             "day_action_slots": 0,
@@ -2969,7 +3043,7 @@
         },
         {
           "label": "请求延后到交班核查",
-          "consequence": "仅记录实际工作延后，温和待核本身不扣关系或绩效，也不构成违例",
+          "consequence": "真实工作顺延；温和待核没有SAN/关系/绩效处罚",
           "time_cost": {
             "night_seconds_max": 16,
             "day_action_slots": 0,
@@ -3070,7 +3144,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E031",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E032",
@@ -3081,7 +3157,7 @@
       "choices": [
         {
           "label": "启动补证流程",
-          "consequence": "耗时并限制部分权限",
+          "consequence": "只有公共低风险权限，工牌本身不是身份独立源",
           "time_cost": {
             "night_seconds_max": 16,
             "day_action_slots": 0,
@@ -3090,7 +3166,7 @@
         },
         {
           "label": "维持其低风险工作",
-          "consequence": "保营业但不能代为授权",
+          "consequence": "不得代签高危授权或借主角工牌",
           "time_cost": {
             "night_seconds_max": 16,
             "day_action_slots": 0,
@@ -3185,18 +3261,20 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E032",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E033",
       "name": "同事短暂失联",
       "category": "人员身份",
       "phase": "night",
-      "trigger": "离岗超过约定时间",
+      "trigger": "唯一同事已实际开始一项16世界秒低风险工位任务，途中连续8世界秒未被玩家看见且不在对讲可读工位；实际未超期。",
       "choices": [
         {
           "label": "暂停后续高风险委派",
-          "consequence": "主角承担更多任务",
+          "consequence": "只撤未开工任务；进行中原物留真实位置",
           "time_cost": {
             "night_seconds_max": 20,
             "day_action_slots": 0,
@@ -3204,8 +3282,8 @@
           }
         },
         {
-          "label": "沿已知安全路径查看",
-          "consequence": "消耗体力与时间",
+          "label": "沿已知路径查看实际工位",
+          "consequence": "只有实见才更新位置；未见到则继续待核，不生成失踪怪",
           "time_cost": {
             "night_seconds_max": 20,
             "day_action_slots": 0,
@@ -3298,7 +3376,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E033",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E034",
@@ -3309,7 +3389,7 @@
       "choices": [
         {
           "label": "追加另一类证据",
-          "consequence": "避免把真实忘记当假扮",
+          "consequence": "私约失配不是假身结论；两域和连续性均满足才有限恢复",
           "time_cost": {
             "night_seconds_max": 16,
             "day_action_slots": 0,
@@ -3318,7 +3398,7 @@
         },
         {
           "label": "先撤高风险权限待核",
-          "consequence": "减少帮手但保边界",
+          "consequence": "证据不足安全待核，无随机猜人处罚",
           "time_cost": {
             "night_seconds_max": 16,
             "day_action_slots": 0,
@@ -3409,18 +3489,20 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E034",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E035",
       "name": "店长带陌生访客",
       "category": "人员身份",
       "phase": "night",
-      "trigger": "唯一真实店长在预算700回店后，已实际核验，带一名已声明普通访客在公共区等候；至少还剩6秒阶段预算且没有关键威胁。",
+      "trigger": "700—710首次预告；已核验店长、玩家及普通访客均在核验工位/相邻公共位，交班容量先预留，另留4秒识别准备和6秒实际公共离场。",
       "choices": [
         {
           "label": "把访客留在公共交接位",
-          "consequence": "完成实际公共区安置，不授员工权限；不新增工作岗位。",
+          "consequence": "不授后台权限、不新增员工，不阻断既有交班",
           "time_cost": {
             "night_seconds_max": 6,
             "day_action_slots": 0,
@@ -3428,8 +3510,8 @@
           }
         },
         {
-          "label": "将非必要来访改约白天",
-          "consequence": "访客从合法公共路线离去，本事件安全结束，不阻塞06交班。",
+          "label": "原位指引访客从公共出口离开",
+          "consequence": "店长留在已核验工位，玩家原位出示指引2秒；访客自己沿已验证12格公共路线走过已开放正门，到门外[15.5,30.5]才离场，3格/秒共4秒。玩家与店长不陪走；实际出口关闭或不安全就不投该分支，不能瞬移离场。；最晚710首次预告，714只作为已准备好动作的极限启动边界。迟来/拒绝时访客留原公共待核位交接，不冒充已离场，也不影响安全交班。",
           "time_cost": {
             "night_seconds_max": 6,
             "day_action_slots": 0,
@@ -3530,7 +3612,10 @@
         "base_monster_arrival_at_20_not_applicable": true,
         "on_no_room": "do_not_admit",
         "on_decline": "safe_departure"
-      }
+      },
+      "v010_contract_id": "E035",
+      "current_event_contract": "content/event_contracts_v010.json",
+      "v010_visitor_exit_contract": "content/event_contracts_v010.json#/E035/mechanic_details"
     },
     {
       "id": "E036",
@@ -3541,7 +3626,7 @@
       "choices": [
         {
           "label": "查看可信时钟与开店单",
-          "consequence": "保持正常阶段",
+          "consequence": "保持当前班次；不凭窗外亮度提前结算",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -3550,7 +3635,7 @@
         },
         {
           "label": "暂缓其他指令并完成预交接",
-          "consequence": "消耗核验时间，不提前离店",
+          "consequence": "只完成同一交班准备步骤；未到720不支付工资",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -3641,18 +3726,20 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E036",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E037",
       "name": "百鬼夜行",
       "category": "大型异变",
       "phase": "night",
-      "trigger": "01—04阶段起点，有旗影与通行预告；该阶段安全边界动作和保守处理可在120秒内完成，普通店务与交易容量另列。",
+      "trigger": "在N02—N05阶段起点预约的唯一重大事件与实际前场队列",
       "choices": [
         {
           "label": "分批服务并完成本阶段工作",
-          "consequence": "最多使用本阶段既有两笔名额并保留预订/浏览类别；实际店务与交易影响收益，队伍安全边界与复店条件独立验收。",
+          "consequence": "安全目标第一段；静音交付每单3.5世界秒、两单共7秒，加实际路线；每个6秒门线窗最多一名真实穿线者，不把整笔browse流程塞在6秒里。；真实通过后安全结束；原普通工作可放弃收益",
           "time_cost": {
             "night_seconds_max": 120,
             "day_action_slots": 0,
@@ -3661,7 +3748,7 @@
         },
         {
           "label": "保守模式暂停特殊交易",
-          "consequence": "放弃可选交易及未完成普通店务的收益，仍处理门线与安全复店；普通工单按有界店务债结算，不直接判本夜失败。",
+          "consequence": "拒绝可选特殊交易，不叠本阶段新主怪；完成安全目标，未完成普通店务只记有界债",
           "time_cost": {
             "night_seconds_max": 120,
             "day_action_slots": 0,
@@ -3814,7 +3901,9 @@
         "preserve_existing_monster_win_conditions": true,
         "ordinary_work_debt_uses_current_bounded_policy": true,
         "optional_work_must_fit_reserved_budget_if_selected": true,
-        "mandatory_safety_and_recovery_must_fit": true
+        "mandatory_safety_and_recovery_must_fit": true,
+        "precision_qte_during_event": false,
+        "reserve_real_remaining_queue_timeline_and_return_route": true
       },
       "interaction_variant_ids": [
         "EV10"
@@ -3846,7 +3935,21 @@
         "client_implemented": false
       },
       "v06_safety_objective": "保护已登记门线并在队伍通过后确认通道可用；实际安全操作产生凭证。普通收银/盘点/补货未完成不等同安全目标失败。",
-      "v06_order_policy": "两笔特殊交易只能替换本阶段原pickup/browse名额；browse仍须实际入店，保守关门可放弃这单。"
+      "v06_order_policy": "两笔特殊交易只能替换本阶段原pickup/browse名额；browse仍须实际入店，保守关门可放弃这单。",
+      "v010_contract_id": "E037",
+      "current_event_contract": "content/event_contracts_v010.json",
+      "v010_order_transform": {
+        "source": "same_two_original_unarrived_phase_slots",
+        "arrival_phase_budget_seconds": [
+          40,
+          70
+        ],
+        "commit_before_phase_start": true,
+        "preserve_pickup_browse_types": true,
+        "after_arrival_reschedule": false,
+        "patience_world_seconds_after_real_arrival": 24,
+        "counterexample_fixed": "原10秒到场+24秒耐心早于40秒首窗"
+      }
     },
     {
       "id": "E038",
@@ -3857,7 +3960,7 @@
       "choices": [
         {
           "label": "核实范围后安排独立通路",
-          "consequence": "占通路并换取契约回报",
+          "consequence": "只借前场既有线；通过后实际收条，完成回执奖励6币一次",
           "time_cost": {
             "night_seconds_max": 60,
             "day_action_slots": 0,
@@ -3866,7 +3969,7 @@
         },
         {
           "label": "拒绝改动员工区边界",
-          "consequence": "保门店但承受已预告等待压力",
+          "consequence": "队伍等20世界秒再沿街离去，不越员工线；放弃6币",
           "time_cost": {
             "night_seconds_max": 60,
             "day_action_slots": 0,
@@ -3929,18 +4032,20 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E038",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E039",
       "name": "午夜送葬",
       "category": "大型异变",
       "phase": "night",
-      "trigger": "送行队伍需要短时安静",
+      "trigger": "一队实际送行者与一笔已预留的原pickup订单提出20秒静音请求；无真实该单不准入交易版",
       "choices": [
         {
-          "label": "降低非必要声源",
-          "consequence": "牺牲叫号效率",
+          "label": "关闭迎宾与广播",
+          "consequence": "静音服务本单+2秒，不隐藏普通脚步声系统",
           "time_cost": {
             "night_seconds_max": 50,
             "day_action_slots": 0,
@@ -3948,8 +4053,8 @@
           }
         },
         {
-          "label": "转移工作至远端区",
-          "consequence": "消耗搬运体力，维持正常订单",
+          "label": "未接受时拒绝请求",
+          "consequence": "拒绝尚未接受的20秒请求并放弃该可选交易；去packing不被算作关闭全店频道。已经接受后需实际静音或按原条款撤销。",
           "time_cost": {
             "night_seconds_max": 50,
             "day_action_slots": 0,
@@ -4012,18 +4117,20 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E039",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E040",
       "name": "鬼市临门",
       "category": "大型异变",
       "phase": "night",
-      "trigger": "门外出现限时特殊摊位",
+      "trigger": "门前实际一处临时摊位，预先固定I21×1，正常目录价60币，本次公开售价42币",
       "choices": [
         {
-          "label": "仅交易已知代价物品",
-          "consequence": "耗货币并可能得到限定辅助品",
+          "label": "付42币取原护身符",
+          "consequence": "确认库存空位后同一原物转入与实付42币同次提交；无空位或来不及就不付款，重新查看仍是同物同价。",
           "time_cost": {
             "night_seconds_max": 45,
             "day_action_slots": 0,
@@ -4032,7 +4139,7 @@
         },
         {
           "label": "不外出并做店内生意",
-          "consequence": "放弃特殊收益，保持安全",
+          "consequence": "不支付、不领奖，摊位45秒后原物带走",
           "time_cost": {
             "night_seconds_max": 45,
             "day_action_slots": 0,
@@ -4095,7 +4202,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E040",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E041",
@@ -4106,7 +4215,7 @@
       "choices": [
         {
           "label": "依登记逐件核验",
-          "consequence": "增加精力消耗，获得归还回报",
+          "consequence": "每件3秒；原物一次归还，不提供额外身份认证",
           "time_cost": {
             "night_seconds_max": 50,
             "day_action_slots": 0,
@@ -4115,7 +4224,7 @@
         },
         {
           "label": "集中封存等待白天补证",
-          "consequence": "占库存位，无需当场赌博",
+          "consequence": "每件1秒，不占新无限格；无材料或空位不准入",
           "time_cost": {
             "night_seconds_max": 50,
             "day_action_slots": 0,
@@ -4178,7 +4287,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E041",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E042",
@@ -4189,7 +4300,7 @@
       "choices": [
         {
           "label": "划分供物台与个人食物",
-          "consequence": "消耗货物并限制区域",
+          "consequence": "20秒后同客群取走两份，实际交付奖励4币一次",
           "time_cost": {
             "night_seconds_max": 50,
             "day_action_slots": 0,
@@ -4198,7 +4309,7 @@
         },
         {
           "label": "拒绝未知饮食约定",
-          "consequence": "减少营业回报，保饱腹补给",
+          "consequence": "未接受可安全拒绝；不扣饱腹或承诺罚",
           "time_cost": {
             "night_seconds_max": 50,
             "day_action_slots": 0,
@@ -4260,7 +4371,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E042",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E043",
@@ -4271,7 +4384,7 @@
       "choices": [
         {
           "label": "维持夜班规程",
-          "consequence": "承受短暂SAN压力",
+          "consequence": "消除本次假亮干扰，不扣观看预兆SAN",
           "time_cost": {
             "night_seconds_max": 30,
             "day_action_slots": 0,
@@ -4280,7 +4393,7 @@
         },
         {
           "label": "提前整理交接资料但不离店",
-          "consequence": "占用当前工作时间并减少终局负担",
+          "consequence": "只登记完成的原步骤；不提前交班、不给额外恢复",
           "time_cost": {
             "night_seconds_max": 30,
             "day_action_slots": 0,
@@ -4341,7 +4454,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E043",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E044",
@@ -4352,7 +4467,7 @@
       "choices": [
         {
           "label": "保公共边界并限额接待",
-          "consequence": "耗空间与等待时间",
+          "consequence": "20秒到期条失效，亲手收条；不借柜台/员工床",
           "time_cost": {
             "night_seconds_max": 45,
             "day_action_slots": 0,
@@ -4361,7 +4476,7 @@
         },
         {
           "label": "提供店外明确范围的等候点",
-          "consequence": "降低收入，避免扩大邀约",
+          "consequence": "等20秒原路离开，不凭群体生成三只新AI",
           "time_cost": {
             "night_seconds_max": 45,
             "day_action_slots": 0,
@@ -4424,7 +4539,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E044",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E045",
@@ -4434,8 +4551,8 @@
       "trigger": "签约时已预留的到期夜04—05窗口开始；至少一份真实已承诺债务待结算",
       "choices": [
         {
-          "label": "按合并清单逐项履约",
-          "consequence": "40秒内实际核销最多三份兼容债务；每份资源与回执分别记录",
+          "label": "按原债逐份付款",
+          "consequence": "每份本金20、总应付25币；每份8秒预算，最多三份，不与工资扣留重复；人工同批核读8秒+逐债8秒+写回8秒，1/2/3债分别24/32/40秒，真实来程另计。未手动完成只激活原自动抵扣，不写核账或店务完成。",
           "time_cost": {
             "night_seconds_max": 40,
             "day_action_slots": 0,
@@ -4443,8 +4560,8 @@
           }
         },
         {
-          "label": "按各合同条款逐项退出",
-          "consequence": "分别结算签约时已展示的退出或违约代价；不随机取消、改日或增加罚则",
+          "label": "按原条款抵扣工资",
+          "consequence": "最多75币抵扣下一次真实80币基础工资；不产SAN处罚或无限利息；人工同批核读8秒+逐债8秒+写回8秒，1/2/3债分别24/32/40秒，真实来程另计。未手动完成只激活原自动抵扣，不写核账或店务完成。",
           "time_cost": {
             "night_seconds_max": 40,
             "day_action_slots": 0,
@@ -4488,14 +4605,23 @@
           "review": 8,
           "per_contract_max": 8,
           "contracts_total_max": 24,
-          "writeback_and_exit": 8
+          "writeback_and_exit": 8,
+          "actual_batch_formula": "8 + 8 * original_due_contract_count + 8",
+          "actual_count_totals": {
+            "1": 24,
+            "2": 32,
+            "3": 40
+          },
+          "actual_route_added_separately": true
         },
         "reserves_only_large_event_quota_for_night": true,
         "reserves_primary_slot": true,
         "normal_phase_work_and_margin_reserved_separately": true,
         "merge_keeps_individual_costs": true,
         "unscheduled_random_roll": false,
-        "overflow_policy": "签约前另选有容量的到期夜或放弃新合同，不得签约后静默延期"
+        "overflow_policy": "签约前另选有容量的到期夜或放弃新合同，不得签约后静默延期",
+        "manual_deadline_shift_budget": 600,
+        "automatic_fallback_receipt": "preaccepted_wage_offset_activated; never manual_debt_reconciliation or ordinary_work_completed"
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
@@ -4523,7 +4649,10 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E045",
+      "current_event_contract": "content/event_contracts_v010.json",
+      "duration_seconds_semantics": "纯人工处理预算上限40秒；人工截止为原N05末预算600，实际来程及余量另预留；不是40世界秒自动到期。"
     },
     {
       "id": "E046",
@@ -4534,7 +4663,7 @@
       "choices": [
         {
           "label": "花一格去核验旧物",
-          "consequence": "取得有代价的装备机会",
+          "consequence": "花一格按A07精力−3，到店核验实际装备；仅同意实价后购买，无强制损坏或诅咒",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -4543,7 +4672,7 @@
         },
         {
           "label": "保留时间睡眠",
-          "consequence": "放弃本次轮换商品",
+          "consequence": "跳过轮换商品，原计划继续",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -4606,7 +4735,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E046",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E047",
@@ -4617,7 +4748,7 @@
       "choices": [
         {
           "label": "购买已需补给",
-          "consequence": "减少金币库存但节省单价",
+          "consequence": "用既有采购操作购买一件所需物，实付max(1,floor(标价×0.8))，唯一折扣用一次",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -4626,7 +4757,7 @@
         },
         {
           "label": "不囤货",
-          "consequence": "保流动金币，下一次按原价",
+          "consequence": "保留金币，不购买且不占时间",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -4684,7 +4815,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E047",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E048",
@@ -4695,7 +4828,7 @@
       "choices": [
         {
           "label": "使用整备弹性提前出发",
-          "consequence": "占用20—22窗口中的60分钟弹性，基本整备60分钟和22—24必要验岗仍保留",
+          "consequence": "占60分钟弹性提前出发，必需整备60分钟及22—24验岗保留",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -4704,7 +4837,7 @@
         },
         {
           "label": "支付确定交通费用",
-          "consequence": "保留60分钟整备弹性；只在费用可付时提供此选项",
+          "consequence": "支付10币交通费保留弹性；不足时免费提前出发",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -4766,7 +4899,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E048",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E049",
@@ -4777,7 +4912,7 @@
       "choices": [
         {
           "label": "改学同分支基础内容",
-          "consequence": "保持学习收益",
+          "consequence": "换一个实际可用未学页，按A03同一格精力−6、学习点+2并消费2",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -4786,7 +4921,7 @@
         },
         {
           "label": "预订并改为休息",
-          "consequence": "延期知识，恢复资源",
+          "consequence": "改A02同一格精力+10、SAN+4；预约不先扣页钱/学习点",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -4852,7 +4987,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E049",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E050",
@@ -4863,7 +5000,7 @@
       "choices": [
         {
           "label": "选择一页未学方法专题",
-          "consequence": "按A03占一格、精力−6，同一回执学习点+2并消费2点解锁所选完整方法页；不额外获得研究进度。",
+          "consequence": "按A03同一格解锁一页，+2学习点并消费2、精力−6",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -4872,7 +5009,7 @@
         },
         {
           "label": "按原计划活动",
-          "consequence": "不消费格或资源，不解锁新页。",
+          "consequence": "跳过，不扣格、不自动解锁",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -4945,7 +5082,9 @@
         "target_checked_before_confirmation": true,
         "no_available_target_consumes_nothing": true,
         "trusted_records_not_created_by_event_text": true
-      }
+      },
+      "v010_contract_id": "E050",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E051",
@@ -4956,7 +5095,7 @@
       "choices": [
         {
           "label": "交备用装备延后取回",
-          "consequence": "本夜换装但减少修理费用",
+          "consequence": "历史归档：不开放维修预约、付款和取件",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -4965,7 +5104,7 @@
         },
         {
           "label": "加急维修",
-          "consequence": "花更多金币保原装备",
+          "consequence": "保持禁用，不占时间和钱",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -5033,7 +5172,9 @@
         "invalid_selection_consumes_time": false,
         "invalid_selection_consumes_coins": false,
         "requires_real_damaged_equipment_and_enabled_A06": true
-      }
+      },
+      "v010_contract_id": "E051",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E052",
@@ -5044,7 +5185,7 @@
       "choices": [
         {
           "label": "照料一格并领养候选伙伴",
-          "consequence": "增加宠物与后续照料需求",
+          "consequence": "使用一格完成领养/照料，执行所选P的价格、实际饲料消耗与A08单份收益",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -5053,7 +5194,7 @@
         },
         {
           "label": "记录饲料采购清单后继续原计划",
-          "consequence": "不增加白天行动格；饲料在20点既定采购时才付款领取",
+          "consequence": "记录候选，不自动领养；采购仍用原20点窗口",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -5118,18 +5259,20 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E052",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E053",
       "name": "邻里送餐",
       "category": "白天出行",
       "phase": "day",
-      "trigger": "熟悉邻居提供可验证来源食物",
+      "trigger": "一份有真实邻居来源和封装批次的I01餐包，玩家本日尚未领取该来源",
       "choices": [
         {
-          "label": "核验后接受",
-          "consequence": "恢复饱腹并增加关系",
+          "label": "核验领取同一餐",
+          "consequence": "在现有早餐或整备餐位核验并领取同一份I01餐包；实际食用才按I01增加饱腹25，领取不直接加饱腹。",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -5137,8 +5280,8 @@
           }
         },
         {
-          "label": "礼貌拒绝",
-          "consequence": "保自己食物计划，不判危险",
+          "label": "礼貌退回",
+          "consequence": "礼貌退回同一餐，不生成关系数值或隐形处罚",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -5204,7 +5347,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E053",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E054",
@@ -5215,7 +5360,7 @@
       "choices": [
         {
           "label": "接受工作",
-          "consequence": "金币+30、精力-12",
+          "consequence": "按A09同一格金币+30、精力−12，仅一次结算",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -5224,7 +5369,7 @@
         },
         {
           "label": "继续白天计划",
-          "consequence": "没有额外成本",
+          "consequence": "保留格按原计划，无额外成本",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -5287,7 +5432,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E054",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E055",
@@ -5298,7 +5445,7 @@
       "choices": [
         {
           "label": "与本班真实记录对照",
-          "consequence": "按A04占一格、精力−3，同一回执研究进度+1并消费1形成案例页；满足登记命题和观察方法才判证实/反证，冲突保留冲突。",
+          "consequence": "按A04同一格精力−3、研究+1并消费1，生成案例；待核/冲突照实保留",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -5307,7 +5454,7 @@
         },
         {
           "label": "先归档不采信",
-          "consequence": "保留既有原始记录，不耗格、不生成研究进度或证实结果。",
+          "consequence": "归档原记录，不扣格、不生产事实",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -5380,7 +5527,9 @@
         "target_checked_before_confirmation": true,
         "no_available_target_consumes_nothing": true,
         "trusted_records_not_created_by_event_text": true
-      }
+      },
+      "v010_contract_id": "E055",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E056",
@@ -5391,7 +5540,7 @@
       "choices": [
         {
           "label": "讨论一条实际案例",
-          "consequence": "按A04同一格整理真实新根和登记命题，精力−3；只形成案例页，不自动认证身份或解锁未实现替代结局。",
+          "consequence": "选实际新案例按A04同一格−3精力，进度+1并消费1",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -5400,7 +5549,7 @@
         },
         {
           "label": "学习一个未学方法专题",
-          "consequence": "按A03同一格精力−6、2点获得并消费，解锁一页；无新页不扣格。",
+          "consequence": "选未学页按A03同一格−6精力，点数+2并消费2；无目标不扣格",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -5473,7 +5622,9 @@
         "target_checked_before_confirmation": true,
         "no_available_target_consumes_nothing": true,
         "trusted_records_not_created_by_event_text": true
-      }
+      },
+      "v010_contract_id": "E056",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E057",
@@ -5484,7 +5635,7 @@
       "choices": [
         {
           "label": "共餐并形成私约",
-          "consequence": "SAN恢复、获得本班可用关系线索",
+          "consequence": "同一格按A05 SAN+15，另保存一份当场私约原记录；不凭私约独立认证夜班身体",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -5493,7 +5644,7 @@
         },
         {
           "label": "改为简短留言",
-          "consequence": "保时间但关系收益较少",
+          "consequence": "简短留言只保存真实留言，继续原行动，不赠SAN或关系点",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -5552,7 +5703,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E057",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E058",
@@ -5562,8 +5715,8 @@
       "trigger": "白天已核验店长发布目标",
       "choices": [
         {
-          "label": "核对工资与授权边界",
-          "consequence": "降低夜间假命令的模糊空间",
+          "label": "谈话核对原工资与边界",
+          "consequence": "同一格按A05 SAN+15并核原工资/权限记录；不重复发休息奖励",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -5571,8 +5724,8 @@
           }
         },
         {
-          "label": "仅接受书面工单",
-          "consequence": "省时但无额外关系收益",
+          "label": "只领原书面工单",
+          "consequence": "只领原工单并继续原活动；夜间新身份仍要核验",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -5635,7 +5788,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E058",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E059",
@@ -5646,7 +5801,7 @@
       "choices": [
         {
           "label": "整理来源与适用范围",
-          "consequence": "按A04同一格精力−3，进度+1并消费1形成案例页；冲突不强行判真，两份资料不自动证明当前怪物身份。",
+          "consequence": "同一格按A04形成有来源的冲突案例，不强判任一来源为真",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -5655,7 +5810,7 @@
         },
         {
           "label": "保留未知标记",
-          "consequence": "保留原始记录和待核标记，不耗格、不生成额外研究进度。",
+          "consequence": "标未知，不耗格不发进度",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -5729,7 +5884,9 @@
         "target_checked_before_confirmation": true,
         "no_available_target_consumes_nothing": true,
         "trusted_records_not_created_by_event_text": true
-      }
+      },
+      "v010_contract_id": "E059",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E060",
@@ -5740,7 +5897,7 @@
       "choices": [
         {
           "label": "用一格安静活动恢复",
-          "consequence": "只按A05结算SAN+15；不另发一份事件恢复，不生成恐惧层数。",
+          "consequence": "同一格按A05 SAN+15，不另外发事件恢复",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -5749,7 +5906,7 @@
         },
         {
           "label": "按原计划学习",
-          "consequence": "仅在选定未学方法页后按A03结算：精力−6、学习点+2并同回执消费2解锁该页；无新页不扣格，可选原安静活动；不额外扣SAN。",
+          "consequence": "有未学页时按A03同一格精力−6并学习，否则保留原安静活动",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -5834,7 +5991,9 @@
         "target_checked_before_confirmation": true,
         "no_available_target_consumes_nothing": true,
         "trusted_records_not_created_by_event_text": true
-      }
+      },
+      "v010_contract_id": "E060",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E061",
@@ -5844,8 +6003,8 @@
       "trigger": "当前住所环境安静",
       "choices": [
         {
-          "label": "利用一格短休",
-          "consequence": "获得正常短休加小额奖励",
+          "label": "完成一次安静短休",
+          "consequence": "同一格A02精力+10/SAN+4，完成后事件额外精力+2一次；非额外一整格",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -5853,8 +6012,8 @@
           }
         },
         {
-          "label": "继续计划",
-          "consequence": "无惩罚",
+          "label": "继续原计划",
+          "consequence": "继续原计划，不扣资源；跳过不制造睡眠债",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -5917,7 +6076,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E061",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E062",
@@ -5928,7 +6089,7 @@
       "choices": [
         {
           "label": "原地受扰睡眠",
-          "consequence": "同一2小时格只结算精力+8、SAN+0，睡眠饱腹−2；不要求隔音道具，不另叠A01完整收益。",
+          "consequence": "受扰睡眠同格精力+8/SAN+0，饱腹按睡眠−2；0币仍可选",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -5937,7 +6098,7 @@
         },
         {
           "label": "付10币换资料室安静休息点",
-          "consequence": "已有休息位实际预留且付实款10币后，同一格按A01精力+16、SAN+4、睡眠饱腹−2结算一次；余额不足可留原地，不新增地图或行动格。",
+          "consequence": "实际付10币并预留现有安静位后，同格A01精力+16/SAN+4、饱腹−2",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -6002,7 +6163,9 @@
         "same_receipt_settles_once": true,
         "client_implemented": false
       },
-      "consumer_closure_contract": "content/consumer_closure_v08.json#/e062_noise_sleep"
+      "consumer_closure_contract": "content/consumer_closure_v08.json#/e062_noise_sleep",
+      "v010_contract_id": "E062",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E063",
@@ -6013,7 +6176,7 @@
       "choices": [
         {
           "label": "对照一条实际个人案例",
-          "consequence": "按A04占一格、精力−3，+1进度并消费1形成案例页；口述保留待核，不能靠数量认证。",
+          "consequence": "同一格A04真实整理，精力−3，进度+1并消费1",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -6022,7 +6185,7 @@
         },
         {
           "label": "学习一个可用方法页",
-          "consequence": "按A03占一格、精力−6，+2学习点并消费2解锁未学页；无新页不扣格。",
+          "consequence": "同一格A03未学方法，精力−6，点数+2并消费2；传闻不造亲见回执",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 1,
@@ -6095,7 +6258,9 @@
         "target_checked_before_confirmation": true,
         "no_available_target_consumes_nothing": true,
         "trusted_records_not_created_by_event_text": true
-      }
+      },
+      "v010_contract_id": "E063",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E064",
@@ -6106,7 +6271,7 @@
       "choices": [
         {
           "label": "用一张普通券开启双选",
-          "consequence": "一次预留普通券并存档两候选；只取最终一件，按最终稀有度更新一次保底，不另发奖券。",
+          "consequence": "预留一券揭示两件，最终只领一件；退出保存原待选、保底只更新一次",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -6115,7 +6280,7 @@
         },
         {
           "label": "保留奖券，暂不抽取",
-          "consequence": "揭示前可拒绝，保留原券；已经揭示则保存原待选，不能退券重抽。",
+          "consequence": "揭示前可拒绝不扣券，揭示后不退券重抽；下一准备期完成原待选",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -6175,7 +6340,9 @@
         "client_implemented": false
       },
       "v07_transaction_contract": "content/items.json#/lottery/double_choice_contract",
-      "v07_no_reroll_policy": "关闭、退出或重载只恢复同一待选；已有待选不得另开抽奖。未选项不是已拥有物，不能回收。待选跨窗口仍保留，下一可用准备期完成，不再次收费。"
+      "v07_no_reroll_policy": "关闭、退出或重载只恢复同一待选；已有待选不得另开抽奖。未选项不是已拥有物，不能回收。待选跨窗口仍保留，下一可用准备期完成，不再次收费。",
+      "v010_contract_id": "E064",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E065",
@@ -6186,7 +6353,7 @@
       "choices": [
         {
           "label": "领取这一份碎片",
-          "consequence": "按原完成回执领取1碎片；本夜至多一个来源，F47与本事件共用来源ID，不重复发奖。",
+          "consequence": "1碎片、每夜最多一次；重载不重发",
           "time_cost": {
             "night_seconds_max": 4,
             "day_action_slots": 0,
@@ -6195,7 +6362,7 @@
         },
         {
           "label": "放弃本次可选碎片",
-          "consequence": "不发碎片，不生成替代物；本次来源标记已处理，不能重进选择重复领取。",
+          "consequence": "本源结清、不发替代物，不可反复开选择",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -6265,18 +6432,20 @@
       },
       "v07_transaction_contract": "content/items.json#/lottery/fragment_contract",
       "v07_exchange": "仅在20—22采购准备期用15分钟将3碎片原子换1普通券；碎片扣减、券增加及兑换ID同一次保存。",
-      "v07_existing_work_credit": "处理时间上限4秒；若已完成的F47封袋及实际领取覆盖同一处理步骤，不另追加4秒完整封袋。"
+      "v07_existing_work_credit": "处理时间上限4秒；若已完成的F47封袋及实际领取覆盖同一处理步骤，不另追加4秒完整封袋。",
+      "v010_contract_id": "E065",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E066",
       "name": "重复道具",
       "category": "抽奖契约宠物",
       "phase": "day",
-      "trigger": "抽到已有且仓位有限的物品",
+      "trigger": "一个真实已拥有重复道具、普通仓库空位或可显示实物回收价",
       "choices": [
         {
           "label": "存入白天仓库",
-          "consequence": "保留后续用途",
+          "consequence": "把同一件物放普通白天仓库，原ID保留、不能超容量",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -6285,7 +6454,7 @@
         },
         {
           "label": "选择明示回收",
-          "consequence": "换少量金币，不自动销毁",
+          "consequence": "同一原物确认回收，按已保存报价floor(min(reference_price, actual_paid_if_paid_else_reference_price)×0.2)返币；核销原所有权/购买行回收状态后才发钱，禁止另做原票退款。",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -6343,7 +6512,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E066",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E067",
@@ -6354,7 +6525,7 @@
       "choices": [
         {
           "label": "先登记隔离再核验",
-          "consequence": "占格与时间后才可使用",
+          "consequence": "匹配时原盒为I21×1；不匹配保封存，不随机变怪或直接食用",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -6363,7 +6534,7 @@
         },
         {
           "label": "保持封存退还来源",
-          "consequence": "放弃潜在奖励，不触发隐藏必死",
+          "consequence": "放弃潜在I21，不删除玩家已有物件",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -6432,18 +6603,20 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E067",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E068",
       "name": "宠物夜警",
       "category": "抽奖契约宠物",
       "phase": "night",
-      "trigger": "宠物朝某方向示警",
+      "trigger": "P05已提交的实际门线穿越notice，或P07已提交的实际攻击预告标记回执；原方向确实存在且本回执未用于E068。其他宠物不凭空侦测。",
       "choices": [
         {
-          "label": "用另一种证据检查",
-          "consequence": "耗观察时间，确认线索",
+          "label": "用另一实际观察复核",
+          "consequence": "只有看见/取证才新增记录；宠物不提供第二独立身份来源",
           "time_cost": {
             "night_seconds_max": 10,
             "day_action_slots": 0,
@@ -6452,7 +6625,7 @@
         },
         {
           "label": "暂时缩减该区作业",
-          "consequence": "损失效率但不把叫声当定罪",
+          "consequence": "10秒后可复核；不撤销已接受必需解或声明怪已死",
           "time_cost": {
             "night_seconds_max": 10,
             "day_action_slots": 0,
@@ -6517,18 +6690,20 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E068",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E069",
       "name": "宠物藏物",
       "category": "抽奖契约宠物",
       "phase": "night",
-      "trigger": "出勤宠物藏起小件非关键物品",
+      "trigger": "P01/P03/P04出勤、邻近staff_desk一件玩家已拥有且实际放在台上的非关键小物；预告后宠物亲自取放该原物。",
       "choices": [
         {
-          "label": "按可见线索找回",
-          "consequence": "耗少量时间",
+          "label": "循真实爪迹取回原物",
+          "consequence": "原object_id返回；不允许任务物、钥匙、保底餐、药包被藏",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -6537,7 +6712,7 @@
         },
         {
           "label": "使用确定备用品稍后找回",
-          "consequence": "耗补给但保主任务",
+          "consequence": "备用不免费生成；没有备用仍可第一路；原物最迟交班登记留位",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -6606,18 +6781,20 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E069",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E070",
       "name": "宠物受惊",
       "category": "抽奖契约宠物",
       "phase": "night",
-      "trigger": "E014真实雷声脉冲发生，出勤宠物照料有效且主动次数仍大于0；本夜尚未发生受惊。",
+      "trigger": "E014实际一次雷声脉冲、宠物已照料且主动次数>0、当夜未受惊过",
       "choices": [
         {
           "label": "让宠物自行平复",
-          "consequence": "等待30世界秒自然解除；期间仅禁止新主动命令，既有已提交效果继续。",
+          "consequence": "从同一次真实雷声时刻起30世界秒自然解除；不要求先走柜台，也不刷新开始时间。",
           "time_cost": {
             "night_seconds_max": 6,
             "day_action_slots": 0,
@@ -6626,7 +6803,7 @@
         },
         {
           "label": "花6秒安抚",
-          "consequence": "实际安抚6世界秒提前解除受惊，不补技能次数，不替代白天照料。",
+          "consequence": "提前解除当前受惊；取消保留已花时间、不补次数",
           "time_cost": {
             "night_seconds_max": 6,
             "day_action_slots": 0,
@@ -6705,7 +6882,9 @@
         "repeated_pulse_refreshes": false,
         "committed_effects_continue": true,
         "only_new_active_commands_blocked": true
-      }
+      },
+      "v010_contract_id": "E070",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E071",
@@ -6716,7 +6895,7 @@
       "choices": [
         {
           "label": "确认预约后接受限定额度",
-          "consequence": "原子性保存到期夜、04—05窗口、金额、退出条款和处理容量成功后才发放金币",
+          "consequence": "保存due_night/对象/应付25/自动工资抵扣退路后才到账20；每班最多一份且总在途最多三份",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -6725,7 +6904,7 @@
         },
         {
           "label": "拒绝或另选有容量的到期夜",
-          "consequence": "未最终确认前不发金币也不生债；无容量时保留无惩罚拒绝选项",
+          "consequence": "不发金币、不生债；拒绝不扣资源",
           "time_cost": {
             "night_seconds_max": 12,
             "day_action_slots": 0,
@@ -6783,7 +6962,8 @@
           "reservation_id"
         ],
         "no_retroactive_due_date_change": true,
-        "no_silent_forgiveness_or_extra_penalty": true
+        "no_silent_forgiveness_or_extra_penalty": true,
+        "current_numeric_contract": "content/event_contracts_v010.json#/E071/mechanic_details"
       },
       "interaction_variant_ids": [],
       "selection_alone_completes_night_work": false,
@@ -6811,7 +6991,9 @@
         "late_materialization_allowed": false,
         "same_receipt_settles_once": true,
         "client_implemented": false
-      }
+      },
+      "v010_contract_id": "E071",
+      "current_event_contract": "content/event_contracts_v010.json"
     },
     {
       "id": "E072",
@@ -6822,7 +7004,7 @@
       "choices": [
         {
           "label": "交回原物，按实付退货",
-          "consequence": "锁定并交回同一原商品，核销其唯一购买行后返还该行实付金币一次；不按原价或当前标价造差额。",
+          "consequence": "交回同object_id并核销原行，返其actual_paid_price一次；不按当前标价",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -6831,7 +7013,7 @@
         },
         {
           "label": "保留原商品",
-          "consequence": "不返金币、不生成关系收益；保留原物及购买记录。",
+          "consequence": "保留同物同票，不返金币、不生关系收益",
           "time_cost": {
             "night_seconds_max": 0,
             "day_action_slots": 0,
@@ -6891,7 +7073,9 @@
         "client_implemented": false
       },
       "v07_transaction_contract": "content/items.json#/lottery/refund_contract",
-      "v07_original_overpayment_condition_removed": true
+      "v07_original_overpayment_condition_removed": true,
+      "v010_contract_id": "E072",
+      "current_event_contract": "content/event_contracts_v010.json"
     }
   ],
   "note": "72项候选事件有条件来源规格。真实历史前提不足则不投放，不能临时倒填历史；各条件仍需实现生产者和消费动作后才启用。七天阶段一致。",

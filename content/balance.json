@@ -1,5 +1,5 @@
 {
-  "version": "0.9",
+  "version": "0.10",
   "status": "design_proposal_not_playtested",
   "week_length_days": 7,
   "same_phases_every_day": true,
@@ -205,7 +205,11 @@
     "legacy_pressure_catalog": "content/systems_v04.json",
     "requires_lifecycle_producer_and_terminal_contract": true,
     "recheck_conditions_after_omens": true,
-    "prevented_encounter_consumes_reserved_primary_slot": true
+    "prevented_encounter_consumes_reserved_primary_slot": true,
+    "major_world_only_event_ids": [
+      "E037"
+    ],
+    "impersonator_limit_scope": "concurrent_active_instances_during_first_week"
   },
   "day_actions": [
     {
@@ -222,7 +226,21 @@
       "slots": 1,
       "energy_delta": 10,
       "san_delta": 4,
-      "satiety_accounting": "awake_rate_only"
+      "satiety_accounting": "awake_rate_only",
+      "Q17_post_completion": {
+        "amount_san": 4,
+        "maximum_uses_per_game_day": 1,
+        "game_day_reset": "06:00_once",
+        "same_equipment_instance_equipped_from_start_to_completed_receipt": true,
+        "consume_daily_charge_only_if_positive_gain": true,
+        "after_base_A02_once": true,
+        "excluded_actions": [
+          "F31",
+          "F52",
+          "panic_stabilization"
+        ],
+        "contract": "content/auxiliary_effects_v010.json#/entries/Q17"
+      }
     },
     {
       "id": "A03",

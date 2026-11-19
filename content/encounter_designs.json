@@ -11484,5 +11484,7 @@
     }
   ],
   "current_catalog": "content/encounters_v05.json",
-  "runtime_loading_allowed": false
+  "runtime_loading_allowed": false,
+  "current_resource_and_lifecycle_authority": "content/mechanism_closure_v010.json",
+  "legacy_resource_prose_must_not_stack": true
 }

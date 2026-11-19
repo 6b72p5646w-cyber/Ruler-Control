@@ -1,0 +1,3880 @@
+{
+  "version": "0.10",
+  "scope": "fully_specified_design_events_not_complete_runtime",
+  "total": 72,
+  "candidate_total": 71,
+  "authority": "Overrides vague event consequence text; preserves canonical F12/F13 and existing clock, actor, wage, food and lottery contracts.",
+  "global": {
+    "relationships_are_flavour_and_evidence_not_unimplemented_stat": true,
+    "no_food_quality_decay_or_arbitrary_wind_physics": true,
+    "no_event_materializes_missing_monster_or_history": true,
+    "branch_fixed_before_omen": true,
+    "live_current_position_and_return_route_included_in_admission": true,
+    "handled_seconds_not_effect_lifetime": true,
+    "normal_work_failure_only_bounded_wage_debt": true,
+    "purchase_is_never_the_only_mandatory_solution": true,
+    "ordinary_order_count_per_night": 12,
+    "runtime_enabled": false
+  },
+  "events": [
+    {
+      "id": "E001",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "本阶段两个尚未到场的原订单ID；保留pickup/browse原类别",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 20,
+      "effect_lifetime_world_seconds": 20,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E001:B1",
+          "operations": [
+            {
+              "id": "E001:B1:O1",
+              "anchor": "cashier",
+              "operation": "挂两枚原订单号并实际分次交付",
+              "world_seconds": 3,
+              "effect": "两单各1.5秒；原耐心不刷新，收入与记录各一次",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 3,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E001:B2",
+          "operations": [
+            {
+              "id": "E001:B2:O1",
+              "anchor": "cashier",
+              "operation": "将其中一单实体篮交给已核验且空闲同事",
+              "world_seconds": 2.5,
+              "effect": "交同事原篮1秒，玩家处理另一原单1.5秒；同事同时在原柜台完成其1.5秒服务；若同事尚未在岗，先额外算其实际来程。",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2.5,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "source_is_two_original_unarrived_orders": true,
+        "arrival_phase_budget_seconds": [
+          10,
+          12
+        ],
+        "latest_admission_phase_budget_second": 9,
+        "original_order_ids_and_types_preserved": true,
+        "already_arrived_reschedule": false,
+        "delegated_branch_player_world_seconds": 2.5,
+        "delegated_branch_colleague_world_seconds": 1.5,
+        "parallel_time_not_added_twice": true
+      }
+    },
+    {
+      "id": "E002",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "一笔真实待付现金单、已卡滞的钱匣、柜台内一只备用匣",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 12,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E002:B1",
+          "operations": [
+            {
+              "id": "E002:B1:O1",
+              "anchor": "cashier",
+              "operation": "把原订单篮放待付位",
+              "world_seconds": 1,
+              "effect": "保持原订单和原耐心，超时放弃该单收益",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E002:B2",
+          "operations": [
+            {
+              "id": "E002:B2:O1",
+              "anchor": "cashier",
+              "operation": "取备用匣并替换卡匣",
+              "world_seconds": 2,
+              "effect": "普通自动找零恢复，取出卡匣留原维修槽",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false
+    },
+    {
+      "id": "E003",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "可追溯原销售的最多两件实际退货，其中最多一件为可见破裂玻璃",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 20,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E003:B1",
+          "operations": [
+            {
+              "id": "E003:B1:O1",
+              "anchor": "cashier",
+              "operation": "对原物、原票并用刷扫套移入隔离托盘",
+              "world_seconds": 5,
+              "effect": "逐件核销原销售行；退货不计新销售；危险徒手接触另走真实割伤合同",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 5,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E003:B2",
+          "operations": [
+            {
+              "id": "E003:B2:O1",
+              "anchor": "cashier",
+              "operation": "把原退货连托盘封入待核格",
+              "world_seconds": 2,
+              "effect": "占一个原待核格至交班；不返未经核实的款，不生成新血",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "source": "content/condition_lifecycle_v06.json#/wounds",
+        "warning_world_seconds": 3,
+        "bleed_world_seconds": 90,
+        "max_cuts_per_incident": 1,
+        "refund_requires_same_original_sale_line": true
+      }
+    },
+    {
+      "id": "E004",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "下一小时尚空的一个原pickup订单名额、同批真实食材与交付容量",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 12,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E004:B1",
+          "operations": [
+            {
+              "id": "E004:B1:O1",
+              "anchor": "hot_food",
+              "operation": "制作并标记同一份预约餐",
+              "world_seconds": 8,
+              "effect": "本小时制作一次，下小时预留8秒加真实路径交付",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 8,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E004:B2",
+          "operations": [
+            {
+              "id": "E004:B2:O1",
+              "anchor": "cashier",
+              "operation": "登记同一预约单和下一小时制作交付预算",
+              "world_seconds": 2,
+              "effect": "下小时预留20秒加真实路径；没有容量不接受",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "allowed_acceptance_phases": [
+          "N01",
+          "N02",
+          "N03",
+          "N04",
+          "N05"
+        ],
+        "next_phase_original_pickup_slot_required": true,
+        "future_capacity_and_real_food_reserved_atomically_before_accept": true,
+        "no_seventh_night_hour": true
+      }
+    },
+    {
+      "id": "E005",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "真实普通求助者与其自带封签小包；求助号码来自可信店内联系簿",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 20,
+      "effect_lifetime_world_seconds": 20,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E005:B1",
+          "operations": [
+            {
+              "id": "E005:B1:O1",
+              "anchor": "cashier",
+              "operation": "核对包签并拨登记号码",
+              "world_seconds": 6,
+              "effect": "形成求助记录，包留同一公共待核格；不发虚构关系数值",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 6,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E005:B2",
+          "operations": [
+            {
+              "id": "E005:B2:O1",
+              "anchor": "cashier",
+              "operation": "把同一包放等候格并委派已核验同事",
+              "world_seconds": 2,
+              "effect": "同事在公共区陪等20世界秒；不授予陌生人后台权限",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false
+    },
+    {
+      "id": "E006",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "一个未结算的现有订单和具体待购货物，无已接受代付承诺",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 12,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E006:B1",
+          "operations": [
+            {
+              "id": "E006:B1:O1",
+              "anchor": "cashier",
+              "operation": "把商品、数量、付款人填入一张有限订单再扫码",
+              "world_seconds": 4,
+              "effect": "只接受已展示的本单费用，不能产生未到场者无限欠款",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 4,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E006:B2",
+          "operations": [
+            {
+              "id": "E006:B2:O1",
+              "anchor": "cashier",
+              "operation": "将原货改为当面现货篮并实际交付",
+              "world_seconds": 2,
+              "effect": "只售同一原货；无代付及后续承诺",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false
+    },
+    {
+      "id": "E007",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "一个已登记失物、两位临时认领者；原登记中确有两个可独立核对细节",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 16,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E007:B1",
+          "operations": [
+            {
+              "id": "E007:B1:O1",
+              "anchor": "lost_property",
+              "operation": "展开实物、核登记细节后交付",
+              "world_seconds": 5,
+              "effect": "匹配者领取原物；不能由当前访客口述补造原记录",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 5,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E007:B2",
+          "operations": [
+            {
+              "id": "E007:B2:O1",
+              "anchor": "lost_property",
+              "operation": "把同一原物封回原格",
+              "world_seconds": 1,
+              "effect": "待核至白天，无强迫猜测或身份奖",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false
+    },
+    {
+      "id": "E008",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "一件已经实际打包完成的原pickup订单包裹、原预约记录，骑手尚未实际到场；到场前一次预告延后8预算秒。",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 12,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E008:B1",
+          "operations": [
+            {
+              "id": "E008:B1:O1",
+              "anchor": "pickup_shelf",
+              "operation": "把同包放进已有保温格",
+              "world_seconds": 1,
+              "effect": "同包占已有保温格、释放取货台；到场前仅一次延后8预算秒。耐心在真实到场后按原24世界秒开始；已到场不能被重标未到，保温不刷新任何已开始的期限。",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E008:B2",
+          "operations": [
+            {
+              "id": "E008:B2:O1",
+              "anchor": "cashier",
+              "operation": "回拨原订单联系人并注销本次提货",
+              "world_seconds": 4,
+              "effect": "同包留待退格；本时段不重生订单，不加耐心",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 4,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "required_source": "actual_packing_completion_and_original_pickup_order",
+        "reschedule_before_actual_arrival_only": true,
+        "delay_phase_budget_seconds": 8,
+        "max_delays_per_original_order": 1,
+        "new_arrival_must_fit_same_phase_and_free_handling": true,
+        "patience_world_seconds_after_actual_arrival": 24,
+        "no_previous_customer_patience_before_arrival": true,
+        "after_arrival_old_deadline_immutable": true,
+        "placing_in_warm_slot_does_not_refresh_patience": true,
+        "no_food_quality_timer": true,
+        "prepared_bag_keeps_original_object_id": true
+      }
+    },
+    {
+      "id": "E009",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "一个现有订单实际含三件商品，有两个空的普通打包槽",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 24,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E009:B1",
+          "operations": [
+            {
+              "id": "E009:B1:O1",
+              "anchor": "cashier",
+              "operation": "依原订单分成两批并分别交付",
+              "world_seconds": 6,
+              "effect": "三物库存守恒，仍只是一笔交易",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 6,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E009:B2",
+          "operations": [
+            {
+              "id": "E009:B2:O1",
+              "anchor": "packing",
+              "operation": "把同三物打包在一个普通托盘",
+              "world_seconds": 4,
+              "effect": "占一个托盘至实际取货；放弃时归原订单待退格",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 4,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false
+    },
+    {
+      "id": "E010",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "天气导演真实雨脉冲，固定WET_FRONT湿格，从未与WET_COLD擅自连接",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 16,
+      "effect_lifetime_world_seconds": 30,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E010:B1",
+          "operations": [
+            {
+              "id": "E010:B1:O1",
+              "anchor": "front_door",
+              "operation": "从干侧铺店配可回收雨垫并擦一条干线",
+              "world_seconds": 4,
+              "effect": "本次普通雨湿边隔断；只作用所标前场格",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 4,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E010:B2",
+          "operations": [
+            {
+              "id": "E010:B2:O1",
+              "anchor": "front_door",
+              "operation": "放可见湿区牌并改走已有干侧线",
+              "world_seconds": 1,
+              "effect": "保持30世界秒雨湿标记；无额外滑倒/流血系统",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "ordinary_rain_profile": "WET_FRONT",
+        "wet_source_duration_world_seconds": 30,
+        "wipe_does_not_instantly_regenerate": true,
+        "no_slip_or_blood_producer": true,
+        "rain_can_mask_only_audio_ornament_not_essential_visual_evidence": true
+      }
+    },
+    {
+      "id": "E011",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "已抽到的30世界秒室外雾窗，现有门牌与至少一条室内证据仍可见",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 12,
+      "effect_lifetime_world_seconds": 30,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E011:B1",
+          "operations": [
+            {
+              "id": "E011:B1:O1",
+              "anchor": "cashier",
+              "operation": "把该笔核验物放室内灯下对照",
+              "world_seconds": 3,
+              "effect": "只改变取证位置；不抹去历史事实和HUD方向",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 3,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E011:B2",
+          "operations": [
+            {
+              "id": "E011:B2:O1",
+              "anchor": "front_door",
+              "operation": "从合法门内位观察机械标尺",
+              "world_seconds": 3,
+              "effect": "室外怪仍只按实际视域显示；不通过雾自动知身份",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 3,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "visibility_region": "outdoor_forecourt_rear_and_alley_only",
+        "clear_radius_tiles": 3.4,
+        "outside_opacity": 0.55,
+        "stacking": "radius takes smallest authored value but never below 2.6; opacity takes maximum, not sum",
+        "essential_hud_direction_and_local_controls_unmasked": true,
+        "physical_occlusion_and_identity_evidence_unchanged": true
+      }
+    },
+    {
+      "id": "E012",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "30世界秒热浪预报及真实普通饮水订单或F11/F53已登记分支",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 12,
+      "effect_lifetime_world_seconds": 30,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E012:B1",
+          "operations": [
+            {
+              "id": "E012:B1:O1",
+              "anchor": "cold_cabinet",
+              "operation": "取原订单饮水并合柜",
+              "world_seconds": 2,
+              "effect": "只服务原订单；与F53同物时只能取可售四瓶中的实际余量",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E012:B2",
+          "operations": [
+            {
+              "id": "E012:B2:O1",
+              "anchor": "cold_cabinet",
+              "operation": "撤回一份尚未承诺的饮水陈列并挂暂停牌",
+              "world_seconds": 2,
+              "effect": "放弃可选销量，既有已接受订单仍按原条款处理",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "food_quality_decay_system_enabled": false,
+        "demand_uses_existing_order_slots": true,
+        "f11_extra_water_cups": 1,
+        "f11_water_free_and_reserved_before_offer": true,
+        "f53_preserved_bottles_never_saleable": true
+      }
+    },
+    {
+      "id": "E013",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "一处普通饮料柜的可见外霜；关键任务冰柜不由该事件失效",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 18,
+      "effect_lifetime_world_seconds": 30,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E013:B1",
+          "operations": [
+            {
+              "id": "E013:B1:O1",
+              "anchor": "cold_cabinet",
+              "operation": "暂停该普通柜并擦去外霜",
+              "world_seconds": 4,
+              "effect": "停卖该柜4秒后恢复；只清外霜，无湿地再生",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 4,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E013:B2",
+          "operations": [
+            {
+              "id": "E013:B2:O1",
+              "anchor": "cold_cabinet",
+              "operation": "将一个原普通饮料盒移至相邻空保温槽",
+              "world_seconds": 2,
+              "effect": "原物原数量保留；若绑定现有订单，仅保该原订单耐心；没有订单就没有食品到期或品质时钟。",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false
+    },
+    {
+      "id": "E014",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "一次有方向预告的真实雷声/闪光脉冲，基础应急标线始终可读",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 12,
+      "effect_lifetime_world_seconds": 3,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E014:B1",
+          "operations": [
+            {
+              "id": "E014:B1:O1",
+              "anchor": "power_panel",
+              "operation": "启用既有免费局部应急照明",
+              "world_seconds": 1,
+              "effect": "闪光时可见近侧操作位；不复制应急储备",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E014:B2",
+          "operations": [
+            {
+              "id": "E014:B2:O1",
+              "anchor": "cashier",
+              "operation": "按住现有固定手压灯照核验物",
+              "world_seconds": 1,
+              "effect": "操作期间占一手，退出释放；不要求玩家买电池",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false
+    },
+    {
+      "id": "E015",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "30世界秒普通自来水停供通知；所有已接受任务的免费独立水量已预留",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 12,
+      "effect_lifetime_world_seconds": 30,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E015:B1",
+          "operations": [
+            {
+              "id": "E015:B1:O1",
+              "anchor": "sink",
+              "operation": "把店配应急水分配给已登记必要任务",
+              "world_seconds": 2,
+              "effect": "仅转移实际净水份额；不挪F53保留瓶或个人保底餐",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E015:B2",
+          "operations": [
+            {
+              "id": "E015:B2:O1",
+              "anchor": "cashier",
+              "operation": "从已存在补给箱领取一份可选备用水",
+              "world_seconds": 2,
+              "effect": "明示支付4币后获得一份；不足币时第一路始终可用",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false
+    },
+    {
+      "id": "E016",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "固定门前普通湿格和一条已验证干侧通路，不改变导航拓扑",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 20,
+      "effect_lifetime_world_seconds": 30,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E016:B1",
+          "operations": [
+            {
+              "id": "E016:B1:O1",
+              "anchor": "front_door",
+              "operation": "挂侧线导向牌",
+              "world_seconds": 1,
+              "effect": "30秒内仅绕行既有通路；无滑行/隐形伤害",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E016:B2",
+          "operations": [
+            {
+              "id": "E016:B2:O1",
+              "anchor": "front_door",
+              "operation": "从干侧擦两枚普通湿格",
+              "world_seconds": 6,
+              "effect": "每格3秒实际完成；清理过的格不因本事件反复重生",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 6,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false
+    },
+    {
+      "id": "E017",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "一只普通临时流浪动物、前场已有安全等候点；没有凭空解锁宠物",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 12,
+      "effect_lifetime_world_seconds": 20,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E017:B1",
+          "operations": [
+            {
+              "id": "E017:B1:O1",
+              "anchor": "front_door",
+              "operation": "在公共等候点放一份可选实际供食",
+              "world_seconds": 2,
+              "effect": "动物等候20秒后离开；不能占个人保底食物，记录仅供白天领养参考",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E017:B2",
+          "operations": [
+            {
+              "id": "E017:B2:O1",
+              "anchor": "cashier",
+              "operation": "登记并拨已知救助联系号",
+              "world_seconds": 4,
+              "effect": "仅建立救助记录，白天仍按P系列实际领养/照料合同",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 4,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false
+    },
+    {
+      "id": "E018",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "30世界秒通风差状态，只读取F03屏息恢复延迟与F49已合盖冷却",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 12,
+      "effect_lifetime_world_seconds": 30,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E018:B1",
+          "operations": [
+            {
+              "id": "E018:B1:O1",
+              "anchor": "hot_food",
+              "operation": "拨既有风门并确认排风档",
+              "world_seconds": 2,
+              "effect": "只终止后续新操作的通风差；已开始F49冷却仍沿已锁定40秒，不重采样",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E018:B2",
+          "operations": [
+            {
+              "id": "E018:B2:O1",
+              "anchor": "hot_food",
+              "operation": "停用非必要热食档并继续其他工作",
+              "world_seconds": 1,
+              "effect": "本次普通热食订单可放弃；不模拟纸张位移、声音传播或额外热伤",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "paper_or_sound_propagation_simulation_enabled": false,
+        "f03_after_exposed_breath_hold_regen_delay_extra_seconds": 2,
+        "f49_cooling_snapshot_world_seconds": 40,
+        "f49_normal_cooling_world_seconds": 20,
+        "cooling_snapshot_once_per_original_container": true
+      }
+    },
+    {
+      "id": "E019",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "一条已登记普通设备支线故障，首兆前固定为跳闸或损坏部件；实际受影响的可选设备与fault_id可见，基础冷藏、手动门和免费核验独立。",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 24,
+      "effect_lifetime_world_seconds": 30,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E019:B1",
+          "operations": [
+            {
+              "id": "E019:B1:O1",
+              "anchor": "power_panel",
+              "operation": "隔离故障支线并手动复位",
+              "world_seconds": 6,
+              "effect": "实际6秒隔离/复位：跳闸型恢复原支线；损坏部件型仅隔离并恢复安全基础照明，原可选设备仍停用，只有同故障换件测试才能恢复。",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 6,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E019:B2",
+          "operations": [
+            {
+              "id": "E019:B2:O1",
+              "anchor": "power_panel",
+              "operation": "将该回路置暂停并开启固定应急标线",
+              "world_seconds": 1,
+              "effect": "实际1秒启用应急标线并暂放弃该可选设备；30世界秒只结束初始闪烁/减视距遮罩，原故障不会自动修好。",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "30世界秒仅清除初始闪烁/减视距遮罩；同fault_id普通设备停用保留到真实修复或本班交接。跳闸复位与损坏件安装测试为事先固定子型的不同解，不能采样后变型。",
+      "cleanup": "只撤本事件临时遮罩；原故障工单和同设备停用状态保留，未装组件留真实槽。交班登记为隔离工单，不生成伤害、店务债或成功奖励。",
+      "admission": "首兆前固定实际设备、fault_id和故障子型；已有监控快照/辅助照明等可选功能才可受影响，不得创造新设备或关闭最后免费证据。F59只与damaged_component同源且实际剩余预算足够时组合；没有材料可安全隔离，不强制采购。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "outage_scope": "one_existing_ordinary_circuit_branch_with_registered_optional_devices",
+        "critical_refrigeration_and_manual_doors_excluded": true,
+        "baseline_critical_evidence_stays_readable": true,
+        "f59_can_restore_only_the_same_registered_branch": true,
+        "visibility_region": "failed_registered_circuit_region_only",
+        "clear_radius_tiles": 3.4,
+        "outside_opacity": 0.55,
+        "stacking": "radius takes smallest authored value but never below 2.6; opacity takes maximum, not sum",
+        "essential_hud_direction_and_local_controls_unmasked": true,
+        "physical_occlusion_and_identity_evidence_unchanged": true,
+        "subtype_fixed_before_first_omen": true,
+        "subtypes": {
+          "trip": {
+            "manual_reset_world_seconds": 6,
+            "manual_reset_restores_same_branch": true,
+            "f59_eligible": false
+          },
+          "damaged_component": {
+            "manual_isolation_world_seconds": 6,
+            "isolation_restores_safe_baseline_only": true,
+            "same_optional_device_stays_disabled": true,
+            "f59_eligible": true,
+            "restoration_requires_same_fault_component_install_and_test": true
+          }
+        },
+        "initial_flicker_and_mask_world_seconds": 30,
+        "mask_expiry_repairs_fault": false,
+        "fault_lifetime": "until_actual_same_fault_repair_or_shift_handover_as_isolated_work_order",
+        "actual_optional_device_required": true,
+        "eligible_existing_optional_functions": [
+          "registered_monitor_snapshot",
+          "registered_auxiliary_lamp"
+        ],
+        "damaged_component_completion_shared_with_F59": true,
+        "second_manual_repair_after_F59_required": false,
+        "safe_isolation_is_valid_without_F59": true
+      }
+    },
+    {
+      "id": "E020",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "一处普通冷柜报警及同一真实普通货盒；F13主解必须有有效登记冰柜",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 24,
+      "effect_lifetime_world_seconds": 30,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E020:B1",
+          "operations": [
+            {
+              "id": "E020:B1:O1",
+              "anchor": "cold_cabinet",
+              "operation": "停卖并按既有维修面板复位",
+              "world_seconds": 6,
+              "effect": "只操作故障柜，不停掉已预留唯一任务冷源",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 6,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E020:B2",
+          "operations": [
+            {
+              "id": "E020:B2:O1",
+              "anchor": "cold_cabinet",
+              "operation": "搬同一普通货盒到已登记备用保温位",
+              "world_seconds": 2,
+              "effect": "有限空位先预留；不复制货盒/冰柜，不宣称食品不可逆损坏",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false
+    },
+    {
+      "id": "E021",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "一个正制作的普通热食订单、已停转的普通微波档与已有备用档",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 16,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E021:B1",
+          "operations": [
+            {
+              "id": "E021:B1:O1",
+              "anchor": "hot_food",
+              "operation": "把同份餐移到备用加热档再完成",
+              "world_seconds": 6,
+              "effect": "真实制作一次，原订单耐心继续；不额外刷新订单",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 6,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E021:B2",
+          "operations": [
+            {
+              "id": "E021:B2:O1",
+              "anchor": "hot_food",
+              "operation": "停止机器并把原餐放待退位",
+              "world_seconds": 1,
+              "effect": "取消未完成的本单收益；不产生怪物或额外债",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false
+    },
+    {
+      "id": "E022",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "一张未出完的真实票据卡纸，原订单数据仍在封存账簿",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 16,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E022:B1",
+          "operations": [
+            {
+              "id": "E022:B1:O1",
+              "anchor": "cashier",
+              "operation": "断打印后取出原卡纸并重新打印同编号",
+              "world_seconds": 3,
+              "effect": "重印与原纸同根证据，不增加身份独立源",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 3,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E022:B2",
+          "operations": [
+            {
+              "id": "E022:B2:O1",
+              "anchor": "cashier",
+              "operation": "从同一订单抄写编号并盖同根备单记号",
+              "world_seconds": 4,
+              "effect": "只是原订单副本；不凭纸笔创建历史销售",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 4,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false
+    },
+    {
+      "id": "E023",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "当前订单终端离线30世界秒，真实原订单本地记录已保存",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 12,
+      "effect_lifetime_world_seconds": 30,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E023:B1",
+          "operations": [
+            {
+              "id": "E023:B1:O1",
+              "anchor": "cashier",
+              "operation": "用本地同编号提交实际交付",
+              "world_seconds": 2,
+              "effect": "先保存同订单回执，恢复网络同步只读相同ID，不重复收款",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E023:B2",
+          "operations": [
+            {
+              "id": "E023:B2:O1",
+              "anchor": "cashier",
+              "operation": "将复杂支付单挂待付并切换现货接待",
+              "world_seconds": 1,
+              "effect": "原单保持耐心，到期只失该单收入",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false
+    },
+    {
+      "id": "E024",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "可见门铃测试灯故障，固定门线的实际过门记录仍可生成",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 16,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E024:B1",
+          "operations": [
+            {
+              "id": "E024:B1:O1",
+              "anchor": "front_door",
+              "operation": "把观门工位交已核验空闲同事",
+              "world_seconds": 1,
+              "effect": "同事最多守20秒并报告实际穿门，不据此认证身份",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E024:B2",
+          "operations": [
+            {
+              "id": "E024:B2:O1",
+              "anchor": "front_door",
+              "operation": "暂停迎客并更换店配触点",
+              "world_seconds": 4,
+              "effect": "恢复门铃提示；过去未观察过门不得补生成",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 4,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false
+    },
+    {
+      "id": "E025",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "预告时已锁定的后门fails_to_open或fails_to_close，替代路线实际可达",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 24,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E025:B1",
+          "operations": [
+            {
+              "id": "E025:B1:O1",
+              "anchor": "rear_door",
+              "operation": "放分型标记并改用已验证通路",
+              "world_seconds": 1,
+              "effect": "卡闭走外环；卡开保公共边界但不能声称后门不通，两型绝不并存",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E025:B2",
+          "operations": [
+            {
+              "id": "E025:B2:O1",
+              "anchor": "rear_door",
+              "operation": "从安全门内位执行机械复位",
+              "world_seconds": 6,
+              "effect": "恢复同一扇门；活动追逐不加入锁门，必要走路另算",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 6,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "subtype_fixed_before_omen": true,
+        "mutually_exclusive_subtypes": [
+          "fails_to_open",
+          "fails_to_close"
+        ],
+        "no_new_lock_during_pursuit": true
+      }
+    },
+    {
+      "id": "E026",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "固定WET_REAR普通漏水支线以及一个低位普通货盒；不覆F57保护渠",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 24,
+      "effect_lifetime_world_seconds": 30,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E026:B1",
+          "operations": [
+            {
+              "id": "E026:B1:O1",
+              "anchor": "rear_door",
+              "operation": "关该支线并从干侧擦割点",
+              "world_seconds": 4,
+              "effect": "仅停普通漏水，湿节点按实际擦净更新",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 4,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E026:B2",
+          "operations": [
+            {
+              "id": "E026:B2:O1",
+              "anchor": "receiving",
+              "operation": "把同一货盒移到已空高位槽",
+              "world_seconds": 2,
+              "effect": "仅保原货，漏水仍30秒；保留干线且不复制库存",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "ordinary_leak_cells": [
+          [
+            28,
+            1
+          ],
+          [
+            28,
+            2
+          ]
+        ],
+        "cut_cell": [
+          28,
+          1
+        ],
+        "dry_control_position": [
+          27.5,
+          1.5
+        ],
+        "source_clock_world_seconds": 30,
+        "distinct_from_f57_protected_channel": true,
+        "no_new_edge_to_WET_COLD": true,
+        "water_shutdown_does_not_clear_blood": true
+      }
+    },
+    {
+      "id": "E027",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "一件实际错时配送原箱和其真实送货单，未获得员工区通行权",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 16,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E027:B1",
+          "operations": [
+            {
+              "id": "E027:B1:O1",
+              "anchor": "receiving",
+              "operation": "对原单后把原箱放普通待验槽",
+              "world_seconds": 4,
+              "effect": "占一个有限槽，未验不售；送货员在公共边界",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 4,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E027:B2",
+          "operations": [
+            {
+              "id": "E027:B2:O1",
+              "anchor": "rear_door",
+              "operation": "核原件并由来者原路带走",
+              "world_seconds": 2,
+              "effect": "只失可选新货机会；不删除已接收任务物",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false
+    },
+    {
+      "id": "E028",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "N01班前真实同事迟到，未生成第二个常驻员工",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 12,
+      "effect_lifetime_world_seconds": 20,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E028:B1",
+          "operations": [
+            {
+              "id": "E028:B1:O1",
+              "anchor": "cashier",
+              "operation": "翻窗口营业牌并接原pickup单",
+              "world_seconds": 1,
+              "effect": "暂失browse机会，现有怪不消失",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E028:B2",
+          "operations": [
+            {
+              "id": "E028:B2:O1",
+              "anchor": "cashier",
+              "operation": "回拨班前记录渠道",
+              "world_seconds": 4,
+              "effect": "回拨4秒只读取已登记return_at=事件开始+20世界秒的剩余时间，不重置到场时刻；实际回店仍核当前身体。",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 4,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "allowed_start_phase": "N01",
+        "maximum_initial_absence_world_seconds": 20,
+        "callback_is_not_identity_authentication": true,
+        "return_at": "event_start_world+20",
+        "callback_reads_remaining_time_only": true,
+        "callback_does_not_restart_absence": true,
+        "actual_entry_and_current_body_verification_still_required": true
+      }
+    },
+    {
+      "id": "E029",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "已经准入的具有员工拟态能力F实例与同一真实同事；无绑定则不出现第二身体",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 24,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E029:B1",
+          "operations": [
+            {
+              "id": "E029:B1:O1",
+              "anchor": "verification_desk",
+              "operation": "两实体分位后取两域真实证据",
+              "world_seconds": 6,
+              "effect": "沿绑定F的连续性规则；断链保待核，重走两格不能重新认证",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 6,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E029:B2",
+          "operations": [
+            {
+              "id": "E029:B2:O1",
+              "anchor": "verification_desk",
+              "operation": "回收未授钥匙并封高危权限",
+              "world_seconds": 2,
+              "effect": "实际有交付则亲手取回原钥匙；保公共服务，不扣关系/绩效",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "anomalous_branch_requires_existing_fitted_instance": true,
+        "new_permanent_employee_count": 0,
+        "lost_continuity_cannot_be_repaired_by_new_observation_alone": true,
+        "optional_benefit": "真正完成当前身份/范围核验的同事可代做一件已存在工单；按实际路径与时间完成才记原任务。",
+        "pending_identity_tradeoff": "主角自己做或留原待办；不凭待核行为虚扣绩效。",
+        "creates_extra_order_or_work_reward": false
+      }
+    },
+    {
+      "id": "E030",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "有远程拟声能力的已准入F实例；未绑定仅同一真实店长重拨",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 20,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E030:B1",
+          "operations": [
+            {
+              "id": "E030:B1:O1",
+              "anchor": "cashier",
+              "operation": "挂断当前线并回拨已核实记录",
+              "world_seconds": 4,
+              "effect": "一条通信来源，只能比对工单；单凭声音不授新权限",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 4,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E030:B2",
+          "operations": [
+            {
+              "id": "E030:B2:O1",
+              "anchor": "cashier",
+              "operation": "取封存原工单并圈定此前已核实范围",
+              "world_seconds": 3,
+              "effect": "只执行原允许任务；不确认新来电身份",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 3,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "unbound_branch": "ordinary_repeated_call",
+        "anomalous_branch_requires_existing_remote_voice_capability": true,
+        "voice_is_not_identity_evidence_by_itself": true
+      }
+    },
+    {
+      "id": "E031",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "真实当前账簿；真实已核验店长或已准入F20/F48提出查账",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 16,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E031:B1",
+          "operations": [
+            {
+              "id": "E031:B1:O1",
+              "anchor": "verification_desk",
+              "operation": "对原工单范围并展示只读账簿",
+              "world_seconds": 4,
+              "effect": "不转钥匙、不扩大范围；普通/异常子型先定后读",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 4,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E031:B2",
+          "operations": [
+            {
+              "id": "E031:B2:O1",
+              "anchor": "cashier",
+              "operation": "把本请求记为交班待核",
+              "world_seconds": 1,
+              "effect": "真实工作顺延；温和待核没有SAN/关系/绩效处罚",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "exclusive_branches": {
+          "ordinary": {
+            "actor": "verified_real_manager",
+            "no_f_instance_required": true
+          },
+          "anomalous": {
+            "permitted_monsters": [
+              "F20",
+              "F48"
+            ],
+            "already_admitted": true
+          }
+        },
+        "never_require_both_branches": true,
+        "successful_read_only_ledger_check": "记同一D06账簿核对准备回执，只抵这一项实际工作",
+        "delay_branch": "保留原交班准备待办，不额外加罚或第二张账。"
+      }
+    },
+    {
+      "id": "E032",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "现有同事工牌实际遗失或暂不可出示，当前身份与权限证据分别处理",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 16,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E032:B1",
+          "operations": [
+            {
+              "id": "E032:B1:O1",
+              "anchor": "staff_desk",
+              "operation": "登记遗失并把备用访客条交本人",
+              "world_seconds": 4,
+              "effect": "只有公共低风险权限，工牌本身不是身份独立源",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 4,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E032:B2",
+          "operations": [
+            {
+              "id": "E032:B2:O1",
+              "anchor": "cashier",
+              "operation": "把原任务改为公共区整理",
+              "world_seconds": 1,
+              "effect": "不得代签高危授权或借主角工牌",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "optional_benefit": "真正完成当前身份/范围核验的同事可代做一件已存在工单；按实际路径与时间完成才记原任务。",
+        "pending_identity_tradeoff": "主角自己做或留原待办；不凭待核行为虚扣绩效。",
+        "creates_extra_order_or_work_reward": false
+      }
+    },
+    {
+      "id": "E033",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "唯一同事已实际开始一项16世界秒低风险工位任务，途中连续8世界秒未被玩家看见且不在对讲可读工位；实际未超期。",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 20,
+      "effect_lifetime_world_seconds": 20,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E033:B1",
+          "operations": [
+            {
+              "id": "E033:B1:O1",
+              "anchor": "cashier",
+              "operation": "撤后续高危委派并挂窗口牌",
+              "world_seconds": 1,
+              "effect": "只撤未开工任务；进行中原物留真实位置",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E033:B2",
+          "operations": [
+            {
+              "id": "E033:B2:O1",
+              "anchor": "staff_desk",
+              "operation": "沿已知安全路线查看实际工位",
+              "world_seconds": 3,
+              "effect": "只有实见才更新位置；未见到则继续待核，不生成失踪怪",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 3,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "source": "actual_coworker_low_risk_job_started_receipt",
+        "job_work_world_seconds": 16,
+        "actual_absence_since_last_observation_world_seconds": 8,
+        "unobserved_does_not_mean_late_or_monster": true,
+        "return_path_must_be_measured": true,
+        "job_completion_does_not_teleport_actor_to_counter": true,
+        "newly_seen_subject_requires_current_body_check_for_high_permissions": true
+      }
+    },
+    {
+      "id": "E034",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "同一真实私约有班前保存记录，返岗者实际回答不一致",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 16,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E034:B1",
+          "operations": [
+            {
+              "id": "E034:B1:O1",
+              "anchor": "verification_desk",
+              "operation": "从另一域取当前身体观察并对原基准",
+              "world_seconds": 4,
+              "effect": "私约失配不是假身结论；两域和连续性均满足才有限恢复",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 4,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E034:B2",
+          "operations": [
+            {
+              "id": "E034:B2:O1",
+              "anchor": "verification_desk",
+              "operation": "封高危钥匙槽并保公共等待",
+              "world_seconds": 1,
+              "effect": "证据不足安全待核，无随机猜人处罚",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "optional_benefit": "真正完成当前身份/范围核验的同事可代做一件已存在工单；按实际路径与时间完成才记原任务。",
+        "pending_identity_tradeoff": "主角自己做或留原待办；不凭待核行为虚扣绩效。",
+        "creates_extra_order_or_work_reward": false
+      }
+    },
+    {
+      "id": "E035",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "预算700—710，真实店长已在verification_desk现场核验，普通访客实际在相邻公共点[24.5,27.5]；玩家也在该核验工位，已先预留交班容量和4秒识别准备＋6秒操作/退出，门外退出路线实际可用。",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 6,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E035:B1",
+          "operations": [
+            {
+              "id": "E035:B1:O1",
+              "anchor": "verification_desk",
+              "operation": "将访客引到相邻公共等候标线",
+              "world_seconds": 2,
+              "effect": "同一访客留在既有相邻公共等候位；店长与玩家保留核验工位，不授后台权限、不阻断原交班。迟来或拒绝离店分支也可保持此公共待核状态，不伪造离场。",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E035:B2",
+          "operations": [
+            {
+              "id": "E035:B2:O1",
+              "anchor": "verification_desk",
+              "operation": "店长留在已核验工位，玩家在原位出示公共离店指引",
+              "world_seconds": 2,
+              "effect": "玩家原位操作2秒；同一访客沿实际12格公共线以3格/世界秒走过已开放DOOR_FRONT，到门外[15.5,30.5]才离场，总计6秒。店长不陪走、不离开当前身份见证，不新增玩家来回跑动；出口关闭或路线不安全则本分支不准入。",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "earliest_shift_budget": 700,
+        "latest_start_shift_budget": 714,
+        "actual_present_verified_manager_required": true,
+        "handover_capacity_is_reserved_first": true,
+        "player_at_verified_desk_required_before_offer": true,
+        "no_player_cross_store_travel_after_714": true,
+        "manager_stays_at_verified_station": true,
+        "manager_station_anchor": "verification_desk",
+        "visitor_initial_public_position": [
+          24.5,
+          27.5
+        ],
+        "visitor_exit_anchor": "front_door",
+        "visitor_speed_tiles_per_world_second": 3,
+        "visitor_measured_exit_route_tiles": 12,
+        "visitor_exit_world_seconds": 4,
+        "branch2_local_elapsed_with_visitor_exit_seconds": 6,
+        "visitor_exit_requires_current_unblocked_path": true,
+        "front_exit_must_be_open_and_lawfully_traversable": true,
+        "closed_exit_does_not_teleport_visitor": true,
+        "manager_identity_chain_not_broken_by_escort": true,
+        "original_wrong_escort_counterexample": "店长verification_desk至front_door单程11格，往返22/3秒加2秒操作=9.333秒，714后6秒不足；现行不让店长离岗。",
+        "visitor_exit_position": [
+          15.5,
+          30.5
+        ],
+        "door_interior_anchor_is_not_completed_exit": true,
+        "latest_first_omen_shift_budget": 710,
+        "minimum_recognition_preparation_world_seconds": 4,
+        "minimum_remaining_budget_at_first_offer": 10,
+        "latest_start_is_completion_boundary_not_new_offer_time": true,
+        "preoffer_player_approach_must_already_be_completed": true,
+        "late_offer_policy": "do_not_offer_exit_branch; existing visitor may safely wait in original public slot for handover",
+        "decline_policy": "same_visitor_stays_in_original_public_waiting_slot; no departure receipt, no extra penalty, safe handover remains available",
+        "waiting_visitor_handover": "transfer_same_public_waiting_record_to_actual_verified_manager; no visitor teleport or automatic exit"
+      }
+    },
+    {
+      "id": "E036",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "收到提前下班通知，真实HUD预算仍小于720，未改变可信时钟",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 12,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E036:B1",
+          "operations": [
+            {
+              "id": "E036:B1:O1",
+              "anchor": "cashier",
+              "operation": "对HUD时刻并把本请求放待核",
+              "world_seconds": 1,
+              "effect": "保持当前班次；不凭窗外亮度提前结算",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E036:B2",
+          "operations": [
+            {
+              "id": "E036:B2:O1",
+              "anchor": "cashier",
+              "operation": "实际整理原账簿并放交班槽",
+              "world_seconds": 3,
+              "effect": "只完成同一交班准备步骤；未到720不支付工资",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 3,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false
+    },
+    {
+      "id": "E037",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "在N02—N05阶段起点预约的唯一重大事件与实际前场队列",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 120,
+      "effect_lifetime_world_seconds": 120,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E037:B1",
+          "operations": [
+            {
+              "id": "E037:B1:O1",
+              "anchor": "front_door",
+              "operation": "标前场通行门线并关闭迎宾越界邀请",
+              "world_seconds": 3,
+              "effect": "安全目标第一段",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            },
+            {
+              "id": "E037:B1:O2",
+              "anchor": "cashier",
+              "operation": "在20—100秒间实际处理最多两笔原订单",
+              "world_seconds": 7,
+              "effect": "静音交付每单3.5世界秒、两单共7秒，加实际路线；每个6秒门线窗最多一名真实穿线者，不把整笔browse流程塞在6秒里。",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            },
+            {
+              "id": "E037:B1:O3",
+              "anchor": "front_door",
+              "operation": "100秒后核队尾并实际复位门线",
+              "world_seconds": 3,
+              "effect": "真实通过后安全结束；原普通工作可放弃收益",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 22.1667,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E037:B2",
+          "operations": [
+            {
+              "id": "E037:B2:O1",
+              "anchor": "front_door",
+              "operation": "标安全门线并挂保守窗口牌",
+              "world_seconds": 3,
+              "effect": "拒绝可选特殊交易，不叠本阶段新主怪",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            },
+            {
+              "id": "E037:B2:O2",
+              "anchor": "front_door",
+              "operation": "100秒后核队尾并复位门线",
+              "world_seconds": 3,
+              "effect": "完成安全目标，未完成普通店务只记有界债",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 6.0,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "timeline_authority": "content/events.json#/E037/timeline",
+        "start_at_phase_boundary": true,
+        "normal_primary_replaced": true,
+        "new_forced_minor_events": false,
+        "end_phase_budget": 120,
+        "safety_check_at_phase_second": 100,
+        "optional_work_not_safety_gate": true,
+        "front_line_passage_world_intervals_relative_to_stage": [
+          [
+            20,
+            40
+          ],
+          [
+            46,
+            70
+          ],
+          [
+            76,
+            100
+          ]
+        ],
+        "optional_delivery_windows_relative_to_stage": [
+          [
+            40,
+            46
+          ],
+          [
+            70,
+            76
+          ]
+        ],
+        "warning_before_group_crossing_world_seconds": 3,
+        "collision_only_on_actual_crossing_same_line": true,
+        "actual_contact_san_loss": 10,
+        "contact_grace_world_seconds": 2,
+        "maximum_contact_count_for_this_scripted_group": 1,
+        "conservative_player_stays_in_store": true,
+        "cue_and_hud_remain_visible_under_low_san": true,
+        "only_two_existing_orders_can_be_served": true,
+        "delivery_window_requires_measured_actual_local_route": true,
+        "new_precision_qte_allowed_during_event": false,
+        "read_only_pause_freezes_both_clocks": true,
+        "ordinary_service_mode": "silent_3.5_world_seconds_per_order",
+        "two_orders_checkout_world_seconds": 7,
+        "six_second_windows_are_crossing_windows_not_whole_service": true,
+        "maximum_one_admitted_crossing_actor_per_window": 1,
+        "browse_customer_actual_path_to_cashier_required": true,
+        "inside_customer_service_can_continue_while_outside_line_closed": true,
+        "all_remaining_world_timeline_and_return_to_line_reserved_before_optional_work": true,
+        "dual_clock_counterexample_prevented": "3次8预算秒QTE会在预算120而世界96时耗尽阶段；本事件禁止新QTE，因此未产生这24秒差值。",
+        "original_order_arrivals_transformed_before_phase_start": [
+          40,
+          70
+        ],
+        "original_slots_and_types_unchanged": true,
+        "ordinary_patience_world_seconds": 24,
+        "arrival10_first_window40_counterexample": "若仍10秒到场，24秒耐心在34秒结束，40秒窗无订单可接；重大事件在原单未到前把本阶段两名原来客预告改为40/70秒。"
+      }
+    },
+    {
+      "id": "E038",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "一队实际迎亲队列在前场等待，店外既有通路与后台边界不重叠",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 60,
+      "effect_lifetime_world_seconds": 60,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E038:B1",
+          "operations": [
+            {
+              "id": "E038:B1:O1",
+              "anchor": "front_door",
+              "operation": "放20秒店外通行条并站干侧监管",
+              "world_seconds": 2,
+              "effect": "只借前场既有线；通过后实际收条，完成回执奖励6币一次",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E038:B2",
+          "operations": [
+            {
+              "id": "E038:B2:O1",
+              "anchor": "front_door",
+              "operation": "关闭邀请通道并放公共等候牌",
+              "world_seconds": 1,
+              "effect": "队伍等20世界秒再沿街离去，不越员工线；放弃6币",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "permission_duration_world_seconds": 20,
+        "maximum_reward_coins": 6,
+        "reward_requires_actual_passage_and_returned_strip": true,
+        "refusal_departure_world_seconds": 20,
+        "employee_zone_never_leased": true,
+        "three_second_line_warning": true,
+        "actual_unpermitted_crossing_san": 4,
+        "penalty_max_per_event": 1,
+        "recover_by_returning_to_marked_public_side": true,
+        "permission_does_not_let_queue_cross_staff_zone": true
+      }
+    },
+    {
+      "id": "E039",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "一队实际送行者与一笔已预留的原pickup订单提出20秒静音请求；无真实该单不准入交易版",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 50,
+      "effect_lifetime_world_seconds": 50,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E039:B1",
+          "operations": [
+            {
+              "id": "E039:B1:O1",
+              "anchor": "cashier",
+              "operation": "将两声道切静音并使用纸号交付",
+              "world_seconds": 2,
+              "effect": "静音服务本单+2秒，不隐藏普通脚步声系统",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E039:B2",
+          "operations": [
+            {
+              "id": "E039:B2:O1",
+              "anchor": "packing",
+              "operation": "在接受前退回静音请求，然后去原打包任务",
+              "world_seconds": 2,
+              "effect": "拒绝尚未接受的20秒请求并放弃该可选交易；去packing不被算作关闭全店频道。已经接受后需实际静音或按原条款撤销。",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "required_quiet_world_seconds": 20,
+        "registered_muted_channels": [
+          "greeting",
+          "broadcast"
+        ],
+        "ordinary_footsteps_not_a_rule_source": true,
+        "slip_or_chase_created": false,
+        "quiet_timer_starts_after_actual_request_accepted": true,
+        "loud_channel_warning_seconds": 3,
+        "if_still_loud_after_warning_san": 4,
+        "max_san_penalties": 1,
+        "can_cancel_quiet_request_and_forfeit_optional_trade": true,
+        "same_quiet_timer_never_restarts": true,
+        "branch_2_requires_request_not_accepted": true,
+        "moving_away_does_not_mute_global_channels": true,
+        "optional_trade_source": "current_phase_existing_pickup_order_id",
+        "accept_requires_real_order_and_reserved_food": true,
+        "same_order_is_only_economic_reward": true,
+        "decline_loses_only_that_order_opportunity": true
+      }
+    },
+    {
+      "id": "E040",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "门前实际一处临时摊位，预先固定I21×1，正常目录价60币，本次公开售价42币",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 45,
+      "effect_lifetime_world_seconds": 45,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E040:B1",
+          "operations": [
+            {
+              "id": "E040:B1:O1",
+              "anchor": "forecourt_handoff",
+              "operation": "付款并从摊位原槽取I21",
+              "world_seconds": 3,
+              "effect": "确认库存空位后同一原物转入与实付42币同次提交；无空位或来不及就不付款，重新查看仍是同物同价。",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 3,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E040:B2",
+          "operations": [
+            {
+              "id": "E040:B2:O1",
+              "anchor": "front_door",
+              "operation": "合特殊交易窗并继续原店内工作",
+              "world_seconds": 1,
+              "effect": "不支付、不领奖，摊位45秒后原物带走",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "item_id": "I21",
+        "quantity": 1,
+        "actual_price_coins": 42,
+        "reference_catalog_price_coins": 60,
+        "same_stock_and_quote_survives_reload": true,
+        "no_purchase_refund_salvage_double_credit": true
+      }
+    },
+    {
+      "id": "E041",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "最多三件已登记实际失物与各自原记录，不从传闻生成旧物",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 50,
+      "effect_lifetime_world_seconds": 50,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E041:B1",
+          "operations": [
+            {
+              "id": "E041:B1:O1",
+              "anchor": "lost_property",
+              "operation": "对登记和两细节后逐件交还",
+              "world_seconds": 9,
+              "effect": "每件3秒；原物一次归还，不提供额外身份认证",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 9,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E041:B2",
+          "operations": [
+            {
+              "id": "E041:B2:O1",
+              "anchor": "lost_property",
+              "operation": "将三件分别封回已有原格",
+              "world_seconds": 3,
+              "effect": "每件1秒，不占新无限格；无材料或空位不准入",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 3,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "maximum_lost_objects": 3,
+        "one_original_owner_record_per_object": true,
+        "wrong_claimant_actual_take_preceded_by_seconds": 3,
+        "recover_during_warning_by_withdrawing_same_object": true,
+        "after_wrong_take": "本物记误交并失去该物归还信用；不从空气补出副本；其他物继续可处理。",
+        "identity_oracle": false,
+        "same_returns_do_not_count_as_new_sales": true
+      }
+    },
+    {
+      "id": "E042",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "同一客群携供台请求，店配可选供食2份与个人保底餐分离",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 50,
+      "effect_lifetime_world_seconds": 50,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E042:B1",
+          "operations": [
+            {
+              "id": "E042:B1:O1",
+              "anchor": "reserve_seat",
+              "operation": "把两份实际供食放独立供台并限定公共区域",
+              "world_seconds": 4,
+              "effect": "20秒后同客群取走两份，实际交付奖励4币一次",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 4,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E042:B2",
+          "operations": [
+            {
+              "id": "E042:B2:O1",
+              "anchor": "reserve_seat",
+              "operation": "撤尚未承诺的供台并留个人餐封存",
+              "world_seconds": 1,
+              "effect": "未接受可安全拒绝；不扣饱腹或承诺罚",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "work_food_required": 2,
+        "personal_food_excluded": true,
+        "maximum_coins": 4,
+        "claim_once_after_actual_delivery": true,
+        "public_table_scope_only": true,
+        "request_is_not_accepted_until_two_portions_and_scope_are_committed": true,
+        "early_cancellation": "实际收回未取份额，失未获4币；已取份额不返还、不追扣个人饱腹。"
+      }
+    },
+    {
+      "id": "E043",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "真实预算未到720的一次窗外假亮，不修改世界时钟",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 30,
+      "effect_lifetime_world_seconds": 30,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E043:B1",
+          "operations": [
+            {
+              "id": "E043:B1:O1",
+              "anchor": "cashier",
+              "operation": "核可信时钟并拉前场遮光帘",
+              "world_seconds": 1,
+              "effect": "消除本次假亮干扰，不扣观看预兆SAN",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E043:B2",
+          "operations": [
+            {
+              "id": "E043:B2:O1",
+              "anchor": "cashier",
+              "operation": "在假亮期间整理实际交班账簿",
+              "world_seconds": 3,
+              "effect": "只登记完成的原步骤；不提前交班、不给额外恢复",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 3,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false
+    },
+    {
+      "id": "E044",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "最多三名临时群影在公共门外，两个空公共等候位可预约",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 45,
+      "effect_lifetime_world_seconds": 45,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E044:B1",
+          "operations": [
+            {
+              "id": "E044:B1:O1",
+              "anchor": "front_door",
+              "operation": "给最多两位限定公共等候条",
+              "world_seconds": 2,
+              "effect": "20秒到期条失效，亲手收条；不借柜台/员工床",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E044:B2",
+          "operations": [
+            {
+              "id": "E044:B2:O1",
+              "anchor": "front_door",
+              "operation": "将同一队列导至已有门外标线",
+              "world_seconds": 2,
+              "effect": "等20秒原路离开，不凭群体生成三只新AI",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "max_temporary_visitors": 3,
+        "max_public_waiting_slots": 2,
+        "permission_seconds": 20,
+        "not_three_independent_monster_brains": true,
+        "unpermitted_guest_approach_warning_seconds": 3,
+        "can_revoke_public_strip_before_crossing": true,
+        "actual_unpermitted_employee_line_crossing_san": 4,
+        "max_penalties": 1,
+        "recovery": "撤该条、退到柜台内侧且引回公共格；原短时等候不刷新。",
+        "admit_branch_1_requires": "最多两来客中一位绑定当前阶段真实browse名额，且实际门线与收银路线可完成",
+        "reward_only_after_actual_entry_and_same_order_service": true,
+        "maximum_extra_orders": 0,
+        "uninvited_third_guest": "在门外等候20秒然后从街道边界离开，不变额外怪物"
+      }
+    },
+    {
+      "id": "E045",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "E071真实债务及事先预留的到期夜N05唯一重大席位，最多三份",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 40,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E045:B1",
+          "operations": [
+            {
+              "id": "E045:B1:O1",
+              "anchor": "cashier",
+              "operation": "展开同批原债并核对到期夜与已结清状态",
+              "world_seconds": 8,
+              "effect": "同批仅核读一次8秒；已直接付款或已抵扣的原债不能再次列入。",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            },
+            {
+              "id": "E045:B1:O2",
+              "anchor": "cashier",
+              "operation": "按原债ID逐份实际付款核销",
+              "world_seconds": 8,
+              "effect": "每一真实未结清原债支付25币并核销其抵扣预约；付款与核销同次提交，只结该原债。",
+              "same_source_instances": true,
+              "commit_on_completed_action": true,
+              "repeat_for": "actual_due_contract_ids",
+              "repeat_min": 1,
+              "repeat_max": 3,
+              "same_contract_receipt_deduplicated": true
+            },
+            {
+              "id": "E045:B1:O3",
+              "anchor": "cashier",
+              "operation": "保存原债逐项结果并归还原账页",
+              "world_seconds": 8,
+              "effect": "同批写回与退出8秒；只有实际完成的核账动作生成manual_debt_reconciliation回执，不能抵普通盘点店务。",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 40,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已经逐债提交的真实付款/抵扣确认，不退款复活已结清债；尚未执行的原债到预算600只按原自动抵扣合同继续。",
+          "completion_kind": "manual_debt_reconciliation_not_automatic_wage_offset",
+          "cost_semantics": "最大3份原债的保守本地操作成本；实际为8+8×真实未结清原债数+8，来程另计。",
+          "actual_count_cost_seconds": {
+            "1": 24,
+            "2": 32,
+            "3": 40
+          }
+        },
+        {
+          "id": "E045:B2",
+          "operations": [
+            {
+              "id": "E045:B2:O1",
+              "anchor": "cashier",
+              "operation": "展开同批原债并核对到期夜与已结清状态",
+              "world_seconds": 8,
+              "effect": "同批仅核读一次8秒；已直接付款或已抵扣的原债不能再次列入。",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            },
+            {
+              "id": "E045:B2:O2",
+              "anchor": "cashier",
+              "operation": "按原债ID逐份确认原先已接受的工资抵扣",
+              "world_seconds": 8,
+              "effect": "每一真实未结清原债确认25币抵扣；确认不等于工资已经到账或债已经清偿，原本金不再次发放。",
+              "same_source_instances": true,
+              "commit_on_completed_action": true,
+              "repeat_for": "actual_due_contract_ids",
+              "repeat_min": 1,
+              "repeat_max": 3,
+              "same_contract_receipt_deduplicated": true
+            },
+            {
+              "id": "E045:B2:O3",
+              "anchor": "cashier",
+              "operation": "保存原债逐项结果并归还原账页",
+              "world_seconds": 8,
+              "effect": "同批写回与退出8秒；只有实际完成的核账动作生成manual_debt_reconciliation回执，不能抵普通盘点店务。",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 40,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已经逐债提交的真实付款/抵扣确认，不退款复活已结清债；尚未执行的原债到预算600只按原自动抵扣合同继续。",
+          "completion_kind": "manual_debt_reconciliation_not_automatic_wage_offset",
+          "cost_semantics": "最大3份原债的保守本地操作成本；实际为8+8×真实未结清原债数+8，来程另计。",
+          "actual_count_cost_seconds": {
+            "1": 24,
+            "2": 32,
+            "3": 40
+          }
+        }
+      ],
+      "expiry": "原到期夜N05结束（班次预算600）才关闭人工核账窗口；未完原债只沿签约时已同意的工资抵扣去重执行，不生成手动核账、店务完成或额外债务回执。",
+      "cleanup": "释放本次人工核账窗口和未执行动作预约；已付款原债结清，未付原债保留唯一抵扣状态。工资未实际发放时不能把债务标为已扣清。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "source": "E071 accepted contract ledger",
+        "max_contracts": 3,
+        "review_seconds": 8,
+        "per_contract_seconds": 8,
+        "writeback_seconds": 8,
+        "maximum_batch_seconds": 40,
+        "pay_or_wage_deduction_exclusive": true,
+        "automatic_expiry_branch": "activate_same_preaccepted_wage_offset_once; no physical work credit",
+        "manual_clock": "phase_budget_elapsed",
+        "manual_window_start_shift_budget": 480,
+        "manual_window_end_shift_budget": 600,
+        "world_action_seconds_formula": "8 + 8 * original_due_contract_count + 8",
+        "actual_contract_count_cost_seconds": {
+          "1": 24,
+          "2": 32,
+          "3": 40
+        },
+        "maximum_batch_seconds_excludes_live_approach": true,
+        "operation_repeat_bound_to_original_contract_ids": true,
+        "automatic_offset_receipt_kind": "preaccepted_wage_offset_activated",
+        "manual_completion_receipt_kind": "manual_debt_reconciliation",
+        "automatic_offset_grants_manual_work_receipt": false,
+        "automatic_offset_grants_ordinary_work_credit": false,
+        "unpaid_until_actual_wage_deduction": true,
+        "partial_manual_results_preserved": true
+      },
+      "effect_clock": "phase_budget_elapsed; manual deadline at original N05 end, not an ambient 40-second timer"
+    },
+    {
+      "id": "E046",
+      "phase": "day",
+      "enabled_current": true,
+      "source": "真实旧货商有一件当前可买Q装备、剩余白天格",
+      "existing_action_binding": "A07",
+      "maximum_existing_day_slots": 1,
+      "maximum_optional_preparation_minutes": 0,
+      "branches": [
+        {
+          "id": "E046:B1",
+          "effect": "花一格按A07精力−3，到店核验实际装备；仅同意实价后购买，无强制损坏或诅咒"
+        },
+        {
+          "id": "E046:B2",
+          "effect": "跳过轮换商品，原计划继续"
+        }
+      ],
+      "source_cannot_be_invented_after_sampling": true,
+      "no_extra_slot_or_second_full_action_reward": true,
+      "no_hidden_relationship_stat": true,
+      "expiry": "原时段未接受就离开候选池；已实际领取的同一物/待选/原回执持久化，不能退出后重抽或重领。",
+      "receipt_scope": "campaign_id/game_day_id/source_id/action_receipt_id",
+      "client_implemented": false
+    },
+    {
+      "id": "E047",
+      "phase": "day",
+      "enabled_current": true,
+      "source": "20—22已核实商店价格表及一个有效20%折扣ID",
+      "existing_action_binding": "preparation",
+      "maximum_existing_day_slots": 0,
+      "maximum_optional_preparation_minutes": 5,
+      "branches": [
+        {
+          "id": "E047:B1",
+          "effect": "用既有采购操作购买一件所需物，实付max(1,floor(标价×0.8))，唯一折扣用一次"
+        },
+        {
+          "id": "E047:B2",
+          "effect": "保留金币，不购买且不占时间"
+        }
+      ],
+      "source_cannot_be_invented_after_sampling": true,
+      "no_extra_slot_or_second_full_action_reward": true,
+      "no_hidden_relationship_stat": true,
+      "expiry": "原时段未接受就离开候选池；已实际领取的同一物/待选/原回执持久化，不能退出后重抽或重领。",
+      "receipt_scope": "campaign_id/game_day_id/source_id/action_receipt_id",
+      "client_implemented": false
+    },
+    {
+      "id": "E048",
+      "phase": "day",
+      "enabled_current": true,
+      "source": "20点前公告且60分钟可选整备未占用",
+      "existing_action_binding": "preparation",
+      "maximum_existing_day_slots": 0,
+      "maximum_optional_preparation_minutes": 60,
+      "branches": [
+        {
+          "id": "E048:B1",
+          "effect": "占60分钟弹性提前出发，必需整备60分钟及22—24验岗保留"
+        },
+        {
+          "id": "E048:B2",
+          "effect": "支付10币交通费保留弹性；不足时免费提前出发"
+        }
+      ],
+      "source_cannot_be_invented_after_sampling": true,
+      "no_extra_slot_or_second_full_action_reward": true,
+      "no_hidden_relationship_stat": true,
+      "expiry": "原时段未接受就离开候选池；已实际领取的同一物/待选/原回执持久化，不能退出后重抽或重领。",
+      "receipt_scope": "campaign_id/game_day_id/source_id/action_receipt_id",
+      "client_implemented": false,
+      "mechanic_details": {
+        "transport_price_coins": 10,
+        "free_choice_optional_minutes": 60,
+        "required_preparation_minutes": 60,
+        "late_spend_guard_before_other_optional_activities": true
+      }
+    },
+    {
+      "id": "E049",
+      "phase": "day",
+      "enabled_current": true,
+      "source": "所选一个未学方法页本日确无货，至少一其他页可选或可休息",
+      "existing_action_binding": "A03_or_A02",
+      "maximum_existing_day_slots": 1,
+      "maximum_optional_preparation_minutes": 0,
+      "branches": [
+        {
+          "id": "E049:B1",
+          "effect": "换一个实际可用未学页，按A03同一格精力−6、学习点+2并消费2"
+        },
+        {
+          "id": "E049:B2",
+          "effect": "改A02同一格精力+10、SAN+4；预约不先扣页钱/学习点"
+        }
+      ],
+      "source_cannot_be_invented_after_sampling": true,
+      "no_extra_slot_or_second_full_action_reward": true,
+      "no_hidden_relationship_stat": true,
+      "expiry": "原时段未接受就离开候选池；已实际领取的同一物/待选/原回执持久化，不能退出后重抽或重领。",
+      "receipt_scope": "campaign_id/game_day_id/source_id/action_receipt_id",
+      "client_implemented": false
+    },
+    {
+      "id": "E050",
+      "phase": "day",
+      "enabled_current": true,
+      "source": "一个真实未学K01—K07页可选、未用行动格",
+      "existing_action_binding": "A03",
+      "maximum_existing_day_slots": 1,
+      "maximum_optional_preparation_minutes": 0,
+      "branches": [
+        {
+          "id": "E050:B1",
+          "effect": "按A03同一格解锁一页，+2学习点并消费2、精力−6"
+        },
+        {
+          "id": "E050:B2",
+          "effect": "跳过，不扣格、不自动解锁"
+        }
+      ],
+      "source_cannot_be_invented_after_sampling": true,
+      "no_extra_slot_or_second_full_action_reward": true,
+      "no_hidden_relationship_stat": true,
+      "expiry": "原时段未接受就离开候选池；已实际领取的同一物/待选/原回执持久化，不能退出后重抽或重领。",
+      "receipt_scope": "campaign_id/game_day_id/source_id/action_receipt_id",
+      "client_implemented": false
+    },
+    {
+      "id": "E051",
+      "phase": "day",
+      "enabled_current": false,
+      "source": "无装备耐久生产者，A06停用",
+      "existing_action_binding": "disabled",
+      "maximum_existing_day_slots": 0,
+      "maximum_optional_preparation_minutes": 0,
+      "branches": [
+        {
+          "id": "E051:B1",
+          "effect": "历史归档：不开放维修预约、付款和取件"
+        },
+        {
+          "id": "E051:B2",
+          "effect": "保持禁用，不占时间和钱"
+        }
+      ],
+      "source_cannot_be_invented_after_sampling": true,
+      "no_extra_slot_or_second_full_action_reward": true,
+      "no_hidden_relationship_stat": true,
+      "expiry": "原时段未接受就离开候选池；已实际领取的同一物/待选/原回执持久化，不能退出后重抽或重领。",
+      "receipt_scope": "campaign_id/game_day_id/source_id/action_receipt_id",
+      "client_implemented": false
+    },
+    {
+      "id": "E052",
+      "phase": "day",
+      "enabled_current": true,
+      "source": "实际候选宠物有未被领取的记录、一个白天格、既有价格及照料物",
+      "existing_action_binding": "A08",
+      "maximum_existing_day_slots": 1,
+      "maximum_optional_preparation_minutes": 0,
+      "branches": [
+        {
+          "id": "E052:B1",
+          "effect": "使用一格完成领养/照料，执行所选P的价格、实际饲料消耗与A08单份收益"
+        },
+        {
+          "id": "E052:B2",
+          "effect": "记录候选，不自动领养；采购仍用原20点窗口"
+        }
+      ],
+      "source_cannot_be_invented_after_sampling": true,
+      "no_extra_slot_or_second_full_action_reward": true,
+      "no_hidden_relationship_stat": true,
+      "expiry": "原时段未接受就离开候选池；已实际领取的同一物/待选/原回执持久化，不能退出后重抽或重领。",
+      "receipt_scope": "campaign_id/game_day_id/source_id/action_receipt_id",
+      "client_implemented": false
+    },
+    {
+      "id": "E053",
+      "phase": "day",
+      "enabled_current": true,
+      "source": "一份有真实邻居来源和封装批次的I01餐包，玩家本日尚未领取该来源",
+      "existing_action_binding": "day_food",
+      "maximum_existing_day_slots": 0,
+      "maximum_optional_preparation_minutes": 0,
+      "branches": [
+        {
+          "id": "E053:B1",
+          "effect": "在现有早餐或整备餐位核验并领取同一份I01餐包；实际食用才按I01增加饱腹25，领取不直接加饱腹。"
+        },
+        {
+          "id": "E053:B2",
+          "effect": "礼貌退回同一餐，不生成关系数值或隐形处罚"
+        }
+      ],
+      "source_cannot_be_invented_after_sampling": true,
+      "no_extra_slot_or_second_full_action_reward": true,
+      "no_hidden_relationship_stat": true,
+      "expiry": "原时段未接受就离开候选池；已实际领取的同一物/待选/原回执持久化，不能退出后重抽或重领。",
+      "receipt_scope": "campaign_id/game_day_id/source_id/action_receipt_id",
+      "client_implemented": false,
+      "mechanic_details": {
+        "item_id": "I01",
+        "quantity": 1,
+        "claim_once_per_game_day": true,
+        "claim_does_not_equal_eat": true,
+        "no_relationship_reward": true,
+        "actual_ingestion_satiety": 25,
+        "no_san_reward": true
+      }
+    },
+    {
+      "id": "E054",
+      "phase": "day",
+      "enabled_current": true,
+      "source": "确定2小时兼职岗位和剩余行动格",
+      "existing_action_binding": "A09",
+      "maximum_existing_day_slots": 1,
+      "maximum_optional_preparation_minutes": 0,
+      "branches": [
+        {
+          "id": "E054:B1",
+          "effect": "按A09同一格金币+30、精力−12，仅一次结算"
+        },
+        {
+          "id": "E054:B2",
+          "effect": "保留格按原计划，无额外成本"
+        }
+      ],
+      "source_cannot_be_invented_after_sampling": true,
+      "no_extra_slot_or_second_full_action_reward": true,
+      "no_hidden_relationship_stat": true,
+      "expiry": "原时段未接受就离开候选池；已实际领取的同一物/待选/原回执持久化，不能退出后重抽或重领。",
+      "receipt_scope": "campaign_id/game_day_id/source_id/action_receipt_id",
+      "client_implemented": false
+    },
+    {
+      "id": "E055",
+      "phase": "day",
+      "enabled_current": true,
+      "source": "实际原笔记及至少一个未整理真实观察根",
+      "existing_action_binding": "A04",
+      "maximum_existing_day_slots": 1,
+      "maximum_optional_preparation_minutes": 0,
+      "branches": [
+        {
+          "id": "E055:B1",
+          "effect": "按A04同一格精力−3、研究+1并消费1，生成案例；待核/冲突照实保留"
+        },
+        {
+          "id": "E055:B2",
+          "effect": "归档原记录，不扣格、不生产事实"
+        }
+      ],
+      "source_cannot_be_invented_after_sampling": true,
+      "no_extra_slot_or_second_full_action_reward": true,
+      "no_hidden_relationship_stat": true,
+      "expiry": "原时段未接受就离开候选池；已实际领取的同一物/待选/原回执持久化，不能退出后重抽或重领。",
+      "receipt_scope": "campaign_id/game_day_id/source_id/action_receipt_id",
+      "client_implemented": false
+    },
+    {
+      "id": "E056",
+      "phase": "day",
+      "enabled_current": true,
+      "source": "导师时段及实际新案例或未学方法页",
+      "existing_action_binding": "A04_or_A03",
+      "maximum_existing_day_slots": 1,
+      "maximum_optional_preparation_minutes": 0,
+      "branches": [
+        {
+          "id": "E056:B1",
+          "effect": "选实际新案例按A04同一格−3精力，进度+1并消费1"
+        },
+        {
+          "id": "E056:B2",
+          "effect": "选未学页按A03同一格−6精力，点数+2并消费2；无目标不扣格"
+        }
+      ],
+      "source_cannot_be_invented_after_sampling": true,
+      "no_extra_slot_or_second_full_action_reward": true,
+      "no_hidden_relationship_stat": true,
+      "expiry": "原时段未接受就离开候选池；已实际领取的同一物/待选/原回执持久化，不能退出后重抽或重领。",
+      "receipt_scope": "campaign_id/game_day_id/source_id/action_receipt_id",
+      "client_implemented": false
+    },
+    {
+      "id": "E057",
+      "phase": "day",
+      "enabled_current": true,
+      "source": "真人同事白天公开场景且有一格活动可用",
+      "existing_action_binding": "A05",
+      "maximum_existing_day_slots": 1,
+      "maximum_optional_preparation_minutes": 0,
+      "branches": [
+        {
+          "id": "E057:B1",
+          "effect": "同一格按A05 SAN+15，另保存一份当场私约原记录；不凭私约独立认证夜班身体"
+        },
+        {
+          "id": "E057:B2",
+          "effect": "简短留言只保存真实留言，继续原行动，不赠SAN或关系点"
+        }
+      ],
+      "source_cannot_be_invented_after_sampling": true,
+      "no_extra_slot_or_second_full_action_reward": true,
+      "no_hidden_relationship_stat": true,
+      "expiry": "原时段未接受就离开候选池；已实际领取的同一物/待选/原回执持久化，不能退出后重抽或重领。",
+      "receipt_scope": "campaign_id/game_day_id/source_id/action_receipt_id",
+      "client_implemented": false,
+      "mechanic_details": {
+        "action": "A05",
+        "san": 15,
+        "private_agreement_is_one_source_only": true,
+        "no_relationship_stat": true
+      }
+    },
+    {
+      "id": "E058",
+      "phase": "day",
+      "enabled_current": true,
+      "source": "当前真实店长白天实际在场及一格可用",
+      "existing_action_binding": "A05",
+      "maximum_existing_day_slots": 1,
+      "maximum_optional_preparation_minutes": 0,
+      "branches": [
+        {
+          "id": "E058:B1",
+          "effect": "同一格按A05 SAN+15并核原工资/权限记录；不重复发休息奖励"
+        },
+        {
+          "id": "E058:B2",
+          "effect": "只领原工单并继续原活动；夜间新身份仍要核验"
+        }
+      ],
+      "source_cannot_be_invented_after_sampling": true,
+      "no_extra_slot_or_second_full_action_reward": true,
+      "no_hidden_relationship_stat": true,
+      "expiry": "原时段未接受就离开候选池；已实际领取的同一物/待选/原回执持久化，不能退出后重抽或重领。",
+      "receipt_scope": "campaign_id/game_day_id/source_id/action_receipt_id",
+      "client_implemented": false,
+      "mechanic_details": {
+        "action": "A05",
+        "san": 15,
+        "no_new_night_identity_permission": true,
+        "no_relationship_stat": true
+      }
+    },
+    {
+      "id": "E059",
+      "phase": "day",
+      "enabled_current": true,
+      "source": "已读两份来源矛盾且实际观察根尚未整理",
+      "existing_action_binding": "A04",
+      "maximum_existing_day_slots": 1,
+      "maximum_optional_preparation_minutes": 0,
+      "branches": [
+        {
+          "id": "E059:B1",
+          "effect": "同一格按A04形成有来源的冲突案例，不强判任一来源为真"
+        },
+        {
+          "id": "E059:B2",
+          "effect": "标未知，不耗格不发进度"
+        }
+      ],
+      "source_cannot_be_invented_after_sampling": true,
+      "no_extra_slot_or_second_full_action_reward": true,
+      "no_hidden_relationship_stat": true,
+      "expiry": "原时段未接受就离开候选池；已实际领取的同一物/待选/原回执持久化，不能退出后重抽或重领。",
+      "receipt_scope": "campaign_id/game_day_id/source_id/action_receipt_id",
+      "client_implemented": false
+    },
+    {
+      "id": "E060",
+      "phase": "day",
+      "enabled_current": true,
+      "source": "真实上一夜SAN<40且当前仍<40、同previous_night_id未处理",
+      "existing_action_binding": "A05_or_A03",
+      "maximum_existing_day_slots": 1,
+      "maximum_optional_preparation_minutes": 0,
+      "branches": [
+        {
+          "id": "E060:B1",
+          "effect": "同一格按A05 SAN+15，不另外发事件恢复"
+        },
+        {
+          "id": "E060:B2",
+          "effect": "有未学页时按A03同一格精力−6并学习，否则保留原安静活动"
+        }
+      ],
+      "source_cannot_be_invented_after_sampling": true,
+      "no_extra_slot_or_second_full_action_reward": true,
+      "no_hidden_relationship_stat": true,
+      "expiry": "原时段未接受就离开候选池；已实际领取的同一物/待选/原回执持久化，不能退出后重抽或重领。",
+      "receipt_scope": "campaign_id/game_day_id/source_id/action_receipt_id",
+      "client_implemented": false
+    },
+    {
+      "id": "E061",
+      "phase": "day",
+      "enabled_current": true,
+      "source": "本日住所安静、尚未领过安静午睡额外奖励",
+      "existing_action_binding": "A02",
+      "maximum_existing_day_slots": 1,
+      "maximum_optional_preparation_minutes": 0,
+      "branches": [
+        {
+          "id": "E061:B1",
+          "effect": "同一格A02精力+10/SAN+4，完成后事件额外精力+2一次；非额外一整格"
+        },
+        {
+          "id": "E061:B2",
+          "effect": "继续原计划，不扣资源；跳过不制造睡眠债"
+        }
+      ],
+      "source_cannot_be_invented_after_sampling": true,
+      "no_extra_slot_or_second_full_action_reward": true,
+      "no_hidden_relationship_stat": true,
+      "expiry": "原时段未接受就离开候选池；已实际领取的同一物/待选/原回执持久化，不能退出后重抽或重领。",
+      "receipt_scope": "campaign_id/game_day_id/source_id/action_receipt_id",
+      "client_implemented": false,
+      "mechanic_details": {
+        "action": "A02",
+        "base_energy": 10,
+        "base_san": 4,
+        "event_extra_energy": 2,
+        "extra_uses_per_game_day": 1,
+        "can_stack_with_Q17_only_as_two_named_once_rewards": true
+      }
+    },
+    {
+      "id": "E062",
+      "phase": "day",
+      "enabled_current": true,
+      "source": "施工公告覆盖本次睡眠格，资料室已有安静休息位可预留",
+      "existing_action_binding": "A01_modifier",
+      "maximum_existing_day_slots": 1,
+      "maximum_optional_preparation_minutes": 0,
+      "branches": [
+        {
+          "id": "E062:B1",
+          "effect": "受扰睡眠同格精力+8/SAN+0，饱腹按睡眠−2；0币仍可选"
+        },
+        {
+          "id": "E062:B2",
+          "effect": "实际付10币并预留现有安静位后，同格A01精力+16/SAN+4、饱腹−2"
+        }
+      ],
+      "source_cannot_be_invented_after_sampling": true,
+      "no_extra_slot_or_second_full_action_reward": true,
+      "no_hidden_relationship_stat": true,
+      "expiry": "原时段未接受就离开候选池；已实际领取的同一物/待选/原回执持久化，不能退出后重抽或重领。",
+      "receipt_scope": "campaign_id/game_day_id/source_id/action_receipt_id",
+      "client_implemented": false
+    },
+    {
+      "id": "E063",
+      "phase": "day",
+      "enabled_current": true,
+      "source": "实际新案例或未学页、既定对照会和行动格",
+      "existing_action_binding": "A04_or_A03",
+      "maximum_existing_day_slots": 1,
+      "maximum_optional_preparation_minutes": 0,
+      "branches": [
+        {
+          "id": "E063:B1",
+          "effect": "同一格A04真实整理，精力−3，进度+1并消费1"
+        },
+        {
+          "id": "E063:B2",
+          "effect": "同一格A03未学方法，精力−6，点数+2并消费2；传闻不造亲见回执"
+        }
+      ],
+      "source_cannot_be_invented_after_sampling": true,
+      "no_extra_slot_or_second_full_action_reward": true,
+      "no_hidden_relationship_stat": true,
+      "expiry": "原时段未接受就离开候选池；已实际领取的同一物/待选/原回执持久化，不能退出后重抽或重领。",
+      "receipt_scope": "campaign_id/game_day_id/source_id/action_receipt_id",
+      "client_implemented": false
+    },
+    {
+      "id": "E064",
+      "phase": "day",
+      "enabled_current": true,
+      "source": "玩家实有普通奖券、无待选抽奖、已持久化候选种子与15分钟整备",
+      "existing_action_binding": "lottery",
+      "maximum_existing_day_slots": 0,
+      "maximum_optional_preparation_minutes": 15,
+      "branches": [
+        {
+          "id": "E064:B1",
+          "effect": "预留一券揭示两件，最终只领一件；退出保存原待选、保底只更新一次"
+        },
+        {
+          "id": "E064:B2",
+          "effect": "揭示前可拒绝不扣券，揭示后不退券重抽；下一准备期完成原待选"
+        }
+      ],
+      "source_cannot_be_invented_after_sampling": true,
+      "no_extra_slot_or_second_full_action_reward": true,
+      "no_hidden_relationship_stat": true,
+      "expiry": "原时段未接受就离开候选池；已实际领取的同一物/待选/原回执持久化，不能退出后重抽或重领。",
+      "receipt_scope": "campaign_id/game_day_id/source_id/action_receipt_id",
+      "client_implemented": false
+    },
+    {
+      "id": "E065",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "已有一次可选完成原回执且本夜碎片上限未用；F47共享原根ID",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 4,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E065:B1",
+          "operations": [
+            {
+              "id": "E065:B1:O1",
+              "anchor": "cashier",
+              "operation": "领取登记在原回执上的一份碎片",
+              "world_seconds": 1,
+              "effect": "1碎片、每夜最多一次；重载不重发",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E065:B2",
+          "operations": [
+            {
+              "id": "E065:B2:O1",
+              "anchor": "cashier",
+              "operation": "把该原回执标记放弃领取",
+              "world_seconds": 1,
+              "effect": "本源结清、不发替代物，不可反复开选择",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false
+    },
+    {
+      "id": "E066",
+      "phase": "day",
+      "enabled_current": true,
+      "source": "一个真实已拥有重复道具、普通仓库空位或可显示实物回收价",
+      "existing_action_binding": "inventory",
+      "maximum_existing_day_slots": 0,
+      "maximum_optional_preparation_minutes": 5,
+      "branches": [
+        {
+          "id": "E066:B1",
+          "effect": "把同一件物放普通白天仓库，原ID保留、不能超容量"
+        },
+        {
+          "id": "E066:B2",
+          "effect": "同一原物确认回收，按已保存报价floor(min(reference_price, actual_paid_if_paid_else_reference_price)×0.2)返币；核销原所有权/购买行回收状态后才发钱，禁止另做原票退款。"
+        }
+      ],
+      "source_cannot_be_invented_after_sampling": true,
+      "no_extra_slot_or_second_full_action_reward": true,
+      "no_hidden_relationship_stat": true,
+      "expiry": "原时段未接受就离开候选池；已实际领取的同一物/待选/原回执持久化，不能退出后重抽或重领。",
+      "receipt_scope": "campaign_id/game_day_id/source_id/action_receipt_id",
+      "client_implemented": false,
+      "mechanic_details": {
+        "quote_saved_before_confirm": true,
+        "reference_price_source": "actual_catalog_price_snapshot_on_acquisition",
+        "quote_fraction": 0.2,
+        "paid_item_price_cap": "actual_paid_price",
+        "free_gift_price_cap": "reference_price",
+        "original_object_transferred_once": true,
+        "purchase_refund_and_salvage_exclusive": true,
+        "no_quote_or_unknown_item_id": "only_keep_or_store_no_paid_recycling"
+      }
+    },
+    {
+      "id": "E067",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "柜台实际收到一个封签礼盒，来源可与已存在供应商批次对照",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 12,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E067:B1",
+          "operations": [
+            {
+              "id": "E067:B1:O1",
+              "anchor": "cashier",
+              "operation": "隔离原盒、对两处实际批次标志并开封",
+              "world_seconds": 4,
+              "effect": "匹配时原盒为I21×1；不匹配保封存，不随机变怪或直接食用",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 4,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E067:B2",
+          "operations": [
+            {
+              "id": "E067:B2:O1",
+              "anchor": "cashier",
+              "operation": "把原盒贴未验标签交回原递送槽",
+              "world_seconds": 1,
+              "effect": "放弃潜在I21，不删除玩家已有物件",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "authored_contents": "I21",
+        "quantity": 1,
+        "unverified_box_cannot_be_used": "must_match_existing_supplier_batch_and_real_seal",
+        "mismatch_result": "remain_sealed_or_return_same_box",
+        "no_rng_reward_reroll": true
+      }
+    },
+    {
+      "id": "E068",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "P05已提交的实际门线穿越notice，或P07已提交的实际攻击预告标记回执；原方向确实存在且本回执未用于E068。其他宠物不凭空侦测。",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 10,
+      "effect_lifetime_world_seconds": 10,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E068:B1",
+          "operations": [
+            {
+              "id": "E068:B1:O1",
+              "anchor": "verification_desk",
+              "operation": "从另一真实信息域观察目标方向",
+              "world_seconds": 3,
+              "effect": "只有看见/取证才新增记录；宠物不提供第二独立身份来源",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 3,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E068:B2",
+          "operations": [
+            {
+              "id": "E068:B2:O1",
+              "anchor": "cashier",
+              "operation": "暂停该方向的未承诺可选工作",
+              "world_seconds": 1,
+              "effect": "10秒后可复核；不撤销已接受必需解或声明怪已死",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "allowed_pet_ids": [
+          "P05",
+          "P07"
+        ],
+        "root_source_preserved": true,
+        "pet_notice_is_not_independent_identity_proof": true,
+        "independent_other_observation_required": true,
+        "pending_attack_must_still_leave_actual_handling_and_recovery_time": true,
+        "no_new_hazard_created": true
+      }
+    },
+    {
+      "id": "E069",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "P01/P03/P04出勤、邻近staff_desk一件玩家已拥有且实际放在台上的非关键小物；预告后宠物亲自取放该原物。",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 12,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E069:B1",
+          "operations": [
+            {
+              "id": "E069:B1:O1",
+              "anchor": "staff_locker",
+              "operation": "循可见爪迹取回同一小物",
+              "world_seconds": 2,
+              "effect": "原object_id返回；不允许任务物、钥匙、保底餐、药包被藏",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 2,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E069:B2",
+          "operations": [
+            {
+              "id": "E069:B2:O1",
+              "anchor": "staff_locker",
+              "operation": "保留原物藏位，领取自有同类备用一件",
+              "world_seconds": 1,
+              "effect": "备用不免费生成；没有备用仍可第一路；原物最迟交班登记留位",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "max_per_night": 1,
+        "critical_item_exclusions": [
+          "task_object",
+          "keys",
+          "free_personal_food",
+          "reserved_first_aid",
+          "accepted_contract_object"
+        ],
+        "same_object_id_preserved": true,
+        "allowed_pet_ids": [
+          "P01",
+          "P03",
+          "P04"
+        ],
+        "source_object_location": "loose_actual_staff_desk_slot",
+        "pet_pickup_distance_tiles_max": 1.5,
+        "warning_world_seconds": 1.5,
+        "player_can_prevent_by_taking_same_loose_object": true,
+        "pet_take_world_seconds": 0.5,
+        "pet_route_positions": [
+          [
+            4.5,
+            3.5
+          ],
+          [
+            5.5,
+            3.5
+          ],
+          [
+            6.5,
+            3.5
+          ],
+          [
+            7.5,
+            3.5
+          ],
+          [
+            8.5,
+            3.5
+          ]
+        ],
+        "pet_speed_tiles_per_world_second": 3,
+        "pet_place_world_seconds": 0.5,
+        "stash_anchor": "staff_locker",
+        "stash_capacity": 1,
+        "source_must_fit_pet_carry_size": "small_one_hand_item",
+        "actual_transfer_receipt_required": true,
+        "no_remote_inventory_theft": true,
+        "no_active_charge_reset_or_consumption": true,
+        "stash_is_same_original_object_not_new_reward": true
+      }
+    },
+    {
+      "id": "E070",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "E014实际一次雷声脉冲、宠物已照料且主动次数>0、当夜未受惊过",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 6,
+      "effect_lifetime_world_seconds": 30,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E070:B1",
+          "operations": [
+            {
+              "id": "E070:B1:O1",
+              "anchor": "cashier",
+              "operation": "不额外操作，继续原工作等待当前受惊自然解除",
+              "world_seconds": 0,
+              "effect": "从同一次真实雷声时刻起30世界秒自然解除；不要求先走柜台，也不刷新开始时间。",
+              "same_source_instances": true,
+              "commit_on_completed_action": false,
+              "global_event": true
+            }
+          ],
+          "local_action_and_route_seconds": 0,
+          "approach_from_live_player_must_be_added": false,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E070:B2",
+          "operations": [
+            {
+              "id": "E070:B2:O1",
+              "anchor": "cashier",
+              "operation": "实际安抚连续6世界秒",
+              "world_seconds": 6,
+              "effect": "提前解除当前受惊；取消保留已花时间、不补次数",
+              "same_source_instances": true,
+              "commit_on_completed_action": true,
+              "anchor_semantics": "current_safe_player_position_with_actual_following_pet",
+              "requires_pet_distance_tiles_max": 1.5,
+              "requires_no_active_pursuit": true,
+              "world_adapter_uses_live_position_not_cashier_anchor": true
+            }
+          ],
+          "local_action_and_route_seconds": 6,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "source": "content/condition_lifecycle_v06.json#/pet_startle_contract",
+        "passive_expiry_world_seconds": 30,
+        "comfort_world_seconds": 6,
+        "refund_active_charges": 0,
+        "independently_sampled": false,
+        "source_clock_origin": "actual_first_thunder_startle_world_time"
+      }
+    },
+    {
+      "id": "E071",
+      "phase": "night",
+      "enabled_current": true,
+      "source": "一份公开20币借款提案，下一夜N05有可预留E045席位和25币工资抵扣额度",
+      "source_cannot_be_invented_after_sampling": true,
+      "handling_budget_seconds": 12,
+      "effect_lifetime_world_seconds": 0,
+      "effect_lifetime_is_not_handling_budget": true,
+      "branches": [
+        {
+          "id": "E071:B1",
+          "operations": [
+            {
+              "id": "E071:B1:O1",
+              "anchor": "cashier",
+              "operation": "逐栏核条款并签原合同",
+              "world_seconds": 4,
+              "effect": "保存due_night/对象/应付25/自动工资抵扣退路后才到账20；每班最多一份且总在途最多三份",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 4,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        },
+        {
+          "id": "E071:B2",
+          "operations": [
+            {
+              "id": "E071:B2:O1",
+              "anchor": "cashier",
+              "operation": "交还未签原提案",
+              "world_seconds": 1,
+              "effect": "不发金币、不生债；拒绝不扣资源",
+              "same_source_instances": true,
+              "commit_on_completed_action": true
+            }
+          ],
+          "local_action_and_route_seconds": 1,
+          "approach_from_live_player_must_be_added": true,
+          "abort_policy": "保留已完成的原物步骤；未交付资源归本动作预留，不回滚历史、不复制原物。",
+          "completion_kind": "physical_handling_or_explicit_decline"
+        }
+      ],
+      "expiry": "原有借用/天气有限状态到期解除；原物留实际可达槽；不补发交易、成功奖或已接受合同的履约回执。",
+      "cleanup": "只撤本事件的显示/预约/临时权限；普通待核货保留原ID，最多1项店务债，过期只按原工资扣减上限。",
+      "admission": "先检查真实源、目标空槽、路径、已有承诺和双方实际操作时长。未准入不收费、不制造事实；预防后保留同一预防回执。",
+      "reward_id": "campaign_id/night_id/event_instance_id/source_root_id/declared_reward_key",
+      "client_implemented": false,
+      "mechanic_details": {
+        "principal_coins": 20,
+        "amount_due_coins": 25,
+        "max_new_per_night": 1,
+        "max_open_contracts": 3,
+        "due_night": "next_absolute_campaign_night",
+        "due_phase": "N05",
+        "wage_offset_per_contract": 25,
+        "max_total_offset_reserved": 75,
+        "base_wage_floor": 80,
+        "receipt_survives_week_reset": true,
+        "on_unaffordable_or_unattended_due": "same_preaccepted_wage_offset_once",
+        "on_withdrawal_without_wage": "offset_remains_for_next_actual_completed_shift_no_interest_no_duplicate_event_or_charge",
+        "on_direct_payment": "release_same_offset_reservation",
+        "no_player_death_for_debt": true,
+        "one_new_contract_ledger_key": "campaign_id/absolute_night_id/loan_offer",
+        "new_attempt_or_week_number_cannot_reset_quota": true,
+        "principal_and_obligation_commit_atomically": true
+      }
+    },
+    {
+      "id": "E072",
+      "phase": "day",
+      "enabled_current": true,
+      "source": "本采购窗口实付原购买行、同原物未使用/转移且剩余5分钟",
+      "existing_action_binding": "refund",
+      "maximum_existing_day_slots": 0,
+      "maximum_optional_preparation_minutes": 5,
+      "branches": [
+        {
+          "id": "E072:B1",
+          "effect": "交回同object_id并核销原行，返其actual_paid_price一次；不按当前标价"
+        },
+        {
+          "id": "E072:B2",
+          "effect": "保留同物同票，不返金币、不生关系收益"
+        }
+      ],
+      "source_cannot_be_invented_after_sampling": true,
+      "no_extra_slot_or_second_full_action_reward": true,
+      "no_hidden_relationship_stat": true,
+      "expiry": "原时段未接受就离开候选池；已实际领取的同一物/待选/原回执持久化，不能退出后重抽或重领。",
+      "receipt_scope": "campaign_id/game_day_id/source_id/action_receipt_id",
+      "client_implemented": false
+    }
+  ]
+}

@@ -818,7 +818,8 @@
         "freezer_main",
         "rear_door"
       ],
-      "control_anchor": "water_valve"
+      "control_anchor": "water_valve",
+      "source_control_id": "CTRL_COLD_BRANCH"
     },
     {
       "id": "WET_REAR",
@@ -926,7 +927,9 @@
         "max_world_seconds": 8,
         "restore_before_receipt": true,
         "permanent_source_cut_allowed": false
-      }
+      },
+      "source_control_id": "CTRL_REAR_SOURCE",
+      "local_maintenance_control": "ATT15_local_lever"
     },
     {
       "id": "WET_AISLE",
@@ -1369,6 +1372,42 @@
       "blocks_navigation": false,
       "static_group_is_not_teleport_target": true,
       "lifetime_world_seconds": 30
+    },
+    "named_wet_region_capacity_exceptions_v010": {
+      "S01": {
+        "maximum_active_wet_regions": 2,
+        "allowed_region_ids": [
+          "WET_FRONT",
+          "WET_COLD"
+        ],
+        "requires_distinct_actual_source_instance_ids": true,
+        "additional_third_source_allowed": false,
+        "merges_regions_or_creates_edges": false,
+        "requires_at_least_one_verified_dry_route": true
+      },
+      "S02": {
+        "maximum_active_wet_regions": 2,
+        "allowed_region_ids": [
+          "WET_COLD",
+          "WET_REAR"
+        ],
+        "requires_distinct_actual_source_instance_ids": true,
+        "additional_third_source_allowed": false,
+        "merges_regions_or_creates_edges": false,
+        "requires_at_least_one_verified_dry_route": true
+      }
+    },
+    "wet_exception_admission": "先匹配具名组合、准确区域集合与两个实际不同源ID；仅S01/S02可达2，其他仍默认1；未匹配、第三水源或唯一干路失效则拒绝该组合，绝不全局上调水区数。",
+    "composition_authority_v010": {
+      "file": "content/composition_contracts_v010.json",
+      "current_count": 13,
+      "archived_count": 5,
+      "S14_rear_delivery_front_rain_intersection_enabled": false,
+      "named_wet_capacity_exceptions": [
+        "S01",
+        "S02"
+      ],
+      "no_extra_wet_edges_from_ordinary_rain": true
     }
   },
   "main_corridors": [
@@ -1613,12 +1652,85 @@
       "selector_ids": [
         "branch_a",
         "branch_b",
-        "branch_c"
+        "branch_c",
+        "cold_branch",
+        "rear_source"
       ],
       "uses_same_interaction_position": true,
       "new_world_positions": false,
-      "purpose": "F28三支阀/源槽在同一水阀工位的局部面板读取；只切换离散源状态，不增三张地图或流体模拟。"
+      "purpose": "同一现有水阀位以具名控件操作离散支路：F28三试支路独立于冷区CTRL_COLD_BRANCH和后院CTRL_REAR_SOURCE。共用界面与玩家位置，不共用状态，不增加地图或流体模拟。 同一面板分两组显示，一次最多3个控件；切组仅UI，不切真实水阀、不产生新状态或流动时间。",
+      "selector_scopes": {
+        "branch_a": "F28_same_instance_trial_source_A",
+        "branch_b": "F28_same_instance_trial_source_B",
+        "branch_c": "F28_same_instance_trial_source_C",
+        "cold_branch": "CTRL_COLD_BRANCH_only_WET_COLD",
+        "rear_source": "CTRL_REAR_SOURCE_only_WET_REAR"
+      },
+      "selector_groups": [
+        {
+          "id": "F28_trials",
+          "selector_ids": [
+            "branch_a",
+            "branch_b",
+            "branch_c"
+          ]
+        },
+        {
+          "id": "registered_water_sources",
+          "selector_ids": [
+            "cold_branch",
+            "rear_source"
+          ]
+        }
+      ],
+      "max_visible_groups": 1,
+      "group_change_is_ui_only": true
     }
   ],
-  "condition_lifecycle_contract": "content/condition_lifecycle_v06.json"
+  "condition_lifecycle_contract": "content/condition_lifecycle_v06.json",
+  "auxiliary_spatial_aliases_v010": {
+    "AUX_B07_COLD": {
+      "player_position": [
+        24.5,
+        11.5
+      ],
+      "cut_cell": [
+        24,
+        10
+      ],
+      "from_existing_wet_profile": "WET_COLD",
+      "navigation_changed": false
+    },
+    "Q08": "SO01与SO06逐点实际架设，每点1秒/6体力/2手/1部署位；两点共30电量，来回路程另算",
+    "B04": "复用ATT14实际四窗和各自干侧操作点，绑定同窗真实roof_dive预告；不得生成假的提前过门",
+    "B02": "SO07实体屏线只有真实视线线段相交才生效，F60绕到同侧须重新判定"
+  },
+  "registered_water_controls_v010": [
+    {
+      "control_id": "CTRL_COLD_BRANCH",
+      "anchor": "water_valve",
+      "panel_id": "PANEL_WATER_BRANCHES",
+      "selector_id": "cold_branch",
+      "target_wet_region_id": "WET_COLD",
+      "legal_action_seconds": 0.5,
+      "on_close": "只停WET_COLD登记源，不改WET_REAR后院主渠或F28三试支路。",
+      "consumer_ids": [
+        "F05"
+      ],
+      "shared_anchor_does_not_imply_shared_switch": true
+    },
+    {
+      "control_id": "CTRL_REAR_SOURCE",
+      "anchor": "water_valve",
+      "panel_id": "PANEL_WATER_BRANCHES",
+      "selector_id": "rear_source",
+      "target_wet_region_id": "WET_REAR",
+      "legal_action_seconds": 0.5,
+      "on_close": "只停WET_REAR主源；F57活动时属于wrong_source_cut，须同控件实际恢复，不能用冷区关阀回执替代。",
+      "consumer_ids": [
+        "F57"
+      ],
+      "shared_anchor_does_not_imply_shared_switch": true
+    }
+  ]
 }

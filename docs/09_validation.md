@@ -1,12 +1,15 @@
-# V0.9验证范围与结果
+# V0.10验证范围与结果
 
-2026-11-18。当前验证分为内容完整性、独立条件来源、静态路线、真实坐标模拟、跨模块事务和构建一致性。**两怪网页文件已生成，真实浏览器渲染和手机操作尚未验收；没有微信发行客户端，也没有完整60怪运行。** 当前权威顺序见[V0.9说明](00_revision_v09.md)，集成问题见[运行审计](27_runtime_integration_v09.md)。
+2026-11-18。本轮增加60卡有限动作模型、72事件合同、13当前组合的真实来源/路线准入，以及64辅助条目的具体消费者检查；既有两怪世界、资源和交班参考重新回归。**这是设计与有限执行验证，没有完整60怪客户端，也不代表手机试玩已完成。** 当前权威顺序见[V0.10说明](00_revision_v010.md)。
 
 ## 机器报告与复现证据
 
 | 报告 | 实际用途 |
 | --- | --- |
-| [validation_v09_report.json](validation_v09_report.json) | 本轮所有正式检查命令、完整输出及内容/脚本/参考实现SHA-256。 |
+| [validation_v010_report.json](validation_v010_report.json) | 当前22组命令、完整结果与内容/脚本/参考实现SHA-256。 |
+| [mechanism_validation_v010.json](mechanism_validation_v010.json) | 60有限模型的动作提交、正常/恢复/替代流程、实际到期、删前置、取消和重放；不是60个移动AI。 |
+| [events_compositions_validation_v010.json](events_compositions_validation_v010.json) | 72事件、18目录/13当前组合、双时钟反例与静态路线准入。 |
+| [validation_v09_report.json](validation_v09_report.json) | V0.9历史结果；当前同命令回归结果见V0.10总报告。 |
 | [condition_validation_v09.json](condition_validation_v09.json) | 60卡独立来源见证和删源负例；不是全组合通关证明。 |
 | [consistency_v09_report.json](consistency_v09_report.json) / [closure_validation_v09.json](closure_validation_v09.json) | 时间、跨阶段物资、有限收益、知识与消费者合同。 |
 | [integration_validation_v09.json](integration_validation_v09.json) | 状态归属、原蓝图、正式运行禁用、离线构建和源码一致性。 |
@@ -14,21 +17,24 @@
 | [playable_build_v09.json](playable_build_v09.json) | 独立HTML字节/SHA、7个模块与全部嵌入数据来源。 |
 | [ui_review_v09.json](ui_review_v09.json) | UI源码/API匹配、有限Node回调复核及未完成的图形验收。 |
 
-旧报告保持原样，只对应当时输入；本轮重新运行旧检查并记录当前结果。地图与精确蓝图未修改，既有静态路线另见[时间路线报告](temporal_route_examples_v07.json)。
+旧报告保持原样，只对应当时输入；本轮重新运行旧检查并记录当前结果。原底图与精确蓝图未修改，既有静态路线另见[时间路线报告](temporal_route_examples_v07.json)。
 
 ## 本轮正式检查
 
 <!-- CURRENT_RESULTS_BEGIN -->
 | 命令 | 实际结果 | 实际覆盖 |
 | --- | --- | --- |
-| `python3 scripts/validate_content.py` | PASS，5257项检查 | 共享目录、历史条目与文档链接 |
+| `python3 scripts/validate_content.py` | PASS，5302项检查 | 共享目录、历史条目与文档链接 |
 | `python3 scripts/validate_design_v05.py` | PASS，2630项检查 | 60当前卡、120变体与设计约束 |
 | `python3 scripts/validate_maps.py` | PASS | 四场景静态路线与5.0视野比 |
 | `python3 scripts/validate_map_mechanics_v05.py` | PASS，477项检查 | 机制物件、割点、局部窗口与遮线 |
-| `python3 scripts/validate_conditions_v06.py` | PASS，5737项检查 | 60独立来源见证及删源负例 |
+| `python3 scripts/validate_conditions_v06.py` | PASS，5739项检查 | 60独立来源见证及删源负例 |
 | `python3 scripts/validate_consistency_v07.py` | PASS，416项检查 | 实际时限、四条路线、物资、奖励消费者 |
-| `python3 scripts/validate_closure_v08.py` | PASS，487项检查 | 跨阶段联动、固定槽、赠食、有限收益、知识与停用项目 |
-| `python3 scripts/validate_integration_v09.py` | PASS，444项检查 | 集成契约、原蓝图、正式开关、源码与离线构建一致性 |
+| `python3 scripts/validate_closure_v08.py` | PASS，488项检查 | 跨阶段来源、固定槽、赠食、有限收益与停用项目 |
+| `python3 scripts/validate_integration_v09.py` | PASS，465项检查 | 原蓝图、正式开关、源码与离线构建一致性 |
+| `python3 scripts/validate_mechanisms_v010.py` | PASS，60模型/215条流程 | 60有限模型、实际动作/误操作/自然到期、静态走位与06:00边界 |
+| `python3 scripts/validate_auxiliary_v010.py --json` | PASS，2132项检查 | 64辅助条目、实际消费者读点、期限与有限使用 |
+| `python3 scripts/validate_events_compositions_v010.py` | PASS，1358项检查 | 72事件、13当前组合来源、实路预算与冲突拒绝 |
 | `node prototype/check_rule_core.mjs` | PASS，21个场景 | SAN、朝向距离、特写与F12/F13 |
 | `node prototype/check_store_core_v05.mjs` | PASS，20个场景 | 营业、电量、订单、证据、店务债、交班防御 |
 | `node prototype/check_condition_core_v06.mjs` | PASS，59个场景 | 实际事故、血迹、终局、并行事务与同刻边界 |
@@ -43,7 +49,7 @@
 <!-- CURRENT_RESULTS_END -->
 
 <!-- CURRENT_SCENARIO_TOTAL_BEGIN -->
-十一组无画面参考共318个场景；全部19组正式检查通过。它们验证有限转换、原坐标移动和反例，不代表318种怪物、手机试玩或完整随机组合。
+当前22组检查：PASS。既有11组无画面参考共318个场景，另有60个有限机制模型的215条完整/补救/替代流程；guard删除和重放次数另列机器报告，不能与完整场景混算，也不能当作手机试玩次数。
 <!-- CURRENT_SCENARIO_TOTAL_END -->
 
 构建命令不计入行为场景总数；UI源码检查和5条纯Node回调分支也不冒充浏览器场景。可先运行`python3 scripts/build_playable_v09.py`生成HTML，再按上表复现。
@@ -54,7 +60,7 @@
 
 正式目录全部60个`runtime_enabled=false`，F14默认候选仍关闭。F12/F13通过明确的独立练习入口加载，不能据此宣称所有正式内容已经可投放。网页提供有限日间学习/休息/采购，A04有可调用的案例适配但没有网页真实记录入口；宠物和装备未在网页中伪装成已实现系统。
 
-## 两怪：从路径算术推进到实际坐标执行
+## 保留的两怪实际坐标执行
 
 世界执行器沿用店内30×30格、12×15有效视野、42基础锚点以及原墙体、货架、门、前场和后门空间。每次最多0.05秒子步，玩家、诱饵、怪物和实际工作在同一张地图上推进。
 
@@ -124,4 +130,4 @@
 
 尚缺完整六波夜班、60怪和动态事件导演、全部装备宠物/部署执行器、精度QTE工位网页界面、生产存储和微信发行工程。未验证全部随机组合、长期经济、抽奖概率、手机帧率、音画资源、黑视舒适度和玩家对预兆的理解。
 
-首批六怪仍是F12、F13、F32、F05、F07、F43。本轮先完成前两怪世界机制及集成验证，其余四怪与正式顾客/交班应继续复用同一实际动作执行器。数值是可执行的初始方案，趣味性和节奏仍以真实试玩调整。
+首批六怪仍是F12、F13、F32、F05、F07、F43。V0.9已完成前两怪世界机制及集成参考；V0.10补全60卡有限设计流程，其余怪物与正式顾客/交班仍须接入同一实际动作执行器。数值是可执行的初始方案，趣味性和节奏仍以真实试玩调整。

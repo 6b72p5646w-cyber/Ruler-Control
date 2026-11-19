@@ -1,0 +1,2976 @@
+{
+  "version": "0.10",
+  "status": "PASS",
+  "scope": [
+    "Executes authored finite object/permission/resource transitions from sourced admission snapshots to terminal predicates.",
+    "Calculates four-neighbour walking time between actual authored control positions. Pre-omen approach from the live player position remains a mandatory runtime admission input.",
+    "Checks reached prerequisite removal, cancellation without object transfer, expiry, and replay after terminal closure.",
+    "Does not prove arbitrary states, simultaneous moving enemies, geometry during pursuit, complete continuous-clock AI, touch input, rendering, or a full seven-night client.",
+    "An explicit scenario source is a design producer contract; it is not proof that every corresponding world adapter has shipped."
+  ],
+  "model_count": 60,
+  "counts": {
+    "scenario_traces": 215,
+    "reached_guard_mutations": 2713,
+    "interrupted_operations": 1024,
+    "deadline_cases": 60,
+    "post_close_replay_checks": 1908,
+    "local_window_checks": 4,
+    "geometry_counterexamples": 5,
+    "committed_actions": 1015,
+    "declared_expiry_observations": 9,
+    "dawn_no_late_work_checks": 69,
+    "elapsed_deadline_checks": 1007,
+    "exact_boundary_checks": 6,
+    "immutable_timer_checks": 1,
+    "automatic_hazard_checks": 6
+  },
+  "sources": {
+    "content/mechanism_cases_v010_a.json": "4b7afdedb2aae8f0f1720d68c9737c7c8d5ef07aea7e2114afa4ebb7558c4608",
+    "content/mechanism_cases_v010_b.json": "a865eb7019131d7b6162fb10c91d93e65bbb49a9955e4bc16b54fd7a720064e1"
+  },
+  "results": [
+    {
+      "id": "F01",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F01-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 10.75,
+          "world_seconds": 7.75,
+          "static_travel_seconds": 3.75,
+          "actual_steps": 3,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F01-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 29.9167,
+          "world_seconds": 26.9167,
+          "static_travel_seconds": 20.4167,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F01-return",
+          "kind": "decline",
+          "terminal": "declined",
+          "budget_seconds": 2.0,
+          "world_seconds": 2.0,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 6,
+      "actions_authored": 6,
+      "actions_committed": 6,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F02",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F02-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 14.0,
+          "world_seconds": 14.0,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 3,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F02-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 15.5,
+          "world_seconds": 15.5,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F02-conservative",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 10.0,
+          "world_seconds": 10.0,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F02-late-recall",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 15.5,
+          "world_seconds": 15.5,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 3,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 7,
+      "actions_authored": 7,
+      "actions_committed": 6,
+      "explicit_expiry_observation_actions": [
+        "wait_apron_warning"
+      ],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F03",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F03-normal-zero-stamina",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 34.9,
+          "world_seconds": 34.9,
+          "static_travel_seconds": 10.5,
+          "actual_steps": 10,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F03-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 37.0,
+          "world_seconds": 37.0,
+          "static_travel_seconds": 10.5,
+          "actual_steps": 12,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F03-decline",
+          "kind": "decline",
+          "terminal": "declined",
+          "budget_seconds": 2.0,
+          "world_seconds": 2.0,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 13,
+      "actions_authored": 13,
+      "actions_committed": 13,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F04",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F04-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 20.0,
+          "world_seconds": 17.0,
+          "static_travel_seconds": 12.5,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F04-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 42.0,
+          "world_seconds": 39.0,
+          "static_travel_seconds": 12.5,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F04-decline",
+          "kind": "decline",
+          "terminal": "declined",
+          "budget_seconds": 6.0,
+          "world_seconds": 6.0,
+          "static_travel_seconds": 4.0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 7,
+      "actions_authored": 7,
+      "actions_committed": 7,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F05",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F05-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 11.4,
+          "world_seconds": 11.4,
+          "static_travel_seconds": 6.5,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F05-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 13.0667,
+          "world_seconds": 13.0667,
+          "static_travel_seconds": 7.1667,
+          "actual_steps": 8,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F05-early",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 11.4,
+          "world_seconds": 11.4,
+          "static_travel_seconds": 6.5,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 8,
+      "actions_authored": 8,
+      "actions_committed": 8,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F06",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F06-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 19.1667,
+          "world_seconds": 19.1667,
+          "static_travel_seconds": 12.6667,
+          "actual_steps": 3,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F06-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 21.6667,
+          "world_seconds": 21.6667,
+          "static_travel_seconds": 12.6667,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F06-decline",
+          "kind": "decline",
+          "terminal": "declined",
+          "budget_seconds": 0.5,
+          "world_seconds": 0.5,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F06-cold-cup-cancel",
+          "kind": "recovery",
+          "terminal": "contained",
+          "budget_seconds": 52.8333,
+          "world_seconds": 52.8333,
+          "static_travel_seconds": 17.3333,
+          "actual_steps": 3,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F06-accepted-cancel",
+          "kind": "decline",
+          "terminal": "contained",
+          "budget_seconds": 2.5,
+          "world_seconds": 2.5,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 2,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 9,
+      "actions_authored": 9,
+      "actions_committed": 8,
+      "explicit_expiry_observation_actions": [
+        "cancel_accepted",
+        "wait_cup_cold"
+      ],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F07",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F07-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 51.0,
+          "world_seconds": 51.0,
+          "static_travel_seconds": 2.0,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F07-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 52.5,
+          "world_seconds": 52.5,
+          "static_travel_seconds": 2.0,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F07-no-customer",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 48.0,
+          "world_seconds": 48.0,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F07-snack-cushion",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 56.8333,
+          "world_seconds": 56.8333,
+          "static_travel_seconds": 5.3333,
+          "actual_steps": 7,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F07-too-late",
+          "kind": "recovery",
+          "terminal": "contained",
+          "budget_seconds": 5.0,
+          "world_seconds": 5.0,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 2,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 11,
+      "actions_authored": 11,
+      "actions_committed": 10,
+      "explicit_expiry_observation_actions": [
+        "ignore_seat_warning"
+      ],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F08",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F08-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 5.0,
+          "world_seconds": 2.0,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 2,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F08-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 15.5,
+          "world_seconds": 12.5,
+          "static_travel_seconds": 7.5,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F08-no-materials",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 5.75,
+          "world_seconds": 5.75,
+          "static_travel_seconds": 3.75,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 6,
+      "actions_authored": 6,
+      "actions_committed": 6,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F09",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F09-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 22.5833,
+          "world_seconds": 22.5833,
+          "static_travel_seconds": 8.5833,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F09-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 24.5833,
+          "world_seconds": 24.5833,
+          "static_travel_seconds": 8.5833,
+          "actual_steps": 7,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F09-decline",
+          "kind": "decline",
+          "terminal": "declined",
+          "budget_seconds": 0.5,
+          "world_seconds": 0.5,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 8,
+      "actions_authored": 8,
+      "actions_committed": 8,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F10",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F10-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 10.5,
+          "world_seconds": 10.5,
+          "static_travel_seconds": 5.0,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F10-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 11.5,
+          "world_seconds": 11.5,
+          "static_travel_seconds": 5.0,
+          "actual_steps": 7,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F10-source-lost",
+          "kind": "source_lost",
+          "terminal": "contained",
+          "budget_seconds": 5.3333,
+          "world_seconds": 5.3333,
+          "static_travel_seconds": 4.3333,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 8,
+      "actions_authored": 8,
+      "actions_committed": 8,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F11",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F11-normal-food",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 21.0,
+          "world_seconds": 21.0,
+          "static_travel_seconds": 18.0,
+          "actual_steps": 2,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F11-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 34.0,
+          "world_seconds": 22.0,
+          "static_travel_seconds": 18.0,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F11-contest",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 13.0,
+          "world_seconds": 1.0,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 2,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F11-decline",
+          "kind": "decline",
+          "terminal": "declined",
+          "budget_seconds": 0.5,
+          "world_seconds": 0.5,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F11-gift-claim",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 22.0,
+          "world_seconds": 22.0,
+          "static_travel_seconds": 18.0,
+          "actual_steps": 3,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F11-zero-stamina-food",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 21.0,
+          "world_seconds": 21.0,
+          "static_travel_seconds": 18.0,
+          "actual_steps": 2,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 7,
+      "actions_authored": 7,
+      "actions_committed": 7,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F12",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F12-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 20.3667,
+          "world_seconds": 20.3667,
+          "static_travel_seconds": 5.6667,
+          "actual_steps": 9,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F12-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 26.3667,
+          "world_seconds": 26.3667,
+          "static_travel_seconds": 5.6667,
+          "actual_steps": 10,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F12-zero-stamina",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 20.3667,
+          "world_seconds": 20.3667,
+          "static_travel_seconds": 5.6667,
+          "actual_steps": 9,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 10,
+      "actions_authored": 10,
+      "actions_committed": 10,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F13",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F13-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 8.8923,
+          "world_seconds": 8.8923,
+          "static_travel_seconds": 7.6923,
+          "actual_steps": 2,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F13-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 19.2423,
+          "world_seconds": 19.2423,
+          "static_travel_seconds": 7.6923,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F13-preemptive",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 8.8923,
+          "world_seconds": 8.8923,
+          "static_travel_seconds": 7.6923,
+          "actual_steps": 2,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 5,
+      "actions_authored": 5,
+      "actions_committed": 5,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F14",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F14-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 25.5167,
+          "world_seconds": 25.5167,
+          "static_travel_seconds": 16.9167,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F14-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 28.1167,
+          "world_seconds": 28.1167,
+          "static_travel_seconds": 16.9167,
+          "actual_steps": 7,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F14-host-lost",
+          "kind": "source_lost",
+          "terminal": "contained",
+          "budget_seconds": 1.0,
+          "world_seconds": 1.0,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 7,
+      "actions_authored": 7,
+      "actions_committed": 7,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": false,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F15",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F15-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 6.5,
+          "world_seconds": 6.5,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F15-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 7.0,
+          "world_seconds": 7.0,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F15-decline",
+          "kind": "decline",
+          "terminal": "declined",
+          "budget_seconds": 1.0,
+          "world_seconds": 1.0,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 6,
+      "actions_authored": 6,
+      "actions_committed": 6,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F16",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F16-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 17.0,
+          "world_seconds": 17.0,
+          "static_travel_seconds": 12.0,
+          "actual_steps": 7,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F16-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 24.0,
+          "world_seconds": 24.0,
+          "static_travel_seconds": 16.0,
+          "actual_steps": 8,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F16-prevention",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 1.0,
+          "world_seconds": 1.0,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F16-2-coin-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 21.0,
+          "world_seconds": 21.0,
+          "static_travel_seconds": 12.0,
+          "actual_steps": 8,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F16-3-coin-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 25.0,
+          "world_seconds": 25.0,
+          "static_travel_seconds": 12.0,
+          "actual_steps": 9,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 14,
+      "actions_authored": 14,
+      "actions_committed": 14,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F17",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F17-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 7.5,
+          "world_seconds": 4.5,
+          "static_travel_seconds": 1.0,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F17-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 8.5,
+          "world_seconds": 4.5,
+          "static_travel_seconds": 1.0,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F17-decline",
+          "kind": "decline",
+          "terminal": "declined",
+          "budget_seconds": 1.0,
+          "world_seconds": 1.0,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 8,
+      "actions_authored": 8,
+      "actions_committed": 8,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F18",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F18-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 28.5,
+          "world_seconds": 28.5,
+          "static_travel_seconds": 20.0,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F18-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 32.5,
+          "world_seconds": 32.5,
+          "static_travel_seconds": 20.0,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F18-incomplete-evidence",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 26.5,
+          "world_seconds": 26.5,
+          "static_travel_seconds": 20.0,
+          "actual_steps": 3,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 6,
+      "actions_authored": 6,
+      "actions_committed": 6,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F19",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F19-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 18.1667,
+          "world_seconds": 18.1667,
+          "static_travel_seconds": 14.1667,
+          "actual_steps": 3,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F19-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 26.0167,
+          "world_seconds": 26.0167,
+          "static_travel_seconds": 20.9167,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F19-decline",
+          "kind": "decline",
+          "terminal": "declined",
+          "budget_seconds": 1.0,
+          "world_seconds": 1.0,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F19-source-lost",
+          "kind": "source_lost",
+          "terminal": "contained",
+          "budget_seconds": 1.0,
+          "world_seconds": 1.0,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 7,
+      "actions_authored": 7,
+      "actions_committed": 7,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F20",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F20-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 15.6667,
+          "world_seconds": 15.6667,
+          "static_travel_seconds": 11.6667,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F20-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 16.6667,
+          "world_seconds": 16.6667,
+          "static_travel_seconds": 11.6667,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F20-decline",
+          "kind": "decline",
+          "terminal": "declined",
+          "budget_seconds": 2.8333,
+          "world_seconds": 2.8333,
+          "static_travel_seconds": 2.3333,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 7,
+      "actions_authored": 7,
+      "actions_committed": 7,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F21",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F21-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 3.8333,
+          "world_seconds": 3.8333,
+          "static_travel_seconds": 0.3333,
+          "actual_steps": 3,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F21-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 62.3333,
+          "world_seconds": 62.3333,
+          "static_travel_seconds": 16.3333,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F21-shutdown-first",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 2.3333,
+          "world_seconds": 2.3333,
+          "static_travel_seconds": 0.3333,
+          "actual_steps": 2,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 7,
+      "actions_authored": 7,
+      "actions_committed": 7,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F22",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F22-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 25.0,
+          "world_seconds": 25.0,
+          "static_travel_seconds": 13.0,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F22-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 27.0,
+          "world_seconds": 27.0,
+          "static_travel_seconds": 13.0,
+          "actual_steps": 7,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F22-decline",
+          "kind": "decline",
+          "terminal": "declined",
+          "budget_seconds": 0.5,
+          "world_seconds": 0.5,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 8,
+      "actions_authored": 8,
+      "actions_committed": 8,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F23",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F23-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 16.5833,
+          "world_seconds": 14.5833,
+          "static_travel_seconds": 6.0833,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F23-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 18.0833,
+          "world_seconds": 16.0833,
+          "static_travel_seconds": 6.0833,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F23-inconclusive",
+          "kind": "decline",
+          "terminal": "contained",
+          "budget_seconds": 2.0,
+          "world_seconds": 2.0,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F23-gift-claim",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 19.9167,
+          "world_seconds": 17.9167,
+          "static_travel_seconds": 8.4167,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 8,
+      "actions_authored": 8,
+      "actions_committed": 8,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F24",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F24-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 9.8667,
+          "world_seconds": 9.8667,
+          "static_travel_seconds": 5.6667,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F24-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 11.8667,
+          "world_seconds": 11.8667,
+          "static_travel_seconds": 5.6667,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F24-prevention",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 9.8667,
+          "world_seconds": 9.8667,
+          "static_travel_seconds": 5.6667,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F24-backup",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 12.3667,
+          "world_seconds": 12.3667,
+          "static_travel_seconds": 8.1667,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 7,
+      "actions_authored": 7,
+      "actions_committed": 7,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F25",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F25-normal-prior-shift",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 19.5,
+          "world_seconds": 19.5,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 7,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F25-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 21.0,
+          "world_seconds": 21.0,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 9,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F25-missing-sale",
+          "kind": "source_lost",
+          "terminal": "contained",
+          "budget_seconds": 2.0,
+          "world_seconds": 2.0,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F25-actual-duplicate-loss",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 23.0,
+          "world_seconds": 23.0,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 9,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F25-already-refunded-across-night",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 16.0,
+          "world_seconds": 16.0,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 11,
+      "actions_authored": 11,
+      "actions_committed": 11,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F26",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F26-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 12.5,
+          "world_seconds": 12.5,
+          "static_travel_seconds": 2.0,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F26-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 12.5,
+          "world_seconds": 12.5,
+          "static_travel_seconds": 2.0,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F26-no-created-waste",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 35.3333,
+          "world_seconds": 35.3333,
+          "static_travel_seconds": 1.3333,
+          "actual_steps": 3,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 8,
+      "actions_authored": 8,
+      "actions_committed": 8,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F27",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F27-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 67.7,
+          "world_seconds": 67.7,
+          "static_travel_seconds": 61.5,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F27-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 69.8667,
+          "world_seconds": 69.8667,
+          "static_travel_seconds": 62.1667,
+          "actual_steps": 7,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F27-decline",
+          "kind": "decline",
+          "terminal": "declined",
+          "budget_seconds": 0.5,
+          "world_seconds": 0.5,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 8,
+      "actions_authored": 8,
+      "actions_committed": 8,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F28",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F28-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 3.5,
+          "world_seconds": 3.5,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F28-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 4.5,
+          "world_seconds": 4.5,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F28-early-known",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 1.5,
+          "world_seconds": 1.5,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 2,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 6,
+      "actions_authored": 6,
+      "actions_committed": 6,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F29",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F29-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 12.0,
+          "world_seconds": 12.0,
+          "static_travel_seconds": 9.0,
+          "actual_steps": 2,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F29-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 14.0,
+          "world_seconds": 14.0,
+          "static_travel_seconds": 9.0,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F29-decline",
+          "kind": "decline",
+          "terminal": "declined",
+          "budget_seconds": 0.5,
+          "world_seconds": 0.5,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F29-gift-and-inspection",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 20.3333,
+          "world_seconds": 20.3333,
+          "static_travel_seconds": 13.3333,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 7,
+      "actions_authored": 7,
+      "actions_committed": 7,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F30",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "F30-normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 20.5833,
+          "world_seconds": 20.5833,
+          "static_travel_seconds": 17.0833,
+          "actual_steps": 2,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F30-recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 23.4167,
+          "world_seconds": 23.4167,
+          "static_travel_seconds": 17.9167,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "F30-backup",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 5.1667,
+          "world_seconds": 5.1667,
+          "static_travel_seconds": 1.6667,
+          "actual_steps": 2,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 5,
+      "actions_authored": 5,
+      "actions_committed": 5,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F31",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal_first",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 14.5,
+          "world_seconds": 6.5,
+          "static_travel_seconds": 4.0,
+          "actual_steps": 3,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "p08_recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 22.5,
+          "world_seconds": 6.5,
+          "static_travel_seconds": 4.0,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "no_pet_miss",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 14.5,
+          "world_seconds": 6.5,
+          "static_travel_seconds": 4.0,
+          "actual_steps": 3,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "decline",
+          "kind": "decline",
+          "terminal": "declined",
+          "budget_seconds": 0.5,
+          "world_seconds": 0.5,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "p08_retry_miss",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 22.5,
+          "world_seconds": 6.5,
+          "static_travel_seconds": 4.0,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "p08_decline_retry",
+          "kind": "decline",
+          "terminal": "resolved",
+          "budget_seconds": 15.0,
+          "world_seconds": 7.0,
+          "static_travel_seconds": 4.0,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 9,
+      "actions_authored": 9,
+      "actions_committed": 9,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F32",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 13.8333,
+          "world_seconds": 13.8333,
+          "static_travel_seconds": 3.3333,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "welcome_recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 14.3333,
+          "world_seconds": 14.3333,
+          "static_travel_seconds": 3.3333,
+          "actual_steps": 7,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "natural_expiry",
+          "kind": "source_lost",
+          "terminal": "resolved",
+          "budget_seconds": 98.5,
+          "world_seconds": 98.5,
+          "static_travel_seconds": 2.0,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 8,
+      "actions_authored": 8,
+      "actions_committed": 8,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F33",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 15.8333,
+          "world_seconds": 15.8333,
+          "static_travel_seconds": 3.3333,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "blocked_exit",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 12.8333,
+          "world_seconds": 12.8333,
+          "static_travel_seconds": 3.3333,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "no_aid",
+          "kind": "decline",
+          "terminal": "resolved",
+          "budget_seconds": 6.3333,
+          "world_seconds": 6.3333,
+          "static_travel_seconds": 3.3333,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 7,
+      "actions_authored": 7,
+      "actions_committed": 7,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F34",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 16.0833,
+          "world_seconds": 16.0833,
+          "static_travel_seconds": 2.8333,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "strong_recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 12.1667,
+          "world_seconds": 12.1667,
+          "static_travel_seconds": 4.1667,
+          "actual_steps": 7,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "pre_omen_dry",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 4.5,
+          "world_seconds": 4.5,
+          "static_travel_seconds": 1.5,
+          "actual_steps": 2,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 7,
+      "actions_authored": 7,
+      "actions_committed": 7,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F35",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 13.0,
+          "world_seconds": 13.0,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "unbounded_recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 18.0,
+          "world_seconds": 18.0,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 8,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "decline",
+          "kind": "decline",
+          "terminal": "declined",
+          "budget_seconds": 0.5,
+          "world_seconds": 0.5,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 9,
+      "actions_authored": 9,
+      "actions_committed": 9,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F36",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 26.0,
+          "world_seconds": 26.0,
+          "static_travel_seconds": 1.0,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "wide_recovery",
+          "kind": "recovery",
+          "terminal": "declined",
+          "budget_seconds": 4.5,
+          "world_seconds": 4.5,
+          "static_travel_seconds": 1.0,
+          "actual_steps": 3,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "decline",
+          "kind": "decline",
+          "terminal": "declined",
+          "budget_seconds": 0.5,
+          "world_seconds": 0.5,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 8,
+      "actions_authored": 8,
+      "actions_committed": 8,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F37",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 34.5833,
+          "world_seconds": 34.5833,
+          "static_travel_seconds": 27.0833,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "follow_recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 38.9167,
+          "world_seconds": 38.9167,
+          "static_travel_seconds": 30.4167,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "decline",
+          "kind": "decline",
+          "terminal": "contained",
+          "budget_seconds": 1.0,
+          "world_seconds": 1.0,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 7,
+      "actions_authored": 7,
+      "actions_committed": 7,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F38",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 28.8333,
+          "world_seconds": 28.8333,
+          "static_travel_seconds": 17.0,
+          "actual_steps": 8,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "wrong_grant_recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 30.3333,
+          "world_seconds": 30.3333,
+          "static_travel_seconds": 17.0,
+          "actual_steps": 10,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "broken_chain",
+          "kind": "source_lost",
+          "terminal": "contained",
+          "budget_seconds": 28.8333,
+          "world_seconds": 28.8333,
+          "static_travel_seconds": 17.0,
+          "actual_steps": 9,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "credential_expired",
+          "kind": "source_lost",
+          "terminal": "contained",
+          "budget_seconds": 35.3333,
+          "world_seconds": 35.3333,
+          "static_travel_seconds": 17.0,
+          "actual_steps": 8,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "conservative_hold",
+          "kind": "prevention",
+          "terminal": "contained",
+          "budget_seconds": 27.3333,
+          "world_seconds": 27.3333,
+          "static_travel_seconds": 17.0,
+          "actual_steps": 7,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "no_fresh_check_safe_hold",
+          "kind": "prevention",
+          "terminal": "contained",
+          "budget_seconds": 20.6667,
+          "world_seconds": 20.6667,
+          "static_travel_seconds": 15.3333,
+          "actual_steps": 3,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 14,
+      "actions_authored": 14,
+      "actions_committed": 14,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F39",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 6.5,
+          "world_seconds": 6.5,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 3,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "wrong_order",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 7.5,
+          "world_seconds": 7.5,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "repair_preempted",
+          "kind": "source_lost",
+          "terminal": "contained",
+          "budget_seconds": 0.5,
+          "world_seconds": 0.5,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 6,
+      "actions_authored": 6,
+      "actions_committed": 6,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F40",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 24.5833,
+          "world_seconds": 24.5833,
+          "static_travel_seconds": 15.0833,
+          "actual_steps": 7,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "wrong_loop",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 25.0833,
+          "world_seconds": 25.0833,
+          "static_travel_seconds": 15.0833,
+          "actual_steps": 8,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "known_route_prevention",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 19.0833,
+          "world_seconds": 19.0833,
+          "static_travel_seconds": 13.0833,
+          "actual_steps": 3,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 8,
+      "actions_authored": 8,
+      "actions_committed": 8,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F41",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 20.8333,
+          "world_seconds": 20.8333,
+          "static_travel_seconds": 14.3333,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "follow_recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 30.5,
+          "world_seconds": 30.5,
+          "static_travel_seconds": 20.0,
+          "actual_steps": 8,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "already_called",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 11.8333,
+          "world_seconds": 11.8333,
+          "static_travel_seconds": 8.3333,
+          "actual_steps": 2,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 8,
+      "actions_authored": 8,
+      "actions_committed": 8,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F42",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 7.25,
+          "world_seconds": 7.25,
+          "static_travel_seconds": 2.25,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "high_recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 13.25,
+          "world_seconds": 13.25,
+          "static_travel_seconds": 2.25,
+          "actual_steps": 7,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "already_transferred",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 1.0,
+          "world_seconds": 1.0,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 8,
+      "actions_authored": 8,
+      "actions_committed": 8,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F43",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 12.1667,
+          "world_seconds": 12.1667,
+          "static_travel_seconds": 8.6667,
+          "actual_steps": 3,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "permission_recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 13.1667,
+          "world_seconds": 13.1667,
+          "static_travel_seconds": 8.6667,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "no_coverage_safe",
+          "kind": "source_lost",
+          "terminal": "resolved",
+          "budget_seconds": 0.5,
+          "world_seconds": 0.5,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 5,
+      "actions_authored": 5,
+      "actions_committed": 5,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F44",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 18.3333,
+          "world_seconds": 18.3333,
+          "static_travel_seconds": 9.3333,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "renewal_recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 18.8333,
+          "world_seconds": 18.8333,
+          "static_travel_seconds": 9.3333,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "decline",
+          "kind": "decline",
+          "terminal": "declined",
+          "budget_seconds": 0.5,
+          "world_seconds": 0.5,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 7,
+      "actions_authored": 7,
+      "actions_committed": 7,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F45",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 9.0,
+          "world_seconds": 9.0,
+          "static_travel_seconds": 3.5,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "wrong_slot",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 12.0,
+          "world_seconds": 12.0,
+          "static_travel_seconds": 3.5,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "already_shelved",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 1.5,
+          "world_seconds": 1.5,
+          "static_travel_seconds": 1.0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 6,
+      "actions_authored": 6,
+      "actions_committed": 6,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F46",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 32.25,
+          "world_seconds": 32.25,
+          "static_travel_seconds": 2.0,
+          "actual_steps": 7,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "wrong_sieve",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 41.25,
+          "world_seconds": 41.25,
+          "static_travel_seconds": 4.0,
+          "actual_steps": 10,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "pet_returned",
+          "kind": "prevention",
+          "terminal": "contained",
+          "budget_seconds": 30.75,
+          "world_seconds": 30.75,
+          "static_travel_seconds": 2.0,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "original_tool_already_returned",
+          "kind": "prevention",
+          "terminal": "prevented",
+          "budget_seconds": 1.0,
+          "world_seconds": 1.0,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 12,
+      "actions_authored": 12,
+      "actions_committed": 12,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F47",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "three_segments",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 26.0,
+          "world_seconds": 2.0,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 7,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "failed_addon",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 17.0,
+          "world_seconds": 1.0,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "decline",
+          "kind": "decline",
+          "terminal": "resolved",
+          "budget_seconds": 0.5,
+          "world_seconds": 0.5,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 8,
+      "actions_authored": 8,
+      "actions_committed": 8,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F48",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 15.8333,
+          "world_seconds": 15.8333,
+          "static_travel_seconds": 9.3333,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "hat_and_access",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 58.0,
+          "world_seconds": 58.0,
+          "static_travel_seconds": 48.0,
+          "actual_steps": 7,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "no_sale_depart",
+          "kind": "decline",
+          "terminal": "resolved",
+          "budget_seconds": 3.0,
+          "world_seconds": 3.0,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 10,
+      "actions_authored": 10,
+      "actions_committed": 10,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F49",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 33.6667,
+          "world_seconds": 33.6667,
+          "static_travel_seconds": 6.6667,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "open_pause_recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 38.1667,
+          "world_seconds": 38.1667,
+          "static_travel_seconds": 6.6667,
+          "actual_steps": 9,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "safe_storage",
+          "kind": "prevention",
+          "terminal": "contained",
+          "budget_seconds": 4.5,
+          "world_seconds": 4.5,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 3,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "optional_speedup",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 25.1667,
+          "world_seconds": 25.1667,
+          "static_travel_seconds": 6.6667,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 9,
+      "actions_authored": 9,
+      "actions_committed": 9,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F50",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 11.3333,
+          "world_seconds": 11.3333,
+          "static_travel_seconds": 4.4167,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "wrong_window",
+          "kind": "recovery",
+          "terminal": "contained",
+          "budget_seconds": 11.3333,
+          "world_seconds": 11.3333,
+          "static_travel_seconds": 4.4167,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "preboarded",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 11.3333,
+          "world_seconds": 11.3333,
+          "static_travel_seconds": 3.6667,
+          "actual_steps": 3,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "actual_late_retreat",
+          "kind": "recovery",
+          "terminal": "contained",
+          "budget_seconds": 14.4167,
+          "world_seconds": 14.4167,
+          "static_travel_seconds": 3.6667,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 9,
+      "actions_authored": 9,
+      "actions_committed": 8,
+      "explicit_expiry_observation_actions": [
+        "wait_locked_impact"
+      ],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F51",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 15.8333,
+          "world_seconds": 15.8333,
+          "static_travel_seconds": 9.3333,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "wrong_story",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 17.3333,
+          "world_seconds": 17.3333,
+          "static_travel_seconds": 9.3333,
+          "actual_steps": 7,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "decline",
+          "kind": "decline",
+          "terminal": "declined",
+          "budget_seconds": 0.5,
+          "world_seconds": 0.5,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 8,
+      "actions_authored": 8,
+      "actions_committed": 8,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F52",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal_with_rest",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 10.3333,
+          "world_seconds": 10.3333,
+          "static_travel_seconds": 1.3333,
+          "actual_steps": 3,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "wrong_sit_recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 11.3333,
+          "world_seconds": 11.3333,
+          "static_travel_seconds": 1.3333,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "avoid_chair",
+          "kind": "decline",
+          "terminal": "contained",
+          "budget_seconds": 0.8333,
+          "world_seconds": 0.8333,
+          "static_travel_seconds": 0.3333,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "already_dry",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 1.0,
+          "world_seconds": 1.0,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 6,
+      "actions_authored": 6,
+      "actions_committed": 6,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F53",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "qualified_then_handover",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 720.0,
+          "world_seconds": 720.0,
+          "static_travel_seconds": 22.9167,
+          "actual_steps": 20,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "same_bottle_recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 720.0,
+          "world_seconds": 720.0,
+          "static_travel_seconds": 22.9167,
+          "actual_steps": 23,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "qualified_not_yet_paid",
+          "kind": "normal",
+          "terminal": "contained",
+          "budget_seconds": 720.0,
+          "world_seconds": 720.0,
+          "static_travel_seconds": 22.9167,
+          "actual_steps": 18,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "cancel_after_accept",
+          "kind": "decline",
+          "terminal": "contained",
+          "budget_seconds": 7.5,
+          "world_seconds": 7.5,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "unfulfilled_at_six",
+          "kind": "source_lost",
+          "terminal": "contained",
+          "budget_seconds": 720.0,
+          "world_seconds": 720.0,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 2,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "decline",
+          "kind": "decline",
+          "terminal": "declined",
+          "budget_seconds": 0.5,
+          "world_seconds": 0.5,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 23,
+      "actions_authored": 23,
+      "actions_committed": 23,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F54",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 16.75,
+          "world_seconds": 16.75,
+          "static_travel_seconds": 3.75,
+          "actual_steps": 10,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "wrong_order",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 18.25,
+          "world_seconds": 18.25,
+          "static_travel_seconds": 3.75,
+          "actual_steps": 12,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "cancel_before_transfer",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 17.5,
+          "world_seconds": 17.5,
+          "static_travel_seconds": 3.75,
+          "actual_steps": 11,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 13,
+      "actions_authored": 13,
+      "actions_committed": 13,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F55",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 18.0,
+          "world_seconds": 18.0,
+          "static_travel_seconds": 12.0,
+          "actual_steps": 8,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "off_route_recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 20.1667,
+          "world_seconds": 20.1667,
+          "static_travel_seconds": 13.6667,
+          "actual_steps": 10,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "late_rider",
+          "kind": "source_lost",
+          "terminal": "resolved",
+          "budget_seconds": 23.25,
+          "world_seconds": 23.25,
+          "static_travel_seconds": 12.75,
+          "actual_steps": 8,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "decline",
+          "kind": "decline",
+          "terminal": "declined",
+          "budget_seconds": 0.5,
+          "world_seconds": 0.5,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 13,
+      "actions_authored": 13,
+      "actions_committed": 13,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F56",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 11.0,
+          "world_seconds": 11.0,
+          "static_travel_seconds": 4.5,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "wet_edge_recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 11.9167,
+          "world_seconds": 11.9167,
+          "static_travel_seconds": 4.4167,
+          "actual_steps": 6,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "already_drained",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 5.5,
+          "world_seconds": 5.5,
+          "static_travel_seconds": 2.5,
+          "actual_steps": 2,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 7,
+      "actions_authored": 7,
+      "actions_committed": 7,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F57",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 9.7167,
+          "world_seconds": 9.7167,
+          "static_travel_seconds": 4.6667,
+          "actual_steps": 8,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "wrong_cut_recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 25.3833,
+          "world_seconds": 25.3833,
+          "static_travel_seconds": 19.3333,
+          "actual_steps": 10,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "already_across",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 3.0,
+          "world_seconds": 3.0,
+          "static_travel_seconds": 1.0,
+          "actual_steps": 2,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "northern_dry_bypass",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 8.35,
+          "world_seconds": 8.35,
+          "static_travel_seconds": 5.5,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "decline_before_maintenance",
+          "kind": "decline",
+          "terminal": "declined",
+          "budget_seconds": 2.0,
+          "world_seconds": 2.0,
+          "static_travel_seconds": 1.0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "maintenance_overrun_recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 13.2167,
+          "world_seconds": 13.2167,
+          "static_travel_seconds": 4.6667,
+          "actual_steps": 8,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 18,
+      "actions_authored": 18,
+      "actions_committed": 18,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F58",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 30.0,
+          "world_seconds": 30.0,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 2,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "last_portion_recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 30.0,
+          "world_seconds": 30.0,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "no_hot_food",
+          "kind": "source_lost",
+          "terminal": "contained",
+          "budget_seconds": 3.0,
+          "world_seconds": 3.0,
+          "static_travel_seconds": 2.0,
+          "actual_steps": 2,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "late_hot_recovery",
+          "kind": "recovery",
+          "terminal": "contained",
+          "budget_seconds": 8.0,
+          "world_seconds": 8.0,
+          "static_travel_seconds": 2.0,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 7,
+      "actions_authored": 7,
+      "actions_committed": 6,
+      "explicit_expiry_observation_actions": [
+        "wait_warning_expiry"
+      ],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F59",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 37.25,
+          "world_seconds": 37.25,
+          "static_travel_seconds": 19.75,
+          "actual_steps": 8,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "watched_recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 40.25,
+          "world_seconds": 40.25,
+          "static_travel_seconds": 19.75,
+          "actual_steps": 11,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "pre_repaired",
+          "kind": "source_lost",
+          "terminal": "declined",
+          "budget_seconds": 0.5,
+          "world_seconds": 0.5,
+          "static_travel_seconds": 0,
+          "actual_steps": 1,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 11,
+      "actions_authored": 11,
+      "actions_committed": 11,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    },
+    {
+      "id": "F60",
+      "status": "PASS",
+      "witnesses": [
+        {
+          "id": "normal",
+          "kind": "normal",
+          "terminal": "resolved",
+          "budget_seconds": 6.5,
+          "world_seconds": 6.5,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 5,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "look_recovery",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 16.75,
+          "world_seconds": 16.75,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 7,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "same_side_curtain_is_not_magic",
+          "kind": "recovery",
+          "terminal": "resolved",
+          "budget_seconds": 19.0,
+          "world_seconds": 19.0,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 9,
+          "world_adapter_proven": false
+        },
+        {
+          "id": "early_face_lock",
+          "kind": "prevention",
+          "terminal": "resolved",
+          "budget_seconds": 4.75,
+          "world_seconds": 4.75,
+          "static_travel_seconds": 0.0,
+          "actual_steps": 4,
+          "world_adapter_proven": false
+        }
+      ],
+      "actions_reached": 12,
+      "actions_authored": 12,
+      "actions_committed": 12,
+      "explicit_expiry_observation_actions": [],
+      "unexercised_actions": [],
+      "candidate_enabled": true,
+      "runtime_enabled": false
+    }
+  ],
+  "errors": []
+}

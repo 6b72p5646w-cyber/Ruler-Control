@@ -1,5 +1,5 @@
 {
-  "version": "0.8",
+  "version": "0.10",
   "max_active": 1,
   "baseline_uses_per_night": 2,
   "permanent_death": false,
@@ -10,8 +10,8 @@
       "id": "P01",
       "name": "三花猫",
       "purchase_price": 160,
-      "ability": "让下一项票据归拢或标签整理耗时减少20%，并固定该台面纸张8秒；不会替玩家核验内容。 专属F16：12秒内阻止F16从选定现金盘取走新的硬币；已拿走的硬币仍需玩家追踪找回和封存现金。",
-      "limitation": "普通与专属共用每夜2次；只影响一个工位；对低SAN判断区缩小不直接生效。 不阻止正常找零，不自动找回金币，不判定员工身份。",
+      "ability": "下一次真实票据或标签整理进度耗时×0.8，并把同一已知记录置顶8世界秒；没有纸张风吹位移系统。 专属F16：12秒内阻止F16从选定现金盘取走新的硬币；已拿走的硬币仍需玩家追踪找回和封存现金。",
+      "limitation": "普通/专属共用每夜2次；成功提交后统一6世界秒冷却，无效/取消不扣。只影响一个工位；对低SAN判断区缩小不直接生效。 不阻止正常找零，不自动找回金币，不判定员工身份。",
       "tag": "task_support",
       "acquisition": [
         "shop",
@@ -24,7 +24,7 @@
         "name": "压住单据",
         "trigger": "选择已在台面的单据工位后短按伙伴键",
         "effect_type": "task_modifier",
-        "description": "让下一项票据归拢或标签整理耗时减少20%，并固定该台面纸张8秒；不会替玩家核验内容。",
+        "description": "下一次真实票据或标签整理进度耗时×0.8，并把同一已知记录置顶8世界秒；没有纸张风吹位移系统。",
         "range_tiles": 2,
         "duration_seconds": 8,
         "shared_charge_cost": 1,
@@ -36,16 +36,20 @@
               "receipt_sort",
               "label_sort"
             ],
+            "work_ids": [
+              "W13"
+            ],
             "max_actions": 1
           },
           {
-            "type": "block_effect",
-            "tag": "paper_displacement",
-            "scope": "selected_workstation"
+            "type": "pin_observed_record",
+            "seconds": 8,
+            "max_records": 1
           }
         ],
         "target_monster_ids": [],
-        "limitation": "只影响一个工位；对低SAN判断区缩小不直接生效。"
+        "limitation": "只影响一个工位；对低SAN判断区缩小不直接生效。",
+        "contract_effect_id": "P01.general"
       },
       "special_help": [
         {
@@ -67,18 +71,22 @@
           "target_monster_ids": [
             "F16"
           ],
-          "limitation": "不阻止正常找零，不自动找回金币，不判定员工身份。"
+          "limitation": "不阻止正常找零，不自动找回金币，不判定员工身份。",
+          "contract_effect_id": "P01.special"
         }
       ],
       "implementation_cost": "low",
-      "shared_ability_charge_pool": true
+      "shared_ability_charge_pool": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/P01",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "P02",
       "name": "黑犬",
       "purchase_price": 180,
       "ability": "为当前队列中最多两名普通顾客各增加5秒等待耐心，给玩家一次离开柜台搬货的窗口。 专属F13：使当前F13追杀移动速度降低30%，持续4秒，为玩家搬肉至冰柜争取距离。",
-      "limitation": "普通与专属共用每夜2次；对怪物的规则期限和合同期限无效；同一顾客每班只能获得一次。 不改变F13的目标，不让F13攻击宠物，不取消生肉接触；玩家仍须亲手把肉箱送入冰柜。",
+      "limitation": "普通/专属共用每夜2次；成功提交后统一6世界秒冷却，无效/取消不扣。对怪物的规则期限和合同期限无效；同一顾客每班只能获得一次。 不改变F13的目标，不让F13攻击宠物，不取消生肉接触；玩家仍须亲手把肉箱送入冰柜。",
       "tag": "queue_and_chase_support",
       "acquisition": [
         "shop",
@@ -93,7 +101,7 @@
         "effect_type": "queue_timer_modifier",
         "description": "为当前队列中最多两名普通顾客各增加5秒等待耐心，给玩家一次离开柜台搬货的窗口。",
         "range_tiles": 3,
-        "duration_seconds": 5,
+        "duration_seconds": 0,
         "shared_charge_cost": 1,
         "effects": [
           {
@@ -104,7 +112,8 @@
           }
         ],
         "target_monster_ids": [],
-        "limitation": "对怪物的规则期限和合同期限无效；同一顾客每班只能获得一次。"
+        "limitation": "对怪物的规则期限和合同期限无效；同一顾客每班只能获得一次。",
+        "contract_effect_id": "P02.general"
       },
       "special_help": [
         {
@@ -131,18 +140,22 @@
           "target_monster_ids": [
             "F13"
           ],
-          "limitation": "不改变F13的目标，不让F13攻击宠物，不取消生肉接触；玩家仍须亲手把肉箱送入冰柜。"
+          "limitation": "不改变F13的目标，不让F13攻击宠物，不取消生肉接触；玩家仍须亲手把肉箱送入冰柜。",
+          "contract_effect_id": "P02.special"
         }
       ],
       "implementation_cost": "low",
-      "shared_ability_charge_pool": true
+      "shared_ability_charge_pool": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/P02",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "P03",
       "name": "鹦鹉",
       "purchase_price": 180,
       "ability": "复述玩家已确认的工序；下一次精细对齐或封装QTE的判定区域乘1.12，最多恢复到正常SAN时的大小。普通扫码和自动找零不触发。 专属F47：在该段结尾播放玩家已经确认的收尾拍，让一次中止交易的操作窗口增加0.4秒。",
-      "limitation": "普通与专属共用每夜2次；只复述已确认记录，不知道未核实信息；QTE开始后不突然改变其判定区。 不自动中止交易，不退还已接受的代价；玩家仍决定继续或收手。",
+      "limitation": "普通/专属共用每夜2次；成功提交后统一6世界秒冷却，无效/取消不扣。只复述已确认记录，不知道未核实信息；QTE开始后不突然改变其判定区。 不自动中止交易，不退还已接受的代价；玩家仍决定继续或收手。",
       "tag": "qte_support",
       "acquisition": [
         "shop",
@@ -179,7 +192,8 @@
         "current_example_encounter_ids": [
           "F04",
           "F47"
-        ]
+        ],
+        "contract_effect_id": "P03.general"
       },
       "special_help": [
         {
@@ -201,18 +215,22 @@
           "target_monster_ids": [
             "F47"
           ],
-          "limitation": "不自动中止交易，不退还已接受的代价；玩家仍决定继续或收手。"
+          "limitation": "不自动中止交易，不退还已接受的代价；玩家仍决定继续或收手。",
+          "contract_effect_id": "P03.special"
         }
       ],
       "implementation_cost": "low",
-      "shared_ability_charge_pool": true
+      "shared_ability_charge_pool": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/P03",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "P04",
       "name": "小仓鼠",
       "purchase_price": 140,
       "ability": "3秒后将该耗材转入玩家的空携带格，省去一次短途取物；开始时锁定原物品并预留目标格。 专属F12：仅使选定的、由玩家亲手撒下的回形针诱饵，在F12抵达后的停食时间增加1秒；已经处于停食状态时只追加这一次1秒。",
-      "limitation": "普通与专属共用每夜2次；只是有计时的库存转移和装饰动画，不设宠物寻路；不搬任务生肉、钥匙和未知物，不从货架代领本次F12必须由玩家取出的回形针。 不生成回形针，不代替货架领取，不自动摆路线；同一个诱饵实例最多追加一次，F12仍须由玩家引过店外胜利边界。",
+      "limitation": "普通/专属共用每夜2次；成功提交后统一6世界秒冷却，无效/取消不扣。只是有计时的库存转移和装饰动画，不设宠物寻路；不搬任务生肉、钥匙和未知物，不从货架代领本次F12必须由玩家取出的回形针。 不生成回形针，不代替货架领取，不自动摆路线；同一个诱饵实例最多追加一次，F12仍须由玩家引过店外胜利边界。",
       "tag": "supply_and_lure_support",
       "acquisition": [
         "shop",
@@ -248,7 +266,8 @@
           }
         ],
         "target_monster_ids": [],
-        "limitation": "只是有计时的库存转移和装饰动画，不设宠物寻路；不搬任务生肉、钥匙和未知物，不从货架代领本次F12必须由玩家取出的回形针。"
+        "limitation": "只是有计时的库存转移和装饰动画，不设宠物寻路；不搬任务生肉、钥匙和未知物，不从货架代领本次F12必须由玩家取出的回形针。",
+        "contract_effect_id": "P04.general"
       },
       "special_help": [
         {
@@ -279,19 +298,23 @@
           "target_monster_ids": [
             "F12"
           ],
-          "limitation": "不生成回形针，不代替货架领取，不自动摆路线；同一个诱饵实例最多追加一次，F12仍须由玩家引过店外胜利边界。"
+          "limitation": "不生成回形针，不代替货架领取，不自动摆路线；同一个诱饵实例最多追加一次，F12仍须由玩家引过店外胜利边界。",
+          "contract_effect_id": "P04.special"
         }
       ],
       "implementation_cost": "medium",
-      "shared_ability_charge_pool": true
+      "shared_ability_charge_pool": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/P04",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "P05",
       "name": "白鸽",
       "purchase_price": 180,
-      "ability": "白鸽停在感应区，使这一次普通自动门多保持开启4秒，方便抱货通过。 专属F50：将本次俯冲的预告延长2秒，并持续标明已确认的攻击窗位。",
-      "limitation": "普通与专属共用每夜2次；不打开锁门，不越过当前禁入规则，不自动切换出入口权限。 仍由玩家推动遮挡板；不替玩家选择未知攻击面，不将白鸽作为可牺牲目标。",
-      "tag": "door_and_telegraph_support",
+      "ability": "12世界秒内，把该门线实际发生的最多3次穿越方向显示为来源明确的HUD提示；首次真实穿越才扣共用次数。 专属F50：将本次俯冲的预告延长2秒，并持续标明已确认的攻击窗位。",
+      "limitation": "普通/专属共用每夜2次；成功提交后统一6世界秒冷却，无效/取消不扣。不改门状态、不提前预言经过、不显示墙后位置或真假；观察同一门的记录沿用相同事件根，不能当第二个独立身份来源。 仍由玩家推动遮挡板；不替玩家选择未知攻击面，不将白鸽作为可牺牲目标。",
+      "tag": "threshold_notice_and_telegraph_support",
       "acquisition": [
         "shop",
         "specified_rescue_or_contract_event"
@@ -300,22 +323,33 @@
       "uses_per_night": 2,
       "care_supply_id": "PC05",
       "general_help": {
-        "name": "感应门接力",
-        "trigger": "玩家已打开允许通行的自动门后启用",
-        "effect_type": "door_timer_modifier",
-        "description": "白鸽停在感应区，使这一次普通自动门多保持开启4秒，方便抱货通过。",
+        "name": "门线守望",
+        "trigger": "在3格内选择一扇已亲见、当前许可通行的门线，安排白鸽在门旁观察12世界秒。",
+        "effect_type": "actual_threshold_crossing_notice",
+        "description": "12世界秒内，把该门线实际发生的最多3次穿越方向显示为来源明确的HUD提示；首次真实穿越才扣共用次数。",
         "range_tiles": 3,
-        "duration_seconds": 4,
+        "duration_seconds": 12,
         "shared_charge_cost": 1,
         "effects": [
           {
-            "type": "door_open_duration_add",
-            "seconds": 4,
-            "max_doors": 1
+            "type": "observe_actual_threshold_crossing",
+            "window_world_seconds": 12,
+            "max_notices": 3,
+            "record_fields": [
+              "door_id",
+              "direction",
+              "world_at",
+              "source_crossing_id"
+            ],
+            "identity_or_actor_hidden_state": false,
+            "first_actual_notice_commits_charge": true,
+            "empty_window_consumes_charge": false,
+            "opens_or_closes_door": false
           }
         ],
         "target_monster_ids": [],
-        "limitation": "不打开锁门，不越过当前禁入规则，不自动切换出入口权限。"
+        "limitation": "不改门状态、不提前预言经过、不显示墙后位置或真假；观察同一门的记录沿用相同事件根，不能当第二个独立身份来源。",
+        "contract_effect_id": "P05.general"
       },
       "special_help": [
         {
@@ -337,18 +371,22 @@
           "target_monster_ids": [
             "F50"
           ],
-          "limitation": "仍由玩家推动遮挡板；不替玩家选择未知攻击面，不将白鸽作为可牺牲目标。"
+          "limitation": "仍由玩家推动遮挡板；不替玩家选择未知攻击面，不将白鸽作为可牺牲目标。",
+          "contract_effect_id": "P05.special"
         }
       ],
       "implementation_cost": "low",
-      "shared_ability_charge_pool": true
+      "shared_ability_charge_pool": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/P05",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "P06",
       "name": "壁虎",
       "purchase_price": 150,
       "ability": "3秒后把同一件普通轻工具搬到选定可取台面，玩家仍须实际拾取和操作；不生成工具、不延后不存在的故障计时。 专属F46：3秒后把其中一件已确认的轻工具送到该工位可拿取台面；玩家仍需拾取并完成后续处理。",
-      "limitation": "普通与专属共用每夜2次；一次指令只提交一种转移。普通不移动被预留或尚未揭示物；F46专属仍绑定它当前已揭示的同一工具。不凭空找出未观察到的工具，不消除旋风，不跨锁门。",
+      "limitation": "普通/专属共用每夜2次；成功提交后统一6世界秒冷却，无效/取消不扣。只处理实际已见的自有普通轻工具；无工具、已被占用、无空槽、路径关闭或已在目标槽时不扣次数。不跨锁门、不直接送进手中，不代做工作。F46隐藏工具只能使用其专属已揭示目标分支。 不凭空找出未观察到的工具，不消除旋风，不跨锁门。",
       "tag": "ordinary_tool_and_encounter_retrieval_support",
       "acquisition": [
         "shop",
@@ -397,7 +435,8 @@
           }
         ],
         "target_monster_ids": [],
-        "limitation": "只处理实际已见的自有普通轻工具；无工具、已被占用、无空槽、路径关闭或已在目标槽时不扣次数。不跨锁门、不直接送进手中，不代做工作。F46隐藏工具只能使用其专属已揭示目标分支。"
+        "limitation": "只处理实际已见的自有普通轻工具；无工具、已被占用、无空槽、路径关闭或已在目标槽时不扣次数。不跨锁门、不直接送进手中，不代做工作。F46隐藏工具只能使用其专属已揭示目标分支。",
+        "contract_effect_id": "P06.general"
       },
       "special_help": [
         {
@@ -430,18 +469,22 @@
           "target_monster_ids": [
             "F46"
           ],
-          "limitation": "不凭空找出未观察到的工具，不消除旋风，不跨锁门。"
+          "limitation": "不凭空找出未观察到的工具，不消除旋风，不跨锁门。",
+          "contract_effect_id": "P06.special"
         }
       ],
       "implementation_cost": "medium",
-      "shared_ability_charge_pool": true
+      "shared_ability_charge_pool": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/P06",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "P07",
       "name": "纸灯灵",
       "purchase_price": 320,
       "ability": "8秒内在玩家周围提高局部可见半径1格，最多到正常可见范围；HUD保持原本清晰，SAN数值不恢复。 专属F60：将这一次转身预告延长2秒，并使关联的危险扇区在黑视中可读，便于玩家调整朝向或遮挡。",
-      "limitation": "普通与专属共用每夜1次；只改善局部黑视，不露出墙后未知实体，也不扩大已经开始的QTE判定区。 不模拟真实镜面反射，不替玩家转身或放置遮挡；普通与专属共用唯一一次使用。",
+      "limitation": "普通/专属共用每夜1次；成功提交后统一6世界秒冷却，无效/取消不扣。只改善局部黑视，不露出墙后未知实体，也不扩大已经开始的QTE判定区。 不模拟真实镜面反射，不替玩家转身或放置遮挡；普通与专属共用唯一一次使用。",
       "tag": "visibility_support",
       "acquisition": [
         "shop",
@@ -468,7 +511,8 @@
           }
         ],
         "target_monster_ids": [],
-        "limitation": "只改善局部黑视，不露出墙后未知实体，也不扩大已经开始的QTE判定区。"
+        "limitation": "只改善局部黑视，不露出墙后未知实体，也不扩大已经开始的QTE判定区。",
+        "contract_effect_id": "P07.general"
       },
       "special_help": [
         {
@@ -494,18 +538,22 @@
           "target_monster_ids": [
             "F60"
           ],
-          "limitation": "不模拟真实镜面反射，不替玩家转身或放置遮挡；普通与专属共用唯一一次使用。"
+          "limitation": "不模拟真实镜面反射，不替玩家转身或放置遮挡；普通与专属共用唯一一次使用。",
+          "contract_effect_id": "P07.special"
         }
       ],
       "implementation_cost": "low",
-      "shared_ability_charge_pool": true
+      "shared_ability_charge_pool": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/P07",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     },
     {
       "id": "P08",
       "name": "布偶守夜者",
       "purchase_price": 360,
       "ability": "持续3秒后SAN恢复12；若离开安全点则保留进度，不能在追逐中贴脸无条件施放。 专属F31：本次F31首次真实唤醒失败按回执补偿精力2一次；SAN仍大于0并重新满足特写准入时，开放唯一第二次尝试，停针命中窗1.5本地秒、正常判定倍率，另付8预算秒。第二次成功只补足本次累计精力4，失败终结。",
-      "limitation": "普通与专属共用每夜1次；预置、已照护且有共用次数才触发，首次真实失败实际提交时耗1次。主动取消不生成补偿；二次失败无再补偿、无第三次。SAN降0保留已提交精力2，但不新开精度QTE。每次尝试各8预算秒，均需现有安全、阶段和调度边界准入。",
+      "limitation": "普通/专属共用每夜1次；成功提交后统一6世界秒冷却，无效/取消不扣。实际恢复SAN后后续QTE按新值计算；不回改正在进行的QTE。 预置、已照护且有共用次数才触发，首次真实失败实际提交时耗1次。主动取消不生成补偿；二次失败无再补偿、无第三次。SAN降0保留已提交精力2，但不新开精度QTE。每次尝试各8预算秒，均需现有安全、阶段和调度边界准入。",
       "tag": "san_and_recovery_support",
       "acquisition": [
         "shop",
@@ -532,7 +580,9 @@
           }
         ],
         "target_monster_ids": [],
-        "limitation": "实际恢复SAN后后续QTE按新值计算；不回改正在进行的QTE。"
+        "limitation": "实际恢复SAN后后续QTE按新值计算；不回改正在进行的QTE。",
+        "contract_effect_id": "P08.general",
+        "attempt_deadline_world_seconds": 20
       },
       "special_help": [
         {
@@ -568,11 +618,15 @@
           "target_monster_ids": [
             "F31"
           ],
-          "limitation": "预置、已照护且有共用次数才触发，首次真实失败实际提交时耗1次。主动取消不生成补偿；二次失败无再补偿、无第三次。SAN降0保留已提交精力2，但不新开精度QTE。每次尝试各8预算秒，均需现有安全、阶段和调度边界准入。"
+          "limitation": "预置、已照护且有共用次数才触发，首次真实失败实际提交时耗1次。主动取消不生成补偿；二次失败无再补偿、无第三次。SAN降0保留已提交精力2，但不新开精度QTE。每次尝试各8预算秒，均需现有安全、阶段和调度边界准入。",
+          "contract_effect_id": "P08.special"
         }
       ],
       "implementation_cost": "medium",
-      "shared_ability_charge_pool": true
+      "shared_ability_charge_pool": true,
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/P08",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。"
     }
   ],
   "individual_uses_override_baseline": true,
@@ -728,7 +782,12 @@
       "source": "encounter_blueprints.json.objects"
     },
     "startle_blocks_only_new_commands": true,
-    "startle_never_refreshes_charges_or_care": true
+    "startle_never_refreshes_charges_or_care": true,
+    "ordinary_P05_contract": "P05.general_actual_threshold_notice_not_door_timer",
+    "pending_commands_max": 1,
+    "pending_only_reserves_charge": true
   },
-  "temporary_startle_contract": "content/events.json#E070"
+  "temporary_startle_contract": "content/events.json#E070",
+  "auxiliary_effect_contract": "content/auxiliary_effects_v010.json",
+  "auxiliary_client_implemented": false
 }

@@ -107,5 +107,28 @@
     "P08": "content/consumer_closure_v08.json#/f31_p08_rest",
     "A06": "disabled_until_actual_equipment_wear_and_repair_exist",
     "E051": "disabled_in_current_design"
+  },
+  "current_authority_v010": "content/auxiliary_effects_v010.json",
+  "current_replacements_v010": {
+    "I15": "F49同一已合盖热垃圾剩余冷却−10世界秒一次，不作用F13/B06，不自动清运",
+    "P05": "12世界秒已知门线的真实穿越记录；首次有效提醒扣次数，空过不扣，不认证身份",
+    "I20": "F04干保湿盘实际灌水2秒或W08普通污格清洁1秒，二选一同瓶扣一次；不向F28无源造新水"
+  },
+  "spatial_aliases_v010": {
+    "AUX_B07_COLD": {
+      "player_position": [
+        24.5,
+        11.5
+      ],
+      "cut_cell": [
+        24,
+        10
+      ],
+      "from_existing_wet_profile": "WET_COLD",
+      "navigation_changed": false
+    },
+    "Q08": "SO01与SO06逐点实际架设，每点1秒/6体力/2手/1部署位；两点共30电量，来回路程另算",
+    "B04": "复用ATT14实际四窗和各自干侧操作点，绑定同窗真实roof_dive预告；不得生成假的提前过门",
+    "B02": "SO07实体屏线只有真实视线线段相交才生效，F60绕到同侧须重新判定"
   }
 }

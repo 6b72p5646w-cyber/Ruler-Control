@@ -1,5 +1,5 @@
 {
-  "version": "0.7",
+  "version": "0.10",
   "status": "proposal_not_implemented",
   "total": 8,
   "design_origin": "original_convenience_store_helpers",
@@ -61,7 +61,12 @@
     "paperclip_bait_points_use_separate_cap": true,
     "pet_uses_deployment_slot": false,
     "telegraph_extension_contract": "content/auxiliary_targets_v07.json#/telegraph_extension",
-    "telegraph_same_attack_stacking": "同一攻击所有增时按最大总增量，后用只补差；目标失效或没有正差值不消费辅助资源。"
+    "telegraph_same_attack_stacking": "同一攻击所有增时按最大总增量，后用只补差；目标失效或没有正差值不消费辅助资源。",
+    "active_capacity_counts_equipment_lights": true,
+    "Q08_deployment_slots": 2,
+    "duration_clock": "world_simulation_from_first_activation_even_if_recovered",
+    "source_exhaustion_cancels_committed_child": false,
+    "committed_child_policy": "末次照常提交完整效果；源耗尽/回收只关闭新触发。B01减速、B04提示/攻击期限、B08宽限跟各自目标截止；B06直到原箱到期/拆套/完成。连续灯、屏、湿垫仍按自身存续条件。"
   },
   "deployables": [
     {
@@ -71,7 +76,7 @@
       "purchase_price": 18,
       "upgrade_price": 10,
       "operational_lifetime": "2次接触",
-      "description": "在批准的通道插槽放置折叠空纸箱。受影响的地面追逐者进入后移速降至60%，持续2秒；消耗一次接触次数。",
+      "description": "地面追逐F12实际进入1格区时移速×0.6，2世界秒；L1两次，L2三次但架设1→1.5秒。",
       "shared_primitive": "移动速度修正",
       "effect": {
         "type": "on_enter_speed_multiplier",
@@ -87,7 +92,7 @@
       "special_target_monster_ids": [
         "F12"
       ],
-      "limitation": "玩家与顾客正常走过；这是可见缓冲区，不产生阻挡碰撞或改变寻路网格。对飞行F13无效。",
+      "limitation": "每目标触发间隔6世界秒且必须离区再入；玩家/顾客/F13不触发，不挡路。",
       "upgrade_tradeoff": "加固：次数2→3，布置承诺时间1→1.5秒。",
       "implementation_cost": "low",
       "setup_world_seconds": 1,
@@ -99,7 +104,31 @@
       "instances_preserve_remaining_resources": true,
       "may_complete_encounter_goal": false,
       "world_path_graph_mutation": false,
-      "implementation_stage": "prototype_after_shared_deployment"
+      "implementation_stage": "prototype_after_shared_deployment",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/B01",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "numeric_effect_contract_v010": {
+        "radius_tiles": 1,
+        "speed_multiplier": 0.6,
+        "slow_world_seconds": 2,
+        "charges_by_tier": {
+          "L1": 2,
+          "L2": 3
+        },
+        "setup_seconds_by_tier": {
+          "L1": 1,
+          "L2": 1.5
+        },
+        "cooldown_per_target_world_seconds": 6,
+        "allowed_monster_ids": [
+          "F12"
+        ],
+        "requires_exit_and_reentry": true,
+        "blocks_navigation": false,
+        "last_charge_grants_full_effect": true,
+        "source_recovery_cancels_committed_child": false
+      }
     },
     {
       "id": "B02",
@@ -107,20 +136,30 @@
       "socket_type": "sight_screen",
       "purchase_price": 22,
       "upgrade_price": 12,
-      "operational_lifetime": "20秒或1次可挡冲击",
-      "description": "将促销布屏放入固定遮挡槽，遮断通过该槽的规则视线，玩家可在屏后改变朝向或交货。",
+      "operational_lifetime": "L1：20世界秒；L2：15世界秒",
+      "description": "在SO07摆固定线段遮挡屏；只拦实际穿过屏线的F60实体直视，L1长2格持续20秒，L2长3格持续15秒。",
       "shared_primitive": "视线规则过滤",
       "effect": {
         "type": "rule_line_of_sight_occluder",
         "lifetime_seconds": 20,
-        "contact_capacity": 1,
-        "does_not_block_navigation": true
+        "line_segment": [
+          [
+            7.5,
+            18.5
+          ],
+          [
+            7.5,
+            20.5
+          ]
+        ],
+        "does_not_block_navigation": true,
+        "does_not_block_contact": true
       },
       "special_target_monster_ids": [
         "F60"
       ],
-      "limitation": "只影响该方向的视线测试，不阻止追逐者穿过，不作为墙体。不会挡住HUD与互动标记。",
-      "upgrade_tradeoff": "加宽：遮挡角度由45°→60°，持续20→15秒。",
+      "limitation": "不挡接触、不挡F50俯冲、不改导航；默认镜前位置不会凭空受屏保护，必须实际走到屏后。",
+      "upgrade_tradeoff": "加宽：真实屏线长度2→3格，持续20→15世界秒；没有可挡冲击次数。",
       "implementation_cost": "medium",
       "setup_world_seconds": 1,
       "activation_world_seconds": 0.3,
@@ -131,7 +170,51 @@
       "instances_preserve_remaining_resources": true,
       "may_complete_encounter_goal": false,
       "world_path_graph_mutation": false,
-      "implementation_stage": "expansion"
+      "implementation_stage": "expansion",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/B02",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "numeric_effect_contract_v010": {
+        "socket_ids": [
+          "SO07"
+        ],
+        "center": [
+          7.5,
+          19.5
+        ],
+        "line_by_tier": {
+          "L1": [
+            [
+              7.5,
+              18.5
+            ],
+            [
+              7.5,
+              20.5
+            ]
+          ],
+          "L2": [
+            [
+              7.5,
+              18
+            ],
+            [
+              7.5,
+              21
+            ]
+          ]
+        },
+        "lifetime_by_tier_world_seconds": {
+          "L1": 20,
+          "L2": 15
+        },
+        "allowed_rule_consumers": [
+          "F60_direct_gaze"
+        ],
+        "blocks_navigation": false,
+        "blocks_collision_or_F50_dive": false,
+        "actual_segment_intersection_required": true
+      }
     },
     {
       "id": "B03",
@@ -140,7 +223,7 @@
       "purchase_price": 20,
       "upgrade_price": 12,
       "operational_lifetime": "电量30，每秒消耗1",
-      "description": "在固定台面或墙面灯槽启用，照亮3格范围，并在范围内将低SAN黑视的局部可见半径提高0.5格。",
+      "description": "电量30，L1照明3格每秒耗1；L2照明4格每秒耗1.5。范围内黑视可见半径+0.5格。",
       "shared_primitive": "照明与遮罩参数",
       "effect": {
         "type": "local_light_aura",
@@ -158,7 +241,7 @@
         "F02",
         "F60"
       ],
-      "limitation": "改善可见性但不恢复SAN、不直接识别身份；同区多个灯只取较强效果。",
+      "limitation": "只改善当前可见性，SAN不变；同类光效取强，回收/换位不充电。",
       "upgrade_tradeoff": "亮档：范围3→4格，耗电1→1.5每秒。",
       "implementation_cost": "low",
       "setup_world_seconds": 1,
@@ -170,7 +253,30 @@
       "instances_preserve_remaining_resources": true,
       "may_complete_encounter_goal": false,
       "world_path_graph_mutation": false,
-      "implementation_stage": "prototype_after_shared_deployment"
+      "implementation_stage": "prototype_after_shared_deployment",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/B03",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "numeric_effect_contract_v010": {
+        "socket_ids": [
+          "SO01",
+          "SO06"
+        ],
+        "battery_capacity": 30,
+        "radius_by_tier_tiles": {
+          "L1": 3,
+          "L2": 4
+        },
+        "drain_by_tier_per_world_second": {
+          "L1": 1,
+          "L2": 1.5
+        },
+        "san_clear_radius_add_tiles": 0.5,
+        "normal_visibility_cap_tiles": 5,
+        "san_delta": 0,
+        "respect_walls": true,
+        "refill_item": "I06"
+      }
     },
     {
       "id": "B04",
@@ -179,7 +285,7 @@
       "purchase_price": 16,
       "upgrade_price": 8,
       "operational_lifetime": "3次入区触发",
-      "description": "装在固定门框或窗位，对进入触发区的实体提前发出声光提醒；若该实体有合法攻击预告，该次预告增加1秒。",
+      "description": "真实实体首次入1.5格感应区发2秒来源提示；L1三次，L2五次。挂在F50既有窗位时，同窗实际俯冲预告启动可总加1秒/L2总加0.5秒。",
       "shared_primitive": "区域进入触发器",
       "effect": {
         "type": "entry_telegraph_extension",
@@ -191,13 +297,15 @@
         "stacking_policy": "maximum_total_bonus_not_sum",
         "requires_actual_unexpired_telegraph_for_extension": true,
         "clamp_policy": "reject_extension_if_positive_difference_exceeds_phase_or_shift_budget",
-        "no_retroactive_warning": true
+        "no_retroactive_warning": true,
+        "actual_entry_notice_world_seconds": 2,
+        "maximum_entry_notices_per_entity_per_night": 1
       },
       "special_target_monster_ids": [
         "F12",
         "F50"
       ],
-      "limitation": "普通顾客也会触发并耗次数；不显示真伪，不创造不存在的攻击方向信息。 同一预告与I21/P05/P07只取最大总增量，不叠加；未有合法预告只做入区提醒。",
+      "limitation": "普通客也消耗真实提醒次数；同实体每夜最多一次。同攻击只取最大总预告增量；只有预告触发且无正差时不扣，不造计时。",
       "upgrade_tradeoff": "省电档：次数3→5，额外预告1→0.5秒。",
       "implementation_cost": "low",
       "setup_world_seconds": 1,
@@ -209,7 +317,89 @@
       "instances_preserve_remaining_resources": true,
       "may_complete_encounter_goal": false,
       "world_path_graph_mutation": false,
-      "implementation_stage": "expansion"
+      "implementation_stage": "expansion",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/B04",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "numeric_effect_contract_v010": {
+        "radius_tiles": 1.5,
+        "charges_by_tier": {
+          "L1": 3,
+          "L2": 5
+        },
+        "warning_total_bonus_by_tier_world_seconds": {
+          "L1": 1,
+          "L2": 0.5
+        },
+        "ordinary_entry_notice_seconds": 2,
+        "max_entry_notices_per_entity_per_night": 1,
+        "warning_monster_ids": [
+          "F50"
+        ],
+        "warning_action_ids": [
+          "roof_dive"
+        ],
+        "attack_total_cap_world_seconds": 3,
+        "entry_notice_alone_is_valid_effect": true,
+        "no_entry_and_no_valid_warning_consumes_charge": false,
+        "notice_identity_or_hidden_position": false,
+        "accepted_triggers": [
+          "actual_entity_entry",
+          "same_window_actual_roof_dive_telegraph_started"
+        ],
+        "ordinary_socket_ids": [
+          "SO01"
+        ],
+        "F50_socket_aliases": [
+          {
+            "id": "AUX_B04_FRONT_WEST",
+            "object_position": [
+              18.5,
+              29.5
+            ],
+            "player_position": [
+              18.5,
+              30.5
+            ]
+          },
+          {
+            "id": "AUX_B04_FRONT_EAST",
+            "object_position": [
+              22.5,
+              29.5
+            ],
+            "player_position": [
+              22.5,
+              30.5
+            ]
+          },
+          {
+            "id": "AUX_B04_REAR_WEST",
+            "object_position": [
+              23.5,
+              0.5
+            ],
+            "player_position": [
+              23.5,
+              -0.5
+            ]
+          },
+          {
+            "id": "AUX_B04_REAR_EAST",
+            "object_position": [
+              25.5,
+              0.5
+            ],
+            "player_position": [
+              25.5,
+              -0.5
+            ]
+          }
+        ],
+        "telegraph_only_trigger_without_positive_difference_consumes_charge": false,
+        "last_charge_grants_full_effect": true,
+        "source_recovery_cancels_committed_child": false
+      }
     },
     {
       "id": "B05",
@@ -218,7 +408,7 @@
       "purchase_price": 24,
       "upgrade_price": 12,
       "operational_lifetime": "最多装入3份回形针",
-      "description": "先由玩家从货架领取回形针并装盒，再在附近短按投放键，将一份回形针撒到预览的固定诱饵格。",
+      "description": "玩家亲取回形针后0.5秒装一份；距盒1.5格内按0.3秒将一份撒向可见可达点。L1容量3/射程3格，L2容量2/射程4格。",
       "shared_primitive": "生成已知标签诱饵点",
       "effect": {
         "type": "manual_spawn_lure",
@@ -239,7 +429,7 @@
       "special_target_monster_ids": [
         "F12"
       ],
-      "limitation": "不自动连续开火、不凭空产出回形针、不规划出口路线；没有投放盒仍可手动撒回形针。",
+      "limitation": "射程从盒计算，无弹无合法点不扣；不自动撒、不产物、不改F12停食/出界胜利蓝图。",
       "upgrade_tradeoff": "远投档：投放范围3→4格，容量3→2。",
       "implementation_cost": "low",
       "setup_world_seconds": 1,
@@ -251,7 +441,35 @@
       "instances_preserve_remaining_resources": true,
       "may_complete_encounter_goal": false,
       "world_path_graph_mutation": false,
-      "implementation_stage": "prototype_after_shared_deployment"
+      "implementation_stage": "prototype_after_shared_deployment",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/B05",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "numeric_effect_contract_v010": {
+        "socket_ids": [
+          "SO03"
+        ],
+        "capacity_by_tier": {
+          "L1": 3,
+          "L2": 2
+        },
+        "scatter_range_from_device_by_tier_tiles": {
+          "L1": 3,
+          "L2": 4
+        },
+        "player_activation_distance_max_tiles": 1.5,
+        "load_or_unload_one_portion_world_seconds": 0.5,
+        "activation_world_seconds": 0.3,
+        "ammo_source_tag": "paperclip_supply",
+        "bait_tag": "paperclip_bait",
+        "source_action": "player_scatter",
+        "requires_player_fetched": true,
+        "requires_player_confirmed_point": true,
+        "ammo_created": 0,
+        "autofire": false,
+        "line_of_sight_from_device_required": true,
+        "canonical_bait_lifetime_and_max_live_count_unchanged": true
+      }
     },
     {
       "id": "B06",
@@ -260,7 +478,7 @@
       "purchase_price": 20,
       "upgrade_price": 10,
       "operational_lifetime": "1个肉箱，30秒",
-      "description": "在指定包装台把转运套装到玩家选择的生肉任务箱上，减少一半搬运减速，持续30秒。",
+      "description": "为同一肉箱套上后，L1在30世界秒内速度2.6→2.8格/秒；L2在45秒内2.6→2.7。",
       "shared_primitive": "携带负重修正",
       "effect": {
         "type": "carry_penalty_multiplier",
@@ -273,12 +491,14 @@
         "changes_F13_target_state": false,
         "may_mark_freezer_goal_complete": false,
         "task_item_instance_preserved": true,
-        "preserved_item_tag": "encounter_raw_meat_crate"
+        "preserved_item_tag": "encounter_raw_meat_crate",
+        "cold_chain_timer_created": false,
+        "carry_penalty_stack_policy": "strongest_minimum_multiplier"
       },
       "special_target_monster_ids": [
         "F13"
       ],
-      "limitation": "不隐藏生肉标签、不阻止F13触肉变成追杀，不算完成冷冻；玩家仍必须把该肉箱送入冰柜。",
+      "limitation": "各一次，与Q15取更强减速幅度修正，不隐藏肉、不停追杀、不替代入柜合盖；没有额外冷链计时。",
       "upgrade_tradeoff": "加厚档：持续30→45秒，但减速仅减少25%。",
       "implementation_cost": "low",
       "setup_world_seconds": 1,
@@ -290,7 +510,37 @@
       "instances_preserve_remaining_resources": true,
       "may_complete_encounter_goal": false,
       "world_path_graph_mutation": false,
-      "implementation_stage": "prototype_after_shared_deployment"
+      "implementation_stage": "prototype_after_shared_deployment",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/B06",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "numeric_effect_contract_v010": {
+        "socket_ids": [
+          "SO04"
+        ],
+        "charges": 1,
+        "duration_by_tier_world_seconds": {
+          "L1": 30,
+          "L2": 45
+        },
+        "penalty_multiplier_by_tier": {
+          "L1": 0.5,
+          "L2": 0.75
+        },
+        "normal_walk_speed": 3,
+        "baseline_raw_meat_speed": 2.6,
+        "result_speed_by_tier": {
+          "L1": 2.8,
+          "L2": 2.7
+        },
+        "tag": "encounter_raw_meat_crate",
+        "same_meat_instance_preserved": true,
+        "changes_F13_target_state": false,
+        "completes_freezer_goal": false,
+        "cold_chain_timer_created": false,
+        "last_charge_grants_full_effect": true,
+        "actual_sleeve_detach_ends_modifier": true
+      }
     },
     {
       "id": "B07",
@@ -299,18 +549,25 @@
       "purchase_price": 18,
       "upgrade_price": 10,
       "operational_lifetime": "20秒",
-      "description": "放在批准的湿路交接槽，暂时把该处湿连通边标为断开；剩余积水仍保留。",
+      "description": "在WET_COLD既有干侧位[24.5,11.5]过滤割点湿边；L1一边20秒，L2相邻两边12秒。",
       "shared_primitive": "环境边标签",
       "effect": {
         "type": "temporary_disable_environment_edge",
         "edge_tag": "wet_connectivity",
         "duration_seconds": 20,
-        "max_edges": 1
+        "max_edges": 1,
+        "registered_primary_socket_alias": "AUX_B07_COLD",
+        "registered_primary_position": [
+          24.5,
+          11.5
+        ],
+        "registered_wet_region": "WET_COLD",
+        "placement_range_tiles": 1.5
       },
       "special_target_monster_ids": [
         "F05"
       ],
-      "limitation": "不是物理水模拟，不删除全场积水；已承诺给F57的通水路线不可部署在必需边上。",
+      "limitation": "只暂停湿连通，不删除水或货物；F05仍须亲手移回篮，F57保护水路禁用；回收即恢复本件过滤。",
       "upgrade_tradeoff": "宽垫：同时断开相邻2条边，持续20→12秒。",
       "implementation_cost": "medium",
       "setup_world_seconds": 1,
@@ -322,7 +579,69 @@
       "instances_preserve_remaining_resources": true,
       "may_complete_encounter_goal": false,
       "world_path_graph_mutation": false,
-      "implementation_stage": "expansion"
+      "implementation_stage": "expansion",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/B07",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "numeric_effect_contract_v010": {
+        "primary_socket_alias": "AUX_B07_COLD",
+        "primary_position": [
+          24.5,
+          11.5
+        ],
+        "wet_region": "WET_COLD",
+        "cut_cell": [
+          24,
+          10
+        ],
+        "L1_edges": [
+          [
+            [
+              23,
+              10
+            ],
+            [
+              24,
+              10
+            ]
+          ]
+        ],
+        "L2_edges": [
+          [
+            [
+              23,
+              10
+            ],
+            [
+              24,
+              10
+            ]
+          ],
+          [
+            [
+              24,
+              10
+            ],
+            [
+              25,
+              10
+            ]
+          ]
+        ],
+        "edges_by_tier": {
+          "L1": 1,
+          "L2": 2
+        },
+        "duration_by_tier_world_seconds": {
+          "L1": 20,
+          "L2": 12
+        },
+        "max_range_tiles": 1.5,
+        "recovery_restores_filtered_edges": true,
+        "deletes_water_or_drains_component": false,
+        "protected_F57_edge_eligible": false,
+        "requires_real_basket_transfer_for_F05_success": true
+      }
     },
     {
       "id": "B08",
@@ -331,7 +650,7 @@
       "purchase_price": 24,
       "upgrade_price": 12,
       "operational_lifetime": "1次挡击",
-      "description": "装在柜台的固定防护点；玩家处于其1格范围时，吸收一次匹配的接触攻击，并给出3秒撤离宽限，随后损坏。",
+      "description": "SO02柜台范围内拦截一次尚未结算的F12/F13接触；L1半径1格、撤离宽限3秒，L2半径1.5格、宽限2秒。",
       "shared_primitive": "一次性攻击拦截",
       "effect": {
         "type": "absorb_contact_once",
@@ -341,13 +660,15 @@
         "does_not_clear_chase": true,
         "stacking_group": "contact_absorb",
         "one_interceptor_per_contact": true,
-        "cannot_refresh_same_effect_instance": true
+        "cannot_refresh_same_effect_instance": true,
+        "grace_scope": "all_monster_hitboxes",
+        "grace_deadline_policy": "maximum_existing_or_new_deadline_not_sum"
       },
       "special_target_monster_ids": [
         "F12",
         "F13"
       ],
-      "limitation": "不阻挡路径、不清除追逐或怪物，不可在攻击碰撞已经结算后补按；多个护垫不叠加同一次攻击。",
+      "limitation": "触发后损坏不可修，不清追逐或规则；已有宽限期间不重复扣，无效点击不补救已结算受击。",
       "upgrade_tradeoff": "宽护档：半径1→1.5格，撤离宽限3→2秒。",
       "implementation_cost": "low",
       "setup_world_seconds": 1,
@@ -359,7 +680,35 @@
       "instances_preserve_remaining_resources": true,
       "may_complete_encounter_goal": false,
       "world_path_graph_mutation": false,
-      "implementation_stage": "expansion"
+      "implementation_stage": "expansion",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/B08",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "numeric_effect_contract_v010": {
+        "socket_ids": [
+          "SO02"
+        ],
+        "charges": 1,
+        "radius_by_tier_tiles": {
+          "L1": 1,
+          "L2": 1.5
+        },
+        "escape_grace_by_tier_world_seconds": {
+          "L1": 3,
+          "L2": 2
+        },
+        "allowed_monster_ids": [
+          "F12",
+          "F13"
+        ],
+        "absorbs_san_contact_and_same_contact_minor_injury": true,
+        "grace_scope": "all_monster_hitboxes",
+        "grace_formula": "max(existing_grace_deadline,now+selected_tier_grace)",
+        "clears_chase": false,
+        "repairs_allowed": false,
+        "last_charge_grants_full_effect": true,
+        "source_recovery_cancels_committed_child": false
+      }
     }
   ],
   "implementation_budget": {
@@ -394,5 +743,7 @@
       "每件道具一套独立交互UI"
     ],
     "cost_note": "低/中代表复用上述模块时的相对成本，尚未估算人日；总量应分批实现。"
-  }
+  },
+  "auxiliary_effect_contract": "content/auxiliary_effects_v010.json",
+  "auxiliary_client_implemented": false
 }

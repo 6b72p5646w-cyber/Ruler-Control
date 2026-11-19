@@ -1,0 +1,3095 @@
+{
+  "version": "0.10",
+  "status": "PASS",
+  "checks": 1358,
+  "event_count": 72,
+  "current_events": 71,
+  "composition_catalog": 18,
+  "current_compositions": 13,
+  "probes": [
+    {
+      "id": "E035_old_manager_escort_exceeds_late_window",
+      "old_route_seconds": 10.666666666666666,
+      "available_seconds": 6,
+      "old_plan_allowed": false
+    },
+    {
+      "id": "E035_actual_visitor_leaves_manager_stays",
+      "allowed": true,
+      "reasons": [],
+      "elapsed_seconds": 6.0,
+      "manager_extra_route_tiles": 0,
+      "player_extra_route_tiles": 0,
+      "scope": "Actual fixed public exit route with supplied current actor evidence; no actor movement or handover mutation."
+    },
+    {
+      "id": "E035_closed_front_door_no_teleport",
+      "allowed": false,
+      "reasons": [
+        "actual_open_safe_public_exit_required"
+      ],
+      "elapsed_seconds": null,
+      "manager_extra_route_tiles": 0,
+      "player_extra_route_tiles": 0,
+      "scope": "Actual fixed public exit route with supplied current actor evidence; no actor movement or handover mutation."
+    },
+    {
+      "id": "E035_unsafe_public_exit_no_teleport",
+      "allowed": false,
+      "reasons": [
+        "actual_open_safe_public_exit_required"
+      ],
+      "elapsed_seconds": null,
+      "manager_extra_route_tiles": 0,
+      "player_extra_route_tiles": 0,
+      "scope": "Actual fixed public exit route with supplied current actor evidence; no actor movement or handover mutation."
+    },
+    {
+      "id": "E035_remote_player_not_instantly_at_desk",
+      "allowed": false,
+      "reasons": [
+        "player_and_handover_reservation_required_before_offer"
+      ],
+      "elapsed_seconds": null,
+      "manager_extra_route_tiles": 0,
+      "player_extra_route_tiles": 0,
+      "scope": "Actual fixed public exit route with supplied current actor evidence; no actor movement or handover mutation."
+    },
+    {
+      "id": "E035_after_last_safe_start",
+      "allowed": false,
+      "reasons": [
+        "outside_E035_offer_window"
+      ],
+      "elapsed_seconds": null,
+      "manager_extra_route_tiles": 0,
+      "player_extra_route_tiles": 0,
+      "scope": "Actual fixed public exit route with supplied current actor evidence; no actor movement or handover mutation."
+    },
+    {
+      "id": "E035_first_notice_at_last_action_start_is_too_late",
+      "allowed": false,
+      "reasons": [
+        "late_or_missing_first_omen"
+      ],
+      "elapsed_seconds": null,
+      "manager_extra_route_tiles": 0,
+      "player_extra_route_tiles": 0,
+      "scope": "Actual fixed public exit route with supplied current actor evidence; no actor movement or handover mutation."
+    },
+    {
+      "id": "E035_no_instant_reaction_assumption",
+      "allowed": false,
+      "reasons": [
+        "recognition_preparation_margin_missing"
+      ],
+      "elapsed_seconds": null,
+      "manager_extra_route_tiles": 0,
+      "player_extra_route_tiles": 0,
+      "scope": "Actual fixed public exit route with supplied current actor evidence; no actor movement or handover mutation."
+    },
+    {
+      "id": "E035_manager_actually_escorted_away",
+      "allowed": false,
+      "reasons": [
+        "current_verified_manager_must_stay_at_desk"
+      ],
+      "elapsed_seconds": null,
+      "manager_extra_route_tiles": 0,
+      "player_extra_route_tiles": 0,
+      "scope": "Actual fixed public exit route with supplied current actor evidence; no actor movement or handover mutation."
+    },
+    {
+      "id": "E045:B1_manual_1_original_debts",
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 24.0,
+      "remaining_seconds": 120,
+      "route_rows": [
+        {
+          "operation": "E045:B1:O1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O2:original_due_loan_0",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O3",
+          "tiles": 0,
+          "seconds": 8.0
+        }
+      ],
+      "unique_operation_count": 3,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "E045:B1_manual_1_debts_001_late",
+      "allowed": false,
+      "reasons": [
+        "insufficient_actual_phase_budget"
+      ],
+      "measured_plan_seconds": 24.0,
+      "remaining_seconds": 23.99,
+      "route_rows": [
+        {
+          "operation": "E045:B1:O1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O2:original_due_loan_0",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O3",
+          "tiles": 0,
+          "seconds": 8.0
+        }
+      ],
+      "unique_operation_count": 3,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "E045:B1_manual_1_debts_missing_source",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:original_due_loan_0"
+      ],
+      "measured_plan_seconds": 24.0,
+      "remaining_seconds": 120,
+      "route_rows": [
+        {
+          "operation": "E045:B1:O1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O2:original_due_loan_0",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O3",
+          "tiles": 0,
+          "seconds": 8.0
+        }
+      ],
+      "unique_operation_count": 3,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "E045:B1_manual_2_original_debts",
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 32.0,
+      "remaining_seconds": 120,
+      "route_rows": [
+        {
+          "operation": "E045:B1:O1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O2:original_due_loan_0",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O2:original_due_loan_1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O3",
+          "tiles": 0,
+          "seconds": 8.0
+        }
+      ],
+      "unique_operation_count": 4,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "E045:B1_manual_2_debts_001_late",
+      "allowed": false,
+      "reasons": [
+        "insufficient_actual_phase_budget"
+      ],
+      "measured_plan_seconds": 32.0,
+      "remaining_seconds": 31.99,
+      "route_rows": [
+        {
+          "operation": "E045:B1:O1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O2:original_due_loan_0",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O2:original_due_loan_1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O3",
+          "tiles": 0,
+          "seconds": 8.0
+        }
+      ],
+      "unique_operation_count": 4,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "E045:B1_manual_2_debts_missing_source",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:original_due_loan_1"
+      ],
+      "measured_plan_seconds": 32.0,
+      "remaining_seconds": 120,
+      "route_rows": [
+        {
+          "operation": "E045:B1:O1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O2:original_due_loan_0",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O2:original_due_loan_1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O3",
+          "tiles": 0,
+          "seconds": 8.0
+        }
+      ],
+      "unique_operation_count": 4,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "E045:B1_manual_3_original_debts",
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 40.0,
+      "remaining_seconds": 120,
+      "route_rows": [
+        {
+          "operation": "E045:B1:O1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O2:original_due_loan_0",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O2:original_due_loan_1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O2:original_due_loan_2",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O3",
+          "tiles": 0,
+          "seconds": 8.0
+        }
+      ],
+      "unique_operation_count": 5,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "E045:B1_manual_3_debts_001_late",
+      "allowed": false,
+      "reasons": [
+        "insufficient_actual_phase_budget"
+      ],
+      "measured_plan_seconds": 40.0,
+      "remaining_seconds": 39.99,
+      "route_rows": [
+        {
+          "operation": "E045:B1:O1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O2:original_due_loan_0",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O2:original_due_loan_1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O2:original_due_loan_2",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O3",
+          "tiles": 0,
+          "seconds": 8.0
+        }
+      ],
+      "unique_operation_count": 5,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "E045:B1_manual_3_debts_missing_source",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:original_due_loan_2"
+      ],
+      "measured_plan_seconds": 40.0,
+      "remaining_seconds": 120,
+      "route_rows": [
+        {
+          "operation": "E045:B1:O1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O2:original_due_loan_0",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O2:original_due_loan_1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O2:original_due_loan_2",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B1:O3",
+          "tiles": 0,
+          "seconds": 8.0
+        }
+      ],
+      "unique_operation_count": 5,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "E045:B2_manual_1_original_debts",
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 24.0,
+      "remaining_seconds": 120,
+      "route_rows": [
+        {
+          "operation": "E045:B2:O1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O2:original_due_loan_0",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O3",
+          "tiles": 0,
+          "seconds": 8.0
+        }
+      ],
+      "unique_operation_count": 3,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "E045:B2_manual_1_debts_001_late",
+      "allowed": false,
+      "reasons": [
+        "insufficient_actual_phase_budget"
+      ],
+      "measured_plan_seconds": 24.0,
+      "remaining_seconds": 23.99,
+      "route_rows": [
+        {
+          "operation": "E045:B2:O1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O2:original_due_loan_0",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O3",
+          "tiles": 0,
+          "seconds": 8.0
+        }
+      ],
+      "unique_operation_count": 3,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "E045:B2_manual_1_debts_missing_source",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:original_due_loan_0"
+      ],
+      "measured_plan_seconds": 24.0,
+      "remaining_seconds": 120,
+      "route_rows": [
+        {
+          "operation": "E045:B2:O1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O2:original_due_loan_0",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O3",
+          "tiles": 0,
+          "seconds": 8.0
+        }
+      ],
+      "unique_operation_count": 3,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "E045:B2_manual_2_original_debts",
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 32.0,
+      "remaining_seconds": 120,
+      "route_rows": [
+        {
+          "operation": "E045:B2:O1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O2:original_due_loan_0",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O2:original_due_loan_1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O3",
+          "tiles": 0,
+          "seconds": 8.0
+        }
+      ],
+      "unique_operation_count": 4,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "E045:B2_manual_2_debts_001_late",
+      "allowed": false,
+      "reasons": [
+        "insufficient_actual_phase_budget"
+      ],
+      "measured_plan_seconds": 32.0,
+      "remaining_seconds": 31.99,
+      "route_rows": [
+        {
+          "operation": "E045:B2:O1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O2:original_due_loan_0",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O2:original_due_loan_1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O3",
+          "tiles": 0,
+          "seconds": 8.0
+        }
+      ],
+      "unique_operation_count": 4,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "E045:B2_manual_2_debts_missing_source",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:original_due_loan_1"
+      ],
+      "measured_plan_seconds": 32.0,
+      "remaining_seconds": 120,
+      "route_rows": [
+        {
+          "operation": "E045:B2:O1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O2:original_due_loan_0",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O2:original_due_loan_1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O3",
+          "tiles": 0,
+          "seconds": 8.0
+        }
+      ],
+      "unique_operation_count": 4,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "E045:B2_manual_3_original_debts",
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 40.0,
+      "remaining_seconds": 120,
+      "route_rows": [
+        {
+          "operation": "E045:B2:O1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O2:original_due_loan_0",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O2:original_due_loan_1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O2:original_due_loan_2",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O3",
+          "tiles": 0,
+          "seconds": 8.0
+        }
+      ],
+      "unique_operation_count": 5,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "E045:B2_manual_3_debts_001_late",
+      "allowed": false,
+      "reasons": [
+        "insufficient_actual_phase_budget"
+      ],
+      "measured_plan_seconds": 40.0,
+      "remaining_seconds": 39.99,
+      "route_rows": [
+        {
+          "operation": "E045:B2:O1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O2:original_due_loan_0",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O2:original_due_loan_1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O2:original_due_loan_2",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O3",
+          "tiles": 0,
+          "seconds": 8.0
+        }
+      ],
+      "unique_operation_count": 5,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "E045:B2_manual_3_debts_missing_source",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:original_due_loan_2"
+      ],
+      "measured_plan_seconds": 40.0,
+      "remaining_seconds": 120,
+      "route_rows": [
+        {
+          "operation": "E045:B2:O1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O2:original_due_loan_0",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O2:original_due_loan_1",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O2:original_due_loan_2",
+          "tiles": 0,
+          "seconds": 8.0
+        },
+        {
+          "operation": "E045:B2:O3",
+          "tiles": 0,
+          "seconds": 8.0
+        }
+      ],
+      "unique_operation_count": 5,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "salvage_60_42",
+      "result": 8,
+      "scope": "published quote arithmetic; transaction persistence remains adapter work"
+    },
+    {
+      "id": "salvage_15_12",
+      "result": 2,
+      "scope": "published quote arithmetic; transaction persistence remains adapter work"
+    },
+    {
+      "id": "salvage_60_6",
+      "result": 1,
+      "scope": "published quote arithmetic; transaction persistence remains adapter work"
+    },
+    {
+      "id": "salvage_60_None",
+      "result": 12,
+      "scope": "published quote arithmetic; transaction persistence remains adapter work"
+    },
+    {
+      "id": "salvage_10_1",
+      "result": 0,
+      "scope": "published quote arithmetic; transaction persistence remains adapter work"
+    },
+    {
+      "id": "measured_existing_two_station_delivery",
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "route_budget_one_centisecond_short",
+      "allowed": false,
+      "reasons": [
+        "insufficient_actual_phase_budget"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 47.606667,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "missing_history_does_not_materialize",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:prepared_order"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "expired_source_not_old_snapshot",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:prepared_order"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "already_spawned_one_primary",
+      "allowed": false,
+      "reasons": [
+        "more_than_one_new_primary"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "second_pursuer_rejected",
+      "allowed": false,
+      "reasons": [
+        "second_active_pursuer"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "san_is_the_third_constraint",
+      "allowed": false,
+      "reasons": [
+        "more_than_two_constraints:same_box_place"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "two_names_same_physical_slot",
+      "allowed": false,
+      "reasons": [
+        "duplicate_physical_slot:TRAY_A"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "same_original_box_not_two_units",
+      "allowed": false,
+      "reasons": [
+        "insufficient_same_object:ORIGINAL_BOX"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "F36_cannot_consume_F53_preserved_bottle",
+      "allowed": false,
+      "reasons": [
+        "other_obligation_reserved_object:PRESERVED_WATER"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "same_work_credit_once",
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "same_label_different_box_not_free",
+      "allowed": false,
+      "reasons": [
+        "contradictory_shared_operation:same_box_take"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "actual_closed_door_route",
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 48.283333,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 42,
+          "seconds": 14.6
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S01_causal_admission_shape",
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S01_remove_F05_actual_wet_cold",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:F05_actual_wet_cold"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S01_remove_E010_actual_front_rain",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:E010_actual_front_rain"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S02_causal_admission_shape",
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S02_remove_F05_N03_actual_unresolved_instance",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:F05_N03_actual_unresolved_instance"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S02_remove_F57_N04_actual_unaccepted_offer",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:F57_N04_actual_unaccepted_offer"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S02_remove_WET_COLD_and_WET_REAR_distinct_source_ids",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:WET_COLD_and_WET_REAR_distinct_source_ids"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S02_remove_CTRL_COLD_BRANCH_and_CTRL_REAR_SOURCE_distinct_controls",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:CTRL_COLD_BRANCH_and_CTRL_REAR_SOURCE_distinct_controls"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S03_causal_admission_shape",
+      "allowed": false,
+      "reasons": [
+        "archived_or_disabled"
+      ],
+      "world_unchanged": true
+    },
+    {
+      "id": "S04_causal_admission_shape",
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S04_remove_F13_same_meat_unstored",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:F13_same_meat_unstored"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S04_remove_E012_existing_water_pickup_order",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:E012_existing_water_pickup_order"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S05_causal_admission_shape",
+      "allowed": false,
+      "reasons": [
+        "archived_or_disabled"
+      ],
+      "world_unchanged": true
+    },
+    {
+      "id": "S06_causal_admission_shape",
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S06_remove_F12_actual_omen",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:F12_actual_omen"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S06_remove_actual_held_noncritical_old_tool",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:actual_held_noncritical_old_tool"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S06_remove_packing_existing_empty_tray",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:packing_existing_empty_tray"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S07_causal_admission_shape",
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S07_remove_F16_actual_open_cash",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:F16_actual_open_cash"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S07_remove_E002_same_jammed_drawer",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:E002_same_jammed_drawer"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S07_remove_same_cash_records",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:same_cash_records"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S08_causal_admission_shape",
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S08_remove_F21_prior_observed_root",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:F21_prior_observed_root"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S08_remove_F38_current_body",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:F38_current_body"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S08_remove_independent_second_domain",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:independent_second_domain"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S08_remove_unbroken_current_body_chain",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:unbroken_current_body_chain"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S09_causal_admission_shape",
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S09_remove_F38_N05_current_body",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:F38_N05_current_body"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S09_remove_same_actual_N04_ordinary_cleaning_task",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:same_actual_N04_ordinary_cleaning_task"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S09_remove_same_unexpired_N05_carryover_debt",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:same_unexpired_N05_carryover_debt"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S09_remove_same_visible_uncleaned_back_shelf_cell",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:same_visible_uncleaned_back_shelf_cell"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S10_causal_admission_shape",
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S10_remove_F31_actual_offer",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:F31_actual_offer"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S10_remove_energy_below_25",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:energy_below_25"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S10_remove_real_service_coverage_or_no_active_orders",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:real_service_coverage_or_no_active_orders"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S11_causal_admission_shape",
+      "allowed": false,
+      "reasons": [
+        "archived_or_disabled"
+      ],
+      "world_unchanged": true
+    },
+    {
+      "id": "S12_causal_admission_shape",
+      "allowed": false,
+      "reasons": [
+        "archived_or_disabled"
+      ],
+      "world_unchanged": true
+    },
+    {
+      "id": "S13_causal_admission_shape",
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S13_remove_F24_actual_visit",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:F24_actual_visit"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S13_remove_E010_ordinary_rain",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:E010_ordinary_rain"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S13_remove_existing_dry_trace_pad",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:existing_dry_trace_pad"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S14_causal_admission_shape",
+      "allowed": false,
+      "reasons": [
+        "archived_or_disabled"
+      ],
+      "world_unchanged": true
+    },
+    {
+      "id": "S15_causal_admission_shape",
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S15_remove_F53_actual_fixed_six_bottles",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:F53_actual_fixed_six_bottles"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S15_remove_E015_active_outage",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:E015_active_outage"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S15_remove_separate_personal_and_required_water",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:separate_personal_and_required_water"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S16_causal_admission_shape",
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S16_remove_F59_actual_work_offer",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:F59_actual_work_offer"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S16_remove_E019_same_actual_damaged_component_fault_id",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:E019_same_actual_damaged_component_fault_id"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S16_remove_same_registered_optional_device_exists_and_is_damaged",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:same_registered_optional_device_exists_and_is_damaged"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S16_remove_three_existing_unreserved_repair_material_units",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:three_existing_unreserved_repair_material_units"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S16_remove_three_existing_construction_slots",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:three_existing_construction_slots"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S16_remove_original_fault_device_install_position",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:original_fault_device_install_position"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S17_causal_admission_shape",
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S17_remove_F53_N01_actual_promise",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:F53_N01_actual_promise"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S17_remove_same_two_preserved_bottles",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:same_two_preserved_bottles"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S17_remove_F36_N02_actual_offer",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:F36_N02_actual_offer"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S17_remove_three_distinct_existing_slot_ids",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:three_distinct_existing_slot_ids"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S18_causal_admission_shape",
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S18_remove_F42_actual_pressure_cycle",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:F42_actual_pressure_cycle"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S18_remove_E010_ordinary_rain",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:E010_ordinary_rain"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    },
+    {
+      "id": "S18_remove_actual_independent_pressure_gauge",
+      "allowed": false,
+      "reasons": [
+        "missing_actual_source:actual_independent_pressure_gauge"
+      ],
+      "measured_plan_seconds": 47.616667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "same_box_take",
+          "tiles": 40,
+          "seconds": 13.933333
+        },
+        {
+          "operation": "same_box_place",
+          "tiles": 29,
+          "seconds": 12.683333
+        }
+      ],
+      "unique_operation_count": 2,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution."
+    }
+  ],
+  "composition_route_witnesses": [
+    {
+      "id": "S01",
+      "model_actions": 7,
+      "recovery_reservation_seconds": 8,
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 57.066667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "F05:take_cloth",
+          "tiles": 35,
+          "seconds": 12.666667
+        },
+        {
+          "operation": "F05:close_valve",
+          "tiles": 12,
+          "seconds": 4.5
+        },
+        {
+          "operation": "F05:wipe_cut",
+          "tiles": 4,
+          "seconds": 3.333333
+        },
+        {
+          "operation": "F05:take_basket",
+          "tiles": 1,
+          "seconds": 0.933333
+        },
+        {
+          "operation": "F05:place_dry",
+          "tiles": 2,
+          "seconds": 1.433333
+        },
+        {
+          "operation": "F05:confirm_disconnect",
+          "tiles": 0,
+          "seconds": 0.2
+        },
+        {
+          "operation": "E010:B1:O1",
+          "tiles": 27,
+          "seconds": 13.0
+        }
+      ],
+      "unique_operation_count": 7,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution.",
+      "if_not_allowed": "必须按当时真实位置/已完成进度重算；仍不够就延期该组合，不添加时间或新源。"
+    },
+    {
+      "id": "S02",
+      "model_actions": 14,
+      "recovery_reservation_seconds": 17.333333,
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 68.45,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "F05:take_cloth",
+          "tiles": 35,
+          "seconds": 12.666667
+        },
+        {
+          "operation": "F05:close_valve",
+          "tiles": 12,
+          "seconds": 4.5
+        },
+        {
+          "operation": "F05:wipe_cut",
+          "tiles": 4,
+          "seconds": 3.333333
+        },
+        {
+          "operation": "F05:take_basket",
+          "tiles": 1,
+          "seconds": 0.933333
+        },
+        {
+          "operation": "F05:place_dry",
+          "tiles": 2,
+          "seconds": 1.433333
+        },
+        {
+          "operation": "F05:confirm_disconnect",
+          "tiles": 0,
+          "seconds": 0.2
+        },
+        {
+          "operation": "F57:clear_real_debris",
+          "tiles": 19,
+          "seconds": 7.833333
+        },
+        {
+          "operation": "F57:pause_local",
+          "tiles": 0,
+          "seconds": 0.5
+        },
+        {
+          "operation": "F57:place_bridge",
+          "tiles": 1,
+          "seconds": 0.933333
+        },
+        {
+          "operation": "F57:take_box",
+          "tiles": 2,
+          "seconds": 1.266667
+        },
+        {
+          "operation": "F57:cross_place",
+          "tiles": 4,
+          "seconds": 1.916667
+        },
+        {
+          "operation": "F57:remove_bridge",
+          "tiles": 2,
+          "seconds": 1.266667
+        },
+        {
+          "operation": "F57:restore_flow",
+          "tiles": 1,
+          "seconds": 0.833333
+        },
+        {
+          "operation": "F57:claim_maintenance",
+          "tiles": 0,
+          "seconds": 0.5
+        }
+      ],
+      "unique_operation_count": 14,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution.",
+      "if_not_allowed": "必须按当时真实位置/已完成进度重算；仍不够就延期该组合，不添加时间或新源。"
+    },
+    {
+      "id": "S04",
+      "model_actions": 3,
+      "recovery_reservation_seconds": 10.35,
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 46.908974,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "F13:take_meat",
+          "tiles": 34,
+          "seconds": 11.933333
+        },
+        {
+          "operation": "F13:store_close",
+          "tiles": 20,
+          "seconds": 8.292308
+        },
+        {
+          "operation": "E012:B1:O1",
+          "tiles": 4,
+          "seconds": 3.333333
+        }
+      ],
+      "unique_operation_count": 3,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution.",
+      "if_not_allowed": "必须按当时真实位置/已完成进度重算；仍不够就延期该组合，不添加时间或新源。"
+    },
+    {
+      "id": "S06",
+      "model_actions": 10,
+      "recovery_reservation_seconds": 8,
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 60.533333,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "S06_place_original_tool",
+          "tiles": 33,
+          "seconds": 11.5
+        },
+        {
+          "operation": "F12:take_clips",
+          "tiles": 23,
+          "seconds": 8.666667
+        },
+        {
+          "operation": "F12:scatter1",
+          "tiles": 5,
+          "seconds": 1.916667
+        },
+        {
+          "operation": "F12:wait_node1",
+          "tiles": 0,
+          "seconds": 3.7
+        },
+        {
+          "operation": "F12:scatter2",
+          "tiles": 5,
+          "seconds": 1.916667
+        },
+        {
+          "operation": "F12:wait_node2",
+          "tiles": 0,
+          "seconds": 3.7
+        },
+        {
+          "operation": "F12:scatter3",
+          "tiles": 4,
+          "seconds": 1.583333
+        },
+        {
+          "operation": "F12:wait_node3",
+          "tiles": 0,
+          "seconds": 3.7
+        },
+        {
+          "operation": "F12:scatter4",
+          "tiles": 3,
+          "seconds": 1.25
+        },
+        {
+          "operation": "F12:exit_hold",
+          "tiles": 0,
+          "seconds": 1.6
+        }
+      ],
+      "unique_operation_count": 10,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution.",
+      "if_not_allowed": "必须按当时真实位置/已完成进度重算；仍不够就延期该组合，不添加时间或新源。"
+    },
+    {
+      "id": "S07",
+      "model_actions": 8,
+      "recovery_reservation_seconds": 8,
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 39.0,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "F16:seal_till",
+          "tiles": 0,
+          "seconds": 1.0
+        },
+        {
+          "operation": "F16:place_test_coin",
+          "tiles": 0,
+          "seconds": 0.5
+        },
+        {
+          "operation": "F16:trace1",
+          "tiles": 6,
+          "seconds": 2.5
+        },
+        {
+          "operation": "F16:trace2",
+          "tiles": 1,
+          "seconds": 0.833333
+        },
+        {
+          "operation": "F16:trace3",
+          "tiles": 3,
+          "seconds": 1.5
+        },
+        {
+          "operation": "F16:recover_coins",
+          "tiles": 11,
+          "seconds": 4.666667
+        },
+        {
+          "operation": "F16:bag_return",
+          "tiles": 15,
+          "seconds": 6.0
+        },
+        {
+          "operation": "E002:B1:O1",
+          "tiles": 0,
+          "seconds": 1.0
+        }
+      ],
+      "unique_operation_count": 8,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution.",
+      "if_not_allowed": "必须按当时真实位置/已完成进度重算；仍不够就延期该组合，不添加时间或新源。"
+    },
+    {
+      "id": "S08",
+      "model_actions": 8,
+      "recovery_reservation_seconds": 8,
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 62.75,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "F38:read_work_receipts",
+          "tiles": 33,
+          "seconds": 15.25
+        },
+        {
+          "operation": "F38:read_independent_roster",
+          "tiles": 2,
+          "seconds": 2.333333
+        },
+        {
+          "operation": "F38:observe_current_private",
+          "tiles": 46,
+          "seconds": 16.833333
+        },
+        {
+          "operation": "F38:observe_current_body",
+          "tiles": 0,
+          "seconds": 1.5
+        },
+        {
+          "operation": "F38:commit_current_check",
+          "tiles": 0,
+          "seconds": 0.0
+        },
+        {
+          "operation": "F38:see_second_arrive",
+          "tiles": 0,
+          "seconds": 3.333333
+        },
+        {
+          "operation": "F38:separate_bodies",
+          "tiles": 0,
+          "seconds": 1.0
+        },
+        {
+          "operation": "F38:grant_tracked_body",
+          "tiles": 0,
+          "seconds": 1.5
+        }
+      ],
+      "unique_operation_count": 8,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution.",
+      "if_not_allowed": "必须按当时真实位置/已完成进度重算；仍不够就延期该组合，不添加时间或新源。"
+    },
+    {
+      "id": "S09",
+      "model_actions": 9,
+      "recovery_reservation_seconds": 8,
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 76.416667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "F38:read_work_receipts",
+          "tiles": 33,
+          "seconds": 15.25
+        },
+        {
+          "operation": "F38:read_independent_roster",
+          "tiles": 2,
+          "seconds": 2.333333
+        },
+        {
+          "operation": "F38:observe_current_private",
+          "tiles": 46,
+          "seconds": 16.833333
+        },
+        {
+          "operation": "F38:observe_current_body",
+          "tiles": 0,
+          "seconds": 1.5
+        },
+        {
+          "operation": "F38:commit_current_check",
+          "tiles": 0,
+          "seconds": 0.0
+        },
+        {
+          "operation": "F38:see_second_arrive",
+          "tiles": 0,
+          "seconds": 3.333333
+        },
+        {
+          "operation": "F38:separate_bodies",
+          "tiles": 0,
+          "seconds": 1.0
+        },
+        {
+          "operation": "F38:grant_tracked_body",
+          "tiles": 0,
+          "seconds": 1.5
+        },
+        {
+          "operation": "same_carried_N04_dirt",
+          "tiles": 32,
+          "seconds": 13.666667
+        }
+      ],
+      "unique_operation_count": 9,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution.",
+      "if_not_allowed": "必须按当时真实位置/已完成进度重算；仍不够就延期该组合，不添加时间或新源。"
+    },
+    {
+      "id": "S10",
+      "model_actions": 3,
+      "recovery_reservation_seconds": 8,
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 40.833333,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "F31:prepare_alarm",
+          "tiles": 22,
+          "seconds": 8.833333
+        },
+        {
+          "operation": "F31:sit_prepared",
+          "tiles": 6,
+          "seconds": 3.0
+        },
+        {
+          "operation": "F31:wake_first_hit",
+          "tiles": 0,
+          "seconds": 8.0
+        }
+      ],
+      "unique_operation_count": 3,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution.",
+      "if_not_allowed": "必须按当时真实位置/已完成进度重算；仍不够就延期该组合，不添加时间或新源。"
+    },
+    {
+      "id": "S13",
+      "model_actions": 5,
+      "recovery_reservation_seconds": 8,
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 59.533333,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "F24:take_cloth",
+          "tiles": 35,
+          "seconds": 12.666667
+        },
+        {
+          "operation": "F24:cut_water",
+          "tiles": 15,
+          "seconds": 7.0
+        },
+        {
+          "operation": "F24:take_cargo",
+          "tiles": 2,
+          "seconds": 1.266667
+        },
+        {
+          "operation": "F24:place_dry",
+          "tiles": 0,
+          "seconds": 0.6
+        },
+        {
+          "operation": "E010:B1:O1",
+          "tiles": 39,
+          "seconds": 17.0
+        }
+      ],
+      "unique_operation_count": 5,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution.",
+      "if_not_allowed": "必须按当时真实位置/已完成进度重算；仍不够就延期该组合，不添加时间或新源。"
+    },
+    {
+      "id": "S15",
+      "model_actions": 10,
+      "recovery_reservation_seconds": 8,
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 82.25,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "F53:accept_promise",
+          "tiles": 17,
+          "seconds": 6.666667
+        },
+        {
+          "operation": "F53:take_pair",
+          "tiles": 0,
+          "seconds": 3.0
+        },
+        {
+          "operation": "F53:place_a",
+          "tiles": 0,
+          "seconds": 1.5
+        },
+        {
+          "operation": "F53:place_b",
+          "tiles": 0,
+          "seconds": 1.5
+        },
+        {
+          "operation": "F53:seal_pair",
+          "tiles": 0,
+          "seconds": 2.0
+        },
+        {
+          "operation": "F53:take_saleable_four",
+          "tiles": 0,
+          "seconds": 6.0
+        },
+        {
+          "operation": "F53:place_saleable_four",
+          "tiles": 23,
+          "seconds": 15.583333
+        },
+        {
+          "operation": "F53:take_shift_records",
+          "tiles": 14,
+          "seconds": 6.166667
+        },
+        {
+          "operation": "F53:take_shift_keys",
+          "tiles": 24,
+          "seconds": 9.5
+        },
+        {
+          "operation": "E015:B1:O1",
+          "tiles": 22,
+          "seconds": 9.333333
+        }
+      ],
+      "unique_operation_count": 10,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution.",
+      "if_not_allowed": "必须按当时真实位置/已完成进度重算；仍不够就延期该组合，不添加时间或新源。"
+    },
+    {
+      "id": "S16",
+      "model_actions": 8,
+      "recovery_reservation_seconds": 8,
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 70.25,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "F59:take_three_materials",
+          "tiles": 36,
+          "seconds": 13.5
+        },
+        {
+          "operation": "F59:place_three_slots",
+          "tiles": 29,
+          "seconds": 15.083333
+        },
+        {
+          "operation": "F59:turn_away_dark",
+          "tiles": 0,
+          "seconds": 0.5
+        },
+        {
+          "operation": "F59:construct_first_four",
+          "tiles": 0,
+          "seconds": 4.0
+        },
+        {
+          "operation": "F59:construct_last_four",
+          "tiles": 0,
+          "seconds": 4.0
+        },
+        {
+          "operation": "F59:take_component",
+          "tiles": 0,
+          "seconds": 1.5
+        },
+        {
+          "operation": "F59:install_component",
+          "tiles": 23,
+          "seconds": 9.666667
+        },
+        {
+          "operation": "F59:test_device",
+          "tiles": 0,
+          "seconds": 1.0
+        }
+      ],
+      "unique_operation_count": 8,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution.",
+      "if_not_allowed": "必须按当时真实位置/已完成进度重算；仍不够就延期该组合，不添加时间或新源。"
+    },
+    {
+      "id": "S17",
+      "model_actions": 5,
+      "recovery_reservation_seconds": 8,
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 57.666667,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "F36:mark_slot",
+          "tiles": 35,
+          "seconds": 13.166667
+        },
+        {
+          "operation": "F36:grant_slot",
+          "tiles": 0,
+          "seconds": 1.0
+        },
+        {
+          "operation": "F36:lease_twenty",
+          "tiles": 0,
+          "seconds": 20.0
+        },
+        {
+          "operation": "F36:clear_slot",
+          "tiles": 0,
+          "seconds": 2.0
+        },
+        {
+          "operation": "F36:collect_rent",
+          "tiles": 0,
+          "seconds": 0.5
+        }
+      ],
+      "unique_operation_count": 5,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution.",
+      "if_not_allowed": "必须按当时真实位置/已完成进度重算；仍不够就延期该组合，不添加时间或新源。"
+    },
+    {
+      "id": "S18",
+      "model_actions": 5,
+      "recovery_reservation_seconds": 8,
+      "allowed": true,
+      "reasons": [],
+      "measured_plan_seconds": 60.583333,
+      "remaining_seconds": 100,
+      "route_rows": [
+        {
+          "operation": "F42:open_low",
+          "tiles": 46,
+          "seconds": 16.333333
+        },
+        {
+          "operation": "F42:take_cargo",
+          "tiles": 0,
+          "seconds": 1.5
+        },
+        {
+          "operation": "F42:place_across",
+          "tiles": 3,
+          "seconds": 2.75
+        },
+        {
+          "operation": "F42:return_close",
+          "tiles": 3,
+          "seconds": 2.0
+        },
+        {
+          "operation": "E010:B1:O1",
+          "tiles": 39,
+          "seconds": 17.0
+        }
+      ],
+      "unique_operation_count": 5,
+      "world_unchanged": true,
+      "scope": "Read-only admission on supplied actual sources and static measured routes, not moving-enemy execution.",
+      "if_not_allowed": "必须按当时真实位置/已完成进度重算；仍不够就延期该组合，不添加时间或新源。"
+    }
+  ],
+  "errors": [],
+  "scope": [
+    "All 72 authored event branches are checked for explicit source, finite cost/expiry and existing station references.",
+    "Exercises concrete map-measured admission, source removal, same-object/slot conservation, SAN constraint count, phase time and shared-action counterexamples.",
+    "Per-composition source-rejection probes use a shared two-station fixture. Separate route witnesses use each enabled composition's actual normal model actions from the cashier and reserve 3 existing-work + max(8, measured recovery deltas) + 10 next-omen seconds.",
+    "Not proof of arbitrary 60×60 combinations, live physics, mobile input, all event effects, or production transaction persistence."
+  ]
+}

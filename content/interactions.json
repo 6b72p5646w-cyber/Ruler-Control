@@ -526,7 +526,29 @@
       "implementation_cost": "低：统一有限状态开关。",
       "movement_cost": "actual_path_length_tiles / 3.0 when empty-handed; normal heavy box uses 2.4 tiles/second; reserve travel separately",
       "budget_policy": "入场前预留路径、操作与一次可见补救窗口；一起装入阶段120秒工作预算，不跨阶段偷偷补做。",
-      "chase_policy": "world_actions_allowed_subject_to_rules"
+      "chase_policy": "world_actions_allowed_subject_to_rules",
+      "ordinary_box_door_contract_v010": {
+        "doors": [
+          "DOOR_STAFF",
+          "DOOR_COLD",
+          "DOOR_LINK"
+        ],
+        "ordinary_manual_open_hands": 1,
+        "open_world_seconds": 0.5,
+        "ordinary_box_put_down_world_seconds": 0.5,
+        "ordinary_box_retake_world_seconds": 0.5,
+        "I09_foot_open_world_seconds": 0.5,
+        "I09_hands_required": 0,
+        "I09_consumed_on_success": true,
+        "free_route": "放同箱→手动开已许可门→拿回同箱，额外共1秒",
+        "exceptions": [
+          "F12_required_item_handling",
+          "W06_raw_meat_task",
+          "F13_atomic_freezer_store_close"
+        ],
+        "locked_or_unpermitted_door_cannot_be_opened": true,
+        "client_adapter_implemented": false
+      }
     },
     {
       "id": "W12",
@@ -784,5 +806,6 @@
       "verification_desk"
     ],
     "active_chase_blocks_inspection": true
-  }
+  },
+  "current_auxiliary_contract": "content/auxiliary_effects_v010.json"
 }

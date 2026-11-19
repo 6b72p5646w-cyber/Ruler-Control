@@ -14,7 +14,8 @@ def read(name):
 def index(rows):return {x['id']:x for x in rows}
 cards=index(read('encounters_v05')['encounters']);core=read('condition_lifecycle_v06');contracts=index(core['encounter_contracts']);events=index(read('events')['events']);closure=read('consumer_closure_v08');items=index(read('items')['items']);equipment=index(read('equipment')['equipment']);pets=index(read('pets')['pets']);balance=read('balance');actions=index(balance['day_actions']);rules=index(read('rules')['rules']);synergies=index(read('synergies')['synergies']);store=read('store_systems_v05');aux=read('auxiliary_targets_v07');maps=read('maps');mechanics=read('map_mechanics_v05')
 need(len(cards)==60 and len(events)==72 and len(rules)==20,'catalog','preserve current scope')
-need(len(synergies)==18 and sum(x.get('enabled_current',False) for x in synergies.values())==15,'synergies','current count drift')
+need(len(synergies)==18 and sum(x.get('enabled_current',False) for x in synergies.values())==13,'synergies','current count drift after explicit S05/S14 archival')
+need({k for k,v in synergies.items() if not v.get('enabled_current',False)}=={'S03','S05','S11','S12','S14'},'synergies','unsupported causal links and dual pursuit must remain archived')
 need(all(x['runtime_enabled'] is False for x in cards.values()),'scope','client flags cannot be inferred from static checks')
 for fid,c in cards.items():
  need(c['resolution_condition']==contracts[fid]['normal_resolution'],fid,'condition resolution mirror differs')
@@ -129,5 +130,5 @@ noise=closure['e062_noise_sleep'];need(noise['stay_home']['coins_cost']==0 and n
 need(not noise['extra_soundproof_item_required'] and not noise['stack_full_A01_reward_again'],'E062','unproduced item or double sleep reward')
 need(events['E062']['consumer_closure_contract'].endswith('/e062_noise_sleep'),'E062','event not linked to actual sleep effect')
 
-report={'status':'PASS' if not errors else 'FAIL','checks':checks,'errors':errors,'inputs_sha256':hashes,'counts':{'current_cards':60,'current_variants':120,'event_catalog':72,'current_event_design_candidates':sum(e.get('enabled_current',True) for e in events.values()),'current_synergy_design_cases':15,'method_pages':7},'scope':'Cross-file consumer and temporal consistency plus explicit S06/S08/S17 source chronology and fixed-slot geometry. Not complete dynamic reachability, all random combinations, client or playtesting.'}
+report={'status':'PASS' if not errors else 'FAIL','checks':checks,'errors':errors,'inputs_sha256':hashes,'counts':{'current_cards':60,'current_variants':120,'event_catalog':72,'current_event_design_candidates':sum(e.get('enabled_current',True) for e in events.values()),'current_synergy_design_cases':13,'method_pages':7},'scope':'Cross-file consumer and temporal consistency plus explicit S06/S08/S17 source chronology and fixed-slot geometry. Not complete dynamic reachability, all random combinations, client or playtesting.'}
 print(json.dumps(report,ensure_ascii=False,indent=2));raise SystemExit(bool(errors))

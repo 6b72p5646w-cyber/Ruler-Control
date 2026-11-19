@@ -1,0 +1,124 @@
+{
+  "version": "0.10",
+  "scope": "design_closure_with_finite_models_not_full_client",
+  "stage": "step_1_existing_game_only",
+  "current_authorities": {
+    "encounters": [
+      "content/mechanism_cases_v010_a.json",
+      "content/mechanism_cases_v010_b.json"
+    ],
+    "events": "content/event_contracts_v010.json",
+    "auxiliary": "content/auxiliary_effects_v010.json",
+    "compositions": "content/composition_contracts_v010.json"
+  },
+  "definition_of_closed_design": [
+    "每个条件有实际生产者及对象/角色/时间范围",
+    "必要动作由现有世界交互完成，允许近景但追逐中禁入暂停QTE",
+    "每个临时效果有数值、时钟、开始、失效、重复和清理",
+    "正常、一次实错补救、预防/拒绝/源失效均有明确结局",
+    "唯一物与有限槽不复制；事实失效不能倒写新事实",
+    "组合先验真实来源、独占对象、角色、动作通道、实际路线和总预算",
+    "安全拒绝不发成功收益；正常任务让玩家做有成本的工作选择",
+    "无消费器的老效果退出现行UI与候选池"
+  ],
+  "finite_model_boundary": {
+    "requires_real_world_adapter_for_source_snapshots": true,
+    "all_sixty_moving_ai_implemented": false,
+    "touch_client_verified": false,
+    "arbitrary_all_state_reachability_proved": false,
+    "full_week_playtesting_done": false
+  },
+  "clock_contract": {
+    "world_seconds": "实际移动/操作/追逐/状态寿命，阅读与特写冻结不偷跑",
+    "budget_seconds": "world增量+一次特写承诺成本，负责相位和06点；不补算世界碰撞",
+    "phase_budget_seconds": 120,
+    "phase_start_origin_for_120_deadlines": true,
+    "hostile_240_deadline": "原投放阶段起点+240，最多跨下一阶段；始终再取真实06:00的更早者",
+    "pre_omen_live_approach_is_reserved": "模型start_anchor不是玩家传送点，实际准入须从当前位置算过去",
+    "exact_boundary_priority": "同刻已经合法完成动作先提交，再到期，再关键威胁判定，最后核验交班",
+    "waiting_at_a_safe_point_does_not_pause_other_monsters": true
+  },
+  "four_resources": {
+    "energy": "统一时钟及显式动作，低精力不锁必要工作",
+    "san": "明示恐惧/实际命中/明确完成奖励，不隐藏输入失败",
+    "satiety": "已吃食物与库存不同；统一24小时消耗一次",
+    "stamina": "恢复/冲刺/可选省时，0体力保必要取放步行",
+    "old_monster_resource_prose_is_not_an_extra_charge": true,
+    "low_san_and_extra_rule_constraints_per_action_max": 2
+  },
+  "fun_contract": {
+    "critical_work_groups_max": 3,
+    "per_monster_optional_objective": "同一操作兼做经营与规则解，收入/占位/信息/时间取舍至少一项",
+    "safe_decline_is_not_universal_exorcism": true,
+    "f12_f13_cannot_be_cleared_by_decline": true,
+    "missing_condition_means_do_not_admit_or_safe_source_loss_not_force_player_error": true,
+    "reward_claim_is_an_actual_action_not_narrative_text": true,
+    "silent_or_window_mode_does_not_win_all_monsters": true,
+    "ui_max_primary_feedback_layers": [
+      "危险方向与倒计时",
+      "当前手中物/关键槽",
+      "本动作有效规则"
+    ],
+    "low_san_minimum_essential_readability_retained": true
+  },
+  "new_technical_primitives": [
+    "具名有限状态与来源记录",
+    "有限物件/槽位/权限的原子转移",
+    "少量显式世界计时器",
+    "现有固定网格路径成本与局部窗口计算",
+    "已知视线/朝向/水图的离散判定"
+  ],
+  "explicitly_not_added": [
+    "真实液体/气味/纸张风物理",
+    "无限噪声传播",
+    "关系点数与装备耐久空系统",
+    "普通食品品质腐败系统",
+    "任意60怪两两同时AI"
+  ],
+  "disabled_current": [
+    "F14",
+    "E051",
+    "S03",
+    "S05",
+    "S11",
+    "S12",
+    "I22",
+    "I23",
+    "Q03",
+    "Q11",
+    "emergency_power.brace_door",
+    "emergency_power.temperature_hold",
+    "S14"
+  ],
+  "scp_stage_started": false,
+  "explicit_effect_dispatch": {
+    "finite_model": "prototype/mechanism_model_v010.py applies the selected action sets/adds/consumes only after reached guards, actual static route and completion.",
+    "live_runtime_adapter_available_for_all_sixty": false,
+    "new_finite_consumers": [
+      {
+        "id": "F07_quiet",
+        "effect": "SAN +2 once after actual 45s chair reservation and sign removal"
+      },
+      {
+        "id": "F11_contest",
+        "effect": "One actual I21 gift, independently claimed from existing slot; one instance only"
+      },
+      {
+        "id": "F15_guide",
+        "effect": "SAN +4 on actual completion; declared wrong step -2 at most once"
+      },
+      {
+        "id": "F52_rest",
+        "effect": "Energy +2 for actual 6 world-second safe rest, once/night; excludes Q17"
+      },
+      {
+        "id": "F57_maintenance",
+        "effect": "SAN +4 for actual optional timed delivery, once; safe north route remains valid"
+      }
+    ],
+    "existing_f53_dawn_consumer": "consumer_closure_v08.friendly_benefits F53:dawn remains the single live-reference settlement; the independent finite case is not a second reward.",
+    "unsupported_legacy_consumer_kinds_not_silently_added": true,
+    "resource_caps": "0..100; duplicate receipt cannot restore either quantity or charge",
+    "historical_monster_resource_prose": "archived under monsters[].legacy_resource_effects, never an additional debit"
+  }
+}

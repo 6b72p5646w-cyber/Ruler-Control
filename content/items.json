@@ -1,5 +1,5 @@
 {
-  "version": "0.9",
+  "version": "0.10",
   "items": [
     {
       "id": "I01",
@@ -7,7 +7,7 @@
       "rarity": "common",
       "shop_price": 15,
       "effect": "饱腹+25",
-      "tradeoff": "无额外状态",
+      "tradeoff": "各项受当前上限截断；全无正收益不吃掉物件。",
       "tag": "food",
       "consumable": true,
       "design_origin": "original_game_adaptation",
@@ -21,7 +21,28 @@
       "crafting_enabled": false,
       "acquisition_contract": "content/auxiliary_targets_v07.json",
       "food_source_policy": "personal_verified_required_for_ingestion",
-      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification"
+      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I01",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "superseded_operational_extension_v010": {
+        "status": "historical_not_loadable",
+        "may_load_as_current_effect": false,
+        "text": {
+          "condition_contract": "content/auxiliary_effects_v010.json#/entries/I01",
+          "status": "closed_design_adapter_pending",
+          "description": "饱腹+25",
+          "requires_new_item_type": false,
+          "may_complete_encounter_goal": false
+        }
+      },
+      "operational_extension": {
+        "condition_contract": "content/auxiliary_effects_v010.json#/entries/I01",
+        "status": "closed_design_adapter_pending",
+        "description": "饱腹+25",
+        "requires_new_item_type": false,
+        "may_complete_encounter_goal": false
+      }
     },
     {
       "id": "I02",
@@ -29,7 +50,7 @@
       "rarity": "common",
       "shop_price": 22,
       "effect": "饱腹+40",
-      "tradeoff": "连续食用受100上限限制",
+      "tradeoff": "各项受当前上限截断；全无正收益不吃掉物件。",
       "tag": "food",
       "consumable": true,
       "design_origin": "original_game_adaptation",
@@ -43,7 +64,28 @@
       "crafting_enabled": false,
       "acquisition_contract": "content/auxiliary_targets_v07.json",
       "food_source_policy": "personal_verified_required_for_ingestion",
-      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification"
+      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I02",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "superseded_operational_extension_v010": {
+        "status": "historical_not_loadable",
+        "may_load_as_current_effect": false,
+        "text": {
+          "condition_contract": "content/auxiliary_effects_v010.json#/entries/I02",
+          "status": "closed_design_adapter_pending",
+          "description": "饱腹+40",
+          "requires_new_item_type": false,
+          "may_complete_encounter_goal": false
+        }
+      },
+      "operational_extension": {
+        "condition_contract": "content/auxiliary_effects_v010.json#/entries/I02",
+        "status": "closed_design_adapter_pending",
+        "description": "饱腹+40",
+        "requires_new_item_type": false,
+        "may_complete_encounter_goal": false
+      }
     },
     {
       "id": "I03",
@@ -51,16 +93,10 @@
       "rarity": "common",
       "shop_price": 12,
       "effect": "体力+35",
-      "tradeoff": "不恢复精力与饱腹",
+      "tradeoff": "各项受当前上限截断；全无正收益不吃掉物件。",
       "tag": "stamina",
       "consumable": true,
       "design_origin": "original_game_adaptation",
-      "operational_extension": {
-        "description": "支持大地图快捷使用，恢复体力后可以继续冲刺或搬运；不打开选择题。",
-        "shared_primitive": "resource_delta",
-        "requires_new_item_type": false,
-        "status": "proposal_not_implemented"
-      },
       "acquisition_enabled": true,
       "shop_enabled": true,
       "lottery_enabled": true,
@@ -71,6 +107,26 @@
       "food_verification_contract": "content/consumer_closure_v08.json#/food_verification",
       "resource_deltas": {
         "stamina": 35
+      },
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I03",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "superseded_operational_extension_v010": {
+        "status": "historical_not_loadable",
+        "may_load_as_current_effect": false,
+        "text": {
+          "description": "支持大地图快捷使用，恢复体力后可以继续冲刺或搬运；不打开选择题。",
+          "shared_primitive": "resource_delta",
+          "requires_new_item_type": false,
+          "status": "proposal_not_implemented"
+        }
+      },
+      "operational_extension": {
+        "condition_contract": "content/auxiliary_effects_v010.json#/entries/I03",
+        "status": "closed_design_adapter_pending",
+        "description": "体力+35",
+        "requires_new_item_type": false,
+        "may_complete_encounter_goal": false
       }
     },
     {
@@ -79,16 +135,10 @@
       "rarity": "common",
       "shop_price": 10,
       "effect": "SAN+8",
-      "tradeoff": "同一遭遇最多生效2次",
+      "tradeoff": "各项受当前上限截断；全无正收益不吃掉物件。同一遭遇最多2次，无遭遇按当前阶段计；同实例不能重复吃。",
       "tag": "san",
       "consumable": true,
       "design_origin": "original_game_adaptation",
-      "operational_extension": {
-        "description": "短按吃糖后恢复SAN；后续新QTE按新SAN结算，已经开始的判定区不突然改动。",
-        "shared_primitive": "resource_delta",
-        "requires_new_item_type": false,
-        "status": "proposal_not_implemented"
-      },
       "acquisition_enabled": true,
       "shop_enabled": true,
       "lottery_enabled": true,
@@ -99,15 +149,35 @@
         "san": 8
       },
       "food_source_policy": "personal_verified_required_for_ingestion",
-      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification"
+      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I04",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "superseded_operational_extension_v010": {
+        "status": "historical_not_loadable",
+        "may_load_as_current_effect": false,
+        "text": {
+          "description": "短按吃糖后恢复SAN；后续新QTE按新SAN结算，已经开始的判定区不突然改动。",
+          "shared_primitive": "resource_delta",
+          "requires_new_item_type": false,
+          "status": "proposal_not_implemented"
+        }
+      },
+      "operational_extension": {
+        "condition_contract": "content/auxiliary_effects_v010.json#/entries/I04",
+        "status": "closed_design_adapter_pending",
+        "description": "SAN+8",
+        "requires_new_item_type": false,
+        "may_complete_encounter_goal": false
+      }
     },
     {
       "id": "I05",
       "name": "罐装咖啡",
       "rarity": "common",
       "shop_price": 18,
-      "effect": "精力立即+12",
-      "tradeoff": "从同一份咖啡实际使用时刻起60游戏分钟后，精力−8且SAN−2；跨06:00、白天行动和保存恢复继续计时，同物债务仅结算一次。",
+      "effect": "精力+12",
+      "tradeoff": "各项受当前上限截断；全无正收益不吃掉物件。同一物件实际使用60游戏分钟后精力−8、SAN−2；跨06:00/白天/保存持续，债务只结一次。",
       "tag": "energy",
       "consumable": true,
       "design_origin": "original_game_adaptation",
@@ -132,6 +202,27 @@
         "persists_across_days_and_saves": true,
         "settles_once_per_item_instance": true,
         "same_time_debts_before_new_action_rewards": true
+      },
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I05",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "superseded_operational_extension_v010": {
+        "status": "historical_not_loadable",
+        "may_load_as_current_effect": false,
+        "text": {
+          "condition_contract": "content/auxiliary_effects_v010.json#/entries/I05",
+          "status": "closed_design_adapter_pending",
+          "description": "精力+12",
+          "requires_new_item_type": false,
+          "may_complete_encounter_goal": false
+        }
+      },
+      "operational_extension": {
+        "condition_contract": "content/auxiliary_effects_v010.json#/entries/I05",
+        "status": "closed_design_adapter_pending",
+        "description": "精力+12",
+        "requires_new_item_type": false,
+        "may_complete_encounter_goal": false
       }
     },
     {
@@ -139,20 +230,11 @@
       "name": "备用电池",
       "rarity": "common",
       "shop_price": 12,
-      "effect": "一件兼容照明恢复25电量，或应急储备恢复3格；二选一消耗本件。",
-      "tradeoff": "不修理损坏回路；应急储备每夜最多用1次电池，不超过12格。",
+      "effect": "给Q05/Q06/Q07/Q08或B03同一灯具补25电量；或给12格应急储备补3格，二选一。",
+      "tradeoff": "灯具电量上限30；储备每夜最多1次。全满不消耗；部分缺口只补至上限，仍用一份。",
       "tag": "light",
       "consumable": true,
       "design_origin": "original_game_adaptation",
-      "operational_extension": {
-        "description": "给B03兼容台灯补25电量，或给全店应急储备补3格；同一电池实例仅消费一次，不能同时给两处充电。",
-        "shared_primitive": "battery_restore",
-        "requires_new_item_type": false,
-        "status": "proposal_not_implemented",
-        "compatible_deployable_ids": [
-          "B03"
-        ]
-      },
       "reserve_recharge_v05": {
         "units": 3,
         "max_uses_per_night": 1,
@@ -164,23 +246,76 @@
       "lottery_enabled": true,
       "reward_enabled": true,
       "crafting_enabled": false,
-      "acquisition_contract": "content/auxiliary_targets_v07.json"
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I06",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "superseded_operational_extension_v010": {
+        "status": "historical_not_loadable",
+        "may_load_as_current_effect": false,
+        "text": {
+          "description": "给B03兼容台灯补25电量，或给全店应急储备补3格；同一电池实例仅消费一次，不能同时给两处充电。",
+          "shared_primitive": "battery_restore",
+          "requires_new_item_type": false,
+          "status": "proposal_not_implemented",
+          "compatible_deployable_ids": [
+            "B03"
+          ]
+        }
+      },
+      "operational_extension": {
+        "condition_contract": "content/auxiliary_effects_v010.json#/entries/I06",
+        "status": "closed_design_adapter_pending",
+        "description": "给Q05/Q06/Q07/Q08或B03同一灯具补25电量；或给12格应急储备补3格，二选一。",
+        "requires_new_item_type": false,
+        "may_complete_encounter_goal": false,
+        "compatible_deployable_ids": [
+          "B03"
+        ]
+      }
     },
     {
       "id": "I07",
       "name": "修补胶带",
       "rarity": "common",
       "shop_price": 8,
-      "effect": "修复一处非关键容器破口",
-      "tradeoff": "无法封住会主动破坏的实体",
+      "effect": "在安全工位用2世界秒为同一未损坏B01恢复1次接触次数。",
+      "tradeoff": "每个B01实例最多修1次，不超过原L1两次/L2三次容量；不能修B08或捏造容器破口。",
       "tag": "repair",
       "consumable": true,
       "design_origin": "original_game_adaptation",
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I07",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "superseded_operational_extension_v010": {
+        "status": "historical_not_loadable",
+        "may_load_as_current_effect": false,
+        "text": {
+          "description": "在安全工位给尚未损坏的B01恢复1次接触次数；每个实例最多修1次，原上限不变。",
+          "shared_primitive": "limited_charge_restore",
+          "requires_new_item_type": false,
+          "status": "proposal_not_implemented",
+          "compatible_deployable_ids": [
+            "B01"
+          ],
+          "maximum_repairs_per_instance": 1,
+          "may_repair_destroyed_instance": false,
+          "restored_charges": 1,
+          "cannot_exceed_original_capacity": true
+        }
+      },
       "operational_extension": {
-        "description": "在安全工位给尚未损坏的B01恢复1次接触次数；每个实例最多修1次，原上限不变。",
-        "shared_primitive": "limited_charge_restore",
+        "condition_contract": "content/auxiliary_effects_v010.json#/entries/I07",
+        "status": "closed_design_adapter_pending",
+        "description": "在安全工位用2世界秒为同一未损坏B01恢复1次接触次数。",
         "requires_new_item_type": false,
-        "status": "proposal_not_implemented",
+        "may_complete_encounter_goal": false,
         "compatible_deployable_ids": [
           "B01"
         ],
@@ -188,21 +323,15 @@
         "may_repair_destroyed_instance": false,
         "restored_charges": 1,
         "cannot_exceed_original_capacity": true
-      },
-      "acquisition_enabled": true,
-      "shop_enabled": true,
-      "lottery_enabled": true,
-      "reward_enabled": true,
-      "crafting_enabled": false,
-      "acquisition_contract": "content/auxiliary_targets_v07.json"
+      }
     },
     {
       "id": "I08",
       "name": "一次性手套",
       "rarity": "common",
       "shop_price": 8,
-      "effect": "一次隔离操作不沾染普通污物",
-      "tradeoff": "不免疫精神干扰或所有诅咒",
+      "effect": "一次实际E003裂口玻璃退货取放获得手部隔离；把同一件小玻璃移进既有隔离槽时不生成本次徒手割伤。",
+      "tradeoff": "只覆盖这次取放，不保护脚踩碎片、F21玻璃故障、怪物接触或SAN；不产生“污染免疫”。",
       "tag": "isolation",
       "consumable": true,
       "design_origin": "original_game_adaptation",
@@ -211,102 +340,180 @@
       "lottery_enabled": true,
       "reward_enabled": true,
       "crafting_enabled": false,
-      "acquisition_contract": "content/auxiliary_targets_v07.json"
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I08",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "superseded_operational_extension_v010": {
+        "status": "historical_not_loadable",
+        "may_load_as_current_effect": false,
+        "text": {
+          "condition_contract": "content/auxiliary_effects_v010.json#/entries/I08",
+          "status": "closed_design_adapter_pending",
+          "description": "一次实际E003裂口玻璃退货取放获得手部隔离；把同一件小玻璃移进既有隔离槽时不生成本次徒手割伤。",
+          "requires_new_item_type": false,
+          "may_complete_encounter_goal": false
+        }
+      },
+      "operational_extension": {
+        "condition_contract": "content/auxiliary_effects_v010.json#/entries/I08",
+        "status": "closed_design_adapter_pending",
+        "description": "一次实际E003裂口玻璃退货取放获得手部隔离；把同一件小玻璃移进既有隔离槽时不生成本次徒手割伤。",
+        "requires_new_item_type": false,
+        "may_complete_encounter_goal": false
+      }
     },
     {
       "id": "I09",
       "name": "门楔",
       "rarity": "common",
       "shop_price": 10,
-      "effect": "暂时维持一扇普通内门状态",
-      "tradeoff": "不能强制违背当前门槛禁忌",
+      "effect": "双手抱普通重箱时，用脚踏门楔在1格内0.5世界秒打开一扇已许可、未锁的普通内门。",
+      "tradeoff": "只适用DOOR_STAFF/DOOR_COLD/DOOR_LINK；一次用完，不自动关门，不越过禁入、闸门或身份权限。",
       "tag": "threshold",
       "consumable": true,
       "design_origin": "original_game_adaptation",
-      "operational_extension": {
-        "description": "延长一扇已允许开启的普通门，帮助搬箱或布置F12出口；不锁死怪物必需胜利边界。",
-        "shared_primitive": "door_timer_modifier",
-        "requires_new_item_type": false,
-        "status": "proposal_not_implemented"
-      },
       "acquisition_enabled": true,
       "shop_enabled": true,
       "lottery_enabled": true,
       "reward_enabled": true,
       "crafting_enabled": false,
-      "acquisition_contract": "content/auxiliary_targets_v07.json"
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I09",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "superseded_operational_extension_v010": {
+        "status": "historical_not_loadable",
+        "may_load_as_current_effect": false,
+        "text": {
+          "description": "延长一扇已允许开启的普通门，帮助搬箱或布置F12出口；不锁死怪物必需胜利边界。",
+          "shared_primitive": "door_timer_modifier",
+          "requires_new_item_type": false,
+          "status": "proposal_not_implemented"
+        }
+      },
+      "operational_extension": {
+        "condition_contract": "content/auxiliary_effects_v010.json#/entries/I09",
+        "status": "closed_design_adapter_pending",
+        "description": "双手抱普通重箱时，用脚踏门楔在1格内0.5世界秒打开一扇已许可、未锁的普通内门。",
+        "requires_new_item_type": false,
+        "may_complete_encounter_goal": false
+      }
     },
     {
       "id": "I10",
       "name": "封口袋",
       "rarity": "common",
       "shop_price": 8,
-      "effect": "暂存一件待核小物",
-      "tradeoff": "大型实体与活跃危险需使用工位隔离设施",
+      "effect": "在1格内0.5世界秒将一件已见待核小物装入同一封口袋，保持原物件ID与待核状态。",
+      "tradeoff": "占1个普通携带格；不消除异常、不验证食物或身份，不可装任务肉、钥匙、大件或活跃实体。",
       "tag": "isolation",
       "consumable": true,
       "design_origin": "original_game_adaptation",
-      "operational_extension": {
-        "description": "仍用于小物隔离，不能把任务生肉装袋冒充已进冰柜。",
-        "shared_primitive": "container_tag",
-        "requires_new_item_type": false,
-        "status": "proposal_not_implemented",
-        "not_a_goal_container_for_tags": [
-          "encounter_raw_meat_crate"
-        ]
-      },
       "acquisition_enabled": true,
       "shop_enabled": true,
       "lottery_enabled": true,
       "reward_enabled": true,
       "crafting_enabled": false,
-      "acquisition_contract": "content/auxiliary_targets_v07.json"
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I10",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "superseded_operational_extension_v010": {
+        "status": "historical_not_loadable",
+        "may_load_as_current_effect": false,
+        "text": {
+          "description": "仍用于小物隔离，不能把任务生肉装袋冒充已进冰柜。",
+          "shared_primitive": "container_tag",
+          "requires_new_item_type": false,
+          "status": "proposal_not_implemented",
+          "not_a_goal_container_for_tags": [
+            "encounter_raw_meat_crate"
+          ]
+        }
+      },
+      "operational_extension": {
+        "condition_contract": "content/auxiliary_effects_v010.json#/entries/I10",
+        "status": "closed_design_adapter_pending",
+        "description": "在1格内0.5世界秒将一件已见待核小物装入同一封口袋，保持原物件ID与待核状态。",
+        "requires_new_item_type": false,
+        "may_complete_encounter_goal": false
+      }
     },
     {
       "id": "I11",
       "name": "粉笔",
       "rarity": "common",
       "shop_price": 8,
-      "effect": "留下三段可信玩家路径标记",
-      "tradeoff": "积水会擦除普通粉笔，地图记录仍保留",
+      "effect": "粉笔含3次标记；每次0.3世界秒在1格内的已到过干格留1个标记，保留120世界秒。",
+      "tradeoff": "一次消耗一笔，第三笔耗尽同件；最多3个本件活标。积水只擦掉现场标，带时间的历史记录保留到交班。",
       "tag": "path",
       "consumable": true,
       "design_origin": "original_game_adaptation",
-      "operational_extension": {
-        "description": "标出玩家选定的搬运路线和回形针投放点，减少低SAN时走错；只显示已知路线，不穿墙探图。",
-        "shared_primitive": "route_marker",
-        "requires_new_item_type": false,
-        "status": "proposal_not_implemented"
-      },
       "acquisition_enabled": true,
       "shop_enabled": true,
       "lottery_enabled": true,
       "reward_enabled": true,
       "crafting_enabled": false,
-      "acquisition_contract": "content/auxiliary_targets_v07.json"
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I11",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "superseded_operational_extension_v010": {
+        "status": "historical_not_loadable",
+        "may_load_as_current_effect": false,
+        "text": {
+          "description": "标出玩家选定的搬运路线和回形针投放点，减少低SAN时走错；只显示已知路线，不穿墙探图。",
+          "shared_primitive": "route_marker",
+          "requires_new_item_type": false,
+          "status": "proposal_not_implemented"
+        }
+      },
+      "operational_extension": {
+        "condition_contract": "content/auxiliary_effects_v010.json#/entries/I11",
+        "status": "closed_design_adapter_pending",
+        "description": "粉笔含3次标记；每次0.3世界秒在1格内的已到过干格留1个标记，保留120世界秒。",
+        "requires_new_item_type": false,
+        "may_complete_encounter_goal": false
+      },
+      "last_charge_keeps_existing_marks": true
     },
     {
       "id": "I12",
       "name": "压货夹",
       "rarity": "common",
       "shop_price": 10,
-      "effect": "固定一组纸质单据或标签",
-      "tradeoff": "占用一次物件操作",
+      "effect": "用0.3世界秒夹住当前真实单据；10世界秒内下一次W13已知票据/批次整理进度耗时×0.8，并置顶该记录。",
+      "tradeoff": "只改变一次整理进度；真实动作开始先快照倍率再清待用许可，取消不退耗材或重置许可；置顶仍到原10秒截止。不能缩短怪物等待、QTE预算或证据观察，与P01取强。",
       "tag": "wind",
       "consumable": true,
       "design_origin": "original_game_adaptation",
-      "operational_extension": {
-        "description": "固定收银/盘点特写中的纸单，抵消一次风吹位移变体；不免除SAN缩区。",
-        "shared_primitive": "block_effect",
-        "requires_new_item_type": false,
-        "status": "proposal_not_implemented"
-      },
       "acquisition_enabled": true,
       "shop_enabled": true,
       "lottery_enabled": true,
       "reward_enabled": true,
       "crafting_enabled": false,
-      "acquisition_contract": "content/auxiliary_targets_v07.json"
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I12",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "superseded_operational_extension_v010": {
+        "status": "historical_not_loadable",
+        "may_load_as_current_effect": false,
+        "text": {
+          "description": "固定收银/盘点特写中的纸单，抵消一次风吹位移变体；不免除SAN缩区。",
+          "shared_primitive": "block_effect",
+          "requires_new_item_type": false,
+          "status": "proposal_not_implemented"
+        }
+      },
+      "operational_extension": {
+        "condition_contract": "content/auxiliary_effects_v010.json#/entries/I12",
+        "status": "closed_design_adapter_pending",
+        "description": "用0.3世界秒夹住当前真实单据；10世界秒内下一次W13已知票据/批次整理进度耗时×0.8，并置顶该记录。",
+        "requires_new_item_type": false,
+        "may_complete_encounter_goal": false
+      }
     },
     {
       "id": "I13",
@@ -314,7 +521,7 @@
       "rarity": "uncommon",
       "shop_price": 28,
       "effect": "SAN+20",
-      "tradeoff": "需在安全工位使用3秒",
+      "tradeoff": "各项受当前上限截断；全无正收益不吃掉物件。安全工位且无追逐，连续3世界秒；中断返还原物。",
       "tag": "san",
       "consumable": true,
       "design_origin": "original_game_adaptation",
@@ -333,6 +540,27 @@
         "safe_station": true,
         "world_seconds": 3,
         "no_active_chase": true
+      },
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I13",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "superseded_operational_extension_v010": {
+        "status": "historical_not_loadable",
+        "may_load_as_current_effect": false,
+        "text": {
+          "condition_contract": "content/auxiliary_effects_v010.json#/entries/I13",
+          "status": "closed_design_adapter_pending",
+          "description": "SAN+20",
+          "requires_new_item_type": false,
+          "may_complete_encounter_goal": false
+        }
+      },
+      "operational_extension": {
+        "condition_contract": "content/auxiliary_effects_v010.json#/entries/I13",
+        "status": "closed_design_adapter_pending",
+        "description": "SAN+20",
+        "requires_new_item_type": false,
+        "may_complete_encounter_goal": false
       }
     },
     {
@@ -340,8 +568,8 @@
       "name": "保温便当",
       "rarity": "uncommon",
       "shop_price": 30,
-      "effect": "饱腹+35且精力+4",
-      "tradeoff": "安全开封后使用，不能把供物当成便当",
+      "effect": "饱腹+35；精力+4",
+      "tradeoff": "各项受当前上限截断；全无正收益不吃掉物件。安全工位且无追逐，连续3世界秒；中断返还原物。",
       "tag": "food",
       "consumable": true,
       "design_origin": "original_game_adaptation",
@@ -359,7 +587,29 @@
       },
       "use_requirements": {
         "safe_station": true,
-        "no_active_chase": true
+        "no_active_chase": true,
+        "world_seconds": 3
+      },
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I14",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "superseded_operational_extension_v010": {
+        "status": "historical_not_loadable",
+        "may_load_as_current_effect": false,
+        "text": {
+          "condition_contract": "content/auxiliary_effects_v010.json#/entries/I14",
+          "status": "closed_design_adapter_pending",
+          "description": "饱腹+35；精力+4",
+          "requires_new_item_type": false,
+          "may_complete_encounter_goal": false
+        }
+      },
+      "operational_extension": {
+        "condition_contract": "content/auxiliary_effects_v010.json#/entries/I14",
+        "status": "closed_design_adapter_pending",
+        "description": "饱腹+35；精力+4",
+        "requires_new_item_type": false,
+        "may_complete_encounter_goal": false
       }
     },
     {
@@ -367,47 +617,103 @@
       "name": "速冷包",
       "rarity": "uncommon",
       "shop_price": 24,
-      "effect": "延缓一组冷链升温30秒",
-      "tradeoff": "不会驱散寒冷或水域原型",
+      "effect": "已合盖的F49同一热垃圾剩余冷却减少10世界秒，最低至0；同一份垃圾最多一次。",
+      "tradeoff": "只改变真实温档计时，不生成清运回执；仍需实际搬运投放。不作用F13任务生肉或保冷套速度。",
       "tag": "cold",
       "consumable": true,
       "design_origin": "original_game_adaptation",
-      "operational_extension": {
-        "description": "对装在B06转运套中的任务肉箱增加一次30秒普通冷链缓冲，不延长B06的搬运速度增益；不隐藏生肉标签、不停止F13触肉变追人，肉箱仍须由玩家送进冰柜。",
-        "shared_primitive": "item_timer_extension",
-        "requires_new_item_type": false,
-        "status": "proposal_not_implemented",
-        "compatible_deployable_ids": [
-          "B06"
-        ],
-        "ordinary_cold_chain_buffer_add_seconds": 30,
-        "extends_carry_modifier": false,
-        "changes_F13_target_state": false,
-        "can_mark_freezer_goal_complete": false,
-        "target_item_tag": "encounter_raw_meat_crate"
-      },
       "acquisition_enabled": true,
       "shop_enabled": true,
       "lottery_enabled": true,
       "reward_enabled": true,
       "crafting_enabled": false,
-      "acquisition_contract": "content/auxiliary_targets_v07.json"
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I15",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "superseded_operational_extension_v010": {
+        "status": "historical_not_loadable",
+        "may_load_as_current_effect": false,
+        "text": {
+          "description": "对装在B06转运套中的任务肉箱增加一次30秒普通冷链缓冲，不延长B06的搬运速度增益；不隐藏生肉标签、不停止F13触肉变追人，肉箱仍须由玩家送进冰柜。",
+          "shared_primitive": "item_timer_extension",
+          "requires_new_item_type": false,
+          "status": "proposal_not_implemented",
+          "compatible_deployable_ids": [
+            "B06"
+          ],
+          "ordinary_cold_chain_buffer_add_seconds": 30,
+          "extends_carry_modifier": false,
+          "changes_F13_target_state": false,
+          "can_mark_freezer_goal_complete": false,
+          "target_item_tag": "encounter_raw_meat_crate"
+        }
+      },
+      "operational_extension": {
+        "condition_contract": "content/auxiliary_effects_v010.json#/entries/I15",
+        "status": "closed_design_adapter_pending",
+        "description": "已合盖的F49同一热垃圾剩余冷却减少10世界秒，最低至0；同一份垃圾最多一次。",
+        "requires_new_item_type": false,
+        "may_complete_encounter_goal": false,
+        "target_monster_ids": [
+          "F49"
+        ],
+        "target_item_tag": "sealed_hot_waste",
+        "remaining_cooling_subtract_world_seconds": 10,
+        "extends_carry_modifier": false,
+        "changes_F13_target_state": false,
+        "can_mark_freezer_goal_complete": false
+      }
     },
     {
       "id": "I16",
       "name": "应急灯棒",
       "rarity": "uncommon",
       "shop_price": 26,
-      "effect": "建立20秒局部照明",
-      "tradeoff": "仅提供光，驱避效果须原型明确适用",
+      "effect": "固定空灯槽照明3格、局部黑视半径+0.5格，持续20世界秒；不恢复SAN。",
+      "tradeoff": "占3个部署上限中的1位；同类光效取强且不超过正常5格视域。启动后回收也不暂停20秒寿命。",
       "tag": "light",
       "consumable": true,
       "design_origin": "original_game_adaptation",
+      "counts_toward_deployable_cap": true,
+      "deployment_socket_type": "lamp",
+      "recovery_preserves_remaining_lifetime": true,
+      "acquisition_enabled": true,
+      "shop_enabled": true,
+      "lottery_enabled": true,
+      "reward_enabled": true,
+      "crafting_enabled": false,
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I16",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "superseded_operational_extension_v010": {
+        "status": "historical_not_loadable",
+        "may_load_as_current_effect": false,
+        "text": {
+          "description": "在空灯槽插放20秒临时光源，改善该工位黑视；与台灯取较强效果，不相加。",
+          "shared_primitive": "local_light_aura",
+          "requires_new_item_type": false,
+          "status": "proposal_not_implemented",
+          "compatible_deployable_ids": [
+            "B03"
+          ],
+          "deployment_socket_type": "lamp",
+          "counts_toward_deployable_cap": true,
+          "maximum_active_deployables": 3,
+          "spawn_lifetime_seconds": 20,
+          "effect_stacking_group": "local_visibility",
+          "stacking_policy": "strongest_only",
+          "recovery_preserves_instance_and_remaining_lifetime": true,
+          "does_not_restore_san": true
+        }
+      },
       "operational_extension": {
-        "description": "在空灯槽插放20秒临时光源，改善该工位黑视；与台灯取较强效果，不相加。",
-        "shared_primitive": "local_light_aura",
+        "condition_contract": "content/auxiliary_effects_v010.json#/entries/I16",
+        "status": "closed_design_adapter_pending",
+        "description": "固定空灯槽照明3格、局部黑视半径+0.5格，持续20世界秒；不恢复SAN。",
         "requires_new_item_type": false,
-        "status": "proposal_not_implemented",
+        "may_complete_encounter_goal": false,
         "compatible_deployable_ids": [
           "B03"
         ],
@@ -419,47 +725,52 @@
         "stacking_policy": "strongest_only",
         "recovery_preserves_instance_and_remaining_lifetime": true,
         "does_not_restore_san": true
-      },
-      "counts_toward_deployable_cap": true,
-      "deployment_socket_type": "lamp",
-      "recovery_preserves_remaining_lifetime": true,
-      "acquisition_enabled": true,
-      "shop_enabled": true,
-      "lottery_enabled": true,
-      "reward_enabled": true,
-      "crafting_enabled": false,
-      "acquisition_contract": "content/auxiliary_targets_v07.json"
+      }
     },
     {
       "id": "I17",
       "name": "示踪粉",
       "rarity": "uncommon",
       "shop_price": 28,
-      "effect": "显现一段可留实体足迹的路径",
-      "tradeoff": "对无形、飞行实体无效",
+      "effect": "向已知1格干地或既有粉印垫撒粉，20世界秒内记录实际步行跨越的脚印；现场每枚30秒、最多6枚。",
+      "tradeoff": "不读取过去没留下的脚印，不给飞行F13、无形实体造印，不自动认身份；湿格冲掉粉层和现场粉印。",
       "tag": "trace",
       "consumable": true,
       "design_origin": "original_game_adaptation",
-      "operational_extension": {
-        "description": "在地面显示已经经过的实体足迹；F13飞行时不留下足迹，不冒充它的定位器。",
-        "shared_primitive": "trace_reveal",
-        "requires_new_item_type": false,
-        "status": "proposal_not_implemented"
-      },
       "acquisition_enabled": true,
       "shop_enabled": true,
       "lottery_enabled": true,
       "reward_enabled": true,
       "crafting_enabled": false,
-      "acquisition_contract": "content/auxiliary_targets_v07.json"
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I17",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "superseded_operational_extension_v010": {
+        "status": "historical_not_loadable",
+        "may_load_as_current_effect": false,
+        "text": {
+          "description": "在地面显示已经经过的实体足迹；F13飞行时不留下足迹，不冒充它的定位器。",
+          "shared_primitive": "trace_reveal",
+          "requires_new_item_type": false,
+          "status": "proposal_not_implemented"
+        }
+      },
+      "operational_extension": {
+        "condition_contract": "content/auxiliary_effects_v010.json#/entries/I17",
+        "status": "closed_design_adapter_pending",
+        "description": "向已知1格干地或既有粉印垫撒粉，20世界秒内记录实际步行跨越的脚印；现场每枚30秒、最多6枚。",
+        "requires_new_item_type": false,
+        "may_complete_encounter_goal": false
+      }
     },
     {
       "id": "I18",
       "name": "一次性核验封签",
       "rarity": "uncommon",
       "shop_price": 24,
-      "effect": "生成一次可对照的物品封存记录",
-      "tradeoff": "不能单独证明持有人身份",
+      "effect": "对同一实际待核小物用1世界秒贴封签，记录物件ID、当前外观、操作者和时刻。",
+      "tradeoff": "仅封存保管链证据；打开/更换即标失效，旧记录保留到交班，不算第二条独立身份线索。",
       "tag": "identity",
       "consumable": true,
       "design_origin": "original_game_adaptation",
@@ -468,41 +779,78 @@
       "lottery_enabled": true,
       "reward_enabled": true,
       "crafting_enabled": false,
-      "acquisition_contract": "content/auxiliary_targets_v07.json"
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I18",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "superseded_operational_extension_v010": {
+        "status": "historical_not_loadable",
+        "may_load_as_current_effect": false,
+        "text": {
+          "condition_contract": "content/auxiliary_effects_v010.json#/entries/I18",
+          "status": "closed_design_adapter_pending",
+          "description": "对同一实际待核小物用1世界秒贴封签，记录物件ID、当前外观、操作者和时刻。",
+          "requires_new_item_type": false,
+          "may_complete_encounter_goal": false
+        }
+      },
+      "operational_extension": {
+        "condition_contract": "content/auxiliary_effects_v010.json#/entries/I18",
+        "status": "closed_design_adapter_pending",
+        "description": "对同一实际待核小物用1世界秒贴封签，记录物件ID、当前外观、操作者和时刻。",
+        "requires_new_item_type": false,
+        "may_complete_encounter_goal": false
+      }
     },
     {
       "id": "I19",
       "name": "游戏急救贴",
       "rarity": "uncommon",
       "shop_price": 30,
-      "effect": "在距离内实际使用1世界秒，处理一个已登记游戏伤口/轻伤状态；是3秒免费包扎的可选加速。",
-      "tradeoff": "消耗同一急救贴一次；不恢复SAN、不解除追逐、不处理未定义严重伤势。",
+      "effect": "对1.5格内一个真实登记伤口/轻伤使用1世界秒，止血并清除该目标现有轻伤。",
+      "tradeoff": "有任一可处理状态才消耗同贴一次；既有血迹不删除，不恢复SAN、不开新怪、不清除追逐。",
       "tag": "injury",
       "consumable": true,
       "design_origin": "original_game_adaptation",
-      "operational_extension": {
-        "description": "实际使用后止血并移除当前30秒轻伤；无这些状态时不消费。既有血迹仍需处理，怪物按各自目标条件结束。",
-        "shared_primitive": "typed_status_treatment",
-        "requires_new_item_type": false,
-        "status": "proposal_not_implemented",
-        "condition_contract": "content/condition_lifecycle_v06.json#/wounds/first_aid",
-        "world_seconds": 1,
-        "requires_qte": false
-      },
       "acquisition_enabled": true,
       "shop_enabled": true,
       "lottery_enabled": true,
       "reward_enabled": true,
       "crafting_enabled": false,
-      "acquisition_contract": "content/auxiliary_targets_v07.json"
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I19",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "superseded_operational_extension_v010": {
+        "status": "historical_not_loadable",
+        "may_load_as_current_effect": false,
+        "text": {
+          "description": "实际使用后止血并移除当前30秒轻伤；无这些状态时不消费。既有血迹仍需处理，怪物按各自目标条件结束。",
+          "shared_primitive": "typed_status_treatment",
+          "requires_new_item_type": false,
+          "status": "proposal_not_implemented",
+          "condition_contract": "content/condition_lifecycle_v06.json#/wounds/first_aid",
+          "world_seconds": 1,
+          "requires_qte": false
+        }
+      },
+      "operational_extension": {
+        "condition_contract": "content/condition_lifecycle_v06.json#/wounds/first_aid",
+        "status": "closed_design_adapter_pending",
+        "description": "对1.5格内一个真实登记伤口/轻伤使用1世界秒，止血并清除该目标现有轻伤。",
+        "requires_new_item_type": false,
+        "may_complete_encounter_goal": false,
+        "world_seconds": 1,
+        "requires_qte": false
+      }
     },
     {
       "id": "I20",
       "name": "净水瓶",
       "rarity": "uncommon",
       "shop_price": 22,
-      "effect": "补充一份已核验净水或清理一小块普通污迹",
-      "tradeoff": "仅饮用或清理普通污迹；遭遇若明确接受净水，仍须对同一份实际净水完成指定交付，不直接净化灵体，也不以日间学习页作为使用门槛。",
+      "effect": "同一已核验净水用2世界秒灌入F04实际干燥保湿盘，或1世界秒清一格普通污迹，二选一。",
+      "tradeoff": "没有饮用资源收益；不用于F28自带异常水，不清血迹、不解除水源连通，F53两瓶封存不得拿来用。",
       "tag": "water",
       "consumable": true,
       "design_origin": "original_game_adaptation",
@@ -512,16 +860,37 @@
       "reward_enabled": true,
       "crafting_enabled": false,
       "acquisition_contract": "content/auxiliary_targets_v07.json",
-      "food_source_policy": "personal_verified_required_for_ingestion",
-      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification"
+      "food_source_policy": "verified_water_delivery_only_no_ingestion_resource_effect",
+      "food_verification_contract": "content/consumer_closure_v08.json#/food_verification",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I20",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "superseded_operational_extension_v010": {
+        "status": "historical_not_loadable",
+        "may_load_as_current_effect": false,
+        "text": {
+          "condition_contract": "content/auxiliary_effects_v010.json#/entries/I20",
+          "status": "closed_design_adapter_pending",
+          "description": "同一已核验净水可交给明确接受净水的F04/F28目标，或1世界秒清一格普通污迹，二选一。",
+          "requires_new_item_type": false,
+          "may_complete_encounter_goal": false
+        }
+      },
+      "operational_extension": {
+        "condition_contract": "content/auxiliary_effects_v010.json#/entries/I20",
+        "status": "closed_design_adapter_pending",
+        "description": "同一已核验净水用2世界秒灌入F04实际干燥保湿盘，或1世界秒清一格普通污迹，二选一。",
+        "requires_new_item_type": false,
+        "may_complete_encounter_goal": false
+      }
     },
     {
       "id": "I21",
       "name": "应急护身符",
       "rarity": "rare",
       "shop_price": 60,
-      "effect": "仅对F50俯冲或F60转身的当前有效预告，增加3世界秒总缓冲，单个攻击实例一次。",
-      "tradeoff": "与同一预告的宠物/门铃增时取最大总增量，不相加；若本次增量会超出当前阶段或真实06预算，不使用也不消耗。",
+      "effect": "仅F50俯冲或F60转身的当前有效预告，总增量提高到3世界秒；同攻击实例一次。",
+      "tradeoff": "与P05/P07/B04取最大总量不相加；已有+2只补1，无正差、过期、跨阶段/真实06预算均不扣。",
       "tag": "ward",
       "consumable": true,
       "design_origin": "original_game_adaptation",
@@ -531,7 +900,40 @@
       "reward_enabled": true,
       "crafting_enabled": false,
       "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I21",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "superseded_operational_extension_v010": {
+        "status": "historical_not_loadable",
+        "may_load_as_current_effect": false,
+        "text": {
+          "shared_primitive": "telegraph_total_bonus_max",
+          "target_monster_ids": [
+            "F50",
+            "F60"
+          ],
+          "target_action_ids": [
+            "roof_dive",
+            "turn_to_face"
+          ],
+          "requested_total_bonus_world_seconds": 3,
+          "max_uses_per_attack_instance": 1,
+          "requires_active_unexpired_telegraph": true,
+          "same_category_stacking": "strongest_total_only",
+          "refund_on_invalid_target": true,
+          "must_fit_remaining_phase_and_shift_budget": true,
+          "cannot_extend_true_six": true,
+          "may_complete_encounter_goal": false,
+          "status": "design_only_client_adapter_pending",
+          "condition_contract": "content/auxiliary_targets_v07.json#/telegraph_extension"
+        }
+      },
       "operational_extension": {
+        "condition_contract": "content/auxiliary_targets_v07.json#/telegraph_extension",
+        "status": "closed_design_adapter_pending",
+        "description": "仅F50俯冲或F60转身的当前有效预告，总增量提高到3世界秒；同攻击实例一次。",
+        "requires_new_item_type": false,
+        "may_complete_encounter_goal": false,
         "shared_primitive": "telegraph_total_bonus_max",
         "target_monster_ids": [
           "F50",
@@ -547,10 +949,7 @@
         "same_category_stacking": "strongest_total_only",
         "refund_on_invalid_target": true,
         "must_fit_remaining_phase_and_shift_budget": true,
-        "cannot_extend_true_six": true,
-        "may_complete_encounter_goal": false,
-        "status": "design_only_client_adapter_pending",
-        "condition_contract": "content/auxiliary_targets_v07.json#/telegraph_extension"
+        "cannot_extend_true_six": true
       }
     },
     {
@@ -558,8 +957,8 @@
       "name": "定界盐包",
       "rarity": "rare",
       "shop_price": 55,
-      "effect": "建立一道已学适用类型的短暂边界",
-      "tradeoff": "不是所有原型都惧盐；非适用者不生效",
+      "effect": "历史提案：当前效果停用，所有新获取渠道关闭。",
+      "tradeoff": "旧实例原样保留，不扣使用资源、不生成效果；不可按归档文字加载。",
       "tag": "threshold",
       "consumable": true,
       "design_origin": "original_game_adaptation",
@@ -569,39 +968,63 @@
       "reward_enabled": false,
       "crafting_enabled": false,
       "acquisition_contract": "content/auxiliary_targets_v07.json",
-      "disabled_reason": "当前60卡没有已定义且有实际消费者的此项辅助反应，保留历史条目，暂不出售、抽取、赠送或制造；不删除已有存量。"
+      "disabled_reason": "当前60卡没有已定义且有实际消费者的此项辅助反应，保留历史条目，暂不出售、抽取、赠送或制造；不删除已有存量。",
+      "historical_archive_v010": {
+        "status": "inactive_unimplemented_proposal",
+        "retained_from": "V0.9",
+        "text": {
+          "effect": "建立一道已学适用类型的短暂边界",
+          "tradeoff": "不是所有原型都惧盐；非适用者不生效"
+        },
+        "may_load_as_current_effect": false,
+        "existing_instances_preserved": true
+      },
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I22",
+      "effect_handler_implemented": false
     },
     {
       "id": "I23",
       "name": "引路铃",
       "rarity": "rare",
       "shop_price": 65,
-      "effect": "把可被声音引导的对象引向预设空区",
-      "tradeoff": "可能同时吸引其他听觉型访客",
+      "effect": "历史提案：当前效果停用，所有新获取渠道关闭。",
+      "tradeoff": "旧实例原样保留，不扣使用资源、不生成效果；不可按归档文字加载。",
       "tag": "sound",
       "consumable": true,
       "design_origin": "original_game_adaptation",
-      "operational_extension": {
-        "description": "只吸引明确标有声音诱导能力的对象；F12仍按回形针诱饵，F13仍按生肉/玩家状态选目标。",
-        "shared_primitive": "tagged_lure",
-        "requires_new_item_type": false,
-        "status": "proposal_not_implemented"
-      },
       "acquisition_enabled": false,
       "shop_enabled": false,
       "lottery_enabled": false,
       "reward_enabled": false,
       "crafting_enabled": false,
       "acquisition_contract": "content/auxiliary_targets_v07.json",
-      "disabled_reason": "当前60卡没有已定义且有实际消费者的此项辅助反应，保留历史条目，暂不出售、抽取、赠送或制造；不删除已有存量。"
+      "disabled_reason": "当前60卡没有已定义且有实际消费者的此项辅助反应，保留历史条目，暂不出售、抽取、赠送或制造；不删除已有存量。",
+      "historical_archive_v010": {
+        "status": "inactive_unimplemented_proposal",
+        "retained_from": "V0.9",
+        "text": {
+          "effect": "把可被声音引导的对象引向预设空区",
+          "tradeoff": "可能同时吸引其他听觉型访客",
+          "operational_extension": {
+            "description": "只吸引明确标有声音诱导能力的对象；F12仍按回形针诱饵，F13仍按生肉/玩家状态选目标。",
+            "shared_primitive": "tagged_lure",
+            "requires_new_item_type": false,
+            "status": "proposal_not_implemented"
+          }
+        },
+        "may_load_as_current_effect": false,
+        "existing_instances_preserved": true
+      },
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I23",
+      "effect_handler_implemented": false
     },
     {
       "id": "I24",
       "name": "返程绳",
       "rarity": "rare",
       "shop_price": 60,
-      "effect": "固定入口锚点并保留一次可见回程",
-      "tradeoff": "只能连接实际通路，不穿墙或抹除封锁",
+      "effect": "用1世界秒在已知入口绑绳，随后记录本人实际走过的最多24格回程线，持续90世界秒。",
+      "tradeoff": "只显示已走的真实线；门闭/路径失效处标断，不穿墙或自动寻新路。夜末清理，不是血迹或诱饵。",
       "tag": "path",
       "consumable": true,
       "design_origin": "original_game_adaptation",
@@ -610,7 +1033,28 @@
       "lottery_enabled": true,
       "reward_enabled": true,
       "crafting_enabled": false,
-      "acquisition_contract": "content/auxiliary_targets_v07.json"
+      "acquisition_contract": "content/auxiliary_targets_v07.json",
+      "effect_contract_v010": "content/auxiliary_effects_v010.json#/entries/I24",
+      "effect_handler_implemented": false,
+      "availability_note": "设计允许候选不等于客户端已实现；实际获取还须处理器与本条消费者同时启用。",
+      "superseded_operational_extension_v010": {
+        "status": "historical_not_loadable",
+        "may_load_as_current_effect": false,
+        "text": {
+          "condition_contract": "content/auxiliary_effects_v010.json#/entries/I24",
+          "status": "closed_design_adapter_pending",
+          "description": "用1世界秒在已知入口绑绳，随后记录本人实际走过的最多24格回程线，持续90世界秒。",
+          "requires_new_item_type": false,
+          "may_complete_encounter_goal": false
+        }
+      },
+      "operational_extension": {
+        "condition_contract": "content/auxiliary_effects_v010.json#/entries/I24",
+        "status": "closed_design_adapter_pending",
+        "description": "用1世界秒在已知入口绑绳，随后记录本人实际走过的最多24格回程线，持续90世界秒。",
+        "requires_new_item_type": false,
+        "may_complete_encounter_goal": false
+      }
     }
   ],
   "lottery": {
@@ -778,7 +1222,11 @@
     "illumination_changes_san_value": false,
     "all_acquisition_channels_respect_availability": true,
     "food_verification_contract": "content/consumer_closure_v08.json#/food_verification",
-    "food_status_is_independent_of_effect_tag": true
+    "food_status_is_independent_of_effect_tag": true,
+    "no_ingestion_effect_for_I20": true,
+    "I15_target": "F49_same_sealed_hot_waste_only"
   },
-  "day_cycle_contract": "content/integration_v09.json#/calendar"
+  "day_cycle_contract": "content/integration_v09.json#/calendar",
+  "auxiliary_effect_contract": "content/auxiliary_effects_v010.json",
+  "auxiliary_client_implemented": false
 }

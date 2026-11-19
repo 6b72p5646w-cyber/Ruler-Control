@@ -176,8 +176,14 @@ def validate():
         check({tuple(p) for p in niche['cells']} <= walk, niche['id'] + ': declared service recess blocked')
 
     for panel in data.get('station_local_panels', []):
+        groups=panel.get('selector_groups',[])
+        bounded_controls=(len(panel['selector_ids'])<=3) if not groups else (
+            panel.get('max_visible_groups')==1 and
+            all(0<len(group['selector_ids'])<=3 for group in groups) and
+            {item for group in groups for item in group['selector_ids']}==set(panel['selector_ids']) and
+            sum(len(group['selector_ids']) for group in groups)==len(panel['selector_ids']))
         check(panel['anchor'] in anchors and panel['uses_same_interaction_position'] and
-              not panel['new_world_positions'] and len(panel['selector_ids']) <= 3,
+              not panel['new_world_positions'] and bounded_controls,
               panel['id'] + ': local panel must bind an existing reachable station')
     for route in data['route_checks']:
         names = [route['start']] + route['via'] + [route['end']]

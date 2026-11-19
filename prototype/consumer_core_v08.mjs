@@ -203,7 +203,7 @@ export function registerSupplierBatch(s, {id, runId, itemId, batchId, createdAtB
 export function beginFoodInspection(s, {inspectionId, itemInstanceId}) {
   const item = s.inventory[itemInstanceId], c = s.contract.food_verification;
   if (!named(inspectionId) || s.inspections[inspectionId] || s.activeInspection || !s.foodInspectionImplemented ||
-      !item?.owned || item.consumed || item.lockedBy || item.reservedBy || !c.edible_item_ids.includes(item.itemId) ||
+      !item?.owned || item.consumed || item.lockedBy || item.reservedBy || !(c.inspectable_item_ids ?? c.edible_item_ids).includes(item.itemId) ||
       item.foodStatus !== c.guest_gift_initial_status || !inspectionContextValid(s, itemInstanceId) ||
       s.budget + c.inspection_world_seconds > 720) return no('inspection_unavailable');
   s.inspections[inspectionId] = {id: inspectionId, itemInstanceId, startedWorld: s.world,
