@@ -1,5 +1,15 @@
 # EQ01：装备能力与特殊奖励（2026-11-19）
 
+## MA01：怪物攻击设计（当前新增）
+
+在既有105怪、TD05塔陷阱与EQ01装备上，补齐逐怪攻击几何、蓄力/收招、冲刺与危险体表、射线、投石打断仪式后追击、丝带缠绕与免费脱困。保留原三结局、数值主体、子体和奖励预算。**设计与有限参考模型已补，完整世界AI/地图/美术尚未接入。**
+
+- [系统总览](docs/73_ma01_attack_overview.md) · [攻击规则](docs/74_ma01_attack_rules.md) · [投石与缠绕](docs/75_ma01_ritual_tether.md)
+- [60民俗攻击](docs/76_ma01_folklore_attacks.md) · [45SCP攻击与子体](docs/77_ma01_scp_attacks.md)
+- [配合与平衡](docs/78_ma01_balance.md) · [验证范围](docs/79_ma01_validation.md)
+- 数据：[共享攻击合同](content/attack_contracts_ma01.json) · [105攻击索引](content/monster_attack_roster_ma01.json)
+
+
 本轮完成六槽36张装备目录（34个启用设计候选、2个原停用条目）、18种特殊消耗品、短时奔跑与塔防配合、完整三品质抽奖池。装备/个人道具跨周保留，塔陷阱与建造币沿TD05周清。所有新增运行准入仍关闭，待实际世界适配与试玩。
 
 - [系统总览](docs/66_eq01_system_overview.md)

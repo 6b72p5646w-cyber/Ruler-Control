@@ -1,0 +1,4652 @@
+{
+  "version": "MA01",
+  "runtime_integrated": false,
+  "baseline_commit": "6445d758b9d1b63afad0afb7d75bc422e0d900a6",
+  "structural_passed": 734,
+  "structural_failed": 0,
+  "finite_passed": 142,
+  "finite_failed": 0,
+  "monster_count": 105,
+  "attack_definition_count": 184,
+  "child_template_count": 13,
+  "family_counts": {
+    "AREA_PULSE": 9,
+    "BEAM": 6,
+    "CHARGE": 24,
+    "COMBO": 3,
+    "CONTACT": 7,
+    "GAZE": 1,
+    "LEAP": 6,
+    "MELEE": 113,
+    "PROJECTILE": 1,
+    "RITUAL": 3,
+    "SWEEP_BEAM": 1,
+    "TETHER": 10
+  },
+  "outcome_counts": {
+    "rule_weaken": 38,
+    "rule_leave": 45,
+    "kill_unlocked": 22
+  },
+  "scope": "逐卡字段/引用/预算及独立有限行为反例；不证明105AI、完整地图可达、运行物理或整周胜率。",
+  "checks": [
+    {
+      "name": "content/monster_attacks_folklore_ma01.json design-only",
+      "passed": true
+    },
+    {
+      "name": "content/monster_attacks_scp_ma01.json design-only",
+      "passed": true
+    },
+    {
+      "name": "105 original IDs exactly once",
+      "passed": true
+    },
+    {
+      "name": "shared contract runtime remains closed",
+      "passed": true
+    },
+    {
+      "name": "content/monster_folklore_md01.json original blob unchanged",
+      "passed": true
+    },
+    {
+      "name": "content/monster_scp_a_md01.json original blob unchanged",
+      "passed": true
+    },
+    {
+      "name": "content/monster_scp_b_md01.json original blob unchanged",
+      "passed": true
+    },
+    {
+      "name": "content/tower_defense_td05.json original blob unchanged",
+      "passed": true
+    },
+    {
+      "name": "content/traps_facilities_td05.json original blob unchanged",
+      "passed": true
+    },
+    {
+      "name": "content/equipment_eq01.json original blob unchanged",
+      "passed": true
+    },
+    {
+      "name": "content/consumables_eq01.json original blob unchanged",
+      "passed": true
+    },
+    {
+      "name": "content/economy_week_td05.json original blob unchanged",
+      "passed": true
+    },
+    {
+      "name": "tower reference domain has 70 actual nodes",
+      "passed": true
+    },
+    {
+      "name": "equipment reference domain has all 36 definitions",
+      "passed": true
+    },
+    {
+      "name": "F01 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F01 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F01 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F01 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F01 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F01:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F02 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F02 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F02 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F02 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F02 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F02:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F03 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F03 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F03 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F03 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F03 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F03:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F03:LEAP bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F04 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F04 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F04 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F04 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F04 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F04:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F04:TETHER bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F05 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F05 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F05 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F05 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F05 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F05:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F05:TETHER bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F06 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F06 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F06 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F06 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F06 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F06:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F06:FROST_RAY bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F07 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F07 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F07 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F07 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F07 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F07:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F07:CRY bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F08 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F08 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F08 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F08 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F08 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F08:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F08:COMBO bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F09 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F09 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F09 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F09 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F09 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F09:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F09:NECK bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F10 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F10 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F10 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F10 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F10 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F10:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F10:WAVE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F11 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F11 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F11 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F11 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F11 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F11:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F11:CHARGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F12 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F12 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F12 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F12 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F12 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F12:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F13 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F13 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F13 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F13 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F13 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F13:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F14 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F14 archived human host remains noncombat",
+      "passed": true
+    },
+    {
+      "name": "F14 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F14 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F14 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F15 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F15 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F15 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F15 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F15 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F15:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F16 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F16 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F16 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F16 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F16 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F16:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F17 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F17 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F17 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F17 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F17 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F17:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F17:TETHER bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F18 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F18 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F18 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F18 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F18 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F18:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F18:CHARGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F19 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F19 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F19 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F19 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F19 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F19:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F20 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F20 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F20 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F20 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F20 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F20:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F20:TETHER bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F21 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F21 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F21 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F21 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F21 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F21:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F21:RITUAL bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F22 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F22 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F22 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F22 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F22 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F22:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F22:CHARGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F23 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F23 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F23 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F23 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F23 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F23:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F23:CHARGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F24 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F24 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F24 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F24 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F24 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F24:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F24:CHARGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F25 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F25 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F25 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F25 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F25 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F25:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F26 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F26 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F26 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F26 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F26 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F26:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F26:CHARGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F27 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F27 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F27 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F27 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F27 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F27:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F27:CHARGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F28 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F28 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F28 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F28 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F28 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F28:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F28:RITUAL bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F29 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F29 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F29 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F29 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F29 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F29:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F29:BOWL_PULSE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F30 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F30 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F30 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F30 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F30 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F30:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F31 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F31 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F31 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F31 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F31 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F31:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F31:LEAP bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F32 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F32 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F32 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F32 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F32 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F32:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F32:LEAP bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F33 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F33 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F33 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F33 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F33 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F33:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F33:CHARGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F34 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F34 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F34 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F34 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F34 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F34:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F34:CHARGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F35 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F35 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F35 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F35 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F35 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F35:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F35:CHARGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F36 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F36 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F36 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F36 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F36 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F36:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F37 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F37 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F37 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F37 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F37 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F37:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F37:CHARGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F38 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F38 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F38 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F38 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F38 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F38:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F39 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F39 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F39 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F39 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F39 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F39:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F39:EMBER bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F40 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F40 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F40 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F40 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F40 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F40:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F41 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F41 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F41 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F41 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F41 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F41:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F41:TETHER bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F42 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F42 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F42 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F42 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F42 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F42:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F42:CHARGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F43 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F43 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F43 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F43 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F43 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F43:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F43:CHARGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F44 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F44 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F44 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F44 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F44 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F44:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F44:RITUAL bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F45 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F45 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F45 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F45 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F45 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F45:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F45:CHARGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F46 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F46 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F46 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F46 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F46 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F46:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F47 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F47 voluntary contest adds no damage penalty",
+      "passed": true
+    },
+    {
+      "name": "F47 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F47 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F47 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F48 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F48 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F48 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F48 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F48 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F48:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F48:LEAP bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F49 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F49 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F49 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F49 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F49 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F49:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F49:FIRE_RAY bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F49:CONTACT bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F49:CHARGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F50 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F50 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F50 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F50 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F50 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F50:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F50:DIVE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F51 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F51 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F51 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F51 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F51 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F51:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F51:TETHER bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F52 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F52 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F52 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F52 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F52 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F52:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F52:TETHER bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F53 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F53 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F53 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F53 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F53 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F53:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F53:COMBO bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F54 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F54 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F54 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F54 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F54 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F54:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F54:SUCTION bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F55 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F55 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F55 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F55 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F55 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F55:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F55:LEAP bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F56 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F56 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F56 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F56 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F56 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F56:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F56:SURGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F57 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F57 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F57 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F57 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F57 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F57:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F57:CHANNEL_SWEEP bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F58 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F58 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F58 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F58 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F58 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F58:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F58:TETHER bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F59 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F59 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F59 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F59 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F59 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F59:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F59:COMBO bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F60 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "F60 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "F60 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "F60 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "F60 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "F60:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "F60:GAZE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S01 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S01 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S01 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S01 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S01 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S01:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S02 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S02 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S02 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S02 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S02 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S02:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S03 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S03 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S03 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S03 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S03 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S03:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S04 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S04 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S04 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S04 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S04 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S04:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S04:PALMS bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S05 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S05 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S05 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S05 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S05 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S05:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S06 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S06 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S06 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S06 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S06 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S06:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S06:LUNGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S07 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S07 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S07 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S07 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S07 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S07:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S08 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S08 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S08 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S08 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S08 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S08:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S08:FIRE_BODY bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S08:CHILD_BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S08:CHILD_FIRE_BODY bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S09 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S09 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S09 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S09 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S09 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S09:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S09:SLEEP_WAVE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S10 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S10 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S10 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S10 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S10 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S10:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S11 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S11 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S11 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S11 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S11 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S11:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S12 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S12 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S12 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S12 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S12 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S12:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S12:SPINE_TETHER bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S13 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S13 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S13 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S13 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S13 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S13:DOOR_PULSE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S14 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S14 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S14 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S14 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S14 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S14:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S14:CHILD_CLOTH bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S14:CHILD_SCRAP bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S14:CHILD_PAPER bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S15 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S15 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S15 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S15 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S15 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S15:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S15:CHILD_PECK bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S16 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S16 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S16 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S16 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S16 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S16:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S16:PACK_BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S17 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S17 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S17 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S17 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S17 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S17:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S17:PACK_BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S18 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S18 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S18 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S18 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S18 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S18:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S18:PAIRED_CHARGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S18:PARTNER_BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S19 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S19 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S19 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S19 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S19 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S19:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S19:FEAST_LUNGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S20 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S20 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S20 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S20 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S20 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S20:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S20:SLUDGE_PATCH bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S21 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S21 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S21 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S21 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S21 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S21:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S22 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S22 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S22 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S22 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S22 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S22:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S23 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S23 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S23 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S23 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S23 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S23:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S23:EMBER_RAY bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S24 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S24 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S24 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S24 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S24 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S24:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S24:BLADE_LINE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S25 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S25 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S25 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S25 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S25 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S25:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S25:SHADOW_LUNGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S26 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S26 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S26 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S26 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S26 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S26:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S26:CAT_LUNGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S27 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S27 noncombat source delegates only real children",
+      "passed": true
+    },
+    {
+      "name": "S27 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S27 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S27 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S27:CHILD_SPINE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S27:CHILD_BAT bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S28 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S28 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S28 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S28 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S28 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S28:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S28:FLESH_BODY bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S28:CHILD_BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S28:CHILD_BODY bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S29 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S29 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S29 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S29 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S29 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S29:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S30 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S30 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S30 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S30 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S30 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S30:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S30:FLOOR_SILK bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S30:THROWN_SILK bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S31 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S31 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S31 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S31 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S31 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S31:SKULL_LUNGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S32 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S32 noncombat source delegates only real children",
+      "passed": true
+    },
+    {
+      "name": "S32 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S32 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S32 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S32:CHILD_BITE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S33 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S33 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S33 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S33 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S33 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S33:EDGE_CONTACT bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S33:SPORE_ZONE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S34 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S34 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S34 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S34 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S34 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S34:SIX_BEAT bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S35 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S35 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S35 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S35 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S35 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S35:LANE_CHARGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S36 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S36 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S36 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S36 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S36 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S36:SHRIEK bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S37 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S37 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S37 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S37 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S37 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S37:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S37:CORROSIVE_CONE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S38 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S38 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S38 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S38 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S38 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S38:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S39 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S39 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S39 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S39 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S39 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S39:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S39:TAIL_SWEEP bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S40 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S40 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S40 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S40 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S40 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S40:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S41 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S41 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S41 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S41 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S41 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S41:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S41:DARK_LUNGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S41:HELPER_BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S42 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S42 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S42 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S42 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S42 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S42:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S42:OFFBEAT_LUNGE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S43 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S43 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S43 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S43 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S43 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S43:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S44 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S44 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S44 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S44 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S44 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S44:PROJECTION_RAYS bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S45 preserves source identity/outcome and has complete card",
+      "passed": true
+    },
+    {
+      "name": "S45 has actual basic attack",
+      "passed": true
+    },
+    {
+      "name": "S45 references real tower/equipment/item IDs",
+      "passed": true
+    },
+    {
+      "name": "S45 accounts for every old ability without parallel copies",
+      "passed": true
+    },
+    {
+      "name": "S45 child templates refer to actual attacks",
+      "passed": true
+    },
+    {
+      "name": "S45:BASIC bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "S45:TOOL_LINE bounded geometry/timing/control contract",
+      "passed": true
+    },
+    {
+      "name": "all attack definition IDs are unique",
+      "passed": true
+    },
+    {
+      "name": "requested six behaviors exist",
+      "passed": true
+    },
+    {
+      "name": "F12 original 3 second basic cadence retained",
+      "passed": true
+    },
+    {
+      "name": "F13 original 3 second basic cadence retained",
+      "passed": true
+    },
+    {
+      "name": "stone is one three-object nightly shared ledger",
+      "passed": true
+    },
+    {
+      "name": "body contact is explicit exception only",
+      "passed": true
+    },
+    {
+      "name": "attack index matches authored definitions",
+      "passed": true
+    },
+    {
+      "name": "content/monster_attacks_folklore_ma01.json indexed content hash current",
+      "passed": true
+    },
+    {
+      "name": "content/monster_attacks_scp_ma01.json indexed content hash current",
+      "passed": true
+    },
+    {
+      "name": "finite reference report is current and passed",
+      "passed": true
+    },
+    {
+      "name": "22 gates 45 departures 38 weakenings preserved",
+      "passed": true
+    }
+  ],
+  "timing_rows": [
+    {
+      "id": "F01:BASIC",
+      "monster": "F01",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F02:BASIC",
+      "monster": "F02",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F03:BASIC",
+      "monster": "F03",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 5,
+      "full_declared_active_cycle_miss_s": 5
+    },
+    {
+      "id": "F03:LEAP",
+      "monster": "F03",
+      "family": "LEAP",
+      "role": "signature",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 12,
+      "full_declared_active_cycle_miss_s": 12
+    },
+    {
+      "id": "F04:BASIC",
+      "monster": "F04",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F04:TETHER",
+      "monster": "F04",
+      "family": "TETHER",
+      "role": "signature",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 8,
+      "full_declared_active_cycle_miss_s": 8
+    },
+    {
+      "id": "F05:BASIC",
+      "monster": "F05",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F05:TETHER",
+      "monster": "F05",
+      "family": "TETHER",
+      "role": "signature",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 10,
+      "full_declared_active_cycle_miss_s": 10
+    },
+    {
+      "id": "F06:BASIC",
+      "monster": "F06",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F06:FROST_RAY",
+      "monster": "F06",
+      "family": "BEAM",
+      "role": "signature",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 12,
+      "full_declared_active_cycle_miss_s": 12
+    },
+    {
+      "id": "F07:BASIC",
+      "monster": "F07",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F07:CRY",
+      "monster": "F07",
+      "family": "AREA_PULSE",
+      "role": "signature",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 9,
+      "full_declared_active_cycle_miss_s": 9
+    },
+    {
+      "id": "F08:BASIC",
+      "monster": "F08",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F08:COMBO",
+      "monster": "F08",
+      "family": "COMBO",
+      "role": "signature",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 8,
+      "full_declared_active_cycle_miss_s": 8
+    },
+    {
+      "id": "F09:BASIC",
+      "monster": "F09",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F09:NECK",
+      "monster": "F09",
+      "family": "MELEE",
+      "role": "signature",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 10,
+      "full_declared_active_cycle_miss_s": 10
+    },
+    {
+      "id": "F10:BASIC",
+      "monster": "F10",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 16,
+      "full_declared_active_cycle_hit_s": 5,
+      "full_declared_active_cycle_miss_s": 5
+    },
+    {
+      "id": "F10:WAVE",
+      "monster": "F10",
+      "family": "BEAM",
+      "role": "signature",
+      "damage_san": 16,
+      "full_declared_active_cycle_hit_s": 12,
+      "full_declared_active_cycle_miss_s": 12
+    },
+    {
+      "id": "F11:BASIC",
+      "monster": "F11",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F11:CHARGE",
+      "monster": "F11",
+      "family": "CHARGE",
+      "role": "signature",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 10,
+      "full_declared_active_cycle_miss_s": 10
+    },
+    {
+      "id": "F12:BASIC",
+      "monster": "F12",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 3,
+      "full_declared_active_cycle_miss_s": 3
+    },
+    {
+      "id": "F13:BASIC",
+      "monster": "F13",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 3,
+      "full_declared_active_cycle_miss_s": 3
+    },
+    {
+      "id": "F15:BASIC",
+      "monster": "F15",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F16:BASIC",
+      "monster": "F16",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F17:BASIC",
+      "monster": "F17",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F17:TETHER",
+      "monster": "F17",
+      "family": "TETHER",
+      "role": "signature",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 8,
+      "full_declared_active_cycle_miss_s": 8
+    },
+    {
+      "id": "F18:BASIC",
+      "monster": "F18",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F18:CHARGE",
+      "monster": "F18",
+      "family": "CHARGE",
+      "role": "signature",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 10,
+      "full_declared_active_cycle_miss_s": 10
+    },
+    {
+      "id": "F19:BASIC",
+      "monster": "F19",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F20:BASIC",
+      "monster": "F20",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F20:TETHER",
+      "monster": "F20",
+      "family": "TETHER",
+      "role": "signature",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 12,
+      "full_declared_active_cycle_miss_s": 12
+    },
+    {
+      "id": "F21:BASIC",
+      "monster": "F21",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F21:RITUAL",
+      "monster": "F21",
+      "family": "RITUAL",
+      "role": "signature",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 16,
+      "full_declared_active_cycle_miss_s": 16
+    },
+    {
+      "id": "F22:BASIC",
+      "monster": "F22",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F22:CHARGE",
+      "monster": "F22",
+      "family": "CHARGE",
+      "role": "signature",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 10,
+      "full_declared_active_cycle_miss_s": 10
+    },
+    {
+      "id": "F23:BASIC",
+      "monster": "F23",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F23:CHARGE",
+      "monster": "F23",
+      "family": "CHARGE",
+      "role": "signature",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 10,
+      "full_declared_active_cycle_miss_s": 10
+    },
+    {
+      "id": "F24:BASIC",
+      "monster": "F24",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 5,
+      "full_declared_active_cycle_miss_s": 5
+    },
+    {
+      "id": "F24:CHARGE",
+      "monster": "F24",
+      "family": "CHARGE",
+      "role": "signature",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 12,
+      "full_declared_active_cycle_miss_s": 12
+    },
+    {
+      "id": "F25:BASIC",
+      "monster": "F25",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F26:BASIC",
+      "monster": "F26",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F26:CHARGE",
+      "monster": "F26",
+      "family": "CHARGE",
+      "role": "signature",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 10,
+      "full_declared_active_cycle_miss_s": 10
+    },
+    {
+      "id": "F27:BASIC",
+      "monster": "F27",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 16,
+      "full_declared_active_cycle_hit_s": 5,
+      "full_declared_active_cycle_miss_s": 5
+    },
+    {
+      "id": "F27:CHARGE",
+      "monster": "F27",
+      "family": "CHARGE",
+      "role": "signature",
+      "damage_san": 16,
+      "full_declared_active_cycle_hit_s": 12,
+      "full_declared_active_cycle_miss_s": 12
+    },
+    {
+      "id": "F28:BASIC",
+      "monster": "F28",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F28:RITUAL",
+      "monster": "F28",
+      "family": "RITUAL",
+      "role": "signature",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 16,
+      "full_declared_active_cycle_miss_s": 16
+    },
+    {
+      "id": "F29:BASIC",
+      "monster": "F29",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F29:BOWL_PULSE",
+      "monster": "F29",
+      "family": "AREA_PULSE",
+      "role": "signature",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 8,
+      "full_declared_active_cycle_miss_s": 8
+    },
+    {
+      "id": "F30:BASIC",
+      "monster": "F30",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 5,
+      "full_declared_active_cycle_miss_s": 5
+    },
+    {
+      "id": "F31:BASIC",
+      "monster": "F31",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F31:LEAP",
+      "monster": "F31",
+      "family": "LEAP",
+      "role": "signature",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 10,
+      "full_declared_active_cycle_miss_s": 10
+    },
+    {
+      "id": "F32:BASIC",
+      "monster": "F32",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F32:LEAP",
+      "monster": "F32",
+      "family": "LEAP",
+      "role": "signature",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 10,
+      "full_declared_active_cycle_miss_s": 10
+    },
+    {
+      "id": "F33:BASIC",
+      "monster": "F33",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 5,
+      "full_declared_active_cycle_miss_s": 5
+    },
+    {
+      "id": "F33:CHARGE",
+      "monster": "F33",
+      "family": "CHARGE",
+      "role": "signature",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 12,
+      "full_declared_active_cycle_miss_s": 12
+    },
+    {
+      "id": "F34:BASIC",
+      "monster": "F34",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F34:CHARGE",
+      "monster": "F34",
+      "family": "CHARGE",
+      "role": "signature",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 10,
+      "full_declared_active_cycle_miss_s": 10
+    },
+    {
+      "id": "F35:BASIC",
+      "monster": "F35",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F35:CHARGE",
+      "monster": "F35",
+      "family": "CHARGE",
+      "role": "signature",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 10,
+      "full_declared_active_cycle_miss_s": 10
+    },
+    {
+      "id": "F36:BASIC",
+      "monster": "F36",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F37:BASIC",
+      "monster": "F37",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F37:CHARGE",
+      "monster": "F37",
+      "family": "CHARGE",
+      "role": "signature",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 10,
+      "full_declared_active_cycle_miss_s": 10
+    },
+    {
+      "id": "F38:BASIC",
+      "monster": "F38",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F39:BASIC",
+      "monster": "F39",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F39:EMBER",
+      "monster": "F39",
+      "family": "PROJECTILE",
+      "role": "signature",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 10,
+      "full_declared_active_cycle_miss_s": 10
+    },
+    {
+      "id": "F40:BASIC",
+      "monster": "F40",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 5,
+      "full_declared_active_cycle_miss_s": 5
+    },
+    {
+      "id": "F41:BASIC",
+      "monster": "F41",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F41:TETHER",
+      "monster": "F41",
+      "family": "TETHER",
+      "role": "signature",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 10,
+      "full_declared_active_cycle_miss_s": 10
+    },
+    {
+      "id": "F42:BASIC",
+      "monster": "F42",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F42:CHARGE",
+      "monster": "F42",
+      "family": "CHARGE",
+      "role": "signature",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 10,
+      "full_declared_active_cycle_miss_s": 10
+    },
+    {
+      "id": "F43:BASIC",
+      "monster": "F43",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F43:CHARGE",
+      "monster": "F43",
+      "family": "CHARGE",
+      "role": "signature",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 10,
+      "full_declared_active_cycle_miss_s": 10
+    },
+    {
+      "id": "F44:BASIC",
+      "monster": "F44",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 5,
+      "full_declared_active_cycle_miss_s": 5
+    },
+    {
+      "id": "F44:RITUAL",
+      "monster": "F44",
+      "family": "RITUAL",
+      "role": "signature",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 16,
+      "full_declared_active_cycle_miss_s": 16
+    },
+    {
+      "id": "F45:BASIC",
+      "monster": "F45",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F45:CHARGE",
+      "monster": "F45",
+      "family": "CHARGE",
+      "role": "signature",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 10,
+      "full_declared_active_cycle_miss_s": 10
+    },
+    {
+      "id": "F46:BASIC",
+      "monster": "F46",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F48:BASIC",
+      "monster": "F48",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F48:LEAP",
+      "monster": "F48",
+      "family": "LEAP",
+      "role": "signature",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 10,
+      "full_declared_active_cycle_miss_s": 10
+    },
+    {
+      "id": "F49:BASIC",
+      "monster": "F49",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 16,
+      "full_declared_active_cycle_hit_s": 5,
+      "full_declared_active_cycle_miss_s": 5
+    },
+    {
+      "id": "F49:FIRE_RAY",
+      "monster": "F49",
+      "family": "BEAM",
+      "role": "signature",
+      "damage_san": 16,
+      "full_declared_active_cycle_hit_s": 12,
+      "full_declared_active_cycle_miss_s": 12
+    },
+    {
+      "id": "F49:CONTACT",
+      "monster": "F49",
+      "family": "CONTACT",
+      "role": "signature",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 9,
+      "full_declared_active_cycle_miss_s": 9
+    },
+    {
+      "id": "F49:CHARGE",
+      "monster": "F49",
+      "family": "CHARGE",
+      "role": "signature",
+      "damage_san": 16,
+      "full_declared_active_cycle_hit_s": 12,
+      "full_declared_active_cycle_miss_s": 12
+    },
+    {
+      "id": "F50:BASIC",
+      "monster": "F50",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F50:DIVE",
+      "monster": "F50",
+      "family": "LEAP",
+      "role": "signature",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 12,
+      "full_declared_active_cycle_miss_s": 12
+    },
+    {
+      "id": "F51:BASIC",
+      "monster": "F51",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F51:TETHER",
+      "monster": "F51",
+      "family": "TETHER",
+      "role": "signature",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 10,
+      "full_declared_active_cycle_miss_s": 10
+    },
+    {
+      "id": "F52:BASIC",
+      "monster": "F52",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F52:TETHER",
+      "monster": "F52",
+      "family": "TETHER",
+      "role": "signature",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 8,
+      "full_declared_active_cycle_miss_s": 8
+    },
+    {
+      "id": "F53:BASIC",
+      "monster": "F53",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 5,
+      "full_declared_active_cycle_miss_s": 5
+    },
+    {
+      "id": "F53:COMBO",
+      "monster": "F53",
+      "family": "COMBO",
+      "role": "signature",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 12,
+      "full_declared_active_cycle_miss_s": 12
+    },
+    {
+      "id": "F54:BASIC",
+      "monster": "F54",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 18,
+      "full_declared_active_cycle_hit_s": 5.5,
+      "full_declared_active_cycle_miss_s": 5.5
+    },
+    {
+      "id": "F54:SUCTION",
+      "monster": "F54",
+      "family": "BEAM",
+      "role": "signature",
+      "damage_san": 18,
+      "full_declared_active_cycle_hit_s": 12,
+      "full_declared_active_cycle_miss_s": 12
+    },
+    {
+      "id": "F55:BASIC",
+      "monster": "F55",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F55:LEAP",
+      "monster": "F55",
+      "family": "LEAP",
+      "role": "signature",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 10,
+      "full_declared_active_cycle_miss_s": 10
+    },
+    {
+      "id": "F56:BASIC",
+      "monster": "F56",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 5,
+      "full_declared_active_cycle_miss_s": 5
+    },
+    {
+      "id": "F56:SURGE",
+      "monster": "F56",
+      "family": "AREA_PULSE",
+      "role": "signature",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 12,
+      "full_declared_active_cycle_miss_s": 12
+    },
+    {
+      "id": "F57:BASIC",
+      "monster": "F57",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 16,
+      "full_declared_active_cycle_hit_s": 5,
+      "full_declared_active_cycle_miss_s": 5
+    },
+    {
+      "id": "F57:CHANNEL_SWEEP",
+      "monster": "F57",
+      "family": "SWEEP_BEAM",
+      "role": "signature",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 12,
+      "full_declared_active_cycle_miss_s": 12
+    },
+    {
+      "id": "F58:BASIC",
+      "monster": "F58",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F58:TETHER",
+      "monster": "F58",
+      "family": "TETHER",
+      "role": "signature",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 8,
+      "full_declared_active_cycle_miss_s": 8
+    },
+    {
+      "id": "F59:BASIC",
+      "monster": "F59",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F59:COMBO",
+      "monster": "F59",
+      "family": "COMBO",
+      "role": "signature",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 8,
+      "full_declared_active_cycle_miss_s": 8
+    },
+    {
+      "id": "F60:BASIC",
+      "monster": "F60",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 4.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "F60:GAZE",
+      "monster": "F60",
+      "family": "GAZE",
+      "role": "signature",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 14,
+      "full_declared_active_cycle_miss_s": 14
+    },
+    {
+      "id": "S01:BASIC",
+      "monster": "S01",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S02:BASIC",
+      "monster": "S02",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 16,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S03:BASIC",
+      "monster": "S03",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 18,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S04:BASIC",
+      "monster": "S04",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S04:PALMS",
+      "monster": "S04",
+      "family": "CONTACT",
+      "role": "signature",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 8,
+      "full_declared_active_cycle_miss_s": 8
+    },
+    {
+      "id": "S05:BASIC",
+      "monster": "S05",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 4.0
+    },
+    {
+      "id": "S06:BASIC",
+      "monster": "S06",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 18,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S06:LUNGE",
+      "monster": "S06",
+      "family": "CHARGE",
+      "role": "signature",
+      "damage_san": 18,
+      "full_declared_active_cycle_hit_s": 8,
+      "full_declared_active_cycle_miss_s": 8
+    },
+    {
+      "id": "S07:BASIC",
+      "monster": "S07",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 8,
+      "full_declared_active_cycle_miss_s": 8
+    },
+    {
+      "id": "S08:BASIC",
+      "monster": "S08",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S08:FIRE_BODY",
+      "monster": "S08",
+      "family": "CONTACT",
+      "role": "signature",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 8,
+      "full_declared_active_cycle_miss_s": 8
+    },
+    {
+      "id": "S08:CHILD_BASIC",
+      "monster": "S08",
+      "family": "MELEE",
+      "role": "child",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S08:CHILD_FIRE_BODY",
+      "monster": "S08",
+      "family": "CONTACT",
+      "role": "child",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 8,
+      "full_declared_active_cycle_miss_s": 8
+    },
+    {
+      "id": "S09:BASIC",
+      "monster": "S09",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 9,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S09:SLEEP_WAVE",
+      "monster": "S09",
+      "family": "AREA_PULSE",
+      "role": "signature",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 8,
+      "full_declared_active_cycle_miss_s": 8
+    },
+    {
+      "id": "S10:BASIC",
+      "monster": "S10",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S11:BASIC",
+      "monster": "S11",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S12:BASIC",
+      "monster": "S12",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 16,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 4.5
+    },
+    {
+      "id": "S12:SPINE_TETHER",
+      "monster": "S12",
+      "family": "TETHER",
+      "role": "signature",
+      "damage_san": 16,
+      "full_declared_active_cycle_hit_s": 7.375,
+      "full_declared_active_cycle_miss_s": 7
+    },
+    {
+      "id": "S13:DOOR_PULSE",
+      "monster": "S13",
+      "family": "AREA_PULSE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 7,
+      "full_declared_active_cycle_miss_s": 7
+    },
+    {
+      "id": "S14:BASIC",
+      "monster": "S14",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S14:CHILD_CLOTH",
+      "monster": "S14",
+      "family": "MELEE",
+      "role": "child",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 4,
+      "full_declared_active_cycle_miss_s": 4
+    },
+    {
+      "id": "S14:CHILD_SCRAP",
+      "monster": "S14",
+      "family": "MELEE",
+      "role": "child",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 4,
+      "full_declared_active_cycle_miss_s": 4
+    },
+    {
+      "id": "S14:CHILD_PAPER",
+      "monster": "S14",
+      "family": "MELEE",
+      "role": "child",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 4,
+      "full_declared_active_cycle_miss_s": 4
+    },
+    {
+      "id": "S15:BASIC",
+      "monster": "S15",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S15:CHILD_PECK",
+      "monster": "S15",
+      "family": "MELEE",
+      "role": "child",
+      "damage_san": 9,
+      "full_declared_active_cycle_hit_s": 4,
+      "full_declared_active_cycle_miss_s": 4
+    },
+    {
+      "id": "S16:BASIC",
+      "monster": "S16",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S16:PACK_BASIC",
+      "monster": "S16",
+      "family": "MELEE",
+      "role": "child",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 4,
+      "full_declared_active_cycle_miss_s": 4
+    },
+    {
+      "id": "S17:BASIC",
+      "monster": "S17",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S17:PACK_BASIC",
+      "monster": "S17",
+      "family": "MELEE",
+      "role": "child",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 4,
+      "full_declared_active_cycle_miss_s": 4
+    },
+    {
+      "id": "S18:BASIC",
+      "monster": "S18",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S18:PAIRED_CHARGE",
+      "monster": "S18",
+      "family": "CHARGE",
+      "role": "signature",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 8.8,
+      "full_declared_active_cycle_miss_s": 8.8
+    },
+    {
+      "id": "S18:PARTNER_BASIC",
+      "monster": "S18",
+      "family": "MELEE",
+      "role": "child",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 4,
+      "full_declared_active_cycle_miss_s": 4
+    },
+    {
+      "id": "S19:BASIC",
+      "monster": "S19",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 18,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S19:FEAST_LUNGE",
+      "monster": "S19",
+      "family": "CHARGE",
+      "role": "signature",
+      "damage_san": 18,
+      "full_declared_active_cycle_hit_s": 8,
+      "full_declared_active_cycle_miss_s": 8
+    },
+    {
+      "id": "S20:BASIC",
+      "monster": "S20",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S20:SLUDGE_PATCH",
+      "monster": "S20",
+      "family": "AREA_PULSE",
+      "role": "signature",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 8,
+      "full_declared_active_cycle_miss_s": 8
+    },
+    {
+      "id": "S21:BASIC",
+      "monster": "S21",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S22:BASIC",
+      "monster": "S22",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S23:BASIC",
+      "monster": "S23",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S23:EMBER_RAY",
+      "monster": "S23",
+      "family": "BEAM",
+      "role": "signature",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 8,
+      "full_declared_active_cycle_miss_s": 8
+    },
+    {
+      "id": "S24:BASIC",
+      "monster": "S24",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 16,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 4.0
+    },
+    {
+      "id": "S24:BLADE_LINE",
+      "monster": "S24",
+      "family": "MELEE",
+      "role": "signature",
+      "damage_san": 16,
+      "full_declared_active_cycle_hit_s": 8,
+      "full_declared_active_cycle_miss_s": 8
+    },
+    {
+      "id": "S25:BASIC",
+      "monster": "S25",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S25:SHADOW_LUNGE",
+      "monster": "S25",
+      "family": "CHARGE",
+      "role": "signature",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 7,
+      "full_declared_active_cycle_miss_s": 7
+    },
+    {
+      "id": "S26:BASIC",
+      "monster": "S26",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 4.0
+    },
+    {
+      "id": "S26:CAT_LUNGE",
+      "monster": "S26",
+      "family": "CHARGE",
+      "role": "signature",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 7,
+      "full_declared_active_cycle_miss_s": 7
+    },
+    {
+      "id": "S27:CHILD_SPINE",
+      "monster": "S27",
+      "family": "MELEE",
+      "role": "child",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S27:CHILD_BAT",
+      "monster": "S27",
+      "family": "MELEE",
+      "role": "child",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S28:BASIC",
+      "monster": "S28",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S28:FLESH_BODY",
+      "monster": "S28",
+      "family": "CONTACT",
+      "role": "signature",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 8,
+      "full_declared_active_cycle_miss_s": 8
+    },
+    {
+      "id": "S28:CHILD_BASIC",
+      "monster": "S28",
+      "family": "MELEE",
+      "role": "child",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S28:CHILD_BODY",
+      "monster": "S28",
+      "family": "CONTACT",
+      "role": "child",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 8,
+      "full_declared_active_cycle_miss_s": 8
+    },
+    {
+      "id": "S29:BASIC",
+      "monster": "S29",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S30:BASIC",
+      "monster": "S30",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 4.0
+    },
+    {
+      "id": "S30:FLOOR_SILK",
+      "monster": "S30",
+      "family": "AREA_PULSE",
+      "role": "signature",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 9,
+      "full_declared_active_cycle_miss_s": 9
+    },
+    {
+      "id": "S30:THROWN_SILK",
+      "monster": "S30",
+      "family": "TETHER",
+      "role": "signature",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 9,
+      "full_declared_active_cycle_miss_s": 9
+    },
+    {
+      "id": "S31:SKULL_LUNGE",
+      "monster": "S31",
+      "family": "CHARGE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 6,
+      "full_declared_active_cycle_miss_s": 6
+    },
+    {
+      "id": "S32:CHILD_BITE",
+      "monster": "S32",
+      "family": "MELEE",
+      "role": "child",
+      "damage_san": 6,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S33:EDGE_CONTACT",
+      "monster": "S33",
+      "family": "CONTACT",
+      "role": "basic",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 7,
+      "full_declared_active_cycle_miss_s": 7
+    },
+    {
+      "id": "S33:SPORE_ZONE",
+      "monster": "S33",
+      "family": "AREA_PULSE",
+      "role": "signature",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 7.5,
+      "full_declared_active_cycle_miss_s": 7.5
+    },
+    {
+      "id": "S34:SIX_BEAT",
+      "monster": "S34",
+      "family": "AREA_PULSE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 10,
+      "full_declared_active_cycle_miss_s": 10
+    },
+    {
+      "id": "S35:LANE_CHARGE",
+      "monster": "S35",
+      "family": "CHARGE",
+      "role": "basic",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 10,
+      "full_declared_active_cycle_miss_s": 10
+    },
+    {
+      "id": "S36:SHRIEK",
+      "monster": "S36",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 4.833333333333334,
+      "full_declared_active_cycle_miss_s": 4.833333333333334
+    },
+    {
+      "id": "S37:BASIC",
+      "monster": "S37",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S37:CORROSIVE_CONE",
+      "monster": "S37",
+      "family": "MELEE",
+      "role": "signature",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 7,
+      "full_declared_active_cycle_miss_s": 7
+    },
+    {
+      "id": "S38:BASIC",
+      "monster": "S38",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 4,
+      "full_declared_active_cycle_miss_s": 4
+    },
+    {
+      "id": "S39:BASIC",
+      "monster": "S39",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S39:TAIL_SWEEP",
+      "monster": "S39",
+      "family": "MELEE",
+      "role": "signature",
+      "damage_san": 14,
+      "full_declared_active_cycle_hit_s": 8,
+      "full_declared_active_cycle_miss_s": 8
+    },
+    {
+      "id": "S40:BASIC",
+      "monster": "S40",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S41:BASIC",
+      "monster": "S41",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 4.0
+    },
+    {
+      "id": "S41:DARK_LUNGE",
+      "monster": "S41",
+      "family": "CHARGE",
+      "role": "signature",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 8,
+      "full_declared_active_cycle_miss_s": 8
+    },
+    {
+      "id": "S41:HELPER_BASIC",
+      "monster": "S41",
+      "family": "MELEE",
+      "role": "child",
+      "damage_san": 8,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S42:BASIC",
+      "monster": "S42",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 4.0
+    },
+    {
+      "id": "S42:OFFBEAT_LUNGE",
+      "monster": "S42",
+      "family": "CHARGE",
+      "role": "signature",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 7,
+      "full_declared_active_cycle_miss_s": 7
+    },
+    {
+      "id": "S43:BASIC",
+      "monster": "S43",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 5,
+      "full_declared_active_cycle_miss_s": 5
+    },
+    {
+      "id": "S44:PROJECTION_RAYS",
+      "monster": "S44",
+      "family": "BEAM",
+      "role": "basic",
+      "damage_san": 10,
+      "full_declared_active_cycle_hit_s": 6,
+      "full_declared_active_cycle_miss_s": 6
+    },
+    {
+      "id": "S45:BASIC",
+      "monster": "S45",
+      "family": "MELEE",
+      "role": "basic",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 3.5,
+      "full_declared_active_cycle_miss_s": 3.5
+    },
+    {
+      "id": "S45:TOOL_LINE",
+      "monster": "S45",
+      "family": "MELEE",
+      "role": "signature",
+      "damage_san": 12,
+      "full_declared_active_cycle_hit_s": 6,
+      "full_declared_active_cycle_miss_s": 6
+    }
+  ],
+  "review_corrections": [
+    "Root review found an unguarded lower time boundary. Replaying the pre-guard function confirmed that begin(0) then stone interrupt(-1) was accepted; the final now>=started_at guard and regression case reject it.",
+    "Separated a recovered actor action from its still-live independent residual danger sequence; the latter retains a scene slot and delays whole-attack I39 resolution.",
+    "Aligned the physical stone radius with the final shared contract: 0.1 tile, retaining actual wall clipping and zero monster HP damage.",
+    "Clarified source-pool death versus full-root termination for already launched independent payloads.",
+    "A ritual base warning may be 6..8 seconds; paid legal extensions add at most 3 real seconds, including the actual pulse deadline and following pursuit timing.",
+    "Recorded automated runs passed at each stage; scope/contract corrections above were made during review and are not presented as full-world verification.",
+    "Initial integration check had112 failures: legacy-ability mapping shape, post-rule enabled/disabled field names, and CONTACT aim-lock spelling differed between authors. These semantic fields were standardized before the final check; this is not claimed as a first-pass all-green integration.",
+    "S35 native6-second4.2-speed lane bound was restored after an incorrect8-tile draft cap.",
+    "F47 voluntary sealed-bag contest has no legal damage event; the attack admission explicitly remains noncombat, retaining its MD01 rule-leave outcome and unique reward receipts."
+  ],
+  "input_hashes": {
+    "content/monster_attacks_folklore_ma01.json": "fd94356d231bdef28b8360bd47c0b9cbfa0ed9bce125e5a1d0d5df143215df02",
+    "content/monster_attacks_scp_ma01.json": "5fd3b9db11c5c6d0caf5398b67a223e43f7c304f8fff529d72e3954caaef8684",
+    "content/monster_folklore_md01.json": "f7b019223130f255b49a5a7ce8aa44811db096542c235c36d5aa8c5d44ae01ae",
+    "content/monster_scp_a_md01.json": "23faa741c2aff38e6c2f254a46f5d9671a88620f73d9a67d0f53b51218272f01",
+    "content/monster_scp_b_md01.json": "2ec35fb9e9436474054f0ad3b8be488cc8b995bb6062e4f9f4b8a836e0526a38",
+    "content/attack_contracts_ma01.json": "fd4abe63bbe04449f29c1593b2bec0349265f26cac1a33dff192966da038ba58",
+    "content/monster_attack_roster_ma01.json": "99dd9be970d830dd047eb21b8ee101dce20e1f30b8fcb798ff6c6f3930def132",
+    "scripts/ma01_reference.py": "391a5c53d038e5310a364014901660b7244516b401c8c290ef176afe0fecf4be",
+    "scripts/check_ma01_reference.py": "38a98327519a7931ff4bd46e2c23635806d170f76a1834cb3ac3d2e64dd5d35c",
+    "scripts/check_ma01_design.py": "1762b85e8c796d2a8c3a49494a42fa23f7b61f36a0247400c759813cd156a5a8",
+    "scripts/render_ma01_design.py": "c84afd2f8613575b481a898e75ea5a23b31d5878a272db4cbdb9b997164f12d4"
+  }
+}

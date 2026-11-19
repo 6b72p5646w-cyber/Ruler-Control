@@ -1,0 +1,1855 @@
+{
+  "version": "MA01",
+  "runtime_integrated": false,
+  "baseline_commit": "6445d758b9d1b63afad0afb7d75bc422e0d900a6",
+  "total": 105,
+  "attack_definition_count": 184,
+  "contract": "content/attack_contracts_ma01.json",
+  "baseline_roster": "content/monster_roster_md01.json",
+  "scope": "Attack-only overlays; original identity, HP/defense/base movement, resolution and child budgets remain MD01.",
+  "data_sha256": {
+    "content/monster_attacks_folklore_ma01.json": "fd94356d231bdef28b8360bd47c0b9cbfa0ed9bce125e5a1d0d5df143215df02",
+    "content/monster_attacks_scp_ma01.json": "5fd3b9db11c5c6d0caf5398b67a223e43f7c304f8fff529d72e3954caaef8684"
+  },
+  "entries": [
+    {
+      "id": "F01",
+      "name": "狐精",
+      "source": "content/monster_attacks_folklore_ma01.json#F01",
+      "baseline_source": "content/monster_folklore_md01.json#F01",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F01:BASIC",
+      "attack_ids": [
+        "F01:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F02",
+      "name": "画皮鬼",
+      "source": "content/monster_attacks_folklore_ma01.json#F02",
+      "baseline_source": "content/monster_folklore_md01.json#F02",
+      "resolution": "rule_leave",
+      "admission": "conditional_hostility_only",
+      "basic_attack_id": "F02:BASIC",
+      "attack_ids": [
+        "F02:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F03",
+      "name": "僵尸",
+      "source": "content/monster_attacks_folklore_ma01.json#F03",
+      "baseline_source": "content/monster_folklore_md01.json#F03",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F03:BASIC",
+      "attack_ids": [
+        "F03:BASIC",
+        "F03:LEAP"
+      ],
+      "families": [
+        "LEAP",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F04",
+      "name": "鲛人",
+      "source": "content/monster_attacks_folklore_ma01.json#F04",
+      "baseline_source": "content/monster_folklore_md01.json#F04",
+      "resolution": "rule_leave",
+      "admission": "conditional_hostility_only",
+      "basic_attack_id": "F04:BASIC",
+      "attack_ids": [
+        "F04:BASIC",
+        "F04:TETHER"
+      ],
+      "families": [
+        "MELEE",
+        "TETHER"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F05",
+      "name": "河童",
+      "source": "content/monster_attacks_folklore_ma01.json#F05",
+      "baseline_source": "content/monster_folklore_md01.json#F05",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F05:BASIC",
+      "attack_ids": [
+        "F05:BASIC",
+        "F05:TETHER"
+      ],
+      "families": [
+        "MELEE",
+        "TETHER"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F06",
+      "name": "雪女",
+      "source": "content/monster_attacks_folklore_ma01.json#F06",
+      "baseline_source": "content/monster_folklore_md01.json#F06",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F06:BASIC",
+      "attack_ids": [
+        "F06:BASIC",
+        "F06:FROST_RAY"
+      ],
+      "families": [
+        "BEAM",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F07",
+      "name": "座敷童子",
+      "source": "content/monster_attacks_folklore_ma01.json#F07",
+      "baseline_source": "content/monster_folklore_md01.json#F07",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F07:BASIC",
+      "attack_ids": [
+        "F07:BASIC",
+        "F07:CRY"
+      ],
+      "families": [
+        "AREA_PULSE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F08",
+      "name": "付丧神",
+      "source": "content/monster_attacks_folklore_ma01.json#F08",
+      "baseline_source": "content/monster_folklore_md01.json#F08",
+      "resolution": "kill_unlocked",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F08:BASIC",
+      "attack_ids": [
+        "F08:BASIC",
+        "F08:COMBO"
+      ],
+      "families": [
+        "COMBO",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F09",
+      "name": "轆轤首",
+      "source": "content/monster_attacks_folklore_ma01.json#F09",
+      "baseline_source": "content/monster_folklore_md01.json#F09",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F09:BASIC",
+      "attack_ids": [
+        "F09:BASIC",
+        "F09:NECK"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F10",
+      "name": "海坊主",
+      "source": "content/monster_attacks_folklore_ma01.json#F10",
+      "baseline_source": "content/monster_folklore_md01.json#F10",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F10:BASIC",
+      "attack_ids": [
+        "F10:BASIC",
+        "F10:WAVE"
+      ],
+      "families": [
+        "BEAM",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F11",
+      "name": "韩国鬼怪",
+      "source": "content/monster_attacks_folklore_ma01.json#F11",
+      "baseline_source": "content/monster_folklore_md01.json#F11",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F11:BASIC",
+      "attack_ids": [
+        "F11:BASIC",
+        "F11:CHARGE"
+      ],
+      "families": [
+        "CHARGE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F12",
+      "name": "不可杀伊",
+      "source": "content/monster_attacks_folklore_ma01.json#F12",
+      "baseline_source": "content/monster_folklore_md01.json#F12",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F12:BASIC",
+      "attack_ids": [
+        "F12:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F13",
+      "name": "飞头女鬼",
+      "source": "content/monster_attacks_folklore_ma01.json#F13",
+      "baseline_source": "content/monster_folklore_md01.json#F13",
+      "resolution": "kill_unlocked",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F13:BASIC",
+      "attack_ids": [
+        "F13:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F14",
+      "name": "饕食附身灵",
+      "source": "content/monster_attacks_folklore_ma01.json#F14",
+      "baseline_source": "content/monster_folklore_md01.json#F14",
+      "resolution": "rule_leave",
+      "admission": "disabled",
+      "basic_attack_id": null,
+      "attack_ids": [],
+      "families": [],
+      "child_template_ids": []
+    },
+    {
+      "id": "F15",
+      "name": "蓬蒂雅娜",
+      "source": "content/monster_attacks_folklore_ma01.json#F15",
+      "baseline_source": "content/monster_folklore_md01.json#F15",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F15:BASIC",
+      "attack_ids": [
+        "F15:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F16",
+      "name": "图尤尔",
+      "source": "content/monster_attacks_folklore_ma01.json#F16",
+      "baseline_source": "content/monster_folklore_md01.json#F16",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F16:BASIC",
+      "attack_ids": [
+        "F16:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F17",
+      "name": "裹尸鬼",
+      "source": "content/monster_attacks_folklore_ma01.json#F17",
+      "baseline_source": "content/monster_folklore_md01.json#F17",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F17:BASIC",
+      "attack_ids": [
+        "F17:BASIC",
+        "F17:TETHER"
+      ],
+      "families": [
+        "MELEE",
+        "TETHER"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F18",
+      "name": "阿斯旺",
+      "source": "content/monster_attacks_folklore_ma01.json#F18",
+      "baseline_source": "content/monster_folklore_md01.json#F18",
+      "resolution": "rule_leave",
+      "admission": "conditional_hostility_only",
+      "basic_attack_id": "F18:BASIC",
+      "attack_ids": [
+        "F18:BASIC",
+        "F18:CHARGE"
+      ],
+      "families": [
+        "CHARGE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F19",
+      "name": "吠陀罗尸鬼",
+      "source": "content/monster_attacks_folklore_ma01.json#F19",
+      "baseline_source": "content/monster_folklore_md01.json#F19",
+      "resolution": "kill_unlocked",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F19:BASIC",
+      "attack_ids": [
+        "F19:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F20",
+      "name": "罗刹访客",
+      "source": "content/monster_attacks_folklore_ma01.json#F20",
+      "baseline_source": "content/monster_folklore_md01.json#F20",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F20:BASIC",
+      "attack_ids": [
+        "F20:BASIC",
+        "F20:TETHER"
+      ],
+      "families": [
+        "MELEE",
+        "TETHER"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F21",
+      "name": "报丧女妖",
+      "source": "content/monster_attacks_folklore_ma01.json#F21",
+      "baseline_source": "content/monster_folklore_md01.json#F21",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F21:BASIC",
+      "attack_ids": [
+        "F21:BASIC",
+        "F21:RITUAL"
+      ],
+      "families": [
+        "MELEE",
+        "RITUAL"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F22",
+      "name": "布朗尼家务精",
+      "source": "content/monster_attacks_folklore_ma01.json#F22",
+      "baseline_source": "content/monster_folklore_md01.json#F22",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F22:BASIC",
+      "attack_ids": [
+        "F22:BASIC",
+        "F22:CHARGE"
+      ],
+      "families": [
+        "CHARGE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F23",
+      "name": "塞尔基海豹人",
+      "source": "content/monster_attacks_folklore_ma01.json#F23",
+      "baseline_source": "content/monster_folklore_md01.json#F23",
+      "resolution": "rule_leave",
+      "admission": "conditional_hostility_only",
+      "basic_attack_id": "F23:BASIC",
+      "attack_ids": [
+        "F23:BASIC",
+        "F23:CHARGE"
+      ],
+      "families": [
+        "CHARGE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F24",
+      "name": "凯尔皮水马",
+      "source": "content/monster_attacks_folklore_ma01.json#F24",
+      "baseline_source": "content/monster_folklore_md01.json#F24",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F24:BASIC",
+      "attack_ids": [
+        "F24:BASIC",
+        "F24:CHARGE"
+      ],
+      "families": [
+        "CHARGE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F25",
+      "name": "普卡变形精",
+      "source": "content/monster_attacks_folklore_ma01.json#F25",
+      "baseline_source": "content/monster_folklore_md01.json#F25",
+      "resolution": "kill_unlocked",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F25:BASIC",
+      "attack_ids": [
+        "F25:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F26",
+      "name": "红帽妖",
+      "source": "content/monster_attacks_folklore_ma01.json#F26",
+      "baseline_source": "content/monster_folklore_md01.json#F26",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F26:BASIC",
+      "attack_ids": [
+        "F26:BASIC",
+        "F26:CHARGE"
+      ],
+      "families": [
+        "CHARGE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F27",
+      "name": "山林巨魔",
+      "source": "content/monster_attacks_folklore_ma01.json#F27",
+      "baseline_source": "content/monster_folklore_md01.json#F27",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F27:BASIC",
+      "attack_ids": [
+        "F27:BASIC",
+        "F27:CHARGE"
+      ],
+      "families": [
+        "CHARGE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F28",
+      "name": "诺肯水乐灵",
+      "source": "content/monster_attacks_folklore_ma01.json#F28",
+      "baseline_source": "content/monster_folklore_md01.json#F28",
+      "resolution": "kill_unlocked",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F28:BASIC",
+      "attack_ids": [
+        "F28:BASIC",
+        "F28:RITUAL"
+      ],
+      "families": [
+        "MELEE",
+        "RITUAL"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F29",
+      "name": "托姆特家园精灵",
+      "source": "content/monster_attacks_folklore_ma01.json#F29",
+      "baseline_source": "content/monster_folklore_md01.json#F29",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F29:BASIC",
+      "attack_ids": [
+        "F29:BASIC",
+        "F29:BOWL_PULSE"
+      ],
+      "families": [
+        "AREA_PULSE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F30",
+      "name": "海亡灵",
+      "source": "content/monster_attacks_folklore_ma01.json#F30",
+      "baseline_source": "content/monster_folklore_md01.json#F30",
+      "resolution": "kill_unlocked",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F30:BASIC",
+      "attack_ids": [
+        "F30:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F31",
+      "name": "马拉梦魇",
+      "source": "content/monster_attacks_folklore_ma01.json#F31",
+      "baseline_source": "content/monster_folklore_md01.json#F31",
+      "resolution": "kill_unlocked",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F31:BASIC",
+      "attack_ids": [
+        "F31:BASIC",
+        "F31:LEAP"
+      ],
+      "families": [
+        "LEAP",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F32",
+      "name": "夜返吸血鬼",
+      "source": "content/monster_attacks_folklore_ma01.json#F32",
+      "baseline_source": "content/monster_folklore_md01.json#F32",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F32:BASIC",
+      "attack_ids": [
+        "F32:BASIC",
+        "F32:LEAP"
+      ],
+      "families": [
+        "LEAP",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F33",
+      "name": "狼人",
+      "source": "content/monster_attacks_folklore_ma01.json#F33",
+      "baseline_source": "content/monster_folklore_md01.json#F33",
+      "resolution": "rule_leave",
+      "admission": "conditional_hostility_only",
+      "basic_attack_id": "F33:BASIC",
+      "attack_ids": [
+        "F33:BASIC",
+        "F33:CHARGE"
+      ],
+      "families": [
+        "CHARGE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F34",
+      "name": "鲁萨尔卡水灵",
+      "source": "content/monster_attacks_folklore_ma01.json#F34",
+      "baseline_source": "content/monster_folklore_md01.json#F34",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F34:BASIC",
+      "attack_ids": [
+        "F34:BASIC",
+        "F34:CHARGE"
+      ],
+      "families": [
+        "CHARGE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F35",
+      "name": "芭芭雅嘎",
+      "source": "content/monster_attacks_folklore_ma01.json#F35",
+      "baseline_source": "content/monster_folklore_md01.json#F35",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F35:BASIC",
+      "attack_ids": [
+        "F35:BASIC",
+        "F35:CHARGE"
+      ],
+      "families": [
+        "CHARGE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F36",
+      "name": "精灵访客",
+      "source": "content/monster_attacks_folklore_ma01.json#F36",
+      "baseline_source": "content/monster_folklore_md01.json#F36",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F36:BASIC",
+      "attack_ids": [
+        "F36:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F37",
+      "name": "古尔荒野妖",
+      "source": "content/monster_attacks_folklore_ma01.json#F37",
+      "baseline_source": "content/monster_folklore_md01.json#F37",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F37:BASIC",
+      "attack_ids": [
+        "F37:BASIC",
+        "F37:CHARGE"
+      ],
+      "families": [
+        "CHARGE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F38",
+      "name": "双重身",
+      "source": "content/monster_attacks_folklore_ma01.json#F38",
+      "baseline_source": "content/monster_folklore_md01.json#F38",
+      "resolution": "kill_unlocked",
+      "admission": "conditional_hostility_only",
+      "basic_attack_id": "F38:BASIC",
+      "attack_ids": [
+        "F38:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F39",
+      "name": "多莫沃伊家宅灵",
+      "source": "content/monster_attacks_folklore_ma01.json#F39",
+      "baseline_source": "content/monster_folklore_md01.json#F39",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F39:BASIC",
+      "attack_ids": [
+        "F39:BASIC",
+        "F39:EMBER"
+      ],
+      "families": [
+        "MELEE",
+        "PROJECTILE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F40",
+      "name": "列希森林灵",
+      "source": "content/monster_attacks_folklore_ma01.json#F40",
+      "baseline_source": "content/monster_folklore_md01.json#F40",
+      "resolution": "kill_unlocked",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F40:BASIC",
+      "attack_ids": [
+        "F40:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F41",
+      "name": "哭泣女",
+      "source": "content/monster_attacks_folklore_ma01.json#F41",
+      "baseline_source": "content/monster_folklore_md01.json#F41",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F41:BASIC",
+      "attack_ids": [
+        "F41:BASIC",
+        "F41:TETHER"
+      ],
+      "families": [
+        "MELEE",
+        "TETHER"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F42",
+      "name": "哨声亡灵",
+      "source": "content/monster_attacks_folklore_ma01.json#F42",
+      "baseline_source": "content/monster_folklore_md01.json#F42",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F42:BASIC",
+      "attack_ids": [
+        "F42:BASIC",
+        "F42:CHARGE"
+      ],
+      "families": [
+        "CHARGE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F43",
+      "name": "图恩达",
+      "source": "content/monster_attacks_folklore_ma01.json#F43",
+      "baseline_source": "content/monster_folklore_md01.json#F43",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F43:BASIC",
+      "attack_ids": [
+        "F43:BASIC",
+        "F43:CHARGE"
+      ],
+      "families": [
+        "CHARGE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F44",
+      "name": "巨帽夜曲客",
+      "source": "content/monster_attacks_folklore_ma01.json#F44",
+      "baseline_source": "content/monster_folklore_md01.json#F44",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F44:BASIC",
+      "attack_ids": [
+        "F44:BASIC",
+        "F44:RITUAL"
+      ],
+      "families": [
+        "MELEE",
+        "RITUAL"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F45",
+      "name": "逆足林守",
+      "source": "content/monster_attacks_folklore_ma01.json#F45",
+      "baseline_source": "content/monster_folklore_md01.json#F45",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F45:BASIC",
+      "attack_ids": [
+        "F45:BASIC",
+        "F45:CHARGE"
+      ],
+      "families": [
+        "CHARGE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F46",
+      "name": "红帽萨西",
+      "source": "content/monster_attacks_folklore_ma01.json#F46",
+      "baseline_source": "content/monster_folklore_md01.json#F46",
+      "resolution": "kill_unlocked",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F46:BASIC",
+      "attack_ids": [
+        "F46:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F47",
+      "name": "水歌伊阿拉",
+      "source": "content/monster_attacks_folklore_ma01.json#F47",
+      "baseline_source": "content/monster_folklore_md01.json#F47",
+      "resolution": "rule_leave",
+      "admission": "noncombat_source",
+      "basic_attack_id": null,
+      "attack_ids": [],
+      "families": [],
+      "child_template_ids": []
+    },
+    {
+      "id": "F48",
+      "name": "河海豚化人客",
+      "source": "content/monster_attacks_folklore_ma01.json#F48",
+      "baseline_source": "content/monster_folklore_md01.json#F48",
+      "resolution": "rule_leave",
+      "admission": "conditional_hostility_only",
+      "basic_attack_id": "F48:BASIC",
+      "attack_ids": [
+        "F48:BASIC",
+        "F48:LEAP"
+      ],
+      "families": [
+        "LEAP",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F49",
+      "name": "火蛇博伊塔塔",
+      "source": "content/monster_attacks_folklore_ma01.json#F49",
+      "baseline_source": "content/monster_folklore_md01.json#F49",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F49:BASIC",
+      "attack_ids": [
+        "F49:BASIC",
+        "F49:FIRE_RAY",
+        "F49:CONTACT",
+        "F49:CHARGE"
+      ],
+      "families": [
+        "BEAM",
+        "CHARGE",
+        "CONTACT",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F50",
+      "name": "泽西恶魔",
+      "source": "content/monster_attacks_folklore_ma01.json#F50",
+      "baseline_source": "content/monster_folklore_md01.json#F50",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F50:BASIC",
+      "attack_ids": [
+        "F50:BASIC",
+        "F50:DIVE"
+      ],
+      "families": [
+        "LEAP",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F51",
+      "name": "蜘蛛故事商",
+      "source": "content/monster_attacks_folklore_ma01.json#F51",
+      "baseline_source": "content/monster_folklore_md01.json#F51",
+      "resolution": "kill_unlocked",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F51:BASIC",
+      "attack_ids": [
+        "F51:BASIC",
+        "F51:TETHER"
+      ],
+      "families": [
+        "MELEE",
+        "TETHER"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F52",
+      "name": "矮水灵托科洛舍",
+      "source": "content/monster_attacks_folklore_ma01.json#F52",
+      "baseline_source": "content/monster_folklore_md01.json#F52",
+      "resolution": "kill_unlocked",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F52:BASIC",
+      "attack_ids": [
+        "F52:BASIC",
+        "F52:TETHER"
+      ],
+      "families": [
+        "MELEE",
+        "TETHER"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F53",
+      "name": "水之母来访",
+      "source": "content/monster_attacks_folklore_ma01.json#F53",
+      "baseline_source": "content/monster_folklore_md01.json#F53",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F53:BASIC",
+      "attack_ids": [
+        "F53:BASIC",
+        "F53:COMBO"
+      ],
+      "families": [
+        "COMBO",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F54",
+      "name": "吞世巨兽",
+      "source": "content/monster_attacks_folklore_ma01.json#F54",
+      "baseline_source": "content/monster_folklore_md01.json#F54",
+      "resolution": "kill_unlocked",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F54:BASIC",
+      "attack_ids": [
+        "F54:BASIC",
+        "F54:SUCTION"
+      ],
+      "families": [
+        "BEAM",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F55",
+      "name": "护夜犬卡德霍",
+      "source": "content/monster_attacks_folklore_ma01.json#F55",
+      "baseline_source": "content/monster_folklore_md01.json#F55",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F55:BASIC",
+      "attack_ids": [
+        "F55:BASIC",
+        "F55:LEAP"
+      ],
+      "families": [
+        "LEAP",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F56",
+      "name": "深水邦耶普",
+      "source": "content/monster_attacks_folklore_ma01.json#F56",
+      "baseline_source": "content/monster_folklore_md01.json#F56",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F56:BASIC",
+      "attack_ids": [
+        "F56:BASIC",
+        "F56:SURGE"
+      ],
+      "families": [
+        "AREA_PULSE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F57",
+      "name": "水路守护塔尼瓦",
+      "source": "content/monster_attacks_folklore_ma01.json#F57",
+      "baseline_source": "content/monster_folklore_md01.json#F57",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F57:BASIC",
+      "attack_ids": [
+        "F57:BASIC",
+        "F57:CHANNEL_SWEEP"
+      ],
+      "families": [
+        "MELEE",
+        "SWEEP_BEAM"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F58",
+      "name": "雾笛访客",
+      "source": "content/monster_attacks_folklore_ma01.json#F58",
+      "baseline_source": "content/monster_folklore_md01.json#F58",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F58:BASIC",
+      "attack_ids": [
+        "F58:BASIC",
+        "F58:TETHER"
+      ],
+      "families": [
+        "MELEE",
+        "TETHER"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F59",
+      "name": "梅内胡内工队",
+      "source": "content/monster_attacks_folklore_ma01.json#F59",
+      "baseline_source": "content/monster_folklore_md01.json#F59",
+      "resolution": "rule_leave",
+      "admission": "conditional_hostility_only",
+      "basic_attack_id": "F59:BASIC",
+      "attack_ids": [
+        "F59:BASIC",
+        "F59:COMBO"
+      ],
+      "families": [
+        "COMBO",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "F60",
+      "name": "马面引路者",
+      "source": "content/monster_attacks_folklore_ma01.json#F60",
+      "baseline_source": "content/monster_folklore_md01.json#F60",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "F60:BASIC",
+      "attack_ids": [
+        "F60:BASIC",
+        "F60:GAZE"
+      ],
+      "families": [
+        "GAZE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S01",
+      "name": "凝视塑像",
+      "source": "content/monster_attacks_scp_ma01.json#S01",
+      "baseline_source": "content/monster_scp_a_md01.json#S01",
+      "resolution": "rule_leave",
+      "admission": "conditional_hostility_only",
+      "basic_attack_id": "S01:BASIC",
+      "attack_ids": [
+        "S01:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S02",
+      "name": "腐蚀穿墙者",
+      "source": "content/monster_attacks_scp_ma01.json#S02",
+      "baseline_source": "content/monster_scp_a_md01.json#S02",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S02:BASIC",
+      "attack_ids": [
+        "S02:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S03",
+      "name": "遮面追逐者",
+      "source": "content/monster_attacks_scp_ma01.json#S03",
+      "baseline_source": "content/monster_scp_a_md01.json#S03",
+      "resolution": "rule_leave",
+      "admission": "conditional_hostility_only",
+      "basic_attack_id": "S03:BASIC",
+      "attack_ids": [
+        "S03:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S04",
+      "name": "诊疫医者",
+      "source": "content/monster_attacks_scp_ma01.json#S04",
+      "baseline_source": "content/monster_scp_a_md01.json#S04",
+      "resolution": "rule_leave",
+      "admission": "conditional_hostility_only",
+      "basic_attack_id": "S04:BASIC",
+      "attack_ids": [
+        "S04:BASIC",
+        "S04:PALMS"
+      ],
+      "families": [
+        "CONTACT",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S05",
+      "name": "拟声猎群",
+      "source": "content/monster_attacks_scp_ma01.json#S05",
+      "baseline_source": "content/monster_scp_a_md01.json#S05",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S05:BASIC",
+      "attack_ids": [
+        "S05:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S06",
+      "name": "不灭爬行者",
+      "source": "content/monster_attacks_scp_ma01.json#S06",
+      "baseline_source": "content/monster_scp_a_md01.json#S06",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S06:BASIC",
+      "attack_ids": [
+        "S06:BASIC",
+        "S06:LUNGE"
+      ],
+      "families": [
+        "CHARGE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S07",
+      "name": "附面假人",
+      "source": "content/monster_attacks_scp_ma01.json#S07",
+      "baseline_source": "content/monster_scp_a_md01.json#S07",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S07:BASIC",
+      "attack_ids": [
+        "S07:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S08",
+      "name": "燃料分身",
+      "source": "content/monster_attacks_scp_ma01.json#S08",
+      "baseline_source": "content/monster_scp_a_md01.json#S08",
+      "resolution": "kill_unlocked",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S08:BASIC",
+      "attack_ids": [
+        "S08:BASIC",
+        "S08:FIRE_BODY",
+        "S08:CHILD_BASIC",
+        "S08:CHILD_FIRE_BODY"
+      ],
+      "families": [
+        "CONTACT",
+        "MELEE"
+      ],
+      "child_template_ids": [
+        "S08_split_successor"
+      ]
+    },
+    {
+      "id": "S09",
+      "name": "失眠潜猎者",
+      "source": "content/monster_attacks_scp_ma01.json#S09",
+      "baseline_source": "content/monster_scp_a_md01.json#S09",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S09:BASIC",
+      "attack_ids": [
+        "S09:BASIC",
+        "S09:SLEEP_WAVE"
+      ],
+      "families": [
+        "AREA_PULSE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S10",
+      "name": "余光攀行者",
+      "source": "content/monster_attacks_scp_ma01.json#S10",
+      "baseline_source": "content/monster_scp_a_md01.json#S10",
+      "resolution": "kill_unlocked",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S10:BASIC",
+      "attack_ids": [
+        "S10:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S11",
+      "name": "铃声后的瘦影",
+      "source": "content/monster_attacks_scp_ma01.json#S11",
+      "baseline_source": "content/monster_scp_a_md01.json#S11",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S11:BASIC",
+      "attack_ids": [
+        "S11:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S12",
+      "name": "棘触心核",
+      "source": "content/monster_attacks_scp_ma01.json#S12",
+      "baseline_source": "content/monster_scp_a_md01.json#S12",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S12:BASIC",
+      "attack_ids": [
+        "S12:BASIC",
+        "S12:SPINE_TETHER"
+      ],
+      "families": [
+        "MELEE",
+        "TETHER"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S13",
+      "name": "楼梯口无面影",
+      "source": "content/monster_attacks_scp_ma01.json#S13",
+      "baseline_source": "content/monster_scp_a_md01.json#S13",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S13:DOOR_PULSE",
+      "attack_ids": [
+        "S13:DOOR_PULSE"
+      ],
+      "families": [
+        "AREA_PULSE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S14",
+      "name": "缝材造物熊",
+      "source": "content/monster_attacks_scp_ma01.json#S14",
+      "baseline_source": "content/monster_scp_a_md01.json#S14",
+      "resolution": "kill_unlocked",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S14:BASIC",
+      "attack_ids": [
+        "S14:BASIC",
+        "S14:CHILD_CLOTH",
+        "S14:CHILD_SCRAP",
+        "S14:CHILD_PAPER"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": [
+        "S14_cloth",
+        "S14_scrap",
+        "S14_paper"
+      ]
+    },
+    {
+      "id": "S15",
+      "name": "孵卵拟人群",
+      "source": "content/monster_attacks_scp_ma01.json#S15",
+      "baseline_source": "content/monster_scp_a_md01.json#S15",
+      "resolution": "kill_unlocked",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S15:BASIC",
+      "attack_ids": [
+        "S15:BASIC",
+        "S15:CHILD_PECK"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": [
+        "S15_hatchling"
+      ]
+    },
+    {
+      "id": "S16",
+      "name": "刀肢蟹队",
+      "source": "content/monster_attacks_scp_ma01.json#S16",
+      "baseline_source": "content/monster_scp_a_md01.json#S16",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S16:BASIC",
+      "attack_ids": [
+        "S16:BASIC",
+        "S16:PACK_BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": [
+        "S16_pack_member"
+      ]
+    },
+    {
+      "id": "S17",
+      "name": "塑料火烈鸟群",
+      "source": "content/monster_attacks_scp_ma01.json#S17",
+      "baseline_source": "content/monster_scp_a_md01.json#S17",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S17:BASIC",
+      "attack_ids": [
+        "S17:BASIC",
+        "S17:PACK_BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": [
+        "S17_pack_member"
+      ]
+    },
+    {
+      "id": "S18",
+      "name": "双灯猎行者",
+      "source": "content/monster_attacks_scp_ma01.json#S18",
+      "baseline_source": "content/monster_scp_a_md01.json#S18",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S18:BASIC",
+      "attack_ids": [
+        "S18:BASIC",
+        "S18:PAIRED_CHARGE",
+        "S18:PARTNER_BASIC"
+      ],
+      "families": [
+        "CHARGE",
+        "MELEE"
+      ],
+      "child_template_ids": [
+        "S18_partner"
+      ]
+    },
+    {
+      "id": "S19",
+      "name": "食宴巨客",
+      "source": "content/monster_attacks_scp_ma01.json#S19",
+      "baseline_source": "content/monster_scp_a_md01.json#S19",
+      "resolution": "rule_weaken",
+      "admission": "conditional_hostility_only",
+      "basic_attack_id": "S19:BASIC",
+      "attack_ids": [
+        "S19:BASIC",
+        "S19:FEAST_LUNGE"
+      ],
+      "families": [
+        "CHARGE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S20",
+      "name": "沼液伏客",
+      "source": "content/monster_attacks_scp_ma01.json#S20",
+      "baseline_source": "content/monster_scp_a_md01.json#S20",
+      "resolution": "rule_weaken",
+      "admission": "conditional_hostility_only",
+      "basic_attack_id": "S20:BASIC",
+      "attack_ids": [
+        "S20:BASIC",
+        "S20:SLUDGE_PATCH"
+      ],
+      "families": [
+        "AREA_PULSE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S21",
+      "name": "九尾伪装客",
+      "source": "content/monster_attacks_scp_ma01.json#S21",
+      "baseline_source": "content/monster_scp_a_md01.json#S21",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S21:BASIC",
+      "attack_ids": [
+        "S21:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S22",
+      "name": "畏光烟影",
+      "source": "content/monster_attacks_scp_ma01.json#S22",
+      "baseline_source": "content/monster_scp_a_md01.json#S22",
+      "resolution": "kill_unlocked",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S22:BASIC",
+      "attack_ids": [
+        "S22:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S23",
+      "name": "路口焰眼犬",
+      "source": "content/monster_attacks_scp_ma01.json#S23",
+      "baseline_source": "content/monster_scp_a_md01.json#S23",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S23:BASIC",
+      "attack_ids": [
+        "S23:BASIC",
+        "S23:EMBER_RAY"
+      ],
+      "families": [
+        "BEAM",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S24",
+      "name": "黑刃复归者",
+      "source": "content/monster_attacks_scp_ma01.json#S24",
+      "baseline_source": "content/monster_scp_b_md01.json#S24",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S24:BASIC",
+      "attack_ids": [
+        "S24:BASIC",
+        "S24:BLADE_LINE"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S25",
+      "name": "吞影小像",
+      "source": "content/monster_attacks_scp_ma01.json#S25",
+      "baseline_source": "content/monster_scp_b_md01.json#S25",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S25:BASIC",
+      "attack_ids": [
+        "S25:BASIC",
+        "S25:SHADOW_LUNGE"
+      ],
+      "families": [
+        "CHARGE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S26",
+      "name": "幼猫幻相虎",
+      "source": "content/monster_attacks_scp_ma01.json#S26",
+      "baseline_source": "content/monster_scp_b_md01.json#S26",
+      "resolution": "kill_unlocked",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S26:BASIC",
+      "attack_ids": [
+        "S26:BASIC",
+        "S26:CAT_LUNGE"
+      ],
+      "families": [
+        "CHARGE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S27",
+      "name": "红池支口",
+      "source": "content/monster_attacks_scp_ma01.json#S27",
+      "baseline_source": "content/monster_scp_b_md01.json#S27",
+      "resolution": "rule_leave",
+      "admission": "noncombat_source",
+      "basic_attack_id": null,
+      "attack_ids": [
+        "S27:CHILD_SPINE",
+        "S27:CHILD_BAT"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": [
+        "S27_spine",
+        "S27_bat"
+      ]
+    },
+    {
+      "id": "S28",
+      "name": "离体肉殖团",
+      "source": "content/monster_attacks_scp_ma01.json#S28",
+      "baseline_source": "content/monster_scp_b_md01.json#S28",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S28:BASIC",
+      "attack_ids": [
+        "S28:BASIC",
+        "S28:FLESH_BODY",
+        "S28:CHILD_BASIC",
+        "S28:CHILD_BODY"
+      ],
+      "families": [
+        "CONTACT",
+        "MELEE"
+      ],
+      "child_template_ids": [
+        "S28_successor"
+      ]
+    },
+    {
+      "id": "S29",
+      "name": "暗育蜈群",
+      "source": "content/monster_attacks_scp_ma01.json#S29",
+      "baseline_source": "content/monster_scp_b_md01.json#S29",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S29:BASIC",
+      "attack_ids": [
+        "S29:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S30",
+      "name": "银丝猎婆",
+      "source": "content/monster_attacks_scp_ma01.json#S30",
+      "baseline_source": "content/monster_scp_b_md01.json#S30",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S30:BASIC",
+      "attack_ids": [
+        "S30:BASIC",
+        "S30:FLOOR_SILK",
+        "S30:THROWN_SILK"
+      ],
+      "families": [
+        "AREA_PULSE",
+        "MELEE",
+        "TETHER"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S31",
+      "name": "鹿骨饥壳",
+      "source": "content/monster_attacks_scp_ma01.json#S31",
+      "baseline_source": "content/monster_scp_b_md01.json#S31",
+      "resolution": "rule_leave",
+      "admission": "conditional_hostility_only",
+      "basic_attack_id": "S31:SKULL_LUNGE",
+      "attack_ids": [
+        "S31:SKULL_LUNGE"
+      ],
+      "families": [
+        "CHARGE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S32",
+      "name": "涌兽陶瓮",
+      "source": "content/monster_attacks_scp_ma01.json#S32",
+      "baseline_source": "content/monster_scp_b_md01.json#S32",
+      "resolution": "rule_leave",
+      "admission": "noncombat_source",
+      "basic_attack_id": null,
+      "attack_ids": [
+        "S32:CHILD_BITE"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": [
+        "S32_spawn"
+      ]
+    },
+    {
+      "id": "S33",
+      "name": "镜头霉巢",
+      "source": "content/monster_attacks_scp_ma01.json#S33",
+      "baseline_source": "content/monster_scp_b_md01.json#S33",
+      "resolution": "kill_unlocked",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S33:EDGE_CONTACT",
+      "attack_ids": [
+        "S33:EDGE_CONTACT",
+        "S33:SPORE_ZONE"
+      ],
+      "families": [
+        "AREA_PULSE",
+        "CONTACT"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S34",
+      "name": "寻声线团",
+      "source": "content/monster_attacks_scp_ma01.json#S34",
+      "baseline_source": "content/monster_scp_b_md01.json#S34",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S34:SIX_BEAT",
+      "attack_ids": [
+        "S34:SIX_BEAT"
+      ],
+      "families": [
+        "AREA_PULSE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S35",
+      "name": "失控重载玩具车",
+      "source": "content/monster_attacks_scp_ma01.json#S35",
+      "baseline_source": "content/monster_scp_b_md01.json#S35",
+      "resolution": "rule_leave",
+      "admission": "conditional_hostility_only",
+      "basic_attack_id": "S35:LANE_CHARGE",
+      "attack_ids": [
+        "S35:LANE_CHARGE"
+      ],
+      "families": [
+        "CHARGE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S36",
+      "name": "惊笑偶像",
+      "source": "content/monster_attacks_scp_ma01.json#S36",
+      "baseline_source": "content/monster_scp_b_md01.json#S36",
+      "resolution": "rule_leave",
+      "admission": "conditional_hostility_only",
+      "basic_attack_id": "S36:SHRIEK",
+      "attack_ids": [
+        "S36:SHRIEK"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S37",
+      "name": "噬口排水虫",
+      "source": "content/monster_attacks_scp_ma01.json#S37",
+      "baseline_source": "content/monster_scp_b_md01.json#S37",
+      "resolution": "kill_unlocked",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S37:BASIC",
+      "attack_ids": [
+        "S37:BASIC",
+        "S37:CORROSIVE_CONE"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S38",
+      "name": "立体镜旁观者",
+      "source": "content/monster_attacks_scp_ma01.json#S38",
+      "baseline_source": "content/monster_scp_b_md01.json#S38",
+      "resolution": "rule_leave",
+      "admission": "conditional_hostility_only",
+      "basic_attack_id": "S38:BASIC",
+      "attack_ids": [
+        "S38:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S39",
+      "name": "游走骨龙",
+      "source": "content/monster_attacks_scp_ma01.json#S39",
+      "baseline_source": "content/monster_scp_b_md01.json#S39",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S39:BASIC",
+      "attack_ids": [
+        "S39:BASIC",
+        "S39:TAIL_SWEEP"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S40",
+      "name": "取述影客",
+      "source": "content/monster_attacks_scp_ma01.json#S40",
+      "baseline_source": "content/monster_scp_b_md01.json#S40",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S40:BASIC",
+      "attack_ids": [
+        "S40:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S41",
+      "name": "地窖食客群",
+      "source": "content/monster_attacks_scp_ma01.json#S41",
+      "baseline_source": "content/monster_scp_b_md01.json#S41",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S41:BASIC",
+      "attack_ids": [
+        "S41:BASIC",
+        "S41:DARK_LUNGE",
+        "S41:HELPER_BASIC"
+      ],
+      "families": [
+        "CHARGE",
+        "MELEE"
+      ],
+      "child_template_ids": [
+        "S41_helper"
+      ]
+    },
+    {
+      "id": "S42",
+      "name": "断拍窥猎者",
+      "source": "content/monster_attacks_scp_ma01.json#S42",
+      "baseline_source": "content/monster_scp_b_md01.json#S42",
+      "resolution": "kill_unlocked",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S42:BASIC",
+      "attack_ids": [
+        "S42:BASIC",
+        "S42:OFFBEAT_LUNGE"
+      ],
+      "families": [
+        "CHARGE",
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S43",
+      "name": "闭店巡场员",
+      "source": "content/monster_attacks_scp_ma01.json#S43",
+      "baseline_source": "content/monster_scp_b_md01.json#S43",
+      "resolution": "rule_leave",
+      "admission": "conditional_hostility_only",
+      "basic_attack_id": "S43:BASIC",
+      "attack_ids": [
+        "S43:BASIC"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S44",
+      "name": "双灯影幕",
+      "source": "content/monster_attacks_scp_ma01.json#S44",
+      "baseline_source": "content/monster_scp_b_md01.json#S44",
+      "resolution": "rule_leave",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S44:PROJECTION_RAYS",
+      "attack_ids": [
+        "S44:PROJECTION_RAYS"
+      ],
+      "families": [
+        "BEAM"
+      ],
+      "child_template_ids": []
+    },
+    {
+      "id": "S45",
+      "name": "缝合外科客",
+      "source": "content/monster_attacks_scp_ma01.json#S45",
+      "baseline_source": "content/monster_scp_b_md01.json#S45",
+      "resolution": "rule_weaken",
+      "admission": "hostile_manifestation_only",
+      "basic_attack_id": "S45:BASIC",
+      "attack_ids": [
+        "S45:BASIC",
+        "S45:TOOL_LINE"
+      ],
+      "families": [
+        "MELEE"
+      ],
+      "child_template_ids": []
+    }
+  ]
+}

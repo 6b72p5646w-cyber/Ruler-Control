@@ -1,0 +1,589 @@
+{
+  "version": "MA01",
+  "runtime_integrated": false,
+  "passed": 142,
+  "failed": 0,
+  "scope": "Finite 2-D sweep/beam fixtures, attack timing/whole-miss receipts, shared hit protection, pressure reservations, actual task-stone ledger, ritual interruption and bounded tether lifecycle. Not all105AI, map navigation, height layers, reflected beam geometry, whole-week outcomes or live playtesting.",
+  "review_corrections": [
+    "Root review found an unguarded lower time boundary. Replaying the pre-guard function confirmed that begin(0) then stone interrupt(-1) was accepted; the final now>=started_at guard and regression case reject it.",
+    "Separated a recovered actor action from its still-live independent residual danger sequence; the latter retains a scene slot and delays whole-attack I39 resolution.",
+    "Aligned the physical stone radius with the final shared contract: 0.1 tile, retaining actual wall clipping and zero monster HP damage.",
+    "Clarified source-pool death versus full-root termination for already launched independent payloads.",
+    "A ritual base warning may be 6..8 seconds; paid legal extensions add at most 3 real seconds, including the actual pulse deadline and following pursuit timing.",
+    "Recorded automated runs passed at each stage; scope/contract corrections above were made during review and are not presented as full-world verification."
+  ],
+  "checks": [
+    {
+      "name": "fast dash crossing a stationary player is caught between frame endpoints",
+      "passed": true
+    },
+    {
+      "name": "two moving bodies use relative sweep",
+      "passed": true
+    },
+    {
+      "name": "parallel separated trajectories remain a miss",
+      "passed": true
+    },
+    {
+      "name": "initial overlap is an actual collision",
+      "passed": true
+    },
+    {
+      "name": "near miss outside sum of physical radii stays a miss",
+      "passed": true
+    },
+    {
+      "name": "charge body stops before a solid wall",
+      "passed": true
+    },
+    {
+      "name": "clipped charge endpoint is the first physical wall",
+      "passed": true
+    },
+    {
+      "name": "locked beam hits a genuinely intersecting player",
+      "passed": true
+    },
+    {
+      "name": "side step outside beam plus player radius is safe",
+      "passed": true
+    },
+    {
+      "name": "opaque shelf blocks a fixed beam behind it",
+      "passed": true
+    },
+    {
+      "name": "player before the blocking shelf remains exposed",
+      "passed": true
+    },
+    {
+      "name": "sweep follows its visible predetermined endpoint",
+      "passed": true
+    },
+    {
+      "name": "nonfinite coordinates cannot enter collision math",
+      "passed": true
+    },
+    {
+      "name": "canonical F12/F13 basic cannot commit before 1.5 seconds",
+      "passed": true
+    },
+    {
+      "name": "canonical basic commits at 1.5 seconds",
+      "passed": true
+    },
+    {
+      "name": "canonical basic keeps 3 second total cadence",
+      "passed": true
+    },
+    {
+      "name": "I37 grants one real second before commit",
+      "passed": true
+    },
+    {
+      "name": "same I37 family cannot extend same attack twice",
+      "passed": true
+    },
+    {
+      "name": "old damage timer cannot fire after extended warning",
+      "passed": true
+    },
+    {
+      "name": "new commit determines projectile and recovery timing",
+      "passed": true
+    },
+    {
+      "name": "already launched/completed attack cannot be extended",
+      "passed": true
+    },
+    {
+      "name": "I21 and I37 share a three second cap",
+      "passed": true
+    },
+    {
+      "name": "curse failure is one decision for whole payload",
+      "passed": true
+    },
+    {
+      "name": "curse failure cannot immediately retry same attack ID",
+      "passed": true
+    },
+    {
+      "name": "position root does not cancel a stationary pending attack",
+      "passed": true
+    },
+    {
+      "name": "freeze cancels uncommitted attack without curse draw",
+      "passed": true
+    },
+    {
+      "name": "freeze ends an already active channel beam",
+      "passed": true
+    },
+    {
+      "name": "freeze cannot recall a launched autonomous projectile",
+      "passed": true
+    },
+    {
+      "name": "source pool death within an unfinished root preserves its independent shot",
+      "passed": true
+    },
+    {
+      "name": "terminal encounter revokes its owned future projectile hazard",
+      "passed": true
+    },
+    {
+      "name": "freeze closes active embodied damage: charge",
+      "passed": true
+    },
+    {
+      "name": "freeze closes active embodied damage: contact",
+      "passed": true
+    },
+    {
+      "name": "eight-second autonomous field does not add eight seconds to source recovery",
+      "passed": true
+    },
+    {
+      "name": "freeze of source does not recall an independent ground field",
+      "passed": true
+    },
+    {
+      "name": "unwarned sub-1.5 second harmful attack is rejected",
+      "passed": true
+    },
+    {
+      "name": "one charge uses one accepted SAN hit",
+      "passed": true
+    },
+    {
+      "name": "shared two second protection blocks damage AND new tether",
+      "passed": true
+    },
+    {
+      "name": "blocked damage still records actual player collision",
+      "passed": true
+    },
+    {
+      "name": "body component cannot re-hit after same charge even beyond grace",
+      "passed": true
+    },
+    {
+      "name": "different attack is legal at exact shared grace expiry",
+      "passed": true
+    },
+    {
+      "name": "unarmed body contact has no damage",
+      "passed": true
+    },
+    {
+      "name": "armed body contact can damage once",
+      "passed": true
+    },
+    {
+      "name": "fractional equipment mitigation is not repeatedly rounded",
+      "passed": true
+    },
+    {
+      "name": "first missed combo segment cannot award I39 early",
+      "passed": true
+    },
+    {
+      "name": "remaining ground zone also blocks premature whole-miss receipt",
+      "passed": true
+    },
+    {
+      "name": "complete genuine positional avoidance grants one whole receipt",
+      "passed": true
+    },
+    {
+      "name": "duplicate whole attack completion cannot award I39 twice",
+      "passed": true
+    },
+    {
+      "name": "hit-protection collision never becomes I39 evasion",
+      "passed": true
+    },
+    {
+      "name": "cancellation is not spatial evasion: curse_failure",
+      "passed": true
+    },
+    {
+      "name": "cancellation is not spatial evasion: freeze",
+      "passed": true
+    },
+    {
+      "name": "cancellation is not spatial evasion: paper_interception",
+      "passed": true
+    },
+    {
+      "name": "cancellation is not spatial evasion: terminal",
+      "passed": true
+    },
+    {
+      "name": "back-facing without movement does not trigger I39",
+      "passed": true
+    },
+    {
+      "name": "standing outside original danger cannot farm a miss",
+      "passed": true
+    },
+    {
+      "name": "I39 buff must remain live at final subordinate resolution",
+      "passed": true
+    },
+    {
+      "name": "I39 cannot hit an already departed attacker",
+      "passed": true
+    },
+    {
+      "name": "I39 cannot hit an invisible or distant attacker",
+      "passed": true
+    },
+    {
+      "name": "first ritual reserves a real actor and pressure slot",
+      "passed": true
+    },
+    {
+      "name": "same actor cannot stack a melee over its ritual",
+      "passed": true
+    },
+    {
+      "name": "second global ritual/tether threat is not admitted",
+      "passed": true
+    },
+    {
+      "name": "a second ordinary attack still requires a verified full escape route",
+      "passed": true
+    },
+    {
+      "name": "one independent legal ordinary threat can coexist",
+      "passed": true
+    },
+    {
+      "name": "a third simultaneous harmful sequence waits",
+      "passed": true
+    },
+    {
+      "name": "active player binding prevents new dangerous sequence",
+      "passed": true
+    },
+    {
+      "name": "native movement recovery cannot be bypassed with a new attack",
+      "passed": true
+    },
+    {
+      "name": "independent field cannot release actor before actual recovery",
+      "passed": true
+    },
+    {
+      "name": "source actor recovers while its silk sequence retains danger slot",
+      "passed": true
+    },
+    {
+      "name": "recovered source can take another attack in a genuinely free second slot",
+      "passed": true
+    },
+    {
+      "name": "autonomous residual still counts against global two-sequence pressure",
+      "passed": true
+    },
+    {
+      "name": "second actor action still cannot overlap itself",
+      "passed": true
+    },
+    {
+      "name": "expired residual finally releases its independent danger slot",
+      "passed": true
+    },
+    {
+      "name": "live beam cannot detach actor as a fake autonomous field",
+      "passed": true
+    },
+    {
+      "name": "synchronized pair cannot reserve only its first member into one remaining slot",
+      "passed": true
+    },
+    {
+      "name": "two synchronized charge actors atomically reserve both scene slots",
+      "passed": true
+    },
+    {
+      "name": "no third threat can slip into a synchronized charge",
+      "passed": true
+    },
+    {
+      "name": "ordinary nine-tile route fits six seconds including pickup and throw",
+      "passed": true
+    },
+    {
+      "name": "current slowdown and occupied hands lengthen public ritual warning",
+      "passed": true
+    },
+    {
+      "name": "route exceeding eight-second allowance defers ritual",
+      "passed": true
+    },
+    {
+      "name": "held actual stone saves only actual pickup time",
+      "passed": true
+    },
+    {
+      "name": "ritual defers with no physical stone",
+      "passed": true
+    },
+    {
+      "name": "ritual defers with blocked route",
+      "passed": true
+    },
+    {
+      "name": "ritual defers with no firing LOS",
+      "passed": true
+    },
+    {
+      "name": "ritual defers with anchored body",
+      "passed": true
+    },
+    {
+      "name": "stone cannot reach a target beyond six tiles",
+      "passed": true
+    },
+    {
+      "name": "six-second ritual begins only with admitted route",
+      "passed": true
+    },
+    {
+      "name": "ritual cannot be interrupted before its actual start",
+      "passed": true
+    },
+    {
+      "name": "root does not cancel ritual",
+      "passed": true
+    },
+    {
+      "name": "same-timestamp actual stone wins before ritual pulse",
+      "passed": true
+    },
+    {
+      "name": "interrupted ritual has visible .8 second recovery",
+      "passed": true
+    },
+    {
+      "name": "interrupt commits eight seconds of ordinary chase",
+      "passed": true
+    },
+    {
+      "name": "ritual cannot immediately replace its pursuit phase",
+      "passed": true
+    },
+    {
+      "name": "original sixteen-second recast floor persists",
+      "passed": true
+    },
+    {
+      "name": "same old stone receipt cannot cancel a later ritual",
+      "passed": true
+    },
+    {
+      "name": "new physical throw may interrupt later ritual",
+      "passed": true
+    },
+    {
+      "name": "late interruption extends pursuit beyond nominal recast",
+      "passed": true
+    },
+    {
+      "name": "freeze legitimately cancels ritual and preserves real control duration",
+      "passed": true
+    },
+    {
+      "name": "unregistered generic seal cannot invent a ritual consumer",
+      "passed": true
+    },
+    {
+      "name": "missed focus does not interrupt ritual",
+      "passed": true
+    },
+    {
+      "name": "uninterrupted completed channel emits one pulse",
+      "passed": true
+    },
+    {
+      "name": "curse failure suppresses ritual payload",
+      "passed": true
+    },
+    {
+      "name": "already committed ritual cannot receive a delayed extension",
+      "passed": true
+    },
+    {
+      "name": "resolved encounter cannot restart ritual",
+      "passed": true
+    },
+    {
+      "name": "eight second ritual baseline can accept a paid real extension",
+      "passed": true
+    },
+    {
+      "name": "ritual I37 cannot refresh the same attack twice",
+      "passed": true
+    },
+    {
+      "name": "ritual all-source extension remains capped at three seconds",
+      "passed": true
+    },
+    {
+      "name": "extended ritual cannot damage at its old eight second deadline",
+      "passed": true
+    },
+    {
+      "name": "late extended ritual interruption preserves full eight second pursuit",
+      "passed": true
+    },
+    {
+      "name": "new ritual sequence resets only its own extension allowance",
+      "passed": true
+    },
+    {
+      "name": "heavy carry must be placed before picking stone",
+      "passed": true
+    },
+    {
+      "name": "actual pickup needs a free hand",
+      "passed": true
+    },
+    {
+      "name": "pickup starts in .8 tile reach without stamina input",
+      "passed": true
+    },
+    {
+      "name": "pickup cannot complete early",
+      "passed": true
+    },
+    {
+      "name": "pickup completion transfers same physical ID",
+      "passed": true
+    },
+    {
+      "name": "one mission slot cannot carry a second stone",
+      "passed": true
+    },
+    {
+      "name": "out-of-range throw cannot spend held stone",
+      "passed": true
+    },
+    {
+      "name": "throw has real .35 second preparation",
+      "passed": true
+    },
+    {
+      "name": "throw creates one physical flight and vacates carry slot",
+      "passed": true
+    },
+    {
+      "name": "unverified inaccessible floor cannot fake a return to hand",
+      "passed": true
+    },
+    {
+      "name": "wall blocks actual stone before exposed focus",
+      "passed": true
+    },
+    {
+      "name": "wall-hit stone lands before wall under same ID",
+      "passed": true
+    },
+    {
+      "name": "same physical missed stone can be recovered",
+      "passed": true
+    },
+    {
+      "name": "actual stone focus collision interrupts without monster HP damage",
+      "passed": true
+    },
+    {
+      "name": "resolved physical flight cannot be delivered twice",
+      "passed": true
+    },
+    {
+      "name": "save restore preserves three IDs and physical locations",
+      "passed": true
+    },
+    {
+      "name": "moving during stationary throw cancels without duplicating stone",
+      "passed": true
+    },
+    {
+      "name": "grace-blocked ribbon cannot bind",
+      "passed": true
+    },
+    {
+      "name": "accepted ribbon binds once",
+      "passed": true
+    },
+    {
+      "name": "initial player root ends at .6 second",
+      "passed": true
+    },
+    {
+      "name": "second tether cannot replace or extend current binding",
+      "passed": true
+    },
+    {
+      "name": "struggle requires no stamina or free hand parameter",
+      "passed": true
+    },
+    {
+      "name": "struggle ends binding after actual .6 second hold",
+      "passed": true
+    },
+    {
+      "name": "release gives six second global rebind immunity",
+      "passed": true
+    },
+    {
+      "name": "hard timeout is two seconds even with a late tick",
+      "passed": true
+    },
+    {
+      "name": "brief occlusion does not immediately break tether",
+      "passed": true
+    },
+    {
+      "name": "real .2 second occlusion releases tether",
+      "passed": true
+    },
+    {
+      "name": "LOS return cannot erase a break deadline already elapsed",
+      "passed": true
+    },
+    {
+      "name": "tether releases on source_invalid",
+      "passed": true
+    },
+    {
+      "name": "tether releases on freeze",
+      "passed": true
+    },
+    {
+      "name": "tether releases on overlength",
+      "passed": true
+    },
+    {
+      "name": "within four tiles live channel remains bounded but valid",
+      "passed": true
+    },
+    {
+      "name": "tether timeout restores ordinary walking",
+      "passed": true
+    },
+    {
+      "name": "shorter original three-tile tether breaks at its actual range",
+      "passed": true
+    }
+  ],
+  "input_hashes": {
+    "scripts/ma01_reference.py": "391a5c53d038e5310a364014901660b7244516b401c8c290ef176afe0fecf4be",
+    "scripts/check_ma01_reference.py": "38a98327519a7931ff4bd46e2c23635806d170f76a1834cb3ac3d2e64dd5d35c"
+  }
+}

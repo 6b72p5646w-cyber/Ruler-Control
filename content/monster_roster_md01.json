@@ -973,5 +973,12 @@
       "first_day": 5,
       "default_enabled": true
     }
-  ]
+  ],
+  "attack_design_layer": {
+    "version": "MA01",
+    "contract": "content/attack_contracts_ma01.json",
+    "roster": "content/monster_attack_roster_ma01.json",
+    "runtime_integrated": false,
+    "baseline_stats_and_mechanisms_unchanged": true
+  }
 }

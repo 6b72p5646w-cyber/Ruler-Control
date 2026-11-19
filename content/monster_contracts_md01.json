@@ -7,7 +7,8 @@
     "monster_terminal_and_stats": "content/monster_roster_md01.json 所引用的三个逐怪文件优先于TD05怪物战后去向与粗略属性；明确保留的原物、操作与身份限制继续生效。",
     "combat_states": "TD05火毒冰咒电/易感/位移计伤/纸偶/空间/塔陷阱节点不变；MD01补充生命下限与终态的适配。",
     "legacy_actions": "F01–F60的既有机制动作引用V0.10合同；MD01注明转化点，不能同时执行旧离场和新削弱两个互斥终态。",
-    "live_game": "V0.10运行器、HTML练习与历史60记录仍是现有运行内容，本轮新数据尚未接入。"
+    "live_game": "V0.10运行器、HTML练习与历史60记录仍是现有运行内容，本轮新数据尚未接入。",
+    "attack_shapes_and_timing": "MA01明确覆盖攻击字段读取content/attack_contracts_ma01.json及105攻击目录；原三终态、HP/防御/基速、真实移动与子体预算保持MD01。"
   },
   "units": {
     "monster_hp": "可被塔削减的当次身体/显体/压制耐久；不是原作世界观的永久存在强度。",
@@ -154,7 +155,9 @@
     "first_injury_auto_slow": false,
     "zero_san": "继续既有恐慌、稳定化与退场规则；不新增隐形死亡阈值或锁住保底动作。",
     "fear_vs_contact": "普通目击fear仍受旧同源冷却/阶段上限与Q19等限制；真实命中为contact_attack，不把fear减伤重复作用到接触。",
-    "blood": "本轮怪物接触只登记轻伤，不自动产生新的可追踪流血；既有真实玻璃血源规则保持。"
+    "blood": "本轮怪物接触只登记轻伤，不自动产生新的可追踪流血；既有真实玻璃血源规则保持。",
+    "ma01_contact_exception": "普通无预告触碰仍无伤；仅MA01逐卡明确CONTACT可在完整预告后，以可见危险体表、有限时段和共享攻击ID伤害。随体体积是公开例外，不追改其它锁定攻击几何。",
+    "ma01_attack_contract": "content/attack_contracts_ma01.json"
   },
   "weekly_scope": {
     "towers_traps": "TD05七夜保留同实例/升级/HP/剩余次数，周结算后清空；营业中无采购、补充、拆装、修复。",

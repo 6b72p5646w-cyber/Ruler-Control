@@ -4813,5 +4813,12 @@
   "current_resource_effects_contract": "content/mechanism_closure_v010.json",
   "current_expanded_design_roster": "content/monster_roster_md01.json",
   "expanded_design_total": 105,
-  "expanded_roster_scope": "原60民俗身份来源保持；MD01新增45SCP为设计候选，未接入运行器。"
+  "expanded_roster_scope": "原60民俗身份来源保持；MD01新增45SCP为设计候选，未接入运行器。",
+  "current_attack_design": {
+    "version": "MA01",
+    "contract": "content/attack_contracts_ma01.json",
+    "roster": "content/monster_attack_roster_ma01.json",
+    "runtime_integrated": false,
+    "baseline_stats_and_mechanisms_unchanged": true
+  }
 }
