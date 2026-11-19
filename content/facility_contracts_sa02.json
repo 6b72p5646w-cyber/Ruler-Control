@@ -1,0 +1,228 @@
+{
+  "version": "SA02",
+  "baseline_commit": "aa7941aef0bfc82f4cef15337084b0a0ad3dbc59",
+  "status": "disabled_design_contract_with_bounded_reference_model",
+  "enabled": false,
+  "runtime_integrated": false,
+  "scope": "Only refines FR01/FR02/FR03/FR04/FR06 candidate action contracts. Does not enable facilities, create a purchase tree, change the other nine facility roles, or replace the actual store/world consumers.",
+  "supersedes": {
+    "source": "content/facility_roles_sa01.json",
+    "fields": "These five proposals' ordinary-work acceleration eligibility, activation identity, receipt lifecycle, scan payment and failure semantics only.",
+    "removed_claims": [
+      "FR02/FR03/FR04 ordinary work duration multiplier 0.85",
+      "FR02/FR03/FR04 assumed 1.5-second work and 0.225-second saving",
+      "any next facility work receipt may redeem a reservation after switching jobs"
+    ],
+    "unchanged": [
+      "free essential store actions and original action times",
+      "existing orders, stock, task objects, income and root reward ledgers",
+      "TD05 status payload strengths and geometry requirements",
+      "three registered appliance definitions; no AP_POS or new AP",
+      "candidate enabled=false and runtime_integrated=false"
+    ]
+  },
+  "source_evidence": [
+    {
+      "path": "content/store_systems_v05.json",
+      "pointer": "/work_contract",
+      "use": "Current ordinary checkout is 1.5 seconds; window checkout is 3.5. Repeat work may preserve valid progress, but this does not invent a new action or accelerate physical travel."
+    },
+    {
+      "path": "content/interactions.json",
+      "pointer": "/work_templates/0/normal_case_v05",
+      "use": "W01 has an explicit ordinary world checkout duration and no QTE."
+    },
+    {
+      "path": "content/interactions.json",
+      "pointer": "/work_templates/4/normal_case_v05",
+      "use": "W05's ordinary case delegates to the simplified duties. Its historical four-second template is not a newly proven current 1.5-second work segment."
+    },
+    {
+      "path": "content/interactions.json",
+      "pointer": "/work_templates/6/normal_case_v05",
+      "use": "W07's ordinary case delegates to the simplified duties. Do not reintroduce its old six-second QTE or invent a cooking recipe to justify a facility multiplier."
+    },
+    {
+      "path": "content/store_systems_v05.json",
+      "pointer": "/duties/1",
+      "use": "D02 requires the real existing box to be picked up, carried and placed at its shelf."
+    },
+    {
+      "path": "content/store_systems_v05.json",
+      "pointer": "/duties/2",
+      "use": "D03 already has one hot-food delivery and the same registered meat's freezer placement/closure. These are separate subreceipts, not a new pair of duties or extra income."
+    },
+    {
+      "path": "content/equipment_contracts_eq01.json",
+      "pointer": "/resources_and_actions/essential_rule_step_times",
+      "use": "Keep required take/carry/place/seal/wait steps and their actual durations."
+    },
+    {
+      "path": "content/equipment_contracts_eq01.json",
+      "pointer": "/event_semantics",
+      "use": "Use immutable original event identities, no secondary equipment recursion, and preserve the actual electric-feedback exception."
+    },
+    {
+      "path": "content/equipment_contracts_eq01.json",
+      "pointer": "/ordinary_attack_progress",
+      "use": "FR02 uses the same ordinary single-projectile reload eligibility, but advances only the existing SA01 10% amount."
+    },
+    {
+      "path": "content/combat_contracts_td05.json",
+      "pointer": "/statuses",
+      "use": "Heat, chill, curse and susceptibility use actual shared status consumers, not new local combat rules."
+    }
+  ],
+  "admission": {
+    "production_gate": "disabled until both a real consumer and real facility-specific geometry are implemented and validated",
+    "checks_before_payment": [
+      "night is open and actor can start the actual original action",
+      "immutable campaign/week/logical-night/attempt identity matches current world",
+      "actual facility instance, original work order, original action and same physical object are bound",
+      "work has not already completed and its eligible current action has not already started",
+      "actual store action consumer is registered and returns authenticated original receipts",
+      "facility's own emitter/target volume or same-shelf tower relation is validated",
+      "source is available; hot-food/freezer candidates also require actual C2 appliance power and no isolation",
+      "local cooldown elapsed and one unreserved emergency-power unit is available"
+    ],
+    "unproven_geometry": "A generic anchor, 1.5-tile radius or a passed tower-projection example is insufficient. Missing facility geometry rejects activation without charging.",
+    "world_proof_boundary": "The reference model accepts explicit simulated facts for bounded counterexamples. It does not authenticate navigation, source wiring, customers, work receipts or live target geometry."
+  },
+  "identity_fields": [
+    "campaign_id",
+    "week_id",
+    "logical_night_id",
+    "attempt_id",
+    "facility_instance_id",
+    "work_order_id",
+    "action_id",
+    "object_instance_id"
+  ],
+  "work_lifecycle": {
+    "phase": "open",
+    "cost_emergency_power": 1,
+    "extra_activation_world_seconds": 0,
+    "arm_window_world_seconds": 20,
+    "local_rearm_world_seconds": 30,
+    "cooldown_start": "successful paid arm commit",
+    "binding_point": "same confirmation as the first start of the explicitly bound final original checkout/placement/delivery/closure action; not at the beginning of a long carrying route",
+    "real_work_frequency": "The 30-second cooldown is only a lower bound on reuse. Original D02/D03 work and their subreceipts are finite; canceled work, carryover debt and repeated object placement create no new work opportunities. Never assume one proc every 30 seconds or add jobs to support that frequency.",
+    "speed": "FR01 snapshots one multiplier onto its original checkout action at this start. FR02/03/04 supply no speed modifier.",
+    "job_switch": "No transfer to a different work order, action, object, facility or attempt. A mismatched receipt neither consumes the pending original opportunity nor earns effects.",
+    "cancel": "No refund. If the original producer cancels and restarts with a new action identity, retire the old opportunity. Ordinary checkout cancellation/service-mode changes restart checkout and therefore retire FR01.",
+    "resume": "FR02/03/04 may retain an interrupted opportunity only when the original producer itself preserves the same action and object progress. Resume revalidates that exact identity before the original deadline; it does not create progress, reset clocks or transfer a bonus. FR01 has no resumable checkout bonus.",
+    "deadline": "Only a bound action already in progress may complete at t <= armed_at + 20. At equal time process that actually completed action and its primary terminal effects first, then expire pending opportunities. New starts/resumes at the deadline are rejected. A completion after the deadline gets no facility effect.",
+    "primary_before_secondary": "Commit the original store work and any real same-action main-rule outcome first; remove terminal/left pools; then select still-legal recipients for the one facility response.",
+    "no_target": "The valid bound work completion consumes the opportunity even with zero recipients. No refund, retargeting later or credit bank.",
+    "power_loss": "Source loss/isolation cancels any untriggered opportunity permanently. Re-powering cannot restore it, reset cooldown or refund power. Already applied statuses keep their own original deadlines.",
+    "night_end": "Cancel untriggered work opportunities and scan reservations. Preserve their idempotency/cost/cooldown facts within the owning attempt checkpoint; do not carry active promises into a new night.",
+    "snapshot": "Persist paid activation IDs, immutable bindings, status, original deadlines, cooldown deadlines and processed original receipts with the owning run checkpoint. Pause/load do not re-arm. SA01 owns whole-checkpoint retry, not this facility model."
+  },
+  "work_candidates": {
+    "FR01": {
+      "enabled": false,
+      "runtime_integrated": false,
+      "name": "收银一次安心结账",
+      "source_event": "ordinary_order_checkout_committed_once",
+      "source_action": "current W01 normal checkout; window/silent duration follows the actual original service mode",
+      "source_duty": null,
+      "ordinary_speed_multiplier": 0.85,
+      "speed_floor": 0.8,
+      "speed_aggregation": "strongest valid same-group multiplier, never multiplication",
+      "resume_original_action": false,
+      "requires_main_C2_power": false,
+      "free_business_value": "Original paid-order checkout and original transaction income.",
+      "extra_business_value": "Only the actual ordinary checkout work is shortened; 1.5 to 1.275 seconds, or 3.5 to 2.975 before any stronger same-group modifier.",
+      "response": {"kind": "curse", "amount": 1, "duration_s": 10, "max_recipients": 1, "nominal_radius_tiles": 1.5},
+      "exclusions": ["special monster contracts", "identity verification", "refunds", "gift claims", "automatic change as a second action"]
+    },
+    "FR02": {
+      "enabled": false,
+      "runtime_integrated": false,
+      "name": "货架整架调度",
+      "source_event": "ordinary_stock_box_placed_and_work_committed_once",
+      "source_action": "final real shelf placement of the same original D02 stock box",
+      "source_duty": "D02",
+      "ordinary_speed_multiplier": null,
+      "resume_original_action": true,
+      "requires_main_C2_power": false,
+      "free_business_value": "Complete the original stock transfer with conserved inventory and the original work receipt.",
+      "extra_business_value": "No new numerical business bonus; original physical action/travel times remain unchanged.",
+      "response": {"kind": "reload_work", "fraction_of_authored_full_work": 0.1, "max_recipients": 1, "same_actual_fixture_required": true, "minimum_base_reload_work_s": 1.5},
+      "target_selection": "At completion choose the same-fixture eligible loading tower with greatest remaining loading work; stable tower instance ID breaks ties. Revalidate enabled state and the existing EQ01 ordinary single-projectile whitelist.",
+      "exclusions": ["ready tower", "different shelf", "T02.A2 magazine", "T03.A2 multiwave", "field cycle", "paper guard", "seal reservoir", "poison maturity", "electric overload"]
+    },
+    "FR03": {
+      "enabled": false,
+      "runtime_integrated": false,
+      "name": "热食余热收束",
+      "source_event": "ordinary_hot_food_delivery_committed_once",
+      "previous_unbound_event": "ordinary_hot_food_work_committed_once",
+      "source_action": "D03's existing hot-food item actually placed in its registered handoff slot",
+      "source_duty": "D03",
+      "ordinary_speed_multiplier": null,
+      "resume_original_action": true,
+      "requires_main_C2_power": true,
+      "free_business_value": "Complete the original hot-food handoff; no new recipe, ingredients, order or duplicate income.",
+      "extra_business_value": "No new numerical business bonus; original delivery and any already-authored preparation times remain unchanged.",
+      "response": {"kind": "heat", "amount": 2, "duration_s": 6, "max_recipients": 2, "nominal_radius_tiles": 1.5, "full_source_burn_dps": 2, "full_source_burn_vulnerability": 0.15},
+      "exclusions": ["F06 cup temperature", "F49 waste cooling", "invented ordinary food quality clock", "repeated placement of already delivered food"]
+    },
+    "FR04": {
+      "enabled": false,
+      "runtime_integrated": false,
+      "name": "冰柜冷凝回收",
+      "source_event": "ordinary_cold_chain_work_closed_and_committed_once",
+      "source_action": "D03's same registered meat is actually in a valid freezer and its original final closure commits",
+      "source_duty": "D03",
+      "ordinary_speed_multiplier": null,
+      "resume_original_action": true,
+      "requires_main_C2_power": true,
+      "free_business_value": "Complete existing cold-chain work and, when its own conditions hold, the same F13 main mechanism.",
+      "extra_business_value": "No undefined noncritical work segment or 15% saving is claimed; task taking/carrying/placement/closure keeps its original time.",
+      "response": {"kind": "chill", "amount": 1, "duration_s": 6, "max_recipients": 2, "nominal_radius_tiles": 1.5, "freeze_normal_s": 1, "freeze_elite_s": 0.6, "shared_attempt_cd_s": 8},
+      "exclusions": ["empty lid toggles", "a different unregistered meat object", "already completed cold-chain receipt", "status applied to an F13 that has just left"]
+    }
+  },
+  "scan_candidate": {
+    "id": "FR06",
+    "enabled": false,
+    "runtime_integrated": false,
+    "name": "核验台定点显影",
+    "action_world_seconds": 2,
+    "range_tiles": 3,
+    "requires_actual_LOS": true,
+    "allowed_target_layers": ["ground", "low_air"],
+    "cost_emergency_power": 1,
+    "local_rearm_world_seconds": 30,
+    "cooldown_start": "successful scan effect/payment commit, not scan start",
+    "start": "Reserve one real emergency-power unit and bind the actual station, actor action, current attempt and chosen already-manifested hostile pool. Reservation reduces available spending but is not consumption.",
+    "station_exclusion": "A station with an outstanding scan reservation rejects another scan or paid work activation. A second activation ID cannot bypass a future commit-based cooldown.",
+    "interrupt": "Moving away, loss of source/LOS/target legality, another action, death/leave or voluntary cancel before success cancels the scan and releases the reservation. No cost or cooldown.",
+    "commit": "After the full actual two seconds, revalidate the same bindings, actual action completion, station occupancy, source, range, layer and LOS. Atomically consume the reserved unit, apply susceptibility once and set next use to commit_at + 30.",
+    "after_commit": "Target leaving after successful commit gives no refund. Susceptibility keeps its own original deadline; scans never create identity facts or reveal hidden bodies.",
+    "response": {"kind": "susceptible", "duration_s": 3, "threshold_reduction": 1, "stacking": false}
+  },
+  "event_protocol": {
+    "primary_receipts": "Only actual world consumers produce ordinary-work and main-rule receipts. A facility response cannot manufacture either.",
+    "response_origin_kind": "facility_secondary",
+    "dedupe": "One response per immutable activation and bound original receipt; enemy status payload once per independent health pool; shared parts are not additional recipients.",
+    "status_source_id": "facility instance + activation ID + bound action ID + original receipt ID; retain actual source payload and deadline",
+    "primary_fanout": "Distinct originally eligible listeners may consume the same actual primary fact once according to their own cards. Deduplication of a facility response does not erase another item's legitimate original trigger.",
+    "no_equipment_recursion": "Facility-added heat/chill/curse/susceptibility and reload progress are secondary responses. They do not count as a new player use, tower shot, main-rule completion, work completion or movement, and do not recursively fire EQ01 reactive equipment.",
+    "shared_status_processing": "Actual admitted marks still pass through TD05 thresholds, immunity, expiry, root-terminal and status aggregation normally. No local bypass or forced freeze/burn.",
+    "reload_completion": "Advance only the already-loading clock, clamp at ready, discard overflow. The later real shot still needs its original targeting/aiming and may create its normal primary attack event. A reload response itself is not a shot.",
+    "electric_exception": "Any later genuine positive electric damage and its authored charge feedback continue under TD05. This rule introduces no electric-charge global cap or generation cap.",
+    "deterministic_enemy_selection": "After primary terminal decisions, choose legal intersecting ground/low-air independent hostile enemy pools by actual distance then nonempty stable pool ID, up to the authored maximum. Legal nonhostile response actors are excluded. Friendly tower recipients likewise require a nonempty stable tower instance ID. Candidate-specific actual LOS and volume must be checked by the real consumer."
+  },
+  "verification_limits": {
+    "reference_only": true,
+    "not_proven": [
+      "real facility emitters, pulses, scan volumes or world callbacks",
+      "full-night scheduling and simultaneous monster/work feasibility",
+      "real production persistence and fault recovery",
+      "first-week economy, fun, phone controls or combat balance"
+    ],
+    "activation_gate_remains_closed": true
+  }
+}

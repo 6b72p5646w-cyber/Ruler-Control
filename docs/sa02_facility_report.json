@@ -1,0 +1,299 @@
+{
+  "version": "SA02",
+  "scope": "bounded facility receipt/cost/deadline counterexamples plus real-source checks",
+  "baseline_commit": "aa7941aef0bfc82f4cef15337084b0a0ad3dbc59",
+  "passed": 66,
+  "failed": 0,
+  "runtime_integrated": false,
+  "full_gameplay_proven": false,
+  "candidates_enabled": false,
+  "explicitly_assumed_simulation_inputs": [
+    "world consumer binding",
+    "facility-specific geometry",
+    "real action legality",
+    "original receipt authentication",
+    "target actual geometry",
+    "original main-rule terminal outcome"
+  ],
+  "not_proven": [
+    "real facility emitters, pulses, scan volumes or world callbacks",
+    "full-night scheduling and simultaneous monster/work feasibility",
+    "real production persistence and fault recovery",
+    "first-week economy, fun, phone controls or combat balance"
+  ],
+  "input_sha256": {
+    "content/combat_contracts_td05.json": "f83f18ae0314d3a19134a934ed347c7254c9eb2b5d5711305e007434dd5d8823",
+    "content/equipment_contracts_eq01.json": "9ac5188a3e323c00ceb4bd7c01e13303d472d206cdaeecc5758a745b833a8f2e",
+    "content/facility_contracts_sa02.json": "05cd9f54e25d12b8fd325677ba70371bf5fde63f89a649d9a69ef67150b782d4",
+    "content/interactions.json": "3502aaf2106c0cc08f1749b6108d7cbeda292a4e4b1f6f1cc27da6b5460d17d5",
+    "content/store_systems_v05.json": "a879ab27be4a74ff08fe2ef2b88d8b4be4b93c9767bd7e4d3e7ab11148f998b4",
+    "scripts/check_sa02_facility.py": "a598651fe92e2d953f1b6cb96ce14488fb7823299f6a2b6df3e63f8482bbb4b9",
+    "scripts/sa02_facility_reference.py": "b959ae93e73d1d249b13bd5bda5ea64411b43cbbed2af61a145110c6af5808d6"
+  },
+  "checks": [
+    {
+      "name": "all five candidates remain disabled and not integrated",
+      "passed": true
+    },
+    {
+      "name": "real source pointer content/store_systems_v05.json#/work_contract",
+      "passed": true
+    },
+    {
+      "name": "real source pointer content/interactions.json#/work_templates/0/normal_case_v05",
+      "passed": true
+    },
+    {
+      "name": "real source pointer content/interactions.json#/work_templates/4/normal_case_v05",
+      "passed": true
+    },
+    {
+      "name": "real source pointer content/interactions.json#/work_templates/6/normal_case_v05",
+      "passed": true
+    },
+    {
+      "name": "real source pointer content/store_systems_v05.json#/duties/1",
+      "passed": true
+    },
+    {
+      "name": "real source pointer content/store_systems_v05.json#/duties/2",
+      "passed": true
+    },
+    {
+      "name": "real source pointer content/equipment_contracts_eq01.json#/resources_and_actions/essential_rule_step_times",
+      "passed": true
+    },
+    {
+      "name": "real source pointer content/equipment_contracts_eq01.json#/event_semantics",
+      "passed": true
+    },
+    {
+      "name": "real source pointer content/equipment_contracts_eq01.json#/ordinary_attack_progress",
+      "passed": true
+    },
+    {
+      "name": "real source pointer content/combat_contracts_td05.json#/statuses",
+      "passed": true
+    },
+    {
+      "name": "checkout timing reads current actual store authority",
+      "passed": true
+    },
+    {
+      "name": "D02 and D03 remain original object work with no invented recipe",
+      "passed": true
+    },
+    {
+      "name": "FR02 removes unbound speed promise without changing original action",
+      "passed": true
+    },
+    {
+      "name": "FR03 removes unbound speed promise without changing original action",
+      "passed": true
+    },
+    {
+      "name": "FR04 removes unbound speed promise without changing original action",
+      "passed": true
+    },
+    {
+      "name": "default public entry cannot activate disabled design",
+      "passed": true
+    },
+    {
+      "name": "unproven consumer_bound rejects before charging",
+      "passed": true
+    },
+    {
+      "name": "unproven facility_geometry_bound rejects before charging",
+      "passed": true
+    },
+    {
+      "name": "unproven phase_open rejects before charging",
+      "passed": true
+    },
+    {
+      "name": "unproven same_current_attempt rejects before charging",
+      "passed": true
+    },
+    {
+      "name": "unproven actual_object_valid rejects before charging",
+      "passed": true
+    },
+    {
+      "name": "unproven source_available rejects before charging",
+      "passed": true
+    },
+    {
+      "name": "passed tower projection is insufficient for facility admission",
+      "passed": true
+    },
+    {
+      "name": "hot-food and freezer require real main power as well as reserve",
+      "passed": true
+    },
+    {
+      "name": "ordinary checkout 1.5 to 1.275 only once",
+      "passed": true
+    },
+    {
+      "name": "window checkout preserves actual 3.5 base",
+      "passed": true
+    },
+    {
+      "name": "stronger work modifier wins without multiplication",
+      "passed": true
+    },
+    {
+      "name": "invented checkout timing cannot justify speed benefit",
+      "passed": true
+    },
+    {
+      "name": "actual checkout must finish before any response",
+      "passed": true
+    },
+    {
+      "name": "receipt label without real completion is insufficient",
+      "passed": true
+    },
+    {
+      "name": "retry of paid activation never pays twice",
+      "passed": true
+    },
+    {
+      "name": "receipt cannot switch work_order_id",
+      "passed": true
+    },
+    {
+      "name": "receipt cannot switch action_id",
+      "passed": true
+    },
+    {
+      "name": "receipt cannot switch object_instance_id",
+      "passed": true
+    },
+    {
+      "name": "receipt cannot switch facility_instance_id",
+      "passed": true
+    },
+    {
+      "name": "receipt cannot switch attempt_id",
+      "passed": true
+    },
+    {
+      "name": "checkout cancel loses one opportunity and cannot reboost same action",
+      "passed": true
+    },
+    {
+      "name": "only producer-preserved exact action can resume without new time or cost",
+      "passed": true
+    },
+    {
+      "name": "already-running completion at exactly 20 seconds wins once",
+      "passed": true
+    },
+    {
+      "name": "completion just after deadline yields no effect or refund",
+      "passed": true
+    },
+    {
+      "name": "deadline cannot be used as a new resume window",
+      "passed": true
+    },
+    {
+      "name": "power cycling cannot restore pending opportunity or reset cooldown",
+      "passed": true
+    },
+    {
+      "name": "valid completion without a target is consumed without credit bank",
+      "passed": true
+    },
+    {
+      "name": "same-action F13 departure precedes selecting cold recipients",
+      "passed": true
+    },
+    {
+      "name": "real independent legal recipients only; no shared-part multiplication",
+      "passed": true
+    },
+    {
+      "name": "missing pool identity and legal nonhostile response actor cannot receive hostile payload",
+      "passed": true
+    },
+    {
+      "name": "facility responses cannot recursively manufacture work or EQ01 triggers",
+      "passed": true
+    },
+    {
+      "name": "stock response advances one existing whitelisted same-shelf reload only",
+      "passed": true
+    },
+    {
+      "name": "reload advance clamps at ready without overflow or extra shot",
+      "passed": true
+    },
+    {
+      "name": "loading tower without stable instance identity cannot receive progress",
+      "passed": true
+    },
+    {
+      "name": "applied heat keeps its own deadline after source loss",
+      "passed": true
+    },
+    {
+      "name": "serialized restoration preserves cost receipt and no replay",
+      "passed": true
+    },
+    {
+      "name": "scan reserves spending capacity but consumes no power before success",
+      "passed": true
+    },
+    {
+      "name": "parallel activation IDs cannot bypass one station scan or its commit cooldown",
+      "passed": true
+    },
+    {
+      "name": "scan cannot reserve against an identityless target",
+      "passed": true
+    },
+    {
+      "name": "scan cannot skip the actual two-second action",
+      "passed": true
+    },
+    {
+      "name": "scan cancel releases reservation without cooldown or cost",
+      "passed": true
+    },
+    {
+      "name": "scan lost source_available cancels without payment",
+      "passed": true
+    },
+    {
+      "name": "scan lost same_target_legal cancels without payment",
+      "passed": true
+    },
+    {
+      "name": "scan lost actor_at_station cancels without payment",
+      "passed": true
+    },
+    {
+      "name": "scan also requires its real completion receipt",
+      "passed": true
+    },
+    {
+      "name": "scan success pays once and cooldown begins at actual commit",
+      "passed": true
+    },
+    {
+      "name": "power cycling cannot resurrect canceled scan reservation",
+      "passed": true
+    },
+    {
+      "name": "night transition stops temporary promises without minting resources",
+      "passed": true
+    },
+    {
+      "name": "electric feedback explicitly retains shared TD05 semantics",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,1281 @@
+{
+  "version": "SA02",
+  "scope": "Explicit 72-ID migration index; 24 targeted economic/inventory/pet boundary reviews and 48 NOT reaudited lifecycles. Bounded supplied-fact accounting/claim examples only.",
+  "runtime_integrated": false,
+  "all_event_gameplay_proven": false,
+  "world_sources_authenticated": false,
+  "loan_ledger_implemented": false,
+  "storage_durability_proven": false,
+  "full_week_playtested": false,
+  "coverage": {
+    "indexed_total": 72,
+    "targeted_boundary_reviews": 24,
+    "not_reaudited": 48,
+    "runtime_enabled": 0
+  },
+  "passed": 207,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "exactly_72_original_IDs_not_72_new_runtime_adapters",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "review_scope_24_boundary_reviews_48_not_reaudited",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "explicitly_not_a_runtime_integration",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E001_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E001_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E002_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E002_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E003_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E003_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E004_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E004_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E005_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E005_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E006_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E006_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E007_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E007_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E008_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E008_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E009_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E009_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E010_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E010_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E011_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E011_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E012_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E012_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E013_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E013_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E014_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E014_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E015_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E015_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E016_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E016_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E017_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E017_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E018_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E018_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E019_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E019_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E020_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E020_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E021_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E021_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E022_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E022_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E023_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E023_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E024_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E024_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E025_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E025_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E026_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E026_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E027_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E027_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E028_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E028_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E029_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E029_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E030_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E030_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E031_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E031_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E032_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E032_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E033_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E033_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E034_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E034_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E035_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E035_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E036_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E036_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E037_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E037_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E038_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E038_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E039_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E039_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E040_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E040_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E041_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E041_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E042_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E042_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E043_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E043_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E044_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E044_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E045_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E045_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E046_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E046_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E047_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E047_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E048_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E048_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E049_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E049_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E050_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E050_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E051_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E051_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E052_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E052_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E053_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E053_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E054_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E054_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E055_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E055_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E056_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E056_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E057_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E057_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E058_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E058_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E059_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E059_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E060_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E060_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E061_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E061_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E062_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E062_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E063_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E063_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E064_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E064_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E065_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E065_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E066_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E066_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E067_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E067_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E068_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E068_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E069_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E069_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E070_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E070_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E071_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E071_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E072_source_and_branches_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E072_runtime_closed_even_after_finite_validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E040_night_1_has_no_unmigrated_purchase_or_loan",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "disabled_in_seven_night_design",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "E040_night_7_has_no_unmigrated_purchase_or_loan",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "disabled_in_seven_night_design",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "E045_night_1_has_no_unmigrated_purchase_or_loan",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "disabled_in_seven_night_design",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "E045_night_7_has_no_unmigrated_purchase_or_loan",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "disabled_in_seven_night_design",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "E046_night_1_has_no_unmigrated_purchase_or_loan",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "disabled_in_seven_night_design",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "E046_night_7_has_no_unmigrated_purchase_or_loan",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "disabled_in_seven_night_design",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "E047_night_1_has_no_unmigrated_purchase_or_loan",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "disabled_in_seven_night_design",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "E047_night_7_has_no_unmigrated_purchase_or_loan",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "disabled_in_seven_night_design",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "E051_night_1_has_no_unmigrated_purchase_or_loan",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "legacy_disabled",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "E051_night_7_has_no_unmigrated_purchase_or_loan",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "legacy_disabled",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "E052_night_1_has_no_unmigrated_purchase_or_loan",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "disabled_in_seven_night_design",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "E052_night_7_has_no_unmigrated_purchase_or_loan",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "disabled_in_seven_night_design",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "E071_night_1_has_no_unmigrated_purchase_or_loan",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "disabled_in_seven_night_design",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "E071_night_7_has_no_unmigrated_purchase_or_loan",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "disabled_in_seven_night_design",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "unreviewed_original_event_is_not_auto_enabled_by_old_flag",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "not_reaudited_fail_closed",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "unknown_event_has_no_side_effects",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "unknown_event_or_branch",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "unknown_branch_has_no_side_effects",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "unknown_event_or_branch",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "transport_fee_waits_for_its_real_adapter",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "reject_unmapped_transport_payment",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "free_transport_reservation_is_not_claimed_as_implemented",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "branch_adapter_not_modelled",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "legacy_contract_quote_would_be_eight_for_42_paid_item",
+      "passed": true,
+      "detail": {
+        "scope": "authored arithmetic, not legacy runtime execution",
+        "paid": 42,
+        "catalog": 60,
+        "quote": 8
+      }
+    },
+    {
+      "name": "cross_week_personal_asset_cannot_sell_into_new_week",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "reject_personal_asset_sale",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "same_cross_week_personal_object_can_be_stored_without_money",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no_second_store_of_same_already_stored_object",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "same_owned_storable_object_required",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "full_storage_does_not_erase_item_or_create_coin",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "actual_storage_capacity_required",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "unknown_item_does_not_get_guessed_catalog_price",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "reject_personal_asset_sale",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "actual_A09_routes_exactly_30_to_one_week_wallet",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "same_job_original_receipt_cannot_pay_again_with_new_command",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "original_source_already_applied",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "A09_does_not_duplicate_already_credited_legacy_wallet",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "second_wallet_route_forbidden",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "unknown_coin_delta_not_accepted",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "caller_selected_amount_forbidden",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "fake_job_without_real_action_costs_denied",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "actual_A09_completion_required",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "unverified_job_denied",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "actual_verified_completion_required",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "old_week_job_receipt_not_paid_into_new_week",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "stale_or_wrong_scope",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "old_attempt_command_rejected",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "stale_or_wrong_scope",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "actual_procession_gives_6_once_and_provisionally",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "procession_does_not_pay_before_original_strip_returns",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "original_reward_completion_missing",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "actual_optional_work_food_delivery_gives_4",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "free_personal_food_cannot_fund_event_reward",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "original_reward_completion_missing",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "actual_quiet_sleep_costs_10_once",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "quiet_sleep_does_not_make_wallet_negative",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "insufficient_current_week_coin",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "gift_becomes_one_provisional_claim_not_current_inventory",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "same_gift_object_cannot_get_another_claim",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "original_gift_already_owned_or_claimed",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "unverified_gift_batch_not_a_reward",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "same_verified_I21_gift_required",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "unknown_or_random_gift_definition_denied",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "same_verified_I21_gift_required",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "E069:B1_returns_only_original_opening_item",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E069:B1_warehouse_item_not_added_to_opening_manifest",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "unused_original_opening_item_required",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "E069:B1_critical_object_cannot_be_hidden_or_replaced",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "same_actual_hidden_original_required",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "E069:B2_returns_only_original_opening_item",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "E069:B2_warehouse_item_not_added_to_opening_manifest",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "unused_original_opening_item_required",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "E069:B2_critical_object_cannot_be_hidden_or_replaced",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "unused_original_opening_item_required",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "pet_spare_requires_actual_hidden_original",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "same_actual_hidden_original_required",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "pet_spare_must_be_same_kind_as_original",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "spare_must_match_hidden_original_kind",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "refund_uses_actual_42_paid_not_catalog_60_and_removes_item",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "refund_original_source_cannot_pay_twice",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "original_source_already_applied",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "refund_rejects_old_week_purchase",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "same_week_same_procurement_window_required",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "refund_rejects_old_window_purchase",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "same_week_same_procurement_window_required",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "refund_rejects_lottery_item",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "same_actual_paid_purchase_required",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "refund_rejects_gift_item",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "same_actual_paid_purchase_required",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "refund_rejects_already_used_item",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "unused_untransferred_unrefunded_item_required",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "refund_rejects_already_transferred_item",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "unused_untransferred_unrefunded_item_required",
+        "reference_only": true
+      }
+    },
+    {
+      "name": "refund_rejects_pending_draw_ownership_snapshot",
+      "passed": true,
+      "detail": {
+        "applied": false,
+        "reason": "available_procurement_window_required",
+        "reference_only": true
+      }
+    }
+  ],
+  "check_categories": {
+    "index_source_runtime_gate": 147,
+    "targeted_accounting_rejection_and_old_contract_examples": 60
+  },
+  "inputs_sha256": {
+    "content/event_migrations_sa02.json": "01e597a61dfaa9afe42dea406403e40afeae5dd18342bb676fce8a910aacbf6a",
+    "content/event_contracts_v010.json": "5845afafa43e3c8fdc259db9ccdd84367fe916c756a0ff9e731cab7011875a60",
+    "content/equipment_contracts_eq01.json": "9ac5188a3e323c00ceb4bd7c01e13303d472d206cdaeecc5758a745b833a8f2e",
+    "content/lottery_rewards_eq01.json": "77878fd6e69396e2e50f9d6588d7b26a06843cf695649401210bf5bcfae7d129",
+    "content/run_lifecycle_sa01.json": "0b31c3811423ea3967fb5de3f8ab67947b96b61d4a81770a76efbe990780c389",
+    "scripts/sa02_event_reference.py": "d5c2fdaf91e6683b41c719802d2a762eba5b307c767d70bd5ef7fbe970472946",
+    "scripts/check_sa02_events.py": "834f918f17f3f8f79512ea6d490960e73895f26814a841de25f25ebcd9a808d6"
+  },
+  "legacy_quote_witness_scope": "Old policy arithmetic only; no claim that the legacy client executed a paid recycling route.",
+  "remaining": [
+    "72 event full lifecycles or new combination compatibility",
+    "actual source authentication, physical routes, game time and actor work",
+    "loan execution or persistent save conversion",
+    "production storage atomicity or full seven-night play",
+    "runtime eligibility of any event"
+  ]
+}

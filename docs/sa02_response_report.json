@@ -1,0 +1,436 @@
+{
+  "version": "SA02",
+  "baseline_commit": "aa7941aef0bfc82f4cef15337084b0a0ad3dbc59",
+  "runtime_integrated": false,
+  "runtime_enabled": false,
+  "all_gameplay_proven": false,
+  "registered_monsters": [
+    "S40",
+    "S43"
+  ],
+  "scope": "Finite source-bound response priorities on caller-verified fixture routes; no map or full AI proof.",
+  "legacy_counterexample": {
+    "scope": "q=125 is allowed by the source model; its gameplay acquisition route is not proven. A deadlock arises only if suppression restarts the undefined noncombat response.",
+    "cycles": [
+      {
+        "cycle": 1,
+        "restore_t_hp_q": [
+          "9/2",
+          "50",
+          "125"
+        ],
+        "after_two_ticks_t_hp_state": [
+          "13/2",
+          "1",
+          "suppressed"
+        ],
+        "uninterrupted_active_seconds": 2,
+        "s40_preparation_seconds": 2.5
+      },
+      {
+        "cycle": 2,
+        "restore_t_hp_q": [
+          "11",
+          "50",
+          "125"
+        ],
+        "after_two_ticks_t_hp_state": [
+          "13",
+          "1",
+          "suppressed"
+        ],
+        "uninterrupted_active_seconds": 2,
+        "s40_preparation_seconds": 2.5
+      },
+      {
+        "cycle": 3,
+        "restore_t_hp_q": [
+          "35/2",
+          "50",
+          "125"
+        ],
+        "after_two_ticks_t_hp_state": [
+          "39/2",
+          "1",
+          "suppressed"
+        ],
+        "uninterrupted_active_seconds": 2,
+        "s40_preparation_seconds": 2.5
+      }
+    ]
+  },
+  "passed": 88,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "only S40 and S43 are registered",
+      "passed": true
+    },
+    {
+      "name": "runtime and universal proof gates remain closed",
+      "passed": true
+    },
+    {
+      "name": "baseline is explicit",
+      "passed": true
+    },
+    {
+      "name": "S40 actual card has 2.5 second preparation",
+      "passed": true
+    },
+    {
+      "name": "S43 preserves actual one-second final latch",
+      "passed": true
+    },
+    {
+      "name": "S43 external state still requires three actual seconds",
+      "passed": true
+    },
+    {
+      "name": "counterexample uses real unlimited spiritual poison",
+      "passed": true
+    },
+    {
+      "name": "legacy poison permits repeated two-second activity windows",
+      "passed": true
+    },
+    {
+      "name": "legacy suppression is not a root success",
+      "passed": true
+    },
+    {
+      "name": "reject missing real prerequisite physical_verified",
+      "passed": true
+    },
+    {
+      "name": "reject missing real prerequisite route_verified",
+      "passed": true
+    },
+    {
+      "name": "reject missing real prerequisite position_verified",
+      "passed": true
+    },
+    {
+      "name": "reject missing real prerequisite deadline_verified",
+      "passed": true
+    },
+    {
+      "name": "reject missing real prerequisite hostility_verified",
+      "passed": true
+    },
+    {
+      "name": "reject missing real prerequisite player_outside",
+      "passed": true
+    },
+    {
+      "name": "reject mismatched or unsupported evidence evidence_origin",
+      "passed": true
+    },
+    {
+      "name": "reject mismatched or unsupported evidence attempt_id",
+      "passed": true
+    },
+    {
+      "name": "reject mismatched or unsupported evidence root_id",
+      "passed": true
+    },
+    {
+      "name": "reject mismatched or unsupported evidence actor_id",
+      "passed": true
+    },
+    {
+      "name": "reject mismatched or unsupported evidence original_deadline",
+      "passed": true
+    },
+    {
+      "name": "reject mismatched or unsupported evidence sound_muted",
+      "passed": true
+    },
+    {
+      "name": "reject mismatched or unsupported evidence original_paper_in_tray",
+      "passed": true
+    },
+    {
+      "name": "reject mismatched or unsupported evidence normal_human",
+      "passed": true
+    },
+    {
+      "name": "reject kill_unlocked",
+      "passed": true
+    },
+    {
+      "name": "reject rule_weaken",
+      "passed": true
+    },
+    {
+      "name": "unregistered rule_leave does not acquire immunity",
+      "passed": true
+    },
+    {
+      "name": "does not prematurely clear existing suppression",
+      "passed": true
+    },
+    {
+      "name": "suppressed actor cannot start a new attack before response",
+      "passed": true
+    },
+    {
+      "name": "does not prematurely clear existing freeze",
+      "passed": true
+    },
+    {
+      "name": "reject insufficient original world time",
+      "passed": true
+    },
+    {
+      "name": "actual S40 response starts",
+      "passed": true
+    },
+    {
+      "name": "ordinary hostile attacks of this root stop",
+      "passed": true
+    },
+    {
+      "name": "repeat enter does not create another plan",
+      "passed": true
+    },
+    {
+      "name": "response has no HP damage or electric feedback",
+      "passed": true
+    },
+    {
+      "name": "other roots retain normal damage",
+      "passed": true
+    },
+    {
+      "name": "same real path is traversed",
+      "passed": true
+    },
+    {
+      "name": "old mature dose matures once during response",
+      "passed": true
+    },
+    {
+      "name": "timed effects expire without resetting world time",
+      "passed": true
+    },
+    {
+      "name": "permanent poison retained but no protected tick or charge",
+      "passed": true
+    },
+    {
+      "name": "no transfer or terminal before actual 2.5 second work",
+      "passed": true
+    },
+    {
+      "name": "actual same paper transfer completes root once",
+      "passed": true
+    },
+    {
+      "name": "true terminal clears this pool original poison",
+      "passed": true
+    },
+    {
+      "name": "terminal cannot be reentered for more rewards",
+      "passed": true
+    },
+    {
+      "name": "real invalidation ends protection",
+      "passed": true
+    },
+    {
+      "name": "interruption preserves HP poison position and item",
+      "passed": true
+    },
+    {
+      "name": "unprotected world time does not generate fake response progress",
+      "passed": true
+    },
+    {
+      "name": "no catch-up damage is synthesized",
+      "passed": true
+    },
+    {
+      "name": "next ordinary poison tick still consumes original q",
+      "passed": true
+    },
+    {
+      "name": "cannot substitute a new item to reset response",
+      "passed": true
+    },
+    {
+      "name": "cannot reset plan identity",
+      "passed": true
+    },
+    {
+      "name": "cannot enlarge route for more protection",
+      "passed": true
+    },
+    {
+      "name": "finite saved copy preserves spent budget and deadline",
+      "passed": true
+    },
+    {
+      "name": "same physical plan can resume within its original time",
+      "passed": true
+    },
+    {
+      "name": "resume finishes only the remaining original protected seconds",
+      "passed": true
+    },
+    {
+      "name": "interrupted then suppressed actor cannot start a new attack",
+      "passed": true
+    },
+    {
+      "name": "S40 completion exactly at original deadline succeeds",
+      "passed": true
+    },
+    {
+      "name": "already-at-tray S40 still requires real preparation",
+      "passed": true
+    },
+    {
+      "name": "zero-length lawful approach does not invent a teleport",
+      "passed": true
+    },
+    {
+      "name": "resume cannot extend original deadline",
+      "passed": true
+    },
+    {
+      "name": "deadline without actual response yields no reward",
+      "passed": true
+    },
+    {
+      "name": "S43 requires actual three-second upstream acknowledgement",
+      "passed": true
+    },
+    {
+      "name": "S43 cannot close gate before actual exit",
+      "passed": true
+    },
+    {
+      "name": "S43 valid upstream state starts real return",
+      "passed": true
+    },
+    {
+      "name": "S43 exit is a real boundary event and not root reward",
+      "passed": true
+    },
+    {
+      "name": "S43 old damage cannot re-anger departed actor",
+      "passed": true
+    },
+    {
+      "name": "S43 UI latch claim is insufficient",
+      "passed": true
+    },
+    {
+      "name": "S43 old-attempt gate receipt is rejected",
+      "passed": true
+    },
+    {
+      "name": "S43 actual held gate action starts",
+      "passed": true
+    },
+    {
+      "name": "S43 actual latch at exact deadline settles once",
+      "passed": true
+    },
+    {
+      "name": "S43 protection covers only travel not latch",
+      "passed": true
+    },
+    {
+      "name": "invalid open-source fact cannot revoke hostility: evidence_origin",
+      "passed": true
+    },
+    {
+      "name": "invalid open-source fact cannot revoke hostility: attempt_id",
+      "passed": true
+    },
+    {
+      "name": "invalid open-source fact cannot revoke hostility: root_id",
+      "passed": true
+    },
+    {
+      "name": "invalid open-source fact cannot revoke hostility: actor_id",
+      "passed": true
+    },
+    {
+      "name": "invalid open-source fact cannot revoke hostility: bound_source_id",
+      "passed": true
+    },
+    {
+      "name": "invalid open-source fact cannot revoke hostility: source_receipt_verified",
+      "passed": true
+    },
+    {
+      "name": "invalid open-source fact cannot revoke hostility: observed_world_time",
+      "passed": true
+    },
+    {
+      "name": "true S43 open source is accepted before any route exists",
+      "passed": true
+    },
+    {
+      "name": "first blocked route does not restore S43 attacks or poison",
+      "passed": true
+    },
+    {
+      "name": "source receipt alone gives no exit no plan no reward",
+      "passed": true
+    },
+    {
+      "name": "same source receipt is idempotent",
+      "passed": true
+    },
+    {
+      "name": "actual route can later start the still-bound response",
+      "passed": true
+    },
+    {
+      "name": "later actual return and latch settle after source-only state",
+      "passed": true
+    },
+    {
+      "name": "enter also consumes valid source before rejecting its first route",
+      "passed": true
+    },
+    {
+      "name": "S43 path interruption does not fabricate a new closed-mall hostility",
+      "passed": true
+    },
+    {
+      "name": "canceled uncommitted latch does not finish or respawn actor",
+      "passed": true
+    },
+    {
+      "name": "late gate cannot use a fresh clock",
+      "passed": true
+    },
+    {
+      "name": "departed-but-unlatched timeout has no root reward",
+      "passed": true
+    }
+  ],
+  "input_sha256": {
+    "content/rule_response_contracts_sa02.json": "b8a1253fed0fab033a61b7c889eb9efe15b48b8f1238c9242d1977d447ad39ae",
+    "content/monster_scp_b_md01.json": "2ec35fb9e9436474054f0ad3b8be488cc8b995bb6062e4f9f4b8a836e0526a38",
+    "content/monster_contracts_md01.json": "1dd0af0700a094f1b98c53b9060118c0f3e62068a45a90898c3504347d082f09",
+    "content/combat_contracts_td05.json": "f83f18ae0314d3a19134a934ed347c7254c9eb2b5d5711305e007434dd5d8823",
+    "content/attack_contracts_ma01.json": "9df8f8456abf5872c97d5d88c2d3a2aa264bb68940e5c2ad39320e67918d078f",
+    "scripts/md01_reference.py": "698fb19b65a81376521e10d6d4f95df93cf2e6c4ca5e46c37f3c5bacc136f0b6",
+    "scripts/sa02_response_reference.py": "66857ae5b8d259d513db3c8dadfef54e3bef20d4d1f10356a4719b0b3a2b8166",
+    "scripts/check_sa02_responses.py": "6fd14dd0e5c99abbc903089959920a31486fe2454808522640345ef890da0d1e"
+  },
+  "not_proven": [
+    "q=125在实际地图上的取得路线",
+    "S40/S43完整AI或真实导航",
+    "其它rule_leave逐卡响应",
+    "全105组合",
+    "整夜/七夜试玩",
+    "生产持久化/微信客户端"
+  ]
+}
