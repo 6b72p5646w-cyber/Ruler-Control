@@ -1,0 +1,772 @@
+{
+  "version": "TD03",
+  "status": "static_and_reference_checks_passed",
+  "runtime_tested": false,
+  "input_sha256": {
+    "content/tower_defense_td03.json": "0d8f021b5d7a6dce2b504f64ca6455ab3ebd08adad8fd744c033db22caded61c",
+    "content/combat_contracts_td03.json": "4be3106bebf52879986240b1705dfdc058b1565af036a5b211abe3937215b30b",
+    "content/traps_facilities_td03.json": "ca31b62b318ac95a38cbeed4348e778205076f77a8d913ffb863ba92ab0d9c9c",
+    "content/monster_matchups_td03.json": "6f7d35441ef10aec0f44228844a4d8294a4c8c68631b8e7bb69fb91084a78a5b"
+  },
+  "counts": {
+    "families": 10,
+    "l2": 20,
+    "l3": 40,
+    "trap_families": 16,
+    "trap_l2": 32,
+    "trap_l3": 32,
+    "monsters": 60,
+    "checks": 110
+  },
+  "checks": [
+    {
+      "name": "version_and_design_boundary",
+      "result": "pass"
+    },
+    {
+      "name": "ten_twenty_forty_tree",
+      "result": "pass"
+    },
+    {
+      "name": "seventy_unique_tower_nodes",
+      "result": "pass"
+    },
+    {
+      "name": "two_real_choices_at_each_tier",
+      "result": "pass"
+    },
+    {
+      "name": "parent_links",
+      "result": "pass"
+    },
+    {
+      "name": "paid_stage_prices",
+      "result": "pass"
+    },
+    {
+      "name": "leaf_tradeoffs_and_parameters",
+      "result": "pass"
+    },
+    {
+      "name": "absolute_parameters_not_double_upgrade",
+      "result": "pass"
+    },
+    {
+      "name": "ten_distinct_delivery_modes",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T03_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T03_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T07_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T07_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T08_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T08_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T09_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T09_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T03.A_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T03.A_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T03.B_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T03.B_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T07.A_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T07.A_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T07.B_independent_field_status_pulse",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T07.B_independent_field_status_pulse",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T08.A_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T08.A_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T09.A_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T09.A_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T09.B_independent_appliance_pulse",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T09.B_independent_appliance_pulse",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T01.B1_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T01.B1_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T03.A1_field_pulse",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T03.A1_field_pulse",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T03.A2_actual_wave_contact",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T03.A2_actual_wave_contact",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T03.B1_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T03.B1_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T03.B2_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T03.B2_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T07.A1_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T07.A1_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T07.A2_actual_curtain_crossing",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T07.A2_actual_curtain_crossing",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T07.B1_independent_field_status_pulse",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T07.B1_independent_field_status_pulse",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T07.B2_independent_field_status_pulse",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T07.B2_independent_field_status_pulse",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T08.A1_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T08.A1_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T08.A2_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T08.A2_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T08.A2_target_attack_payload_committed",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T09.A1_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T09.A1_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T09.A2_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T09.A2_primary_hit",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T09.B1_independent_appliance_pulse",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T09.B1_independent_appliance_pulse",
+      "result": "pass"
+    },
+    {
+      "name": "shared_threshold_T09.B2_independent_appliance_pulse",
+      "result": "pass"
+    },
+    {
+      "name": "reachable_threshold_T09.B2_independent_appliance_pulse",
+      "result": "pass"
+    },
+    {
+      "name": "sixteen_trap_families_two_paths",
+      "result": "pass"
+    },
+    {
+      "name": "trap_parent_links",
+      "result": "pass"
+    },
+    {
+      "name": "integer_trap_footprints",
+      "result": "pass"
+    },
+    {
+      "name": "sixty_original_monster_ids",
+      "result": "pass"
+    },
+    {
+      "name": "f14_disabled",
+      "result": "pass"
+    },
+    {
+      "name": "monster_favorable_references",
+      "result": "pass"
+    },
+    {
+      "name": "monster_conditional_references",
+      "result": "pass"
+    },
+    {
+      "name": "monster_weak_references",
+      "result": "pass"
+    },
+    {
+      "name": "persistent_poison_is_uncapped",
+      "result": "pass"
+    },
+    {
+      "name": "poison_101st_unit_not_lost",
+      "result": "pass"
+    },
+    {
+      "name": "fission_conserves_poison_and_pending_maturity",
+      "result": "pass"
+    },
+    {
+      "name": "maturity_paid_exactly_once",
+      "result": "pass"
+    },
+    {
+      "name": "infection_does_not_copy_history_or_repeat_ticket",
+      "result": "pass"
+    },
+    {
+      "name": "death_bequest_total_half_not_half_each",
+      "result": "pass"
+    },
+    {
+      "name": "mixed_heat_uses_paid_contributions",
+      "result": "pass"
+    },
+    {
+      "name": "burn_and_rule_exposure_both_contribute",
+      "result": "pass"
+    },
+    {
+      "name": "burn_axes_and_expiries_independent",
+      "result": "pass"
+    },
+    {
+      "name": "freeze_preserves_height_and_fire_coexists",
+      "result": "pass"
+    },
+    {
+      "name": "cold_waves_not_suppressed_by_global_sampler",
+      "result": "pass"
+    },
+    {
+      "name": "two_cold_waves_reach_freeze_before_expiry",
+      "result": "pass"
+    },
+    {
+      "name": "curse_threshold_keeps_attack_reduction",
+      "result": "pass"
+    },
+    {
+      "name": "curse_save_reload_does_not_reroll",
+      "result": "pass"
+    },
+    {
+      "name": "curse_expected_damage_example",
+      "result": "pass"
+    },
+    {
+      "name": "four_real_cells_charge_four_times",
+      "result": "pass"
+    },
+    {
+      "name": "immediate_return_keeps_cell_deadlines",
+      "result": "pass"
+    },
+    {
+      "name": "cell_deadline_is_per_health_pool",
+      "result": "pass"
+    },
+    {
+      "name": "start_cell_already_paid_not_paid_again",
+      "result": "pass"
+    },
+    {
+      "name": "teleport_only_pays_actual_endpoints",
+      "result": "pass"
+    },
+    {
+      "name": "corner_touch_does_not_create_extra_cells",
+      "result": "pass"
+    },
+    {
+      "name": "same_trajectory_frame_partition_invariant",
+      "result": "pass"
+    },
+    {
+      "name": "stationary_zone_period_not_per_frame",
+      "result": "pass"
+    },
+    {
+      "name": "overlap_same_family_selects_one_strongest",
+      "result": "pass"
+    },
+    {
+      "name": "fission_inherits_unexpired_cell_deadline",
+      "result": "pass"
+    },
+    {
+      "name": "continuous_field_integrates_paid_residence",
+      "result": "pass"
+    },
+    {
+      "name": "one_bounce_no_secondary_charge",
+      "result": "pass"
+    },
+    {
+      "name": "appliance_parts_deduplicate",
+      "result": "pass"
+    },
+    {
+      "name": "shared_appliance_registry_identity",
+      "result": "pass"
+    },
+    {
+      "name": "pos_has_no_invented_power_source",
+      "result": "pass"
+    },
+    {
+      "name": "overload_uses_each_recipient_local_counts",
+      "result": "pass"
+    },
+    {
+      "name": "mixed_charge_contributions_not_last_source",
+      "result": "pass"
+    },
+    {
+      "name": "two_full_meters_keep_two_paid_waves",
+      "result": "pass"
+    },
+    {
+      "name": "queue_bounded_and_no_damage_recursion",
+      "result": "pass"
+    },
+    {
+      "name": "outer_ring_transfer_preserves_charge_budget_and_deadline",
+      "result": "pass"
+    },
+    {
+      "name": "cross_channel_overlap_never_reduces_existing_toll",
+      "result": "pass"
+    },
+    {
+      "name": "multi_heat_application_keeps_remainder",
+      "result": "pass"
+    },
+    {
+      "name": "vulnerability_ceiling_has_real_sources",
+      "result": "pass"
+    },
+    {
+      "name": "poison_expiry_is_actual_pool_terminal",
+      "result": "pass"
+    },
+    {
+      "name": "sniper_and_rapid_have_distinct_single_target_niches",
+      "result": "pass"
+    }
+  ],
+  "reference_examples": {
+    "zone_example": {
+      "four_fresh_cells": 32,
+      "start_prepaid": 24,
+      "immediate_return": 0,
+      "true_teleport_endpoints": 16
+    },
+    "poison_example": {
+      "load": 101,
+      "raw_dps": 50.5,
+      "single_matured_dose_load": 3
+    },
+    "vulnerability_example": {
+      "after_defense_damage": 100,
+      "burn": 0.2,
+      "rule": 0.15,
+      "result": 135
+    },
+    "curse_expected_damage_example": {
+      "base": 100,
+      "outgoing_reduction": 0.16,
+      "failure_probability": 0.3,
+      "expected_not_guaranteed_damage": 58.8
+    },
+    "electric_local_example": [
+      30,
+      18,
+      12
+    ],
+    "electric_two_ready_example": [
+      {
+        "time": 0.0,
+        "seed": "A",
+        "targets": [
+          "A",
+          "B"
+        ],
+        "raw_per_target": 12
+      },
+      {
+        "time": 0.25,
+        "seed": "B",
+        "targets": [
+          "B"
+        ],
+        "raw_per_target": 6
+      }
+    ],
+    "threshold_reachability": [
+      {
+        "node": "T03",
+        "status": "frost",
+        "first_threshold_s": 4.5,
+        "condition": [
+          "legal_manifested_target",
+          "actual_hit"
+        ]
+      },
+      {
+        "node": "T07",
+        "status": "heat",
+        "first_threshold_s": 4.5,
+        "condition": [
+          "legal_manifested_target",
+          "actual_hit"
+        ]
+      },
+      {
+        "node": "T08",
+        "status": "curse",
+        "first_threshold_s": 6.0,
+        "condition": [
+          "legal_manifested_target",
+          "actual_hit"
+        ]
+      },
+      {
+        "node": "T09",
+        "status": "electric",
+        "first_threshold_s": 6.0,
+        "condition": [
+          "legal_manifested_target",
+          "actual_hit"
+        ]
+      },
+      {
+        "node": "T03.A",
+        "status": "frost",
+        "first_threshold_s": 5.4,
+        "condition": [
+          "legal_manifested_target",
+          "actual_hit"
+        ]
+      },
+      {
+        "node": "T03.B",
+        "status": "frost",
+        "first_threshold_s": 2.6,
+        "condition": [
+          "legal_manifested_target",
+          "actual_hit"
+        ]
+      },
+      {
+        "node": "T07.A",
+        "status": "heat",
+        "first_threshold_s": 5.2,
+        "condition": [
+          "legal_manifested_target",
+          "actual_hit"
+        ]
+      },
+      {
+        "node": "T07.B",
+        "status": "heat",
+        "first_threshold_s": 3.0,
+        "condition": [
+          "legal_manifested_target",
+          "inside_actual_active_heat_field",
+          "actual_los"
+        ]
+      },
+      {
+        "node": "T08.A",
+        "status": "curse",
+        "first_threshold_s": 7.5,
+        "condition": [
+          "legal_manifested_target",
+          "actual_hit"
+        ]
+      },
+      {
+        "node": "T09.A",
+        "status": "electric",
+        "first_threshold_s": 4.8,
+        "condition": [
+          "legal_manifested_target",
+          "actual_hit"
+        ]
+      },
+      {
+        "node": "T09.B",
+        "status": "electric",
+        "first_threshold_s": 6.0,
+        "condition": [
+          "actual_powered_registered_device",
+          "inside_induction_radius",
+          "legal_height_and_los"
+        ]
+      },
+      {
+        "node": "T01.B1",
+        "status": "heat",
+        "first_threshold_s": 1.75,
+        "condition": [
+          "legal_manifested_target",
+          "actual_hit"
+        ]
+      },
+      {
+        "node": "T03.A1",
+        "status": "frost",
+        "first_threshold_s": 4.0,
+        "condition": [
+          "legal_manifested_target",
+          "inside_active_ground_field",
+          "actual_local_los"
+        ]
+      },
+      {
+        "node": "T03.A2",
+        "status": "frost",
+        "first_threshold_s": 3.7,
+        "condition": [
+          "legal_manifested_target",
+          "actual_wave_swept_contact",
+          "ground_height"
+        ]
+      },
+      {
+        "node": "T03.B1",
+        "status": "frost",
+        "first_threshold_s": 2.8,
+        "condition": [
+          "legal_manifested_target",
+          "actual_hit"
+        ]
+      },
+      {
+        "node": "T03.B2",
+        "status": "frost",
+        "first_threshold_s": 2.4,
+        "condition": [
+          "legal_manifested_target",
+          "actual_hit"
+        ]
+      },
+      {
+        "node": "T07.A1",
+        "status": "heat",
+        "first_threshold_s": 3.0,
+        "condition": [
+          "legal_manifested_target",
+          "actual_hit"
+        ]
+      },
+      {
+        "node": "T07.A2",
+        "status": "heat",
+        "first_threshold_s": 0.0,
+        "condition": [
+          "legal_manifested_target",
+          "actual_swept_crossing",
+          "entry_reentry_gate_open"
+        ]
+      },
+      {
+        "node": "T07.B1",
+        "status": "heat",
+        "first_threshold_s": 3.0,
+        "condition": [
+          "legal_manifested_target",
+          "inside_actual_active_heat_field",
+          "actual_los"
+        ]
+      },
+      {
+        "node": "T07.B2",
+        "status": "heat",
+        "first_threshold_s": 3.0,
+        "condition": [
+          "legal_manifested_target",
+          "inside_actual_active_heat_field",
+          "actual_los"
+        ]
+      },
+      {
+        "node": "T08.A1",
+        "status": "curse",
+        "first_threshold_s": 3.0,
+        "condition": [
+          "legal_manifested_target",
+          "actual_hit"
+        ]
+      },
+      {
+        "node": "T08.A2",
+        "status": "curse",
+        "first_threshold_s": 4.5,
+        "condition": [
+          "legal_manifested_target",
+          "actual_hit"
+        ]
+      },
+      {
+        "node": "T09.A1",
+        "status": "electric",
+        "first_threshold_s": 3.0,
+        "condition": [
+          "legal_manifested_target",
+          "actual_hit"
+        ]
+      },
+      {
+        "node": "T09.A2",
+        "status": "electric",
+        "first_threshold_s": 6.4,
+        "condition": [
+          "legal_manifested_target",
+          "actual_hit"
+        ]
+      },
+      {
+        "node": "T09.B1",
+        "status": "electric",
+        "first_threshold_s": 6.0,
+        "condition": [
+          "actual_powered_registered_device",
+          "inside_induction_radius",
+          "legal_height_and_los"
+        ]
+      },
+      {
+        "node": "T09.B2",
+        "status": "electric",
+        "first_threshold_s": 6.0,
+        "condition": [
+          "actual_powered_registered_device",
+          "inside_induction_radius",
+          "legal_height_and_los"
+        ]
+      }
+    ],
+    "single_target_example": {
+      "assumptions": "Sustained legal hit, armor stated, ward zero, burn already established, no other towers; not a combat simulation.",
+      "armor_zero_sniper_dps": 15.0,
+      "armor_zero_rapid_with_burn_dps": 16.1,
+      "armor_75_sniper_dps": 9.0,
+      "armor_75_rapid_with_burn_dps": 5.75
+    },
+    "scope": "These small deterministic fixtures exercise disclosed rules. They do not execute the game client or measure actual encounter balance."
+  },
+  "not_verified": [
+    "full combat runtime",
+    "real navigation/LOS/heights",
+    "touch input and frame performance",
+    "all sixty AI",
+    "seven-night economy and fun balance"
+  ]
+}

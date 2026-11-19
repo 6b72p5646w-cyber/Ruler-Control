@@ -1,0 +1,651 @@
+{
+  "version": "TD03",
+  "runtime_integrated": false,
+  "source_commit": "574221f503e8b49d989534f9e014aff230771c44",
+  "status": "design_candidate_for_graybox",
+  "statuses": {
+    "burn": {
+      "role": "small_spiritual_dot_and_team_vulnerability",
+      "heat": {
+        "threshold": 8,
+        "max_stacks": 8,
+        "stack_duration_s": 6,
+        "threshold_icd_s": 0,
+        "source_snapshots": [
+          "burn_dps_divided_by_8",
+          "burn_vulnerability_divided_by_8",
+          "applied_at",
+          "expires_at"
+        ],
+        "processing": "expire old marks; apply the declared nonnegative integer amount once per legitimate attack phase and pool; append its units one at a time and test the threshold after every appended unit",
+        "threshold_result": "atomically consume exactly 8 marks and sum their two contributions into one unique burn dose",
+        "overflow": "on each threshold, consume exactly the actual 8 marks into one dose, then continue processing the still-unapplied units from this same paid application; retain the remainder with original source contributions and absolute expiry",
+        "old_td02_physical_burst_removed": true,
+        "old_td02_burst_cooldown_removed": true,
+        "max_retained_after_processing": 7,
+        "application_amount_is_not_clamped_to_one": true,
+        "multiple_ignitions_from_large_declared_amount": "possible only for each full paid set of 8; each produces an independent 4-second dose, and same-family burn aggregation still takes maximum rather than stacking damage",
+        "example": {
+          "existing_marks": 6,
+          "current_application_amount": 3,
+          "consumed_marks": 8,
+          "burn_doses_created": 1,
+          "remaining_marks": 1,
+          "remaining_deadline": "current application time + 6 seconds"
+        }
+      },
+      "default_damage_per_second": 2,
+      "damage_channel": "spiritual",
+      "duration_s": 4,
+      "default_vulnerability": 0.15,
+      "max_source_vulnerability": 0.25,
+      "vulnerability_group": "burn_exposure",
+      "dot_aggregation": "maximum potency among unexpired burn doses",
+      "vulnerability_aggregation": "maximum vulnerability among unexpired burn doses, independently of damage potency",
+      "weak_source_can_refresh_strong_source": false,
+      "upgrade_old_doses": false,
+      "application_hit_benefits_from_new_burn": false,
+      "burn_can_amplify_later_dot": true,
+      "direct_application": "only sources whose branch or trap payload explicitly declares a direct 4-second burn may bypass heat",
+      "creates_environment_fire": false,
+      "melts_friendly_freeze": false
+    },
+    "poison": {
+      "role": "persistent_linear_damage",
+      "load_symbol": "q",
+      "load_min": 0,
+      "max_load": null,
+      "unlimited_load": true,
+      "damage_per_second_per_load": 0.5,
+      "damage_channel": "spiritual",
+      "duration_s": null,
+      "natural_decay_per_second": 0,
+      "lifetime": "until this health pool truly terminates or an explicitly designed cleansing operation removes it",
+      "suggested_primary_interval_s": [
+        3,
+        4
+      ],
+      "suggested_primary_load": [
+        1,
+        3
+      ],
+      "per_shot_coin_cost": 0,
+      "per_shot_spirit_cost": 0,
+      "qualified_sources": "built enabled tower with a legitimate ready attack, or a trap that commits one valid charge",
+      "aggregate_storage": "sum nonnegative potency-weighted load; do not allocate one permanent object for each accumulated unit",
+      "fractional_load_supported": true,
+      "source_potency_snapshot": true,
+      "upgrade_old_load": false,
+      "target_defense_and_vulnerability": "read current target values for each paid damage segment",
+      "contagion": {
+        "copies": "only the explicit newly added dose, never the recipient's historical total load",
+        "dose_identity": "source_instance_id + primary_application_sequence + declared dose branch",
+        "max_default_secondary_hops": 1,
+        "per_dose_per_health_pool_applications": 1,
+        "can_create_fresh_dose_id": false,
+        "can_reinfect_same_pool_with_same_dose": false,
+        "target_fanout": "declared by branch or trap; every new qualified primary dose remains eligible",
+        "contagion_copies_delayed_budget_by_default": false,
+        "ticket_budgets": {
+          "T02.B": {
+            "total_new_load_budget": 2,
+            "source_load": 1,
+            "tickets": 1,
+            "load_per_ticket": 1
+          },
+          "T02.B1": {
+            "total_new_load_budget": 3,
+            "source_load": 1,
+            "tickets": 2,
+            "load_per_ticket": 1
+          },
+          "ticket_duration_s": 4,
+          "transfer_radius_tiles": 1.5,
+          "recipient_receives_new_ticket": false,
+          "budget_rule": "the source load plus all issued tickets is the full budget of this original application; spending a ticket moves its reserved load, never creates extra load",
+          "ticket_deadline": "original primary application time + 4 seconds; source upgrade, transfer and retarget do not refresh it",
+          "targets": "other legal manifested independent pools within 1.5 tiles; each dose may reach each recipient at most once",
+          "unspent_ticket": "expires unused; do not grant it back as source load or spend it after carrier terminal",
+          "source_disabled": "already attached tickets retain only their original lifetime",
+          "fission": "partition unspent tickets exactly once across child carriers; do not give each child a full set"
+        }
+      },
+      "delayed_once_dose_budget": {
+        "enabled_only_for_explicit_sources": true,
+        "default_delay_s": 8,
+        "max_maturations_per_dose": 1,
+        "extra_load": "finite amount declared and reserved by the original dose; not a percentage of current total q",
+        "identity": "original dose_id + maturity",
+        "deadline": "application_world_time + declared_delay_s",
+        "aggregation": "young buckets with due times; matured load merges into the ordinary aggregate and the pending budget is retired",
+        "source_disable_cancels": false,
+        "upgrade_changes_old_budget": false,
+        "fission": "partition both already applied q and all unpaid maturation load; preserve absolute due times and the once-only flag",
+        "true_terminal_cancels": true,
+        "maturation_can_reinfect_or_remature": false,
+        "full_explicit_poison_cleanse": "must clear the affected pending budget as well as its current load unless that monster contract explicitly distinguishes the two",
+        "explicit_source": {
+          "branch": "T02.A1",
+          "primary_interval_s": 2.4,
+          "immediate_load": 2,
+          "maturity_delay_s": 8,
+          "once_extra_load": 1
+        }
+      },
+      "fission": "partition load and its potency contribution exactly; fractional quantities or fixed-point remainder distribution must conserve the sum",
+      "cannot_create_rule_evidence": true,
+      "death_transfer": {
+        "branch": "T02.B2",
+        "eligible_fraction": 0.5,
+        "max_recipients": 2,
+        "radius_tiles": 2.5,
+        "same_root_only": true,
+        "max_inheritance_generation": 1,
+        "source_scope": "only load tagged at application as inheritable by this actual source instance; do not sweep other poison towers or pre-upgrade load",
+        "trigger": "true terminal of a poisoned pool; actor removal by fission is not death",
+        "amount": "half of the remaining eligible source-owned load is a single total transfer budget, split equally across up to two valid recipients",
+        "recipient_load_inheritable": false,
+        "transfers_pending_maturity_or_tickets": false,
+        "failed_destination": "unused transfer budget is lost; no global fallback or reward",
+        "damage_procs_or_rewards": false,
+        "excludes_dissolving_dependent_summons": true,
+        "shared_parts_do_not_die_independently": true,
+        "resolve_candidates_after_batch_terminal_decisions": true
+      }
+    },
+    "frost": {
+      "role": "slow_then_short_fixed_position_control",
+      "threshold": 4,
+      "max_stacks": 4,
+      "stack_duration_s": 6,
+      "slow_per_stack": 0.08,
+      "max_chill_slow": 0.32,
+      "per_pool_stack_add_min_interval_s": 0,
+      "freeze_duration_s": {
+        "normal": 1,
+        "elite": 0.6
+      },
+      "max_explicit_leaf_freeze_duration_s": {
+        "normal": 1.5,
+        "elite": 0.8
+      },
+      "shared_freeze_attempt_cooldown_s": 8,
+      "freezes_position": true,
+      "freezes_facing": true,
+      "freezes_height": true,
+      "cancels_uncommitted_attacks": true,
+      "cancels_uncommitted_movement": true,
+      "removes_already_launched_independent_projectiles": false,
+      "changes_height": false,
+      "allows_ordinary_push_while_frozen": false,
+      "explicit_shatter_push": "must first end freeze, then resolve the declared displacement; it does not extend hard-control allowance",
+      "failed_attempt": "consume the attempted meter and start the shared attempt cooldown",
+      "during_hard_control_or_immunity": "clear freeze reserve; legal cold hits give soft cold trace rather than banked freeze stacks",
+      "cold_trace_slow": 0.24,
+      "cold_trace_duration_s": 2.5,
+      "during_attempt_cooldown_max_stacks": 3,
+      "brittle": "read pre-consumption chill snapshot; existing frost freeze or cold trace can qualify; new marks are consumed only by a later attack batch",
+      "slow_aggregation": "maximum of active slow families, not a product",
+      "application_sampling": "no extra global target interval; each source uses its explicitly declared application_interval_s for maintained emissions, while each explicitly paid projectile or wave phase can apply once per independent pool",
+      "application_dedupe_key": [
+        "source_instance_id",
+        "attack_id",
+        "attack_phase_id",
+        "health_pool_id"
+      ],
+      "multiple_sources_can_cooperate": true,
+      "freeze_request_source": "the eligible source that submits the current threshold request supplies its explicitly purchased freeze duration; do not borrow the best rank from another source",
+      "threshold_request_order": "stable world time, source id, attack id and phase order; one shared full threshold is consumed atomically by at most one request",
+      "paid_multiwave_example": "T03.A2 two explicit cold waves 0.7 seconds apart may each add chill; the second wave is not swallowed by a global target gate"
+    },
+    "curse": {
+      "role": "outgoing_attack_reduction_then_probabilistic_attack_failure",
+      "threshold": 4,
+      "max_stacks": 4,
+      "stack_duration_s": 10,
+      "outgoing_attack_reduction_per_stack": 0.04,
+      "base_max_outgoing_attack_reduction": 0.16,
+      "misfortune_duration_s": 4,
+      "attack_failure_probability": {
+        "normal": 0.3,
+        "elite": 0.2
+      },
+      "trigger_cooldown_s": 8,
+      "threshold_consumes_base_curse": false,
+      "full_stack_refresh": "replace the oldest source mark with the actual new mark; do not refresh all older deadlines",
+      "trigger": "threshold reached or retained, cooldown complete, and a new legal curse application occurs",
+      "randomization": "deterministic seeded draw derived from persistent encounter seed and immutable attack_id",
+      "random_draws_per_attack": 1,
+      "decision_point": "the actual attack commit immediately before issuing damaging payload or launching projectiles",
+      "failure_behavior": "cancel this uncommitted attack payload and enter its usual recovery/cooldown; retain ordinary movement",
+      "multihit_attack": "one decision covers all subordinate hits of the same attack_id",
+      "canceled_before_commit": "does not consume a nonexistent attack draw",
+      "reload_rerolls": false,
+      "applies_to": "monster direct damaging attacks explicitly admitted to the attack system",
+      "excluded": [
+        "environmental blood sources",
+        "shop deadlines",
+        "rule failure consequences",
+        "already launched independent projectiles"
+      ],
+      "base_reduction_snapshot": "outgoing attack amount is determined at attack commit; later curse changes do not rewrite issued attacks"
+    },
+    "electric": {
+      "role": "charged_contact_single_bounce_and_local_density_overload",
+      "threshold": 5,
+      "max_stacks": 5,
+      "stack_duration_s": 8,
+      "charged_predicate": "at least one unexpired charge mark",
+      "default_overload_base_damage": 6,
+      "source_overload_base_override": "must be explicit in the source branch or trap payload",
+      "mark_contribution": "source overload base damage divided by 5, snapshotted when the mark is applied",
+      "mixed_source_overload_base": "sum the five actual consumed mark contributions",
+      "network_radius_tiles": 2.5,
+      "default_bounce_base_damage": 3,
+      "max_bounce_hops": 1,
+      "damage_channel": "spiritual",
+      "can_add_charge": [
+        "qualified normal electric attack",
+        "explicitly declared paid trap charge",
+        "independent appliance pulse explicitly purchased and scheduled by its tower branch"
+      ],
+      "cannot_add_charge": [
+        "environmental appliance discharge",
+        "secondary bounce",
+        "overload damage",
+        "damage-over-time tick"
+      ],
+      "threshold_state": "one ready request per full health pool; actual charge deadlines keep running",
+      "full_ready_new_hits": "normal damage may resolve but no new charge is banked and no old deadline is refreshed",
+      "source_disable_cancels_attached_charge": false,
+      "independent_appliance_pulse": "an explicit paid primary emission, not the passive environmental contact discharge; applies the source-declared amount once per scheduled phase and pool, with multi-device overlap deduplicated"
+    }
+  },
+  "damage": {
+    "channels": {
+      "physical": "armor",
+      "spiritual": "ward"
+    },
+    "defense_min": 0,
+    "defense_max": 0.75,
+    "stages": [
+      "apply permanent rule facts to base defense",
+      "take strongest live generic break for this channel",
+      "apply source-specific penetration",
+      "clamp defense to 0..0.75",
+      "resolve raw packet through its one defense channel",
+      "apply additive live vulnerability groups"
+    ],
+    "vulnerability": {
+      "burn_exposure_max": 0.25,
+      "rule_cooperation_max": 0.15,
+      "total_max": 0.4,
+      "within_group": "maximum live source",
+      "between_groups": "additive",
+      "multiplier": "1 + min(0.40, burn_exposure + rule_cooperation)",
+      "affects_direct_and_dot": true,
+      "does_not_add_poison_or_status_load": true,
+      "rule_cooperation_source": {
+        "branch": "T06.B1",
+        "vulnerability": 0.15,
+        "duration_s": 6,
+        "condition": "a real main-rule success for that root while the broadcaster is active; recipients must currently be in its valid sound domain",
+        "base_attack_rate_bonus": 0.1,
+        "additional_attack_rate_burst": 0,
+        "historical_receipt_replay": false
+      }
+    },
+    "primary_dedupe": "one legitimate attack phase per independent health_pool_id",
+    "secondary_max_generation": 1,
+    "secondary_can_proc": false,
+    "named_paid_exceptions": [
+      "a previously reserved poison maturity budget",
+      "a previously queued overload request"
+    ],
+    "exception_rule": "exceptions deliver previously attached finite payloads; their damage cannot generate new recursion",
+    "same_batch_death": "resolve the full already-committed hit batch before fission or terminal settlement"
+  },
+  "zone_toll": {
+    "world_cell_size_tiles": 1,
+    "cell_period_s": 2,
+    "example_trap_cell_damage": 2,
+    "source_tower_cell_damage": "explicit per branch; may exceed trap damage",
+    "ledger_key": [
+      "health_pool_id",
+      "effect_family",
+      "world_cell_id"
+    ],
+    "deadline_update": "on one successful toll, write hit_world_time + 2; leaving, reentering, changing source, rebuilding or retargeting never resets it",
+    "overlapping_same_family": "evaluate each currently legal source packet against this target current channel defense, source penetration and vulnerability; choose the greatest resolved damage and settle exactly that one base toll",
+    "overlapping_different_families": "only if the design explicitly declares them distinct; source IDs alone do not create a new family",
+    "spatial_model": "half-open fixed world cells; count positive-length segment intersections, not zero-length corner touches",
+    "movement_reference": "one canonical combat reference trajectory per health pool; body width and shared body-part count do not multiply tolls",
+    "continuous_moves": [
+      "walk",
+      "ground_dash",
+      "actual_push_pull",
+      "jump_or_flight_when_the_field_covers_the_actual_height"
+    ],
+    "continuous_resolution": "trace the real path in time order and check the cell, field existence, height and deadline at each crossing",
+    "discontinuous_moves": [
+      "true_teleport",
+      "shadow_jump",
+      "mirror_transfer"
+    ],
+    "discontinuous_resolution": "only real departure and arrival positions can be assessed; never invent intermediate ground crossings",
+    "stationary_resolution": "while inside an active legal cell, one toll can recur when its existing deadline expires",
+    "same_cell_teleport": "uses the same pool/cell deadline; no extra toll merely for receiving a teleport event",
+    "fission": "copy all unexpired parent cell deadlines to each new pool, without cloning already committed damage",
+    "late_field_or_rebuild": "cannot reset an existing ledger entry; a newly covered cell without an entry can deliver its normal first toll",
+    "forced_motion_counts": true,
+    "test_example": {
+      "cell_damage": 8,
+      "period_s": 2,
+      "cells": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "all_fresh_total": 32,
+      "start_cell_on_cooldown_total": 24,
+      "immediate_return_extra": 0,
+      "assumption": "zero relevant defense and vulnerability; one legal source per cell"
+    },
+    "equal_resolved_damage_tiebreak": "stable source ID, then attack and phase ID; never settle all tied sources",
+    "selection_and_commit": "choose without dealing candidate damage or consuming candidate on-hit receipts; commit one winner and one shared pool/cell/family deadline",
+    "independent_declared_effects": "a source explicitly scheduled status pulse, qualified residence reward or other separately paid sibling ability is tested by its own source contract even when another source wins the base toll; this grants no second base toll and no recursion",
+    "no_family_renaming_bypass": true,
+    "cross_channel_selection_example": {
+      "physical_raw": 2,
+      "spiritual_raw": 3,
+      "target_armor": 0,
+      "target_ward": 0.75,
+      "vulnerability": 0,
+      "physical_resolved": 2,
+      "spiritual_resolved": 0.75,
+      "selected_resolved_damage": 2,
+      "settled_packets": 1
+    }
+  },
+  "persistent_field": {
+    "role": "small_area_damage_for_actual_residence",
+    "illustrative_radius_tiles": 0.75,
+    "illustrative_interval_s": 0.25,
+    "illustrative_raw_damage_per_tick": 3,
+    "illustrative_raw_dps": 12,
+    "damage_timing": "pay the same active world-time interval regardless of render frame rate",
+    "motion_resolution": "evaluate actual presence in the field over time; do not assign a full residence tick merely for crossing between sampled positions",
+    "status_sampling_separate_from_damage": true,
+    "field_damage_does_not_automatically_add_status": true,
+    "height_and_los_required": true,
+    "source_disable_ends_maintained_field": true,
+    "finite_field_snapshot": "an explicitly launched independent finite field keeps only its originally declared duration and payload",
+    "balance": "smaller footprint and required residence pay for higher local DPS; numeric examples are not universal stats for every branch",
+    "illustrative_status_sample_interval_s": 1,
+    "no_global_status_application_interval": true
+  },
+  "electric_network": {
+    "pulse_interval_s": 0.25,
+    "max_ready_requests_per_health_pool": 1,
+    "scheduling": "FIFO by original ready time, then stable pool ID; skip currently ineligible requests without extending any deadline",
+    "one_pulse_per_network_tick": true,
+    "ready_request_payload": [
+      "five original mark identities and deadlines",
+      "snapshotted overload contributions",
+      "original ready time",
+      "origin and root identity"
+    ],
+    "atomic_wave_steps": [
+      "remove expired marks and cancel invalid requests",
+      "pick the oldest eligible full pool",
+      "snapshot current legal charged recipients in the seed radius",
+      "for each recipient count its own local charged independent pools and actual active appliances",
+      "consume only the seed's five marks",
+      "deal one overload packet to each eligible recipient",
+      "retain other still-valid full requests for later ticks"
+    ],
+    "radius_tiles": 2.5,
+    "formula": "raw_damage_i = summed_seed_mark_contributions * (N_i + E_i)",
+    "charged_unit_count_includes_self": true,
+    "count_faction": "hostile manifested anomalies only",
+    "count_identity": "independent health_pool_id, never collider parts or shared root IDs",
+    "N_i": "charged legal independent pools within recipient i's own radius and permitted height/line of sight at the current wave snapshot",
+    "E_i": "unique actually powered enabled appliance_id values whose registered physical surface is within 2.5 tiles of recipient i, with permitted height and line of sight",
+    "target_set": "charged legal pools within the current seed's declared wave radius; neighbors counted by a recipient need not expand the wave recursively",
+    "hits_per_pool_per_wave": 1,
+    "arbitrary_damage_cap": null,
+    "count_seed_multiplication": false,
+    "source_disable_cancels_ready": false,
+    "temporary_untargetability": "defer while keeping original mark expiry; no untargetable new area hits, and no frozen queue lifetime",
+    "cancel_ready_when": [
+      "pool reaches a real terminal state",
+      "explicit charge clearing removes the reserved marks",
+      "fewer than five original unexpired marks remain",
+      "pool is replaced by genuine fission; distribute its marks and remove the old request",
+      "root encounter closes"
+    ],
+    "moving_away_from_origin_tower_cancels": false,
+    "moving_between_waves": "each wave reads its own current position and neighborhood; no reuse of a previous high-density snapshot",
+    "inherited_fission_ready": "children receive partitioned marks, not copied requests; only a child with an actual full meter can create its own request",
+    "bounce": {
+      "eligible_events": [
+        "normal primary electric strike",
+        "actual appliance contact discharge"
+      ],
+      "base_damage": 3,
+      "channel": "spiritual",
+      "radius_tiles": 2.5,
+      "max_hops": 1,
+      "recipients": "one other currently charged legal independent pool; nearest valid distance then stable identity",
+      "cannot_return_to_source_pool": true,
+      "adds_charge": false,
+      "starts_overload": false,
+      "triggers_another_bounce": false
+    },
+    "appliance_contact": {
+      "radius_tiles": 1,
+      "per_pool_per_appliance_cooldown_s": 4,
+      "requires_exit_and_reentry": true,
+      "base_damage": 4,
+      "channel": "spiritual",
+      "allowed_layers": [
+        "ground",
+        "low_air"
+      ],
+      "power_toggle_counts_as_crossing": false,
+      "actor_already_inside_on_charge_gain_counts_as_crossing": false,
+      "cooldown_survives_power_toggle_or_tower_change": true,
+      "adds_charge": false,
+      "can_start_one_bounce": true,
+      "distance_reference": "registered appliance footprint surface"
+    },
+    "appliances": {
+      "registry": [
+        {
+          "id": "AP_HOT_FOOD",
+          "name": "热食台",
+          "circuit_id": "C2",
+          "counts_as_one_appliance": true,
+          "fixture_id": "FX14"
+        },
+        {
+          "id": "AP_FREEZER",
+          "name": "冰柜",
+          "circuit_id": "C2",
+          "counts_as_one_appliance": true,
+          "fixture_id": "FX15"
+        },
+        {
+          "id": "AP_COLD_CABINET",
+          "name": "饮料冷柜",
+          "circuit_id": "C2",
+          "counts_as_one_appliance": true,
+          "fixture_id": "FX16"
+        }
+      ],
+      "never_implicit_devices": [
+        "tower",
+        "lamp",
+        "socket",
+        "copper_rail",
+        "decorative_coil",
+        "duplicate workpoint on the same device"
+      ],
+      "requires_actual_power": true,
+      "requires_enabled_state": true,
+      "requires_compatible_height_and_los": true,
+      "device_count_key": "appliance_id",
+      "contact_and_network_height": "ground and low-air recipients can couple to these registered devices; high-air coupling requires an explicitly added capable device field",
+      "duplicate_slots_do_not_increase_count": true,
+      "active_appliance_ids": [
+        "AP_HOT_FOOD",
+        "AP_FREEZER",
+        "AP_COLD_CABINET"
+      ],
+      "active_verified_fixture_ids": [
+        "FX14",
+        "FX15",
+        "FX16"
+      ],
+      "excluded_appliance_ids": [
+        {
+          "id": "AP_POS",
+          "fixture_id": "FX18",
+          "reason": "physical terminal registration and wiring pending; disabled"
+        }
+      ],
+      "excluded_fixture_ids": [
+        {
+          "fixture_id": "FX05",
+          "reason": "distribution source, not an extra appliance"
+        }
+      ],
+      "geometry_authority": "traps_facilities_td03.json appliances: registered fixture rectangles and appliance_id mapping",
+      "distance_metric": "shortest unobstructed distance from the recipient combat reference point to the registered appliance footprint surface, not distance to its center"
+    },
+    "example": {
+      "base_damage": 6,
+      "recipients": [
+        {
+          "id": "A",
+          "N": 3,
+          "E": 2,
+          "raw_damage": 30
+        },
+        {
+          "id": "B",
+          "N": 2,
+          "E": 1,
+          "raw_damage": 18
+        },
+        {
+          "id": "C",
+          "N": 2,
+          "E": 0,
+          "raw_damage": 12
+        }
+      ],
+      "mixed_five_charge_example": {
+        "marks_from_base6": 3,
+        "marks_from_base9": 2,
+        "effective_D": 7.2
+      }
+    },
+    "outward_charge_transfer": {
+      "branch": "T09.B2",
+      "min_source_marks": 2,
+      "source_must_not_be_ready": true,
+      "event": "a genuinely moving marked pool exits the real powered appliance sensing domain of this branch",
+      "destination_radius_tiles": 2.5,
+      "destination_must_be_uncharged": true,
+      "marks_moved": 1,
+      "per_source_health_pool_cooldown_s": 4,
+      "mark_choice": "earliest-expiring live native retransmittable unreserved source mark; move that exact mark once to the nearest legal uncharged destination",
+      "preserves": [
+        "original absolute expiry",
+        "overload contribution",
+        "original attribution"
+      ],
+      "creates_new_charge": false,
+      "moves_charge_to_already_charged_pool": false,
+      "power_toggle_counts_as_exit": false,
+      "transfer_itself_triggers_contact_or_bounce": false,
+      "can_immediately_overload_destination": false,
+      "failure": "if no legal uncharged recipient exists, move nothing and do not consume the transfer cooldown",
+      "appliance_sensing_exit_radius_tiles": 1.7,
+      "only_unreserved_marks": true,
+      "sensing_distance_reference": "registered real appliance footprint surface; copper rails do not relocate or expand this sensing radius",
+      "received_mark_may_repropagate": false,
+      "transferred_mark_tag": "received_by_outward_transfer; ineligible for another outward transfer, while still contributing normally to charged state and overload",
+      "requires_eligible_native_mark": true
+    }
+  },
+  "identity_and_fission": {
+    "actor_id": "position, collision and attack body",
+    "health_pool_id": "damage, status meters and target cooldowns",
+    "root_encounter_id": "encounter slot, lineage, permanent rule facts and unique settlement",
+    "graybox_limits": {
+      "root_encounters": 2,
+      "extra_hostile_children": 6,
+      "total_hostile_actors": 8,
+      "active_extra_children_per_root": 3,
+      "lifetime_new_children_per_root": 6,
+      "recursive_child_reproduction": false
+    },
+    "limits_are_test_candidates_not_spawn_quotas": true,
+    "aoe_shared_parts": "one damage packet per shared pool",
+    "aoe_independent_children": "one packet per independently eligible pool",
+    "before_fission": "resolve the entire committed damage batch; zero-health pools cannot split",
+    "conserve": [
+      "sum of current health",
+      "poison load and potency",
+      "unpaid poison maturity load",
+      "finite remaining DOT damage budget",
+      "heat/electric/chill/curse meter contributions"
+    ],
+    "status_tokens": "partition existing tokens once, preserving each absolute expiry and contribution; do not copy a full parent meter to each child",
+    "cooldowns": "all children inherit absolute relevant shared control and zone deadlines",
+    "permanent_rule_facts": "inherit throughout this root lineage",
+    "already_active_timed_effects": "inherit original deadlines; never extend duration merely because a new actor is created",
+    "effective_durability_budget": "also account for child defense, attack concurrency, movement and cleanup; health conservation alone is insufficient",
+    "terminal_relations": {
+      "shared_parts": "parent pool terminal ends the parts",
+      "dependent_summons": "true mother terminal stops and dissolves them; no extra kill proc or reward",
+      "independent_creations": "stop new production but retain existing independent children until cleared",
+      "fission_replacements": "parent actor removal is not root terminal; all surviving children must be resolved"
+    },
+    "unique_reward_per_root": true,
+    "per_hit_or_per_child_reward": false,
+    "root_slot_retained_while_independent_children_remain": true,
+    "pending_spawn_reserves_capacity_and_legal_landing": true,
+    "full_capacity_behavior": "cancel that spawn attempt; no invulnerable waiting or unbounded deferred population"
+  },
+  "controls": {
+    "max_slow": 0.6,
+    "hard_control_episode_max_s": {
+      "normal": 1.5,
+      "elite": 0.8
+    },
+    "hard_control_episode_origin": "first accepted hard control; overlaps and successive sources cannot move its end",
+    "post_hard_control_immunity_s": 3,
+    "push_loss_of_control_counts": true,
+    "generic_seal_rolling_window_s": 8,
+    "generic_seal_max_duration_in_window_s": 3,
+    "post_seal_immunity_s": 3,
+    "rule_permanent_seals_separate": true,
+    "basic_movement_and_attack_not_generically_sealed": true,
+    "true_pause_freezes_all_world_time": true,
+    "upgrade_move_respec_does_not_refresh_state": true,
+    "visible_feedback": [
+      "heat and impending ignition",
+      "burn vulnerability percentage",
+      "current poison load and DPS",
+      "chill stacks and freeze end",
+      "curse attack reduction and misfortune probability",
+      "charged marks, appliance connection and overload ready",
+      "zone boundaries and recent-cell cooldown"
+    ],
+    "internal_ids_are_not_player_requirements": true
+  }
+}

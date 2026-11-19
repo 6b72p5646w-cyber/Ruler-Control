@@ -1,0 +1,2140 @@
+{
+  "version": "TD03",
+  "runtime_integrated": false,
+  "source_commit": "574221f503e8b49d989534f9e014aff230771c44",
+  "status": "design_candidate_pending_graybox",
+  "scope": "16 traps with 2 L2 directions and one L3 maturity each; explicit fixed-appliance and movement contracts",
+  "shared_contract": {
+    "enemy_only": "Only manifested legal hostile targets trigger; humans, player, paper guards and disguised visitors do not trigger, pay charges or reveal identity.",
+    "placement": {
+      "max_objects": 8,
+      "max_footprint_cells": 16,
+      "max_barricade_cells": 6,
+      "rotation_deg": [
+        0,
+        90
+      ],
+      "all_cells_must_be_walkable": true,
+      "preserve_workpoints_rule_items_locked_landings": true,
+      "validate_enemy_body_width_and_break_route": true,
+      "upgrade_default_changes_footprint": false
+    },
+    "upgrade": {
+      "path": "L1 -> L2 A or B -> the chosen L3 maturity upgrade",
+      "l2_cost": {
+        "coin": 12,
+        "spirit": 4
+      },
+      "l3_additional_cost": {
+        "coin": 16,
+        "spirit": 6
+      },
+      "requires_previous_tier": true,
+      "peaceful_assembly_s": 2,
+      "refills_charges": false,
+      "preserves_hp_ratio": true,
+      "preserves_absolute_deadlines_and_receipts": true,
+      "l3_parameters_are_overrides_not_second_multipliers": true,
+      "capacity_delta_from_l1_applies_once": true,
+      "capacity_delta_from_l2_applies_once": true
+    },
+    "charge_and_repair": {
+      "new_entry_required_for_entry_traps": true,
+      "ineffective_entry_consumes_charge": false,
+      "ineffective_entry_is_recorded": true,
+      "last_charge_effect_completes": true,
+      "recharge_coin_per_charge": "ceil(actual L1 build coin / L1 initial charge capacity)",
+      "repair_coin_per_action": "ceil(actual L1 build coin * 0.10)",
+      "repair_fraction_per_action": 0.25,
+      "recharge_or_repair_s": 2,
+      "repair_only_peaceful": true,
+      "permanent_poison_tick_cost": 0,
+      "upgrade_does_not_refill": true
+    },
+    "effect_lifetime": "Maintained fields stop when source is disabled or destroyed; already applied finite states keep their absolute deadlines; permanent poison lasts until health-pool terminal and conserves mass across fission.",
+    "status_authority": "All status thresholds, durations, stacking, immunity, damage modifiers and electric reactions come from the shared TD03 combat contract; trap parameters only specify application amounts and explicit fields.",
+    "provisional_poison_unit": {
+      "spiritual_dps_per_unit": 0.5,
+      "duration": "until_health_pool_terminal",
+      "stack_cap": null,
+      "source_destruction_removes_poison": false,
+      "fission": "partition total poison mass, do not copy"
+    },
+    "movement_toll": {
+      "zone_period_s": 2,
+      "example_damage_per_zone": 2,
+      "continuous_motion": "sweep actual traversed cells and legal height, including displacement; one receipt per health pool per zone period",
+      "phase_motion": "only legal manifested origin and destination; no invented straight-line path",
+      "overlap": "One shared receipt per health pool/zone/family. Evaluate every eligible candidate packet against this target current defense, source penetration and vulnerability, select highest final payable damage; stable source_id breaks ties. Never select by raw amount across channels.",
+      "receipt_survives": "source move, upgrade, power toggling and save/load",
+      "other_enemies_have_independent_receipts": true,
+      "continuous_run": "Accumulate actually charged new-zone receipts across physics/render frames; actual stop or discontinuous phase movement ends run. Stationary periodic ticks are not crossings.",
+      "crossing_bonus_receipt": "Shared by pool and bonus family for 2 seconds; source switch, frame boundary or source move cannot reset.",
+      "independent_features": "An eligible source independent status pulse, stationary reward or explicitly permitted movement reward retains its own event and cooldown contract even when its base zone packet loses arbitration; this does not add another base zone packet.",
+      "cross_channel_counterexample": {
+        "target_armor": 0,
+        "target_ward": 0.75,
+        "r09_physical_raw": 2,
+        "t10_spiritual_raw": 3,
+        "r09_actual": 2,
+        "t10_actual": 0.75,
+        "selected_actual": 2
+      }
+    },
+    "electric_contact": {
+      "domain_distance_from_appliance_surface_tiles": 1,
+      "receipt_key": [
+        "health_pool_id",
+        "appliance_id"
+      ],
+      "common_contact_icd_s": 4,
+      "requires_new_real_entry": true,
+      "turning_power_on_is_entry": false,
+      "line_of_sight_and_height_required": true,
+      "coil_is_appliance": false,
+      "relay_extends_resonance_count_radius": false,
+      "count_dedup": "unique health_pool_id and unique powered appliance_id; no body-part or socket duplication",
+      "contact_domain": "Geometric union of the original appliance contact domain and all currently valid linked relay domains for the same appliance_id.",
+      "reentry_condition": "Actually exit the entire union then re-enter; movement from original domain into relay domain while continuously inside the union is not re-entry.",
+      "domain_geometry_change_creates_entry": false
+    },
+    "secondary_effects": "One explicit child generation only. Secondary damage does not produce normal on-hit stacks; where an upgrade explicitly applies a state from the same primary movement/entry receipt, that application is a sibling effect and cannot recursively propagate.",
+    "partial_height_support": "Ordinary traps are ground-only; any low/high-air support is explicitly listed per trap/upgrade. Freeze fixes actual position but does not change height."
+  },
+  "traps": [
+    {
+      "id": "R01",
+      "name": "黏影胶带",
+      "footprint_variants": [
+        [
+          1,
+          2
+        ]
+      ],
+      "base_cost": {
+        "coin": 12,
+        "spirit": 0
+      },
+      "charges": 4,
+      "durability": null,
+      "layers": [
+        "ground"
+      ],
+      "trigger": "合法地面目标一次新的进入；每生命池6秒。",
+      "base_effect": "减速35%，持续2.5秒。",
+      "base_parameters": {
+        "slow_fraction": 0.35,
+        "slow_duration_s": 2.5,
+        "per_pool_icd_s": 6
+      },
+      "status_refs": [
+        "slow"
+      ],
+      "l2": [
+        {
+          "id": "R01.A",
+          "parent": "R01",
+          "name": "长黏胶",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "slow_duration_s": 4
+          },
+          "effect": "减速仍35%，持续改为4秒。",
+          "tradeoff": "服务持续锁定，面对多批目标充能较紧。",
+          "l3": {
+            "id": "R01.A3",
+            "parent": "R01.A",
+            "name": "久黏胶",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "持续改为5秒，容量增加1；不补充当前次数。",
+            "parameters": {
+              "slow_duration_s": 5,
+              "capacity_delta_from_l2": 1
+            }
+          }
+        },
+        {
+          "id": "R01.B",
+          "parent": "R01",
+          "name": "薄铺胶",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "slow_fraction": 0.25,
+            "slow_duration_s": 2.5,
+            "capacity_delta_from_l1": 2
+          },
+          "effect": "减速改为25%/2.5秒，容量增加2；不补充当前次数。",
+          "tradeoff": "覆盖更多轮次，单次留人更弱。",
+          "l3": {
+            "id": "R01.B3",
+            "parent": "R01.B",
+            "name": "群铺胶",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "本次进入可给0.8格内另一个地面生命池施加25%减速2.5秒；次级目标不再扩散。",
+            "parameters": {
+              "secondary_pool_cap": 1,
+              "secondary_radius_tiles": 0.8,
+              "secondary_slow_fraction": 0.25,
+              "secondary_duration_s": 2.5,
+              "secondary_can_propagate": false
+            }
+          }
+        }
+      ],
+      "tradeoff": "不封瞬移、不碰空中，不与其他减速连乘。"
+    },
+    {
+      "id": "R02",
+      "name": "缚足夹",
+      "footprint_variants": [
+        [
+          1,
+          1
+        ]
+      ],
+      "base_cost": {
+        "coin": 14,
+        "spirit": 0
+      },
+      "charges": 3,
+      "durability": 25,
+      "layers": [
+        "ground"
+      ],
+      "trigger": "真实落地或地面进入；每生命池8秒。",
+      "base_effect": "束缚0.8秒，随后20%减速2秒；硬控按共享预算。",
+      "base_parameters": {
+        "root_s": 0.8,
+        "after_slow_fraction": 0.2,
+        "after_slow_duration_s": 2,
+        "per_pool_icd_s": 8
+      },
+      "status_refs": [
+        "slow",
+        "frost"
+      ],
+      "l2": [
+        {
+          "id": "R02.A",
+          "parent": "R02",
+          "name": "定点夹",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "known_position_s": 2,
+            "grants_target_permission": false
+          },
+          "effect": "保留原束缚与减速；留下2秒最后已知落点标记，仅供预瞄，不提供隔墙或隐身攻击许可。",
+          "tradeoff": "给狙击预瞄信息，硬控时长不增加。",
+          "l3": {
+            "id": "R02.A3",
+            "parent": "R02.A",
+            "name": "储夹匣",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "容量增加2，仍不刷新控制预算或当前剩余次数。",
+            "parameters": {
+              "capacity_delta_from_l2": 2
+            }
+          }
+        },
+        {
+          "id": "R02.B",
+          "parent": "R02",
+          "name": "冷凝夹",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "replaces_root": true,
+            "frost_units": 3,
+            "slow_fraction": 0.2,
+            "slow_duration_s": 3
+          },
+          "effect": "取消直接束缚，改为一次加入3单位寒意，再20%减速3秒；冻结由统一阈值合同决定。",
+          "tradeoff": "需要其他冷源或重复合法命中补足阈值，不能一次踩入同时领取束缚和冻结。",
+          "l3": {
+            "id": "R02.B3",
+            "parent": "R02.B",
+            "name": "散霜夹",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "向0.8格内另一个地面生命池追加1寒意单位；由本次直接触发派生一次，不继续传播。",
+            "parameters": {
+              "secondary_pool_cap": 1,
+              "secondary_radius_tiles": 0.8,
+              "secondary_frost_units": 1,
+              "secondary_can_propagate": false
+            },
+            "standalone_trigger": false,
+            "standalone_trigger_scope": "freeze_in_isolated_single_target",
+            "support_requirement": "需要其他冷源，或另一独立目标触发本夹的侧溢；单目标自身重复踩入不够。",
+            "reachability_reason": "主命中3层，自己的下一次有效进入至少8秒；L3侧溢明确需要第二生命池。"
+          },
+          "standalone_trigger": false,
+          "standalone_trigger_scope": "freeze",
+          "support_requirement": "需要其他冷源补足寒意；B3也可由另一合法目标真实进入时提供一次邻近侧溢。",
+          "reachability_reason": "一次3层，同池8秒；6秒层寿命使同目标下一次进入前旧层已过期。"
+        }
+      ],
+      "tradeoff": "跳跃途中与空中平面投影不触发；冻结固定当前位置但不改变高度。"
+    },
+    {
+      "id": "R03",
+      "name": "压空捕网",
+      "footprint_variants": [
+        [
+          2,
+          2
+        ]
+      ],
+      "base_cost": {
+        "coin": 22,
+        "spirit": 0
+      },
+      "charges": 2,
+      "durability": 35,
+      "layers": [
+        "low_air"
+      ],
+      "trigger": "目标进入实际向上捕获体积；逐目标检查迫降标签与合法地面落点。",
+      "base_effect": "能迫降且下方合法时压空3秒；否则只减速20%持续2秒。",
+      "base_parameters": {
+        "grounding_s": 3,
+        "fallback_slow_fraction": 0.2,
+        "fallback_slow_s": 2,
+        "requires_legal_landing": true
+      },
+      "status_refs": [
+        "slow"
+      ],
+      "l2": [
+        {
+          "id": "R03.A",
+          "parent": "R03",
+          "name": "高张捕网",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "additional_layers": [
+              "high_air"
+            ],
+            "grounding_s": 3
+          },
+          "effect": "向上覆盖已登记high_air层，迫降时长不增加。",
+          "tradeoff": "用于高空准入，对已经低空的目标没有额外驻留。",
+          "l3": {
+            "id": "R03.A3",
+            "parent": "R03.A",
+            "name": "并捕网",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "同次触发额外捕一个同域合法空中生命池；每个目标独立检查落点，共消耗一次充能。",
+            "parameters": {
+              "additional_pool_cap": 1,
+              "per_target_landing_check": true
+            }
+          }
+        },
+        {
+          "id": "R03.B",
+          "parent": "R03",
+          "name": "落点束网",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "landing_slow_fraction": 0.2,
+            "landing_slow_s": 2,
+            "requires_grounding_success": true
+          },
+          "effect": "仍只捕low_air，迫降成功后附加20%减速2秒；迫降失败不发这笔附效。",
+          "tradeoff": "服务地面阵地，但不能补高空覆盖。",
+          "l3": {
+            "id": "R03.B3",
+            "parent": "R03.B",
+            "name": "稳落网",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "迫降后的减速提高为30%持续3秒，迫降时长仍3秒。",
+            "parameters": {
+              "landing_slow_fraction": 0.3,
+              "landing_slow_s": 3,
+              "grounding_s": 3
+            }
+          }
+        }
+      ],
+      "tradeoff": "货架上方或没有合法落点时不强塞目标入柜；一次捕获本身不改写主要规则事实。"
+    },
+    {
+      "id": "R04",
+      "name": "锚相盐钉阵",
+      "footprint_variants": [
+        [
+          2,
+          2
+        ]
+      ],
+      "base_cost": {
+        "coin": 20,
+        "spirit": 0
+      },
+      "charges": 3,
+      "durability": 30,
+      "layers": [
+        "ground",
+        "low_air"
+      ],
+      "trigger": "已显形目标合法到达或进入；按movement_id与生命池去重。",
+      "base_effect": "封下一次符合标签的转场3秒；不封普通步行和普攻，受共享封技预算。",
+      "base_parameters": {
+        "anchor_s": 3,
+        "movement_receipt_dedupe": true
+      },
+      "status_refs": [
+        "anchor",
+        "slow"
+      ],
+      "l2": [
+        {
+          "id": "R04.A",
+          "parent": "R04",
+          "name": "出相回执",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "trigger_endpoints": [
+              "visible_origin_prepare",
+              "visible_destination_arrival"
+            ],
+            "once_per_movement_id": true
+          },
+          "effect": "起点处仍合法显形的转场准备或终点真实到达均可触发；同一movement_id只一次。",
+          "tradeoff": "提高转场事件覆盖，中途无实体区域仍不触发。",
+          "l3": {
+            "id": "R04.A3",
+            "parent": "R04.A",
+            "name": "并签出相",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "同次触发可锚定0.8格内另一合法生命池1.5秒，各自受封技预算；不由次级锚定再扩散。",
+            "parameters": {
+              "secondary_pool_cap": 1,
+              "secondary_radius_tiles": 0.8,
+              "secondary_anchor_s": 1.5,
+              "secondary_can_propagate": false
+            }
+          }
+        },
+        {
+          "id": "R04.B",
+          "parent": "R04",
+          "name": "迟滞钉",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "anchor_s": 2,
+            "slow_fraction": 0.25,
+            "slow_duration_s": 3
+          },
+          "effect": "锚定缩短为2秒，附加25%减速3秒。",
+          "tradeoff": "更适合转场后的步行追逐，限制下一次转场的时间较短。",
+          "l3": {
+            "id": "R04.B3",
+            "parent": "R04.B",
+            "name": "续滞钉",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "锚定仍2秒，减速延长为4秒，容量增加1；升级不补充。",
+            "parameters": {
+              "anchor_s": 2,
+              "slow_duration_s": 4,
+              "capacity_delta_from_l2": 1
+            }
+          }
+        }
+      ],
+      "tradeoff": "不沿起终点连线攻击虚空路径；不能替代点灯、原布、合铃等原型规则。"
+    },
+    {
+      "id": "R05",
+      "name": "断影灯带",
+      "footprint_variants": [
+        [
+          1,
+          3
+        ]
+      ],
+      "base_cost": {
+        "coin": 18,
+        "spirit": 0
+      },
+      "charges": 3,
+      "durability": 30,
+      "layers": [
+        "ground",
+        "low_air"
+      ],
+      "trigger": "已显形影行目标跨真实灯带边界，或在覆盖的登记阴影节点开始准备/实际到达。",
+      "base_effect": "亮6秒，关闭当前照区内真实阴影节点；遵守遮挡，源被毁则维持照明结束。",
+      "base_parameters": {
+        "light_s": 6,
+        "closes_only_actual_shadow_nodes": true,
+        "line_of_sight_required": true
+      },
+      "status_refs": [
+        "anchor"
+      ],
+      "l2": [
+        {
+          "id": "R05.A",
+          "parent": "R05",
+          "name": "恒亮带",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "light_s": 8
+          },
+          "effect": "基础照区维持8秒。",
+          "tradeoff": "覆盖固定节点更久，空间宽度不变。",
+          "l3": {
+            "id": "R05.A3",
+            "parent": "R05.A",
+            "name": "长明带",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "基础照区维持10秒；容量和剩余次数不自动补满。",
+            "parameters": {
+              "light_s": 10
+            }
+          }
+        },
+        {
+          "id": "R05.B",
+          "parent": "R05",
+          "name": "扫影带",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "light_s": 6,
+            "sweep_extension_tiles": 0.5,
+            "sweep_period_s": 2,
+            "sweep_duration_s": 0.5
+          },
+          "effect": "仍亮6秒，周期扫光向侧面延伸0.5格，扫描期间才关闭真正被照到的节点。",
+          "tradeoff": "增加边缘容错，离开扫光的边缘节点可恢复。",
+          "l3": {
+            "id": "R05.B3",
+            "parent": "R05.B",
+            "name": "留影带",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "被扫到的已显形目标保留2秒最后已知轨迹轮廓；轮廓不维持照明、不封节点、不授予攻击许可。",
+            "parameters": {
+              "outline_s": 2,
+              "outline_information_only": true
+            }
+          }
+        }
+      ],
+      "tradeoff": "只限制阴影路线，不封镜面、不代替玩家凝视、不揭示伪装身份；shadow_node_closure不是通用锚定的重复计时。"
+    },
+    {
+      "id": "R06",
+      "name": "倒影绊索",
+      "footprint_variants": [
+        [
+          1,
+          2
+        ]
+      ],
+      "base_cost": {
+        "coin": 18,
+        "spirit": 0
+      },
+      "charges": 3,
+      "durability": 30,
+      "layers": [
+        "ground",
+        "low_air"
+      ],
+      "trigger": "已登记镜出口的真实显形到达，必须与预告及movement_id一致。",
+      "base_effect": "封下一次镜跳3秒，受统一封技预算。",
+      "base_parameters": {
+        "mirror_anchor_s": 3,
+        "requires_registered_mirror_exit": true
+      },
+      "status_refs": [
+        "anchor",
+        "slow",
+        "curse"
+      ],
+      "l2": [
+        {
+          "id": "R06.A",
+          "parent": "R06",
+          "name": "单口封签",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "mirror_node_closure_s": 3,
+            "once_per_movement_id": true
+          },
+          "effect": "封住本次真实出口对应镜节点3秒，按同一转场回执去重。",
+          "tradeoff": "明确封单个出口，其他合法镜面不会同时关闭。",
+          "l3": {
+            "id": "R06.A3",
+            "parent": "R06.A",
+            "name": "储签绊索",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "容量增加2，节点封闭时长仍3秒；不补充当前次数。",
+            "parameters": {
+              "capacity_delta_from_l2": 2,
+              "mirror_node_closure_s": 3
+            }
+          }
+        },
+        {
+          "id": "R06.B",
+          "parent": "R06",
+          "name": "出口震颤",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "mirror_anchor_s": 2,
+            "slow_fraction": 0.2,
+            "slow_duration_s": 3
+          },
+          "effect": "封镜缩短为2秒，但实体获得20%减速3秒。",
+          "tradeoff": "便于通用输出接手，对快速再次镜跳的压制更短。",
+          "l3": {
+            "id": "R06.B3",
+            "parent": "R06.B",
+            "name": "咒痕出口",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "本次真实到达另直接施加1单位诅咒，与封镜同级提交；诅咒不重复触发出口。",
+            "parameters": {
+              "curse_units_on_arrival": 1,
+              "secondary_can_propagate": false
+            },
+            "standalone_trigger": false,
+            "standalone_trigger_scope": "doom",
+            "support_requirement": "需要已确认镜穿目标及另一咒源补层。",
+            "reachability_reason": "每次合格真实镜出只1咒，既有位移冷却起点不保证10秒内四次；不宣传独立厄运。"
+          }
+        }
+      ],
+      "tradeoff": "仅在已确认镜穿波次/测试体时开放；当前F60镜子是观察工具，不能作为镜穿原型。",
+      "default_catalog_enabled": false,
+      "admission_requires": "confirmed_mirror_transit_encounter_or_test_actor"
+    },
+    {
+      "id": "R07",
+      "name": "破甲标签垫",
+      "footprint_variants": [
+        [
+          1,
+          1
+        ]
+      ],
+      "base_cost": {
+        "coin": 12,
+        "spirit": 0
+      },
+      "charges": 4,
+      "durability": null,
+      "layers": [
+        "ground"
+      ],
+      "trigger": "地面一次新进入；每生命池8秒。",
+      "base_effect": "物理armor削20个百分点5秒；同族取强，不改ward。",
+      "base_parameters": {
+        "armor_break_pp": 20,
+        "duration_s": 5,
+        "per_pool_icd_s": 8
+      },
+      "status_refs": [
+        "armor_break"
+      ],
+      "l2": [
+        {
+          "id": "R07.A",
+          "parent": "R07",
+          "name": "长效签",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "duration_s": 7,
+            "armor_break_pp": 20
+          },
+          "effect": "破甲持续7秒，强度仍20个百分点。",
+          "tradeoff": "服务稳定重甲单体，不增加覆盖数量。",
+          "l3": {
+            "id": "R07.A3",
+            "parent": "R07.A",
+            "name": "验讫长签",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "施加时该目标已完成主要规则则持续9秒，否则7秒；不会补发过去的规则回执。",
+            "parameters": {
+              "duration_s": 7,
+              "rule_solved_duration_s": 9,
+              "rule_state_sample": "on_application"
+            }
+          }
+        },
+        {
+          "id": "R07.B",
+          "parent": "R07",
+          "name": "群贴签",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "secondary_pool_cap": 1,
+            "secondary_radius_tiles": 0.8,
+            "secondary_armor_break_pp": 15,
+            "secondary_duration_s": 4
+          },
+          "effect": "主目标效果不变，向0.8格内另一个地面生命池施加15个百分点破甲4秒。",
+          "tradeoff": "副目标效果较弱；没有第二目标不回填主目标。",
+          "l3": {
+            "id": "R07.B3",
+            "parent": "R07.B",
+            "name": "扇贴签",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "副目标上限提高为两个，副签不继续扩散。",
+            "parameters": {
+              "secondary_pool_cap": 2,
+              "secondary_can_propagate": false
+            }
+          }
+        }
+      ],
+      "tradeoff": "物理破甲、规则卸甲与烧伤易伤分别归并，不能把三个名称当同一个可无限相加乘区。"
+    },
+    {
+      "id": "R08",
+      "name": "咒纹封口毯",
+      "footprint_variants": [
+        [
+          2,
+          2
+        ]
+      ],
+      "base_cost": {
+        "coin": 22,
+        "spirit": 0
+      },
+      "charges": 3,
+      "durability": 40,
+      "layers": [
+        "ground",
+        "low_air"
+      ],
+      "trigger": "合法地面/低空目标一次新进入；每生命池6秒；先记录本次触发前是否处于厄运。",
+      "base_effect": "直接施加2单位诅咒，本身0伤；减攻击与厄运触发全部读取共享状态合同。",
+      "base_parameters": {
+        "curse_units": 2,
+        "per_pool_icd_s": 6,
+        "damage": 0
+      },
+      "status_refs": [
+        "curse"
+      ],
+      "l2": [
+        {
+          "id": "R08.A",
+          "parent": "R08",
+          "name": "衰力咒",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "curse_units": 3
+          },
+          "effect": "本次直接施加3单位诅咒。",
+          "tradeoff": "提前积累降攻击与触发条件，单体更稳定，覆盖仍靠真实进入。",
+          "l3": {
+            "id": "R08.A3",
+            "parent": "R08.A",
+            "name": "储咒毯",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "容量增加2，单次咒量不增加；升级不补充。",
+            "parameters": {
+              "capacity_delta_from_l2": 2
+            }
+          },
+          "standalone_trigger": true,
+          "standalone_trigger_scope": "doom",
+          "support_requirement": "需要两次真实离开再进入，间隔至少6秒；满层和冷却按共享合同。",
+          "reachability_reason": "A每次3层、B每次2层，第二次均能在10秒内达4层。"
+        },
+        {
+          "id": "R08.B",
+          "parent": "R08",
+          "name": "哑咒回声",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "curse_units": 2,
+            "requires_preexisting_doom": true,
+            "secondary_pool_cap": 1,
+            "secondary_radius_tiles": 2,
+            "secondary_curse_units": 1,
+            "extends_doom": false,
+            "secondary_can_propagate": false
+          },
+          "effect": "仍给主目标2咒；若触发前主目标已有厄运，向2格内另一合法生命池施加1咒。",
+          "tradeoff": "依赖已建立的厄运与第二目标；不延长厄运、不增加同一次攻击的抽签次数。",
+          "l3": {
+            "id": "R08.B3",
+            "parent": "R08.B",
+            "name": "双向咒声",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "满足同一条件时，最多向两个不同生命池各施加1咒，仍仅派生一次。",
+            "parameters": {
+              "secondary_pool_cap": 2,
+              "secondary_curse_units": 1,
+              "secondary_can_propagate": false,
+              "extends_doom": false
+            },
+            "secondary_spread_standalone_trigger": false,
+            "secondary_spread_support_requirement": "扩散读取触发前厄运；本陷阱同池6秒再入晚于自己4秒厄运，通常需另一咒源提供厄运时机。"
+          },
+          "standalone_trigger": true,
+          "standalone_trigger_scope": "doom",
+          "support_requirement": "需要两次真实离开再进入，间隔至少6秒；满层和冷却按共享合同。",
+          "reachability_reason": "A每次3层、B每次2层，第二次均能在10秒内达4层。",
+          "secondary_spread_standalone_trigger": false,
+          "secondary_spread_support_requirement": "扩散读取触发前厄运；本陷阱同池6秒再入晚于自己4秒厄运，通常需另一咒源提供厄运时机。"
+        }
+      ],
+      "tradeoff": "诅咒是攻击威胁管理，不是直接永久封普攻；随机失败只在统一的攻击提交点判定一次。",
+      "standalone_trigger": true,
+      "standalone_trigger_scope": "doom",
+      "support_requirement": "无外部咒源也可，但同一目标必须两次真实离开再进入，间隔至少6秒。",
+      "reachability_reason": "两次各2层，第二次时第一批仍在10秒寿命内，6秒可满4层；原地站立不会第二次触发。"
+    },
+    {
+      "id": "R09",
+      "name": "分区收据阵",
+      "footprint_variants": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "base_cost": {
+        "coin": 20,
+        "spirit": 0
+      },
+      "charges": 2,
+      "durability": 40,
+      "layers": [
+        "ground"
+      ],
+      "trigger": "合法目标首次进入启动8秒场；激活期间真实占位与连续轨迹穿越按分区合同结算。",
+      "base_effect": "每格一个分区；每生命池每个有效区2秒至多一次2点物理伤害。",
+      "base_parameters": {
+        "active_s": 8,
+        "zone_size_tiles": 1,
+        "zone_period_s": 2,
+        "zone_damage": 2,
+        "damage_channel": "physical",
+        "shared_zone_receipts": true,
+        "max_active_fields_per_trap": 1,
+        "overlap_selection": "highest actual post-defense-and-vulnerability payable damage; stable source_id tie-break",
+        "independent_status_and_bonus_survive_base_arbitration": true
+      },
+      "status_refs": [
+        "zone_toll",
+        "curse",
+        "frost"
+      ],
+      "l2": [
+        {
+          "id": "R09.A",
+          "parent": "R09",
+          "name": "过路税",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "min_new_zones": 2,
+            "crossing_bonus_damage": 4,
+            "bonus_per_pool_icd_s": 2,
+            "movement_run_accumulates_across_physics_and_render_frames": true,
+            "movement_run_ends_on": [
+              "actual_stop",
+              "discontinuous_phase_transition"
+            ],
+            "stationary_periodic_hit_counts_as_new_movement_zone": false,
+            "bonus_receipt_key": [
+              "health_pool_id",
+              "zone_toll_cross_bonus_family"
+            ],
+            "bonus_receipt_survives": [
+              "source_switch",
+              "frame_boundary",
+              "source_upgrade",
+              "save_load"
+            ]
+          },
+          "effect": "同一连续移动段跨过至少两个本期新计费区，末区追加4伤，每生命池2秒至多一次；真瞬移没有中间计费区。 连续移动段跨物理/渲染帧累计真实收费区回执，停止或不连续转场才结束；静止周期伤不算新区，奖金2秒回执不因换源或换帧重置。",
+          "tradeoff": "移动越多越值；冻结或站定会降低这一方向的收益。",
+          "l3": {
+            "id": "R09.A3",
+            "parent": "R09.A",
+            "name": "咒税票",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "上述过路奖励成立时，由同一真实移动回执直接附加1咒；不由伤害跳或诅咒再触发。",
+            "parameters": {
+              "curse_units_per_valid_crossing_receipt": 1,
+              "secondary_can_propagate": false
+            },
+            "standalone_trigger": true,
+            "standalone_trigger_scope": "doom_from_real_repeated_crossings",
+            "support_requirement": "无外部咒源也可，但8秒场内须完成四次合格跨至少两新区的移动回执，彼此至少2秒。",
+            "reachability_reason": "最多在0/2/4/6秒给四枚10秒咒印；每次必须有真实新计费区，不通过同格抖动代替。"
+          }
+        },
+        {
+          "id": "R09.B",
+          "parent": "R09",
+          "name": "候位税",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "stationary_qualification_s": 1,
+            "stationary_interval_s": 1,
+            "stationary_damage": 1
+          },
+          "effect": "同区真实停留满1秒后，每秒增加1点物理场伤；离开立即停止。",
+          "tradeoff": "适合纸偶拦截/冻结驻留，快速跨区只享受基础分区伤。",
+          "l3": {
+            "id": "R09.B3",
+            "parent": "R09.B",
+            "name": "冷税票",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "满足驻留后每2秒直接加入1寒意，离开停止；冻结仍遵守共享阈值、抗控和预算。",
+            "parameters": {
+              "stationary_frost_interval_s": 2,
+              "stationary_frost_units": 1
+            },
+            "standalone_trigger": false,
+            "standalone_trigger_scope": "freeze",
+            "support_requirement": "需要其他冷源补寒意；本分支本职是持续驻留税与冷系铺底。",
+            "reachability_reason": "每2秒1层、寿命6秒且先清过期，单独最多同时3层，达不到4层冻结。"
+          }
+        }
+      ],
+      "tradeoff": "重叠分区按共享回执，不按装置数量重复计费；高速移动用扫掠轨迹，真瞬移/镜穿/影跃只检查合法起终点。",
+      "footprint_costs": [
+        {
+          "footprint": [
+            1,
+            3
+          ],
+          "coin": 20
+        },
+        {
+          "footprint": [
+            2,
+            3
+          ],
+          "coin": 30
+        }
+      ]
+    },
+    {
+      "id": "R10",
+      "name": "候位诱饵盘",
+      "footprint_variants": [
+        [
+          1,
+          1
+        ]
+      ],
+      "base_cost": {
+        "coin": 12,
+        "spirit": 0
+      },
+      "charges": 2,
+      "durability": 20,
+      "layers": [
+        "ground"
+      ],
+      "trigger": "明确允许战斗假目标转移仇恨的已显形目标进入范围；原型真诱饵优先。",
+      "base_effect": "生成持续2秒的战斗假目标，承接允许转移的攻击，不提交真实店务或原型操作。",
+      "base_parameters": {
+        "decoy_s": 2,
+        "max_active_decoys_per_trap": 1,
+        "creates_rule_items": false
+      },
+      "status_refs": [],
+      "l2": [
+        {
+          "id": "R10.A",
+          "parent": "R10",
+          "name": "固定候位",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "decoy_hp": 40,
+            "decoy_s": 2
+          },
+          "effect": "假目标固定在本盘，耐久提高到40，维持2秒。",
+          "tradeoff": "服务小范围持续场与预瞄，不能主动引过多格。",
+          "l3": {
+            "id": "R10.A3",
+            "parent": "R10.A",
+            "name": "备用候位",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "容量增加1；已有假目标未终止时不生成第二个。",
+            "parameters": {
+              "capacity_delta_from_l2": 1,
+              "max_active_decoys_per_trap": 1
+            }
+          }
+        },
+        {
+          "id": "R10.B",
+          "parent": "R10",
+          "name": "缓退候位",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "decoy_path_tiles": 1,
+            "decoy_s": 2,
+            "path_must_be_validated": true
+          },
+          "effect": "假目标沿事先预览且合法的1格地面线退后，仍只维持2秒。",
+          "tradeoff": "帮助经过分区或电器边界，但敌人可以在移动中离开小灶。",
+          "l3": {
+            "id": "R10.B3",
+            "parent": "R10.B",
+            "name": "长退候位",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "退后路径可达2格；路径必须完整可走且不占规则保留点。",
+            "parameters": {
+              "decoy_path_tiles": 2,
+              "path_must_be_validated": true
+            }
+          }
+        }
+      ],
+      "tradeoff": "F12真实纸夹优先；免疫诱饵者完全不触发；不生成玩家、血源、顾客或真实商品身份。"
+    },
+    {
+      "id": "R11",
+      "name": "回退弹垫",
+      "footprint_variants": [
+        [
+          1,
+          2
+        ]
+      ],
+      "base_cost": {
+        "coin": 16,
+        "spirit": 0
+      },
+      "charges": 3,
+      "durability": 30,
+      "layers": [
+        "ground"
+      ],
+      "trigger": "一次真实进入；仅对可推动地面生命池，每池8秒。",
+      "base_effect": "沿预设箭头推动1.2格，遇墙停；实际推动受质量和统一硬控预算。",
+      "base_parameters": {
+        "push_tiles": 1.2,
+        "per_pool_icd_s": 8,
+        "requires_pushable": true,
+        "stop_at_collision": true
+      },
+      "status_refs": [
+        "slow",
+        "zone_toll"
+      ],
+      "l2": [
+        {
+          "id": "R11.A",
+          "parent": "R11",
+          "name": "侧向弹垫",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "relative_angles_deg": [
+              -90,
+              90
+            ],
+            "push_tiles": 1.2,
+            "lock_direction_on_entry": true
+          },
+          "effect": "可选择相对目标入场运动方向左/右90度弹出；方向在本次进入时锁定，距离仍1.2格。",
+          "tradeoff": "改变路线，具体出口必须合法；不追着目标重新修正箭头。",
+          "l3": {
+            "id": "R11.A3",
+            "parent": "R11.A",
+            "name": "缓落侧垫",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "实际推动至少0.1格后，另减速20%持续1.5秒。",
+            "parameters": {
+              "min_actual_push_tiles": 0.1,
+              "after_slow_fraction": 0.2,
+              "after_slow_s": 1.5
+            }
+          }
+        },
+        {
+          "id": "R11.B",
+          "parent": "R11",
+          "name": "缓冲垫",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "push_tiles": 0.8,
+            "min_actual_push_tiles": 0.1,
+            "after_slow_fraction": 0.2,
+            "after_slow_s": 3
+          },
+          "effect": "推动缩短为0.8格，实际推动至少0.1格后附加20%减速3秒。",
+          "tradeoff": "留人更久，改道距离更小。",
+          "l3": {
+            "id": "R11.B3",
+            "parent": "R11.B",
+            "name": "备簧垫",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "容量增加2，推动距离与减速维持L2值；升级不补充。",
+            "parameters": {
+              "capacity_delta_from_l2": 2
+            }
+          }
+        }
+      ],
+      "tradeoff": "推动可通过真实新分区收费，但返回尚未冷却的旧格不重复收费；无法产生任何作用时不耗次数。"
+    },
+    {
+      "id": "R12",
+      "name": "相位栅",
+      "footprint_variants": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "base_cost": {
+        "coin": 12,
+        "spirit": 0
+      },
+      "charges": null,
+      "durability": 40,
+      "layers": [
+        "ground"
+      ],
+      "trigger": "只阻挡拥有ground_blockable标签的显形怪；普通地面怪可用基础攻击拆毁。",
+      "base_effect": "每格40耐久，整件共享总耐久；人类和玩家可穿过。",
+      "base_parameters": {
+        "durability_per_cell": 40,
+        "max_total_cells_global": 6,
+        "normal_humans_pass": true,
+        "player_passes": true,
+        "enemy_can_break": true
+      },
+      "status_refs": [],
+      "l2": [
+        {
+          "id": "R12.A",
+          "parent": "R12",
+          "name": "重栅",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "durability_per_cell": 60
+          },
+          "effect": "耐久上限改为每格60，保留当前耐久比例；不获得攻击。",
+          "tradeoff": "只买拆障时间，飞行与允许穿相的敌人可绕过。",
+          "l3": {
+            "id": "R12.A3",
+            "parent": "R12.A",
+            "name": "固守重栅",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "上限改为每格80，仍保持当前耐久比例；维修只能在平静区。",
+            "parameters": {
+              "durability_per_cell": 80,
+              "preserve_hp_ratio": true
+            }
+          }
+        },
+        {
+          "id": "R12.B",
+          "parent": "R12",
+          "name": "棘栅",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "durability_per_cell": 40,
+            "counter_damage": 4,
+            "counter_channel": "physical",
+            "counter_per_pool_icd_s": 1.5,
+            "requires_actual_melee_hit": true
+          },
+          "effect": "仍每格40耐久；怪对栅栏完成真实近战命中时反击4点物理伤，每生命池1.5秒。",
+          "tradeoff": "拆得更快但会付出反击伤害；远程和范围扫到不触发。",
+          "l3": {
+            "id": "R12.B3",
+            "parent": "R12.B",
+            "name": "硬棘栅",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "反击伤害具有15个百分点本来源穿甲，仍4点且不附加新状态或链式反击。",
+            "parameters": {
+              "counter_source_armor_penetration_pp": 15,
+              "counter_damage": 4,
+              "secondary_can_propagate": false
+            }
+          }
+        }
+      ],
+      "tradeoff": "不能边被攻击边修理形成永囚；必须验证真实体宽的绕行或可拆路径，不能只验玩家点导航。",
+      "footprint_costs": [
+        {
+          "footprint": [
+            1,
+            1
+          ],
+          "coin": 12
+        },
+        {
+          "footprint": [
+            1,
+            2
+          ],
+          "coin": 20
+        },
+        {
+          "footprint": [
+            1,
+            3
+          ],
+          "coin": 28
+        }
+      ],
+      "durability_scales_with_footprint_cells": true
+    },
+    {
+      "id": "R13",
+      "name": "炽印小灶",
+      "footprint_variants": [
+        [
+          1,
+          1
+        ]
+      ],
+      "base_cost": {
+        "coin": 20,
+        "spirit": 0
+      },
+      "charges": 2,
+      "durability": 30,
+      "layers": [
+        "ground"
+      ],
+      "trigger": "合法地面目标进入后启动6秒；在格心0.55格半径内按明确场节拍持续结算。",
+      "base_effect": "每0.5秒1点灵性场伤，每1秒直接给予1灼热单位；烧伤附加易伤，具体阈值/持续读统一合同。",
+      "base_parameters": {
+        "active_s": 6,
+        "radius_tiles": 0.55,
+        "damage_interval_s": 0.5,
+        "damage": 1,
+        "channel": "spiritual",
+        "burn_build_interval_s": 1,
+        "burn_build_units": 1,
+        "first_status_pulse": "one application interval after activation, not an immediate free pulse",
+        "max_active_fields_per_trap": 1
+      },
+      "status_refs": [
+        "burn"
+      ],
+      "l2": [
+        {
+          "id": "R13.A",
+          "parent": "R13",
+          "name": "灼痕灶",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "damage": 0.5,
+            "damage_interval_s": 0.5,
+            "burn_build_interval_s": 0.5,
+            "burn_build_units": 1
+          },
+          "effect": "场伤降为每0.5秒0.5点；灼热改为每0.5秒1单位，负责铺烧伤易伤。",
+          "tradeoff": "直接输出更低，需要其他塔利用易伤。",
+          "l3": {
+            "id": "R13.A3",
+            "parent": "R13.A",
+            "name": "长灼灶",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "场持续延长为8秒，半径和单位施加节拍不变。",
+            "parameters": {
+              "active_s": 8,
+              "radius_tiles": 0.55
+            },
+            "standalone_trigger": true,
+            "standalone_trigger_scope": "burn_ignition",
+            "support_requirement": "无需外部热源，但目标必须真实在小区驻留至少4秒。",
+            "reachability_reason": "每0.5秒1热，首次状态脉冲在0.5秒，第8次在4秒；都未到6秒截止。"
+          },
+          "standalone_trigger": true,
+          "standalone_trigger_scope": "burn_ignition",
+          "support_requirement": "无需外部热源，但目标必须真实在小区驻留至少4秒。",
+          "reachability_reason": "每0.5秒1热，首次状态脉冲在0.5秒，第8次在4秒；都未到6秒截止。"
+        },
+        {
+          "id": "R13.B",
+          "parent": "R13",
+          "name": "焚烧灶",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "damage": 1.5,
+            "damage_interval_s": 0.5,
+            "burn_build_interval_s": 1
+          },
+          "effect": "保留每秒1灼热，场伤提高为每0.5秒1.5点。",
+          "tradeoff": "对固定目标高效，目标离开立即停止场伤。",
+          "l3": {
+            "id": "R13.B3",
+            "parent": "R13.B",
+            "name": "守灶焰",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "场伤改为每0.5秒2点，场仍6秒、半径仍0.55格，不扩大覆盖。",
+            "parameters": {
+              "damage": 2,
+              "damage_interval_s": 0.5,
+              "active_s": 6,
+              "radius_tiles": 0.55
+            },
+            "standalone_trigger": false,
+            "standalone_trigger_scope": "burn_ignition",
+            "support_requirement": "需要另一热源在同一目标6秒窗口内补热；自身小区持续伤害独立生效。",
+            "reachability_reason": "每秒1热，热量寿命6秒；8层阈值不可独立达到，延长场时间也不改变同时最多6层。"
+          },
+          "standalone_trigger": false,
+          "standalone_trigger_scope": "burn_ignition",
+          "support_requirement": "需要另一热源在同一目标6秒窗口内补热；自身小区持续伤害独立生效。",
+          "reachability_reason": "每秒1热，热量寿命6秒；8层阈值不可独立达到，延长场时间也不改变同时最多6层。"
+        }
+      ],
+      "tradeoff": "小范围换持续输出；不点燃商品、血迹、任务肉或真实设备，不替代F58热食驱雾条件。",
+      "standalone_trigger": false,
+      "standalone_trigger_scope": "burn_ignition",
+      "support_requirement": "需要另一热源在同一目标6秒窗口内补热；自身小区持续伤害独立生效。",
+      "reachability_reason": "每秒1热，热量寿命6秒；8层阈值不可独立达到，延长场时间也不改变同时最多6层。"
+    },
+    {
+      "id": "R14",
+      "name": "蚀债针垫",
+      "footprint_variants": [
+        [
+          1,
+          1
+        ]
+      ],
+      "base_cost": {
+        "coin": 18,
+        "spirit": 0
+      },
+      "charges": 4,
+      "durability": null,
+      "layers": [
+        "ground"
+      ],
+      "trigger": "地面真实新进入，每生命池4秒；按本陷阱的生命谱系访问回执识别首债。",
+      "base_effect": "1点直接物理伤，附加1单位永久毒；1毒单位暂定0.5点灵性DPS，状态持续至真正终态，无层数上限。",
+      "base_parameters": {
+        "damage": 1,
+        "channel": "physical",
+        "poison_units": 1,
+        "per_pool_icd_s": 4,
+        "poison_duration": "until_health_pool_terminal",
+        "poison_stack_cap": null
+      },
+      "status_refs": [
+        "poison"
+      ],
+      "l2": [
+        {
+          "id": "R14.A",
+          "parent": "R14",
+          "name": "续债针",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "poison_units_unpoisoned": 1,
+            "poison_units_already_poisoned": 2
+          },
+          "effect": "对已中毒目标追加2单位毒；首次无毒目标仍1单位。",
+          "tradeoff": "奖励重复经过，首次接敌较慢；每次合法触发仍花正常充能。",
+          "l3": {
+            "id": "R14.A3",
+            "parent": "R14.A",
+            "name": "复债针",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "已有毒目标追加3单位，首次无毒仍1单位；不提高已有毒单位强度。",
+            "parameters": {
+              "poison_units_unpoisoned": 1,
+              "poison_units_already_poisoned": 3
+            }
+          }
+        },
+        {
+          "id": "R14.B",
+          "parent": "R14",
+          "name": "首债针",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "poison_units_first_lineage_visit": 2,
+            "poison_units_repeat_visit": 1,
+            "fission_inherits_visit_receipt": true
+          },
+          "effect": "首次该生命谱系访问本阵给2单位毒，后续访问仍1；真分裂继承已访问回执，独立新召唤有新访问资格。",
+          "tradeoff": "擅长新到目标，无法通过换模型或分裂反复领取首债。",
+          "l3": {
+            "id": "R14.B3",
+            "parent": "R14.B",
+            "name": "开账针",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "首次该生命谱系访问给3单位，重复仍1；总毒层依旧不封顶。",
+            "parameters": {
+              "poison_units_first_lineage_visit": 3,
+              "poison_units_repeat_visit": 1
+            }
+          }
+        }
+      ],
+      "tradeoff": "每次触发是正常成本，毒跳不额外付费；塔/针垫被毁不清毒，分裂按毒质量分配，不给每子体复制一份。"
+    },
+    {
+      "id": "R15",
+      "name": "转印传毒毯",
+      "footprint_variants": [
+        [
+          2,
+          2
+        ]
+      ],
+      "base_cost": {
+        "coin": 24,
+        "spirit": 0
+      },
+      "charges": 4,
+      "durability": 30,
+      "layers": [
+        "ground"
+      ],
+      "trigger": "携毒地面目标真实进入，2格内存在另一可接收的地面生命池；每源生命池4秒。",
+      "base_effect": "每次充能是有限转印许可，给另一目标新增1毒单位；源毒不扣除。无接收目标不耗次数，但本次进入记为处理。",
+      "base_parameters": {
+        "recipient_radius_tiles": 2,
+        "recipient_pool_cap": 1,
+        "poison_units_per_recipient": 1,
+        "source_pool_icd_s": 4,
+        "requires_poisoned_source": true,
+        "creates_finite_permit": true,
+        "recipient_inherits_permit": false
+      },
+      "status_refs": [
+        "poison"
+      ],
+      "l2": [
+        {
+          "id": "R15.A",
+          "parent": "R15",
+          "name": "浓墨转印",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "recipient_pool_cap": 1,
+            "poison_units_per_recipient": 2
+          },
+          "effect": "一次许可给一个接收者2毒单位。",
+          "tradeoff": "集中养成一个长期毒目标，不能同时给群体铺开。",
+          "l3": {
+            "id": "R15.A3",
+            "parent": "R15.A",
+            "name": "重墨转印",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "一次许可给一个接收者3毒单位；收到的毒仍不携再传播能力。",
+            "parameters": {
+              "recipient_pool_cap": 1,
+              "poison_units_per_recipient": 3,
+              "recipient_inherits_permit": false
+            }
+          }
+        },
+        {
+          "id": "R15.B",
+          "parent": "R15",
+          "name": "分单转印",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "recipient_pool_cap": 2,
+            "poison_units_per_recipient": 1,
+            "unused_share_reassigned": false
+          },
+          "effect": "一次许可给两个不同接收者各1毒单位；只有一个目标时只给1，不回填。",
+          "tradeoff": "适合独立群体，单体或仅一个接收者时额外份额不会凭空灌伤。",
+          "l3": {
+            "id": "R15.B3",
+            "parent": "R15.B",
+            "name": "三单转印",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "接收者上限改为三个，每个仍1毒单位，不产生新传播许可。",
+            "parameters": {
+              "recipient_pool_cap": 3,
+              "poison_units_per_recipient": 1,
+              "recipient_inherits_permit": false
+            }
+          }
+        }
+      ],
+      "tradeoff": "新增毒质量来自本次已付许可；目标毒层无上限，但每份毒本身不会自动递归传染。",
+      "standalone_trigger": false,
+      "standalone_trigger_scope": "initial_poison_from_unseeded_target",
+      "support_requirement": "需要其他毒源先使进入者携毒，并有第二个合法接收生命池。",
+      "reachability_reason": "转印许可不会先给无毒源目标造毒；无携毒源或无接收者就无传播触发。"
+    },
+    {
+      "id": "R16",
+      "name": "引电铜轨",
+      "footprint_variants": [
+        [
+          1,
+          2
+        ]
+      ],
+      "base_cost": {
+        "coin": 18,
+        "spirit": 0
+      },
+      "charges": 4,
+      "durability": 30,
+      "layers": [
+        "ground"
+      ],
+      "trigger": "地面真实进入，每生命池4秒；接器型额外检查可见导线与真实电器状态。",
+      "base_effect": "给予1电荷单位，按统一带电阈值/设备经过/电链合同工作；铜轨不是电器。",
+      "base_parameters": {
+        "electric_units": 1,
+        "per_pool_icd_s": 4,
+        "counts_as_appliance": false
+      },
+      "status_refs": [
+        "electric"
+      ],
+      "l2": [
+        {
+          "id": "R16.A",
+          "parent": "R16",
+          "name": "接器铜轨",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "linked_appliance_cap": 1,
+            "max_link_length_tiles": 1,
+            "requires_line_of_sight": true,
+            "device_receipt_uses_original_appliance_id": true,
+            "extends_resonance_device_count_radius": false,
+            "contact_domain_union_by_appliance_id": true,
+            "requires_exit_entire_union_before_reentry": true,
+            "domain_geometry_change_creates_entry": false
+          },
+          "effect": "可连接1格内一个真实已登记电器，以可见短导线把该电器的接触域延到铜轨；电荷仍1。",
+          "tradeoff": "依赖实际设备，延伸接触域不会把远端设备搬进满层共振的计数圆。",
+          "l3": {
+            "id": "R16.A3",
+            "parent": "R16.A",
+            "name": "双接铜轨",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "可连接两个满足同样距离/遮挡条件的不同电器；各自仍用原appliance_id与共同4秒接触冷却。",
+            "parameters": {
+              "linked_appliance_cap": 2,
+              "max_link_length_tiles": 1,
+              "extends_resonance_device_count_radius": false,
+              "contact_domain_union_by_appliance_id": true,
+              "requires_exit_entire_union_before_reentry": true,
+              "domain_geometry_change_creates_entry": false
+            },
+            "standalone_trigger": false,
+            "standalone_trigger_scope": "electric_overload",
+            "support_requirement": "需要电塔或另一独立电荷来源补足；一层已能使真实经过电器的接触反应成立。",
+            "reachability_reason": "本池进入间隔4秒，电荷寿命8秒且先清过期；1层/次最多2层，蓄电2层/次最多4层，均小于5层。"
+          },
+          "standalone_trigger": false,
+          "standalone_trigger_scope": "electric_overload",
+          "support_requirement": "需要电塔或另一独立电荷来源补足；一层已能使真实经过电器的接触反应成立。",
+          "reachability_reason": "本池进入间隔4秒，电荷寿命8秒且先清过期；1层/次最多2层，蓄电2层/次最多4层，均小于5层。"
+        },
+        {
+          "id": "R16.B",
+          "parent": "R16",
+          "name": "蓄电铜轨",
+          "cost": {
+            "coin": 12,
+            "spirit": 4
+          },
+          "parameters": {
+            "linked_appliance_cap": 0,
+            "electric_units": 2
+          },
+          "effect": "不连接或延伸任何电器边界，每次施加2电荷。",
+          "tradeoff": "适合已有带电群体或电塔旁，失去设备接触的路线延伸。",
+          "l3": {
+            "id": "R16.B3",
+            "parent": "R16.B",
+            "name": "储电铜轨",
+            "cost": {
+              "coin": 16,
+              "spirit": 6
+            },
+            "effect": "容量增加2，每次仍2电荷；升级不直接给在场怪补层。",
+            "parameters": {
+              "capacity_delta_from_l2": 2,
+              "electric_units": 2,
+              "retroactive_application": false
+            },
+            "standalone_trigger": false,
+            "standalone_trigger_scope": "electric_overload",
+            "support_requirement": "需要电塔或另一独立电荷来源补足；一层已能使真实经过电器的接触反应成立。",
+            "reachability_reason": "本池进入间隔4秒，电荷寿命8秒且先清过期；1层/次最多2层，蓄电2层/次最多4层，均小于5层。"
+          },
+          "standalone_trigger": false,
+          "standalone_trigger_scope": "electric_overload",
+          "support_requirement": "需要电塔或另一独立电荷来源补足；一层已能使真实经过电器的接触反应成立。",
+          "reachability_reason": "本池进入间隔4秒，电荷寿命8秒且先清过期；1层/次最多2层，蓄电2层/次最多4层，均小于5层。"
+        }
+      ],
+      "tradeoff": "同一电器的两条轨、两个操作位与两个塔槽仍计1台；断电重启或搬动铜轨不生成新的经过事件。",
+      "standalone_trigger": false,
+      "standalone_trigger_scope": "electric_overload",
+      "support_requirement": "需要电塔或另一独立电荷来源补足；一层已能使真实经过电器的接触反应成立。",
+      "reachability_reason": "本池进入间隔4秒，电荷寿命8秒且先清过期；1层/次最多2层，蓄电2层/次最多4层，均小于5层。"
+    }
+  ],
+  "appliances": [
+    {
+      "id": "AP_HOT_FOOD",
+      "fixture_id": "FX14",
+      "name": "热食台电器组件",
+      "rect": [
+        20,
+        13,
+        4,
+        2
+      ],
+      "circuit_id": "C2",
+      "design_enabled": true,
+      "counts_when": "registered, connected and actually powered",
+      "dedupe_note": "ATT08旧新电子灶两个槽位归同一组件，计1台"
+    },
+    {
+      "id": "AP_FREEZER",
+      "fixture_id": "FX15",
+      "name": "主冰柜",
+      "rect": [
+        25,
+        12,
+        4,
+        2
+      ],
+      "circuit_id": "C2",
+      "design_enabled": true,
+      "counts_when": "registered, connected and actually powered",
+      "dedupe_note": "柜门、多面与freezer_main操作位都不增加计数"
+    },
+    {
+      "id": "AP_COLD_CABINET",
+      "fixture_id": "FX16",
+      "name": "饮料冷柜",
+      "rect": [
+        27,
+        16,
+        2,
+        4
+      ],
+      "circuit_id": "C2",
+      "design_enabled": true,
+      "counts_when": "registered, connected and actually powered",
+      "dedupe_note": "cold_cabinet与freezer_backup都是同柜用途，仍1台"
+    },
+    {
+      "id": "AP_POS",
+      "fixture_id": "FX18",
+      "name": "待登记收银终端",
+      "rect": null,
+      "circuit_id": null,
+      "design_enabled": false,
+      "counts_when": "explicit future device placement and wiring approved by design, then actually powered",
+      "dedupe_note": "当前仅有收银台。不能从C1前场照明回路推断供电；TA06/TA07两塔位不计两台"
+    }
+  ],
+  "appliance_exclusions": [
+    "FX05 distribution panel",
+    "monitor_terminal interaction anchor without device geometry",
+    "sockets",
+    "wires",
+    "towers",
+    "paper guards",
+    "light strips",
+    "copper relays",
+    "multiple fixture work positions"
+  ],
+  "existing_circuits": [
+    {
+      "id": "C1",
+      "name": "前场照明",
+      "zones": [
+        "Z01",
+        "Z02"
+      ]
+    },
+    {
+      "id": "C2",
+      "name": "冷链与热食",
+      "zones": [
+        "Z03"
+      ]
+    },
+    {
+      "id": "C3",
+      "name": "后场与监控",
+      "zones": [
+        "Z04",
+        "Z05"
+      ]
+    }
+  ],
+  "map_constraints": {
+    "static_example_rects": [
+      [
+        9,
+        24,
+        1,
+        1
+      ],
+      [
+        6,
+        23,
+        2,
+        1
+      ],
+      [
+        9,
+        20,
+        1,
+        3
+      ],
+      [
+        5,
+        19,
+        2,
+        2
+      ],
+      [
+        10,
+        22,
+        2,
+        3
+      ]
+    ],
+    "hot_food_freezer_local_clearance_tiles": 1,
+    "not_proven": [
+      "runtime LOS",
+      "real dynamic pathfinding",
+      "height volumes",
+      "mobile performance"
+    ]
+  },
+  "monster_matchup_examples": [
+    {
+      "monster_id": "F03",
+      "name": "僵尸",
+      "use": [
+        "R02",
+        "R13"
+      ],
+      "condition": "实际落地与已锁定恢复点",
+      "counterexample": "空中跳跃不按地面平面投影逐格收费"
+    },
+    {
+      "monster_id": "F05",
+      "name": "河童",
+      "use": [
+        "R01",
+        "R02",
+        "R09",
+        "R12"
+      ],
+      "condition": "断真实冷区支流后迫出实体",
+      "counterexample": "水遁不是地面连续运动；水域不自动成为全店电网"
+    },
+    {
+      "monster_id": "F06",
+      "name": "雪女",
+      "use": [
+        "R13"
+      ],
+      "condition": "烧伤易伤按共享规则生效",
+      "counterexample": "不因名字自动火伤翻倍，战斗灼烧不当作热饮订单"
+    },
+    {
+      "monster_id": "F12",
+      "name": "不可杀伊",
+      "use": [
+        "R07",
+        "R13",
+        "R14"
+      ],
+      "condition": "原纸夹停食、永久破壳、可见投影",
+      "counterexample": "R10不造原纸夹；永久毒磨稳定度不等于杀死不可杀本体"
+    },
+    {
+      "monster_id": "F13",
+      "name": "飞头女鬼",
+      "use": [
+        "R03",
+        "R08"
+      ],
+      "condition": "封肉后仍low_air，捕网合法迫降后才接R14/R13",
+      "counterexample": "低空不等于地面；任务肉不受场伤销毁"
+    },
+    {
+      "monster_id": "F15",
+      "name": "蓬蒂雅娜",
+      "use": [
+        "R04",
+        "R14"
+      ],
+      "condition": "R04抓真实起终点，毒仅由合法地面命中附着后保留",
+      "counterexample": "无实体的瞬移中段不收路径税"
+    },
+    {
+      "monster_id": "F16",
+      "name": "图尤尔",
+      "use": [
+        "R01",
+        "R09"
+      ],
+      "condition": "实体沿收银底部真实快跑",
+      "counterexample": "AP_POS首版关闭，不能预先宣传收银台电器联动；偷钱不改为击电奖励"
+    },
+    {
+      "monster_id": "F24",
+      "name": "凯尔皮水马",
+      "use": [
+        "R09",
+        "R13"
+      ],
+      "condition": "明确为贴地连续冲锋才逐区；切水后的恢复点可候位",
+      "counterexample": "不把所有水路移动当连续地面路径，宽体不穿窄门"
+    },
+    {
+      "monster_id": "F27",
+      "name": "山林巨魔",
+      "use": [
+        "R07",
+        "R12",
+        "R14"
+      ],
+      "condition": "真实宽通道，卸货后护甲变化",
+      "counterexample": "一怪多脚只一个生命池，轻推垫不能任意推动巨体"
+    },
+    {
+      "monster_id": "F28",
+      "name": "诺肯水乐灵",
+      "use": [
+        "R04",
+        "R13"
+      ],
+      "condition": "封真源后固定显形",
+      "counterexample": "未封源转移不跨中间地面收费；陷阱不替玩家鉴别真源"
+    },
+    {
+      "monster_id": "F35",
+      "name": "芭芭雅嘎",
+      "use": [
+        "R09"
+      ],
+      "condition": "工区牌限制后的真实贴地扫帚冲刺",
+      "counterexample": "工区标记不改变真实不可走面"
+    },
+    {
+      "monster_id": "F40",
+      "name": "列希森林灵",
+      "use": [
+        "R04",
+        "R05",
+        "R09"
+      ],
+      "condition": "关真实阴影节点，归苗后转步行再计连续路径",
+      "counterexample": "影跃中段不收费，灯不封镜，不回滚归苗事实"
+    },
+    {
+      "monster_id": "F46",
+      "name": "红帽萨西",
+      "use": [
+        "R04",
+        "R13"
+      ],
+      "condition": "真实节点停点4秒与对应高度",
+      "counterexample": "不能占已锁落脚格迫使AI改点；高低旋风分开判断"
+    },
+    {
+      "monster_id": "F50",
+      "name": "泽西恶魔",
+      "use": [
+        "R03",
+        "R13"
+      ],
+      "condition": "挡板后低空恢复，R03合法迫降后小灶可伤",
+      "counterexample": "整条俯冲不按地面投影收费"
+    },
+    {
+      "monster_id": "F54",
+      "name": "吞世巨兽",
+      "use": [
+        "R07",
+        "R13",
+        "R14"
+      ],
+      "condition": "拆原物护甲后的可见投影",
+      "counterexample": "多部位共池，毒/电单位数不按部位倍增，窗影不可任意推动"
+    },
+    {
+      "monster_id": "F56",
+      "name": "深水邦耶普",
+      "use": [
+        "R02",
+        "R13"
+      ],
+      "condition": "真实排干后跃出着地",
+      "counterexample": "水下没有合法实体时地面阵不命中"
+    },
+    {
+      "monster_id": "F58",
+      "name": "雾笛访客",
+      "use": [
+        "R01",
+        "R08",
+        "R13"
+      ],
+      "condition": "真实热食形成无雾域，或封区后显形",
+      "counterexample": "R13战斗火不自动满足真实热食驱雾条件"
+    },
+    {
+      "monster_id": "F59",
+      "name": "梅内胡内工队",
+      "use": [
+        "R09",
+        "R13"
+      ],
+      "condition": "已预告实际施工位与实体工具的明确高度",
+      "counterexample": "现有工具表现不自动变成独立眷属生命池"
+    },
+    {
+      "monster_id": "F60",
+      "name": "马面引路者",
+      "use": [
+        "R02"
+      ],
+      "condition": "真实遮线后的背身窗口",
+      "counterexample": "镜子是安全观察工具，R06不适配"
+    }
+  ],
+  "graybox_counterexamples": [
+    "同一连续地面移动段跨过3区，逐区计3份；真瞬移跨墙只检查合法起终点。",
+    "同格抖动、重复推回、关开源、升级与读档不重置分区回执；另一生命池仍有自己的命中资格。",
+    "冻结固定目标降低过路税收益并提高候位税/小灶收益；冻结不迫降。",
+    "已有100毒单位再次合法支付触发后继续增加，不静默封顶；真实分裂后子池毒质量之和守恒。",
+    "转印只有已付充能产生新毒质量，收到的毒不携传播许可；无接收者不耗次数也不原地自动重试。",
+    "同一冰柜多个面/操作位/铜轨/塔槽仍只有1个appliance_id。",
+    "断电重启不是电器经过事件，接器铜轨不把远端设备搬进满层共振计数圈。",
+    "AP_POS关闭，现有C1照明回路不得当作收银终端已接线证据。",
+    "R08B及B3不延长厄运，次级咒不再传播，同次攻击只有一次共享失败判定。",
+    "玩家、真人、未显形伪装客经过咒毯无触发、无身份暴露、无充能消耗。",
+    "已锁落点被新摆放覆盖时拒绝摆放，不允许怪临时改落点。",
+    "F54多个部位只算一个电单位/毒池；独立子体分别是生命池。"
+  ],
+  "threshold_audit": {
+    "status": "static_design_reachability_review",
+    "not_runtime_tested": true,
+    "expiry_order": "expire at deadline before processing the same-time new application",
+    "layer_grant_interval_note": "No global frost add interval: each source uses its own application interval or real-entry cooldown and source/attack/phase/pool deduplication. Explicit amount=2 or 3 is one valid application event.",
+    "no_false_claims": [
+      "R13 base and B path are heat support, not solo ignition",
+      "R16 all current paths are charge support, not solo overload",
+      "R02B and R09B3 require cooperative frost",
+      "R08B spread needs preexisting doom from a valid timing source"
+    ],
+    "standalone_definition": "Starts with no preexisting status on one isolated target unless the explicit scope names repeated crossings; still requires legal movement/dwell and valid charges."
+  }
+}
