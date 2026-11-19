@@ -1,0 +1,2277 @@
+{
+  "status": "TD02_design_migration_not_runtime",
+  "source_commit": "96c74f2ea5446efb8060a291b76d5f711285306e",
+  "source_files": [
+    "content/monsters.json",
+    "docs/21_monster_gameplay_v05.md",
+    "docs/33_logic_completion_and_fun_v010.md",
+    "docs/34_stage_one_freeze_v010.md"
+  ],
+  "supersession": "Latest user request supersedes old success terminals: all manifested combat entities chase player; correct responses create distinct combat weaknesses. F12/F13 preserve original item identity/action semantics but no longer auto-end combat.",
+  "scope": "60 verified folklore entries. No new SCP catalogue or complete new fission/summon enemy cards in this revision.",
+  "parameter_status": "All newly suggested seconds are prototype tuning candidates; old seconds are explicitly marked. No validation results inherited from v0.10.",
+  "global_invariants": [
+    "Normal humans never targeted. Disguised precombat visitors do not reveal species through trap immunity or tower targeting.",
+    "Earned main rule progress and ability seals are permanent per instance; temporary control expiry cannot roll them back.",
+    "No enemy requires one purchased tower type to be damageable: all inaccessible phases have readable finite natural attack windows.",
+    "Large body parts and manifested shadows share one instance reward receipt.",
+    "F14 remains default excluded pending explicit implementation review.",
+    "Generic silence/anchor effects collectively allow at most 3 seconds in any rolling 8-second window, followed by 3 seconds anti-seal. Permanent earned rule-specific ability seals are separate and must retain basic movement and attack.",
+    "A locked transfer destination that becomes sealed or occupied cancels the transfer: recover at the current legal location. Never silently choose an adjacent fallback.",
+    "Shadow transition invulnerability is at most 0.6 seconds.",
+    "F60 never uses mirror travel in TD01; mirror travel is covered by a separate non-folklore test entity.",
+    "After every completed main rule, the hostile manifestation still has lawful basic pursuit/attack until towers reduce manifestation stability to zero. Temporary feeding, attack recovery, and other finite self-animation windows do not constitute the terminal state.",
+    "Monster-specific tower disable lasts at most 4 seconds, telegraphs at least 1.2 seconds, and each recovered tower has 6 seconds immunity to renewed disable."
+  ],
+  "monsters": [
+    {
+      "id": "F01",
+      "name": "狐精",
+      "baseline_role": "交易",
+      "baseline_signature": "把真货交入上架槽，幻货放退回槽",
+      "proposed_combat_carrier_and_movement": "狐精显形本体；步行与有限诱像",
+      "preserved_real_action": "同箱称量、真货上架、幻货退回",
+      "new_weakness_and_tower_trap_interaction": "每封存一份对应幻货就消除一具诱像；全部分清后本体轮廓常亮并失去换像转移锁定。T01价签投射器不再打空；R07破甲标签垫降低已证实本体的物理防御；由胶带、纸偶或实际引怪延长火区驻留",
+      "invariant": "称量不凭空生产商品；塔不在伪装期验明身份。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "完成一次真实分拣即移除对应诱像；本体锁定/已拆诱像不随观察窗口恢复",
+      "new_abilities_proposed": "诱像吸收塔锁定、分拣拆像",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F01",
+        "name": "狐精",
+        "default_enabled": true,
+        "proposed_carrier": "狐精显形本体；步行与有限诱像",
+        "groups": [
+          "secondary_candidates",
+          "identity_persistence"
+        ],
+        "favorable_branches": [
+          "T01B",
+          "T02B",
+          "T03A"
+        ],
+        "conditional_or_weak_branches": [
+          "T01A",
+          "T04B"
+        ],
+        "state_condition_and_reason": "高频减少慢弹被骗的损失；AOE仅对有combatTarget标记的有限地面诱像生效，纯装饰影不算目标；R07只破甲不留人。",
+        "preserved_real_rule": "同箱称量、真货上架、幻货退回",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F02",
+      "name": "画皮鬼",
+      "baseline_role": "威胁",
+      "baseline_signature": "将其留在访客权限并把围裙交给已核实真人",
+      "proposed_combat_carrier_and_movement": "画皮本体；遮挡后换皮再步行",
+      "preserved_real_action": "侧光查皮缘、访客限权、围裙交真人",
+      "new_weakness_and_tower_trap_interaction": "双证核验使皮缘显露，解除假员工对设施的单次夺控资格；侧光中的皮膜破防，T04显相巡灯与T01穿签长钉配合。限制权限先封夺控，核验再减防，两个动作不是同义按钮",
+      "invariant": "真工牌不能直接验真；撤权不让原钥匙瞬移。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "换皮预告1.5秒；设施夺控前摇1.5秒且最多4秒；撤权永久封夺控",
+      "new_abilities_proposed": "遮挡换皮、有限设施夺控、皮缘破防",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F02",
+        "name": "画皮鬼",
+        "default_enabled": true,
+        "proposed_carrier": "画皮本体；遮挡后换皮再步行",
+        "groups": [
+          "armor_window",
+          "dangerous_special",
+          "identity_persistence"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T02B",
+          "T04A"
+        ],
+        "conditional_or_weak_branches": [
+          "T03A"
+        ],
+        "state_condition_and_reason": "皮缘实际侧光与当前核验先成立；短封设施夺控适合公证；单只、无群体时霜炮范围溢出，仍有基础伤害。",
+        "preserved_real_rule": "侧光查皮缘、访客限权、围裙交真人",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F03",
+      "name": "僵尸",
+      "baseline_role": "威胁",
+      "baseline_signature": "分两段送完货，退到已有遮挡线后让最后雾点失效",
+      "proposed_combat_carrier_and_movement": "跳尸；分段跳跃",
+      "preserved_real_action": "看呼吸雾点、遮挡/短屏息、分段送货",
+      "new_weakness_and_tower_trap_interaction": "最后雾点到期使下一跳固定旧落点，不能中途追踪修正；落地自身收招延长且允许慢移。R02缚足夹只在真实落地触发，短控仍守统一预算，T03热罐破壳炮可以瞄准落点。",
+      "invariant": "0体力仍可用步行/遮挡；1.5秒预告锁定后不得追着玩家改落点。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "沿用起跳预告1.5秒、落地收招1秒、原雾点6秒；失锁后收招建议2.5秒且允许慢移，属于自身动作恢复，不作为通用硬控。锁点被占/封只取消并在当前合法点恢复。",
+      "new_abilities_proposed": "失锁后的可瞄准落地弱点",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F03",
+        "name": "僵尸",
+        "default_enabled": true,
+        "proposed_carrier": "跳尸；分段跳跃",
+        "groups": [
+          "jump_landing"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T03A",
+          "T03B"
+        ],
+        "conditional_or_weak_branches": [
+          "T01B",
+          "T05A",
+          "T04B"
+        ],
+        "state_condition_and_reason": "地面炮只打真实落地；低频瞄准1秒/失锁后2.5秒自身收招，高频在空中断档；跳跃可越纸偶但不改锁点。 T04B仅在主要规则限制转场后，或预热宽限真实维持且已累计4秒曝光时条件适配；未满足前不得视为即时位移克制。",
+        "preserved_real_rule": "看呼吸雾点、遮挡/短屏息、分段送货",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F04",
+      "name": "鲛人",
+      "baseline_role": "交易",
+      "baseline_signature": "端封盘到寄售槽，交出有真实长度的纱",
+      "proposed_combat_carrier_and_movement": "鲛人水影；低速贴地滑行",
+      "preserved_real_action": "同一湿纱量长、封盘、寄售",
+      "new_weakness_and_tower_trap_interaction": "保湿封盘稳定纱线，原来切断子弹的摆纱护幕收束为单一朝向；可绕至背面/定身后由T01穿签长钉击破。稳定终态转为一次修复网/陷阱补线服务",
+      "invariant": "不逼哭刷珠，不从量纱复制材料，护幕不能同时360度免伤。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "摆纱护幕换向预告1.2秒；封盘永久取消全向护幕",
+      "new_abilities_proposed": "可侧击纱幕、稳定后一次补线",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F04",
+        "name": "鲛人",
+        "default_enabled": true,
+        "proposed_carrier": "鲛人水影；低速贴地滑行",
+        "groups": [
+          "armor_window",
+          "long_window",
+          "directional"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T01B",
+          "T05B"
+        ],
+        "conditional_or_weak_branches": [
+          "T03A"
+        ],
+        "state_condition_and_reason": "纱幕收束单向后从侧后射入；低速长暴露适合叠层；两纸偶只能操纵合法仇恨，不让护幕无条件360度全挡。",
+        "preserved_real_rule": "同一湿纱量长、封盘、寄售",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F05",
+      "name": "河童",
+      "baseline_role": "威胁",
+      "baseline_signature": "从干侧拖回篮子放到干货槽",
+      "proposed_combat_carrier_and_movement": "河童水影；连通水路快移、边缘实体攻击",
+      "preserved_real_action": "关指定冷区阀、擦断割点、取原篮入干槽",
+      "new_weakness_and_tower_trap_interaction": "断水分支把水影挤到已预告干侧落点；失去水遁和水中减伤，转缓慢实体，R02缚足夹/R12相位栅才可拦。未断水也可用T02镇契收银机磨掉稳定度",
+      "invariant": "孤立湿点不能当传送点；不把另一主渠阀误作冷区阀。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "原湿手印2秒；排干退影预告建议1.5秒，锁定合法干侧显形格",
+      "new_abilities_proposed": "断流迫出实体、水甲与水遁封印",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F05",
+        "name": "河童",
+        "default_enabled": true,
+        "proposed_carrier": "河童水影；连通水路快移、边缘实体攻击",
+        "groups": [
+          "water_source"
+        ],
+        "favorable_branches": [
+          "T02A",
+          "T02B",
+          "T04B",
+          "T03A"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A",
+          "T03B"
+        ],
+        "state_condition_and_reason": "未断支流的水中段不能受地面夹具；灵毒可在已附着后持续；排干后的ground形态才给霜炮/纸偶充分作用。",
+        "preserved_real_rule": "关指定冷区阀、擦断割点、取原篮入干槽",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F06",
+      "name": "雪女",
+      "baseline_role": "契约",
+      "baseline_signature": "投入纸单并放下饮料完成无声交付",
+      "proposed_combat_carrier_and_movement": "雪女显形；慢步行、地面冰带",
+      "preserved_real_action": "原热饮+纸单同槽、无声交付",
+      "new_weakness_and_tower_trap_interaction": "正确交付切断该实例霜环扩散并永久封冻结塔能力；残余冷雾变薄，弹体可命中。T03冷柜霜炮的冷雾减速对其有明示折减，T06弱点节拍或T03热罐破壳炮更好；稳定后保温服务一次",
+      "invariant": "规则禁止订单广播而非禁止玩家查规则；微波炉失效仍有保温/拒绝安全路径。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "沿用原30秒/变体22秒热饮品质；交付回执当刻永久封扩霜和冻塔",
+      "new_abilities_proposed": "霜环、有限冻塔、交付切断寒气",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F06",
+        "name": "雪女",
+        "default_enabled": true,
+        "proposed_carrier": "雪女显形；慢步行、地面冰带",
+        "groups": [
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T02A",
+          "T02B",
+          "T03B"
+        ],
+        "conditional_or_weak_branches": [
+          "T03A"
+        ],
+        "state_condition_and_reason": "冷雾减速已有明示折减，可增加积寒抗性但不得全免炮伤；热炮不因雪女名称自动翻倍，仍读真实防御。",
+        "preserved_real_rule": "原热饮+纸单同槽、无声交付",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F07",
+      "name": "座敷童子",
+      "baseline_role": "访客",
+      "baseline_signature": "保持短观察期不占椅；可选把一份零食放独立供物台",
+      "proposed_combat_carrier_and_movement": "童子影；短距预告跳到登记椅周边",
+      "preserved_real_action": "保护同一空椅、改道原客、可选供物",
+      "new_weakness_and_tower_trap_interaction": "椅位保持真实空闲时它定期坐回椅边，形成固定可攻击停顿；累积保护进度逐步延长停顿而非强迫45秒纯等待。击退不伤害儿童原型，稳定后该座形成一次有限安抚域",
+      "invariant": "不能凭不存在的顾客增添座位冲突；坐椅停止追逐是明示弱点而非天生友好。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "明确把原45秒改为3次各4秒保护累计；累计时允许基础追击；周期坐椅停顿每次不超过1.5秒。每完成一段永久封一项特殊干扰，稳定度仍须由塔清空。",
+      "new_abilities_proposed": "短跳/藏物干扰、坐椅输出窗、稳定后辅助",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F07",
+        "name": "座敷童子",
+        "default_enabled": true,
+        "proposed_carrier": "童子影；短距预告跳到登记椅周边",
+        "groups": [
+          "long_window"
+        ],
+        "favorable_branches": [
+          "T01B",
+          "T02B",
+          "T05B"
+        ],
+        "conditional_or_weak_branches": [
+          "T03B"
+        ],
+        "state_condition_and_reason": "12秒累计保护内仍追击，1.5秒坐椅短窗可以连续积层；不是大群或重甲，慢AOE仅有保底用途。",
+        "preserved_real_rule": "保护同一空椅、改道原客、可选供物",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F08",
+      "name": "付丧神",
+      "baseline_role": "访客",
+      "baseline_signature": "把工具从混合垃圾中取出并交入修好或退役槽",
+      "proposed_combat_carrier_and_movement": "原工具附灵；短程跳跃/翻滚",
+      "preserved_real_action": "原工具从垃圾取出，贴原裂纹或退役",
+      "new_weakness_and_tower_trap_interaction": "修对一条裂纹取消一段特殊连打；完整修好永久封特殊敲击连打，保留基础追击和普攻，退役槽则把活动范围锁在槽边。T02封签公证可短封特殊敲击连打，实体陷阱不触发漂浮阶段",
+      "invariant": "断电重启不代替修复；不能制造新坏工具维持刷怪。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "敲击起手建议0.8秒；每条真实修补永久取消一段连打",
+      "new_abilities_proposed": "工具攻击连段与逐裂纹削弱",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F08",
+        "name": "付丧神",
+        "default_enabled": true,
+        "proposed_carrier": "原工具附灵；短程跳跃/翻滚",
+        "groups": [
+          "air_phase",
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T01B",
+          "T02B"
+        ],
+        "conditional_or_weak_branches": [
+          "T03A",
+          "T05A",
+          "T04B"
+        ],
+        "state_condition_and_reason": "特殊敲击连打被封可争维修窗；漂浮段不可地面拦截，落地翻滚段可；完整修补不清空基础战斗。 T04B仅在主要规则限制转场后，或预热宽限真实维持且已累计4秒曝光时条件适配；未满足前不得视为即时位移克制。",
+        "preserved_real_rule": "原工具从垃圾取出，贴原裂纹或退役",
+        "status": "TD02_adaptation_proposal_not_runtime_verification",
+        "optional_skill_support": {
+          "branch": "T05B",
+          "skill": "T05B_S2",
+          "condition": "另购投签后2.5格内且有合法射线才可对空补伤；不能阻挡空中，也不替代原型规则操作。"
+        }
+      }
+    },
+    {
+      "id": "F09",
+      "name": "轆轤首",
+      "baseline_role": "交易",
+      "baseline_signature": "身体到柜台后结算这一篮一次",
+      "proposed_combat_carrier_and_movement": "长颈本体；身体步行、头部越低货架",
+      "preserved_real_action": "同一身体篮号装货，身体到柜台结算",
+      "new_weakness_and_tower_trap_interaction": "真实一单完成让头部回缩到身体，失去越架攻击并增加转向时间；T01价签投射器与R02缚足夹可分别持续输出和短控本体。强打可击头但共享一条稳定度",
+      "invariant": "头和身体不能算两只怪或两份订单，颈线不穿实体墙。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "头部伸袭预告建议1.2秒；原柜台收银1.5秒；合法成交即永久回缩",
+      "new_abilities_proposed": "身体/头部共享稳定度与越架攻击",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F09",
+        "name": "轆轤首",
+        "default_enabled": true,
+        "proposed_carrier": "长颈本体；身体步行、头部越低货架",
+        "groups": [
+          "long_window",
+          "dangerous_special",
+          "directional"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T01B",
+          "T02B"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A",
+          "T03A"
+        ],
+        "state_condition_and_reason": "头/身体共 health_pool_id，同攻击阶段只计一次命中/层数；奖励按 root 只发一次；身体可拦不代表越架头部不能攻击；无真群体不能双算AOE。",
+        "preserved_real_rule": "同一身体篮号装货，身体到柜台结算",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F10",
+      "name": "海坊主",
+      "baseline_role": "契约",
+      "baseline_signature": "排回一档后关小窗，封好窗下吸水布",
+      "proposed_combat_carrier_and_movement": "海坊主窗面投影；朝玩家最近的合法窗轮换攻击",
+      "preserved_real_action": "真实问题证据卡、排水杆降水、关服务窗",
+      "new_weakness_and_tower_trap_interaction": "每降一档水关闭一条波浪路径；关小窗封远程灌水，海影在当前窗残留可被T01价签投射器或T02镇契收银机持续打。属于大型锚定攻击者，攻击范围追踪玩家，不把巨体塞进窄道",
+      "invariant": "无真实问题不造题；普通排水不能删除别的怪的独立水源。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "换攻击窗预告建议2秒；波浪起手1.5秒；每降一水档永久关一条水浪路线",
+      "new_abilities_proposed": "固定窗轮换的巨大投影攻击",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F10",
+        "name": "海坊主",
+        "default_enabled": true,
+        "proposed_carrier": "海坊主窗面投影；朝玩家最近的合法窗轮换攻击",
+        "groups": [
+          "water_source",
+          "long_window",
+          "directional"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T02A"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A",
+          "T06A",
+          "T04B"
+        ],
+        "state_condition_and_reason": "巨大窗投影适合持续耗散和长射程；锚定窗不是可推地面实体；同一窗影换窗保持同一中毒实例。 T04B仅在主要规则限制转场后，或预热宽限真实维持且已累计4秒曝光时条件适配；未满足前不得视为即时位移克制。",
+        "preserved_real_rule": "真实问题证据卡、排水杆降水、关服务窗",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F11",
+      "name": "韩国鬼怪",
+      "baseline_role": "交易",
+      "baseline_signature": "将完成的结果交入圈边托盘，拿走一次奖励",
+      "proposed_combat_carrier_and_movement": "鬼怪斗手；步行、预告突进",
+      "preserved_real_action": "有限两轮比赛或同一荞麦份交付",
+      "new_weakness_and_tower_trap_interaction": "胜一轮打掉一层斗气护层；荞麦使其停顿进食并暂封突进。胜完/交物后塔更易压制，稳定后留下唯一原奖品",
+      "invariant": "不无限邀战刷新赌注；奖品不是击退币的第二次结算。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "两轮独立turn_id；交荞麦建议3秒进食窗；不刷新整场比赛",
+      "new_abilities_proposed": "斗气护层、突进、胜轮拆甲",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F11",
+        "name": "韩国鬼怪",
+        "default_enabled": true,
+        "proposed_carrier": "鬼怪斗手；步行、预告突进",
+        "groups": [
+          "armor_window",
+          "long_window"
+        ],
+        "favorable_branches": [
+          "T01B",
+          "T02B",
+          "T05A"
+        ],
+        "conditional_or_weak_branches": [
+          "T03A"
+        ],
+        "state_condition_and_reason": "两轮比赛/荞麦产生拆斗气与有限进食窗，便于同体叠层；驱离与封技不能伪造赢比赛回执。",
+        "preserved_real_rule": "有限两轮比赛或同一荞麦份交付",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F12",
+      "name": "不可杀伊",
+      "baseline_role": "威胁",
+      "baseline_signature": "利用每点1.5秒停食铺向门外，整个碰撞体进入标记区0.25秒即完成",
+      "proposed_combat_carrier_and_movement": "不可杀伊投影；慢重步行，玩家/纸夹双目标",
+      "preserved_real_action": "真实取盒、撒可达回形针链、引入设施火力区",
+      "new_weakness_and_tower_trap_interaction": "首次合法1.5秒停食完成后永久提交本实例破壳，之后移动时护甲也降低；每次1.5秒停食另开更大的临时接缝。将纸夹链引向设施火力区，由塔驱退投影；离开停食不恢复原始高甲，出店不再直接获胜。",
+      "invariant": "无吃铁成长或啃门；回形针不是任意金币；不得无限造饵。驱退投影不等于杀死本体；停止进食不回滚主规则破壳。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "每场6次对应原实物的纸夹投放；已触发实际消耗不可回收/补充，未用可回收。每合法点停食1.5秒，首次1.5秒停食完成后永久破壳，每次再开临时接缝；诱饵锁点不因后来陷阱改换。",
+      "new_abilities_proposed": "停食开甲、塔驱退取代出门即胜",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F12",
+        "name": "不可杀伊",
+        "default_enabled": true,
+        "proposed_carrier": "不可杀伊投影；慢重步行，玩家/纸夹双目标",
+        "groups": [
+          "armor_window",
+          "long_window"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T02A",
+          "T03B",
+          "T05A",
+          "T04B"
+        ],
+        "conditional_or_weak_branches": [
+          "T01B",
+          "T06A"
+        ],
+        "state_condition_and_reason": "首次完整1.5秒纸夹停食永久破壳，后续暂开接缝；6次真实配给有限。高频未破壳效率低；纸偶须明确blockable，抗推单独定义。 T04B可在已破解后的稳定长射界升档，优势取决于实际ward及4秒曝光。",
+        "preserved_real_rule": "真实取盒、撒可达回形针链、引入设施火力区",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F13",
+      "name": "飞头女鬼",
+      "baseline_role": "威胁",
+      "baseline_signature": "在冰柜1格内用0.6秒存入并关门，早到与追逐中到达都有效",
+      "proposed_combat_carrier_and_movement": "飞头显形；高飞越低货架、低空扑击",
+      "preserved_real_action": "同一登记任务肉装入有效冰柜并合盖",
+      "new_weakness_and_tower_trap_interaction": "合柜永久切断本实例觅肉导航与高速飞行，强制进入可见低空、封吸食恢复；地面矮陷阱仍不因“低空”自动生效，需落地或高度覆盖陷阱。T01价签投射器快速收尾。新终态取代原入柜即胜",
+      "invariant": "任务肉不被吃掉；旧0.6秒提交原子性与同帧优先保留；开柜/断电不复活封印。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "沿用触肉1.5秒预告与入柜0.6秒原子提交；封印本实例永久",
+      "new_abilities_proposed": "高低飞行层、封肉后低空弱态、塔收尾",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F13",
+        "name": "飞头女鬼",
+        "default_enabled": true,
+        "proposed_carrier": "飞头显形；高飞越低货架、低空扑击",
+        "groups": [
+          "air_phase",
+          "regeneration",
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T01B",
+          "T02A",
+          "T02B",
+          "T04B"
+        ],
+        "conditional_or_weak_branches": [
+          "T03A",
+          "T03B",
+          "T05A"
+        ],
+        "state_condition_and_reason": "灵毒抑吸食回复有明确对象；封肉后仍air_low；冻结不迫降，只有合法R03捕网/原扑地状态可开放地面炮。 T04B可在已破解后的稳定长射界升档，优势取决于实际ward及4秒曝光。 T03A/T03B只ground，low_air与冻结都不自动满足命中层。",
+        "preserved_real_rule": "同一登记任务肉装入有效冰柜并合盖",
+        "status": "TD02_adaptation_proposal_not_runtime_verification",
+        "optional_skill_support": {
+          "branch": "T05B",
+          "skill": "T05B_S2",
+          "condition": "另购投签后2.5格内且有合法射线才可对空补伤；不能阻挡空中，也不替代原型规则操作。"
+        }
+      }
+    },
+    {
+      "id": "F14",
+      "name": "饕食附身灵",
+      "baseline_role": "威胁",
+      "baseline_signature": "影子完全入盒时合盖，搬到门外槽后恢复同事岗位",
+      "proposed_combat_carrier_and_movement": "附身影；从宿主脚边伸出并短距扑袭",
+      "preserved_real_action": "同一影子入盒合盖、搬门外槽、真人恢复岗位",
+      "new_weakness_and_tower_trap_interaction": "影子诱入透明盒后与真人脱离，封掉附身与劫持；塔只能锁已分离的影，不伤宿主，盒体作为可射击封印载体",
+      "invariant": "当前F14默认排除仍保留，需要独立启用评审；不能对真人开火验证附身。",
+      "new_battle_conversion": true,
+      "default_enabled": false,
+      "timing_and_lock_rules": "只在整条影进入原盒后合盖；分离后才注册塔目标；默认仍排除",
+      "new_abilities_proposed": "分离影体作为唯一可射击载体",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F14",
+        "name": "饕食附身灵",
+        "default_enabled": false,
+        "proposed_carrier": "附身影；从宿主脚边伸出并短距扑袭",
+        "groups": [
+          "special_admission"
+        ],
+        "favorable_branches": [
+          "T02A",
+          "T02B"
+        ],
+        "conditional_or_weak_branches": [
+          "T01B",
+          "T03A",
+          "T04B"
+        ],
+        "state_condition_and_reason": "保持默认排除。与真人分离的显形影才可选敌；任何高频/AOE都不能用来试射宿主验附身。 T04B仅在主要规则限制转场后，或预热宽限真实维持且已累计4秒曝光时条件适配；未满足前不得视为即时位移克制。",
+        "preserved_real_rule": "同一影子入盒合盖、搬门外槽、真人恢复岗位",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F15",
+      "name": "蓬蒂雅娜",
+      "baseline_role": "访客",
+      "baseline_signature": "合上铃盒并保持3秒，等影子归位再收台",
+      "proposed_combat_carrier_and_movement": "蓬蒂雅娜影；带起止预兆的短距位移",
+      "preserved_real_action": "点灯→盖原布→合铃并保持",
+      "new_weakness_and_tower_trap_interaction": "点灯显露起点、盖布关闭一个位移终点；合铃累计3秒后永久封本实例特殊位移，保留基础追击和普攻。T04显相巡灯/R04锚相盐钉阵只按通用预算临时限制尚未完成主规则的跳转。",
+      "invariant": "动作顺序错误保留能验证的完成项，不能观察刷新原计时；新增位移明确是新店内改编。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "沿用合铃稳定3秒后提交永久位移封印；新增位移起终点至少1.5秒预告。主规则未完成时，塔/陷阱封跳遵守通用8秒内3秒上限与结束3秒抗封。",
+      "new_abilities_proposed": "固定可辨终点短距位移、动作逐层封印",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F15",
+        "name": "蓬蒂雅娜",
+        "default_enabled": true,
+        "proposed_carrier": "蓬蒂雅娜影；带起止预兆的短距位移",
+        "groups": [
+          "node_transfer",
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T02B",
+          "T02A"
+        ],
+        "conditional_or_weak_branches": [
+          "T01B",
+          "T05A",
+          "T04B"
+        ],
+        "state_condition_and_reason": "点灯/布/铃永久封转场，公证可抓合法起跳准备争时间；定帧必须已预热最高档且另购快门；跳转不洗毒但高频须累计有效命中，不能按离屏时间补叠层。 T04B仅在主要规则限制转场后，或预热宽限真实维持且已累计4秒曝光时条件适配；未满足前不得视为即时位移克制。",
+        "preserved_real_rule": "点灯→盖原布→合铃并保持",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F16",
+      "name": "图尤尔",
+      "baseline_role": "威胁",
+      "baseline_signature": "从出口收集槽取回同一批钱，带回封袋",
+      "proposed_combat_carrier_and_movement": "图尤尔小影；沿收银底部路径快速步行",
+      "preserved_real_action": "封现金盘、跟测试币取回同批钱、封原袋",
+      "new_weakness_and_tower_trap_interaction": "封盘关闭偷钱回血，回收每枚失币削一层闪避；封袋后它只能实体快跑，T01双卷速贴/R01黏影胶带触发线适合覆盖出口",
+      "invariant": "偷走的是实际转移现金，不抹去总收入；测试币不可兑换；追逐不额外生币。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "原每4秒转移一币；每回收原币拆一闪避层；封盘后不再偷币回复",
+      "new_abilities_proposed": "偷币与回复关联、逐币削闪避",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F16",
+        "name": "图尤尔",
+        "default_enabled": true,
+        "proposed_carrier": "图尤尔小影；沿收银底部路径快速步行",
+        "groups": [
+          "fast_ground",
+          "regeneration"
+        ],
+        "favorable_branches": [
+          "T01B",
+          "T02A",
+          "T05B",
+          "T06A"
+        ],
+        "conditional_or_weak_branches": [
+          "T03B",
+          "T01A"
+        ],
+        "state_condition_and_reason": "快速小影/偷钱回复正好对应高频和灵毒；双点堵实际收银路径；低频慢弹在未限路时容易落空。",
+        "preserved_real_rule": "封现金盘、跟测试币取回同批钱、封原袋",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F17",
+      "name": "裹尸鬼",
+      "baseline_role": "访客",
+      "baseline_signature": "物件放交付槽后退，让它自己取走",
+      "proposed_combat_carrier_and_movement": "裹尸鬼；短距跳跃，触带拉扯",
+      "preserved_real_action": "同包裹松三结、交槽并退2.5格",
+      "new_weakness_and_tower_trap_interaction": "每松一结取消一次拉扯连段，放交付槽将目标暂锁原包裹；退开让其自行领取期间是固定塔窗。稳定后停止敌对",
+      "invariant": "不能在包裹未到手时远程记交付；塔窗开始看实际接近而非UI点击。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "沿用退离2.5格、来客实际2秒领取；三结各取消一拉扯段",
+      "new_abilities_proposed": "束带拉扯、实物诱导站桩窗",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F17",
+        "name": "裹尸鬼",
+        "default_enabled": true,
+        "proposed_carrier": "裹尸鬼；短距跳跃，触带拉扯",
+        "groups": [
+          "jump_landing",
+          "long_window"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T02B",
+          "T05A"
+        ],
+        "conditional_or_weak_branches": [
+          "T03A"
+        ],
+        "state_condition_and_reason": "松结减特殊连段，实际2秒领取窗适合预瞄；空中跳跃不可被地面冷雾凭空冻结；冻结不抹去原包裹身份。",
+        "preserved_real_rule": "同包裹松三结、交槽并退2.5格",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F18",
+      "name": "阿斯旺",
+      "baseline_role": "威胁",
+      "baseline_signature": "关闭员工内门，只保留普通访客出口与门外动物避雨位",
+      "proposed_combat_carrier_and_movement": "阿斯旺显形；步行与预告兽形疾走",
+      "preserved_real_action": "连续爪鞋足迹+独立入口记录、保持员工内门权限",
+      "new_weakness_and_tower_trap_interaction": "核验锁定同一躯体，兽形不能用换形清除塔标记；关员工内门封偷袭捷径，公共区路障才产生可读绕路",
+      "invariant": "关门不堵死正常人类撤离；不能用无录像的过去当证据。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "兽形疾走前摇建议1.5秒；证实同一体后变形不清塔锁",
+      "new_abilities_proposed": "兽形疾走、员工门捷径、锁定连续性",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F18",
+        "name": "阿斯旺",
+        "default_enabled": true,
+        "proposed_carrier": "阿斯旺显形；步行与预告兽形疾走",
+        "groups": [
+          "fast_ground",
+          "dangerous_special",
+          "identity_persistence"
+        ],
+        "favorable_branches": [
+          "T01B",
+          "T02B",
+          "T05B"
+        ],
+        "conditional_or_weak_branches": [
+          "T03B"
+        ],
+        "state_condition_and_reason": "兽形疾走可短封，换形不清同实体层数/灵毒；未断捷径前慢炮覆盖较差；身份证据仍由连续足迹与独立记录给出。",
+        "preserved_real_rule": "连续爪鞋足迹+独立入口记录、保持员工内门权限",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F19",
+      "name": "吠陀罗尸鬼",
+      "baseline_role": "契约",
+      "baseline_signature": "抱起送入匹配寄存柜并关门",
+      "proposed_combat_carrier_and_movement": "尸鬼寄物影；在原寄存站间预告回跳",
+      "preserved_real_action": "同一原包裹挂入同订单链两回执并关对应柜",
+      "new_weakness_and_tower_trap_interaction": "每份真回执关闭一个回跳锚；关柜封掉回跳与搬运惩罚，影子固定显形便于定点炮火",
+      "invariant": "错误票让原物回上个标记站，不复制；身体与包裹共一实例稳定度。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "每真实订单回执永久关一锚；换站回跳建议1.5秒地标预告",
+      "new_abilities_proposed": "寄存锚回跳及逐站封锁",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F19",
+        "name": "吠陀罗尸鬼",
+        "default_enabled": true,
+        "proposed_carrier": "尸鬼寄物影；在原寄存站间预告回跳",
+        "groups": [
+          "node_transfer"
+        ],
+        "favorable_branches": [
+          "T02A",
+          "T02B"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A",
+          "T04B"
+        ],
+        "state_condition_and_reason": "两份真回执逐锚关闭，公证可处理尚存节点的合法准备；定帧只在已升最高档且购快门后提供短封；原物回站不复制一个带独立奖励的新尸鬼。 T04B仅在主要规则限制转场后，或预热宽限真实维持且已累计4秒曝光时条件适配；未满足前不得视为即时位移克制。",
+        "preserved_real_rule": "同一原包裹挂入同订单链两回执并关对应柜",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F20",
+      "name": "罗刹访客",
+      "baseline_role": "契约",
+      "baseline_signature": "来客伸向别处时收回多余托盘并关交单缝",
+      "proposed_combat_carrier_and_movement": "罗刹本体；步行、长影手跨低障碍",
+      "preserved_real_action": "原单份食品交付、收回额外托盘、关交单缝",
+      "new_weakness_and_tower_trap_interaction": "收盘逐步缩短影手射程；合缝封全排索取，单份摄食形成短站桩破绽。路障保护玩家但伸手仍可越低障碍",
+      "invariant": "不能因为一句客套话取得全库权限；原食物转移而非重复扣。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "影手伸长前摇建议1.2秒；每收真实空盘缩一档射程",
+      "new_abilities_proposed": "多段影手和托盘射程映射",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F20",
+        "name": "罗刹访客",
+        "default_enabled": true,
+        "proposed_carrier": "罗刹本体；步行、长影手跨低障碍",
+        "groups": [
+          "armor_window",
+          "long_window",
+          "dangerous_special",
+          "directional"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T02B",
+          "T05B"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A"
+        ],
+        "state_condition_and_reason": "影手越低障碍，拦住身体不保身后玩家；收盘缩射程后侧翼穿签与封特殊伸手有效；纸偶不能替代交单限权。",
+        "preserved_real_rule": "原单份食品交付、收回额外托盘、关交单缝",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F21",
+      "name": "报丧女妖",
+      "baseline_role": "访客",
+      "baseline_signature": "让实际人员离开危险位，再从安全侧停机。",
+      "proposed_combat_carrier_and_movement": "报丧女妖伴随影；缓慢飘行、尖啸波",
+      "preserved_real_action": "同fault_id人员离危险位、设备停机挂待修",
+      "new_weakness_and_tower_trap_interaction": "每完成一项削弱共鸣范围；停机后不再与机器放大尖啸，塔可在统一预算内周期打断。稳定后以一次真实故障预警辅助结束",
+      "invariant": "故障先产生，不能为抽卡制造割伤；正常同事不成为怪物弹药。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "沿用原故障40秒来源；尖啸建议1.5秒预告；同fault_id停机永久封放大",
+      "new_abilities_proposed": "机器共鸣尖啸与停止后辅助",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F21",
+        "name": "报丧女妖",
+        "default_enabled": true,
+        "proposed_carrier": "报丧女妖伴随影；缓慢飘行、尖啸波",
+        "groups": [
+          "air_phase",
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T02B"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A",
+          "T03A",
+          "T04B"
+        ],
+        "state_condition_and_reason": "伴随影为可见空中载体时用对空/短封尖啸；持续打断必须删除，仍受滚动8秒内最多3秒封技预算。 T04B仅在主要规则限制转场后，或预热宽限真实维持且已累计4秒曝光时条件适配；未满足前不得视为即时位移克制。",
+        "preserved_real_rule": "同fault_id人员离危险位、设备停机挂待修",
+        "status": "TD02_adaptation_proposal_not_runtime_verification",
+        "optional_skill_support": {
+          "branch": "T05B",
+          "skill": "T05B_S2",
+          "condition": "另购投签后2.5格内且有合法射线才可对空补伤；不能阻挡空中，也不替代原型规则操作。"
+        }
+      }
+    },
+    {
+      "id": "F22",
+      "name": "布朗尼家务精",
+      "baseline_role": "交易",
+      "baseline_signature": "留一份普通供物，背向或离开视线去做另一件事。",
+      "proposed_combat_carrier_and_movement": "布朗尼扫帚影；沿登记脏区短冲",
+      "preserved_real_action": "同份供物、不直视工区、验收原工单",
+      "new_weakness_and_tower_trap_interaction": "移开注视时它锁定真实工单工作，腾出稳定火力窗；累计完成后封特殊扫帚冲刺，保留基础追击和普攻；稳定度归零后转一次代工帮助，原工单唯一结算",
+      "invariant": "扫完不制造新垃圾；塔射线不算玩家注视，T04显相巡灯不等于玩家目光，默认不暂停工作。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "沿用不注视累计8秒、实际验收1.5秒；不直视期间锁工单目标",
+      "new_abilities_proposed": "特殊扫帚冲刺、有限工作输出窗；完成原工单封冲刺仍保留普攻，稳定度归零后才取得战后辅助状态",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F22",
+        "name": "布朗尼家务精",
+        "default_enabled": true,
+        "proposed_carrier": "布朗尼扫帚影；沿登记脏区短冲",
+        "groups": [
+          "long_window"
+        ],
+        "favorable_branches": [
+          "T01B",
+          "T02B",
+          "T05B"
+        ],
+        "conditional_or_weak_branches": [
+          "T04A"
+        ],
+        "state_condition_and_reason": "背向原工区时有固定工作窗适合叠层；完成后只封特殊扫帚冲刺。灯光不是玩家目光，不应把广角灯误设为施工克星。",
+        "preserved_real_rule": "同份供物、不直视工区、验收原工单",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F23",
+      "name": "塞尔基海豹人",
+      "baseline_role": "访客",
+      "baseline_signature": "核对物件特征后，把皮衣交到中立台并留出离店线。",
+      "proposed_combat_carrier_and_movement": "塞尔基投影；步行、靠湿衣短冲",
+      "preserved_real_action": "原皮衣特征核验、中立台归还、留出离店线",
+      "new_weakness_and_tower_trap_interaction": "归还原衣使披衣护膜离开身体并封冲刺；取回动作期间停步，塔稳定后实体沿既有出口离去",
+      "invariant": "不能用任意衣物达成；出口被路障占时先显示冲突并禁止完成摆放。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "披衣冲刺前摇建议1.5秒；原物归还提交后永久封冲刺",
+      "new_abilities_proposed": "皮衣护膜与披衣冲刺",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F23",
+        "name": "塞尔基海豹人",
+        "default_enabled": true,
+        "proposed_carrier": "塞尔基投影；步行、靠湿衣短冲",
+        "groups": [
+          "armor_window",
+          "long_window"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T01B",
+          "T05A"
+        ],
+        "conditional_or_weak_branches": [
+          "T03A"
+        ],
+        "state_condition_and_reason": "归还同皮衣卸护膜封冲刺，基础步行可拦；灵毒留同一实体而非留在换下的皮衣。单只无群体时范围价值有限。",
+        "preserved_real_rule": "原皮衣特征核验、中立台归还、留出离店线",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F24",
+      "name": "凯尔皮水马",
+      "baseline_role": "威胁",
+      "baseline_signature": "擦出本卡干交接格，把货与车退回干线内交付。",
+      "proposed_combat_carrier_and_movement": "凯尔皮；沿真实湿路冲锋",
+      "preserved_real_action": "擦干交接割点、同货与原车退干线",
+      "new_weakness_and_tower_trap_interaction": "切断水路使冲锋提前结束在边界，受明显踉跄；失去湿路护层后T03热罐破壳炮、夹具都有效。强打仍可瞄准每次冲锋恢复段",
+      "invariant": "马体不穿窄门；水路只来自已定义源，不能追玩家自动铺无限水。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "湿路冲锋锁端点后预告1.5秒；遇已断水边界停并踉跄建议2秒",
+      "new_abilities_proposed": "冲锋边界中断与实体破甲",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F24",
+        "name": "凯尔皮水马",
+        "default_enabled": true,
+        "proposed_carrier": "凯尔皮；沿真实湿路冲锋",
+        "groups": [
+          "fast_ground",
+          "water_source",
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T02B",
+          "T03A"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A",
+          "T03B"
+        ],
+        "state_condition_and_reason": "切湿路使冲锋在明确边界收招，随后霜炮有积寒窗；未断湿路时不要假定纸偶能拦水形冲锋。",
+        "preserved_real_rule": "擦干交接割点、同货与原车退干线",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F25",
+      "name": "普卡变形精",
+      "baseline_role": "交易",
+      "baseline_signature": "先把实物收进隔离格，再对本物件的一次退款回执。",
+      "proposed_combat_carrier_and_movement": "普卡；步行、改变轮廓扰锁",
+      "preserved_real_action": "原退货入隔离槽、按唯一原回执退款",
+      "new_weakness_and_tower_trap_interaction": "同物封存让变形无法抹掉锁定，合法一次退款关闭索款护盾；持续伤害标记可以穿越其外形切换",
+      "invariant": "幻形不是新实体；退款次数与HP相位无关，不每转相给退款。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "唯一refund键提交当刻封索款盾；换形预告建议1秒，已锁本体不清除",
+      "new_abilities_proposed": "外形扰锁和退款护盾",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F25",
+        "name": "普卡变形精",
+        "default_enabled": true,
+        "proposed_carrier": "普卡；步行、改变轮廓扰锁",
+        "groups": [
+          "identity_persistence"
+        ],
+        "favorable_branches": [
+          "T01B",
+          "T02A",
+          "T01A"
+        ],
+        "conditional_or_weak_branches": [
+          "T03A"
+        ],
+        "state_condition_and_reason": "同物退款关闭护盾，换外观不清8层/灵毒；不得换形出新targetId逃债或把旧状态转给真人。",
+        "preserved_real_rule": "原退货入隔离槽、按唯一原回执退款",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F26",
+      "name": "红帽妖",
+      "baseline_role": "威胁",
+      "baseline_signature": "先包扎，再从近到远擦断红迹并封袋。",
+      "proposed_combat_carrier_and_movement": "红帽妖；常态步行、沿实际活血迹突进",
+      "preserved_real_action": "止同伤、清绑定真实迹、污布封原袋",
+      "new_weakness_and_tower_trap_interaction": "包扎立即封新增追血加速，逐迹清除拆掉突进落点，最终封袋去除嗜血回复；阻挡与减速对无血路线更有效",
+      "invariant": "无血不投；普通塔弹/怪物攻击不默认造伤；旧血不因止血瞬间消失。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "沿用伤口90秒、血迹30秒、预兆12秒；冲刺绑定某枚活迹并预告1.5秒",
+      "new_abilities_proposed": "有限血迹冲刺锚、止血封新增锚、清迹封回复",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F26",
+        "name": "红帽妖",
+        "default_enabled": true,
+        "proposed_carrier": "红帽妖；常态步行、沿实际活血迹突进",
+        "groups": [
+          "fast_ground",
+          "regeneration",
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T01B",
+          "T02A",
+          "T05A"
+        ],
+        "conditional_or_weak_branches": [
+          "T03B"
+        ],
+        "state_condition_and_reason": "嗜血回复已有来源；止血后不再新增冲刺节点，毒与清迹互补。烧/毒不生成新流血或新红迹。",
+        "preserved_real_rule": "止同伤、清绑定真实迹、污布封原袋",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F27",
+      "name": "山林巨魔",
+      "baseline_role": "交易",
+      "baseline_signature": "在门前大件槽分两批称交，始终保住通道。",
+      "proposed_combat_carrier_and_movement": "巨魔；宽体慢行与预告推击",
+      "preserved_real_action": "同单两批称交、保留主通道",
+      "new_weakness_and_tower_trap_interaction": "每交一批卸下一块货担护甲并增加转向停顿；全部交付后封推击设施，T01穿签长钉压制高防体，路障只争取有限时间",
+      "invariant": "不会挤穿窄连接；体积导航只用明示宽通道与锚定攻击，不硬穿柜体。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "推击前摇建议1.8秒；每批真实称交永久卸一块护甲",
+      "new_abilities_proposed": "宽体推击与货担分层护甲",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F27",
+        "name": "山林巨魔",
+        "default_enabled": true,
+        "proposed_carrier": "巨魔；宽体慢行与预告推击",
+        "groups": [
+          "armor_window",
+          "long_window",
+          "directional"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T02A",
+          "T03B",
+          "T04B"
+        ],
+        "conditional_or_weak_branches": [
+          "T05B",
+          "T06A"
+        ],
+        "state_condition_and_reason": "慢宽体/货担甲适合重弹与长DOT；体型拦截/抗推显式定义，不能反向靠两具纸偶无限锁巨体。 T04B可在已破解后的稳定长射界升档，优势取决于实际ward及4秒曝光。",
+        "preserved_real_rule": "同单两批称交、保留主通道",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F28",
+      "name": "诺肯水乐灵",
+      "baseline_role": "威胁",
+      "baseline_signature": "逐支短暂开闭，找出随音乐变化的源点后从干侧封盖。",
+      "proposed_combat_carrier_and_movement": "水乐灵；真源附近显形+有限源点转移",
+      "preserved_real_action": "逐支试阀、识别乐曲真源、干侧封盖",
+      "new_weakness_and_tower_trap_interaction": "试阀辨出源后塔标记维持；封真源永久封混淆声和换源，水影固定显形。T02封签公证可短封特殊技能但不能代替真源鉴别",
+      "invariant": "普通水声不是第二独立证据；先关错支路影响可恢复，不把水当万能同一网络。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "试阀读真实拍点变化；换源建议1.5秒预告；封真源永久停止换源",
+      "new_abilities_proposed": "真源转移与共鸣护体",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F28",
+        "name": "诺肯水乐灵",
+        "default_enabled": true,
+        "proposed_carrier": "水乐灵；真源附近显形+有限源点转移",
+        "groups": [
+          "water_source",
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T02A",
+          "T02B"
+        ],
+        "conditional_or_weak_branches": [
+          "T03A",
+          "T05A",
+          "T04B"
+        ],
+        "state_condition_and_reason": "真源换位和共鸣适合公证抓准备；定帧需真实曝光累计到最高档；水相只在合法暴露时新上毒，已附着不因换源清除；封真源仍须真实试阀。 T04B仅在主要规则限制转场后，或预热宽限真实维持且已累计4秒曝光时条件适配；未满足前不得视为即时位移克制。",
+        "preserved_real_rule": "逐支试阀、识别乐曲真源、干侧封盖",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F29",
+      "name": "托姆特家园精灵",
+      "baseline_role": "交易",
+      "baseline_signature": "将可用黄油放在热粥表面，端到独立供食台。",
+      "proposed_combat_carrier_and_movement": "托姆特；小步快行、敲碗脉冲",
+      "preserved_real_action": "同碗热粥+表层原黄油、供物台揭盖",
+      "new_weakness_and_tower_trap_interaction": "热粥引到固定台，表层黄油使它停止脉冲蓄力并暴露本体；稳定后返还唯一原赠品，余下热食不增殖",
+      "invariant": "黄油埋底不满足表层；任务供物不可先吃再登记。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "脉冲前摇建议1.2秒；揭开合格同碗时建议3秒停食窗",
+      "new_abilities_proposed": "敲碗脉冲、吃粥稳定窗口",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F29",
+        "name": "托姆特家园精灵",
+        "default_enabled": true,
+        "proposed_carrier": "托姆特；小步快行、敲碗脉冲",
+        "groups": [
+          "fast_ground",
+          "long_window"
+        ],
+        "favorable_branches": [
+          "T01B",
+          "T02B",
+          "T05B"
+        ],
+        "conditional_or_weak_branches": [
+          "T03B"
+        ],
+        "state_condition_and_reason": "快速小体与敲碗脉冲适合跟踪及短封；原热粥进食窗可兑现层爆，但火塔不加热任务粥代替配方。",
+        "preserved_real_rule": "同碗热粥+表层原黄油、供物台揭盖",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F30",
+      "name": "海亡灵",
+      "baseline_role": "威胁",
+      "baseline_signature": "把额外石头从商品中分出，送到门外封存托盘。",
+      "proposed_combat_carrier_and_movement": "海亡灵；慢行、贴石短位移",
+      "preserved_real_action": "分出额外原压箱石、送合法封存槽",
+      "new_weakness_and_tower_trap_interaction": "搬离石头削弱潮汐护体；封石阻断回石与湿线增益，本体转普通慢行，地面陷阱与T03热罐破壳炮可完整发挥",
+      "invariant": "误当门挡可恢复；历史误用不永久判死；不能拿石头到处刷水并领奖。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "回石位移预告建议1.5秒；封存同石永久封回石，潮甲不再重生",
+      "new_abilities_proposed": "压箱石锚点和潮汐护层",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F30",
+        "name": "海亡灵",
+        "default_enabled": true,
+        "proposed_carrier": "海亡灵；慢行、贴石短位移",
+        "groups": [
+          "armor_window",
+          "node_transfer"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T02A"
+        ],
+        "conditional_or_weak_branches": [
+          "T03A",
+          "T04B"
+        ],
+        "state_condition_and_reason": "压箱石锚被封后慢行给长DOT；未封前的短位移可用公证抓准备；定帧需购快门并预热至最高档。其为亡灵不构成灵毒免疫，ward可单独调。",
+        "preserved_real_rule": "分出额外原压箱石、送合法封存槽",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F31",
+      "name": "马拉梦魇",
+      "baseline_role": "威胁",
+      "baseline_signature": "准备杯与机械钟后选择短休，或停用该椅位并继续安全收尾。",
+      "proposed_combat_carrier_and_movement": "梦魇影；椅边投影与预告扑袭",
+      "preserved_real_action": "杯与机械钟准备，选有限短休或停用椅位",
+      "new_weakness_and_tower_trap_interaction": "机械钟使袭击节拍可被打断，杯反射标出本体；停用该椅封扑袭出生锚，保留实体追逐。选择短休是高风险额外收益，不是必需解",
+      "invariant": "战斗中不能强行锁玩家长休；P08补偿仍有限，免费停用可达。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "扑袭建议1.5秒预告；停用椅位永久封该出生锚，安全短休仅战后",
+      "new_abilities_proposed": "椅锚扑袭与机械钟打断窗口",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F31",
+        "name": "马拉梦魇",
+        "default_enabled": true,
+        "proposed_carrier": "梦魇影；椅边投影与预告扑袭",
+        "groups": [
+          "node_transfer",
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T02B",
+          "T01A"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A",
+          "T04B"
+        ],
+        "state_condition_and_reason": "椅锚扑袭需要短封或预瞄；未停椅时纸偶不能封掉锚点。战斗中不能要求长休，机械钟规则必须可及时操作。 T04B仅在主要规则限制转场后，或预热宽限真实维持且已累计4秒曝光时条件适配；未满足前不得视为即时位移克制。",
+        "preserved_real_rule": "杯与机械钟准备，选有限短休或停用椅位",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F32",
+      "name": "夜返吸血鬼",
+      "baseline_role": "威胁",
+      "baseline_signature": "先关迎宾声道或转窗口，再亲手为伤者包扎。",
+      "proposed_combat_carrier_and_movement": "吸血鬼投影；快步接近、门槛邀请后突进",
+      "preserved_real_action": "关迎宾声道/转窗口、包扎同伤",
+      "new_weakness_and_tower_trap_interaction": "关声道封越门跃击，止血封嗅血追踪与回复；残余门内显形不因关门被免费清除，失去能力后常规塔/路障可控",
+      "invariant": "门外尚未入场时可真实预防消耗此波，不重开伤口；主动请入是明示选择。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "原伤口90秒不刷新；关声道提交即封越门跃击；止血永久封本实例追血",
+      "new_abilities_proposed": "有限门槛跃击、嗅血追踪与回复",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F32",
+        "name": "夜返吸血鬼",
+        "default_enabled": true,
+        "proposed_carrier": "吸血鬼投影；快步接近、门槛邀请后突进",
+        "groups": [
+          "fast_ground",
+          "regeneration",
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T01B",
+          "T02A",
+          "T02B"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A"
+        ],
+        "state_condition_and_reason": "血源回复、越门跃击使灵毒和封技有明确职责；已显形后才计战斗，关声道/止血永久作用不由毒替代。",
+        "preserved_real_rule": "关迎宾声道/转窗口、包扎同伤",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F33",
+      "name": "狼人",
+      "baseline_role": "威胁",
+      "baseline_signature": "按伤迹连续性核对，隔台递包扎物并清空离店线。",
+      "proposed_combat_carrier_and_movement": "狼人；四足疾走与双足慢行交替",
+      "preserved_real_action": "连续伤迹核验、隔台递其原专用急救物、保离店线",
+      "new_weakness_and_tower_trap_interaction": "接受包扎后封四足突进，近战攻击改为长预告；塔稳定后正常撤离并恢复一次援助SAN",
+      "invariant": "原型伤迹只属于它，不自动成为玩家流血或F26来源。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "四足扑击预告建议1.5秒；专用包扎提交后永久取消四足模式",
+      "new_abilities_proposed": "双足/四足模式与包扎抑制",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F33",
+        "name": "狼人",
+        "default_enabled": true,
+        "proposed_carrier": "狼人；四足疾走与双足慢行交替",
+        "groups": [
+          "fast_ground",
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T01B",
+          "T02B",
+          "T05A",
+          "T03A"
+        ],
+        "conditional_or_weak_branches": [
+          "T03B"
+        ],
+        "state_condition_and_reason": "包扎前四足快、包扎后双足慢；高频适应两态，慢炮等真实速度降低后更好。冻住不自动完成包扎。",
+        "preserved_real_rule": "连续伤迹核验、隔台递其原专用急救物、保离店线",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F34",
+      "name": "鲁萨尔卡水灵",
+      "baseline_role": "威胁",
+      "baseline_signature": "利用休拍擦断湿边，再把货物从干侧移走。",
+      "proposed_combat_carrier_and_movement": "鲁萨尔卡；沿指定湿边滑行、强拍扑击",
+      "preserved_real_action": "休拍擦断湿边、原货移干侧",
+      "new_weakness_and_tower_trap_interaction": "每断一段湿边取消对应强拍出手位置；货物安全后封跨湿边牵引。T06弱点节拍放大破解后的耗散，窄长减速线布在仍合法边界",
+      "invariant": "不能在已经排干时强迫造水重演；节拍字幕不会被低SAN全遮蔽。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "按本卡可读强拍/休拍；每条已擦断湿边永久取消其攻击点",
+      "new_abilities_proposed": "湿边强拍攻击点与休拍塔配合",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F34",
+        "name": "鲁萨尔卡水灵",
+        "default_enabled": true,
+        "proposed_carrier": "鲁萨尔卡；沿指定湿边滑行、强拍扑击",
+        "groups": [
+          "water_source",
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T02B",
+          "T03A",
+          "T06B"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A"
+        ],
+        "state_condition_and_reason": "休拍擦断真实湿边后，剩余强拍路径更易被冷雾覆盖；声辅助不修改原歌曲强弱拍或帮玩家自动擦水。",
+        "preserved_real_rule": "休拍擦断湿边、原货移干侧",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F35",
+      "name": "芭芭雅嘎",
+      "baseline_role": "契约",
+      "baseline_signature": "亲手限定一处脏槽，让扫帚在不被注视时工作，完工后收回。",
+      "proposed_combat_carrier_and_movement": "雅嘎扫帚投影；扫帚贴地冲刺",
+      "preserved_real_action": "限定原脏槽、不直视工作、完工收回原扫帚",
+      "new_weakness_and_tower_trap_interaction": "标工区限制扫帚冲刺方向；背向给工作/塔击窗口；及时收回封扫帚撞击，稳定后已做真实清洁作为帮助",
+      "invariant": "收回道具不是把怪物HP直接清零；不重复清同一脏点收费。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "原工单工作累计8秒；收回原扫帚提交即封撞击",
+      "new_abilities_proposed": "扫帚贴地冲刺、工区限向",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F35",
+        "name": "芭芭雅嘎",
+        "default_enabled": true,
+        "proposed_carrier": "雅嘎扫帚投影；扫帚贴地冲刺",
+        "groups": [
+          "fast_ground",
+          "long_window"
+        ],
+        "favorable_branches": [
+          "T01B",
+          "T02B",
+          "T05B"
+        ],
+        "conditional_or_weak_branches": [
+          "T03B"
+        ],
+        "state_condition_and_reason": "限定工区决定扫帚冲刺方向，双点岗和高频能控转角；慢AOE须等工作/收招窗，不把扫帚影当海量小兵。",
+        "preserved_real_rule": "限定原脏槽、不直视工作、完工收回原扫帚",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F36",
+      "name": "精灵访客",
+      "baseline_role": "契约",
+      "baseline_signature": "给一个固定槽和20秒访问，到期收回通行条。",
+      "proposed_combat_carrier_and_movement": "精灵光影；在许可槽边预告闪移",
+      "preserved_real_action": "限定单槽20秒，到期收回通行条",
+      "new_weakness_and_tower_trap_interaction": "明确边界缩减闪移候选，撤条封跨槽追击并让下一次闪移失败后僵直；锚定陷阱卡唯一合法落点",
+      "invariant": "自动到期读取世界钟，不因暂停免费收租；权限边界与碰撞边界分离。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "原许可20世界秒真实到期；闪移预告建议1.5秒；撤条后当前闪移取消并僵直2秒",
+      "new_abilities_proposed": "许可槽闪移图与撤权失衡",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F36",
+        "name": "精灵访客",
+        "default_enabled": true,
+        "proposed_carrier": "精灵光影；在许可槽边预告闪移",
+        "groups": [
+          "node_transfer",
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T02A",
+          "T02B"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A",
+          "T04B"
+        ],
+        "state_condition_and_reason": "许可20秒是真实世界钟；暂封下一次跳转不延长借位合同；撤条后保留基本追击，纸偶不能拦瞬移段。 T04B仅在主要规则限制转场后，或预热宽限真实维持且已累计4秒曝光时条件适配；未满足前不得视为即时位移克制。",
+        "preserved_real_rule": "限定单槽20秒，到期收回通行条",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F37",
+      "name": "古尔荒野妖",
+      "baseline_role": "威胁",
+      "baseline_signature": "把正常交接落实在店内固定台与回执，停止跟随。",
+      "proposed_combat_carrier_and_movement": "古尔；步行、门外诱声掩护疾走",
+      "preserved_real_action": "在固定台交接、保管原物、停止跟随",
+      "new_weakness_and_tower_trap_interaction": "回到可信台使诱声失效并露出真实追逐方向；固定台核对封其伪店长加速令，T01穿签长钉帮助持续锁定",
+      "invariant": "音声不授予权限，退回柜台是弱点触发位置不是无限安全格。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "诱声加速起手建议1.5秒；真实固定台核对当刻封伪令加速",
+      "new_abilities_proposed": "伪店长加速令、可信台弱点",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F37",
+        "name": "古尔荒野妖",
+        "default_enabled": true,
+        "proposed_carrier": "古尔；步行、门外诱声掩护疾走",
+        "groups": [
+          "fast_ground"
+        ],
+        "favorable_branches": [
+          "T01B",
+          "T02B",
+          "T05A"
+        ],
+        "conditional_or_weak_branches": [
+          "T04A"
+        ],
+        "state_condition_and_reason": "核心是语音假令和实际交接台，不是阴影图；玩家回可信台封特殊加速后，地面岗和高频更有效。",
+        "preserved_real_rule": "在固定台交接、保管原物、停止跟随",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F38",
+      "name": "双重身",
+      "baseline_role": "威胁",
+      "baseline_signature": "先收权限，再亲查三处已登记实物结果，接回异常前轨迹。",
+      "proposed_combat_carrier_and_movement": "双重身；双影步行、换位预告",
+      "preserved_real_action": "收权限、亲查三处原工作结果、短连续见证",
+      "new_weakness_and_tower_trap_interaction": "每条独立实证排掉一条伪轨迹；当前有效核验锁定真异常影，封交换位置/假标记。真实同事保持不可选敌，塔只对显形异常开火",
+      "invariant": "真历史只说明历史；凭证8秒/断链失效要可见；不能射两人试真伪。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "沿用当前核验8秒凭证；双影换位预告建议1.5秒；断链不清已收权限",
+      "new_abilities_proposed": "双影换位、真实同事保护与显形锁定",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F38",
+        "name": "双重身",
+        "default_enabled": true,
+        "proposed_carrier": "双重身；双影步行、换位预告",
+        "groups": [
+          "node_transfer",
+          "dangerous_special",
+          "identity_persistence"
+        ],
+        "favorable_branches": [
+          "T01B",
+          "T02B"
+        ],
+        "conditional_or_weak_branches": [
+          "T03A",
+          "T03B",
+          "T04B"
+        ],
+        "state_condition_and_reason": "真人与异常同脸不等于两个可伤敌人。只有显形异常可累层；真同事不吃AOE、不传毒、不充当弹跳中转。 T04B仅在主要规则限制转场后，或预热宽限真实维持且已累计4秒曝光时条件适配；未满足前不得视为即时位移克制。",
+        "preserved_real_rule": "收权限、亲查三处原工作结果、短连续见证",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F39",
+      "name": "多莫沃伊家宅灵",
+      "baseline_role": "契约",
+      "baseline_signature": "先亮新位、再搬木牌，最后关闭旧位。",
+      "proposed_combat_carrier_and_movement": "家宅灵；灶位锚定短闪移",
+      "preserved_real_action": "亮新位、原木牌搬新槽、关旧位",
+      "new_weakness_and_tower_trap_interaction": "亮新位诱导下一落点，迁牌关闭旧锚，关旧灶封回跳与灶火弹；稳定后给一次局部安全热源帮助",
+      "invariant": "故障修好无需迁移时不倒放木牌；不以塔可选供电控制必需安全设备。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "新灯亮后下一落点预告1.5秒；原木牌迁移永久关旧锚",
+      "new_abilities_proposed": "双灶锚回跳及灶火弹",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F39",
+        "name": "多莫沃伊家宅灵",
+        "default_enabled": true,
+        "proposed_carrier": "家宅灵；灶位锚定短闪移",
+        "groups": [
+          "node_transfer",
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T02A",
+          "T02B"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A",
+          "T04B"
+        ],
+        "state_condition_and_reason": "新旧灶锚形成有限转场；先亮新位、迁原牌、关旧位后长DOT仍结同实体。火塔不直接暖灶替实际工位动作。 T04B仅在主要规则限制转场后，或预热宽限真实维持且已累计4秒曝光时条件适配；未满足前不得视为即时位移克制。",
+        "preserved_real_rule": "亮新位、原木牌搬新槽、关旧位",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F40",
+      "name": "列希森林灵",
+      "baseline_role": "威胁",
+      "baseline_signature": "沿亲手留下的三个固定路标返回，把树苗送到门内归还格。",
+      "proposed_combat_carrier_and_movement": "列希；真实步行+固定树影节点跳跃（新改编）",
+      "preserved_real_action": "自贴路标、拿同树苗、归还/隔离",
+      "new_weakness_and_tower_trap_interaction": "真实路标附近影节点失去跳转资格；原苗归还后全部林影节点关闭，转步行且失去遮影护体，T04显相巡灯辅助保持路线清楚",
+      "invariant": "只改装饰/节点能力，不移动真实货架；没有误收树苗不投放。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "新增影跳预告1.5秒、到达0.8秒禁攻、影内过渡不可选敌最多0.6秒",
+      "new_abilities_proposed": "固定影节点跳跃、路标删跳边",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F40",
+        "name": "列希森林灵",
+        "default_enabled": true,
+        "proposed_carrier": "列希；真实步行+固定树影节点跳跃（新改编）",
+        "groups": [
+          "node_transfer"
+        ],
+        "favorable_branches": [
+          "T04A",
+          "T02A"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A",
+          "T03B",
+          "T04B"
+        ],
+        "state_condition_and_reason": "广角关局部影节点，定帧可在合法可见出口持续升档，满档且购快门才封下一次位移，灵毒留本体；影过渡≤0.6秒。归苗永久破解与暂时受灯照环境不可混同。 T04B仅在主要规则限制转场后，或预热宽限真实维持且已累计4秒曝光时条件适配；未满足前不得视为即时位移克制。",
+        "preserved_real_rule": "自贴路标、拿同树苗、归还/隔离",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F41",
+      "name": "哭泣女",
+      "baseline_role": "威胁",
+      "baseline_signature": "在门内固定槽交付核对过的寻人物，并从店内完成求助联系。",
+      "proposed_combat_carrier_and_movement": "哭泣女；贴地飘行、门线后退后扑袭",
+      "preserved_real_action": "核对原寻人物、门内登记求助、保管合规",
+      "new_weakness_and_tower_trap_interaction": "真实求助登记封远程呼唤拉扯，物件保留门内时冲刺锁在可见门线；压制其实体后沿合法路退场",
+      "invariant": "不强迫把失物交未知来者；未交物不计成交；电话不是直接抹HP按钮。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "门线扑袭预告建议1.5秒；求助真实登记即永久封远程拉扯",
+      "new_abilities_proposed": "门线诱声、有限远程拉扯",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F41",
+        "name": "哭泣女",
+        "default_enabled": true,
+        "proposed_carrier": "哭泣女；贴地飘行、门线后退后扑袭",
+        "groups": [
+          "air_phase",
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T02B",
+          "T06B"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A"
+        ],
+        "state_condition_and_reason": "若采用贴地飘行air_low，纸偶不拦；先明确高度掩码。门内求助封拉扯，后续基础漂行仍需合法对空伤害。",
+        "preserved_real_rule": "核对原寻人物、门内登记求助、保管合规",
+        "status": "TD02_adaptation_proposal_not_runtime_verification",
+        "optional_skill_support": {
+          "branch": "T05B",
+          "skill": "T05B_S2",
+          "condition": "另购投签后2.5格内且有合法射线才可对空补伤；不能阻挡空中，也不替代原型规则操作。"
+        }
+      }
+    },
+    {
+      "id": "F42",
+      "name": "哨声亡灵",
+      "baseline_role": "威胁",
+      "baseline_signature": "在低压窗口把一件登记货从后门一侧候运位转到另一侧，退回并关闸。",
+      "proposed_combat_carrier_and_movement": "哨声亡灵；后门锚点预告冲袭",
+      "preserved_real_action": "看实体压力表，在低压窗转运原货、退回关闸",
+      "new_weakness_and_tower_trap_interaction": "关闸取消下一次穿门突击并产生撞闸破绽；每轮低压均可打断，T06催单广播台不替代压力事实。封印后残影可由塔击退",
+      "invariant": "听觉远近故意相反但压力提示可靠；开关不重开原攻击期限。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "读现有高低压窗口；关闸不重置原deadline；撞闸暴露建议2.5秒",
+      "new_abilities_proposed": "后门突击与低压反制窗口",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F42",
+        "name": "哨声亡灵",
+        "default_enabled": true,
+        "proposed_carrier": "哨声亡灵；后门锚点预告冲袭",
+        "groups": [
+          "node_transfer",
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T02B"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A",
+          "T04B"
+        ],
+        "state_condition_and_reason": "压力表/原闸门给固定冲袭窗，重弹有预瞄价值，定帧只在持续曝光满足阈值后收益完整；声响远近不能替代事实，也不自动被广播消除。 T04B仅在主要规则限制转场后，或预热宽限真实维持且已累计4秒曝光时条件适配；未满足前不得视为即时位移克制。",
+        "preserved_real_rule": "看实体压力表，在低压窗转运原货、退回关闸",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F43",
+      "name": "图恩达",
+      "baseline_role": "威胁",
+      "baseline_signature": "让来者在公共粉印垫交物，结合真实作业连续性保留权限边界。",
+      "proposed_combat_carrier_and_movement": "图恩达；步行、利用盲角短冲",
+      "preserved_real_action": "公共粉垫交物+同刻工作连续性核验",
+      "new_weakness_and_tower_trap_interaction": "真粉印揭出单侧木足，使其转向/突进前摇变长；连续性核验封伪同事权限令，转角陷阱更易命中",
+      "invariant": "不能从没有记录的时段杜撰第二证据；普通交接无物则不制造空任务。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "木足突进前摇核验前建议1秒、揭示后1.8秒；已封权限永久",
+      "new_abilities_proposed": "木足转向代价、伪同事权限令",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F43",
+        "name": "图恩达",
+        "default_enabled": true,
+        "proposed_carrier": "图恩达；步行、利用盲角短冲",
+        "groups": [
+          "fast_ground",
+          "dangerous_special",
+          "identity_persistence"
+        ],
+        "favorable_branches": [
+          "T01B",
+          "T05B",
+          "T06A"
+        ],
+        "conditional_or_weak_branches": [
+          "T03B"
+        ],
+        "state_condition_and_reason": "核验木足后转向代价变大，适合两转角守点与定向驱离；短冲前的慢炮命中不稳定。",
+        "preserved_real_rule": "公共粉垫交物+同刻工作连续性核验",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F44",
+      "name": "巨帽夜曲客",
+      "baseline_role": "交易",
+      "baseline_signature": "用一块实体价牌把一首歌绑定一单，交货后封住该单。",
+      "proposed_combat_carrier_and_movement": "巨帽夜曲客；步行、帽缘展开弹幕",
+      "preserved_real_action": "实体价牌锁一歌一单、原货交付并封单",
+      "new_weakness_and_tower_trap_interaction": "绑定价牌切掉乐曲重奏次数，封单停止帽缘扩大；大帽遮挡转为可侧击护盾，R02缚足夹+T01穿签长钉克制",
+      "invariant": "确认铃不自动签新约；不得把旧单当无限钱源。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "新歌段必须独立承诺；帽缘扩张建议1.5秒预告；封单永久封重奏",
+      "new_abilities_proposed": "帽缘盾与重复曲段攻击",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F44",
+        "name": "巨帽夜曲客",
+        "default_enabled": true,
+        "proposed_carrier": "巨帽夜曲客；步行、帽缘展开弹幕",
+        "groups": [
+          "armor_window",
+          "long_window",
+          "dangerous_special",
+          "directional"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T02B",
+          "T03B"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A"
+        ],
+        "state_condition_and_reason": "帽缘盾收束后需要侧击，低频破壳和持续灼域适合慢本体；头上弹幕不因纸偶挡身而全部消失。",
+        "preserved_real_rule": "实体价牌锁一歌一单、原货交付并封单",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F45",
+      "name": "逆足林守",
+      "baseline_role": "契约",
+      "baseline_signature": "沿连续轮痕把对应批次推回正确货格。",
+      "proposed_combat_carrier_and_movement": "逆足林守；反向朝向步行与短冲",
+      "preserved_real_action": "按真实轮痕把原箱送回对应货格",
+      "new_weakness_and_tower_trap_interaction": "原箱正确归位封掉误导脚印，真实移动方向稳定可见；侧向塔与狭长陷阱更易预判，背面护层解除",
+      "invariant": "脚朝向不等于速度方向，必须始终有地面位移箭头；不给倒走输入惩罚。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "实际速度方向始终给地面箭头；原箱归位永久封伪足迹",
+      "new_abilities_proposed": "反向朝向追击与侧后弱点",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F45",
+        "name": "逆足林守",
+        "default_enabled": true,
+        "proposed_carrier": "逆足林守；反向朝向步行与短冲",
+        "groups": [
+          "armor_window",
+          "fast_ground",
+          "directional"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T01B",
+          "T05B"
+        ],
+        "conditional_or_weak_branches": [
+          "T04A"
+        ],
+        "state_condition_and_reason": "按真实速度方向拦截/射击，反向脚印不该使塔自动判错或让灯直接破解；原箱归位拆背甲后穿签更好。",
+        "preserved_real_rule": "按真实轮痕把原箱送回对应货格",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F46",
+      "name": "红帽萨西",
+      "baseline_role": "访客",
+      "baseline_signature": "提前把筛罩放到下一预告停点，等风入罩后取回工具。",
+      "proposed_combat_carrier_and_movement": "萨西旋风；固定节点短跃、停点4秒",
+      "preserved_real_action": "把原筛罩先置下一预告停点的专用侧槽，捕获范围覆盖落点但不占实体落脚格、取回原工具",
+      "new_weakness_and_tower_trap_interaction": "截中旋风永久封节点换位并暴露实体，工具取回取消缴械；先捕风再收工具有高效输出窗，定点阵/T01价签投射器各有用",
+      "invariant": "落点先锁后跳，不因陷阱改点；原筛罩用专用侧槽覆盖捕获体积，不占已锁实体落脚格。工具只有原实例；锁点真被封/占时取消位移并在当前合法点恢复。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "沿用每点4秒；下一落点至少1.5秒前锁定；筛罩截中永久封跳点",
+      "new_abilities_proposed": "旋风高低层和缴械攻击",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F46",
+        "name": "红帽萨西",
+        "default_enabled": true,
+        "proposed_carrier": "萨西旋风；固定节点短跃、停点4秒",
+        "groups": [
+          "air_phase",
+          "node_transfer",
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T01B",
+          "T02B"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A",
+          "T03B",
+          "T04B"
+        ],
+        "state_condition_and_reason": "停点4秒且下一点至少1.5秒先锁；高频先打可见旋风，定帧需前一段合法曝光达到最高档且已购快门才可能封次跳。筛罩捕风后实体才开放地面炮/纸偶。 T04B仅在主要规则限制转场后，或预热宽限真实维持且已累计4秒曝光时条件适配；未满足前不得视为即时位移克制。",
+        "preserved_real_rule": "把原筛罩先置下一预告停点的专用侧槽，捕获范围覆盖落点但不占实体落脚格、取回原工具",
+        "status": "TD02_adaptation_proposal_not_runtime_verification",
+        "optional_skill_support": {
+          "branch": "T05B",
+          "skill": "T05B_S2",
+          "condition": "另购投签后2.5格内且有合法射线才可对空补伤；不能阻挡空中，也不替代原型规则操作。"
+        }
+      }
+    },
+    {
+      "id": "F47",
+      "name": "水歌伊阿拉",
+      "baseline_role": "威胁",
+      "baseline_signature": "在一段停拍内封好当前奖袋并实际拿离交付槽。",
+      "proposed_combat_carrier_and_movement": "伊阿拉；水边滑行、歌段引导冲击",
+      "preserved_real_action": "停拍内封当前原奖袋并实际取走",
+      "new_weakness_and_tower_trap_interaction": "封袋使未承诺歌段失效，封持续魅惑/叠层吸取；已完成歌段越多护层越多但回报只一次，玩家可早封降低压力。T02封签公证短封特殊技能以辅助退出",
+      "invariant": "0.8秒旧窗在新战斗中须加反应预算或远程预输入，不能照抄旧特写数值。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "旧1.2/1.0/0.8秒封袋窗不直接照搬追逐战；建议统一≥1.5秒可预输入窗口",
+      "new_abilities_proposed": "歌段叠层护膜与封袋止续约",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F47",
+        "name": "水歌伊阿拉",
+        "default_enabled": true,
+        "proposed_carrier": "伊阿拉；水边滑行、歌段引导冲击",
+        "groups": [
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T02A",
+          "T02B",
+          "T06B"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A"
+        ],
+        "state_condition_and_reason": "封真实奖袋完成主要资格，毒/短封可抑歌段吸取；0.8秒旧特写窗不能照搬实时战斗，需≥1.5秒可预输入。",
+        "preserved_real_rule": "停拍内封当前原奖袋并实际取走",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F48",
+      "name": "河海豚化人客",
+      "baseline_role": "访客",
+      "baseline_signature": "把商品交到访客托盘，把工作帽和钥匙留在员工侧槽。",
+      "proposed_combat_carrier_and_movement": "河海豚人影；步行、帽影掩护扑袭",
+      "preserved_real_action": "商品放访客托盘，工作帽钥匙留员工侧",
+      "new_weakness_and_tower_trap_interaction": "明确把商品和帽钥匙分离封员工区捷径与设施夺控；帽檐显露时命中更稳。压制后恢复正常离店交易语义",
+      "invariant": "呼吸外貌只证明非人不证明当前攻击阶段；没有越界动作不要让自动塔先手射击。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "越员工线预告建议1.5秒；帽钥匙保留提交即封对应捷径",
+      "new_abilities_proposed": "帽影扑袭与有限设施夺控",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F48",
+        "name": "河海豚化人客",
+        "default_enabled": true,
+        "proposed_carrier": "河海豚人影；步行、帽影掩护扑袭",
+        "groups": [
+          "fast_ground",
+          "dangerous_special",
+          "identity_persistence"
+        ],
+        "favorable_branches": [
+          "T01B",
+          "T02B",
+          "T05A"
+        ],
+        "conditional_or_weak_branches": [
+          "T04A"
+        ],
+        "state_condition_and_reason": "原型为河海豚而非河豚；保留帽钥匙封捷径/夺控后是可拦步行。灯不能凭呼吸外貌直接宣判敌对。",
+        "preserved_real_rule": "商品放访客托盘，工作帽钥匙留员工侧",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F49",
+      "name": "火蛇博伊塔塔",
+      "baseline_role": "契约",
+      "baseline_signature": "先合盖封住余热，再从袋外温标确认冷却后投放。",
+      "proposed_combat_carrier_and_movement": "火蛇；贴地蛇行、沿热垃圾锚冲刺",
+      "preserved_real_action": "同热袋合盖、温标确认、真实冷却投放",
+      "new_weakness_and_tower_trap_interaction": "合盖立即封喷火/热锚扩散；实际冷却后热甲逐步剥落。减速胶不靠“冰必克火”强行通吃，耐热阻隔/T02镇契收银机可磨；稳定后清除该袋余热危险",
+      "invariant": "热食台不算热垃圾；封暂存不虚报投垃圾箱。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "读原袋实际温标/世界冷却；合盖即封喷火，冷却分段永久剥甲",
+      "new_abilities_proposed": "热锚冲刺、余热护甲、喷火",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F49",
+        "name": "火蛇博伊塔塔",
+        "default_enabled": true,
+        "proposed_carrier": "火蛇；贴地蛇行、沿热垃圾锚冲刺",
+        "groups": [
+          "long_window",
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T02A",
+          "T02B"
+        ],
+        "conditional_or_weak_branches": [
+          "T05B"
+        ],
+        "state_condition_and_reason": "热垃圾锚与喷火是实际特殊能力，灵毒作用显形体可解释；不能仅因火蛇名字全免灼烧或判冰必克火，抗性另明示。",
+        "preserved_real_rule": "同热袋合盖、温标确认、真实冷却投放",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F50",
+      "name": "泽西恶魔",
+      "baseline_role": "威胁",
+      "baseline_signature": "把遮板推入目标窗固定槽，立即退到同组安全点。",
+      "proposed_combat_carrier_and_movement": "泽西恶魔；窗外高飞→锁窗俯冲→低空恢复",
+      "preserved_real_action": "两次同窗线索、原板入正确槽、离冲击条带",
+      "new_weakness_and_tower_trap_interaction": "撞正确板后进入长低空失衡，封下一次高空加速；T01价签投射器平时牵制，R03压空捕网可在合法地面迫降，真实落地后T03热罐破壳炮才参战",
+      "invariant": "8秒期限不因观察刷新，目标锁定不暗换；错窗撤离保命但不发完美回执。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "沿用锁窗8秒；成功挡击低空失衡建议3—4秒；不同attack_id才累计挡击",
+      "new_abilities_proposed": "高空/俯冲/失衡三态、两次挡击封高空",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F50",
+        "name": "泽西恶魔",
+        "default_enabled": true,
+        "proposed_carrier": "泽西恶魔；窗外高飞→锁窗俯冲→低空恢复",
+        "groups": [
+          "air_phase",
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T01B",
+          "T03B"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A",
+          "T03A",
+          "T04B"
+        ],
+        "state_condition_and_reason": "T03B适配仅限R03合法迫降后的ground；对空塔先输出，冻结空中不迫降。多窗是同一根实体，不能三窗AOE三算。 T04B仅在主要规则限制转场后，或预热宽限真实维持且已累计4秒曝光时条件适配；未满足前不得视为即时位移克制。 T03A/T03B只ground，low_air与冻结都不自动满足命中层。",
+        "preserved_real_rule": "两次同窗线索、原板入正确槽、离冲击条带",
+        "status": "TD02_adaptation_proposal_not_runtime_verification",
+        "optional_skill_support": {
+          "branch": "T05B",
+          "skill": "T05B_S2",
+          "condition": "另购投签后2.5格内且有合法射线才可对空补伤；不能阻挡空中，也不替代原型规则操作。"
+        }
+      }
+    },
+    {
+      "id": "F51",
+      "name": "蜘蛛故事商",
+      "baseline_role": "交易",
+      "baseline_signature": "用真实回执压住矛盾段，把有限折扣牌和对应商品一起封单。",
+      "proposed_combat_carrier_and_movement": "蜘蛛商影；步行、从真实交易节点牵丝",
+      "preserved_real_action": "用原回执压矛盾段、折扣牌与原货封同单",
+      "new_weakness_and_tower_trap_interaction": "指出实际矛盾切断一根护体契约丝；封单使剩余复制丝失效，露出实体。T01双卷速贴先打护丝、T01穿签长钉打本体；不要用伤害代替核账",
+      "invariant": "没有历史回执不投题，不生成复制商品，故事最多有限段。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "矛盾段必须对应原回执；每核对一段永久断一护丝；最多有限曲段",
+      "new_abilities_proposed": "交易护丝与有限连射目标",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F51",
+        "name": "蜘蛛故事商",
+        "default_enabled": true,
+        "proposed_carrier": "蜘蛛商影；步行、从真实交易节点牵丝",
+        "groups": [
+          "armor_window",
+          "long_window",
+          "secondary_candidates",
+          "identity_persistence"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T01B",
+          "T03A"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A"
+        ],
+        "state_condition_and_reason": "契约丝可作为有限可打构件，清丝削招式但根稳定度每发/爆炸只扣一次；真实历史核账仍封同单。",
+        "preserved_real_rule": "用原回执压矛盾段、折扣牌与原货封同单",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F52",
+      "name": "矮水灵托科洛舍",
+      "baseline_role": "威胁",
+      "baseline_signature": "从干侧擦断椅南割点并低位检查，解除后再决定是否短休。",
+      "proposed_combat_carrier_and_movement": "椅下水灵；低位爬行、湿椅节点扑袭",
+      "preserved_real_action": "干侧擦椅南割点、低位检查",
+      "new_weakness_and_tower_trap_interaction": "断水封椅下回潜；低位看到已显形影后塔能稳定锁定，T02镇契收银机/R02缚足夹对矮体有效。休息仅战后可选收益",
+      "invariant": "从上看未见不判无怪；0SAN恢复不能被强绑这把危险椅。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "割点擦断即永久封椅下回潜；低位检查提交后显形可锁定；战后休息6秒",
+      "new_abilities_proposed": "低位潜藏、湿椅扑袭和显形",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F52",
+        "name": "矮水灵托科洛舍",
+        "default_enabled": true,
+        "proposed_carrier": "椅下水灵；低位爬行、湿椅节点扑袭",
+        "groups": [
+          "fast_ground",
+          "water_source",
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T01B",
+          "T02B",
+          "T05B"
+        ],
+        "conditional_or_weak_branches": [
+          "T03B"
+        ],
+        "state_condition_and_reason": "低位检查后的小实体适合高频；断湿线封回潜；不能从上方看不到就借广域弹体免费验明隐藏身份。",
+        "preserved_real_rule": "干侧擦椅南割点、低位检查",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F53",
+      "name": "水之母来访",
+      "baseline_role": "契约",
+      "baseline_signature": "把承诺瓶实际放入封签保留槽，售货只从另一箱拿。",
+      "proposed_combat_carrier_and_movement": "水之母投影；沿保留容器边界慢行、波纹脉冲",
+      "preserved_real_action": "同两原瓶封保留槽，售货只另一箱",
+      "new_weakness_and_tower_trap_interaction": "承诺实物在槽时不再扩大脉冲，每完成一瓶锁定就减少一次连击；双瓶保留使水幕变为固定方向，可从侧翼塔压制。稳定后承诺仍真实保留至交班，独立给原履约恢复",
+      "invariant": "战斗结束不提前支付720的SAN；同瓶不能边打边卖刷进度。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "每原瓶封入立即拆一波纹连击；两瓶全封立刻削弱；720仅结最终履约奖金",
+      "new_abilities_proposed": "水幕方向护层、逐瓶即时削连击",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F53",
+        "name": "水之母来访",
+        "default_enabled": true,
+        "proposed_carrier": "水之母投影；沿保留容器边界慢行、波纹脉冲",
+        "groups": [
+          "armor_window",
+          "water_source",
+          "long_window",
+          "dangerous_special",
+          "directional"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T02A",
+          "T06B"
+        ],
+        "conditional_or_weak_branches": [
+          "T06A"
+        ],
+        "state_condition_and_reason": "双瓶即时破解方向水幕，适合侧翼长射程与持续伤害；锚定水幕不吃无条件推离，720只支付履约结算。",
+        "preserved_real_rule": "同两原瓶封保留槽，售货只另一箱",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F54",
+      "name": "吞世巨兽",
+      "baseline_role": "威胁",
+      "baseline_signature": "从最后吞入的一件开始，逐件逆序拉到外部暂存槽。",
+      "proposed_combat_carrier_and_movement": "吞世巨兽的有限伸入投影；慢推进/固定宽口攻击",
+      "preserved_real_action": "三件原物按真实吞入逆序拉回暂存槽",
+      "new_weakness_and_tower_trap_interaction": "每救回一件消掉一层吞物甲并取消一种吸入攻击，全部回收封吞噬并张口暴露。身体不用强塞窄后场，固定攻击带随玩家方位有预告转换",
+      "invariant": "只吞登记三物，不吞唯一救命工具/全部背包；三绳和槽位先预留。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "转攻击带建议1.5秒，吸入2秒；拉错回弹0.5秒；每原物救回永久拆一层甲",
+      "new_abilities_proposed": "有限巨大投影、吞物护甲与吸入招式",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F54",
+        "name": "吞世巨兽",
+        "default_enabled": true,
+        "proposed_carrier": "吞世巨兽的有限伸入投影；慢推进/固定宽口攻击",
+        "groups": [
+          "armor_window",
+          "long_window",
+          "dangerous_special",
+          "directional"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T02A",
+          "T03B",
+          "T04B"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A",
+          "T06A"
+        ],
+        "state_condition_and_reason": "救三物逐层拆甲、低速宽口适合重爆/长DOT；全部部位共 health_pool_id，同攻击阶段的爆炸和热印不能按部位倍增；不是群怪收益。 T04B可在已破解后的稳定长射界升档，优势取决于实际ward及4秒曝光。",
+        "preserved_real_rule": "三件原物按真实吞入逆序拉回暂存槽",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F55",
+      "name": "护夜犬卡德霍",
+      "baseline_role": "契约",
+      "baseline_signature": "交出一份未吃过的实际食物，沿限定节点完成交接并返回。",
+      "proposed_combat_carrier_and_movement": "卡德霍显形犬；疾走，近身扑击",
+      "preserved_real_action": "原赠食、按真实限定节点交接并返店",
+      "new_weakness_and_tower_trap_interaction": "赠食中断扑击并把下一段追逐导向已知节点；每到节点减少一次疾扑连段，返店提交规则完成并永久封连扑，保留基础追击和普攻；由塔把稳定度压至0后才转一次限定护送/拦截帮助",
+      "invariant": "不能先免费无敌护送再重复战斗领奖；同原订单交付是否完成另记事实。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "扑击预告至少1.2秒；真实食物转移给有限进食窗口；节点到达逐次封特殊连扑。返店只提交规则进度，仍保留基础追击与普攻；塔压清稳定度后才结算。",
+      "new_abilities_proposed": "限定节点追逐与稳定后有限守护",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F55",
+        "name": "护夜犬卡德霍",
+        "default_enabled": true,
+        "proposed_carrier": "卡德霍显形犬；疾走，近身扑击",
+        "groups": [
+          "fast_ground",
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T01B",
+          "T02B",
+          "T05A"
+        ],
+        "conditional_or_weak_branches": [
+          "T03B"
+        ],
+        "state_condition_and_reason": "犬体有限节点追逐适合持续叠层，纸偶须让位原型食物；返店只是规则完成，基础追击保留到稳定度清零。",
+        "preserved_real_rule": "原赠食、按真实限定节点交接并返店",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F56",
+      "name": "深水邦耶普",
+      "baseline_role": "威胁",
+      "baseline_signature": "从干侧测深划界，再擦断供水割点取回目标物。",
+      "proposed_combat_carrier_and_movement": "邦耶普水影；深水点潜行、边缘跃出",
+      "preserved_real_action": "从干侧测深划界、擦断真实供水割点取原物",
+      "new_weakness_and_tower_trap_interaction": "测深把有效潜点显示给塔/玩家，断流迫使其从可见边缘跃出，封深水护体与回潜。地面网只在跃出着地时生效",
+      "invariant": "量尺不是造水工具；完全排干可跳过测深，不让提前正确应对失效。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "边缘跃出建议1.5秒预告；排干永封回潜；已安全取回不用重复测深",
+      "new_abilities_proposed": "深水潜点、断流跃出和实体阶段",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F56",
+        "name": "深水邦耶普",
+        "default_enabled": true,
+        "proposed_carrier": "邦耶普水影；深水点潜行、边缘跃出",
+        "groups": [
+          "water_source"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T02B",
+          "T03A"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A"
+        ],
+        "state_condition_and_reason": "先从真实潜点跃出才吃地面控制；冻水不等于排水，不能把未测深潜点直接变成可用陷阱地板。",
+        "preserved_real_rule": "从干侧测深划界、擦断真实供水割点取原物",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F57",
+      "name": "水路守护塔尼瓦",
+      "baseline_role": "契约",
+      "baseline_signature": "选择8秒维护过箱，或沿登记外绕路线送箱；最终恢复主渠且收起踏板。",
+      "proposed_combat_carrier_and_movement": "塔尼瓦水影；依主渠移动、预告横扫",
+      "preserved_real_action": "原箱走北干绕或8秒维护过渠，收板复流",
+      "new_weakness_and_tower_trap_interaction": "收清堵物立即缩窄横扫，恢复主渠封暴涨攻击并将影固定在渠边可压制区；正确维护给额外战术窗，干绕也可安全削弱。稳定后一次可见水路护持",
+      "invariant": "不能故意堵再疏无限刷；主渠与F05冷支路不同，封水并非所有水怪通解。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "沿用可选维护8秒；收板复流立即削弱；干绕不强制重做维护",
+      "new_abilities_proposed": "主渠横扫、暴涨与复流稳定",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F57",
+        "name": "水路守护塔尼瓦",
+        "default_enabled": true,
+        "proposed_carrier": "塔尼瓦水影；依主渠移动、预告横扫",
+        "groups": [
+          "water_source",
+          "long_window",
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T02A",
+          "T06B"
+        ],
+        "conditional_or_weak_branches": [
+          "T06A"
+        ],
+        "state_condition_and_reason": "需要复流的主渠与F05需断流支路相反；恢复主渠封暴涨形成持续输出窗，不能推走锚定守渠影当永久通行。",
+        "preserved_real_rule": "原箱走北干绕或8秒维护过渠，收板复流",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F58",
+      "name": "雾笛访客",
+      "baseline_role": "访客",
+      "baseline_signature": "留一份真实热食在保温槽维持边界，或实际封闭冷区。",
+      "proposed_combat_carrier_and_movement": "雾笛影；雾内步行快、出雾慢",
+      "preserved_real_action": "同份热食留保温槽或实际封普通冷区",
+      "new_weakness_and_tower_trap_interaction": "热食保持一片可见无雾域，影子走入后失去隐蔽与笛声束缚；封区切断雾源，残影在现位置显露并转慢行，T04显相巡灯辅助而非免费识破所有伪装",
+      "invariant": "热食品质按真实世界钟到期；封区不关任务冰柜与逃生门。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "食品品质沿真实世界钟；预示3秒后暖域收缩；封区提交即断源显形",
+      "new_abilities_proposed": "雾内加速/隐蔽、暖域脱雾弱点",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F58",
+        "name": "雾笛访客",
+        "default_enabled": true,
+        "proposed_carrier": "雾笛影；雾内步行快、出雾慢",
+        "groups": [
+          "fast_ground",
+          "dangerous_special"
+        ],
+        "favorable_branches": [
+          "T01B",
+          "T04A",
+          "T06A"
+        ],
+        "conditional_or_weak_branches": [
+          "T03B"
+        ],
+        "state_condition_and_reason": "已显形雾影被暖域/封区迫出后可持续跟踪，合法ground才可驱离；火炮余烬不自动延长原热食品质。",
+        "preserved_real_rule": "同份热食留保温槽或实际封普通冷区",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F59",
+      "name": "梅内胡内工队",
+      "baseline_role": "交易",
+      "baseline_signature": "把所需材料放到固定槽，再关局部施工灯、离开注视。",
+      "proposed_combat_carrier_and_movement": "工队工具影；沿施工位短冲与预告换位",
+      "preserved_real_action": "同三份材料放固定槽，关局部灯、不注视施工，实际装回",
+      "new_weakness_and_tower_trap_interaction": "每就位一份材料关闭一把飞工具攻击；不注视工作时露出固定施工窗；装回原设备封特殊飞工具攻击，保留基础追击；稳定度归零后恢复该设备原功能",
+      "invariant": "无损坏不造维修事件；不借施工刷新原设备次数/电量；不是免费复位同等收益。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "同三材料逐项封工具攻击；原不注视施工8秒；实装后原设备功能恢复",
+      "new_abilities_proposed": "有限飞工具与施工位换位",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F59",
+        "name": "梅内胡内工队",
+        "default_enabled": true,
+        "proposed_carrier": "工队工具影；沿施工位短冲与预告换位",
+        "groups": [
+          "long_window",
+          "dangerous_special",
+          "secondary_candidates"
+        ],
+        "favorable_branches": [
+          "T01B",
+          "T02B",
+          "T06B"
+        ],
+        "conditional_or_weak_branches": [
+          "T03A"
+        ],
+        "state_condition_and_reason": "原三材料逐把封飞工具。飞工具默认是攻击/弹体而非三只可领奖小怪；若要AOE清工具，单列可打构件/伤害掩码。",
+        "preserved_real_rule": "同三份材料放固定槽，关局部灯、不注视施工，实际装回",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    },
+    {
+      "id": "F60",
+      "name": "马面引路者",
+      "baseline_role": "威胁",
+      "baseline_signature": "在转身预告内拉OBJ_MIRROR_CURTAIN，或锁朝向退离实体视线。",
+      "proposed_combat_carrier_and_movement": "马面显形；步行、转身凝视锥",
+      "preserved_real_action": "凸镜安全观察，预告内拉真实中间帘或锁朝向退离",
+      "new_weakness_and_tower_trap_interaction": "正确遮线/背向使一次凝视落空并露出后颈弱点，两个独立attack_id的成功遮线才永久封追踪转头；塔从另一侧照射/打击，定向陷阱留住背身窗口。F60明确不使用镜面穿梭",
+      "invariant": "镜中看不等于双向直视；帘必须在两者之间，不能全球遮蔽；低SAN保留转头预告。",
+      "new_battle_conversion": true,
+      "default_enabled": true,
+      "timing_and_lock_rules": "转头建议1.5秒；原双向直视3秒条件；正确遮线露后颈3秒，独立两次可封追踪转头",
+      "new_abilities_proposed": "凝视攻击与后颈暴露窗；两个不同attack_id的成功遮线永久封追踪转头；明确不使用镜面穿梭。",
+      "control_budget_ref": "TD02 docs/37: shared hard-control episode and 8s/3s generic seal budget; main-rule facts never expire.",
+      "tower_matchup": {
+        "id": "F60",
+        "name": "马面引路者",
+        "default_enabled": true,
+        "proposed_carrier": "马面显形；步行、转身凝视锥",
+        "groups": [
+          "dangerous_special",
+          "directional"
+        ],
+        "favorable_branches": [
+          "T01A",
+          "T02B",
+          "T06B"
+        ],
+        "conditional_or_weak_branches": [
+          "T05A"
+        ],
+        "state_condition_and_reason": "凝视需真实双方直视，纸偶挡路不挡视线；侧后输出看实际遮帘。此原型明确不用镜穿；冰冻/推离不能伪造成功遮线。",
+        "preserved_real_rule": "凸镜安全观察，预告内拉真实中间帘或锁朝向退离",
+        "status": "TD02_adaptation_proposal_not_runtime_verification"
+      }
+    }
+  ],
+  "representative_cards_text": "（数值为供主方案统一调参的起始候选）\n\n1. F02画皮鬼：身份/设施权限型\n显形前必须给侧灯双轮廓和当前连续动作证据，显形后0.9倍玩家步行追击，借遮挡换皮需1.5秒。其特殊威胁是只有被实际授予员工权限后才可压住附近一台塔的控制台，1.5秒夺控前摇、持续最多4秒，不破坏规则工具。玩家收权限立即封夺控；实际双证核验永久锁定皮缘，本体失去换皮清锁能力并获得破皮受伤窗口。T04显相巡灯保持皮缘可见，T01穿签长钉击弱点，R07破甲标签垫在其实体经过时追加短破甲。误交围裙可在同实体未离开前追回/撤销权限；若证据缺失，保守限权仍先封最危险能力，不能因为不会认怪而无解。围裙/真钥匙需要真实位置，不瞬移收回。\n\n2. F03僵尸：预告跳跃型\n每次起跳目标取最后有效呼吸雾点，1.5秒画地标、空中不触发地面夹具、落地1秒不可转向。锁地标后不再追踪玩家；已锁定落点若被封闭或占用，只取消该次跳跃并在当前合法点恢复，绝不改到邻接格或玩家脚下。玩家走到遮挡后使雾点6秒自然到期，下一次只朝最后旧点盲跳且落地收招延长至2.5秒，收招期间允许慢移；这属于招式自身恢复，不是2.5秒通用硬控。短屏息可更快切换目标，但耗体力；0体力依旧能步行躲圈、借遮挡。落地触发夹具→慢速炮击形成清晰连招。地面陷阱不能对在空中经过的跳尸先触发。\n\n3. F05河童：环境连通图型\n未断冷区支流时它只沿真实连通湿格快速迁移，在湿边用2秒手印预告后抓向玩家所在合法邻格；绝不跨干地生成无源水。塔可击其显形水面/出手实体，地面夹具不作用于潜水段；因此高手可留在干路用T02镇契收银机硬磨。关闭cold_branch并擦真实割点后，给1.5秒排水退影预告，原篮所在湿分支清空，它被迫在预先画出的干侧点显形，水遁与水甲永久封于该实例。搬原篮进干槽再取消牵引攻击。恢复路径先止水、取物，先取物成功也保留，不倒退要求再放水。\n\n4. F07座敷童子：敌对稳定后辅助型\n采用“失衡的驻店灵”新改编，显形后会追逐拍击而不是天生友好。唯一原椅是其归宿：保持椅空并放真实占位牌，每次它到椅旁都有不超过1.5秒的坐下窗口；玩家不用盯着45秒，期间可走位并调整现有防线，保护进度随实际未占用累计。本次明确建议将旧45秒保护改成3次各4秒的可中断累计，每次坐下后它失去一项干扰（藏物、短跳、拍击连段），保护累计期间仍可基础追击，最后稳定度归零才转辅助。供物是加速/收益选择，不得要求拿玩家最后保底餐。稳定后该夜一个限定安抚区域/一次补给，明确上限。塔攻击表达为驱邪稳定投影，避免把原童子写成被杀的儿童。\n\n5. F12不可杀伊：坦克诱导型\n0.65—0.75倍玩家步行；高甲、近身挥击1.2秒预告，不能追上但会切近路并迫玩家离开有效火区。无诱饵目标为玩家；合法回形针点优先目标，停食1.5秒，不因突然建塔取消已经锁定的目标。停食时接缝张开，受到T01穿签长钉或T03热罐破壳炮更高效输出；移动阶段高甲让纯绕圈击退明显更慢。最后一个纸夹点由玩家选在现有设施可覆盖的火力区；首次合法停食永久登记主规则破壳，后续移动态护甲也低于应对前；每次1.5秒停食再打开更大的临时接缝，离开停食不恢复原始高甲，塔完成驱退。没有必要再去门外，不能把旧退出区硬当新杀伤区。关键改写：0.25秒进入旧成功区不再直接胜利，离店也不是此次击退条件。没有吃铁成长、啃门、按塔数量额外升甲。每场配给6次对应原实物的纸夹投放；已触发点实际消耗，不回收、不补充，未用原物可回收；不靠无限造饵保证存活。\n\n6. F13飞头女鬼：高飞与地面玩法切换型\n显形默认追玩家，原任务肉作为优先引导目标保留；触肉后的1.5秒变色蓄势仍给转追窗口。高飞可越低货架与矮路障，不能越整面墙/封闭屋顶界；扑击落点先锁，落后停顿。把同一任务肉在柜1格内0.6秒原子存入合盖，永久封觅肉、食物回复和高空高速位移；它降至固定低空巡行。低空仍属于air_low，不被ground_only夹具误判；需带高度的网幕/T01价签投射器，或其扑地阶段被地面陷阱击中。早封肉则入场即弱化，不复活强态；关键改写：封肉不直接结束遭遇，仍需塔压掉投影稳定度。肉不消失、后续开柜断电不撤回seal_receipt。\n\n7. F26红帽妖：实际血源追踪型\n只在原事故活血迹存在且总响应路线可达时进入预兆。常态速度0.85倍玩家，沿绑定活血迹可预告冲刺至某枚血迹；不是全图持续1.3倍追杀。玩家包扎停止新滴迹并封新增冲刺；擦/干每一枚血迹都撤一个实际落点，污布入原袋后嗜血回复停止。旧血30秒自然干是可选安全代价，不强迫全擦；期间用路障与塔硬扛追血。普通怪物SAN伤害不造伤，这只也不靠主动命中无限续血；若为本怪新加裂伤能力，必须另列可预防来源、最多次数和免疫期，首版建议不加。无血先阻止投放，不为它制造E003。\n\n8. F40列希森林灵：固定影节点跳跃型\n节点来自同一误收树苗影响下的预置树影槽，至少两个、最多四个，编号和连接边可查看。离开当前影前1.5秒目标影闪动，抵达后0.8秒不能攻击；影内过渡不可选敌最多0.6秒，不能永久在阴影免伤。正确实物路标切断对应局部跳边，归还同树苗永久关闭本实例节点，实体改0.8倍步行并失去影甲。玩家可留未封的一点，在出口铺锚定/破甲陷阱，引导它落入塔区；T04显相巡灯减少候选点但不自动归还树苗。最后一个点被关时，取消当前转移，在当前合法点退相恢复，不能无落点卡死。阴影跳跃为本轮新增改编，旧版林影只改装饰。\n\n9. F46萨西旋风：可预测迁移与缴械型\n沿已存在工具轨迹点移动，每点停4秒，下一点至少1.5秒前发笑声/方向字幕并锁定。它可追玩家，但每次迁移只能从候选点选距玩家更近者；不能为了避陷阱临时反悔。玩家将原筛罩放入已预告停点的专用侧槽，捕获范围覆盖落点但不占其实体落脚格，旋风抵达即被截住、实体暴露，永久封节点跃迁；同原工具取回后取消本怪缴械能力。T01价签投射器打显形旋风段，短过渡阶段暂不可选敌，高度网幕拦截；地夹仅对截风后实体有效。未捕到时罩留原处可再挪，无消耗也不取消前一次真实错判记录；工具只能有一个实例。\n\n10. F50泽西恶魔：高空蓄势/俯冲反制型\n保留同窗两次线索、第二声起8秒不可刷新的目标锁定。它在窗外高空平移追踪，只在合法固定窗发动俯冲；玩家把原板推正确槽并退出冲击带，撞板造成3—4秒可缓慢移动的失衡低空窗口，不是全程硬控。T01价签投射器平时积累伤害，R03压空捕网在合法地面迫降后，T03热罐破壳炮才加入集中输出；错窗时拉帘停该区服务保命，能躲伤但没有撞晕和最强火力窗。低空失衡仍保留有预告的基础攻击；结束后再用特殊攻击须重新预告，不出现撞板当帧接触杀。永久强项封印可由累计两次成功挡击触发，所有次数按独立attack_id而不是重开观察计数。\n\n11. F54吞世巨兽：巨大载体与救货拆甲型\n使用门口宽区的有限投影/伸入口，不把巨大碰撞体强行塞入全店。主身锚定在可见宽口，头部攻击带朝玩家位置转向，转向1.5秒、吸入2秒，至少保留另一侧撤离通道。只吞真实登记三件货，每一件形成可见护层和一种攻击变化；逆序原绳拉出一件后该层永久剥落、当前吸入打断。拉错有0.5秒绳回弹并保留全部已救物，不能一错清进度。全部取回后永久封特殊吞噬，仍保留有预告的基础扫击；张口弱化窗口供塔收尾。塔也能强攻高甲但效率差；路障只能挡有限肢体推击，不能把整怪封在墙外无限白打。所有物件、投影部位共用一个结算实例。\n\n12. F60马面引路者：朝向/遮线型\n0.9倍玩家步行，转头1.5秒给扇形预告，凝视伤害要求双方实际无遮挡直视累计达到阈值；不把镜中观察算直视。玩家锁朝向退后或把实体帘置于真实两者连线上，使一次凝视落空后后颈暴露3秒（它仍可基础追击，不是3秒完全定身），塔从后侧输出；两个不同attack_id各一次正确遮断后永久封这一实例的追踪转头，保留普通追击。怪物会绕帘而非隔帘读取玩家，不因玩家转向而无预告传到背后。陷阱放在它绕帘的可达弯口，构成设施位置策略。本方案明确不给F60镜面穿梭；镜穿只由独立无原型测试体验证，不列作F60未来变体。\n\n",
+  "alignment_authority": "TD02 docs/35–38 and content/tower_defense_td02.json",
+  "canonical_tower_families": [
+    "T01价签投射器",
+    "T02镇契收银机",
+    "T03冷热陈列炮",
+    "T04显相巡灯",
+    "T05纸偶值班岗",
+    "T06催单广播台"
+  ]
+}

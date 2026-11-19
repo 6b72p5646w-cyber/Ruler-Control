@@ -1,0 +1,1640 @@
+{
+  "schema": "ruler-control-tower-defense-design/td02",
+  "version": "TD02",
+  "date": "2026-11-19",
+  "status": "design_candidate_for_graybox",
+  "runtime_integrated": false,
+  "baseline_sha": "96c74f2ea5446efb8060a291b76d5f711285306e",
+  "authority": "TD02 is the future pursuit/TD design; V0.10 remains the current implemented baseline. Absolute L3 stats replace L2, not multiply it.",
+  "topology": {
+    "families": 6,
+    "branches_per_family": 2,
+    "exclusive_l3": true,
+    "skill_tracks_per_branch": 2,
+    "ranks_per_track": 2,
+    "tracks_can_coexist": true,
+    "tower_xp": false
+  },
+  "skill_purchase": {
+    "rank_1": {
+      "coin": 12,
+      "spirit": 3
+    },
+    "rank_2": {
+      "coin": 18,
+      "spirit": 5
+    },
+    "full_branch_extra": {
+      "coin": 60,
+      "spirit": 16
+    },
+    "full_branch_spirit_including_l3": 28,
+    "requires_l2_before_l3": true,
+    "requires_l3_before_skills": true,
+    "peaceful_upgrade_s": 2,
+    "upgrade_refills": false,
+    "respec": "Before shift only; ceil(0.20*original L3 coin) fee. Two paid slot ranks map to the new exclusive branch because all slots use identical cost tables. No refund, duplication, simultaneous effects, or runtime reset.",
+    "paper_guard_form_change": "Changing guard_count requires all old guards alive and out of combat for 3s; a dead/reassembling team waits, costs not committed. Preserve total current/max HP ratio, distribute new total HP equally across new guards, preserve latest outstanding attack/skill deadlines. Same-count max-HP upgrades preserve HP ratio and dead/reassembly state. Ordinary once-per-shift maintenance is a separate receipt, never triggered by upgrading."
+  },
+  "families": [
+    {
+      "id": "T01",
+      "name": "价签投射器",
+      "l1_cost": {
+        "coin": 35,
+        "spirit": 0
+      },
+      "l2_cost": {
+        "coin": 20,
+        "spirit": 0
+      },
+      "l3_cost": {
+        "coin": 30,
+        "spirit": 12
+      },
+      "l1": {
+        "damage": 8,
+        "interval_s": 0.75,
+        "range_tiles": 5.5
+      },
+      "l2": {
+        "damage": 9.6,
+        "interval_s": 0.75,
+        "range_tiles": 5.5
+      },
+      "branches": [
+        "T01A",
+        "T01B"
+      ]
+    },
+    {
+      "id": "T02",
+      "name": "镇契收银机",
+      "l1_cost": {
+        "coin": 45,
+        "spirit": 0
+      },
+      "l2_cost": {
+        "coin": 30,
+        "spirit": 0
+      },
+      "l3_cost": {
+        "coin": 35,
+        "spirit": 12
+      },
+      "l1": {
+        "damage": 12,
+        "interval_s": 1.5,
+        "range_tiles": 5
+      },
+      "l2": {
+        "damage": 14.4,
+        "interval_s": 1.5,
+        "range_tiles": 5
+      },
+      "branches": [
+        "T02A",
+        "T02B"
+      ]
+    },
+    {
+      "id": "T03",
+      "name": "冷热陈列炮",
+      "l1_cost": {
+        "coin": 45,
+        "spirit": 0
+      },
+      "l2_cost": {
+        "coin": 25,
+        "spirit": 0
+      },
+      "l3_cost": {
+        "coin": 30,
+        "spirit": 12
+      },
+      "l1": {
+        "damage": 18,
+        "interval_s": 2.4,
+        "range_tiles": 5.5,
+        "radius_tiles": 1.2,
+        "primary_health_pool_cap": 3
+      },
+      "l2": {
+        "damage": 21.6,
+        "interval_s": 2.4,
+        "range_tiles": 5.5,
+        "radius_tiles": 1.2,
+        "primary_health_pool_cap": 3
+      },
+      "branches": [
+        "T03A",
+        "T03B"
+      ]
+    },
+    {
+      "id": "T04",
+      "name": "显相巡灯",
+      "l1_cost": {
+        "coin": 40,
+        "spirit": 0
+      },
+      "l2_cost": {
+        "coin": 25,
+        "spirit": 0
+      },
+      "l3_cost": {
+        "coin": 30,
+        "spirit": 12
+      },
+      "l1": {
+        "damage_per_s": 4,
+        "range_tiles": 5,
+        "light_radius_tiles": 2
+      },
+      "l2": {
+        "damage_per_s": 5,
+        "range_tiles": 5,
+        "light_radius_tiles": 2.5
+      },
+      "branches": [
+        "T04A",
+        "T04B"
+      ]
+    },
+    {
+      "id": "T05",
+      "name": "纸偶值班岗",
+      "l1_cost": {
+        "coin": 45,
+        "spirit": 0
+      },
+      "l2_cost": {
+        "coin": 30,
+        "spirit": 0
+      },
+      "l3_cost": {
+        "coin": 35,
+        "spirit": 12
+      },
+      "l1": {
+        "guard_count": 1,
+        "guard_hp": 60,
+        "damage_per_s": 3,
+        "patrol_radius_tiles": 3,
+        "respawn_s": 15
+      },
+      "l2": {
+        "guard_count": 1,
+        "guard_hp": 72,
+        "damage_per_s": 3,
+        "patrol_radius_tiles": 3,
+        "respawn_s": 15
+      },
+      "branches": [
+        "T05A",
+        "T05B"
+      ]
+    },
+    {
+      "id": "T06",
+      "name": "催单广播台",
+      "l1_cost": {
+        "coin": 40,
+        "spirit": 0
+      },
+      "l2_cost": {
+        "coin": 25,
+        "spirit": 0
+      },
+      "l3_cost": {
+        "coin": 30,
+        "spirit": 12
+      },
+      "l1": {
+        "damage": 8,
+        "interval_s": 3,
+        "range_tiles": 5,
+        "aura_radius_tiles": 3,
+        "attack_rate_bonus": 0.1
+      },
+      "l2": {
+        "damage": 9.6,
+        "interval_s": 3,
+        "range_tiles": 5,
+        "aura_radius_tiles": 3,
+        "attack_rate_bonus": 0.1
+      },
+      "branches": [
+        "T06A",
+        "T06B"
+      ]
+    }
+  ],
+  "branches": [
+    {
+      "id": "T01A",
+      "family_id": "T01",
+      "name": "穿签长钉",
+      "role": "低频高单发、长线穿透、首发抓窗",
+      "attack": {
+        "channel": "physical",
+        "damage": 26,
+        "interval_s": 1.8,
+        "range_tiles": 7,
+        "layers": [
+          "ground",
+          "low_air",
+          "high_air"
+        ],
+        "primary_health_pool_cap": 2,
+        "second_target_multiplier": 0.6,
+        "source_armor_penetration_pp": 25,
+        "aim_s": 0.25,
+        "aim_included_in_interval": true
+      },
+      "core": "沿实际无遮挡直线命中最多两个独立血池；第二个只承受60%原始伤害。25个百分点穿甲是明确属性，不由单发大自动获得。装填完成可保留一发，切换目标不刷新装填。",
+      "favorable_conditions": [
+        "短暂开甲窗口",
+        "高物理防御、较稳定路线",
+        "把两敌排成直线"
+      ],
+      "unfavorable_conditions": [
+        "绕货架急转导致射线中断",
+        "多路分散小体目标",
+        "长装填期间的连续贴身压力"
+      ],
+      "skills": [
+        {
+          "id": "T01A_S1",
+          "slot": 1,
+          "name": "蓄签首发",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "连续2世界秒没有合法可攻击目标后，下一发原始伤害×1.30。",
+              "parameters": {
+                "idle_s": 2,
+                "first_shot_multiplier": 1.3,
+                "stored_shots": 1
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "首发倍率提高到×1.50。",
+              "parameters": {
+                "idle_s": 2,
+                "first_shot_multiplier": 1.5,
+                "stored_shots": 1
+              }
+            }
+          ],
+          "limits": "只存一发；开火后清空，只有确实无合法目标时才累计。存在目标却手动停火不蓄能，不能每发多等0.2秒就常驻增伤。暂停不充能，升级/移位/换目标不重置或赠送。"
+        },
+        {
+          "id": "T01A_S2",
+          "slot": 2,
+          "name": "回程签",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "原路回返最多2个血池：去程已命中过的目标承受原始主弹15%物理伤害，新目标承受30%。",
+              "parameters": {
+                "return_existing_multiplier": 0.15,
+                "return_new_multiplier": 0.3,
+                "return_delay_s": 0.6,
+                "target_cap": 2,
+                "generations": 1
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "旧目标比例提高至25%，新目标提高至50%。",
+              "parameters": {
+                "return_existing_multiplier": 0.25,
+                "return_new_multiplier": 0.5,
+                "return_delay_s": 0.6,
+                "target_cap": 2,
+                "generations": 1
+              }
+            }
+          ],
+          "limits": "回返只一代，属于secondary；固定0.6秒后沿原线回返，不复制状态/叠层/再回返。仍需合法射线与高度。每血池每程一次；同源部件不多算。系数基于本次主弹快照，去程第二目标的60%包不再单独生成回弹。"
+        }
+      ]
+    },
+    {
+      "id": "T01B",
+      "family_id": "T01",
+      "name": "热压速贴",
+      "role": "高频低单发、同目标蓄层、离散爆发",
+      "attack": {
+        "channel": "physical",
+        "damage": 3,
+        "interval_s": 0.3,
+        "range_tiles": 5.5,
+        "layers": [
+          "ground",
+          "low_air",
+          "high_air"
+        ],
+        "primary_health_pool_cap": 1
+      },
+      "core": "每次合法主命中加1枚热印；8枚消费后产生18点物理热压爆发。每枚原始爆发贡献2.25，独立寿命4秒；同血池所有同族塔共用8层上限与2.4秒引爆冷却。",
+      "favorable_conditions": [
+        "保持射界的中长追逐",
+        "解除特殊移动后的高稳定度目标",
+        "需要减少过量伤害的低血独立子体"
+      ],
+      "unfavorable_conditions": [
+        "极短显形窗",
+        "频繁隔架或脱相使热印过期",
+        "未削弱的高护甲"
+      ],
+      "skills": [
+        {
+          "id": "T01B_S1",
+          "slot": 1,
+          "name": "焦痕热印",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "本塔贡献的热印在被消费时，每枚提供0.25点/秒的3秒灼烧贡献；8枚均来自本级时为2点/秒。",
+              "parameters": {
+                "burn_dps_per_consumed_mark": 0.25,
+                "burn_duration_s": 3
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "每枚贡献0.375点/秒；8枚均来自本级时为3点/秒。",
+              "parameters": {
+                "burn_dps_per_consumed_mark": 0.375,
+                "burn_duration_s": 3
+              }
+            }
+          ],
+          "limits": "灼烧从threshold_consume与爆发同级派生，不由爆发伤害再次触发。按实际8层快照汇总成一个唯一composite_dose_id剂量，未买技能的层贡献0；再与其他灼烧取强，不拆成多个小剂量取强，不取最高级覆盖全部低阶层。"
+        },
+        {
+          "id": "T01B_S2",
+          "slot": 2,
+          "name": "分卷副射",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "每完成3个正常主射击周期，向另一个合法目标补射2点物理伤害。",
+              "parameters": {
+                "primary_cycles": 3,
+                "secondary_damage": 2,
+                "secondary_targets": 1
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "副射提高为3点。",
+              "parameters": {
+                "primary_cycles": 3,
+                "secondary_damage": 3,
+                "secondary_targets": 1
+              }
+            }
+          ],
+          "limits": "副射属于secondary，不加热印、不触发副射；没有第二血池就不发，也不把两发都塞给同一目标。计数绑定本塔，不因换目标清空或凭空补满。"
+        }
+      ]
+    },
+    {
+      "id": "T02A",
+      "family_id": "T02",
+      "name": "追账蚀契",
+      "role": "有限毒蚀尾伤、真实回复压制",
+      "attack": {
+        "channel": "spiritual",
+        "damage": 10,
+        "interval_s": 1.2,
+        "range_tiles": 5,
+        "layers": [
+          "ground",
+          "low_air",
+          "high_air"
+        ],
+        "primary_health_pool_cap": 1
+      },
+      "core": "主命中施加灵毒：4点/秒、4秒，读取ward。灵毒侵蚀已显形载体，适用于器物与亡灵；不代表普通生物毒素，也不污染商品。重复命中刷新本来源，异源同族取强。",
+      "favorable_conditions": [
+        "实际存在再生/吸食回复",
+        "短暂经过射界后继续在同场活动",
+        "低ward而高armor"
+      ],
+      "unfavorable_conditions": [
+        "需要当场一发收尾",
+        "高ward",
+        "无回复敌人不值得优先购买抑复"
+      ],
+      "skills": [
+        {
+          "id": "T02A_S1",
+          "slot": 1,
+          "name": "毒墨渗透",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "本塔新施加灵毒提高到5点/秒、持续5秒。",
+              "parameters": {
+                "poison_dps": 5,
+                "poison_duration_s": 5
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "提高到6点/秒、持续6秒。",
+              "parameters": {
+                "poison_dps": 6,
+                "poison_duration_s": 6
+              }
+            }
+          ],
+          "limits": "旧剂量保持施加时快照；弱来源只续自己的到期时间，不延长强毒。毒跳不加热印、不扩散、不发钱。"
+        },
+        {
+          "id": "T02A_S2",
+          "slot": 2,
+          "name": "抑复条款",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "本塔仍在自身有效期内的灵毒剂量贡献25%回复削减，即使它不是当前最高毒伤来源。",
+              "parameters": {
+                "healing_reduction": 0.25
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "回复削减提高到40%。",
+              "parameters": {
+                "healing_reduction": 0.4
+              }
+            }
+          ],
+          "limits": "毒伤取强与回复削减取强分别归并，较强但无抑复的友塔毒不能关闭弱毒自带的抑复。只作用于实际恢复量，不凭空额外伤害；主要规则永久封回复仍优先。"
+        }
+      ]
+    },
+    {
+      "id": "T02B",
+      "family_id": "T02",
+      "name": "封签公证",
+      "role": "储备短封技、抓危险技能准备",
+      "attack": {
+        "channel": "spiritual",
+        "damage": 18,
+        "interval_s": 1.4,
+        "range_tiles": 5,
+        "layers": [
+          "ground",
+          "low_air",
+          "high_air"
+        ],
+        "primary_health_pool_cap": 1
+      },
+      "core": "有1枚公证充能，补充周期8秒；对射界中已显形且正在准备可封技能的目标，主命中附1秒封技并消费充能。优先危险准备，无效目标不消费；可以预设手动优先目标。",
+      "favorable_conditions": [
+        "有明显准备段的危险能力",
+        "短时间需要保护工作位",
+        "跳跃/转场准备可被明确打断"
+      ],
+      "unfavorable_conditions": [
+        "纯步行普攻",
+        "不可打断且不可封的招式",
+        "主要规则已关闭全部特殊能力后的收尾"
+      ],
+      "skills": [
+        {
+          "id": "T02B_S1",
+          "slot": 1,
+          "name": "备用印槽",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "充能容量由1增至2，新增槽初始为空。",
+              "parameters": {
+                "charge_capacity": 2,
+                "charge_recharge_s": 8
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "容量仍2，逐枚补充周期从8秒降为7秒。",
+              "parameters": {
+                "charge_capacity": 2,
+                "charge_recharge_s": 7
+              }
+            }
+          ],
+          "limits": "所有目标仍受8秒内最多3秒封技、结束后3秒抗再封；存量不等于能连锁封锁。升级不补充旧充能。"
+        },
+        {
+          "id": "T02B_S2",
+          "slot": 2,
+          "name": "违约反噬",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "一次公证真正打断可打断的技能准备后，额外造成18点灵性伤害。",
+              "parameters": {
+                "interrupt_bonus_damage": 18,
+                "target_icd_s": 8
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "额外伤害提高到26点。",
+              "parameters": {
+                "interrupt_bonus_damage": 26,
+                "target_icd_s": 8
+              }
+            }
+          ],
+          "limits": "secondary；每个敌方attack_id最多一次，每血池本族8秒一次。封住尚未开始的能力、普通攻击或免疫目标不伪造成功打断。"
+        }
+      ]
+    },
+    {
+      "id": "T03A",
+      "family_id": "T03",
+      "name": "冷柜霜炮",
+      "role": "地面范围减速、积寒短冻、后续物理协同",
+      "attack": {
+        "channel": "physical",
+        "damage": 16,
+        "interval_s": 1.6,
+        "range_tiles": 5.5,
+        "radius_tiles": 1.3,
+        "layers": [
+          "ground"
+        ],
+        "primary_health_pool_cap": 3,
+        "flight_s": 0.4
+      },
+      "core": "每个主命中的地面血池获得1枚寒意，最多4枚，每枚6秒；每枚减速8%，只作为一个减速族。寒意新增全族每目标至少间隔0.8秒。硬控/抗硬控期间不攒冻结储备，保留24%的短时软减速替代。",
+      "favorable_conditions": [
+        "沿真实地面路线驻留",
+        "有多个独立目标需要排队进入火区",
+        "规则操作需要短缓冲"
+      ],
+      "unfavorable_conditions": [
+        "高空与低空未迫降",
+        "直接越过冷区的位移",
+        "需要立即大额伤害的单发窗口"
+      ],
+      "skills": [
+        {
+          "id": "T03A_S1",
+          "slot": 1,
+          "name": "冷凝封冻",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "集齐4枚寒意时消费，尝试冻结普通怪0.8秒、精英0.6秒。",
+              "parameters": {
+                "threshold": 4,
+                "normal_freeze_s": 0.8,
+                "elite_freeze_s": 0.6,
+                "target_icd_s": 8
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "普通怪冻结1.2秒、精英0.8秒。",
+              "parameters": {
+                "threshold": 4,
+                "normal_freeze_s": 1.2,
+                "elite_freeze_s": 0.8,
+                "target_icd_s": 8
+              }
+            }
+          ],
+          "limits": "目标共享8秒冻结尝试冷却，失败也消费并计时；服从全局硬控段1.5/0.8秒与3秒抗控。冻结冷却中最多保留3枚，当前硬控/抗控中不存新枚；冻结不迫降。"
+        },
+        {
+          "id": "T03A_S2",
+          "slot": 2,
+          "name": "脆冰截击",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "本塔主命中后，按消费前快照达到2枚寒意，或目标具有本族冻结/24%冷痕时，可施加4秒脆冰；下一个攻击批次的物理主命中消费并追加12点物理伤害。",
+              "parameters": {
+                "chill_required": 2,
+                "brittle_duration_s": 4,
+                "bonus_damage": 12,
+                "target_icd_s": 4
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "追加伤害提高为18点。",
+              "parameters": {
+                "chill_required": 2,
+                "brittle_duration_s": 4,
+                "bonus_damage": 18,
+                "target_icd_s": 4
+              }
+            }
+          ],
+          "limits": "无需先购买冷凝封冻。先确认消费前寒意/冷痕资格，再处理冻结消费；抗控期的冷痕只满足脆冰，不储冻结层。生成标记的同批攻击不能消费它。每目标本族4秒一次，标记仅一枚，次级伤害不消费或再生成。"
+        }
+      ]
+    },
+    {
+      "id": "T03B",
+      "family_id": "T03",
+      "name": "热罐破壳炮",
+      "role": "低频区域爆发、固定落点覆盖、有限子爆",
+      "attack": {
+        "channel": "physical",
+        "damage": 42,
+        "interval_s": 3,
+        "range_tiles": 5.5,
+        "radius_tiles": 1.4,
+        "layers": [
+          "ground"
+        ],
+        "primary_health_pool_cap": 3,
+        "flight_s": 0.6
+      },
+      "core": "投向开火时确定的地面坐标，0.6秒后爆炸，按落地时真实位置选最多3个独立血池；不可中途追踪隐身目标。主命中后施加armor破防20个百分点、4秒，不追溯增益这一击。可设置等待已知落点/破绽，最多持有一发已装填炮弹。",
+      "favorable_conditions": [
+        "短暂破绽内一次兑现",
+        "可预判的落地与地面交汇点",
+        "后期有限独立眷属聚集"
+      ],
+      "unfavorable_conditions": [
+        "频繁改向、分散小体",
+        "未迫降空中目标",
+        "预判失误后3秒装填空档"
+      ],
+      "skills": [
+        {
+          "id": "T03B_S1",
+          "slot": 1,
+          "name": "余烬附着",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "主爆命中的目标附4点/秒灼烧，持续3秒。",
+              "parameters": {
+                "burn_dps": 4,
+                "burn_duration_s": 3
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "灼烧提高到6点/秒，仍3秒。",
+              "parameters": {
+                "burn_dps": 6,
+                "burn_duration_s": 3
+              }
+            }
+          ],
+          "limits": "灼烧为spiritual；只主爆施加，子爆不复制。不会制造真实火灾、热垃圾、食材升温或任务水；与灵毒不同族可并存。"
+        },
+        {
+          "id": "T03B_S2",
+          "slot": 2,
+          "name": "子罐覆盖",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "主爆0.25秒后，围绕原落点三个固定点产生一代小爆，最多2个未被主爆命中的血池各受8点物理伤害。",
+              "parameters": {
+                "secondary_delay_s": 0.25,
+                "secondary_radius_tiles": 0.75,
+                "secondary_offset_tiles": 1.25,
+                "new_target_cap": 2,
+                "secondary_damage": 8
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "最多3个新血池，各受12点。",
+              "parameters": {
+                "secondary_delay_s": 0.25,
+                "secondary_radius_tiles": 0.75,
+                "secondary_offset_tiles": 1.25,
+                "new_target_cap": 3,
+                "secondary_damage": 12
+              }
+            }
+          ],
+          "limits": "小爆半径0.75格，固定点距原中心1.25格；并集内每血池一次，不追踪、不穿墙、不返打主爆已命中血池，不施加破防/灼烧，不再生成子爆。"
+        }
+      ]
+    },
+    {
+      "id": "T04A",
+      "family_id": "T04",
+      "name": "广角照影",
+      "role": "持续显相、局部节点关闭、信息支援",
+      "attack": {
+        "channel": "spiritual",
+        "damage": 2,
+        "interval_s": 0.25,
+        "proc_interval_s": 0.5,
+        "range_tiles": 5,
+        "light_radius_tiles": 3,
+        "layers": [
+          "ground",
+          "low_air",
+          "high_air"
+        ],
+        "primary_health_pool_cap": 1
+      },
+      "core": "真实照区持续关闭其中可被光抑制的已登记阴影节点。低直接伤害换路线限制；镜面、积水与玩家目光是不同语义，不能由灯光自动处理。",
+      "favorable_conditions": [
+        "多阴影出口",
+        "需要把怪物导向已知火区",
+        "已显形但易丢失行踪的异常"
+      ],
+      "unfavorable_conditions": [
+        "无阴影/显相需求的纯实体",
+        "高ward",
+        "把灯隔墙放置"
+      ],
+      "skills": [
+        {
+          "id": "T04A_S1",
+          "slot": 1,
+          "name": "巡回照网",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "每4秒向预设90度扇区扫光1秒，实际照明射程延伸到3.5格。",
+              "parameters": {
+                "sweep_interval_s": 4,
+                "sweep_duration_s": 1,
+                "sweep_angle_deg": 90,
+                "sweep_range_tiles": 3.5
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "扫光延伸到4格。",
+              "parameters": {
+                "sweep_interval_s": 4,
+                "sweep_duration_s": 1,
+                "sweep_angle_deg": 90,
+                "sweep_range_tiles": 4
+              }
+            }
+          ],
+          "limits": "光线受墙和高设施遮挡，扫到才关闭局部节点；结束后真实暗节点可恢复。不得重写已经锁定的落点，落点失效按原取消/回退合同。"
+        },
+        {
+          "id": "T04A_S2",
+          "slot": 2,
+          "name": "余辉描迹",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "已显形目标离开真实照区后，保留可见轮廓1.5秒。",
+              "parameters": {
+                "afterglow_s": 1.5
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "保留2.5秒。",
+              "parameters": {
+                "afterglow_s": 2.5
+              }
+            }
+          ],
+          "limits": "信息能力，不赋予隔墙射击或转场期间选敌权限，不识破普通来访者。记录只描画已知移动，不能读取隐藏新出口。"
+        }
+      ]
+    },
+    {
+      "id": "T04B",
+      "family_id": "T04",
+      "name": "定帧追光",
+      "role": "持续同目标曝光、逐档提高输出、定帧干预",
+      "attack": {
+        "channel": "spiritual",
+        "pulse_damage_stages": [
+          3,
+          4,
+          5
+        ],
+        "damage_pulse_interval_s": 0.25,
+        "proc_interval_s": 0.5,
+        "stage_start_s": [
+          0,
+          2,
+          4
+        ],
+        "range_tiles": 5,
+        "layers": [
+          "ground",
+          "low_air",
+          "high_air"
+        ],
+        "primary_health_pool_cap": 1,
+        "base_lock_grace_s": 0.5
+      },
+      "core": "持续保持同一目标合法射线时，输出依次为12/16/20点每秒；换目标立即归零，失去射线超过0.5秒归零。短断线不造成伤害，也不积累曝光时间；不是离散热印，不会带层转给下一怪。",
+      "favorable_conditions": [
+        "持续停留或被导入长射界的大体型",
+        "低ward目标",
+        "可利用规则削弱延长持续显形"
+      ],
+      "unfavorable_conditions": [
+        "频繁遮挡与转场",
+        "很短的一发窗口",
+        "高ward"
+      ],
+      "skills": [
+        {
+          "id": "T04B_S1",
+          "slot": 1,
+          "name": "预热灯芯",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "断线保留曝光档位的宽限增加到1秒。",
+              "parameters": {
+                "lock_grace_s": 1
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "增加到1.5秒。",
+              "parameters": {
+                "lock_grace_s": 1.5
+              }
+            }
+          ],
+          "limits": "断线期间仍不能输出或增加曝光时间；换目标没有宽限。源被封停立即归零，升级不赠送曝光。"
+        },
+        {
+          "id": "T04B_S2",
+          "slot": 2,
+          "name": "定帧快门",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "处于最高曝光档、当前目标仍在可锚定位移准备中时，首次满足条件可附1秒锚定。",
+              "parameters": {
+                "anchor_s": 1,
+                "target_icd_s": 8,
+                "required_stage": 3
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "锚定1.5秒。",
+              "parameters": {
+                "anchor_s": 1.5,
+                "target_icd_s": 8,
+                "required_stage": 3
+              }
+            }
+          ],
+          "limits": "本族每目标8秒一次，服从通用封技预算；不改已锁落点，只按可打断标签取消或限制下一次转场。未满足条件不自动浪费冷却。"
+        }
+      ]
+    },
+    {
+      "id": "T05A",
+      "family_id": "T05",
+      "name": "门卫庇护",
+      "role": "单点承伤、稳定工作位、可读重组空档",
+      "attack": {
+        "channel": "physical",
+        "damage": 4,
+        "interval_s": 1,
+        "range_tiles": 1,
+        "patrol_radius_tiles": 3,
+        "layers": [
+          "ground"
+        ],
+        "primary_health_pool_cap": 1,
+        "guard_count": 1,
+        "guard_hp": 100,
+        "block_capacity": 2,
+        "respawn_s": 15
+      },
+      "core": "一个100耐久纸偶，最多拦两个普通地面目标；优先争取操作时间。对空、相位、巨物的阻挡能力由怪物标签决定，纸偶不是员工或血源。",
+      "favorable_conditions": [
+        "单只强近战",
+        "必须在工作位操作数秒",
+        "需要把地面目标留在火区"
+      ],
+      "unfavorable_conditions": [
+        "高空/相位越过",
+        "两路远离的压力",
+        "持续范围攻击"
+      ],
+      "skills": [
+        {
+          "id": "T05A_S1",
+          "slot": 1,
+          "name": "正面格挡",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "每6秒，对正面120度来的一次可格挡伤害减免40%。",
+              "parameters": {
+                "front_arc_deg": 120,
+                "reduction": 0.4,
+                "cooldown_s": 6
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "减免60%。",
+              "parameters": {
+                "front_arc_deg": 120,
+                "reduction": 0.6,
+                "cooldown_s": 6
+              }
+            }
+          ],
+          "limits": "不是无敌；一个已提交攻击包一次，范围/不可格挡标签按怪卡。余下伤害照扣，方向取命中时真实朝向。升级不重置6秒冷却。"
+        },
+        {
+          "id": "T05A_S2",
+          "slot": 2,
+          "name": "离战修补",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "存活纸偶连续3秒未攻击、未受击且未阻挡，按每秒6耐久修补。",
+              "parameters": {
+                "out_of_combat_s": 3,
+                "heal_per_s": 6
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "每秒10耐久。",
+              "parameters": {
+                "out_of_combat_s": 3,
+                "heal_per_s": 10
+              }
+            }
+          ],
+          "limits": "战斗立即停修，不复活死偶、不缩短15秒重组；不治疗玩家，不返还金币或刷新陷阱。"
+        }
+      ]
+    },
+    {
+      "id": "T05B",
+      "family_id": "T05",
+      "name": "轮班巡逻",
+      "role": "双点拦截、真实夹击、有限远程辅助",
+      "attack": {
+        "channel": "physical",
+        "damage": 2,
+        "interval_s": 1,
+        "range_tiles": 1,
+        "patrol_radius_tiles": 3,
+        "layers": [
+          "ground"
+        ],
+        "primary_health_pool_cap": 1,
+        "guard_count": 2,
+        "guard_hp": 40,
+        "block_capacity_per_guard": 1,
+        "respawn_s": 15
+      },
+      "core": "两名各40耐久纸偶，合计基础近战4点/秒；各守一个可达巡防点。守点移动走真实路线，不瞬移换位，不因两偶同塔而绕过技能上限。",
+      "favorable_conditions": [
+        "相邻双入口",
+        "多个小体地面子体",
+        "地空混合下需要辅助短射程"
+      ],
+      "unfavorable_conditions": [
+        "一击范围伤害同时清两偶",
+        "高甲重怪正面突破",
+        "巡防点超过设施允许范围"
+      ],
+      "skills": [
+        {
+          "id": "T05B_S1",
+          "slot": 1,
+          "name": "交错截击",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "一偶实际阻挡目标、另一偶从目标侧后方接触攻击时，后者本次追加3点物理伤害。",
+              "parameters": {
+                "flank_bonus_damage": 3,
+                "eligible_guard": "nonblocking_flanker",
+                "max_per_melee_attack": 1
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "追加5点。",
+              "parameters": {
+                "flank_bonus_damage": 5,
+                "eligible_guard": "nonblocking_flanker",
+                "max_per_melee_attack": 1
+              }
+            }
+          ],
+          "limits": "只有非阻挡的另一偶可触发，每个正常近战攻击周期和攻击包最多一次；secondary。没有额外1秒冷却，避免攻速增益反而少触发。必须真实侧后夹击，不附硬控。"
+        },
+        {
+          "id": "T05B_S2",
+          "slot": 2,
+          "name": "投签支援",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "未近战纸偶改用同一1秒攻击周期，对2.5格内合法地/空目标投签，伤害2。",
+              "parameters": {
+                "ranged_damage": 2,
+                "ranged_range_tiles": 2.5,
+                "ranged_layers": [
+                  "ground",
+                  "low_air",
+                  "high_air"
+                ]
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "投签伤害3。",
+              "parameters": {
+                "ranged_damage": 3,
+                "ranged_range_tiles": 2.5,
+                "ranged_layers": [
+                  "ground",
+                  "low_air",
+                  "high_air"
+                ]
+              }
+            }
+          ],
+          "limits": "近战与投签互斥，不额外多一套攻击；投签能对空不等于纸偶能阻挡空中。仍需实际视线，塔的职责依然是拦截。"
+        }
+      ]
+    },
+    {
+      "id": "T06A",
+      "family_id": "T06",
+      "name": "定向驱离",
+      "role": "声锥改位置、延长火区驻留、支援攻击节奏",
+      "attack": {
+        "channel": "spiritual",
+        "damage": 12,
+        "interval_s": 3,
+        "range_tiles": 5,
+        "layers": [
+          "ground",
+          "low_air",
+          "high_air"
+        ],
+        "primary_health_pool_cap": 1,
+        "aura_radius_tiles": 3,
+        "attack_rate_bonus": 0.1,
+        "push_interval_s": 8,
+        "push_range_tiles": 3,
+        "push_angle_deg": 90,
+        "push_target_cap": 2,
+        "push_tiles": 0.8
+      },
+      "core": "普通脉冲外，每8秒向预设声锥推离最多2个可推地面血池0.8格；遇墙停止，体型系数明示。附近友塔攻速+10%，同族取强。",
+      "favorable_conditions": [
+        "可推的地面目标",
+        "把子体送回炮区",
+        "需要清出工作位周边"
+      ],
+      "unfavorable_conditions": [
+        "巨大不可推",
+        "紧墙无位移空间",
+        "明确的声敏规则需静音"
+      ],
+      "skills": [
+        {
+          "id": "T06A_S1",
+          "slot": 1,
+          "name": "宽角压波",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "推离声锥扩大至120度，最多3个独立血池。",
+              "parameters": {
+                "push_angle_deg": 120,
+                "push_target_cap": 3
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "扩大至150度，最多4个。",
+              "parameters": {
+                "push_angle_deg": 150,
+                "push_target_cap": 4
+              }
+            }
+          ],
+          "limits": "距离仍0.8格，推离造成的失控时间纳入公共硬控预算；身体多个部位不抢多个名额。"
+        },
+        {
+          "id": "T06A_S2",
+          "slot": 2,
+          "name": "余振缓行",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "实际被本塔推离至少0.1格的目标，减速20%、2秒。",
+              "parameters": {
+                "minimum_displacement_tiles": 0.1,
+                "slow": 0.2,
+                "slow_s": 2
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "减速30%、2秒。",
+              "parameters": {
+                "minimum_displacement_tiles": 0.1,
+                "slow": 0.3,
+                "slow_s": 2
+              }
+            }
+          ],
+          "limits": "只取最强减速；推不动或无路不暗赠伤害/控制；不能绕过陷阱再入冷却。"
+        }
+      ]
+    },
+    {
+      "id": "T06B",
+      "family_id": "T06",
+      "name": "弱点节拍",
+      "role": "真实规则成功后的阵地协同",
+      "attack": {
+        "channel": "spiritual",
+        "damage": 12,
+        "interval_s": 3,
+        "range_tiles": 5,
+        "layers": [
+          "ground",
+          "low_air",
+          "high_air"
+        ],
+        "primary_health_pool_cap": 1,
+        "aura_radius_tiles": 3,
+        "attack_rate_bonus": 0.1,
+        "solved_target_vulnerability": 0.1
+      },
+      "core": "普通攻速光环+10%；声域内已显形且主规则确实完成的血池获得10%通用易伤。技能或控制不伪造规则回执，未破解目标仍可受本塔基础伤害。",
+      "favorable_conditions": [
+        "真实完成规则后的集中火区",
+        "有多座塔具备合法射界",
+        "需要把操作成功转成短爆发窗口"
+      ],
+      "unfavorable_conditions": [
+        "阵地只有一座输出塔",
+        "全程未完成主规则",
+        "其他塔被墙挡住"
+      ],
+      "skills": [
+        {
+          "id": "T06B_S1",
+          "slot": 1,
+          "name": "弱点合唱",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "主规则成功目标易伤从10%提高为15%。",
+              "parameters": {
+                "vulnerability": 0.15
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "提高为20%。",
+              "parameters": {
+                "vulnerability": 0.2
+              }
+            }
+          ],
+          "limits": "统一易伤族取最强，封顶20%；只在真实声域覆盖时有效，不以不同广播名叠乘。"
+        },
+        {
+          "id": "T06B_S2",
+          "slot": 2,
+          "name": "接力上弦",
+          "ranks": [
+            {
+              "rank": 1,
+              "cost": {
+                "coin": 12,
+                "spirit": 3
+              },
+              "effect": "本塔已拥有技能时，当前遭遇首次有效主规则成功回执让3格内友塔攻速提高至25%，持续4秒。",
+              "parameters": {
+                "attack_rate_bonus": 0.25,
+                "duration_s": 4
+              }
+            },
+            {
+              "rank": 2,
+              "cost": {
+                "coin": 18,
+                "spirit": 5
+              },
+              "requires_rank": 1,
+              "effect": "提高至30%，持续6秒。",
+              "parameters": {
+                "attack_rate_bonus": 0.3,
+                "duration_s": 6
+              }
+            }
+          ],
+          "limits": "替换常驻10%而非相加；每回执一次，不补发历史回执。只加快正常攻击进度，不重置装填、不加速DOT、状态到期、纸偶重组、技能充能或热爆公共冷却。"
+        }
+      ]
+    }
+  ],
+  "limits": {
+    "tower_mounts": 12,
+    "active_towers": 8,
+    "floor_devices": 8,
+    "floor_cells": 16,
+    "barricade_cells": 6,
+    "main_encounters": 2,
+    "late_child_actor_cap": 6,
+    "total_hostile_actor_cap": 8,
+    "children_per_root_active_cap": 3,
+    "children_per_root_lifetime_cap": 6,
+    "defense_cap": 0.75,
+    "slow_cap": 0.6,
+    "normal_hard_control_episode_s": 1.5,
+    "elite_hard_control_episode_s": 0.8,
+    "hard_control_immunity_s": 3,
+    "generic_seal_window_s": 8,
+    "generic_seal_budget_s": 3,
+    "generic_seal_immunity_s": 3,
+    "vulnerability_cap": 0.2,
+    "attack_rate_bonus_cap": 0.3
+  },
+  "damage": {
+    "channels": {
+      "physical": "armor",
+      "spiritual": "ward"
+    },
+    "one_defense_channel_per_packet": true,
+    "common_armor_shred_pp": 20,
+    "armor_shred_consumers": [
+      "R07",
+      "T03B"
+    ],
+    "formula": "raw_snapshot * (1-clamp(defense_after_rule - strongest_channel_shred - source_penetration,0,0.75)) * (1+strongest_current_vulnerability)",
+    "secondary_max_generation": 1,
+    "secondary_can_proc": false,
+    "aoe_dedupe": "health_pool_id per attack stage; reward uses root_encounter_id",
+    "batch_order": [
+      "apply completed real player facts",
+      "resolve committed primary damage and consume older brittle",
+      "apply eligible status increments and snapshot pre-consumption chill",
+      "arbitrate skill requests by time then source id then attack id; use that source purchased ranks",
+      "commit one-level secondary damage, freeze/mark/cooldown transactions",
+      "resolve fission/terminal and root receipts"
+    ],
+    "freeze_owner": "Only the current eligible primary source with purchased T03A_S1 may consume a shared full chill meter, using its own rank; source without S1 only adds/replaces a chill mark."
+  },
+  "effects": {
+    "heat_mark": {
+      "max_stacks": 8,
+      "individual_duration_s": 4,
+      "base_burst_contribution": 2.25,
+      "burst_channel": "physical",
+      "target_shared_icd_s": 2.4,
+      "max_on_hit_per_attack_per_pool": 1,
+      "expiry_refresh": "none; every new mark owns its deadline",
+      "full_during_cooldown": "hold at 8; discard new mark without refreshing existing deadlines; next eligible primary hit after deadline may consume; no automatic expiry explosion",
+      "trigger_order": "expire old marks; append current primary mark only if below 8; check threshold and cooldown on this same hit; the hit adding mark 8 may consume immediately; if already full consume the existing 8 without creating mark 9"
+    },
+    "burn": {
+      "channel": "spiritual",
+      "aggregation": "maximum of still-live source potencies, each source keeps its own deadline",
+      "heat_composite": "one unique composite_dose_id per consumed 8 marks; sum contributions before max aggregation",
+      "can_coexist_with": [
+        "poison",
+        "chill",
+        "freeze"
+      ],
+      "secondary_procs": false
+    },
+    "poison": {
+      "channel": "spiritual",
+      "aggregation": "maximum of still-live source potencies, each source keeps its own deadline",
+      "healing_reduction_aggregation": "independent max across all unexpired source doses, not only the highest-DOT source",
+      "semantics": "erosion of manifested carrier, not biological toxin",
+      "secondary_procs": false
+    },
+    "chill": {
+      "max_stacks": 4,
+      "individual_duration_s": 6,
+      "shared_stack_interval_s": 0.8,
+      "slow_per_stack": 0.08,
+      "freeze_attempt_icd_s": 8,
+      "hard_control_or_immunity": "clear and do not add stored freeze stacks; eligible cold hits may apply 0.24 slow for 2.5s instead",
+      "during_freeze_attempt_cooldown": "outside hard control/immunity, cap stored stacks at 3"
+    },
+    "brittle": {
+      "max_marks": 1,
+      "duration_s": 4,
+      "shared_target_icd_s": 4,
+      "consumer": "next physical primary hit from a later attack batch",
+      "secondary_bonus": true
+    },
+    "freeze": {
+      "changes_height": false,
+      "clears_burn_or_poison": false,
+      "uses_shared_hard_control_budget": true
+    },
+    "seal": {
+      "changes_rule_success": false,
+      "affects_basic_walk_or_attack": false,
+      "uses_shared_generic_seal_budget": true
+    }
+  },
+  "targeting": {
+    "disguised_visitors_are_targets": false,
+    "customer_aoe_damage": false,
+    "height_checked_at_impact": true,
+    "line_of_sight_required": true,
+    "attack_buff_affects": [
+      "normal attack progress / launches",
+      "beam damage pulse frequency"
+    ],
+    "attack_buff_excludes": [
+      "DOT tick budget",
+      "status duration",
+      "skill recharge",
+      "summon respawn",
+      "shared proc cooldown",
+      "exposure stage thresholds"
+    ],
+    "default_priority": "Legal committed danger / explicit archetype bait and blockers are retained; towers default to manifested main threat, allow a visible player pin; area skills prefer expected coverage; heat/beam prefer current target until invalid.",
+    "lost_target": "No hidden auto-retarget through walls. In-flight homing pins can follow only a still legal visible target; otherwise miss. Fixed artillery never changes its chosen point."
+  },
+  "group_contract": {
+    "implemented": false,
+    "purpose": "Compatibility for later finite crowds, not new monster content in this revision",
+    "ids": {
+      "actor_id": "position, collider, attack entity",
+      "health_pool_id": "damage, attached status, heat/chill and per-target ICD",
+      "root_encounter_id": "encounter slot, lineage, permanent rule facts and unique reward"
+    },
+    "lineages": [
+      "shared_pool_parts",
+      "dependent_summons",
+      "independent_created",
+      "fission_replacement"
+    ],
+    "secondary_rewards": false,
+    "recursive_reproduction": false,
+    "reservation_includes_telegraphs": true,
+    "fission": "Resolve current damage batch before split; remaining health and remaining raw DOT budget / stack contributions are conserved and partitioned, never cloned. Absolute deadlines/cooldowns and permanent rule facts persist. Effective durability budget includes defenses.",
+    "termination": "Dependent summons stop attacking and dissolve without kill-procs on parent terminal. Independent created children remain finite cleanup targets. Fission replaces the parent without a terminal reward. Shared parts use the original pool. Root slot/reward closes only after its defined live pools are settled."
+  },
+  "design_references": [
+    {
+      "name": "Kingdom Rush official overview",
+      "url": "https://www.kingdomrush.com/kingdom-rush"
+    },
+    {
+      "name": "Battles Musketeer",
+      "url": "https://support.ironhidegames.com/support/solutions/articles/4000223655-musketeer-garrison-skills-breakdown-elite-snipers-in-kingdom-rush-battles"
+    },
+    {
+      "name": "Battles Dwarven Artillery",
+      "url": "https://support.ironhidegames.com/support/solutions/articles/4000223644-dwarven-artillery-skills-breakdown-kingdom-rush-battles-tower-guide"
+    },
+    {
+      "name": "Battles Rangers Hideout",
+      "url": "https://support.ironhidegames.com/support/solutions/articles/4000223658-rangers-hideout-skills-breakdown-master-archery-in-kingdom-rush-battles"
+    },
+    {
+      "name": "Battles Glacial Druid",
+      "url": "https://support.ironhidegames.com/support/solutions/articles/4000223651-glacial-druid-skills-breakdown-kingdom-rush-battles-pvp-tower-defense-guide"
+    },
+    {
+      "name": "Alliance separate impact/burn tuning",
+      "url": "https://www.ironhidegames.com/News/Details/405"
+    }
+  ]
+}

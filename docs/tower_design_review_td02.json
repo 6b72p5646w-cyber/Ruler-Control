@@ -1,0 +1,180 @@
+{
+  "version": "TD02",
+  "status": "static_design_checks_passed",
+  "runtime_tested": false,
+  "input_sha256": {
+    "content/tower_defense_td02.json": "40b8ee2224ee89a49b7bf8a6b165b5b23be961591cf40692fb788dc97043cb95",
+    "content/monster_migration_td02.json": "2d909bcd4f3b526c6020198855d6a853e3d5c3ee0a0850cf99778eb44fc2ae60"
+  },
+  "counts": {
+    "families": 6,
+    "branches": 12,
+    "tracks": 24,
+    "ranks": 48,
+    "monsters": 60,
+    "checks": 18
+  },
+  "checks": [
+    {
+      "name": "design_only_boundary",
+      "result": "pass"
+    },
+    {
+      "name": "six_families_twelve_unique_branches",
+      "result": "pass"
+    },
+    {
+      "name": "branch_links",
+      "result": "pass"
+    },
+    {
+      "name": "twenty_four_tracks_forty_eight_ranks",
+      "result": "pass"
+    },
+    {
+      "name": "identical_paid_slot_prices",
+      "result": "pass"
+    },
+    {
+      "name": "full_skill_cost_reconciles",
+      "result": "pass"
+    },
+    {
+      "name": "all_sixty_ids_present",
+      "result": "pass"
+    },
+    {
+      "name": "f14_remains_disabled",
+      "result": "pass"
+    },
+    {
+      "name": "monster_matchups_reference_real_branches",
+      "result": "pass"
+    },
+    {
+      "name": "ground_artillery_no_implicit_antiair",
+      "result": "pass"
+    },
+    {
+      "name": "bounded_crowd_slots",
+      "result": "pass"
+    },
+    {
+      "name": "heat_budget_18_not_per_tower",
+      "result": "pass"
+    },
+    {
+      "name": "secondary_nonrecursive",
+      "result": "pass"
+    },
+    {
+      "name": "sustain_and_armor_niches_not_dominated",
+      "result": "pass"
+    },
+    {
+      "name": "single_target_aoe_coin_efficiency",
+      "result": "pass"
+    },
+    {
+      "name": "guard_attack_buff_monotonic",
+      "result": "pass"
+    },
+    {
+      "name": "heat_named_attack_buff_tiers_monotonic",
+      "result": "pass"
+    },
+    {
+      "name": "mixed_heat_dose_arithmetic",
+      "result": "pass"
+    }
+  ],
+  "arithmetic": {
+    "assumptions": "Continuous legal lock, no misses, no other towers, no rule armor break, full chosen skills; T01A return hits original target; no idle first-shot buff. Not a combat simulation.",
+    "single_target_comparison": [
+      {
+        "armor": 0.0,
+        "ward": 0,
+        "T01A_full_single_dps": 18.055556,
+        "T01B_full_single_dps": 20.5
+      },
+      {
+        "armor": 0.3,
+        "ward": 0,
+        "T01A_full_single_dps": 17.152778,
+        "T01B_full_single_dps": 15.25
+      },
+      {
+        "armor": 0.75,
+        "ward": 0,
+        "T01A_full_single_dps": 9.027778,
+        "T01B_full_single_dps": 7.375
+      }
+    ],
+    "T03B_vs_T01A_base_damage_per_coin_ratio": 0.823846,
+    "attack_rate_bonus_tiers": [
+      0.0,
+      0.1,
+      0.25,
+      0.3
+    ],
+    "T05B_full_flank_dps": [
+      9.0,
+      9.9,
+      11.25,
+      11.7
+    ],
+    "T01B_full_dps_with_shared_heat_cooldown": [
+      20.5,
+      21.333333333333332,
+      23.0,
+      23.09090909090909
+    ],
+    "four_rank1_four_rank2_heat_burn_dps": 2.5,
+    "full_tree_costs": [
+      {
+        "family": "T01",
+        "l3_coin": 85,
+        "full_tree_coin": 145,
+        "full_tree_spirit": 28
+      },
+      {
+        "family": "T02",
+        "l3_coin": 110,
+        "full_tree_coin": 170,
+        "full_tree_spirit": 28
+      },
+      {
+        "family": "T03",
+        "l3_coin": 100,
+        "full_tree_coin": 160,
+        "full_tree_spirit": 28
+      },
+      {
+        "family": "T04",
+        "l3_coin": 95,
+        "full_tree_coin": 155,
+        "full_tree_spirit": 28
+      },
+      {
+        "family": "T05",
+        "l3_coin": 110,
+        "full_tree_coin": 170,
+        "full_tree_spirit": 28
+      },
+      {
+        "family": "T06",
+        "l3_coin": 95,
+        "full_tree_coin": 155,
+        "full_tree_spirit": 28
+      }
+    ]
+  },
+  "not_verified": [
+    "client integration",
+    "actual hit/LOS/navigation",
+    "control and fission runtime",
+    "mobile input/performance",
+    "all-sixty playable AI",
+    "seven-night economy and fun balance"
+  ]
+}
