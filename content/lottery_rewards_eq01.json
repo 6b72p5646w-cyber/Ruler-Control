@@ -1,0 +1,646 @@
+{
+  "version": "EQ01",
+  "runtime_integrated": false,
+  "baseline_commit": "1932ab78118e9363fdd73124663aa4f5b0a4ea24",
+  "status": "complete_reward_design_and_reference_ledger_not_runtime_sampler_or_ui",
+  "shared_contract": "content/equipment_contracts_eq01.json",
+  "ticket_contract": "content/lottery_direction_md01.json#/round_definition",
+  "machine_contract": "content/lottery_direction_md01.json#/machine",
+  "basic_ticket_per_completed_safe_shift": 1,
+  "initial_campaign_ticket_retained": 1,
+  "first_week_note": "7晚成功赚7张基础券；加既有开局1券可抽8次，E065碎片额外计算。不是一晚一怪一券。",
+  "draw_cost": {
+    "tickets": 1,
+    "preparation_minutes": 15
+  },
+  "open_windows": [
+    "06:00–08:00安全交班后休整",
+    "20:00–22:00班前采购整备"
+  ],
+  "business_open": false,
+  "tower_anchor": false,
+  "electrical_appliance_node": false,
+  "tier_probabilities": {
+    "common": 0.6,
+    "uncommon": 0.3,
+    "rare": 0.1
+  },
+  "pity": {
+    "after_consecutive_common": 4,
+    "noncommon_weights": {
+      "uncommon": 0.75,
+      "rare": 0.25
+    },
+    "after_consecutive_nonrare": 9,
+    "rare_has_priority": true,
+    "reset_on_common": [
+      "none"
+    ],
+    "reset_on_uncommon": [
+      "common"
+    ],
+    "reset_on_rare": [
+      "common",
+      "nonrare"
+    ],
+    "persists_across_weeks_failure_reload": true
+  },
+  "class_weights_within_each_tier": {
+    "equipment": 0.5,
+    "consumable": 0.5
+  },
+  "within_class": "uniform over actual admitted item definitions; quantity does not add extra lottery entries",
+  "supersedes": "旧within_tier整档均匀规则在七夜模式改为先品质、再50/50类别、再类别内均匀；60/30/10品质和保底不变。",
+  "consumable_bundle_units": {
+    "common": 2,
+    "uncommon": 1,
+    "rare": 1
+  },
+  "pools": {
+    "common": {
+      "equipment": [
+        "Q01",
+        "Q05",
+        "Q09",
+        "Q13",
+        "Q17",
+        "Q21"
+      ],
+      "consumable": [
+        "I25",
+        "I26",
+        "I27",
+        "I28",
+        "I29",
+        "I30"
+      ]
+    },
+    "uncommon": {
+      "equipment": [
+        "Q02",
+        "Q04",
+        "Q06",
+        "Q10",
+        "Q12",
+        "Q14",
+        "Q16",
+        "Q18",
+        "Q20",
+        "Q22",
+        "Q23",
+        "Q25",
+        "Q27",
+        "Q29",
+        "Q31",
+        "Q33",
+        "Q35"
+      ],
+      "consumable": [
+        "I31",
+        "I32",
+        "I33",
+        "I34",
+        "I35",
+        "I36",
+        "I37",
+        "I38"
+      ]
+    },
+    "rare": {
+      "equipment": [
+        "Q07",
+        "Q08",
+        "Q15",
+        "Q19",
+        "Q24",
+        "Q26",
+        "Q28",
+        "Q30",
+        "Q32",
+        "Q34",
+        "Q36"
+      ],
+      "consumable": [
+        "I39",
+        "I40",
+        "I41",
+        "I42"
+      ]
+    }
+  },
+  "catalog": [
+    {
+      "id": "Q01",
+      "name": "夹取钳",
+      "tier": "common",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q02",
+      "name": "检视镜",
+      "tier": "uncommon",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q04",
+      "name": "契约印板",
+      "tier": "uncommon",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q05",
+      "name": "手电",
+      "tier": "common",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q06",
+      "name": "头灯",
+      "tier": "uncommon",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q07",
+      "name": "偏振检视灯",
+      "tier": "rare",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q08",
+      "name": "双点灯组",
+      "tier": "rare",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q09",
+      "name": "工作围裙",
+      "tier": "common",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q10",
+      "name": "检修围裙",
+      "tier": "uncommon",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q12",
+      "name": "匿名制服",
+      "tier": "uncommon",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q13",
+      "name": "防滑鞋",
+      "tier": "common",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q14",
+      "name": "轻步鞋",
+      "tier": "uncommon",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q15",
+      "name": "搬运靴",
+      "tier": "rare",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q16",
+      "name": "路标鞋",
+      "tier": "uncommon",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q17",
+      "name": "纪念物",
+      "tier": "common",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q18",
+      "name": "护袋",
+      "tier": "uncommon",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q19",
+      "name": "定心珠",
+      "tier": "rare",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q20",
+      "name": "双证护牌",
+      "tier": "uncommon",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q21",
+      "name": "标准挎包",
+      "tier": "common",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q22",
+      "name": "保温包",
+      "tier": "uncommon",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q23",
+      "name": "证据包",
+      "tier": "uncommon",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q24",
+      "name": "搬运背包",
+      "tier": "rare",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q25",
+      "name": "调度指挥棒",
+      "tier": "uncommon",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q26",
+      "name": "检疫喷笔",
+      "tier": "rare",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q27",
+      "name": "余热检视灯",
+      "tier": "uncommon",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q28",
+      "name": "相位测距灯",
+      "tier": "rare",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q29",
+      "name": "绝缘工装",
+      "tier": "uncommon",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q30",
+      "name": "接力工装",
+      "tier": "rare",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q31",
+      "name": "短跑鞋",
+      "tier": "uncommon",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q32",
+      "name": "折返靴",
+      "tier": "rare",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q33",
+      "name": "催账算盘",
+      "tier": "uncommon",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q34",
+      "name": "联线挂坠",
+      "tier": "rare",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q35",
+      "name": "快取腰包",
+      "tier": "uncommon",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "Q36",
+      "name": "调度工具包",
+      "tier": "rare",
+      "kind": "equipment",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "I25",
+      "name": "疾步气泡",
+      "tier": "common",
+      "kind": "consumable",
+      "units": 2,
+      "runtime_admitted": false
+    },
+    {
+      "id": "I26",
+      "name": "稳手护膜",
+      "tier": "common",
+      "kind": "consumable",
+      "units": 2,
+      "runtime_admitted": false
+    },
+    {
+      "id": "I27",
+      "name": "易感显影剂",
+      "tier": "common",
+      "kind": "consumable",
+      "units": 2,
+      "runtime_admitted": false
+    },
+    {
+      "id": "I28",
+      "name": "热印喷剂",
+      "tier": "common",
+      "kind": "consumable",
+      "units": 2,
+      "runtime_admitted": false
+    },
+    {
+      "id": "I29",
+      "name": "寒凝珠",
+      "tier": "common",
+      "kind": "consumable",
+      "units": 2,
+      "runtime_admitted": false
+    },
+    {
+      "id": "I30",
+      "name": "缓攻咒签",
+      "tier": "common",
+      "kind": "consumable",
+      "units": 2,
+      "runtime_admitted": false
+    },
+    {
+      "id": "I31",
+      "name": "电容贴",
+      "tier": "uncommon",
+      "kind": "consumable",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "I32",
+      "name": "浓缩墨毒",
+      "tier": "uncommon",
+      "kind": "consumable",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "I33",
+      "name": "开缝粉",
+      "tier": "uncommon",
+      "kind": "consumable",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "I34",
+      "name": "灵壳溶剂",
+      "tier": "uncommon",
+      "kind": "consumable",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "I35",
+      "name": "截句封签",
+      "tier": "uncommon",
+      "kind": "consumable",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "I36",
+      "name": "导电薄膜",
+      "tier": "uncommon",
+      "kind": "consumable",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "I37",
+      "name": "余裕砂漏",
+      "tier": "uncommon",
+      "kind": "consumable",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "I38",
+      "name": "相位预订票",
+      "tier": "uncommon",
+      "kind": "consumable",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "I39",
+      "name": "回身反咒",
+      "tier": "rare",
+      "kind": "consumable",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "I40",
+      "name": "协奏凭条",
+      "tier": "rare",
+      "kind": "consumable",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "I41",
+      "name": "发酵催化包",
+      "tier": "rare",
+      "kind": "consumable",
+      "units": 1,
+      "runtime_admitted": false
+    },
+    {
+      "id": "I42",
+      "name": "并联引线",
+      "tier": "rare",
+      "kind": "consumable",
+      "units": 1,
+      "runtime_admitted": false
+    }
+  ],
+  "eligibility": {
+    "requires": [
+      "design-enabled current definition",
+      "actual build handler",
+      "supported real consumer",
+      "explicit rarity mapping",
+      "acquisition+lottery enabled"
+    ],
+    "current_build_new_handlers_ready": false,
+    "missing_positive_probability_tier_or_class": "do not debit tickets/time, reveal, or update pity; no silent rerouting to another rarity or class",
+    "new_gameplay_consumer_not_automatically_enabled_by_name": true
+  },
+  "excluded_ids": [
+    "Q03",
+    "Q11",
+    "I22",
+    "I23"
+  ],
+  "legacy_supplies": "I01–I24合法日常物品保留原商店/剧情来源；本模式核心抽奖池仅34件装备和18种特殊道具，不用餐包、电池或基础回复填稀有奖。",
+  "duplicates": {
+    "ownership_key": "equipment_definition_id",
+    "owns_at": "persisted pre-draw ownership snapshot",
+    "same_tier_consumable_choice": true,
+    "quantity": "same tier bundle: common2, uncommon1, rare1",
+    "choice_options": "all actually admitted I25–I42 definitions of original selected rarity; common chooses one definition receiving2units",
+    "updates_pity_from": "original selected gear rarity exactly once",
+    "new_random_roll": false,
+    "coins_or_spirit": 0,
+    "stacks_gear_stats": false,
+    "record": "persist one same-tier reward choice until resolved, lock originaldraw andexactquantity; no reroll or free second equipment"
+  },
+  "transactions": {
+    "before_reveal": "validate phase/time/ticket/all eligible probability pools; snapshot pool version and ownership; generate and persist candidates; reserve/debit one ticket and15minutes once",
+    "pending_choice": "cannot start another draw or mutate equipment ownership through shop/gifts while this draw is unresolved; reload restores same candidates",
+    "final": "selected original result + final actual reward or immutable same-tier compensation claim + pity + terminal drawreceipt commit once",
+    "full_inventory": "final reward stays in persistent output claim/personal storage; do not destroy, reroll or automatically enter current business loadout",
+    "content_change": "preserve pendingversion/claim; unsupported oldconsumer cannot silentlyreplacewithrandomnewresult; holdclaim pendingcompatibleadapter",
+    "idempotent_receipts": true
+  },
+  "E064": {
+    "source": "content/items.json#/lottery/double_choice_contract",
+    "requires_actual_event_authorization": true,
+    "cost_tickets": 1,
+    "cost_preparation_minutes": 15,
+    "candidate_count": 2,
+    "max_per_procurement_window": 1,
+    "same_pre_draw_pity": true,
+    "distinct_source_ids": true,
+    "second_sampling": "from same pre-draw weighted distribution, exclude firstsourceID andsameeffective duplicate-choice menu; conditionallyrenormalize once. No secondpityupdate.",
+    "only_selected_granted": true,
+    "unselected_updates_pity": false,
+    "overrides_ordinary_50_50_selected_outcome_statistics": true
+  },
+  "E065": {
+    "source": "content/items.json#/lottery/fragment_contract",
+    "max_actual_reward_fragments_per_night": 1,
+    "fragments_per_ticket": 3,
+    "exchange_preparation_minutes": 15,
+    "distinct_same_root_once": true
+  },
+  "acquisition_alternative": "all34gear and18specialitems have fixed-pre-shift shop offers after handler readiness, prices use same weekcoin ledger; essential rule tools and baseline sprint are free",
+  "presentation": {
+    "gear_card": [
+      "基础属性",
+      "核心能力与触发",
+      "实际代价/冷却",
+      "适配塔和当前适配情况"
+    ],
+    "special_card": [
+      "作用对象",
+      "持续/次数",
+      "何时使用",
+      "同族叠加与不可影响的机制"
+    ],
+    "machine": [
+      "显示两种保底剩余抽数",
+      "展示完整分层概率与普通双件数量",
+      "开奖前不展示未持久化奖励",
+      "重复品直接进入同品质道具选择",
+      "未领取物品仍在领取箱"
+    ],
+    "no_art_in_this_commit": true
+  },
+  "design_pool_counts": {
+    "common": {
+      "equipment": 6,
+      "consumable": 6
+    },
+    "uncommon": {
+      "equipment": 17,
+      "consumable": 8
+    },
+    "rare": {
+      "equipment": 11,
+      "consumable": 4
+    }
+  }
+}

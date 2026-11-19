@@ -1,0 +1,1353 @@
+{
+  "version": "EQ01",
+  "runtime_integrated": false,
+  "scope": "fixed completed-order/root assumptions, existing minimum build and adaptive priorities; no claim about actual victory, player skill, or pathfinding",
+  "inputs": {
+    "td05_reference_sha256": "26bd1113fb9c67e0fbcb8bb97fbe916895ad9d4e94c9af116c66cf51ee833b11",
+    "equipment_catalog_sha256": "16d93c871dd1398bdeefad7512d48966daf9cc06ae1538d88fe71565a277815e"
+  },
+  "default_regression_gates": [
+    {
+      "scenario": "cautious",
+      "unchanged_full_default_result": true,
+      "sha256": "e3de4e4996326aee9c0c88fdb262783b9bbdb77190a9135adbe6909afa2ec357"
+    },
+    {
+      "scenario": "standard",
+      "unchanged_full_default_result": true,
+      "sha256": "b4a1f59f7e898f832510a666d6ec522927ebbdef111f68c9093e97f9a247f871"
+    },
+    {
+      "scenario": "proficient",
+      "unchanged_full_default_result": true,
+      "sha256": "aba42d7456be5e2b629d4f258c8575b8b72ac1e248fe9ce874ef01a2eb081637"
+    }
+  ],
+  "purchase": {
+    "item_id": "Q06",
+    "name": "头灯",
+    "actual_catalog_price_coin": 110,
+    "time": "after mandatory authored trap stock/service, before original defense priority",
+    "once_only": true
+  },
+  "personal_reserve": {
+    "coin_per_night2to7": 24,
+    "uncommon_example": "14 special +10 other =24 already budgeted",
+    "rare_example": "24 special +0 other =24 already budgeted",
+    "not_additional_tax": true,
+    "night1": "original minimum build112 of120 retained;8coin remains; no new mandatory consumable spend"
+  },
+  "interpretation": "Adaptive priority skips unaffordable upgrades, so identical later L3 counts do not imply a free equipment purchase; total defense mix and timing change.",
+  "week_boundary": "All runs close old weekly coin/spirit and start120coin0spirit. Q06 is a separate persistent personal ownership receipt, no second wage, refund, sale or oldcash transfer.",
+  "economy": [
+    {
+      "scenario": "cautious",
+      "baseline": {
+        "daily_income_coin": 152,
+        "daily_income_spirit": 14,
+        "initial_minimum_build_coin": 112,
+        "initial_remaining_coin": 8,
+        "first_l2_tower_night": 2,
+        "first_l3_tower_night": 3,
+        "first_l3_trap_night": null,
+        "night7_l3_towers": 4,
+        "night7_l3_traps": 0,
+        "night7_open_coin": 6,
+        "total_defense_build_coin": 814,
+        "old_week_coin_closed_after_night7": 158,
+        "next_week_coin": 120,
+        "next_week_spirit": 0,
+        "fully_paid_trap_stock_service_feasible": true,
+        "rows": [
+          {
+            "night": 1,
+            "opening_coin": 8,
+            "opening_spirit": 0,
+            "defense_purchases": [
+              "T01",
+              "T05",
+              "R01",
+              "R12"
+            ],
+            "l3_towers": 0,
+            "l3_traps": 0,
+            "service_and_personal_spend": 0,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 2,
+            "opening_coin": 2,
+            "opening_spirit": 4,
+            "defense_purchases": [
+              "T01.A",
+              "T02.A",
+              "R01.A",
+              "T07",
+              "R14"
+            ],
+            "l3_towers": 0,
+            "l3_traps": 0,
+            "service_and_personal_spend": 29,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 3,
+            "opening_coin": 13,
+            "opening_spirit": 0,
+            "defense_purchases": [
+              "T01.A1",
+              "T07.B",
+              "R14.A",
+              "R16"
+            ],
+            "l3_towers": 1,
+            "l3_traps": 0,
+            "service_and_personal_spend": 33,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 4,
+            "opening_coin": 21,
+            "opening_spirit": 0,
+            "defense_purchases": [
+              "T07.B1",
+              "T09",
+              "R16.A"
+            ],
+            "l3_towers": 2,
+            "l3_traps": 0,
+            "service_and_personal_spend": 37,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 5,
+            "opening_coin": 0,
+            "opening_spirit": 0,
+            "defense_purchases": [
+              "T05.A",
+              "T09.B",
+              "T03",
+              "T03.B",
+              "R12.A"
+            ],
+            "l3_towers": 2,
+            "l3_traps": 0,
+            "service_and_personal_spend": 37,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 6,
+            "opening_coin": 17,
+            "opening_spirit": 2,
+            "defense_purchases": [
+              "T02.A1",
+              "T08"
+            ],
+            "l3_towers": 3,
+            "l3_traps": 0,
+            "service_and_personal_spend": 38,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 7,
+            "opening_coin": 6,
+            "opening_spirit": 0,
+            "defense_purchases": [
+              "T05.A1",
+              "T08.A",
+              "T10"
+            ],
+            "l3_towers": 4,
+            "l3_traps": 0,
+            "service_and_personal_spend": 38,
+            "personal_purchase_receipts": []
+          }
+        ]
+      },
+      "Q06_before_night2": {
+        "daily_income_coin": 152,
+        "daily_income_spirit": 14,
+        "initial_minimum_build_coin": 112,
+        "initial_remaining_coin": 8,
+        "first_l2_tower_night": 3,
+        "first_l3_tower_night": 3,
+        "first_l3_trap_night": 7,
+        "night7_l3_towers": 4,
+        "night7_l3_traps": 1,
+        "night7_open_coin": 16,
+        "total_defense_build_coin": 712,
+        "old_week_coin_closed_after_night7": 168,
+        "next_week_coin": 120,
+        "next_week_spirit": 0,
+        "fully_paid_trap_stock_service_feasible": true,
+        "rows": [
+          {
+            "night": 1,
+            "opening_coin": 8,
+            "opening_spirit": 0,
+            "defense_purchases": [
+              "T01",
+              "T05",
+              "R01",
+              "R12"
+            ],
+            "l3_towers": 0,
+            "l3_traps": 0,
+            "service_and_personal_spend": 0,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 2,
+            "opening_coin": 11,
+            "opening_spirit": 12,
+            "defense_purchases": [
+              "R01.A"
+            ],
+            "l3_towers": 0,
+            "l3_traps": 0,
+            "service_and_personal_spend": 139,
+            "personal_purchase_receipts": [
+              {
+                "kind": "eq01_personal_equipment_purchase",
+                "item_id": "Q06",
+                "coin": 110,
+                "persistent_personal_item": true,
+                "defense_refund": false
+              }
+            ]
+          },
+          {
+            "night": 3,
+            "opening_coin": 8,
+            "opening_spirit": 6,
+            "defense_purchases": [
+              "T01.A",
+              "T01.A1",
+              "T02.A",
+              "R14"
+            ],
+            "l3_towers": 1,
+            "l3_traps": 0,
+            "service_and_personal_spend": 29,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 4,
+            "opening_coin": 2,
+            "opening_spirit": 4,
+            "defense_purchases": [
+              "T07",
+              "T07.B",
+              "T07.B1"
+            ],
+            "l3_towers": 2,
+            "l3_traps": 0,
+            "service_and_personal_spend": 33,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 5,
+            "opening_coin": 10,
+            "opening_spirit": 8,
+            "defense_purchases": [
+              "T05.A",
+              "R14.A",
+              "T09",
+              "T09.B"
+            ],
+            "l3_towers": 2,
+            "l3_traps": 0,
+            "service_and_personal_spend": 33,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 6,
+            "opening_coin": 9,
+            "opening_spirit": 8,
+            "defense_purchases": [
+              "R16",
+              "R16.A",
+              "T02.A1",
+              "T03"
+            ],
+            "l3_towers": 3,
+            "l3_traps": 0,
+            "service_and_personal_spend": 33,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 7,
+            "opening_coin": 16,
+            "opening_spirit": 0,
+            "defense_purchases": [
+              "T03.B",
+              "T05.A1",
+              "R01.A3",
+              "R12.A"
+            ],
+            "l3_towers": 4,
+            "l3_traps": 1,
+            "service_and_personal_spend": 37,
+            "personal_purchase_receipts": []
+          }
+        ]
+      },
+      "Q06_before_night3": {
+        "daily_income_coin": 152,
+        "daily_income_spirit": 14,
+        "initial_minimum_build_coin": 112,
+        "initial_remaining_coin": 8,
+        "first_l2_tower_night": 2,
+        "first_l3_tower_night": 4,
+        "first_l3_trap_night": 6,
+        "night7_l3_towers": 4,
+        "night7_l3_traps": 1,
+        "night7_open_coin": 4,
+        "total_defense_build_coin": 712,
+        "old_week_coin_closed_after_night7": 156,
+        "next_week_coin": 120,
+        "next_week_spirit": 0,
+        "fully_paid_trap_stock_service_feasible": true,
+        "rows": [
+          {
+            "night": 1,
+            "opening_coin": 8,
+            "opening_spirit": 0,
+            "defense_purchases": [
+              "T01",
+              "T05",
+              "R01",
+              "R12"
+            ],
+            "l3_towers": 0,
+            "l3_traps": 0,
+            "service_and_personal_spend": 0,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 2,
+            "opening_coin": 2,
+            "opening_spirit": 4,
+            "defense_purchases": [
+              "T01.A",
+              "T02.A",
+              "R01.A",
+              "T07",
+              "R14"
+            ],
+            "l3_towers": 0,
+            "l3_traps": 0,
+            "service_and_personal_spend": 29,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 3,
+            "opening_coin": 1,
+            "opening_spirit": 16,
+            "defense_purchases": [
+              "R14.A"
+            ],
+            "l3_towers": 0,
+            "l3_traps": 0,
+            "service_and_personal_spend": 143,
+            "personal_purchase_receipts": [
+              {
+                "kind": "eq01_personal_equipment_purchase",
+                "item_id": "Q06",
+                "coin": 110,
+                "persistent_personal_item": true,
+                "defense_refund": false
+              }
+            ]
+          },
+          {
+            "night": 4,
+            "opening_coin": 0,
+            "opening_spirit": 8,
+            "defense_purchases": [
+              "T01.A1",
+              "T07.B",
+              "T05.A",
+              "R12.A"
+            ],
+            "l3_towers": 1,
+            "l3_traps": 0,
+            "service_and_personal_spend": 33,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 5,
+            "opening_coin": 3,
+            "opening_spirit": 10,
+            "defense_purchases": [
+              "T07.B1",
+              "T09",
+              "R16"
+            ],
+            "l3_towers": 2,
+            "l3_traps": 0,
+            "service_and_personal_spend": 34,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 6,
+            "opening_coin": 11,
+            "opening_spirit": 2,
+            "defense_purchases": [
+              "T09.B",
+              "R16.A",
+              "T02.A1",
+              "R01.A3"
+            ],
+            "l3_towers": 3,
+            "l3_traps": 1,
+            "service_and_personal_spend": 38,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 7,
+            "opening_coin": 4,
+            "opening_spirit": 0,
+            "defense_purchases": [
+              "T03",
+              "T03.B",
+              "T05.A1"
+            ],
+            "l3_towers": 4,
+            "l3_traps": 1,
+            "service_and_personal_spend": 39,
+            "personal_purchase_receipts": []
+          }
+        ]
+      }
+    },
+    {
+      "scenario": "standard",
+      "baseline": {
+        "daily_income_coin": 176,
+        "daily_income_spirit": 22,
+        "initial_minimum_build_coin": 112,
+        "initial_remaining_coin": 8,
+        "first_l2_tower_night": 2,
+        "first_l3_tower_night": 2,
+        "first_l3_trap_night": 4,
+        "night7_l3_towers": 5,
+        "night7_l3_traps": 4,
+        "night7_open_coin": 2,
+        "total_defense_build_coin": 958,
+        "old_week_coin_closed_after_night7": 178,
+        "next_week_coin": 120,
+        "next_week_spirit": 0,
+        "fully_paid_trap_stock_service_feasible": true,
+        "rows": [
+          {
+            "night": 1,
+            "opening_coin": 8,
+            "opening_spirit": 0,
+            "defense_purchases": [
+              "T01",
+              "T05",
+              "R01",
+              "R12"
+            ],
+            "l3_towers": 0,
+            "l3_traps": 0,
+            "service_and_personal_spend": 0,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 2,
+            "opening_coin": 1,
+            "opening_spirit": 0,
+            "defense_purchases": [
+              "T01.A",
+              "T01.A1",
+              "T02.A",
+              "R01.A",
+              "R14",
+              "R16"
+            ],
+            "l3_towers": 1,
+            "l3_traps": 0,
+            "service_and_personal_spend": 29,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 3,
+            "opening_coin": 5,
+            "opening_spirit": 4,
+            "defense_purchases": [
+              "T07",
+              "T07.B",
+              "T07.B1",
+              "R14.A"
+            ],
+            "l3_towers": 2,
+            "l3_traps": 0,
+            "service_and_personal_spend": 37,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 4,
+            "opening_coin": 1,
+            "opening_spirit": 8,
+            "defense_purchases": [
+              "T05.A",
+              "T09",
+              "T09.B",
+              "R16.A",
+              "R01.A3",
+              "R14.A3"
+            ],
+            "l3_towers": 2,
+            "l3_traps": 2,
+            "service_and_personal_spend": 37,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 5,
+            "opening_coin": 3,
+            "opening_spirit": 10,
+            "defense_purchases": [
+              "T02.A1",
+              "T03",
+              "T03.B",
+              "R16.A3"
+            ],
+            "l3_towers": 3,
+            "l3_traps": 3,
+            "service_and_personal_spend": 38,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 6,
+            "opening_coin": 5,
+            "opening_spirit": 14,
+            "defense_purchases": [
+              "T05.A1",
+              "T08",
+              "T08.A",
+              "R12.A"
+            ],
+            "l3_towers": 4,
+            "l3_traps": 3,
+            "service_and_personal_spend": 37,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 7,
+            "opening_coin": 2,
+            "opening_spirit": 16,
+            "defense_purchases": [
+              "T09.B1",
+              "T10",
+              "T10.B",
+              "R12.A3"
+            ],
+            "l3_towers": 5,
+            "l3_traps": 4,
+            "service_and_personal_spend": 38,
+            "personal_purchase_receipts": []
+          }
+        ]
+      },
+      "Q06_before_night2": {
+        "daily_income_coin": 176,
+        "daily_income_spirit": 22,
+        "initial_minimum_build_coin": 112,
+        "initial_remaining_coin": 8,
+        "first_l2_tower_night": 2,
+        "first_l3_tower_night": 3,
+        "first_l3_trap_night": 5,
+        "night7_l3_towers": 5,
+        "night7_l3_traps": 3,
+        "night7_open_coin": 6,
+        "total_defense_build_coin": 857,
+        "old_week_coin_closed_after_night7": 182,
+        "next_week_coin": 120,
+        "next_week_spirit": 0,
+        "fully_paid_trap_stock_service_feasible": true,
+        "rows": [
+          {
+            "night": 1,
+            "opening_coin": 8,
+            "opening_spirit": 0,
+            "defense_purchases": [
+              "T01",
+              "T05",
+              "R01",
+              "R12"
+            ],
+            "l3_towers": 0,
+            "l3_traps": 0,
+            "service_and_personal_spend": 0,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 2,
+            "opening_coin": 7,
+            "opening_spirit": 16,
+            "defense_purchases": [
+              "T01.A",
+              "R01.A"
+            ],
+            "l3_towers": 0,
+            "l3_traps": 0,
+            "service_and_personal_spend": 139,
+            "personal_purchase_receipts": [
+              {
+                "kind": "eq01_personal_equipment_purchase",
+                "item_id": "Q06",
+                "coin": 110,
+                "persistent_personal_item": true,
+                "defense_refund": false
+              }
+            ]
+          },
+          {
+            "night": 3,
+            "opening_coin": 1,
+            "opening_spirit": 20,
+            "defense_purchases": [
+              "T01.A1",
+              "T02.A",
+              "T07",
+              "R14",
+              "R14.A"
+            ],
+            "l3_towers": 1,
+            "l3_traps": 0,
+            "service_and_personal_spend": 29,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 4,
+            "opening_coin": 8,
+            "opening_spirit": 20,
+            "defense_purchases": [
+              "T07.B",
+              "T07.B1",
+              "T05.A",
+              "R16",
+              "R16.A"
+            ],
+            "l3_towers": 2,
+            "l3_traps": 0,
+            "service_and_personal_spend": 33,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 5,
+            "opening_coin": 6,
+            "opening_spirit": 22,
+            "defense_purchases": [
+              "T09",
+              "T09.B",
+              "T02.A1",
+              "R01.A3"
+            ],
+            "l3_towers": 3,
+            "l3_traps": 1,
+            "service_and_personal_spend": 37,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 6,
+            "opening_coin": 8,
+            "opening_spirit": 24,
+            "defense_purchases": [
+              "T03",
+              "T03.B",
+              "T05.A1",
+              "R14.A3"
+            ],
+            "l3_towers": 4,
+            "l3_traps": 2,
+            "service_and_personal_spend": 38,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 7,
+            "opening_coin": 6,
+            "opening_spirit": 26,
+            "defense_purchases": [
+              "T08",
+              "T08.A",
+              "T09.B1",
+              "R16.A3"
+            ],
+            "l3_towers": 5,
+            "l3_traps": 3,
+            "service_and_personal_spend": 37,
+            "personal_purchase_receipts": []
+          }
+        ]
+      },
+      "Q06_before_night3": {
+        "daily_income_coin": 176,
+        "daily_income_spirit": 22,
+        "initial_minimum_build_coin": 112,
+        "initial_remaining_coin": 8,
+        "first_l2_tower_night": 2,
+        "first_l3_tower_night": 2,
+        "first_l3_trap_night": 6,
+        "night7_l3_towers": 5,
+        "night7_l3_traps": 1,
+        "night7_open_coin": 13,
+        "total_defense_build_coin": 837,
+        "old_week_coin_closed_after_night7": 189,
+        "next_week_coin": 120,
+        "next_week_spirit": 0,
+        "fully_paid_trap_stock_service_feasible": true,
+        "rows": [
+          {
+            "night": 1,
+            "opening_coin": 8,
+            "opening_spirit": 0,
+            "defense_purchases": [
+              "T01",
+              "T05",
+              "R01",
+              "R12"
+            ],
+            "l3_towers": 0,
+            "l3_traps": 0,
+            "service_and_personal_spend": 0,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 2,
+            "opening_coin": 1,
+            "opening_spirit": 0,
+            "defense_purchases": [
+              "T01.A",
+              "T01.A1",
+              "T02.A",
+              "R01.A",
+              "R14",
+              "R16"
+            ],
+            "l3_towers": 1,
+            "l3_traps": 0,
+            "service_and_personal_spend": 29,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 3,
+            "opening_coin": 2,
+            "opening_spirit": 18,
+            "defense_purchases": [
+              "T05.A"
+            ],
+            "l3_towers": 1,
+            "l3_traps": 0,
+            "service_and_personal_spend": 147,
+            "personal_purchase_receipts": [
+              {
+                "kind": "eq01_personal_equipment_purchase",
+                "item_id": "Q06",
+                "coin": 110,
+                "persistent_personal_item": true,
+                "defense_refund": false
+              }
+            ]
+          },
+          {
+            "night": 4,
+            "opening_coin": 6,
+            "opening_spirit": 22,
+            "defense_purchases": [
+              "T07",
+              "T07.B",
+              "T07.B1",
+              "R14.A"
+            ],
+            "l3_towers": 2,
+            "l3_traps": 0,
+            "service_and_personal_spend": 37,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 5,
+            "opening_coin": 10,
+            "opening_spirit": 26,
+            "defense_purchases": [
+              "T09",
+              "T09.B",
+              "R16.A",
+              "T02.A1"
+            ],
+            "l3_towers": 3,
+            "l3_traps": 0,
+            "service_and_personal_spend": 37,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 6,
+            "opening_coin": 1,
+            "opening_spirit": 26,
+            "defense_purchases": [
+              "T03",
+              "T03.B",
+              "T05.A1",
+              "R01.A3",
+              "R12.A"
+            ],
+            "l3_towers": 4,
+            "l3_traps": 1,
+            "service_and_personal_spend": 37,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 7,
+            "opening_coin": 13,
+            "opening_spirit": 32,
+            "defense_purchases": [
+              "T08",
+              "T08.A",
+              "T09.B1"
+            ],
+            "l3_towers": 5,
+            "l3_traps": 1,
+            "service_and_personal_spend": 39,
+            "personal_purchase_receipts": []
+          }
+        ]
+      }
+    },
+    {
+      "scenario": "proficient",
+      "baseline": {
+        "daily_income_coin": 212,
+        "daily_income_spirit": 34,
+        "initial_minimum_build_coin": 112,
+        "initial_remaining_coin": 8,
+        "first_l2_tower_night": 2,
+        "first_l3_tower_night": 2,
+        "first_l3_trap_night": 4,
+        "night7_l3_towers": 8,
+        "night7_l3_traps": 4,
+        "night7_open_coin": 66,
+        "total_defense_build_coin": 1114,
+        "old_week_coin_closed_after_night7": 278,
+        "next_week_coin": 120,
+        "next_week_spirit": 0,
+        "fully_paid_trap_stock_service_feasible": true,
+        "rows": [
+          {
+            "night": 1,
+            "opening_coin": 8,
+            "opening_spirit": 0,
+            "defense_purchases": [
+              "T01",
+              "T05",
+              "R01",
+              "R12"
+            ],
+            "l3_towers": 0,
+            "l3_traps": 0,
+            "service_and_personal_spend": 0,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 2,
+            "opening_coin": 0,
+            "opening_spirit": 10,
+            "defense_purchases": [
+              "T01.A",
+              "T01.A1",
+              "T02.A",
+              "R01.A",
+              "T07",
+              "R14",
+              "R14.A"
+            ],
+            "l3_towers": 1,
+            "l3_traps": 0,
+            "service_and_personal_spend": 29,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 3,
+            "opening_coin": 8,
+            "opening_spirit": 24,
+            "defense_purchases": [
+              "T07.B",
+              "T07.B1",
+              "T05.A",
+              "T09",
+              "R16"
+            ],
+            "l3_towers": 2,
+            "l3_traps": 0,
+            "service_and_personal_spend": 33,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 4,
+            "opening_coin": 9,
+            "opening_spirit": 32,
+            "defense_purchases": [
+              "T09.B",
+              "R16.A",
+              "T02.A1",
+              "T03",
+              "T03.B",
+              "R01.A3"
+            ],
+            "l3_towers": 3,
+            "l3_traps": 1,
+            "service_and_personal_spend": 37,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 5,
+            "opening_coin": 6,
+            "opening_spirit": 38,
+            "defense_purchases": [
+              "T05.A1",
+              "T08",
+              "T08.A",
+              "T09.B1"
+            ],
+            "l3_towers": 5,
+            "l3_traps": 1,
+            "service_and_personal_spend": 38,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 6,
+            "opening_coin": 12,
+            "opening_spirit": 46,
+            "defense_purchases": [
+              "R14.A3",
+              "T10",
+              "T10.B",
+              "T03.B1",
+              "R16.A3",
+              "R12.A"
+            ],
+            "l3_towers": 6,
+            "l3_traps": 3,
+            "service_and_personal_spend": 37,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 7,
+            "opening_coin": 66,
+            "opening_spirit": 52,
+            "defense_purchases": [
+              "T08.A1",
+              "T10.B1",
+              "R12.A3"
+            ],
+            "l3_towers": 8,
+            "l3_traps": 4,
+            "service_and_personal_spend": 38,
+            "personal_purchase_receipts": []
+          }
+        ]
+      },
+      "Q06_before_night2": {
+        "daily_income_coin": 212,
+        "daily_income_spirit": 34,
+        "initial_minimum_build_coin": 112,
+        "initial_remaining_coin": 8,
+        "first_l2_tower_night": 2,
+        "first_l3_tower_night": 2,
+        "first_l3_trap_night": 6,
+        "night7_l3_towers": 7,
+        "night7_l3_traps": 4,
+        "night7_open_coin": 17,
+        "total_defense_build_coin": 1062,
+        "old_week_coin_closed_after_night7": 229,
+        "next_week_coin": 120,
+        "next_week_spirit": 0,
+        "fully_paid_trap_stock_service_feasible": true,
+        "rows": [
+          {
+            "night": 1,
+            "opening_coin": 8,
+            "opening_spirit": 0,
+            "defense_purchases": [
+              "T01",
+              "T05",
+              "R01",
+              "R12"
+            ],
+            "l3_towers": 0,
+            "l3_traps": 0,
+            "service_and_personal_spend": 0,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 2,
+            "opening_coin": 1,
+            "opening_spirit": 18,
+            "defense_purchases": [
+              "T01.A",
+              "T01.A1"
+            ],
+            "l3_towers": 1,
+            "l3_traps": 0,
+            "service_and_personal_spend": 139,
+            "personal_purchase_receipts": [
+              {
+                "kind": "eq01_personal_equipment_purchase",
+                "item_id": "Q06",
+                "coin": 110,
+                "persistent_personal_item": true,
+                "defense_refund": false
+              }
+            ]
+          },
+          {
+            "night": 3,
+            "opening_coin": 3,
+            "opening_spirit": 30,
+            "defense_purchases": [
+              "T02.A",
+              "R01.A",
+              "T07",
+              "R14",
+              "T07.B",
+              "T07.B1"
+            ],
+            "l3_towers": 2,
+            "l3_traps": 0,
+            "service_and_personal_spend": 29,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 4,
+            "opening_coin": 3,
+            "opening_spirit": 52,
+            "defense_purchases": [
+              "T05.A",
+              "R14.A",
+              "T09",
+              "T09.B",
+              "R16",
+              "R16.A",
+              "T03"
+            ],
+            "l3_towers": 2,
+            "l3_traps": 0,
+            "service_and_personal_spend": 33,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 5,
+            "opening_coin": 1,
+            "opening_spirit": 58,
+            "defense_purchases": [
+              "T02.A1",
+              "T03.B",
+              "T05.A1",
+              "T08"
+            ],
+            "l3_towers": 4,
+            "l3_traps": 0,
+            "service_and_personal_spend": 37,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 6,
+            "opening_coin": 3,
+            "opening_spirit": 64,
+            "defense_purchases": [
+              "T08.A",
+              "T09.B1",
+              "R01.A3",
+              "R14.A3",
+              "T10",
+              "R16.A3"
+            ],
+            "l3_towers": 5,
+            "l3_traps": 3,
+            "service_and_personal_spend": 37,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 7,
+            "opening_coin": 17,
+            "opening_spirit": 64,
+            "defense_purchases": [
+              "T10.B",
+              "T03.B1",
+              "T08.A1",
+              "R12.A",
+              "R12.A3"
+            ],
+            "l3_towers": 7,
+            "l3_traps": 4,
+            "service_and_personal_spend": 38,
+            "personal_purchase_receipts": []
+          }
+        ]
+      },
+      "Q06_before_night3": {
+        "daily_income_coin": 212,
+        "daily_income_spirit": 34,
+        "initial_minimum_build_coin": 112,
+        "initial_remaining_coin": 8,
+        "first_l2_tower_night": 2,
+        "first_l3_tower_night": 2,
+        "first_l3_trap_night": 4,
+        "night7_l3_towers": 7,
+        "night7_l3_traps": 4,
+        "night7_open_coin": 7,
+        "total_defense_build_coin": 1062,
+        "old_week_coin_closed_after_night7": 219,
+        "next_week_coin": 120,
+        "next_week_spirit": 0,
+        "fully_paid_trap_stock_service_feasible": true,
+        "rows": [
+          {
+            "night": 1,
+            "opening_coin": 8,
+            "opening_spirit": 0,
+            "defense_purchases": [
+              "T01",
+              "T05",
+              "R01",
+              "R12"
+            ],
+            "l3_towers": 0,
+            "l3_traps": 0,
+            "service_and_personal_spend": 0,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 2,
+            "opening_coin": 0,
+            "opening_spirit": 10,
+            "defense_purchases": [
+              "T01.A",
+              "T01.A1",
+              "T02.A",
+              "R01.A",
+              "T07",
+              "R14",
+              "R14.A"
+            ],
+            "l3_towers": 1,
+            "l3_traps": 0,
+            "service_and_personal_spend": 29,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 3,
+            "opening_coin": 1,
+            "opening_spirit": 34,
+            "defense_purchases": [
+              "T07.B",
+              "T05.A",
+              "R12.A"
+            ],
+            "l3_towers": 1,
+            "l3_traps": 0,
+            "service_and_personal_spend": 143,
+            "personal_purchase_receipts": [
+              {
+                "kind": "eq01_personal_equipment_purchase",
+                "item_id": "Q06",
+                "coin": 110,
+                "persistent_personal_item": true,
+                "defense_refund": false
+              }
+            ]
+          },
+          {
+            "night": 4,
+            "opening_coin": 10,
+            "opening_spirit": 46,
+            "defense_purchases": [
+              "T07.B1",
+              "T09",
+              "T09.B",
+              "R16",
+              "R16.A",
+              "R01.A3"
+            ],
+            "l3_towers": 2,
+            "l3_traps": 1,
+            "service_and_personal_spend": 34,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 5,
+            "opening_coin": 11,
+            "opening_spirit": 52,
+            "defense_purchases": [
+              "T02.A1",
+              "T03",
+              "T03.B",
+              "T05.A1"
+            ],
+            "l3_towers": 4,
+            "l3_traps": 1,
+            "service_and_personal_spend": 39,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 6,
+            "opening_coin": 12,
+            "opening_spirit": 58,
+            "defense_purchases": [
+              "T08",
+              "T08.A",
+              "T09.B1",
+              "R14.A3",
+              "R16.A3",
+              "R12.A3"
+            ],
+            "l3_towers": 5,
+            "l3_traps": 4,
+            "service_and_personal_spend": 38,
+            "personal_purchase_receipts": []
+          },
+          {
+            "night": 7,
+            "opening_coin": 7,
+            "opening_spirit": 64,
+            "defense_purchases": [
+              "T10",
+              "T10.B",
+              "T03.B1",
+              "T08.A1"
+            ],
+            "l3_towers": 7,
+            "l3_traps": 4,
+            "service_and_personal_spend": 40,
+            "personal_purchase_receipts": []
+          }
+        ]
+      }
+    }
+  ],
+  "lottery": {
+    "tier_equipment_pool_counts": {
+      "common": 6,
+      "uncommon": 17,
+      "rare": 11
+    },
+    "initial_owned_equipment": [
+      "Q09",
+      "Q13",
+      "Q21"
+    ],
+    "duplicate_conversion_units_by_tier": {
+      "common": 2,
+      "uncommon": 1,
+      "rare": 1
+    },
+    "category_probabilities_each_tier": {
+      "equipment": 0.5,
+      "special_consumable": 0.5
+    },
+    "normal_special_units_by_tier": {
+      "common": 2,
+      "uncommon": 1,
+      "rare": 1
+    },
+    "selection_within_category_and_tier": "uniform over eligible authored item IDs; duplicates convert, never reroll rarity",
+    "scope": "fresh pity counters, authored full pools and existing starter ownership only; no E064, purchases, migration ownership, fragments or missing-handler pool changes",
+    "draw_count_interpretation": "7 means seven earned night tickets;8 additionally includes the retained one-time initial voucher, all spent once",
+    "method": "exact Fraction dynamic program over pity state and owned item counts per rarity; not Monte Carlo or a runtime sampler",
+    "snapshots": [
+      {
+        "draws": 7,
+        "expected_tiers": {
+          "common": {
+            "value": 4.060032,
+            "exact_fraction": "63438/15625"
+          },
+          "uncommon": {
+            "value": 2.204976,
+            "exact_fraction": "137811/62500"
+          },
+          "rare": {
+            "value": 0.734992,
+            "exact_fraction": "45937/62500"
+          }
+        },
+        "probability_at_least_one_rare": {
+          "value": 0.5479471,
+          "exact_fraction": "5479471/10000000"
+        },
+        "expected_equipment_category_offers": {
+          "value": 3.5,
+          "exact_fraction": "7/2"
+        },
+        "expected_distinct_new_equipment": {
+          "value": 2.31858736709968,
+          "exact_fraction": "15863283549853950602669/6841788140033440000000"
+        },
+        "expected_owned_equipment_duplicates": {
+          "value": 1.18141263290032,
+          "exact_fraction": "8082974940263089397331/6841788140033440000000"
+        },
+        "expected_direct_special_units": {
+          "value": 5.530016,
+          "exact_fraction": "172813/31250"
+        },
+        "expected_duplicate_conversion_special_units": {
+          "value": 2.32925989227532,
+          "exact_fraction": "31872605412049704444369/13683576280066880000000"
+        },
+        "expected_total_special_units": {
+          "value": 7.85927589227532,
+          "exact_fraction": "107543001178040031914449/13683576280066880000000"
+        },
+        "exact_probability_mass": "1"
+      },
+      {
+        "draws": 8,
+        "expected_tiers": {
+          "common": {
+            "value": 4.628928,
+            "exact_fraction": "72327/15625"
+          },
+          "uncommon": {
+            "value": 2.528304,
+            "exact_fraction": "158019/62500"
+          },
+          "rare": {
+            "value": 0.842768,
+            "exact_fraction": "52673/62500"
+          }
+        },
+        "probability_at_least_one_rare": {
+          "value": 0.59787631,
+          "exact_fraction": "59787631/100000000"
+        },
+        "expected_equipment_category_offers": {
+          "value": 4.0,
+          "exact_fraction": "4"
+        },
+        "expected_distinct_new_equipment": {
+          "value": 2.623415844180721,
+          "exact_fraction": "67128719230002099954965911/25588287643725065600000000"
+        },
+        "expected_owned_equipment_duplicates": {
+          "value": 1.3765841558192793,
+          "exact_fraction": "35224431344898162445034089/25588287643725065600000000"
+        },
+        "expected_direct_special_units": {
+          "value": 6.314464,
+          "exact_fraction": "197327/31250"
+        },
+        "expected_duplicate_conversion_special_units": {
+          "value": 2.707942915663029,
+          "exact_fraction": "138583244497546235237673407/51176575287450131200000000"
+        },
+        "expected_total_special_units": {
+          "value": 9.02240691566303,
+          "exact_fraction": "461735886793439740495350207/51176575287450131200000000"
+        },
+        "exact_probability_mass": "1"
+      }
+    ]
+  }
+}

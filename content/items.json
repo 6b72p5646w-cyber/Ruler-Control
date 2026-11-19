@@ -1229,6 +1229,9 @@
   "day_cycle_contract": "content/integration_v09.json#/calendar",
   "auxiliary_effect_contract": "content/auxiliary_effects_v010.json",
   "auxiliary_client_implemented": false,
-  "current_planned_lottery_direction": "content/lottery_direction_md01.json",
-  "lottery_direction_runtime_integrated": false
+  "current_planned_lottery_direction": "content/lottery_rewards_eq01.json",
+  "lottery_direction_runtime_integrated": false,
+  "current_planned_reward_system": "content/lottery_rewards_eq01.json",
+  "eq01_runtime_integrated": false,
+  "previous_planned_lottery_direction_md01": "content/lottery_direction_md01.json"
 }

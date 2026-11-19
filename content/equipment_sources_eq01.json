@@ -1,0 +1,39 @@
+{
+  "version": "EQ01",
+  "retrieved_date": "2026-11-19",
+  "scope": "设计借鉴，具体数值与物件均为本作提案，不声称下列旧更新是当前完整版本。",
+  "sources": [
+    {
+      "id": "REF_BHVR_MEG",
+      "title": "Meg Thomas — 官方角色页",
+      "publisher": "Behaviour Interactive",
+      "url": "https://deadbydaylight.com/game/characters/meg-thomas/",
+      "observed": "短时速度爆发受疲劳限制，不能在疲劳时再次触发。",
+      "adaptation": "人人可用短奔跑；Q31/Q32改变爆发形态，共享移动冷却与原体力，不直接套用对方速度或最新平衡数值。"
+    },
+    {
+      "id": "REF_DIABLO_LOOT",
+      "title": "Galvanize your Legend in Season 4: Loot Reborn",
+      "publisher": "Blizzard Entertainment",
+      "url": "https://news.blizzard.com/en-us/article/24077223/galvanize-your-legend-in-season-4-loot-reborn",
+      "observed": "装备词条精简、单件更有分量；威能可收集复用，打造围绕明确能力。",
+      "adaptation": "每件固定基础属性加一项清晰核心能力，六槽可组成打法；本版不加入随机词条洗炼和无限装等。"
+    },
+    {
+      "id": "REF_HADES_DUO",
+      "title": "Hades: The Blood Price Update Patch Notes",
+      "publisher": "Supergiant Games",
+      "url": "https://www.supergiantgames.com/blog/hades-the-blood-price-update-patch-notes/",
+      "observed": "组合祝福把已有能力连接起来；例如减小变慢的范围可换寒冷效果，效果组合改变用法。",
+      "adaptation": "装备与已有塔/状态连接，拆成铺状态、时机、连通、持续输出和收尾，不统一写全塔伤害增加。"
+    },
+    {
+      "id": "REF_DRG_BUFF",
+      "title": "Updates — Beer Buffs",
+      "publisher": "Ghost Ship Games",
+      "url": "https://www.deeprockgalactic.com/updatesold",
+      "observed": "出发前可购买任务增益，相关增益不重复堆叠。",
+      "adaptation": "上班前确定装备和带入特殊道具；强道具有有限库存与明确叠加组，营业中不补布防物。"
+    }
+  ]
+}

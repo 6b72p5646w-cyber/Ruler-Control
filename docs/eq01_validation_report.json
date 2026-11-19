@@ -1,0 +1,1632 @@
+{
+  "version": "EQ01",
+  "runtime_integrated": false,
+  "passed": 404,
+  "failed": 0,
+  "scope": "structural cross-references plus finite lottery/mobility/status/graph counterexamples; not all52enabledworldhandlers,105AI,physics,randomweekorUI",
+  "checks": [
+    {
+      "name": "36 unique equipment definitions",
+      "passed": true
+    },
+    {
+      "name": "34 equipment design candidates",
+      "passed": true
+    },
+    {
+      "name": "18 unique new special definitions",
+      "passed": true
+    },
+    {
+      "name": "equipment tiers reflect deliberate utility demotions",
+      "passed": true
+    },
+    {
+      "name": "special tiers6/8/4",
+      "passed": true
+    },
+    {
+      "name": "Q01 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q01 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q01 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q01 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q01 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q02 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q02 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q02 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q02 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q02 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q03 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q03 disabled remains outside lottery",
+      "passed": true
+    },
+    {
+      "name": "Q04 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q04 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q04 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q04 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q04 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q05 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q05 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q05 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q05 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q05 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q06 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q06 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q06 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q06 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q06 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q07 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q07 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q07 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q07 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q07 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q08 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q08 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q08 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q08 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q08 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q09 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q09 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q09 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q09 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q09 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q10 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q10 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q10 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q10 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q10 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q11 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q11 disabled remains outside lottery",
+      "passed": true
+    },
+    {
+      "name": "Q12 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q12 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q12 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q12 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q12 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q13 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q13 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q13 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q13 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q13 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q14 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q14 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q14 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q14 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q14 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q15 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q15 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q15 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q15 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q15 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q16 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q16 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q16 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q16 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q16 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q17 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q17 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q17 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q17 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q17 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q18 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q18 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q18 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q18 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q18 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q19 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q19 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q19 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q19 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q19 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q20 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q20 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q20 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q20 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q20 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q21 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q21 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q21 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q21 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q21 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q22 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q22 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q22 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q22 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q22 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q23 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q23 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q23 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q23 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q23 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q24 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q24 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q24 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q24 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q24 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q25 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q25 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q25 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q25 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q25 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q26 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q26 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q26 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q26 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q26 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q27 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q27 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q27 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q27 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q27 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q28 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q28 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q28 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q28 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q28 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q29 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q29 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q29 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q29 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q29 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q30 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q30 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q30 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q30 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q30 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q31 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q31 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q31 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q31 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q31 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q32 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q32 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q32 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q32 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q32 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q33 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q33 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q33 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q33 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q33 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q34 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q34 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q34 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q34 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q34 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q35 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q35 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q35 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q35 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q35 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "Q36 stays design-only",
+      "passed": true
+    },
+    {
+      "name": "Q36 quantified attributes plus real core consumer",
+      "passed": true
+    },
+    {
+      "name": "Q36 references real tower nodes",
+      "passed": true
+    },
+    {
+      "name": "Q36 references real monster definitions",
+      "passed": true
+    },
+    {
+      "name": "Q36 price and fixed acquisition",
+      "passed": true
+    },
+    {
+      "name": "I25 real single-unit commit and no runtime claim",
+      "passed": true
+    },
+    {
+      "name": "I25 authored consumer and paid effect budget",
+      "passed": true
+    },
+    {
+      "name": "I25 price and reward quantity",
+      "passed": true
+    },
+    {
+      "name": "I25 real tower/monster references",
+      "passed": true
+    },
+    {
+      "name": "I25 minimum area and cast",
+      "passed": true
+    },
+    {
+      "name": "I26 real single-unit commit and no runtime claim",
+      "passed": true
+    },
+    {
+      "name": "I26 authored consumer and paid effect budget",
+      "passed": true
+    },
+    {
+      "name": "I26 price and reward quantity",
+      "passed": true
+    },
+    {
+      "name": "I26 real tower/monster references",
+      "passed": true
+    },
+    {
+      "name": "I26 minimum area and cast",
+      "passed": true
+    },
+    {
+      "name": "I27 real single-unit commit and no runtime claim",
+      "passed": true
+    },
+    {
+      "name": "I27 authored consumer and paid effect budget",
+      "passed": true
+    },
+    {
+      "name": "I27 price and reward quantity",
+      "passed": true
+    },
+    {
+      "name": "I27 real tower/monster references",
+      "passed": true
+    },
+    {
+      "name": "I27 minimum area and cast",
+      "passed": true
+    },
+    {
+      "name": "I28 real single-unit commit and no runtime claim",
+      "passed": true
+    },
+    {
+      "name": "I28 authored consumer and paid effect budget",
+      "passed": true
+    },
+    {
+      "name": "I28 price and reward quantity",
+      "passed": true
+    },
+    {
+      "name": "I28 real tower/monster references",
+      "passed": true
+    },
+    {
+      "name": "I28 minimum area and cast",
+      "passed": true
+    },
+    {
+      "name": "I29 real single-unit commit and no runtime claim",
+      "passed": true
+    },
+    {
+      "name": "I29 authored consumer and paid effect budget",
+      "passed": true
+    },
+    {
+      "name": "I29 price and reward quantity",
+      "passed": true
+    },
+    {
+      "name": "I29 real tower/monster references",
+      "passed": true
+    },
+    {
+      "name": "I29 minimum area and cast",
+      "passed": true
+    },
+    {
+      "name": "I30 real single-unit commit and no runtime claim",
+      "passed": true
+    },
+    {
+      "name": "I30 authored consumer and paid effect budget",
+      "passed": true
+    },
+    {
+      "name": "I30 price and reward quantity",
+      "passed": true
+    },
+    {
+      "name": "I30 real tower/monster references",
+      "passed": true
+    },
+    {
+      "name": "I30 minimum area and cast",
+      "passed": true
+    },
+    {
+      "name": "I31 real single-unit commit and no runtime claim",
+      "passed": true
+    },
+    {
+      "name": "I31 authored consumer and paid effect budget",
+      "passed": true
+    },
+    {
+      "name": "I31 price and reward quantity",
+      "passed": true
+    },
+    {
+      "name": "I31 real tower/monster references",
+      "passed": true
+    },
+    {
+      "name": "I31 minimum area and cast",
+      "passed": true
+    },
+    {
+      "name": "I32 real single-unit commit and no runtime claim",
+      "passed": true
+    },
+    {
+      "name": "I32 authored consumer and paid effect budget",
+      "passed": true
+    },
+    {
+      "name": "I32 price and reward quantity",
+      "passed": true
+    },
+    {
+      "name": "I32 real tower/monster references",
+      "passed": true
+    },
+    {
+      "name": "I32 minimum area and cast",
+      "passed": true
+    },
+    {
+      "name": "I33 real single-unit commit and no runtime claim",
+      "passed": true
+    },
+    {
+      "name": "I33 authored consumer and paid effect budget",
+      "passed": true
+    },
+    {
+      "name": "I33 price and reward quantity",
+      "passed": true
+    },
+    {
+      "name": "I33 real tower/monster references",
+      "passed": true
+    },
+    {
+      "name": "I33 minimum area and cast",
+      "passed": true
+    },
+    {
+      "name": "I34 real single-unit commit and no runtime claim",
+      "passed": true
+    },
+    {
+      "name": "I34 authored consumer and paid effect budget",
+      "passed": true
+    },
+    {
+      "name": "I34 price and reward quantity",
+      "passed": true
+    },
+    {
+      "name": "I34 real tower/monster references",
+      "passed": true
+    },
+    {
+      "name": "I34 minimum area and cast",
+      "passed": true
+    },
+    {
+      "name": "I35 real single-unit commit and no runtime claim",
+      "passed": true
+    },
+    {
+      "name": "I35 authored consumer and paid effect budget",
+      "passed": true
+    },
+    {
+      "name": "I35 price and reward quantity",
+      "passed": true
+    },
+    {
+      "name": "I35 real tower/monster references",
+      "passed": true
+    },
+    {
+      "name": "I35 minimum area and cast",
+      "passed": true
+    },
+    {
+      "name": "I36 real single-unit commit and no runtime claim",
+      "passed": true
+    },
+    {
+      "name": "I36 authored consumer and paid effect budget",
+      "passed": true
+    },
+    {
+      "name": "I36 price and reward quantity",
+      "passed": true
+    },
+    {
+      "name": "I36 real tower/monster references",
+      "passed": true
+    },
+    {
+      "name": "I36 minimum area and cast",
+      "passed": true
+    },
+    {
+      "name": "I37 real single-unit commit and no runtime claim",
+      "passed": true
+    },
+    {
+      "name": "I37 authored consumer and paid effect budget",
+      "passed": true
+    },
+    {
+      "name": "I37 price and reward quantity",
+      "passed": true
+    },
+    {
+      "name": "I37 real tower/monster references",
+      "passed": true
+    },
+    {
+      "name": "I37 minimum area and cast",
+      "passed": true
+    },
+    {
+      "name": "I38 real single-unit commit and no runtime claim",
+      "passed": true
+    },
+    {
+      "name": "I38 authored consumer and paid effect budget",
+      "passed": true
+    },
+    {
+      "name": "I38 price and reward quantity",
+      "passed": true
+    },
+    {
+      "name": "I38 real tower/monster references",
+      "passed": true
+    },
+    {
+      "name": "I38 minimum area and cast",
+      "passed": true
+    },
+    {
+      "name": "I39 real single-unit commit and no runtime claim",
+      "passed": true
+    },
+    {
+      "name": "I39 authored consumer and paid effect budget",
+      "passed": true
+    },
+    {
+      "name": "I39 price and reward quantity",
+      "passed": true
+    },
+    {
+      "name": "I39 real tower/monster references",
+      "passed": true
+    },
+    {
+      "name": "I39 minimum area and cast",
+      "passed": true
+    },
+    {
+      "name": "I40 real single-unit commit and no runtime claim",
+      "passed": true
+    },
+    {
+      "name": "I40 authored consumer and paid effect budget",
+      "passed": true
+    },
+    {
+      "name": "I40 price and reward quantity",
+      "passed": true
+    },
+    {
+      "name": "I40 real tower/monster references",
+      "passed": true
+    },
+    {
+      "name": "I40 minimum area and cast",
+      "passed": true
+    },
+    {
+      "name": "I41 real single-unit commit and no runtime claim",
+      "passed": true
+    },
+    {
+      "name": "I41 authored consumer and paid effect budget",
+      "passed": true
+    },
+    {
+      "name": "I41 price and reward quantity",
+      "passed": true
+    },
+    {
+      "name": "I41 real tower/monster references",
+      "passed": true
+    },
+    {
+      "name": "I41 minimum area and cast",
+      "passed": true
+    },
+    {
+      "name": "I42 real single-unit commit and no runtime claim",
+      "passed": true
+    },
+    {
+      "name": "I42 authored consumer and paid effect budget",
+      "passed": true
+    },
+    {
+      "name": "I42 price and reward quantity",
+      "passed": true
+    },
+    {
+      "name": "I42 real tower/monster references",
+      "passed": true
+    },
+    {
+      "name": "I42 minimum area and cast",
+      "passed": true
+    },
+    {
+      "name": "B01 has one enabled item per slot",
+      "passed": true
+    },
+    {
+      "name": "B01 one actual tactical active",
+      "passed": true
+    },
+    {
+      "name": "B01 valid builds/items/monsters",
+      "passed": true
+    },
+    {
+      "name": "B02 has one enabled item per slot",
+      "passed": true
+    },
+    {
+      "name": "B02 one actual tactical active",
+      "passed": true
+    },
+    {
+      "name": "B02 valid builds/items/monsters",
+      "passed": true
+    },
+    {
+      "name": "B03 has one enabled item per slot",
+      "passed": true
+    },
+    {
+      "name": "B03 one actual tactical active",
+      "passed": true
+    },
+    {
+      "name": "B03 valid builds/items/monsters",
+      "passed": true
+    },
+    {
+      "name": "B04 has one enabled item per slot",
+      "passed": true
+    },
+    {
+      "name": "B04 one actual tactical active",
+      "passed": true
+    },
+    {
+      "name": "B04 valid builds/items/monsters",
+      "passed": true
+    },
+    {
+      "name": "B05 has one enabled item per slot",
+      "passed": true
+    },
+    {
+      "name": "B05 one actual tactical active",
+      "passed": true
+    },
+    {
+      "name": "B05 valid builds/items/monsters",
+      "passed": true
+    },
+    {
+      "name": "B06 has one enabled item per slot",
+      "passed": true
+    },
+    {
+      "name": "B06 one actual tactical active",
+      "passed": true
+    },
+    {
+      "name": "B06 valid builds/items/monsters",
+      "passed": true
+    },
+    {
+      "name": "B07 has one enabled item per slot",
+      "passed": true
+    },
+    {
+      "name": "B07 one actual tactical active",
+      "passed": true
+    },
+    {
+      "name": "B07 valid builds/items/monsters",
+      "passed": true
+    },
+    {
+      "name": "B08 has one enabled item per slot",
+      "passed": true
+    },
+    {
+      "name": "B08 one actual tactical active",
+      "passed": true
+    },
+    {
+      "name": "B08 valid builds/items/monsters",
+      "passed": true
+    },
+    {
+      "name": "52 exact design pool definitions, no disabled or food",
+      "passed": true
+    },
+    {
+      "name": "runtime pool is not silently enabled",
+      "passed": true
+    },
+    {
+      "name": "pity(0,0) exact weight conservation",
+      "passed": true
+    },
+    {
+      "name": "pity(0,0) common/equipment",
+      "passed": true
+    },
+    {
+      "name": "pity(0,0) common/consumable",
+      "passed": true
+    },
+    {
+      "name": "pity(0,0) uncommon/equipment",
+      "passed": true
+    },
+    {
+      "name": "pity(0,0) uncommon/consumable",
+      "passed": true
+    },
+    {
+      "name": "pity(0,0) rare/equipment",
+      "passed": true
+    },
+    {
+      "name": "pity(0,0) rare/consumable",
+      "passed": true
+    },
+    {
+      "name": "pity(3,7) exact weight conservation",
+      "passed": true
+    },
+    {
+      "name": "pity(3,7) common/equipment",
+      "passed": true
+    },
+    {
+      "name": "pity(3,7) common/consumable",
+      "passed": true
+    },
+    {
+      "name": "pity(3,7) uncommon/equipment",
+      "passed": true
+    },
+    {
+      "name": "pity(3,7) uncommon/consumable",
+      "passed": true
+    },
+    {
+      "name": "pity(3,7) rare/equipment",
+      "passed": true
+    },
+    {
+      "name": "pity(3,7) rare/consumable",
+      "passed": true
+    },
+    {
+      "name": "pity(4,4) exact weight conservation",
+      "passed": true
+    },
+    {
+      "name": "pity(4,4) common/equipment",
+      "passed": true
+    },
+    {
+      "name": "pity(4,4) common/consumable",
+      "passed": true
+    },
+    {
+      "name": "pity(4,4) uncommon/equipment",
+      "passed": true
+    },
+    {
+      "name": "pity(4,4) uncommon/consumable",
+      "passed": true
+    },
+    {
+      "name": "pity(4,4) rare/equipment",
+      "passed": true
+    },
+    {
+      "name": "pity(4,4) rare/consumable",
+      "passed": true
+    },
+    {
+      "name": "pity(4,9) exact weight conservation",
+      "passed": true
+    },
+    {
+      "name": "pity(4,9) common/equipment",
+      "passed": true
+    },
+    {
+      "name": "pity(4,9) common/consumable",
+      "passed": true
+    },
+    {
+      "name": "pity(4,9) uncommon/equipment",
+      "passed": true
+    },
+    {
+      "name": "pity(4,9) uncommon/consumable",
+      "passed": true
+    },
+    {
+      "name": "pity(4,9) rare/equipment",
+      "passed": true
+    },
+    {
+      "name": "pity(4,9) rare/consumable",
+      "passed": true
+    },
+    {
+      "name": "pity(0,9) exact weight conservation",
+      "passed": true
+    },
+    {
+      "name": "pity(0,9) common/equipment",
+      "passed": true
+    },
+    {
+      "name": "pity(0,9) common/consumable",
+      "passed": true
+    },
+    {
+      "name": "pity(0,9) uncommon/equipment",
+      "passed": true
+    },
+    {
+      "name": "pity(0,9) uncommon/consumable",
+      "passed": true
+    },
+    {
+      "name": "pity(0,9) rare/equipment",
+      "passed": true
+    },
+    {
+      "name": "pity(0,9) rare/consumable",
+      "passed": true
+    },
+    {
+      "name": "missing live handlers refuses without debit",
+      "passed": true
+    },
+    {
+      "name": "missing handlers preserves all ledger state",
+      "passed": true
+    },
+    {
+      "name": "business phase refuses draw",
+      "passed": true
+    },
+    {
+      "name": "business rejection preserves ledger",
+      "passed": true
+    },
+    {
+      "name": "reserve spends once and pity unchanged",
+      "passed": true
+    },
+    {
+      "name": "persisted duplicate decision",
+      "passed": true
+    },
+    {
+      "name": "retry prepare restores exact candidates",
+      "passed": true
+    },
+    {
+      "name": "pending choice blocks new draw",
+      "passed": true
+    },
+    {
+      "name": "duplicate cannot convert to higher rarity",
+      "passed": true
+    },
+    {
+      "name": "common duplicate grants two same-tier actual units",
+      "passed": true
+    },
+    {
+      "name": "select replay cannot double reward",
+      "passed": true
+    },
+    {
+      "name": "rare pity beats noncommon pity and duplicate resets once",
+      "passed": true
+    },
+    {
+      "name": "E064 needs actual event authorization",
+      "passed": true
+    },
+    {
+      "name": "E064 both candidates share old pity and are distinct",
+      "passed": true
+    },
+    {
+      "name": "unselected rare does not update pity",
+      "passed": true
+    },
+    {
+      "name": "E064 one per actual procurement window",
+      "passed": true
+    },
+    {
+      "name": "E064 cannot show two equivalent duplicate menus",
+      "passed": true
+    },
+    {
+      "name": "insufficient preparation minutes refuses draw",
+      "passed": true
+    },
+    {
+      "name": "insufficient tickets refuses draw",
+      "passed": true
+    },
+    {
+      "name": "baseline repeatable speed",
+      "passed": true
+    },
+    {
+      "name": "Q14 repeatable speed stays below heavy",
+      "passed": true
+    },
+    {
+      "name": "Q31 repeatable speed and same-slot exclusion",
+      "passed": true
+    },
+    {
+      "name": "Q32 repeatable upper mean below heavy",
+      "passed": true
+    },
+    {
+      "name": "default two-second escape gain vs agile",
+      "passed": true
+    },
+    {
+      "name": "heavy carry blocks sprint",
+      "passed": true
+    },
+    {
+      "name": "work blocks sprint",
+      "passed": true
+    },
+    {
+      "name": "blocked path does not consume startup",
+      "passed": true
+    },
+    {
+      "name": "failed mobility starts preserve state",
+      "passed": true
+    },
+    {
+      "name": "Q31 startup3 is underfunded",
+      "passed": true
+    },
+    {
+      "name": "partial affordable Q31 never overspends",
+      "passed": true
+    },
+    {
+      "name": "resource refill does not clear mobility clock",
+      "passed": true
+    },
+    {
+      "name": "shoe replacement cannot clear shared clock",
+      "passed": true
+    },
+    {
+      "name": "full sprint spends24 and moves8.4",
+      "passed": true
+    },
+    {
+      "name": "reload keeps remaining cooldown",
+      "passed": true
+    },
+    {
+      "name": "Q32 two bursts share one28s deadline",
+      "passed": true
+    },
+    {
+      "name": "Q32 cannot get a third burst",
+      "passed": true
+    },
+    {
+      "name": "Q32 expires exactly at5s",
+      "passed": true
+    },
+    {
+      "name": "manifest (6, 2, 4, False)",
+      "passed": true
+    },
+    {
+      "name": "manifest (6, 1, 6, True)",
+      "passed": true
+    },
+    {
+      "name": "manifest (6, 0, 6, True)",
+      "passed": true
+    },
+    {
+      "name": "manifest (10, 0, 5, False)",
+      "passed": true
+    },
+    {
+      "name": "manifest (4, 1, 4, False)",
+      "passed": true
+    },
+    {
+      "name": "Q33 advances exactlyfour existing budgets",
+      "passed": true
+    },
+    {
+      "name": "Q33 never delays soon-due or creates q",
+      "passed": true
+    },
+    {
+      "name": "Q33 repeated receipt cannot advance fifth budget",
+      "passed": true
+    },
+    {
+      "name": "Q33 no positive advance produces no commit",
+      "passed": true
+    },
+    {
+      "name": "poison q12 baseline8s48",
+      "passed": true
+    },
+    {
+      "name": "I41 doubles actual8s segments no burst",
+      "passed": true
+    },
+    {
+      "name": "I41 duplicate is strongest not x4",
+      "passed": true
+    },
+    {
+      "name": "I41 finite expiry",
+      "passed": true
+    },
+    {
+      "name": "suppression no backpay and buffclock advances",
+      "passed": true
+    },
+    {
+      "name": "fractional poison fromsplit remains linear",
+      "passed": true
+    },
+    {
+      "name": "I36 connects real previouslyseparateC",
+      "passed": true
+    },
+    {
+      "name": "same adjacency governs localN plus unchangedE",
+      "passed": true
+    },
+    {
+      "name": "D6 recipient damages are12/24/12",
+      "passed": true
+    },
+    {
+      "name": "extension does not ignore blockedline",
+      "passed": true
+    },
+    {
+      "name": "death removes incident links andcounts",
+      "passed": true
+    },
+    {
+      "name": "Q34 maximum4 not3.25+4",
+      "passed": true
+    },
+    {
+      "name": "equipment or machine cannotbeAP",
+      "passed": true
+    },
+    {
+      "name": "I42 actualpaidbudget for1 pools",
+      "passed": true
+    },
+    {
+      "name": "I42 actualpaidbudget for2 pools",
+      "passed": true
+    },
+    {
+      "name": "I42 actualpaidbudget for3 pools",
+      "passed": true
+    },
+    {
+      "name": "I42 actualpaidbudget for6 pools",
+      "passed": true
+    },
+    {
+      "name": "I42 actualpaidbudget for12 pools",
+      "passed": true
+    },
+    {
+      "name": "I42 nohit charge doesnotinventfeedback",
+      "passed": true
+    },
+    {
+      "name": "default positivefeedback hasno sixpoolcap",
+      "passed": true
+    },
+    {
+      "name": "generic equipmentsecondary excluded, nativeelectric exception preserved",
+      "passed": true
+    },
+    {
+      "name": "real native primary can trigger boundedextra",
+      "passed": true
+    },
+    {
+      "name": "duplicate event cannottriggerextra",
+      "passed": true
+    },
+    {
+      "name": "I40 actualsniperreload excludes aim",
+      "passed": true
+    },
+    {
+      "name": "I40 progress clamps atone existingreadyshot",
+      "passed": true
+    },
+    {
+      "name": "I40 excludes fullmag andmultiwave",
+      "passed": true
+    },
+    {
+      "name": "Q28/I38 strongest reservation timing notmultiplied",
+      "passed": true
+    },
+    {
+      "name": "economy equipment inputhash is current",
+      "passed": true
+    }
+  ],
+  "input_hashes": {
+    "content/equipment_contracts_eq01.json": "9ac5188a3e323c00ceb4bd7c01e13303d472d206cdaeecc5758a745b833a8f2e",
+    "content/equipment_eq01.json": "16d93c871dd1398bdeefad7512d48966daf9cc06ae1538d88fe71565a277815e",
+    "content/consumables_eq01.json": "1c55d7eaf3738a3c0be9e9a693797bae89f5b09d3fa8d7b66c711dc1afe598ed",
+    "content/lottery_rewards_eq01.json": "77878fd6e69396e2e50f9d6588d7b26a06843cf695649401210bf5bcfae7d129",
+    "content/equipment_builds_eq01.json": "88fdac0cad2679dda4ebeda996541fb4ba085e347fe698e4e845356486e543b0"
+  }
+}

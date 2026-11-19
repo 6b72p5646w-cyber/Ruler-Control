@@ -1,3 +1,20 @@
+# EQ01：装备能力与特殊奖励（2026-11-19）
+
+本轮完成六槽36张装备目录（34个启用设计候选、2个原停用条目）、18种特殊消耗品、短时奔跑与塔防配合、完整三品质抽奖池。装备/个人道具跨周保留，塔陷阱与建造币沿TD05周清。所有新增运行准入仍关闭，待实际世界适配与试玩。
+
+- [系统总览](docs/66_eq01_system_overview.md)
+- [完整装备目录](docs/67_eq01_equipment_catalog.md)
+- [特殊道具目录](docs/68_eq01_consumable_catalog.md)
+- [抽奖奖励与获取](docs/69_eq01_lottery_rewards.md)
+- [搭配与数值](docs/70_eq01_builds_and_balance.md)
+- [验证范围与结果](docs/71_eq01_validation.md)
+- [官方设计参考](docs/72_eq01_sources.md)
+- 数据入口：[共享规则](content/equipment_contracts_eq01.json)、[装备](content/equipment_eq01.json)、[特殊道具](content/consumables_eq01.json)、[奖池](content/lottery_rewards_eq01.json)
+
+下方MD01/TD05仍是怪物、塔与陷阱基础；相同主题若被EQ01明确修订，以本节链接为准。
+
+---
+
 # 午夜便利店 Ruler Control
 
 面向微信小游戏的2D俯瞰规则怪谈游戏。**当前运行基线仍为V0.10。最新玩法设计MD01把60个既有民俗条目与本轮新增45项SCP改编整理为105项怪物/异常遭遇，逐条明确机制结局、移动、速度、HP、防御与塔陷阱对策；抽奖机先完成方向。设计数据尚未接入完整客户端。**

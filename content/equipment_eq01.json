@@ -1,0 +1,3502 @@
+{
+  "version": "EQ01",
+  "runtime_integrated": false,
+  "baseline_commit": "1932ab78118e9363fdd73124663aa4f5b0a4ea24",
+  "status": "design_complete_requires_consumer_adapter_and_playtest",
+  "scope": {
+    "total_entries": 36,
+    "enabled_design_candidates": 34,
+    "existing_enabled_overlays": 22,
+    "new_items": 12,
+    "archived_disabled": [
+      "Q03",
+      "Q11"
+    ]
+  },
+  "slots": [
+    "hand",
+    "light",
+    "uniform",
+    "shoes",
+    "charm",
+    "bag"
+  ],
+  "max_per_slot": 1,
+  "rarity_price_overrides": {
+    "Q04": {
+      "rarity": "uncommon",
+      "price": 95,
+      "reason": "合约旁注主要节省记忆负担，不应占用稀有战斗构筑奖励。"
+    },
+    "Q12": {
+      "rarity": "uncommon",
+      "price": 105,
+      "reason": "普通交接加速属于便利型侧向选择，价值与检修工装同档。"
+    },
+    "Q16": {
+      "rarity": "uncommon",
+      "price": 110,
+      "reason": "路线信息与有限体力节省有明确用途，尚不足占稀有机动构筑档。"
+    },
+    "Q20": {
+      "rarity": "uncommon",
+      "price": 110,
+      "reason": "证据旁注不产生新证据或战斗能力，不包装成稀有强度。"
+    },
+    "Q23": {
+      "rarity": "uncommon",
+      "price": 120,
+      "reason": "证据专用容量与历史归档属于便利构筑，不挤占稀有战斗奖励。"
+    }
+  },
+  "loadout": {
+    "freeze_at_opening": true,
+    "new_tactical_active_slots": 1,
+    "shoe_mobility_separate": true,
+    "legacy_world_tools_not_tactical_slot_blocked": true,
+    "holster_does_not_unequip": true,
+    "pre_shift_tower_binding_only": true,
+    "binding_change_during_business": false,
+    "destroyed_bound_tower": "效果失去目标，不自动绑定新塔；已有装备冷却、剂量及到期记录不刷新。",
+    "universal_sprint_available_without_equipment": true,
+    "starter_once": [
+      "Q09",
+      "Q13",
+      "Q21"
+    ]
+  },
+  "shared_rules": {
+    "authority": "content/equipment_contracts_eq01.json",
+    "no_new_global_resources": true,
+    "no_item_levels": true,
+    "no_random_affixes": true,
+    "no_durability": true,
+    "sustainable_walk_cap": 3.15,
+    "gear_direct_san_mitigation_cap": 0.2,
+    "gear_fear_san_mitigation_cap": 0.2,
+    "ordinary_action_duration_floor_multiplier": 0.8,
+    "ordinary_speed_stacking": "strongest_not_product",
+    "named_monster_rule_timings": "不受通用动作加速影响；只有真实命名适配器明确允许者可改。",
+    "special_consumable_default_quota": 4,
+    "special_consumable_quota_with_Q36": 6,
+    "quick_slots": 2,
+    "no_business_restock": true,
+    "no_free_tower_or_trap_or_appliance_node": true,
+    "eq01_secondary_procs_do_not_retrigger_eq01": true,
+    "native_td05_positive_electric_feedback": "保持逐正伤独立池+1，零衰减、无全波总量上限。",
+    "stacking": "装备基础/派生修正按字段强者优先或显式加法上限；没有默许乘算。",
+    "fees": "直接采购使用TD05当周同一币钱包；以EQ01各卡标价为准，5件信息/便利装备与Q33已显式调价，旧价仅作历史记录，不创造收入。",
+    "runtime_gate": "catalog_enabled只是设计候选。真实获取必须同时有处理器、消费者、动作与物件回执、存档恢复；本文件不宣称已接入。"
+  },
+  "equipment": [
+    {
+      "id": "Q01",
+      "name": "夹取钳",
+      "slot": "hand",
+      "rarity": "common",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": "Q01",
+      "legacy_rarity": "standard",
+      "rarity_migration": "standard→common；uncommon→uncommon；rare/special→rare；三档概率不增加第四档。",
+      "base_attributes": [
+        {
+          "stat": "ordinary_tool_reach",
+          "value": 1.5,
+          "unit": "tiles",
+          "consumer": "实际可见普通小物/工具操作，原物ID与墙体约束仍成立",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "隔离夹取",
+        "mode": "world_tool",
+        "consumer": "ordinary_light_object_transfer / E003_glass_transfer",
+        "trigger": "玩家实际操作并提交",
+        "activation_seconds": 1,
+        "duration_seconds": 0,
+        "cooldown_seconds": 0,
+        "resource_cost": {},
+        "range_tiles": 1.5,
+        "effect": "保留普通小物1.5格夹取；对E003已登记裂口玻璃退货，可用同一夹钳完成1秒夹取移入既有隔离槽，避免该次徒手割伤。",
+        "parameters": {
+          "e003_hand_cut_prevented": true
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "必须见到同一玻璃与目标槽并有真实通路；仍须完成退货核验。",
+          "不能夹取怪物、任务肉箱、钥匙或被规则预留的原物；不提供战斗免伤。",
+          "原Q01禁止标签继续生效，包括encounter_raw_meat_crate、paperclip_supply、key、large和active_entity；不能远夹原回形针盒来改变F12拿盒条件。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 1,
+      "tower_synergies": [],
+      "monster_examples": [
+        "F08",
+        "F59"
+      ],
+      "tradeoff": "占1手；双手重物前须收起。夹取只完成物件搬运，不自动完成退货/怪物主规则。",
+      "legacy_contract": {
+        "path": "content/equipment.json",
+        "benefit": "手持时，已见登记小物取放距离由1格增至1.5格。",
+        "tradeoff": "占1手；普通双手重箱前须收起，不隔墙取物、不搬任务肉/钥匙或活跃实体。",
+        "adaptation_note": "保留原物件身份与既有真实消费者；本文件为待适配的EQ01设计。"
+      },
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 60,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      },
+      "legacy_shop_price_week_coin": 60
+    },
+    {
+      "id": "Q02",
+      "name": "检视镜",
+      "slot": "hand",
+      "rarity": "uncommon",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": "Q02",
+      "legacy_rarity": "uncommon",
+      "rarity_migration": "standard→common；uncommon→uncommon；rare/special→rare；三档概率不增加第四档。",
+      "base_attributes": [
+        {
+          "stat": "indirect_view_range",
+          "value": 2,
+          "unit": "tiles",
+          "consumer": "已登记镜观物的实际光路",
+          "note": ""
+        },
+        {
+          "stat": "inspection_time",
+          "value": 1,
+          "unit": "world_seconds",
+          "consumer": "真实间接观察动作",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "折角检视",
+        "mode": "world_tool",
+        "consumer": "registered_mirror_inspection",
+        "trigger": "玩家实际操作并提交",
+        "activation_seconds": 1,
+        "duration_seconds": 0,
+        "cooldown_seconds": 0,
+        "resource_cost": {},
+        "range_tiles": 2,
+        "effect": "通过当前真实有效镜面通路读取预制间接视图，玩家朝向保持不变。",
+        "parameters": {},
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "镜面、目标和光路必须当前存在；不透墙、不创造第二独立证据。",
+          "塔仍需自己的射界，不能因为玩家在镜中看见就隔墙射击。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 1,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T04.A1",
+            "T04.A2"
+          ],
+          "reason": "帮助辨认真实影路和操作站位；不代替巡灯的显形或光区条件。"
+        }
+      ],
+      "monster_examples": [
+        "F38",
+        "S38"
+      ],
+      "tradeoff": "占1手；只能读当前已存在、与镜面通路有效的线索，不照出墙后内容，不自动判身份。",
+      "legacy_contract": {
+        "path": "content/equipment.json",
+        "benefit": "手持检视镜，在2格内用1世界秒查看已登记可镜观物的预制间接视图；保持玩家朝向。",
+        "tradeoff": "占1手；只能读当前已存在、与镜面通路有效的线索，不照出墙后内容，不自动判身份。",
+        "adaptation_note": "保留原物件身份与既有真实消费者；本文件为待适配的EQ01设计。"
+      },
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 95,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      },
+      "legacy_shop_price_week_coin": 95
+    },
+    {
+      "id": "Q03",
+      "name": "铜铃",
+      "slot": "hand",
+      "rarity": "rare",
+      "legacy_rarity": "rare",
+      "design_enabled": false,
+      "runtime_integrated": false,
+      "legacy_id": "Q03",
+      "base_attributes": [],
+      "ability": null,
+      "tower_synergies": [],
+      "monster_examples": [],
+      "disabled_reason": "当前没有明确登记的声音诱导消费者；保留历史铜铃提案，不向玩家出售或随机发放无合法目标装备。",
+      "acquisition": {
+        "shop_design_enabled": false,
+        "lottery_design_enabled": false,
+        "runtime_acquisition_enabled": false
+      },
+      "existing_instance_policy": "保留历史实例，不删除、不扣资源、不生成效果；本轮不借旧ID换名启用。",
+      "legacy_shop_price_week_coin": 150
+    },
+    {
+      "id": "Q04",
+      "name": "契约印板",
+      "slot": "hand",
+      "rarity": "uncommon",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": "Q04",
+      "legacy_rarity": "special",
+      "rarity_migration": "显式单件覆盖为uncommon；旧稀有度与旧价格另存历史字段，不再按默认special→rare加载。",
+      "base_attributes": [
+        {
+          "stat": "contract_hud_duration",
+          "value": 12,
+          "unit": "world_seconds",
+          "consumer": "当前已读真实合约旁注",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "合约旁注",
+        "mode": "world_tool",
+        "consumer": "current_read_contract_annotation",
+        "trigger": "玩家实际操作并提交",
+        "activation_seconds": 1,
+        "duration_seconds": 12,
+        "cooldown_seconds": 0,
+        "resource_cost": {
+          "energy": 2
+        },
+        "range_tiles": 1,
+        "effect": "用1秒把当前实际已读合约的对象、范围、期限固定在HUD12秒，原合约状态变化即标失效。",
+        "parameters": {
+          "max_uses_per_contract": 1
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "每个真实合约最多成功复核一次；无合法合约不扣资源。",
+          "不改条款、不判真伪、不作为独立证据，不自动生成主规则回执。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 1,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T06.B1",
+            "T06.B2"
+          ],
+          "reason": "帮助玩家完成真正规则后取得塔的原生接力收益，旁注本身不触发塔。"
+        }
+      ],
+      "monster_examples": [
+        "F20",
+        "F51"
+      ],
+      "tradeoff": "每次成功复核精力−2，同一合约最多一次；不改条款、不判真伪、不增加免费教学以外知识门槛。",
+      "legacy_contract": {
+        "path": "content/equipment.json",
+        "benefit": "对当前实际存在、已读的合约，用1世界秒把对象、范围、期限三字段固定在HUD 12世界秒。",
+        "tradeoff": "每次成功复核精力−2，同一合约最多一次；不改条款、不判真伪、不增加免费教学以外知识门槛。",
+        "adaptation_note": "保留原物件身份与既有真实消费者；本文件为待适配的EQ01设计。"
+      },
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 95,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      },
+      "legacy_shop_price_week_coin": 240,
+      "eq01_rarity_price_override": {
+        "rarity": "uncommon",
+        "price": 95,
+        "reason": "合约旁注主要节省记忆负担，不应占用稀有战斗构筑奖励。"
+      }
+    },
+    {
+      "id": "Q05",
+      "name": "手电",
+      "slot": "light",
+      "rarity": "common",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": "Q05",
+      "legacy_rarity": "standard",
+      "rarity_migration": "standard→common；uncommon→uncommon；rare/special→rare；三档概率不增加第四档。",
+      "base_attributes": [
+        {
+          "stat": "light_range",
+          "value": 3,
+          "unit": "tiles",
+          "consumer": "真实光照锥，不透墙",
+          "note": ""
+        },
+        {
+          "stat": "light_cone",
+          "value": 90,
+          "unit": "degrees",
+          "consumer": "玩家当前真实朝向",
+          "note": ""
+        },
+        {
+          "stat": "battery_capacity",
+          "value": 30,
+          "unit": "charge",
+          "consumer": "个人灯具电量账本",
+          "note": ""
+        },
+        {
+          "stat": "battery_drain",
+          "value": 0.5,
+          "unit": "charge/world_second",
+          "consumer": "实际开灯时",
+          "note": ""
+        },
+        {
+          "stat": "occupied_hands",
+          "value": 1,
+          "unit": "hands",
+          "consumer": "开灯/手持真实工具时",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "束光瞄记",
+        "mode": "tactical_active",
+        "consumer": "T01_aim_phase_once",
+        "trigger": "玩家实际操作并提交",
+        "activation_seconds": 0.75,
+        "duration_seconds": 4,
+        "cooldown_seconds": 12,
+        "resource_cost": {
+          "personal_light_charge": 2
+        },
+        "range_tiles": 3,
+        "effect": "对真实可见敌体连续照准0.75秒，给其挂4秒瞄记。下一发来自预先指定T01瞄准分支的合法主射击，其0.3秒瞄准段缩至0.15秒；原完整攻击周期不缩短。",
+        "parameters": {
+          "aim_seconds": 0.15,
+          "maximum_consumptions": 1,
+          "cycle_duration_changes": false
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "需个人灯持续供光至标记提交；光不足时不能启动。",
+          "标记不揭示隐藏目标、不穿墙、不补弹、不立即重置攻击时钟；无合格发射则4秒后消失。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": true,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 1,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T01.A",
+            "T01.A1",
+            "T01.A2"
+          ],
+          "reason": "缩短短暴露窗口内的瞄准等待；单体狙击和纵列贯穿可择时收尾。"
+        }
+      ],
+      "monster_examples": [
+        "F13",
+        "F50",
+        "S03"
+      ],
+      "tradeoff": "占1手与唯一light装备位；电量耗尽熄灭，不恢复SAN，不透墙；I06可补25但不超过30。",
+      "legacy_contract": {
+        "path": "content/equipment.json",
+        "benefit": "开灯时前方90°、3格照明，局部黑视半径+0.5格；电量30，每世界秒耗0.5。",
+        "tradeoff": "占1手与唯一light装备位；电量耗尽熄灭，不恢复SAN，不透墙；I06可补25但不超过30。",
+        "adaptation_note": "保留原物件身份与既有真实消费者；本文件为待适配的EQ01设计。"
+      },
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 65,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      },
+      "legacy_shop_price_week_coin": 65
+    },
+    {
+      "id": "Q06",
+      "name": "头灯",
+      "slot": "light",
+      "rarity": "uncommon",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": "Q06",
+      "legacy_rarity": "uncommon",
+      "rarity_migration": "standard→common；uncommon→uncommon；rare/special→rare；三档概率不增加第四档。",
+      "base_attributes": [
+        {
+          "stat": "light_range",
+          "value": 3,
+          "unit": "tiles",
+          "consumer": "真实光照锥，不透墙",
+          "note": ""
+        },
+        {
+          "stat": "light_cone",
+          "value": 90,
+          "unit": "degrees",
+          "consumer": "玩家当前真实朝向",
+          "note": ""
+        },
+        {
+          "stat": "battery_capacity",
+          "value": 30,
+          "unit": "charge",
+          "consumer": "个人灯具电量账本",
+          "note": ""
+        },
+        {
+          "stat": "battery_drain",
+          "value": 1,
+          "unit": "charge/world_second",
+          "consumer": "实际开灯时",
+          "note": ""
+        },
+        {
+          "stat": "occupied_hands",
+          "value": 0,
+          "unit": "hands",
+          "consumer": "开灯/手持真实工具时",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "稳灯作业",
+        "mode": "passive",
+        "consumer": "ordinary_work_progress",
+        "trigger": "照明成立时提交一项已登记普通作业",
+        "activation_seconds": 0,
+        "duration_seconds": 0,
+        "cooldown_seconds": 0,
+        "resource_cost": {},
+        "range_tiles": 0,
+        "effect": "实际开灯并照到当前普通工位时，W08/W12/W13/W14中的普通动作进度耗时×0.9；同一动作其他加速只取最强且不低于原耗时×0.8。",
+        "parameters": {
+          "ordinary_duration_multiplier": 0.9,
+          "duration_floor_multiplier": 0.8,
+          "progress_model": "live_piecewise_rate_integration_not_start_snapshot"
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "不加速怪物机制步骤、搬运路途、等待、身份核验、冻结或怪物预告。",
+          "普通工作进度实时积分：只有当前灯开着、有电、工位在真实光锥内的子段使用0.9耗时倍率；断光或没电立即回原进度速率，保留已赚进度，不靠一瞬开灯快照整项作业。其他更强有效普通加速仍只取最强。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T05.A2"
+          ],
+          "reason": "双手搬运时仍有照明，实际护送与任务搬运可以并行；纸偶仍最多拖1秒。"
+        }
+      ],
+      "monster_examples": [
+        "F13",
+        "F27",
+        "F59"
+      ],
+      "tradeoff": "占0手与唯一light装备位；电量耗尽熄灭，不恢复SAN，不透墙；I06可补25但不超过30。",
+      "legacy_contract": {
+        "path": "content/equipment.json",
+        "benefit": "开灯时前方90°、3格照明，局部黑视半径+0.5格；电量30，每世界秒耗1。",
+        "tradeoff": "占0手与唯一light装备位；电量耗尽熄灭，不恢复SAN，不透墙；I06可补25但不超过30。",
+        "adaptation_note": "保留原物件身份与既有真实消费者；本文件为待适配的EQ01设计。"
+      },
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 110,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      },
+      "legacy_shop_price_week_coin": 110
+    },
+    {
+      "id": "Q07",
+      "name": "偏振检视灯",
+      "slot": "light",
+      "rarity": "rare",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": "Q07",
+      "legacy_rarity": "rare",
+      "rarity_migration": "standard→common；uncommon→uncommon；rare/special→rare；三档概率不增加第四档。",
+      "base_attributes": [
+        {
+          "stat": "light_range",
+          "value": 2,
+          "unit": "tiles",
+          "consumer": "真实光照锥，不透墙",
+          "note": ""
+        },
+        {
+          "stat": "light_cone",
+          "value": 90,
+          "unit": "degrees",
+          "consumer": "玩家当前真实朝向",
+          "note": ""
+        },
+        {
+          "stat": "battery_capacity",
+          "value": 30,
+          "unit": "charge",
+          "consumer": "个人灯具电量账本",
+          "note": ""
+        },
+        {
+          "stat": "battery_drain",
+          "value": 1,
+          "unit": "charge/world_second",
+          "consumer": "实际开灯时",
+          "note": ""
+        },
+        {
+          "stat": "occupied_hands",
+          "value": 1,
+          "unit": "hands",
+          "consumer": "开灯/手持真实工具时",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "连续取景",
+        "mode": "passive",
+        "consumer": "T04_exposure_continuity",
+        "trigger": "同一塔的同一池真实断视后在0.8秒内复视",
+        "activation_seconds": 0,
+        "duration_seconds": 0,
+        "cooldown_seconds": 0,
+        "resource_cost": {},
+        "range_tiles": 0,
+        "effect": "保留真实反射线索高亮；预先绑定的一座T04.B/B1/B2观察同一已显形池时，若个人检视灯在断视前和复视时都真实照到该池，曝光断视宽限由0.5延至0.8秒。",
+        "parameters": {
+          "gap_grace_seconds": 0.8,
+          "bound_tower_count": 1,
+          "eligible_tower_nodes": [
+            "T04.B",
+            "T04.B1",
+            "T04.B2"
+          ]
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "缺失视线期间不伤害、不积累曝光；超过0.8秒仍复位。",
+          "不把间接镜像当塔射线，不维持已离场/压制目标，不阻止真正转场伤害审计。",
+          "宽限只用于同一存活可攻击池的短时LOS遮挡；真正进入隐藏/不可攻击相位、压制、离场、死亡时立即清除该条曝光，不能跨非法相位续暖。",
+          "0.8秒额外宽限期间个人灯须持续开着且有电；熄灭立即撤掉新增宽限，已超过原0.5秒者按原塔规则复位，不能只在前后各闪一次灯。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 1,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T04.B",
+            "T04.B1",
+            "T04.B2"
+          ],
+          "reason": "更容许短时货架遮挡，保住已经真实累积的曝光阶梯。"
+        }
+      ],
+      "monster_examples": [
+        "F15",
+        "F38",
+        "S22",
+        "S40"
+      ],
+      "tradeoff": "占1手与唯一light装备位；电量耗尽熄灭，不恢复SAN，不透墙；I06可补25但不超过30。只高亮当前真实反射线索。",
+      "legacy_contract": {
+        "path": "content/equipment.json",
+        "benefit": "开灯时前方90°、2格照明，局部黑视半径+0.5格；电量30，每世界秒耗1。",
+        "tradeoff": "占1手与唯一light装备位；电量耗尽熄灭，不恢复SAN，不透墙；I06可补25但不超过30。只高亮当前真实反射线索。",
+        "adaptation_note": "保留原物件身份与既有真实消费者；本文件为待适配的EQ01设计。"
+      },
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 180,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      },
+      "legacy_shop_price_week_coin": 180
+    },
+    {
+      "id": "Q08",
+      "name": "双点灯组",
+      "slot": "light",
+      "rarity": "rare",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": "Q08",
+      "legacy_rarity": "special",
+      "rarity_migration": "standard→common；uncommon→uncommon；rare/special→rare；三档概率不增加第四档。",
+      "base_attributes": [
+        {
+          "stat": "lamp_count",
+          "value": 2,
+          "unit": "existing_sockets",
+          "consumer": "预先存在且当前空闲的合法灯槽",
+          "note": ""
+        },
+        {
+          "stat": "lamp_radius",
+          "value": 2.5,
+          "unit": "tiles",
+          "consumer": "每点真实光区，排除遮挡",
+          "note": ""
+        },
+        {
+          "stat": "shared_battery",
+          "value": 30,
+          "unit": "charge",
+          "consumer": "两点共享，每亮点每秒1电量",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "双点值守",
+        "mode": "world_tool",
+        "consumer": "registered_personal_lamp_sockets",
+        "trigger": "玩家实际操作并提交",
+        "activation_seconds": 1,
+        "duration_seconds": 0,
+        "cooldown_seconds": 0,
+        "resource_cost": {
+          "stamina_per_fixture": 6
+        },
+        "range_tiles": 1,
+        "effect": "班前到两个既有灯槽各用1秒、2手、6体力架灯；两点共享30电量，各点独立开关。营业中仅可开关既有已架点，不能追加架设或换槽。",
+        "parameters": {
+          "deploy_before_business_only": true,
+          "deploy_slots": 2,
+          "appliance_nodes_added": 0
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "灯槽不等于新增塔挂点；个人灯不自行进入TD05电器节点名册。",
+          "每点回收1秒，营业中回收后也不能重新部署；回收不重置电量。",
+          "灯具只能消费当前合法光照机制，不能替S22三灯封牌等专用任务器材。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 2,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T04.A1",
+            "T04.A2"
+          ],
+          "reason": "在真实已存在的光路消费者上补充视野，配合布局；不伪造巡灯专属易感。"
+        }
+      ],
+      "monster_examples": [
+        "F40",
+        "S22",
+        "S44"
+      ],
+      "tradeoff": "每点架设1秒、2手、体力6、占1部署槽，全部两点合计2秒/12体力/2槽，走路另算；每点回收1秒，电量不刷新。",
+      "legacy_contract": {
+        "path": "content/equipment.json",
+        "benefit": "可分别到两个既有灯槽架灯，每点2.5格、局部黑视半径+0.5格，共享30电量；每亮点每世界秒耗1。",
+        "tradeoff": "每点架设1秒、2手、体力6、占1部署槽，全部两点合计2秒/12体力/2槽，走路另算；每点回收1秒，电量不刷新。",
+        "adaptation_note": "保留两点、共享30电量、两部署槽及架/收动作；EQ01明确营业后不追加架设，与班前布防一致。"
+      },
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 260,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      },
+      "legacy_shop_price_week_coin": 260
+    },
+    {
+      "id": "Q09",
+      "name": "工作围裙",
+      "slot": "uniform",
+      "rarity": "common",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": "Q09",
+      "legacy_rarity": "standard",
+      "rarity_migration": "standard→common；uncommon→uncommon；rare/special→rare；三档概率不增加第四档。",
+      "base_attributes": [
+        {
+          "stat": "direct_attack_san_reduction",
+          "value": 0.08,
+          "unit": "fraction",
+          "consumer": "怪物已提交的直接伤害实际命中玩家；装备组总减伤最多20%",
+          "note": "不减恐惧、合约支付、饥饿或规则失败代价"
+        }
+      ],
+      "ability": {
+        "name": "利落清洁",
+        "mode": "passive",
+        "consumer": "W08_ordinary_cleanup",
+        "trigger": "开始清理已存在的普通污迹",
+        "activation_seconds": 0,
+        "duration_seconds": 0,
+        "cooldown_seconds": 0,
+        "resource_cost": {},
+        "range_tiles": 0,
+        "effect": "W08当前真实普通污迹的清洁进度耗时×0.8。",
+        "parameters": {
+          "ordinary_duration_multiplier": 0.8
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "不改血迹专用1.5秒、湿边割点2秒或怪物机制读条；不生成污迹供自己刷收益。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T07.B1",
+            "T03.A1"
+          ],
+          "reason": "较快恢复普通工位通道，便于回到已布好的驻留火力区；不扩张火区或霜区。"
+        }
+      ],
+      "monster_examples": [
+        "F29",
+        "F39"
+      ],
+      "tradeoff": "占制服位；不改血迹1.5秒专用擦除、湿边2秒割点、怪物等待或身份；不生成污物/返工状态。",
+      "legacy_contract": {
+        "path": "content/equipment.json",
+        "benefit": "穿戴时，W08实际普通污迹清洁的进度耗时×0.8。",
+        "tradeoff": "占制服位；不改血迹1.5秒专用擦除、湿边2秒割点、怪物等待或身份；不生成污物/返工状态。",
+        "adaptation_note": "保留原物件身份与既有真实消费者；本文件为待适配的EQ01设计。"
+      },
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 60,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": true,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      },
+      "legacy_shop_price_week_coin": 60
+    },
+    {
+      "id": "Q10",
+      "name": "检修围裙",
+      "slot": "uniform",
+      "rarity": "uncommon",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": "Q10",
+      "legacy_rarity": "uncommon",
+      "rarity_migration": "standard→common；uncommon→uncommon；rare/special→rare；三档概率不增加第四档。",
+      "base_attributes": [
+        {
+          "stat": "direct_attack_san_reduction",
+          "value": 0.08,
+          "unit": "fraction",
+          "consumer": "怪物已提交的直接伤害实际命中玩家；装备组总减伤最多20%",
+          "note": "不减恐惧、合约支付、饥饿或规则失败代价"
+        }
+      ],
+      "ability": {
+        "name": "检修熟手",
+        "mode": "passive",
+        "consumer": "W12_ordinary_repair",
+        "trigger": "开始一次真实普通故障维修",
+        "activation_seconds": 0,
+        "duration_seconds": 0,
+        "cooldown_seconds": 0,
+        "resource_cost": {},
+        "range_tiles": 0,
+        "effect": "W12当前真实已登记普通设备简修进度耗时×0.8。",
+        "parameters": {
+          "ordinary_duration_multiplier": 0.8
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "不恢复塔、陷阱次数或纸偶，不修复已破坏的布防实体。",
+          "不缩短怪物预警、QTE预算或F59制作8秒/安装2秒/测试1秒。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T09.B1",
+            "T09.B2"
+          ],
+          "reason": "恢复原有可维修电器的实际供电条件，有助电网；仍须按设备原规则真实修好并通电。"
+        }
+      ],
+      "monster_examples": [
+        "F59",
+        "S35"
+      ],
+      "tradeoff": "占制服位；只减玩家维修进度，不缩怪物预警、QTE预算、F59制作8秒/安装2秒/测试1秒。",
+      "legacy_contract": {
+        "path": "content/equipment.json",
+        "benefit": "穿戴时，W12已登记普通设备简修的实际进度耗时×0.8。",
+        "tradeoff": "占制服位；只减玩家维修进度，不缩怪物预警、QTE预算、F59制作8秒/安装2秒/测试1秒。",
+        "adaptation_note": "保留原物件身份与既有真实消费者；本文件为待适配的EQ01设计。"
+      },
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 105,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      },
+      "legacy_shop_price_week_coin": 105
+    },
+    {
+      "id": "Q11",
+      "name": "净纹外套",
+      "slot": "uniform",
+      "rarity": "rare",
+      "legacy_rarity": "rare",
+      "design_enabled": false,
+      "runtime_integrated": false,
+      "legacy_id": "Q11",
+      "base_attributes": [],
+      "ability": null,
+      "tower_synergies": [],
+      "monster_examples": [],
+      "disabled_reason": "当前没有污染积累、该装备耐久损失与维修的已定义生产和消费合同；保留历史目录与已有实例，暂停一切新获取，不为此新增污染或装备损耗系统。",
+      "acquisition": {
+        "shop_design_enabled": false,
+        "lottery_design_enabled": false,
+        "runtime_acquisition_enabled": false
+      },
+      "existing_instance_policy": "保留历史实例，不删除、不扣资源、不生成效果；本轮不借旧ID换名启用。",
+      "legacy_shop_price_week_coin": 190
+    },
+    {
+      "id": "Q12",
+      "name": "匿名制服",
+      "slot": "uniform",
+      "rarity": "uncommon",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": "Q12",
+      "legacy_rarity": "special",
+      "rarity_migration": "显式单件覆盖为uncommon；旧稀有度与旧价格另存历史字段，不再按默认special→rare加载。",
+      "base_attributes": [
+        {
+          "stat": "direct_attack_san_reduction",
+          "value": 0.08,
+          "unit": "fraction",
+          "consumer": "怪物已提交的直接伤害实际命中玩家；装备组总减伤最多20%",
+          "note": "不减恐惧、合约支付、饥饿或规则失败代价"
+        }
+      ],
+      "ability": {
+        "name": "规范交接",
+        "mode": "passive",
+        "consumer": "W14_verified_ordinary_handover",
+        "trigger": "合法普通交接实际开始",
+        "activation_seconds": 0,
+        "duration_seconds": 0,
+        "cooldown_seconds": 0,
+        "resource_cost": {},
+        "range_tiles": 0,
+        "effect": "使用公开员工编号；W14已经完成证据核对后的普通实物交接进度耗时×0.8。",
+        "parameters": {
+          "ordinary_duration_multiplier": 0.8
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "不能隐去F21实际目标、跳过身份核验、撤销既有索权或给来客权限。",
+          "怪物卡中命名的交付时长优先，只有明确标为普通W14者可加速。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T06.B1",
+            "T06.B2"
+          ],
+          "reason": "把普通店务空档用于回到塔线，不替代真正主规则触发。"
+        }
+      ],
+      "monster_examples": [
+        "F02",
+        "F21",
+        "F48"
+      ],
+      "tradeoff": "占制服位；只省交接动作，不能遮蔽F21实际目标、跳过身份核对或给来客权限。",
+      "legacy_contract": {
+        "path": "content/equipment.json",
+        "benefit": "使用公开员工编号记录；W14已经完成证据核对后的实物交接进度耗时×0.8。",
+        "tradeoff": "占制服位；只省交接动作，不能遮蔽F21实际目标、跳过身份核对或给来客权限。",
+        "adaptation_note": "保留原物件身份与既有真实消费者；本文件为待适配的EQ01设计。"
+      },
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 105,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      },
+      "legacy_shop_price_week_coin": 230,
+      "eq01_rarity_price_override": {
+        "rarity": "uncommon",
+        "price": 105,
+        "reason": "普通交接加速属于便利型侧向选择，价值与检修工装同档。"
+      }
+    },
+    {
+      "id": "Q13",
+      "name": "防滑鞋",
+      "slot": "shoes",
+      "rarity": "common",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": "Q13",
+      "legacy_rarity": "standard",
+      "rarity_migration": "standard→common；uncommon→uncommon；rare/special→rare；三档概率不增加第四档。",
+      "base_attributes": [
+        {
+          "stat": "wet_edge_cut_time",
+          "value": 1.6,
+          "unit": "world_seconds",
+          "consumer": "从已有干侧安全位实际擦断登记湿边，原为2秒",
+          "note": ""
+        },
+        {
+          "stat": "walk_speed",
+          "value": 3,
+          "unit": "tiles/world_second",
+          "consumer": "无其他暂态效果时",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "踏霜引路",
+        "mode": "passive",
+        "consumer": "T03_primary_frost_application",
+        "trigger": "绑定T03真实主命中，目标当时以玩家为追逐目标",
+        "activation_seconds": 0,
+        "duration_seconds": 0,
+        "cooldown_seconds": 12,
+        "resource_cost": {},
+        "range_tiles": 3,
+        "effect": "玩家与预先绑定T03塔的外侧发射点距离不超过3格时，该塔一次原生霜命中可对正在追逐玩家的主目标额外加入1枚同原生效力寒意；每12秒最多一次。",
+        "parameters": {
+          "extra_frost_units": 1,
+          "bound_tower_count": 1,
+          "eligible_modes": [
+            "primary_hit"
+          ],
+          "source_native_payload_preserved": true,
+          "dedupe_key": "bound_tower_instance_id:primary_attack_id:primary_pool_id",
+          "eligible_tower_nodes": [
+            "T03",
+            "T03.A",
+            "T03.B",
+            "T03.B1",
+            "T03.B2"
+          ]
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "范围/高度/视线全部沿原塔规则；仅该主目标，不复制范围内每个受击池。",
+          "不适用于霜幕持续脉冲、子弹副伤或EQ01产生的寒意；不延长冻结、尝试冷却或共享控制预算。",
+          "额外一枚在原生命中后按原来源完整效力入账，不能把一次已失败攻击变成命中。",
+          "同一原生主攻击批次按发射前已选主目标去重一次；群体无原主目标时选当时离玩家最近的合法追逐池，距离并列按稳定池ID。",
+          "本版不准入T03.A2逐层寒潮的扫掠接触，也不准入T03.A1场脉冲；仅上列原生主命中分支可绑定。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T03",
+            "T03.B1",
+            "T03.B2"
+          ],
+          "reason": "以站位参与单点寒意积累，提前争取冻结或脆冰接力。"
+        }
+      ],
+      "monster_examples": [
+        "F03",
+        "F12",
+        "S28"
+      ],
+      "tradeoff": "基础步速仍3.0；占鞋位，不能同时装备轻步鞋或特殊奔跑鞋。寒意加成有真实主命中与追逐条件。",
+      "legacy_contract": {
+        "path": "content/equipment.json",
+        "benefit": "穿戴时，从既有干侧操作位擦断登记湿边的2世界秒进度减至1.6秒。",
+        "tradeoff": "占鞋位；不准入深水/灵体禁区，不创造免滑状态，不替玩家选正确水源。",
+        "adaptation_note": "保留原物件身份与既有真实消费者；本文件为待适配的EQ01设计。"
+      },
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 70,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": true,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      },
+      "legacy_shop_price_week_coin": 70
+    },
+    {
+      "id": "Q14",
+      "name": "轻步鞋",
+      "slot": "shoes",
+      "rarity": "uncommon",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": "Q14",
+      "legacy_rarity": "uncommon",
+      "rarity_migration": "standard→common；uncommon→uncommon；rare/special→rare；三档概率不增加第四档。",
+      "base_attributes": [
+        {
+          "stat": "empty_hand_walk_speed",
+          "value": 3.15,
+          "unit": "tiles/world_second",
+          "consumer": "空手普通步行，其他持续加速不叠到3.15以上",
+          "note": ""
+        },
+        {
+          "stat": "universal_sprint_speed",
+          "value": 4.2,
+          "unit": "tiles/world_second",
+          "consumer": "共享奔跑合同，不乘1.05",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "匀息",
+        "mode": "passive",
+        "consumer": "EQ01_sprint_recovery",
+        "trigger": "同一真实通用奔跑完成且恢复窗口成立",
+        "activation_seconds": 0,
+        "duration_seconds": 2,
+        "cooldown_seconds": 0,
+        "resource_cost": {},
+        "range_tiles": 0,
+        "effect": "完成一次持续满2秒的通用奔跑后，若接下来连续2秒只做普通步行/站立且不受击、不施放或作业，额外恢复4体力。",
+        "parameters": {
+          "stamina_restore": 4,
+          "once_per_sprint_receipt": true
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "取消或不足2秒的奔跑不触发；体力受当前上限截断，无负体力补偿。",
+          "不缩短30秒机动冷却，不允许重物奔跑，不恢复消耗品或其他技能。",
+          "额外4体力不重启或跳过原2秒再生等待；按完整奔跑回执仅领一次，不能退出/返回恢复条件反复领。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T10.A1",
+            "T02.A1"
+          ],
+          "reason": "持续走位与长期积毒路线，奔跑仅用于一次紧急拉开。"
+        }
+      ],
+      "monster_examples": [
+        "F12",
+        "F27",
+        "S28"
+      ],
+      "tradeoff": "不改变任务肉2.6/普通重箱2.4的速度；不把机动时段延长为永久快于追逐怪。",
+      "legacy_contract": {
+        "path": "content/equipment.json",
+        "benefit": "空手普通步行速度×1.05：3→3.15格/世界秒。",
+        "tradeoff": "占鞋位；不改冲刺、重搬、任务肉速度或禁区，不声称有无人消费的脚步降噪。",
+        "adaptation_note": "保留原物件身份与既有真实消费者；本文件为待适配的EQ01设计。"
+      },
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 115,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      },
+      "legacy_shop_price_week_coin": 115
+    },
+    {
+      "id": "Q15",
+      "name": "搬运靴",
+      "slot": "shoes",
+      "rarity": "rare",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": "Q15",
+      "legacy_rarity": "rare",
+      "rarity_migration": "standard→common；uncommon→uncommon；rare/special→rare；三档概率不增加第四档。",
+      "base_attributes": [
+        {
+          "stat": "ordinary_heavy_carry_speed",
+          "value": 2.52,
+          "unit": "tiles/world_second",
+          "consumer": "普通重箱，原为2.4",
+          "note": ""
+        },
+        {
+          "stat": "task_meat_carry_speed",
+          "value": 2.68,
+          "unit": "tiles/world_second",
+          "consumer": "F13登记肉箱，原为2.6",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "稳肩搬运",
+        "mode": "passive",
+        "consumer": "heavy_carry_move_speed",
+        "trigger": "实际双手携带合法重物",
+        "activation_seconds": 0,
+        "duration_seconds": 0,
+        "cooldown_seconds": 0,
+        "resource_cost": {},
+        "range_tiles": 0,
+        "effect": "把已存在的重物减速幅度乘0.8；与B06、Q24等搬运修正只取减速最小的一项。",
+        "parameters": {
+          "slow_amount_multiplier": 0.8
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "不增加手数、背包格或物件数量；重物仍占2手。",
+          "仍不能奔跑、跳过搬运路径或在远处提交原物。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T05.A2",
+            "T03.B1"
+          ],
+          "reason": "短护送或冻结窗口内真实搬运更快；1秒纸偶不延长。"
+        }
+      ],
+      "monster_examples": [
+        "F13",
+        "F27"
+      ],
+      "tradeoff": "占鞋位；与B06只取更小减速倍率，不相乘，不改冲刺，也不产生额外脚步吸怪。",
+      "legacy_contract": {
+        "path": "content/equipment.json",
+        "benefit": "重物减速幅度×0.8：普通重箱2.4→2.52格/秒，登记肉箱2.6→2.68格/秒。",
+        "tradeoff": "占鞋位；与B06只取更小减速倍率，不相乘，不改冲刺，也不产生额外脚步吸怪。",
+        "adaptation_note": "保留原物件身份与既有真实消费者；本文件为待适配的EQ01设计。"
+      },
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 170,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      },
+      "legacy_shop_price_week_coin": 170
+    },
+    {
+      "id": "Q16",
+      "name": "路标鞋",
+      "slot": "shoes",
+      "rarity": "uncommon",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": "Q16",
+      "legacy_rarity": "special",
+      "rarity_migration": "显式单件覆盖为uncommon；旧稀有度与旧价格另存历史字段，不再按默认special→rare加载。",
+      "base_attributes": [
+        {
+          "stat": "route_marker_interval",
+          "value": 2,
+          "unit": "actual_walked_tiles",
+          "consumer": "本人真实走过的合法路径",
+          "note": ""
+        },
+        {
+          "stat": "route_marker_capacity",
+          "value": 16,
+          "unit": "markers",
+          "consumer": "单标60世界秒，失效门路显示断线",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "熟路省力",
+        "mode": "mobility_passive",
+        "consumer": "EQ01_sprint_stamina_integral",
+        "trigger": "通用奔跑真实经过已有有效本人路标线",
+        "activation_seconds": 0,
+        "duration_seconds": 0,
+        "cooldown_seconds": 0,
+        "resource_cost": {},
+        "range_tiles": 0,
+        "effect": "保留本人已走过的路标；通用奔跑当前真实移动段距离仍有效的本人路标连线不超过0.3格时，该段体力消耗由12/秒降至10/秒。离线段立即恢复12/秒。",
+        "parameters": {
+          "on_route_stamina_per_second": 10,
+          "off_route_stamina_per_second": 12,
+          "route_tolerance_tiles": 0.3,
+          "discount_path_snapshot_at_sprint_start": true,
+          "record_during_ordinary_walking_only": true,
+          "rate_integration": "integral_over_each_actual_continuous_subsegment"
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "最大4.2速度、2秒时长、30秒机动冷却不变；没有位移或无实际移动段不享受节省。",
+          "路标不是诱饵、陷阱、血迹或新通路；怪物不追路标，不能穿过已经关闭的门。",
+          "优惠只读本次奔跑开始前已留下的有效实际折线路径；路标间保存真实扫掠折线，不用端点直线跨货架。奔跑自身不新建优惠路径。",
+          "逐连续子段裁切到0.3格路径容差带，带内按10/秒、带外按12/秒积分；不能只看帧末点。任何路标过期、门路失效或跨出带的部分立即恢复12/秒。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T10.A1",
+            "T10.A2"
+          ],
+          "reason": "熟悉已布分区的绕行路线，节省体力而不提高跨区单格伤害。"
+        }
+      ],
+      "monster_examples": [
+        "F40",
+        "F45",
+        "S35"
+      ],
+      "tradeoff": "占鞋位；第17标移除最老标，门路失效处标断。标记不是血迹、湿脚印或诱饵，怪物不追它。",
+      "legacy_contract": {
+        "path": "content/equipment.json",
+        "benefit": "实际每走2格留下1个本人路标，单标60世界秒，最多16个；只回溯自己已经走过的路。",
+        "tradeoff": "占鞋位；第17标移除最老标，门路失效处标断。标记不是血迹、湿脚印或诱饵，怪物不追它。",
+        "adaptation_note": "保留原物件身份与既有真实消费者；本文件为待适配的EQ01设计。"
+      },
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 110,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      },
+      "legacy_shop_price_week_coin": 250,
+      "eq01_rarity_price_override": {
+        "rarity": "uncommon",
+        "price": 110,
+        "reason": "路线信息与有限体力节省有明确用途，尚不足占稀有机动构筑档。"
+      }
+    },
+    {
+      "id": "Q17",
+      "name": "纪念物",
+      "slot": "charm",
+      "rarity": "common",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": "Q17",
+      "legacy_rarity": "standard",
+      "rarity_migration": "standard→common；uncommon→uncommon；rare/special→rare；三档概率不增加第四档。",
+      "base_attributes": [
+        {
+          "stat": "fear_san_reduction",
+          "value": 0.05,
+          "unit": "fraction",
+          "consumer": "合法fear类SAN损失，在原同源冷却/阶段上限之后结算",
+          "note": "装备fear百分比总减免最多20%；不影响直接接触伤和强制支付"
+        }
+      ],
+      "ability": {
+        "name": "熟悉之物",
+        "mode": "passive",
+        "consumer": "A02_completed_rest",
+        "trigger": "整段A02持有并佩戴同一纪念物并真实完成",
+        "activation_seconds": 0,
+        "duration_seconds": 0,
+        "cooldown_seconds": 0,
+        "resource_cost": {},
+        "range_tiles": 0,
+        "effect": "实际完成白天A02短休后额外SAN+4，每个游戏日最多一次，受100上限。",
+        "parameters": {
+          "san_restore": 4,
+          "uses_per_game_day": 1
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "取消不生效；不提高F31/F52应急稳定收益；06:00每日只重置一次。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [],
+      "monster_examples": [
+        "F31",
+        "F52"
+      ],
+      "tradeoff": "占护符位；需整个A02持有并佩戴，取消无收益；不加F31/F52或应急稳定收益，06:00只重置一次。",
+      "legacy_contract": {
+        "path": "content/equipment.json",
+        "benefit": "完成白天A02短休后额外SAN+4，每个游戏日最多1次，实际收益受100上限。",
+        "tradeoff": "占护符位；需整个A02持有并佩戴，取消无收益；不加F31/F52或应急稳定收益，06:00只重置一次。",
+        "adaptation_note": "保留原物件身份与既有真实消费者；本文件为待适配的EQ01设计。"
+      },
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 60,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      },
+      "legacy_shop_price_week_coin": 60
+    },
+    {
+      "id": "Q18",
+      "name": "护袋",
+      "slot": "charm",
+      "rarity": "uncommon",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": "Q18",
+      "legacy_rarity": "uncommon",
+      "rarity_migration": "standard→common；uncommon→uncommon；rare/special→rare；三档概率不增加第四档。",
+      "base_attributes": [
+        {
+          "stat": "fear_san_reduction",
+          "value": 0.05,
+          "unit": "fraction",
+          "consumer": "合法fear类SAN损失，在原同源冷却/阶段上限之后结算",
+          "note": "装备fear百分比总减免最多20%；不影响直接接触伤和强制支付"
+        }
+      ],
+      "ability": {
+        "name": "贴身护袋",
+        "mode": "passive",
+        "consumer": "verified_personal_pouch_capacity",
+        "trigger": "合法物件实际放入护袋",
+        "activation_seconds": 0,
+        "duration_seconds": 0,
+        "cooldown_seconds": 0,
+        "resource_cost": {},
+        "range_tiles": 0,
+        "effect": "增加1格专用护袋，只装同一已核验I18/I19/I20/I21中的1件。",
+        "parameters": {
+          "extra_capacity": 1,
+          "allowed_item_ids": [
+            "I18",
+            "I19",
+            "I20",
+            "I21"
+          ]
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "不装EQ01特殊消耗品；不扩大其4/6件营业携带额度。",
+          "不复制物件、不解封F53预留物；包/护符均不得营业换装。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [],
+      "monster_examples": [
+        "F04",
+        "F53",
+        "F60"
+      ],
+      "tradeoff": "占护符位；不是驱魔增伤，不复制材料、不解封F53预留物；卸下前需有空格或先放回工位。",
+      "legacy_contract": {
+        "path": "content/equipment.json",
+        "benefit": "增加1格护袋，只容纳同一已核验I18/I19/I20/I21中的1件。",
+        "tradeoff": "占护符位；不是驱魔增伤，不复制材料、不解封F53预留物；卸下前需有空格或先放回工位。",
+        "adaptation_note": "保留原物件身份与既有真实消费者；本文件为待适配的EQ01设计。"
+      },
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 110,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      },
+      "legacy_shop_price_week_coin": 110
+    },
+    {
+      "id": "Q19",
+      "name": "定心珠",
+      "slot": "charm",
+      "rarity": "rare",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": "Q19",
+      "legacy_rarity": "rare",
+      "rarity_migration": "standard→common；uncommon→uncommon；rare/special→rare；三档概率不增加第四档。",
+      "base_attributes": [
+        {
+          "stat": "fear_san_reduction",
+          "value": 0.05,
+          "unit": "fraction",
+          "consumer": "合法fear类SAN损失，在原同源冷却/阶段上限之后结算",
+          "note": "装备fear百分比总减免最多20%；不影响直接接触伤和强制支付"
+        }
+      ],
+      "ability": {
+        "name": "定心",
+        "mode": "passive",
+        "consumer": "eligible_fear_san_loss",
+        "trigger": "恐惧免疫、同源20秒冷却/阶段15点上限、百分比减损后仍有正数fear损失",
+        "activation_seconds": 0,
+        "duration_seconds": 0,
+        "cooldown_seconds": 60,
+        "resource_cost": {},
+        "range_tiles": 0,
+        "effect": "冷却就绪时，对一笔合法fear类SAN损失再减3，最低0；实际减少正数损失才开始60秒冷却。",
+        "parameters": {
+          "flat_fear_reduction": 3
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "不挡接触伤、强制支付、咖啡债务或已提交伤害；不存在反复零伤害刷新冷却。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T02.A1",
+            "T04.B1"
+          ],
+          "reason": "长时间应对中保住SAN，但不能替代躲避真实攻击。"
+        }
+      ],
+      "monster_examples": [
+        "F31",
+        "S13",
+        "S36"
+      ],
+      "tradeoff": "占护符位；先做恐惧免疫、同源20秒冷却/15点阶段上限，再减损；不挡接触伤、咖啡债务或合约支付。",
+      "legacy_contract": {
+        "path": "content/equipment.json",
+        "benefit": "冷却结束时，对一笔真实fear类SAN损失减3，最低0；成功减损后冷却60世界秒。",
+        "tradeoff": "占护符位；先做恐惧免疫、同源20秒冷却/15点阶段上限，再减损；不挡接触伤、咖啡债务或合约支付。",
+        "adaptation_note": "保留原物件身份与既有真实消费者；本文件为待适配的EQ01设计。"
+      },
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 180,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      },
+      "legacy_shop_price_week_coin": 180
+    },
+    {
+      "id": "Q20",
+      "name": "双证护牌",
+      "slot": "charm",
+      "rarity": "uncommon",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": "Q20",
+      "legacy_rarity": "special",
+      "rarity_migration": "显式单件覆盖为uncommon；旧稀有度与旧价格另存历史字段，不再按默认special→rare加载。",
+      "base_attributes": [
+        {
+          "stat": "fear_san_reduction",
+          "value": 0.05,
+          "unit": "fraction",
+          "consumer": "合法fear类SAN损失，在原同源冷却/阶段上限之后结算",
+          "note": "装备fear百分比总减免最多20%；不影响直接接触伤和强制支付"
+        }
+      ],
+      "ability": {
+        "name": "双证旁注",
+        "mode": "world_tool",
+        "consumer": "observed_evidence_hud_pin",
+        "trigger": "玩家实际操作并提交",
+        "activation_seconds": 0.5,
+        "duration_seconds": 0,
+        "cooldown_seconds": 0,
+        "resource_cost": {},
+        "range_tiles": 0,
+        "effect": "用0.5秒将一份已经亲见的真实核验记录固定到HUD，最多1份，保留来源、时刻和原证据根。",
+        "parameters": {
+          "pinned_records": 1,
+          "current_snapshot_expiry_seconds": 8
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "当前在场快照仍8秒失效，连续性中断立即失效；历史只证过去。",
+          "不会把同源复制成第二份独立证据，不帮玩家自动选择真假。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T06.B1",
+            "T06.B2"
+          ],
+          "reason": "辅助正确完成真实核验与主规则；HUD固定本身不触发规则协作。"
+        }
+      ],
+      "monster_examples": [
+        "F02",
+        "F38",
+        "F48"
+      ],
+      "tradeoff": "占护符位；当前在场快照仍8世界秒失效、连续性中断即时失效，历史只证过去，不变第二独立证据。",
+      "legacy_contract": {
+        "path": "content/equipment.json",
+        "benefit": "用0.5世界秒将一份已经亲见的真实核验记录固定到HUD，最多1份；保留来源、时刻和原证据根。",
+        "tradeoff": "占护符位；当前在场快照仍8世界秒失效、连续性中断即时失效，历史只证过去，不变第二独立证据。",
+        "adaptation_note": "保留原物件身份与既有真实消费者；本文件为待适配的EQ01设计。"
+      },
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 110,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      },
+      "legacy_shop_price_week_coin": 250,
+      "eq01_rarity_price_override": {
+        "rarity": "uncommon",
+        "price": 110,
+        "reason": "证据旁注不产生新证据或战斗能力，不包装成稀有强度。"
+      }
+    },
+    {
+      "id": "Q21",
+      "name": "标准挎包",
+      "slot": "bag",
+      "rarity": "common",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": "Q21",
+      "legacy_rarity": "standard",
+      "rarity_migration": "standard→common；uncommon→uncommon；rare/special→rare；三档概率不增加第四档。",
+      "base_attributes": [
+        {
+          "stat": "ordinary_inventory_capacity",
+          "value": 6,
+          "unit": "slots",
+          "consumer": "玩家基础4格+当前唯一包的普通容量",
+          "note": ""
+        },
+        {
+          "stat": "food_only_capacity",
+          "value": 0,
+          "unit": "slots",
+          "consumer": "原同件、已核验个人食品",
+          "note": ""
+        },
+        {
+          "stat": "evidence_only_capacity",
+          "value": 0,
+          "unit": "slots",
+          "consumer": "原同件封存证据，不能装一般特殊战术消耗品",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "首件快取",
+        "mode": "passive",
+        "consumer": "personal_consumable_activation",
+        "trigger": "本晚首次个人消耗品合法提交",
+        "activation_seconds": 0,
+        "duration_seconds": 0,
+        "cooldown_seconds": 0,
+        "resource_cost": {},
+        "range_tiles": 0,
+        "effect": "每晚第一件真实成功使用的个人消耗品，使用读条耗时×0.8，最低0.25秒；与Q35或其他同类加速只取最强。",
+        "parameters": {
+          "duration_multiplier": 0.8,
+          "minimum_seconds": 0.25,
+          "uses_per_completed_night": 1,
+          "eligible_activation_tags": [
+            "eq01_special_consumable_cast",
+            "legacy_personal_self_resource_cast"
+          ],
+          "excluded_activation_tags": [
+            "named_monster_rule_step",
+            "physical_evidence_action",
+            "job_object_transfer",
+            "legacy_task_specific_consumable_operation"
+          ]
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "无效目标、取消不消耗首件资格；物件投掷飞行、怪物效果持续、机制读条不加速。",
+          "不多给道具，不增加EQ01携带件数或2个快捷槽。",
+          "快取只缩短EQ01特殊道具的施放读条，或旧个人自用恢复品的普通使用读条；I18封签、I20任务灌水、I08玻璃取放等命名物件操作不吃快取，避免间接改写MD01机制时长。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [],
+      "monster_examples": [
+        "F13",
+        "S03"
+      ],
+      "tradeoff": "只装备一包；专用位只收匹配同件，任务关键物不占普通格。装满拒绝拾取，换包溢出可先存回工位或取消，不销毁物件。",
+      "legacy_contract": {
+        "path": "content/equipment.json",
+        "benefit": "基础4格加普通2格，共6个普通位；另有保温食品0格、封存证据0格。",
+        "tradeoff": "只装备一包；专用位只收匹配同件，任务关键物不占普通格。装满拒绝拾取，换包溢出可先存回工位或取消，不销毁物件。",
+        "adaptation_note": "保留原物件身份与既有真实消费者；本文件为待适配的EQ01设计。"
+      },
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 60,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": true,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      },
+      "legacy_shop_price_week_coin": 60
+    },
+    {
+      "id": "Q22",
+      "name": "保温包",
+      "slot": "bag",
+      "rarity": "uncommon",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": "Q22",
+      "legacy_rarity": "uncommon",
+      "rarity_migration": "standard→common；uncommon→uncommon；rare/special→rare；三档概率不增加第四档。",
+      "base_attributes": [
+        {
+          "stat": "ordinary_inventory_capacity",
+          "value": 6,
+          "unit": "slots",
+          "consumer": "玩家基础4格+当前唯一包的普通容量",
+          "note": ""
+        },
+        {
+          "stat": "food_only_capacity",
+          "value": 2,
+          "unit": "slots",
+          "consumer": "原同件、已核验个人食品",
+          "note": ""
+        },
+        {
+          "stat": "evidence_only_capacity",
+          "value": 0,
+          "unit": "slots",
+          "consumer": "原同件封存证据，不能装一般特殊战术消耗品",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "足量餐补",
+        "mode": "passive",
+        "consumer": "verified_personal_food_consumption",
+        "trigger": "实际食用同一已核验个人食品并有正收益",
+        "activation_seconds": 0,
+        "duration_seconds": 0,
+        "cooldown_seconds": 0,
+        "resource_cost": {},
+        "range_tiles": 0,
+        "effect": "每晚第一份已核验个人I01/I02/I14成功食用后，在原效果外额外饱腹+5，受当前上限。",
+        "parameters": {
+          "extra_satiety": 5,
+          "allowed_item_ids": [
+            "I01",
+            "I02",
+            "I14"
+          ],
+          "uses_per_night": 1
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "不修改任务食品身份、食物禁忌或商品库存；无正收益不吃掉食物也不扣资格。",
+          "食品专用格不装战术消耗品，开班后不从仓库补领本轮特殊道具。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [],
+      "monster_examples": [
+        "F55",
+        "S19"
+      ],
+      "tradeoff": "只装备一包；专用位只收匹配同件，任务关键物不占普通格。装满拒绝拾取，换包溢出可先存回工位或取消，不销毁物件。",
+      "legacy_contract": {
+        "path": "content/equipment.json",
+        "benefit": "基础4格加普通2格，共6个普通位；另有保温食品2格、封存证据0格。",
+        "tradeoff": "只装备一包；专用位只收匹配同件，任务关键物不占普通格。装满拒绝拾取，换包溢出可先存回工位或取消，不销毁物件。",
+        "adaptation_note": "保留原物件身份与既有真实消费者；本文件为待适配的EQ01设计。"
+      },
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 110,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      },
+      "legacy_shop_price_week_coin": 110
+    },
+    {
+      "id": "Q23",
+      "name": "证据包",
+      "slot": "bag",
+      "rarity": "uncommon",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": "Q23",
+      "legacy_rarity": "rare",
+      "rarity_migration": "显式单件覆盖为uncommon；旧稀有度与旧价格另存历史字段，不再按默认special→rare加载。",
+      "base_attributes": [
+        {
+          "stat": "ordinary_inventory_capacity",
+          "value": 6,
+          "unit": "slots",
+          "consumer": "玩家基础4格+当前唯一包的普通容量",
+          "note": ""
+        },
+        {
+          "stat": "food_only_capacity",
+          "value": 0,
+          "unit": "slots",
+          "consumer": "原同件、已核验个人食品",
+          "note": ""
+        },
+        {
+          "stat": "evidence_only_capacity",
+          "value": 3,
+          "unit": "slots",
+          "consumer": "原同件封存证据，不能装一般特殊战术消耗品",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "原件归档",
+        "mode": "world_tool",
+        "consumer": "sealed_evidence_inventory_annotation",
+        "trigger": "玩家实际操作并提交",
+        "activation_seconds": 0.5,
+        "duration_seconds": 0,
+        "cooldown_seconds": 0,
+        "resource_cost": {},
+        "range_tiles": 1,
+        "effect": "在1格内用0.5秒登记包内同一真实封存证据的标签；最多并列显示2份原件的来源/时刻/历史记录。",
+        "parameters": {
+          "historical_record_pins": 2
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "原件必须实际在专用格；移出后HUD仅留历史标识。",
+          "不延长8秒当前在场快照，不复制证据根、不形成第二独立证据、不远程核验封存物内容。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T06.B1",
+            "T06.B2"
+          ],
+          "reason": "多步骤规则期间管理已见证据，真正完成规则后仍由原塔触发接力。"
+        }
+      ],
+      "monster_examples": [
+        "F02",
+        "F38",
+        "S07"
+      ],
+      "tradeoff": "只装备一包；专用位只收匹配同件，任务关键物不占普通格。装满拒绝拾取，换包溢出可先存回工位或取消，不销毁物件。",
+      "legacy_contract": {
+        "path": "content/equipment.json",
+        "benefit": "基础4格加普通2格，共6个普通位；另有保温食品0格、封存证据3格。",
+        "tradeoff": "只装备一包；专用位只收匹配同件，任务关键物不占普通格。装满拒绝拾取，换包溢出可先存回工位或取消，不销毁物件。",
+        "adaptation_note": "保留原物件身份与既有真实消费者；本文件为待适配的EQ01设计。"
+      },
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 120,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      },
+      "legacy_shop_price_week_coin": 180,
+      "eq01_rarity_price_override": {
+        "rarity": "uncommon",
+        "price": 120,
+        "reason": "证据专用容量与历史归档属于便利构筑，不挤占稀有战斗奖励。"
+      }
+    },
+    {
+      "id": "Q24",
+      "name": "搬运背包",
+      "slot": "bag",
+      "rarity": "rare",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": "Q24",
+      "legacy_rarity": "special",
+      "rarity_migration": "standard→common；uncommon→uncommon；rare/special→rare；三档概率不增加第四档。",
+      "base_attributes": [
+        {
+          "stat": "ordinary_inventory_capacity",
+          "value": 10,
+          "unit": "slots",
+          "consumer": "玩家基础4格+当前唯一包的普通容量",
+          "note": ""
+        },
+        {
+          "stat": "food_only_capacity",
+          "value": 0,
+          "unit": "slots",
+          "consumer": "原同件、已核验个人食品",
+          "note": ""
+        },
+        {
+          "stat": "evidence_only_capacity",
+          "value": 0,
+          "unit": "slots",
+          "consumer": "原同件封存证据，不能装一般特殊战术消耗品",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "承重背带",
+        "mode": "passive",
+        "consumer": "heavy_carry_move_speed",
+        "trigger": "真实重物处于双手任务槽",
+        "activation_seconds": 0,
+        "duration_seconds": 0,
+        "cooldown_seconds": 0,
+        "resource_cost": {},
+        "range_tiles": 0,
+        "effect": "实际双手携带重物时把重物减速幅度乘0.9：普通重箱2.4→2.46、登记肉箱2.6→2.64；与Q15/B06只取最好一项。",
+        "parameters": {
+          "slow_amount_multiplier": 0.9,
+          "ordinary_heavy_speed": 2.46,
+          "meat_speed": 2.64
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "重物仍不塞进普通包格，不额外增加手数；不能奔跑。",
+          "普通容量10格不等于可带10件EQ01特殊消耗品；该配装特殊额度仍4件。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T05.A2"
+          ],
+          "reason": "运输多项个人工具时保持实际重搬能力，配合纸偶短护送。"
+        }
+      ],
+      "monster_examples": [
+        "F13",
+        "F27"
+      ],
+      "tradeoff": "只装备一包；专用位只收匹配同件，任务关键物不占普通格。装满拒绝拾取，换包溢出可先存回工位或取消，不销毁物件。",
+      "legacy_contract": {
+        "path": "content/equipment.json",
+        "benefit": "基础4格加普通6格，共10个普通位；另有保温食品0格、封存证据0格。",
+        "tradeoff": "只装备一包；专用位只收匹配同件，任务关键物不占普通格。装满拒绝拾取，换包溢出可先存回工位或取消，不销毁物件。",
+        "adaptation_note": "保留原物件身份与既有真实消费者；本文件为待适配的EQ01设计。"
+      },
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 260,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      },
+      "legacy_shop_price_week_coin": 260
+    },
+    {
+      "id": "Q25",
+      "name": "调度指挥棒",
+      "slot": "hand",
+      "rarity": "uncommon",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": null,
+      "legacy_rarity": null,
+      "rarity_migration": null,
+      "base_attributes": [
+        {
+          "stat": "ordinary_tool_reach",
+          "value": 1,
+          "unit": "tiles",
+          "consumer": "实际可见普通小物/工具操作，原物ID与墙体约束仍成立",
+          "note": ""
+        },
+        {
+          "stat": "bound_towers",
+          "value": 1,
+          "unit": "tower",
+          "consumer": "班前绑定当前真实友方塔",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "压签待发",
+        "mode": "tactical_active",
+        "consumer": "bound_loaded_tower_hold_release",
+        "trigger": "玩家实际操作并提交",
+        "activation_seconds": 0.25,
+        "duration_seconds": 4,
+        "cooldown_seconds": 12,
+        "resource_cost": {
+          "stamina": 4
+        },
+        "range_tiles": 5,
+        "effect": "让绑定且已有合法装填的一座T01.A/A1/A2或T02.A2最多待发4秒；玩家在4秒内指定合法可见目标并释放，沿原发射/瞄准流程打出已经装好的第一发。",
+        "parameters": {
+          "bound_tower_count": 1,
+          "max_hold_seconds": 4,
+          "free_shots": 0,
+          "new_capacity": 0
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "塔与玩家距离≤5格；目标仍须在该塔原射程、射界及合法高度。",
+          "只暂停待发决策，不冻结世界钟，不额外装填；T02双联两发仍按本来0.2秒间隔和4秒总装填。",
+          "超时/目标失效恢复原自动索敌，无补发、无免费射击；不能命令压制/离场/人类。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": true,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 1,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T01.A1",
+            "T01.A2",
+            "T02.A2"
+          ],
+          "reason": "把已有重弹/双联窗口留到怪物显形、冻住或规则刚解锁时。"
+        }
+      ],
+      "monster_examples": [
+        "F13",
+        "F50",
+        "S03",
+        "S22"
+      ],
+      "tradeoff": "占1手及唯一战术主动；等待牺牲立即射击时间，不能提高装填频率。",
+      "legacy_contract": null,
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 125,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      }
+    },
+    {
+      "id": "Q26",
+      "name": "检疫喷笔",
+      "slot": "hand",
+      "rarity": "rare",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": null,
+      "legacy_rarity": null,
+      "rarity_migration": null,
+      "base_attributes": [
+        {
+          "stat": "ordinary_tool_reach",
+          "value": 1,
+          "unit": "tiles",
+          "consumer": "实际可见普通小物/工具操作，原物ID与墙体约束仍成立",
+          "note": ""
+        },
+        {
+          "stat": "spray_range",
+          "value": 3,
+          "unit": "tiles",
+          "consumer": "真实可见敌体与直线喷射",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "敏化喷记",
+        "mode": "tactical_active",
+        "consumer": "susceptible_application",
+        "trigger": "玩家实际操作并提交",
+        "activation_seconds": 1,
+        "duration_seconds": 4,
+        "cooldown_seconds": 24,
+        "resource_cost": {
+          "stamina": 8
+        },
+        "range_tiles": 3,
+        "effect": "用1秒对3格内一个合法已显形独立敌体喷记，施加4秒易感。",
+        "parameters": {
+          "status": "susceptible",
+          "duration_seconds": 4,
+          "target_cap": 1,
+          "direct_damage": 0
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "易感仅让热/寒/咒/电阈值−1；不叠为−2，不影响永久毒、裸伤或强制规则。",
+          "喷记需起手与提交时均真实可见，墙、离场或压制使当前未提交动作取消；0伤不生电荷。",
+          "正常人类、固定不可攻击源和共享假象不能作为第二目标。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": true,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 1,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T01.B1",
+            "T03.B1",
+            "T08.A2",
+            "T09.A1"
+          ],
+          "reason": "提前到达已有异常阈值，尤其少怪时帮助单体电容启动。"
+        }
+      ],
+      "monster_examples": [
+        "F12",
+        "F13",
+        "S08",
+        "S28"
+      ],
+      "tradeoff": "单体短窗、1秒操作并占战术主动；没有对应塔时只有易感标识而无直接伤害。",
+      "legacy_contract": null,
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 190,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      }
+    },
+    {
+      "id": "Q27",
+      "name": "余热检视灯",
+      "slot": "light",
+      "rarity": "uncommon",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": null,
+      "legacy_rarity": null,
+      "rarity_migration": null,
+      "base_attributes": [
+        {
+          "stat": "light_range",
+          "value": 2.5,
+          "unit": "tiles",
+          "consumer": "真实光照锥，不透墙",
+          "note": ""
+        },
+        {
+          "stat": "light_cone",
+          "value": 90,
+          "unit": "degrees",
+          "consumer": "玩家当前真实朝向",
+          "note": ""
+        },
+        {
+          "stat": "battery_capacity",
+          "value": 30,
+          "unit": "charge",
+          "consumer": "个人灯具电量账本",
+          "note": ""
+        },
+        {
+          "stat": "battery_drain",
+          "value": 0.75,
+          "unit": "charge/world_second",
+          "consumer": "实际开灯时",
+          "note": ""
+        },
+        {
+          "stat": "occupied_hands",
+          "value": 1,
+          "unit": "hands",
+          "consumer": "开灯/手持真实工具时",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "余热聚焦",
+        "mode": "tactical_active",
+        "consumer": "bound_native_primary_or_paid_field_heat_application",
+        "trigger": "玩家实际操作并提交",
+        "activation_seconds": 0.6,
+        "duration_seconds": 4,
+        "cooldown_seconds": 15,
+        "resource_cost": {
+          "personal_light_charge": 4
+        },
+        "range_tiles": 2.5,
+        "effect": "对2.5格内真实可见敌体照准0.6秒，挂4秒聚焦。绑定的一座热塔下一次原生热量主命中或已支付定时场脉冲对该池额外加入1枚完整同原生效力热印，随后聚焦结束。",
+        "parameters": {
+          "extra_heat_units": 1,
+          "maximum_consumptions": 1,
+          "bound_tower_count": 1,
+          "native_full_payload_preserved": true
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "只补一枚，不复制全体范围受击者，不作用于烧伤跳伤或额外派生。",
+          "需要原攻击实际命中；没有命中则聚焦到期，已付4电量不退。",
+          "沿TD05混热完整效力均值结算；不增加烧伤易伤上限，不直接把目标点燃。",
+          "T07.B1等定时场脉冲属于该塔已经支付的原生发射，可消费一次聚焦；烧伤跳伤与装备附加热印都不能反向再消费。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": true,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 1,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T01.B1",
+            "T07.A1",
+            "T07.B1"
+          ],
+          "reason": "高频单体更快到阈值；广域塔只强化被点选的一池，不白送全群层数。"
+        }
+      ],
+      "monster_examples": [
+        "F03",
+        "S16",
+        "S28",
+        "S32"
+      ],
+      "tradeoff": "持续开灯耗电，聚焦额外耗4；必须在较近距离选定真实目标。",
+      "legacy_contract": null,
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 140,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      }
+    },
+    {
+      "id": "Q28",
+      "name": "相位测距灯",
+      "slot": "light",
+      "rarity": "rare",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": null,
+      "legacy_rarity": null,
+      "rarity_migration": null,
+      "base_attributes": [
+        {
+          "stat": "light_range",
+          "value": 3,
+          "unit": "tiles",
+          "consumer": "真实光照锥，不透墙",
+          "note": ""
+        },
+        {
+          "stat": "light_cone",
+          "value": 90,
+          "unit": "degrees",
+          "consumer": "玩家当前真实朝向",
+          "note": ""
+        },
+        {
+          "stat": "battery_capacity",
+          "value": 30,
+          "unit": "charge",
+          "consumer": "个人灯具电量账本",
+          "note": ""
+        },
+        {
+          "stat": "battery_drain",
+          "value": 0.75,
+          "unit": "charge/world_second",
+          "consumer": "实际开灯时",
+          "note": ""
+        },
+        {
+          "stat": "occupied_hands",
+          "value": 1,
+          "unit": "hands",
+          "consumer": "开灯/手持真实工具时",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "落点测距",
+        "mode": "passive",
+        "consumer": "T10_existing_cell_reposition",
+        "trigger": "公开预告已存在，真实格移动开始并成功提交",
+        "activation_seconds": 0,
+        "duration_seconds": 0,
+        "cooldown_seconds": 12,
+        "resource_cost": {
+          "personal_light_charge": 3
+        },
+        "range_tiles": 3,
+        "effect": "个人灯真实照到已公开的合法落点，且玩家操作绑定T10.B/B1/B2现有空闲格时，该次对位/预约读条×0.6，最低0.15秒。每12秒最多强化一次现有格移动。",
+        "parameters": {
+          "duration_multiplier": 0.6,
+          "minimum_seconds": 0.15,
+          "bound_tower_count": 1,
+          "cells_per_proc": 1,
+          "extra_cells": 0,
+          "eligible_tower_nodes": [
+            "T10.B",
+            "T10.B1",
+            "T10.B2"
+          ]
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "T10.B/B2的0.5→0.3秒，T10.B1的0.25→0.15秒；与I38等只取最短实际读条，不相乘。",
+          "必须在实际到达前武装，移动期间旧格停用；没有公开落点不预测未来。",
+          "不扩格数、射程、单格伤害或刷新普通计时，不把原地确认当瞬移。",
+          "开始该次对位时预留3电量，成功提交才扣除并进入12秒冷却；取消释放预留且不移动格。电量不足按塔原耗时执行，不阻止正常塔操作。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 1,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T10.B",
+            "T10.B1",
+            "T10.B2"
+          ],
+          "reason": "用真实落点预告抓到提前对位窗口，保留移位惩罚的原伤害和计时。"
+        }
+      ],
+      "monster_examples": [
+        "F15",
+        "F38",
+        "S22",
+        "S40"
+      ],
+      "tradeoff": "本身无伤害；旧格仍会在移动时停用，错误预判会浪费原有覆盖。",
+      "legacy_contract": null,
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 210,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      }
+    },
+    {
+      "id": "Q29",
+      "name": "绝缘工装",
+      "slot": "uniform",
+      "rarity": "uncommon",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": null,
+      "legacy_rarity": null,
+      "rarity_migration": null,
+      "base_attributes": [
+        {
+          "stat": "direct_attack_san_reduction",
+          "value": 0.08,
+          "unit": "fraction",
+          "consumer": "怪物已提交的直接伤害实际命中玩家；装备组总减伤最多20%",
+          "note": "不减恐惧、合约支付、饥饿或规则失败代价"
+        }
+      ],
+      "ability": {
+        "name": "接地庇护",
+        "mode": "passive",
+        "consumer": "direct_attack_san_damage",
+        "trigger": "实际直接伤害命中玩家",
+        "activation_seconds": 0,
+        "duration_seconds": 0,
+        "cooldown_seconds": 0,
+        "resource_cost": {},
+        "range_tiles": 2.5,
+        "effect": "一次怪物直接伤害实际命中时，若攻击来源池仍带有效电荷，且玩家距一件真实通电电器不超过2.5格并有合法连通，额外获得12%直接SAN减伤；加上基础8%至多20%。",
+        "parameters": {
+          "conditional_extra_reduction": 0.12,
+          "gear_total_cap": 0.2,
+          "player_is_graph_node": false
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "玩家不加入电网，不提供AP或N，不吸收/消耗怪物电荷；电器必须来自真实战斗注册表。",
+          "不保护规则失败、强制支付、恐惧或环境伤害；不提供无敌帧或免轻伤。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T09.A1",
+            "T09.B1",
+            "T09.B2"
+          ],
+          "reason": "少怪场景也能利用一个带电追逐者与真实家电，支持围绕电器走位。"
+        }
+      ],
+      "monster_examples": [
+        "F12",
+        "S24",
+        "S35"
+      ],
+      "tradeoff": "离开真实电器或敌人电荷失效后只剩8%基础减伤，无法靠衣服制造虚拟电器。",
+      "legacy_contract": null,
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 125,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      }
+    },
+    {
+      "id": "Q30",
+      "name": "接力工装",
+      "slot": "uniform",
+      "rarity": "rare",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": null,
+      "legacy_rarity": null,
+      "rarity_migration": null,
+      "base_attributes": [
+        {
+          "stat": "direct_attack_san_reduction",
+          "value": 0.08,
+          "unit": "fraction",
+          "consumer": "怪物已提交的直接伤害实际命中玩家；装备组总减伤最多20%",
+          "note": "不减恐惧、合约支付、饥饿或规则失败代价"
+        }
+      ],
+      "ability": {
+        "name": "落笔追责",
+        "mode": "passive",
+        "consumer": "T08_primary_curse_after_actual_rule",
+        "trigger": "当场真实main_rule_complete回执，根与主体均匹配",
+        "activation_seconds": 0,
+        "duration_seconds": 6,
+        "cooldown_seconds": 0,
+        "resource_cost": {},
+        "range_tiles": 0,
+        "effect": "真实主要规则首次完成时，若实际规则主体仍是可攻击池且在绑定T08的合法射程内，给该主体6秒追责标记；绑定塔下一次原生主命中额外加1咒，随后消耗标记。",
+        "parameters": {
+          "extra_curse_units": 1,
+          "once_per_root_rule_receipt": true,
+          "bound_tower_count": 1,
+          "maximum_consumptions": 1,
+          "eligible_tower_nodes": [
+            "T08",
+            "T08.A",
+            "T08.A1",
+            "T08.A2"
+          ]
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "只标实际主体，不复制给整个眷属谱系，不追领装备前旧回执。",
+          "已离场/封存/压制的主体不产生有效攻击目标；无后续合法命中则到期。",
+          "不重掷已提交攻击，咒印失手率、阈值、8秒尝试冷却与共享控制不变。",
+          "仅能绑定原生会加咒印的T08/T08.A/A1/A2；纯打断/封禁的B系不能绑定，界面必须说明兼容分支。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T08.A1",
+            "T08.A2",
+            "T06.B1",
+            "T06.B2"
+          ],
+          "reason": "完成削弱/解锁机制后把下一次咒印接上，和真实规则易伤或易感形成衔接。"
+        }
+      ],
+      "monster_examples": [
+        "F13",
+        "S08",
+        "S22",
+        "S28"
+      ],
+      "tradeoff": "依赖实际主规则及后续咒塔命中；机制即离场的怪物完成后不再被追责攻击。",
+      "legacy_contract": null,
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 220,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      }
+    },
+    {
+      "id": "Q31",
+      "name": "短跑鞋",
+      "slot": "shoes",
+      "rarity": "uncommon",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": null,
+      "legacy_rarity": null,
+      "rarity_migration": null,
+      "base_attributes": [
+        {
+          "stat": "walk_speed",
+          "value": 3,
+          "unit": "tiles/world_second",
+          "consumer": "普通空手步行",
+          "note": ""
+        },
+        {
+          "stat": "sprint_speed",
+          "value": 4.5,
+          "unit": "tiles/world_second",
+          "consumer": "与通用奔跑互斥的鞋位机动配置",
+          "note": ""
+        },
+        {
+          "stat": "sprint_duration",
+          "value": 2,
+          "unit": "world_seconds_max",
+          "consumer": "实际累计奔跑时长",
+          "note": ""
+        },
+        {
+          "stat": "sprint_stamina_rate",
+          "value": 18,
+          "unit": "stamina/world_second",
+          "consumer": "连续实际移动",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "短程全力",
+        "mode": "mobility_active",
+        "consumer": "EQ01_shared_mobility",
+        "trigger": "玩家实际操作并提交",
+        "activation_seconds": 0,
+        "duration_seconds": 2,
+        "cooldown_seconds": 32,
+        "resource_cost": {
+          "stamina_per_second": 18,
+          "startup_minimum_stamina": 4.5
+        },
+        "range_tiles": 0,
+        "effect": "将本次机动配置改为最多2秒、4.5格/秒全力奔跑，实际每秒耗18体力；从首次实际移动开始共享32秒机动冷却。",
+        "parameters": {
+          "speed": 4.5,
+          "duration_max": 2,
+          "cooldown_from_first_movement": 32,
+          "startup_interval": 0.25,
+          "invulnerability_seconds": 0
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "基础走速3.0，不叠轻步鞋；空手/普通轻物合法，双手重物和任务肉禁止。",
+          "碰撞、禁区和已锁攻击照常生效；松手、受阻、作业或体力不足立即停止，不把剩余时长留到下一次。",
+          "满程额外路程3格，32秒平均上限3.09375，仍低于3.24的重型常态追速。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T01.A1",
+            "T07.B1",
+            "T10.A1"
+          ],
+          "reason": "一次明显拉开距离，迅速通过射线或把追逐带回小范围火区；塔仍需怪物实际进入。"
+        }
+      ],
+      "monster_examples": [
+        "F12",
+        "F27",
+        "S24"
+      ],
+      "tradeoff": "满程耗36体力，比通用24更高；共享冷却32秒，不能换回通用奔跑立即再跑。",
+      "legacy_contract": null,
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 120,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      }
+    },
+    {
+      "id": "Q32",
+      "name": "折返靴",
+      "slot": "shoes",
+      "rarity": "rare",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": null,
+      "legacy_rarity": null,
+      "rarity_migration": null,
+      "base_attributes": [
+        {
+          "stat": "walk_speed",
+          "value": 3,
+          "unit": "tiles/world_second",
+          "consumer": "普通空手步行",
+          "note": ""
+        },
+        {
+          "stat": "burst_speed",
+          "value": 4.1,
+          "unit": "tiles/world_second",
+          "consumer": "两个连续实体移动短跑",
+          "note": ""
+        },
+        {
+          "stat": "bursts_per_activation",
+          "value": 2,
+          "unit": "bursts",
+          "consumer": "最多两段，各≤0.9秒",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "折返两步",
+        "mode": "mobility_active",
+        "consumer": "EQ01_shared_mobility",
+        "trigger": "玩家实际操作并提交",
+        "activation_seconds": 0,
+        "duration_seconds": 5,
+        "cooldown_seconds": 28,
+        "resource_cost": {
+          "stamina_per_full_burst": 12,
+          "stamina_per_second": 13.333333333333332,
+          "startup_minimum_stamina": 3.333333333333333
+        },
+        "range_tiles": 0,
+        "effect": "第一次短跑最多0.9秒、4.1格/秒；可在首次实际移动后5秒内再主动跑一次最多0.9秒。每段满程耗12体力，按真实时长线性扣除，共享28秒机动冷却从第一段起算。",
+        "parameters": {
+          "speed": 4.1,
+          "duration_per_burst_max": 0.9,
+          "burst_count_max": 2,
+          "second_burst_deadline_from_first": 5,
+          "mobility_cooldown_from_first": 28,
+          "invulnerability_seconds": 0,
+          "stamina_rate_ratio": [
+            40,
+            3
+          ],
+          "startup_probe_cost_ratio": [
+            10,
+            3
+          ]
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "第二段只消费本次剩余许可，不能再生成下一对；过5秒未用即作废。",
+          "两段各自检查重物、碰撞、动作锁与体力；不是闪现、翻越或无敌闪避。",
+          "每次完整两段额外路程1.98格，28秒平均上限约3.070714；第二段能应对再一次转向而非提高长期跑速。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T10.A2",
+            "T10.B2",
+            "T03.B2"
+          ],
+          "reason": "用两次短调整匹配轮亮区或冻后接力的节拍，仍需真实走到目标位置。"
+        }
+      ],
+      "monster_examples": [
+        "F33",
+        "S18",
+        "S42"
+      ],
+      "tradeoff": "单次拉距小于通用奔跑；第二段需在5秒内合理使用，两段合计也不能连续甩脱正常追逐。",
+      "legacy_contract": null,
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 210,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      }
+    },
+    {
+      "id": "Q33",
+      "name": "催账算盘",
+      "slot": "charm",
+      "rarity": "uncommon",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": null,
+      "legacy_rarity": null,
+      "rarity_migration": null,
+      "base_attributes": [
+        {
+          "stat": "fear_san_reduction",
+          "value": 0.05,
+          "unit": "fraction",
+          "consumer": "合法fear类SAN损失，在原同源冷却/阶段上限之后结算",
+          "note": "装备fear百分比总减免最多20%；不影响直接接触伤和强制支付"
+        }
+      ],
+      "ability": {
+        "name": "提前催账",
+        "mode": "tactical_active",
+        "consumer": "existing_T02_A1_maturity_budget",
+        "trigger": "玩家实际操作并提交",
+        "activation_seconds": 0.25,
+        "duration_seconds": 0,
+        "cooldown_seconds": 20,
+        "resource_cost": {
+          "stamina": 4
+        },
+        "range_tiles": 3,
+        "effect": "对3格内可见、具有T02.A1未兑现成熟预算的敌体用0.25秒催账；在提交时按原到期先后选最多4份原期限晚于本次提交后0.25秒的实际未付预算，把这些预算的成熟绝对到期时间提前到提交后0.25秒。",
+        "parameters": {
+          "max_budget_records": 4,
+          "minimum_due_after_commit_seconds": 0.25,
+          "new_q_created": 0,
+          "once_per_original_maturity_budget": true,
+          "eligibility_original_due_after_commit_seconds": 0.25,
+          "due_offset_after_commit_seconds": 0.25,
+          "ui_preview": [
+            "actual_selected_pending_q",
+            "per_budget_time_gain_seconds",
+            "earliest_legal_commit"
+          ]
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "原剂量、已兑现毒量与成熟追加量不变；不是复制历史总毒，不产生新传播票。",
+          "只有真实未付预算可选；没有合法预算则不扣体力、不进冷却。",
+          "已被分裂拆分的预算依原dose身份统一标记本次提前，不能分别把同一父预算提前多次；继承真正剩余量和绝对期限。",
+          "在实际提交时重新选择预算，原期限必须严格晚于提交+0.25秒，才能产生正数提前；已经成熟或0.25秒内就将成熟者跳过，绝不把本来更早的成熟推迟。若最终没有正数提前则不扣资源/不进冷却。",
+          "界面预览当前可提前的真实待成熟q与各自节省秒数；没有待付量或正数提前时明确不可用，不显示虚构增伤。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": true,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T02.A1"
+          ],
+          "reason": "把已支付的后续毒提前兑现，适合有解锁或短暴露窗口的高耐久怪。"
+        }
+      ],
+      "monster_examples": [
+        "F12",
+        "F27",
+        "S06",
+        "S24"
+      ],
+      "tradeoff": "只适配实际成熟预算，不提升普通永久毒的每点强度；需要占用唯一战术主动。",
+      "legacy_contract": null,
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 120,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      }
+    },
+    {
+      "id": "Q34",
+      "name": "联线挂坠",
+      "slot": "charm",
+      "rarity": "rare",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": null,
+      "legacy_rarity": null,
+      "rarity_migration": null,
+      "base_attributes": [
+        {
+          "stat": "fear_san_reduction",
+          "value": 0.05,
+          "unit": "fraction",
+          "consumer": "合法fear类SAN损失，在原同源冷却/阶段上限之后结算",
+          "note": "装备fear百分比总减免最多20%；不影响直接接触伤和强制支付"
+        }
+      ],
+      "ability": {
+        "name": "跨距联线",
+        "mode": "tactical_active",
+        "consumer": "electric_actual_pair_edge_extension",
+        "trigger": "玩家实际操作并提交",
+        "activation_seconds": 0.75,
+        "duration_seconds": 6,
+        "cooldown_seconds": 24,
+        "resource_cost": {
+          "stamina": 10
+        },
+        "range_tiles": 5,
+        "effect": "选两个真实可见、仍带有效电荷的独立敌体，用0.75秒建立一条6秒配对电边；这条边允许最远4格，仍需真实无阻连通。",
+        "parameters": {
+          "pair_distance_max": 4,
+          "selected_pools": 2,
+          "virtual_nodes_added": 0,
+          "appliances_added": 0,
+          "charge_added": 0,
+          "damage_added": 0
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "两池都要在玩家5格选择范围内并实际带电；一池失效、电荷到期、遮挡或距离>4立即断边，条件恢复仅在原6秒内复连。",
+          "与I36等按这条真实边的最强可达半径判定，不相加；其他边仍按各自原规则。",
+          "连边本身不触发命中、接触电击或过载；后续原生队列读取实际当前连通图与各池局部N+E。",
+          "不把玩家、共享部件、假象或未注册电器变成节点；无法连接一个敌人到虚构第二人。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": true,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T09.A2",
+            "T09.B1",
+            "T09.B2"
+          ],
+          "reason": "把已铺电而稍分散的真实两池接进同一连锁；保留有限血量下减员对网络的影响。"
+        }
+      ],
+      "monster_examples": [
+        "S16",
+        "S17",
+        "S28",
+        "S41"
+      ],
+      "tradeoff": "至少两池真实带电才有收益，孤立单怪不能启动；不额外提供电荷或电器数量。",
+      "legacy_contract": null,
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 210,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      }
+    },
+    {
+      "id": "Q35",
+      "name": "快取腰包",
+      "slot": "bag",
+      "rarity": "uncommon",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": null,
+      "legacy_rarity": null,
+      "rarity_migration": null,
+      "base_attributes": [
+        {
+          "stat": "ordinary_inventory_capacity",
+          "value": 6,
+          "unit": "slots",
+          "consumer": "玩家基础4格+当前唯一包的普通容量",
+          "note": ""
+        },
+        {
+          "stat": "food_only_capacity",
+          "value": 0,
+          "unit": "slots",
+          "consumer": "原同件、已核验个人食品",
+          "note": ""
+        },
+        {
+          "stat": "evidence_only_capacity",
+          "value": 0,
+          "unit": "slots",
+          "consumer": "原同件封存证据，不能装一般特殊战术消耗品",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "随身快取",
+        "mode": "passive",
+        "consumer": "personal_consumable_activation",
+        "trigger": "个人消耗品合法开始使用",
+        "activation_seconds": 0,
+        "duration_seconds": 0,
+        "cooldown_seconds": 0,
+        "resource_cost": {},
+        "range_tiles": 0,
+        "effect": "个人消耗品实际使用读条耗时×0.8，最低0.25秒；物件数量、飞行时间、目标机制与效果持续不变。",
+        "parameters": {
+          "duration_multiplier": 0.8,
+          "minimum_seconds": 0.25,
+          "special_carry_quota": 4,
+          "quick_slots": 2,
+          "eligible_activation_tags": [
+            "eq01_special_consumable_cast",
+            "legacy_personal_self_resource_cast"
+          ],
+          "excluded_activation_tags": [
+            "named_monster_rule_step",
+            "physical_evidence_action",
+            "job_object_transfer",
+            "legacy_task_specific_consumable_operation"
+          ]
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "与Q21首件快取及其他同类加速只取最强，不相乘。",
+          "需要原本空手/手数和合法目标，取消仍按同件回执处理；不绕过全局物品使用间隔。",
+          "普通容量6格，但EQ01特殊物品当班仍最多4件；开班后不能从仓库补领。",
+          "快取只缩短EQ01特殊道具的施放读条，或旧个人自用恢复品的普通使用读条；I18封签、I20任务灌水、I08玻璃取放等命名物件操作不吃快取，避免间接改写MD01机制时长。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T09.A1",
+            "T08.A1"
+          ],
+          "reason": "更快提交一次真实战术增益或标记，适合使用特殊消耗品启动已有塔。"
+        }
+      ],
+      "monster_examples": [
+        "F13",
+        "S03",
+        "S28"
+      ],
+      "tradeoff": "没有证据或食品专用格，容量6普通位；快捷不是免读条、免消耗或夜间补货。",
+      "legacy_contract": null,
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 120,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      }
+    },
+    {
+      "id": "Q36",
+      "name": "调度工具包",
+      "slot": "bag",
+      "rarity": "rare",
+      "design_enabled": true,
+      "runtime_integrated": false,
+      "legacy_id": null,
+      "legacy_rarity": null,
+      "rarity_migration": null,
+      "base_attributes": [
+        {
+          "stat": "ordinary_inventory_capacity",
+          "value": 6,
+          "unit": "slots",
+          "consumer": "玩家基础4格+当前唯一包的普通容量",
+          "note": ""
+        },
+        {
+          "stat": "food_only_capacity",
+          "value": 0,
+          "unit": "slots",
+          "consumer": "原同件、已核验个人食品",
+          "note": ""
+        },
+        {
+          "stat": "evidence_only_capacity",
+          "value": 0,
+          "unit": "slots",
+          "consumer": "原同件封存证据，不能装一般特殊战术消耗品",
+          "note": ""
+        },
+        {
+          "stat": "special_consumable_carry_quota",
+          "value": 6,
+          "unit": "physical_units",
+          "consumer": "默认4件+本包2件；仍占实际普通格",
+          "note": ""
+        }
+      ],
+      "ability": {
+        "name": "纸偶备件",
+        "mode": "passive",
+        "consumer": "T05_real_slot_reassembly",
+        "trigger": "绑定纸偶槽真实retirement/destruction一次",
+        "activation_seconds": 0,
+        "duration_seconds": 0,
+        "cooldown_seconds": 0,
+        "resource_cost": {},
+        "range_tiles": 3,
+        "effect": "班前绑定一座真实T05。该塔某个纸偶实际退场/毁坏时，若玩家仍佩戴本包且距发射设施外缘≤3格，该次重组基础时间减0.5秒，最低2.5秒。",
+        "parameters": {
+          "bound_tower_count": 1,
+          "reassembly_reduction_seconds": 0.5,
+          "minimum_reassembly_seconds": 2.5,
+          "maximum_hold_seconds": 1,
+          "target_reintercept_seconds": 6
+        },
+        "stacking": "同名不叠加；绝对到期与冷却保留",
+        "limits": [
+          "只改刚产生的该次重组截止，已有重组不回退重算、不瞬间造纸偶或修复塔。",
+          "一座双偶塔可分别受益，但不是全场所有塔；退场回执不能重放。",
+          "每次拦截最多1秒、同池全纸偶6秒再拦截间隔、真实寻路和同窗一次攻击均不变。",
+          "包内特殊道具6件额度仍需班前实际购买/抽到并装入6个普通格，不能营业补充。"
+        ],
+        "cooldown_clock": "world_seconds",
+        "requires_armed_tactical_slot": false,
+        "side_effect_origin": "EQ01",
+        "eq01_side_effect_can_retrigger_eq01": false,
+        "native_td05_electric_feedback_unchanged": true
+      },
+      "hands_required_when_using": 0,
+      "tower_synergies": [
+        {
+          "tower_node_ids": [
+            "T05.A1",
+            "T05.A2",
+            "T05.B1",
+            "T05.B2"
+          ],
+          "reason": "更快恢复下一次可用守卫，适合附近任务工位；原目标仍可能处于6秒不可再拦截。"
+        }
+      ],
+      "monster_examples": [
+        "F13",
+        "F27",
+        "S16",
+        "S32"
+      ],
+      "tradeoff": "放弃证据/食物专用容量以及快取速度；装满6件特殊物品就没有普通备用物位。",
+      "legacy_contract": null,
+      "acquisition": {
+        "shop_design_enabled": true,
+        "lottery_design_enabled": true,
+        "shop_price_week_coin": 220,
+        "shop_phase": "20:00–22:00班前采购",
+        "shop_currency": "same_week_coin_wallet_as_td05_building",
+        "required_receipt": "handler_and_actual_consumer_ready",
+        "runtime_acquisition_enabled": false,
+        "starter_once": false,
+        "duplicate_policy": "已拥有同名装备时选择同品质正式奖品包的特殊消耗品；件数由EQ01奖池品质包规定，不加属性、不发建造币或灵能。"
+      },
+      "persistence": {
+        "across_weeks": true,
+        "no_level_or_random_affix_roll": true,
+        "durability": false,
+        "loadout_locked_at_opening": true,
+        "cooldown_reset_on_holster": false
+      }
+    }
+  ]
+}

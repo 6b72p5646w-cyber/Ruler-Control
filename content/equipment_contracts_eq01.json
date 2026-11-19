@@ -1,0 +1,404 @@
+{
+  "version": "EQ01",
+  "runtime_integrated": false,
+  "baseline_commit": "1932ab78118e9363fdd73124663aa4f5b0a4ea24",
+  "status": "design_contract_and_bounded_reference_models_pending_world_adapters_and_playtest",
+  "scope": "七夜塔防模式的个人装备、特殊消耗品与抽奖奖励；沿用TD05/MD01怪物、塔、陷阱与终态。",
+  "authorities": {
+    "equipment_catalog": "content/equipment_eq01.json",
+    "special_consumables": "content/consumables_eq01.json",
+    "lottery": "content/lottery_rewards_eq01.json",
+    "existing_equipment_baseline": "content/equipment.json",
+    "existing_items_baseline": "content/items.json",
+    "combat": "content/combat_contracts_td05.json",
+    "monsters": "content/monster_contracts_md01.json",
+    "week_wallet": "content/economy_week_td05.json",
+    "resources": "content/balance.json",
+    "migration": "EQ01合并视图以同一Q/I定义ID定位覆盖；不得把旧卡和新卡各加载一份。旧V0.10模式保留原规则，七夜模式采用本合同的装备锁定、周币购买和分层奖池。"
+  },
+  "equipment": {
+    "slots": [
+      "hand",
+      "light",
+      "uniform",
+      "shoes",
+      "charm",
+      "bag"
+    ],
+    "max_per_slot": 1,
+    "total_cards": 36,
+    "enabled_design_candidates": 34,
+    "archived_ids": [
+      "Q03",
+      "Q11"
+    ],
+    "legacy_ids": [
+      "Q01",
+      "Q02",
+      "Q03",
+      "Q04",
+      "Q05",
+      "Q06",
+      "Q07",
+      "Q08",
+      "Q09",
+      "Q10",
+      "Q11",
+      "Q12",
+      "Q13",
+      "Q14",
+      "Q15",
+      "Q16",
+      "Q17",
+      "Q18",
+      "Q19",
+      "Q20",
+      "Q21",
+      "Q22",
+      "Q23",
+      "Q24"
+    ],
+    "new_ids": [
+      "Q25",
+      "Q26",
+      "Q27",
+      "Q28",
+      "Q29",
+      "Q30",
+      "Q31",
+      "Q32",
+      "Q33",
+      "Q34",
+      "Q35",
+      "Q36"
+    ],
+    "rarity_mapping": {
+      "standard": "common",
+      "uncommon": "uncommon",
+      "rare": "rare",
+      "special": "rare"
+    },
+    "identity": "每件具明确基础属性和一个核心能力；固定命名侧向选择，不随机洗数值、不叠同名件、不设装等或耐久。稀有强调条件配合，普通装备保留稳定用途。",
+    "opening_lock": "本夜六槽与一个战术主动在营业开始时写入清单；营业中不能换装、重选主动或从仓库取新战斗物品。",
+    "legal_business_operations": [
+      "收起或拿出当前已装备手持器具",
+      "开关当前灯具",
+      "在满足原条件时使用既有检查/核验工具",
+      "拿放原有免费任务工具与关键任务物",
+      "使用本夜清单里的个人消耗品"
+    ],
+    "preparation_swap": "交班后休整与班前采购整备可换装；背包容量不足先存回个人仓库或取消，不销毁物件。",
+    "tactical_active_slots": 1,
+    "mobility_slot": "通用奔跑或所穿鞋的替代移动能力，独立于战术主动；不额外增加可并行操作。",
+    "utility_not_tactical": "原有照明、镜检、固定已读信息等真实工具操作仍按其旧合同使用；每张卡必须标注新增能力是否占战术主动。",
+    "passives": "六槽合法被动均有效，按各自事件、冷却和叠加组结算。",
+    "cooldown_identity": "战役/人物/能力组的绝对世界到期时刻；换实例、收起、装备失效、周结算和读档均不提前清零。",
+    "starter_once_per_campaign": [
+      "Q09",
+      "Q13",
+      "Q21"
+    ],
+    "starter_policy": "首次进入此七夜模式赠送工作围裙、防滑鞋、标准挎包；迁移已有相同卡只补缺，不重复赠奖，不付周币也不可折现。",
+    "no_equipment_required_for_rules": true,
+    "critical_tools_use_ordinary_inventory": false,
+    "owned_equipment_persists_across_weeks": true,
+    "individual_rarity_overrides": {
+      "Q04": "uncommon",
+      "Q12": "uncommon",
+      "Q16": "uncommon",
+      "Q20": "uncommon",
+      "Q23": "uncommon"
+    },
+    "rarity_override_reason": "信息/便利型旧装备下调至非常见并重定价；卡内保留旧品质/价格，避免低影响奖励占稀有档。先读单卡覆盖，再读默认映射。"
+  },
+  "resources_and_actions": {
+    "player_resources": [
+      "energy",
+      "san",
+      "satiety",
+      "stamina"
+    ],
+    "new_resource_meter": false,
+    "stamina_max": "50 + 0.5 * energy",
+    "regen_per_world_second": 6,
+    "regen_delay_after_exertion_seconds": 2,
+    "regen_multipliers": {
+      "energy_below_25": 0.65,
+      "satiety_below_25": 0.6,
+      "minor_injury": 0.85
+    },
+    "minimum_regen_per_world_second": 2,
+    "regen_clock": "真实世界推进且未持续耗体力才恢复；暂停/精密决策预算不推进恢复、技能冷却或buff。",
+    "zero_stamina": "保留基础步行、普通搬运和所有必要规则动作；拒绝缺体力的可选加速。",
+    "hands": 2,
+    "heavy_carry_hands": 2,
+    "light_rules": "Q05/Q07及新增手持灯按卡占手，Q06头灯不占手；任务两手物先放入合法位置再使用需要空手的主动。",
+    "ordinary_cast": {
+      "seconds": 0.5,
+      "free_hands": 1,
+      "stationary": true
+    },
+    "fast_cast_floor_seconds": 0.25,
+    "special_item_input_recovery_seconds": 1,
+    "input_recovery": "成功使用一件特殊道具后1秒不能开始第二件；可以走路。不是延长怪物控制，也不是统一清空装备冷却。",
+    "concurrency": "一个人物最多一个读条/施放/工作动作。奔跑与工作互斥；移动施放必须有单独明确动作类型，绝不沿旧s.action偷偷并行动作。",
+    "commit": "施放开始只预留同一物件和目标，完成点重新验范围/视线/层/合法状态后原子扣件并提交效果；失败取消退回预留且不刷新冷却。",
+    "after_commit": "有效提交后已消耗，不因目标随后死亡/离场或玩家后悔退回；持续效果只对当前合法接收者结算。",
+    "essential_rule_step_times": "保留MD01明确取物、搬运、存入、封存和等待时长；普通工作加速不能改这些步骤。独立道具只修改明确列入白名单的窗口/中断原因。"
+  },
+  "mobility": {
+    "clock": "world_seconds",
+    "base_walk": 3.0,
+    "permanent_empty_hand_walk_cap": 3.15,
+    "universal_sprint_owned_by_default": true,
+    "runtime_adapter_present": false,
+    "start_requires_stamina": {
+      "baseline": 3,
+      "Q31": 4.5,
+      "Q32": "10/3"
+    },
+    "start_probe_seconds": 0.25,
+    "start_budget": "启动须有本模式0.25秒真实消耗：baseline3、Q31为4.5、Q32为10/3体力；实际消耗仍按真实持续时长支付，不先扣再重复扣。",
+    "cooldown_group": "player_mobility_burst",
+    "cooldown_starts": "首次实际非零奔跑移动提交时刻",
+    "profiles": {
+      "baseline": {
+        "speed": 4.2,
+        "max_seconds": 2.0,
+        "stamina_per_second": 12,
+        "cooldown_seconds": 30
+      },
+      "Q31": {
+        "speed": 4.5,
+        "max_seconds": 2.0,
+        "stamina_per_second": 18,
+        "cooldown_seconds": 32
+      },
+      "Q32": {
+        "speed": 4.1,
+        "max_seconds_per_burst": 0.9,
+        "burst_count": 2,
+        "second_burst_window_seconds": 5,
+        "full_burst_stamina": 12,
+        "cooldown_seconds": 28
+      }
+    },
+    "Q32_rules": "第一段开始同一28秒冷却；第二段是本次已预约的唯一续段，5秒内可独立转向发动，不开启新周期，不重新计时。未用续段到期作废。每段按真实持续时间线性耗体力，满段12。",
+    "start_failure": "被墙完全挡住、无合法位移或不足启动体力时不支付、不起冷却；禁止反复零位移触发移动特效。",
+    "early_stop": "按真实耗时支付体力；停止/受阻/体力耗尽不退共享冷却，不积攒剩余时间。",
+    "forbidden": [
+      "普通重箱或登记肉等双手重物",
+      "当前读条或精密操作",
+      "真正定身/冻结/禁行",
+      "共享冷却未就绪且非同一Q32合法续段"
+    ],
+    "no_invulnerability": true,
+    "no_collision_skip": true,
+    "no_teleport": true,
+    "absolute_speeds": "Q14与其他普通步速修正不乘进奔跑；减速、伤害与真实路线照常生效。",
+    "temporary_speed": "有限消耗品可在自身时段增加普通步速至3.30；不能提高奔跑/重搬速度、清共享冷却或作为永久加成。",
+    "admission": "基本规则与可走逃生路线仍必须在0体力、无抽奖装备条件下成立；奔跑提供纠错与路线选择。"
+  },
+  "attribute_aggregation": {
+    "ordinary_work_progress_min_multiplier": 0.8,
+    "ordinary_work_speed": "已定义普通工作同类耗时取最小合法倍率，最低0.8；不相乘，不加速等待、身份确认或怪物预告。",
+    "equipment_direct_attack_san_reduction_cap": 0.2,
+    "equipment_fear_san_reduction_cap": 0.2,
+    "damage_groups": "装备同组基础减损相加后截断，临时buff按卡列独立组；先判原攻击是否合法与原共享受击保护，再读攻击类别。SAN合约支付、咖啡债务和规则失败代价不视为攻击或fear。",
+    "fear_order": "已有免疫/同源20秒/阶段15点预算先处理，再做明确装备fear比例，Q19每60秒减3只消费真实有益一次。",
+    "monster_defense_break": "同物防/灵防的普通临时破防取最强在效值，不相乘、不把结果压至0以下；MD01永久机制后防御作为当前基值。",
+    "vulnerability": "沿TD05烧伤易伤最大25%与规则配合易伤最大15%，合计最大40%；不能把装备新名词偷偷塞进第三个通用易伤乘区。",
+    "susceptible": "仍是布尔易感，热8→7、冰4→3、咒4→3、电5→4；不叠到-2，不改变永久毒q。",
+    "slow_control": "沿TD05最强减速、60%上限、普通/精英1.5/.8秒硬控段与3秒免疫；纸偶最长1秒且每目标6秒间隔。",
+    "generic_seal": "只封明确可封的特殊能力，不能笼统禁用基本追逐/普攻；沿TD05每8秒最多3秒与3秒免疫。",
+    "san_precision": "内部保留原资源系统的数值精度；显示可保留一位小数，不在每次百分比减损后向下取整制造额外免伤。"
+  },
+  "special_consumables": {
+    "new_ids": [
+      "I25",
+      "I26",
+      "I27",
+      "I28",
+      "I29",
+      "I30",
+      "I31",
+      "I32",
+      "I33",
+      "I34",
+      "I35",
+      "I36",
+      "I37",
+      "I38",
+      "I39",
+      "I40",
+      "I41",
+      "I42"
+    ],
+    "baseline_max_carried_units": 4,
+    "specialized_bag_max_carried_units": 6,
+    "physical_inventory": "每一实际单位占一个普通物品格，无堆叠减免；背包扩容与本夜特殊道具额度分别验，两者取可容纳交集。",
+    "quick_access_slots": 2,
+    "quick_access": "两个快捷栏指向本夜清单中的真实物件；可在未执行动作时改快捷指向，不从仓库产生物件，不扩大携带额度。",
+    "opening_manifest": "营业开始前绑定实例ID、实际数量、占格和两快捷键；本夜不补充。",
+    "business_sources": "不能通过购买、领取箱、仓库、赠送、掉落、复制、使用返还或Q35/Q36重新填充本夜清单。",
+    "pending_token_families": "I38/I39/I40每人物每家族最多一份已武装记录；还有未花完且未到期记录时新件拒绝使用且不扣物，不叠次数、不覆盖旧记录来刷新期限。",
+    "legacy_consumables": "I01–I24保留已有真实消费者；本版核心抽奖池不发日常食物/基础回血。它们仍占真实库存，不能回复新道具的使用次数或奔跑冷却。",
+    "unused_persistence": "未消耗的个人物品与库存跨夜/周保留；重新带入下一夜仍受4/6额度，不因下班销毁。",
+    "forbidden_legacy_ids": [
+      "I22",
+      "I23"
+    ],
+    "area_geometry": "落点须真实可见可达；小范围半径至少1.5格，按真实合法目标层与视线判定。货架挂点塔的原有效面积补偿保持原样，随身道具不制造货架内可站格。",
+    "no_ground_device": "新道具作用于人物、真实敌对血池、既有塔或已发生动作；不新增地面陷阱/路障/塔/电器，不修复重装升级陷阱。"
+  },
+  "event_semantics": {
+    "origin_identity": [
+      "campaign_id",
+      "week_id",
+      "night_id",
+      "source_instance_id",
+      "attack_or_action_id",
+      "phase_id",
+      "health_pool_id"
+    ],
+    "primary_event": "真实已付攻击/塔发射/陷阱消耗/本人动作；同一多部件共享血池只结算一次。卡必须明确监听事件。",
+    "equipment_secondary_recursion": false,
+    "secondary_rule": "EQ01产生的额外标记、减益、反应和成熟提前不生成新的主攻击、主规则回执、真实移动或击杀事实，不继续触发其他EQ01反应。",
+    "electric_exception": "任何正数实际电伤仍按TD05正常反馈电荷，纯付费充能亦照原合同；这是保留的电系统，不受上面的装备额外连锁限制。不增设全波/全局电荷反馈上限。",
+    "attack_miss_for_I39": "本来真实瞄准玩家的合法attack_id已完成碰撞结算，因玩家实际位置不在伤害区域/轨迹内而完全落空；同一攻击一次。咒失手、提前取消、免疫、命中保护、失效目标和假动作不算。",
+    "rule_event": "监听已验证同根主机制完成回执，每根一次；不能生成/补写该回执。离场不是击杀，退出电图与目标集合后不能追射。",
+    "terminal_floor": "沿MD01锁血、离场压制与必要子体结算；新伤害/毒/电不绕过致死限制。",
+    "split": "沿MD01分裂后当前HP、毒q、电荷和未支付来源预算守恒；纯状态转移不是新命中。"
+  },
+  "poison_catalysis": {
+    "source": "I41",
+    "duration_seconds": 8,
+    "poison_only_factor": 2,
+    "group": "poison_catalysis",
+    "aggregation": "同组最强在效倍率，最大2；每份保存自己的原到期时刻，不以弱续强。",
+    "formula": "poison_segment = current_q * 0.5 * actual_segment_world_seconds * live_catalysis * current_target_defense_factor * existing_vulnerability_factor",
+    "no_new_q": true,
+    "no_instant_damage": true,
+    "no_new_dose_or_contagion": true,
+    "new_q_during_buff": "后续合法新增毒q也只在剩余buff窗口受倍率；到期回到原.5/q/秒，q不减少。",
+    "suppression": "离场类压制期间暂停毒伤，buff世界时钟继续走；不补发压制期间伤害。",
+    "why_distinct": "I32支付永久新毒q，Q33提前释放已预留成熟q，I41仅在短窗强化持续毒伤；三者改变不同环节。"
+  },
+  "electric_link_extensions": {
+    "baseline_pool_edge_radius": 2.5,
+    "I36": {
+      "kind": "one_pool_incident_edges",
+      "radius": 3.25,
+      "duration_seconds": 8
+    },
+    "Q34": {
+      "kind": "one_selected_real_pool_pair",
+      "radius": 4.0,
+      "duration_seconds": 6
+    },
+    "edge_rule": "只扩充合法带电独立血池之间的一条/一组实际边；仍须原层/视线许可。半径/同对连接只取最大，不加成相乘。",
+    "not_extended": [
+      "电器感应/接触区",
+      "电器计数半径",
+      "普通一次弹跳距离",
+      "塔射程",
+      "不存在的电器节点"
+    ],
+    "graph": "沿全部合法实际边遍历最大可达分量；每接收者公式N读取该接收者实际相邻带电独立池含自己，E读本来合法的真实通电电器。",
+    "D": 6,
+    "source_override": "仍读取原源明确购买的D，装备连接本身不增加D。",
+    "topology_change": "连边/拆边本身不造成伤害、不伪造进电器事件、不凭空加电荷；已达阈值的合法队列按当前图处理。",
+    "removal": "死亡/离场/压制/电荷到期/失去视线时立即排除非法端点；恢复合法不自动重付旧接触伤害。",
+    "no_global_feedback_cap": true
+  },
+  "acquisition_and_wallet": {
+    "currency": "current_week_coin",
+    "spirit_cost_for_personal_gear": 0,
+    "wallet_bridge": "七夜模式个人购买扣同一个TD05当周金币账；80交班工资只进一次，旧V0.10长期个人钱包不参与此模式。",
+    "gear_prices": "以EQ01单卡明确shop_price_week_coin为准，已对5条信息/便利旧装备及Q33调整；其余沿目录。旧价格保存在历史字段，不可同时扣旧价与新价。",
+    "special_unit_prices": {
+      "common": 8,
+      "uncommon": 14,
+      "rare": 24
+    },
+    "shop_window": "20:00–22:00班前采购；交班后可抽奖/换装，不能在营业中买或领取库存。",
+    "purchase_time": "个人购物采用原采购动作预算，禁止额外隐形税；抽奖仍15准备分钟。",
+    "no_sale_for_currency": true,
+    "refund": "只沿E072同采购窗口、同一未用未转移实物、原支付行最多一次原额退款；抽奖/赠送不可退款，跨周旧支付不能进入新周。",
+    "persistence": "买到的个人装备与未用特殊道具成为战役物品并跨周保留；钱与灵能本身仍周清，不可把物品售回周币。",
+    "week_close_order": "第7夜工资/券真实结算后执行TD05旧周装置/钱灵清理并建立新周；个人券/装备/未用物品独立保留，可在既有06–08休整窗抽奖。没有新增旧币采购窗，第7夜收入不倒流到第7夜布防。",
+    "reserve_is_not_tax": "TD05每夜24币个人补给是假设预算；本版实际买8/14/24道具时从该预留记录一次，不能又扣24又扣商品。",
+    "no_lottery_only_essential_ability": true,
+    "unlock": "固定目录始终可预览；满足实际处理器与消费者准入后即可用标价在采购期购买，无需先随机抽中图纸或再刷一种货币。"
+  },
+  "runtime_admission": {
+    "default": false,
+    "requires": [
+      "真实资源与动作适配器",
+      "可达对象/合法层/真实事件消费者",
+      "存档与中断恢复",
+      "完整池各档类别有合法项目",
+      "实际地图和追逐试玩"
+    ],
+    "no_fake_enable": "design_enabled不是runtime_enabled；本提交不把尚未实现的新物品直接塞进现有运行器。",
+    "preserved_disabled": [
+      "Q03",
+      "Q11",
+      "I22",
+      "I23"
+    ]
+  },
+  "ordinary_attack_progress": {
+    "source": "I40",
+    "eligible_nodes": [
+      "T01.A",
+      "T01.A1",
+      "T01.A2",
+      "T02",
+      "T02.A",
+      "T02.A1",
+      "T02.B",
+      "T02.B1",
+      "T02.B2",
+      "T03",
+      "T03.B",
+      "T03.B1",
+      "T03.B2",
+      "T07",
+      "T07.A",
+      "T07.A1"
+    ],
+    "basis": "actual ordinary single-projectile reload work: interval_s minus aim_s when attack_cycle_includes_aim=true",
+    "minimum_base_work_s": 1.5,
+    "advance_fraction": 0.5,
+    "max_towers": 3,
+    "excluded": [
+      "T02.A2 magazine",
+      "T03.A2 multiwave",
+      "field cycles",
+      "guards",
+      "zone cooldown",
+      "seal reservoir",
+      "poison maturity",
+      "electric overload"
+    ],
+    "result": "one already-running reload clock advances up to half of its authored full work; clamp at ready, no overflow, existing target and aim still required",
+    "no_new_per_slot_model": true
+  },
+  "late_night_reward_claim": "第7夜结算后个人券/物品仍可按06–08休整窗领取，周清可先完成；不插入额外可花旧周币的采购窗。",
+  "reservation_rearm_group": {
+    "sources": [
+      "Q28",
+      "I38"
+    ],
+    "rule": "同一次真实现有格预约，计算各自合法结果时长并取最短，不相乘；I38=.10秒胜过Q28=max(.15,base*.6)时只花I38的一次预算，不再扣Q28电量或冷却。",
+    "no_benefit_no_modifier_charge": true,
+    "preserved": [
+      "old cell inactive during rearm",
+      "actual cell count",
+      "cell history",
+      "real phase origin and arrival",
+      "2-second zone damage deadline"
+    ]
+  }
+}

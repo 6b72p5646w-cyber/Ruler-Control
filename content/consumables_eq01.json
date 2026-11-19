@@ -1,0 +1,1598 @@
+{
+  "version": "EQ01",
+  "baseline_commit": "1932ab78118e9363fdd73124663aa4f5b0a4ea24",
+  "runtime_integrated": false,
+  "status": "complete_special_consumable_design_pending_world_adapters_and_playtest",
+  "scope": "18 new single-use special buffs I25–I42; legacy I01–I24 remain in items.json, I22/I23 remain disabled.",
+  "shared_contract": "content/equipment_contracts_eq01.json",
+  "count": 18,
+  "rarity_counts": {
+    "common": 6,
+    "uncommon": 8,
+    "rare": 4
+  },
+  "use_clock": "world_seconds, not game-clock prep minutes; true pause suspends all matching world clocks",
+  "carry_contract": {
+    "ordinary_inventory_slots_each_unit": 1,
+    "special_units_per_shift": 4,
+    "one_bag_exception_max_units": 6,
+    "quick_use_slots": 2,
+    "load_manifest_at_opening": true,
+    "during_business_restock": false,
+    "unused_return_to_persistent_personal_storage": true,
+    "trap_inventory_separate": true
+  },
+  "shared_invariants": [
+    "Each actually consumed item unit is a unique paid source; use sequence and effect transaction are idempotent.",
+    "No persistent floor installation, tower/trap construction, ammunition refill, repair, powered appliance node or collider is created.",
+    "Only currently manifested hostile independent combat pools accept hostile effects; normal humans, task objects, dormant actors, noncombat source objects and exited/suppressed bodies do not.",
+    "All ranges and centers obey actual map geometry; no shelf-occupied damage origin or wall-through effect.",
+    "Positive actual electric damage retains uncapped feedback; pure paid charge is separately declared, never charged twice as a damage proc.",
+    "Generic status additions cannot create main-rule receipts, identity evidence, actual source objects or safe handover.",
+    "Full inventory does not destroy won items; only actual pre-shift carried units can be consumed in business.",
+    "Repeated temporary buffs never add duration or independent identical potency; independent source expiry is preserved, strongest live value is used.",
+    "New entry eligibility is design-only until the concrete handler and every advertised consumer exist in the current build."
+  ],
+  "items": [
+    {
+      "id": "I25",
+      "name": "疾步气泡",
+      "rarity": "common",
+      "design_origin": "original_game_item",
+      "runtime_integrated": false,
+      "design_candidate_enabled": true,
+      "runtime_acquisition_enabled": false,
+      "consumable": true,
+      "category": "special_buff",
+      "role": "player_mobility",
+      "shop_unit_price": {
+        "coin": 8,
+        "ledger": "current_week_coin"
+      },
+      "lottery_reward_units": 2,
+      "acquisition": {
+        "lottery_candidate": true,
+        "pre_shift_shop": true,
+        "unlock": "special_item_basics",
+        "no_lottery_only_power": true,
+        "handler_and_consumer_required": true,
+        "essential_rule_tool": false
+      },
+      "summary": "8秒内空手普通步行增加0.15格/秒，上限3.30；抢过一个转角，不改变冲刺或搬重物速度。",
+      "use": {
+        "phase": "active_business",
+        "cast_world_seconds": 0.5,
+        "hands_required": 1,
+        "stationary": true,
+        "can_use_while_heavy_carry": false,
+        "cast_modifier_floor_seconds": 0.25,
+        "input_recovery_world_seconds": 1,
+        "target": "self",
+        "range_tiles": 0,
+        "radius_tiles": null,
+        "consume_units": 1,
+        "commit": "revalidate target/actual object/LOS/effect capability, then debit this carried instance and apply exactly one effect transaction",
+        "cancel_before_commit": "no effect/no unit debit; elapsed world time is not refunded",
+        "target_invalid_at_commit": "no effect/no unit debit; no automatic replacement target",
+        "effect_duration_world_seconds": 8,
+        "after_successful_commit": "no refund for later expiry, dodge, suppression, departure or death",
+        "dedupe_key": "campaign_id:shift_id:item_instance_id:use_sequence",
+        "save_reload": "committed units, active effects, absolute expiries and pending once budgets restore together; no reroll or renewed duration"
+      },
+      "parameters": {
+        "walk_bonus_tiles_s": 0.15,
+        "walk_cap_tiles_s": 3.3,
+        "modifier_group": "temporary_walk_haste",
+        "stacking": "maximum live bonus, no duration addition",
+        "sprint_bonus": 0,
+        "heavy_carry_bonus": 0,
+        "mobility_cooldown_reset": false
+      },
+      "consumer": "EQ01 ordinary empty-hand walking speed consumer; Q14 3.15 becomes3.30, baseline3.0 becomes3.15; baseline sprint4.2/2s/30s and any explicitly equipped shoe modification are unaffected by this item.",
+      "paid_effect_budget": {
+        "one_self_buff": true,
+        "max_duration_s": 8
+      },
+      "tower_synergies": [
+        "T07.B1",
+        "T10.A1"
+      ],
+      "monster_examples": [
+        "F12",
+        "F27"
+      ],
+      "limits": [
+        "不跨墙、不穿怪、不解除定身。",
+        "效果在停步、受击、冲刺和读条时照常计时；不增加冲刺持续时间或刷新30秒机动冷却。",
+        "普通重箱、登记任务肉与其他双手搬运走各自既定速度；没有同一帧放下再拿起的速度快照。"
+      ],
+      "shared_contract": "content/equipment_contracts_eq01.json",
+      "source_contracts": [
+        "content/combat_contracts_td05.json",
+        "content/monster_contracts_md01.json"
+      ]
+    },
+    {
+      "id": "I26",
+      "name": "稳手护膜",
+      "rarity": "common",
+      "design_origin": "original_game_item",
+      "runtime_integrated": false,
+      "design_candidate_enabled": true,
+      "runtime_acquisition_enabled": false,
+      "consumable": true,
+      "category": "special_buff",
+      "role": "player_work_support",
+      "shop_unit_price": {
+        "coin": 8,
+        "ledger": "current_week_coin"
+      },
+      "lottery_reward_units": 2,
+      "acquisition": {
+        "lottery_candidate": true,
+        "pre_shift_shop": true,
+        "unlock": "special_item_basics",
+        "no_lottery_only_power": true,
+        "handler_and_consumer_required": true,
+        "essential_rule_tool": false
+      },
+      "summary": "8秒内进行真实操作时，下一次原本会因普通轻伤而中断该操作的受击，不打断这次操作；伤害和轻伤仍照常产生。",
+      "use": {
+        "phase": "active_business",
+        "cast_world_seconds": 0.5,
+        "hands_required": 1,
+        "stationary": true,
+        "can_use_while_heavy_carry": false,
+        "cast_modifier_floor_seconds": 0.25,
+        "input_recovery_world_seconds": 1,
+        "target": "self",
+        "range_tiles": 0,
+        "radius_tiles": null,
+        "consume_units": 1,
+        "commit": "revalidate target/actual object/LOS/effect capability, then debit this carried instance and apply exactly one effect transaction",
+        "cancel_before_commit": "no effect/no unit debit; elapsed world time is not refunded",
+        "target_invalid_at_commit": "no effect/no unit debit; no automatic replacement target",
+        "effect_duration_world_seconds": 8,
+        "after_successful_commit": "no refund for later expiry, dodge, suppression, departure or death",
+        "dedupe_key": "campaign_id:shift_id:item_instance_id:use_sequence",
+        "save_reload": "committed units, active effects, absolute expiries and pending once budgets restore together; no reroll or renewed duration"
+      },
+      "parameters": {
+        "protected_interrupts": 1,
+        "supported_interrupt_reason": "ordinary_minor_hit",
+        "explicit_initial_action_adapters": [
+          "F02:observe_edges",
+          "F02:check_record",
+          "F13:take_meat",
+          "F13:store_close",
+          "F27:give_a",
+          "F27:give_b"
+        ],
+        "modifier_group": "one_hit_work_composure",
+        "stacking": "one token only; strongest live token, no token count addition",
+        "prevents_san_loss": false,
+        "prevents_injury": false,
+        "prevents_forced_move": false,
+        "changes_action_duration": false
+      },
+      "consumer": "New explicit work interrupt filter consumes one token only when a real progressing action would otherwise cancel solely for ordinary_minor_hit; all world requirements are rechecked normally.",
+      "paid_effect_budget": {
+        "work_interrupt_tokens": 1,
+        "expires_s": 8
+      },
+      "tower_synergies": [
+        "T05.A2",
+        "T08.A1"
+      ],
+      "monster_examples": [
+        "F13",
+        "F27"
+      ],
+      "limits": [
+        "首批只适配F02观察/核记录、F13取肉/合柜、F27两批交付；每个适配器必须证实存在普通轻伤中断分支，未实现的分支不宣传可用。其他主规则不能因都叫操作而自动获得保护。",
+        "仅吞掉一次普通受击中断原因；不吞SAN归零、重伤、强制位移、恐慌强制状态、玩家主动取消或本条规则要求的失败。",
+        "距离、视线、朝向、实物ID、权限或目标状态失效仍立即中断；不保留失效操作的进度。",
+        "没有在操作中、受击未产生中断或被既有2秒受击保护挡住时不消耗该次保护；也不延长受击保护。",
+        "可先用再双手拿肉，但不会替玩家拿肉、走路、合柜或制造成功回执。"
+      ],
+      "shared_contract": "content/equipment_contracts_eq01.json",
+      "source_contracts": [
+        "content/combat_contracts_td05.json",
+        "content/monster_contracts_md01.json"
+      ]
+    },
+    {
+      "id": "I27",
+      "name": "易感显影剂",
+      "rarity": "common",
+      "design_origin": "original_game_item",
+      "runtime_integrated": false,
+      "design_candidate_enabled": true,
+      "runtime_acquisition_enabled": false,
+      "consumable": true,
+      "category": "special_buff",
+      "role": "monster_threshold_setup",
+      "shop_unit_price": {
+        "coin": 8,
+        "ledger": "current_week_coin"
+      },
+      "lottery_reward_units": 2,
+      "acquisition": {
+        "lottery_candidate": true,
+        "pre_shift_shop": true,
+        "unlock": "special_item_basics",
+        "no_lottery_only_power": true,
+        "handler_and_consumer_required": true,
+        "essential_rule_tool": false
+      },
+      "summary": "给一个已显形敌对血池施加8秒易感：热、寒、咒、电的爆发门槛各减少1。",
+      "use": {
+        "phase": "active_business",
+        "cast_world_seconds": 0.5,
+        "hands_required": 1,
+        "stationary": true,
+        "can_use_while_heavy_carry": false,
+        "cast_modifier_floor_seconds": 0.25,
+        "input_recovery_world_seconds": 1,
+        "target": "one_manifested_hostile_independent_pool",
+        "range_tiles": 4,
+        "radius_tiles": null,
+        "consume_units": 1,
+        "commit": "revalidate target/actual object/LOS/effect capability, then debit this carried instance and apply exactly one effect transaction",
+        "cancel_before_commit": "no effect/no unit debit; elapsed world time is not refunded",
+        "target_invalid_at_commit": "no effect/no unit debit; no automatic replacement target",
+        "effect_duration_world_seconds": 8,
+        "after_successful_commit": "no refund for later expiry, dodge, suppression, departure or death",
+        "dedupe_key": "campaign_id:shift_id:item_instance_id:use_sequence",
+        "save_reload": "committed units, active effects, absolute expiries and pending once budgets restore together; no reroll or renewed duration"
+      },
+      "parameters": {
+        "status": "susceptible",
+        "duration_s": 8,
+        "threshold_delta": -1,
+        "boolean_not_stack": true,
+        "affected_meters": [
+          "heat",
+          "frost",
+          "curse",
+          "electric"
+        ],
+        "poison_effect": null,
+        "direct_damage": 0
+      },
+      "consumer": "TD05 susceptibility fresh-application event, after normal expiry processing; heat8→7/frost4→3/curse4→3/electric5→4. Already-held paid marks may meet the new threshold; no new mark or damage is invented.",
+      "paid_effect_budget": {
+        "susceptible_sources": 1,
+        "status_duration_s": 8
+      },
+      "tower_synergies": [
+        "T01.B1",
+        "T03.B1",
+        "T08.A1",
+        "T09.A1"
+      ],
+      "monster_examples": [
+        "F12",
+        "S28"
+      ],
+      "limits": [
+        "多源易感只保持布尔状态，不减到−2。",
+        "永久积毒没有爆发门槛，易感不提高毒量、毒伤、传播票或成熟预算。",
+        "没有伤害包、不自动点燃/冻结/失攻/过载；只能让已经支付的真实层数按新门槛结算。",
+        "重复物件可形成新的付费施加，但同一使用回执不能重复触发；更长且同强度的既有易感使本次无实际收益时拒绝消耗。"
+      ],
+      "shared_contract": "content/equipment_contracts_eq01.json",
+      "source_contracts": [
+        "content/combat_contracts_td05.json",
+        "content/monster_contracts_md01.json"
+      ]
+    },
+    {
+      "id": "I28",
+      "name": "热印喷剂",
+      "rarity": "common",
+      "design_origin": "original_game_item",
+      "runtime_integrated": false,
+      "design_candidate_enabled": true,
+      "runtime_acquisition_enabled": false,
+      "consumable": true,
+      "category": "special_buff",
+      "role": "monster_area_heat_setup",
+      "shop_unit_price": {
+        "coin": 8,
+        "ledger": "current_week_coin"
+      },
+      "lottery_reward_units": 2,
+      "acquisition": {
+        "lottery_candidate": true,
+        "pre_shift_shop": true,
+        "unlock": "special_item_basics",
+        "no_lottery_only_power": true,
+        "handler_and_consumer_required": true,
+        "essential_rule_tool": false
+      },
+      "summary": "向可见合法位置喷出一次半径1.5格热印；范围内所有合法独立血池各得到3枚热印，没有持续地面残留。",
+      "use": {
+        "phase": "active_business",
+        "cast_world_seconds": 0.5,
+        "hands_required": 1,
+        "stationary": true,
+        "can_use_while_heavy_carry": false,
+        "cast_modifier_floor_seconds": 0.25,
+        "input_recovery_world_seconds": 1,
+        "target": "visible_legal_center_then_all_current_legal_pools_in_radius",
+        "range_tiles": 4,
+        "radius_tiles": 1.5,
+        "consume_units": 1,
+        "commit": "revalidate target/actual object/LOS/effect capability, then debit this carried instance and apply exactly one effect transaction",
+        "cancel_before_commit": "no effect/no unit debit; elapsed world time is not refunded",
+        "target_invalid_at_commit": "no effect/no unit debit; no automatic replacement target",
+        "effect_duration_world_seconds": 6,
+        "after_successful_commit": "no refund for later expiry, dodge, suppression, departure or death",
+        "dedupe_key": "campaign_id:shift_id:item_instance_id:use_sequence",
+        "save_reload": "committed units, active effects, absolute expiries and pending once budgets restore together; no reroll or renewed duration"
+      },
+      "parameters": {
+        "status": "heat",
+        "amount_per_pool": 3,
+        "mark_duration_s": 6,
+        "burn_payload": {
+          "dps": 2,
+          "duration_s": 4,
+          "vulnerability": 0.15
+        },
+        "target_cap": null,
+        "direct_damage": 0,
+        "continuous_field": false,
+        "supported_layers": [
+          "ground",
+          "low_air"
+        ]
+      },
+      "consumer": "One paid instantaneous status pulse; use actual 2D clipped circle radius1.5 and declared ground/low_air layers, with visibility from legal center; no new metric height system. Dedupe shared HP pools. Each heat unit keeps this item source burn payload and6s deadline; TD05 threshold consumes actual weighted source marks.",
+      "paid_effect_budget": {
+        "paid_aoe_pulses": 1,
+        "marks_per_eligible_pool": 3,
+        "unbounded_target_count_within_actual_footprint": true
+      },
+      "tower_synergies": [
+        "T07.A1",
+        "T01.B1"
+      ],
+      "monster_examples": [
+        "S28",
+        "S32"
+      ],
+      "limits": [
+        "中心必须为真实可达的非货架占位，玩家至中心与中心至受体的作用射线均有效；不是穿柜全图喷涂。",
+        "没有任意3目标上限；同一个共享血池的多个模型只获一次3热。",
+        "混入塔的热印时按已消费各来源的原生烧伤/易伤贡献加权，不把本剂偷换成强塔25%易伤。",
+        "不制造环境火、燃料或S08可食用热源；不融化友方冻结。"
+      ],
+      "shared_contract": "content/equipment_contracts_eq01.json",
+      "source_contracts": [
+        "content/combat_contracts_td05.json",
+        "content/monster_contracts_md01.json"
+      ]
+    },
+    {
+      "id": "I29",
+      "name": "寒凝珠",
+      "rarity": "common",
+      "design_origin": "original_game_item",
+      "runtime_integrated": false,
+      "design_candidate_enabled": true,
+      "runtime_acquisition_enabled": false,
+      "consumable": true,
+      "category": "special_buff",
+      "role": "monster_frost_setup",
+      "shop_unit_price": {
+        "coin": 8,
+        "ledger": "current_week_coin"
+      },
+      "lottery_reward_units": 2,
+      "acquisition": {
+        "lottery_candidate": true,
+        "pre_shift_shop": true,
+        "unlock": "special_item_basics",
+        "no_lottery_only_power": true,
+        "handler_and_consumer_required": true,
+        "essential_rule_tool": false
+      },
+      "summary": "给一个可见敌对血池添加2枚寒意；先减速，达到共享门槛才申请冻结。",
+      "use": {
+        "phase": "active_business",
+        "cast_world_seconds": 0.5,
+        "hands_required": 1,
+        "stationary": true,
+        "can_use_while_heavy_carry": false,
+        "cast_modifier_floor_seconds": 0.25,
+        "input_recovery_world_seconds": 1,
+        "target": "one_manifested_hostile_independent_pool",
+        "range_tiles": 4,
+        "radius_tiles": null,
+        "consume_units": 1,
+        "commit": "revalidate target/actual object/LOS/effect capability, then debit this carried instance and apply exactly one effect transaction",
+        "cancel_before_commit": "no effect/no unit debit; elapsed world time is not refunded",
+        "target_invalid_at_commit": "no effect/no unit debit; no automatic replacement target",
+        "effect_duration_world_seconds": 6,
+        "after_successful_commit": "no refund for later expiry, dodge, suppression, departure or death",
+        "dedupe_key": "campaign_id:shift_id:item_instance_id:use_sequence",
+        "save_reload": "committed units, active effects, absolute expiries and pending once budgets restore together; no reroll or renewed duration"
+      },
+      "parameters": {
+        "status": "frost",
+        "amount": 2,
+        "mark_duration_s": 6,
+        "freeze_payload_s": {
+          "normal": 1,
+          "elite": 0.6
+        },
+        "direct_damage": 0,
+        "supports_target_heights": [
+          "ground",
+          "low_air",
+          "high_air"
+        ]
+      },
+      "consumer": "Explicit paid cold application with full TD05 frost threshold/attempt cooldown/control budget; keeps target current height and consumes marks only under normal state machine.",
+      "paid_effect_budget": {
+        "cold_marks": 2,
+        "freeze_attempt_payload_s": {
+          "normal": 1,
+          "elite": 0.6
+        }
+      },
+      "tower_synergies": [
+        "T03.B1",
+        "T03.B2",
+        "T07.B1"
+      ],
+      "monster_examples": [
+        "F13",
+        "F27"
+      ],
+      "limits": [
+        "普通4层、易感3层；不会仅凭投出一珠就保证冻结。",
+        "冻结尝试共享8秒冷却与普通1.5秒/精英0.8秒整段控制预算；失败不囤出下一段免预算冻结。",
+        "冷却或免控中使用按TD05寒痕/层数保留规则处理；高空被冻结仍在高空，不自动落到地面夹具。"
+      ],
+      "shared_contract": "content/equipment_contracts_eq01.json",
+      "source_contracts": [
+        "content/combat_contracts_td05.json",
+        "content/monster_contracts_md01.json"
+      ]
+    },
+    {
+      "id": "I30",
+      "name": "缓攻咒签",
+      "rarity": "common",
+      "design_origin": "original_game_item",
+      "runtime_integrated": false,
+      "design_candidate_enabled": true,
+      "runtime_acquisition_enabled": false,
+      "consumable": true,
+      "category": "special_buff",
+      "role": "monster_attack_pressure_setup",
+      "shop_unit_price": {
+        "coin": 8,
+        "ledger": "current_week_coin"
+      },
+      "lottery_reward_units": 2,
+      "acquisition": {
+        "lottery_candidate": true,
+        "pre_shift_shop": true,
+        "unlock": "special_item_basics",
+        "no_lottery_only_power": true,
+        "handler_and_consumer_required": true,
+        "essential_rule_tool": false
+      },
+      "summary": "给一个可见敌对血池添加2枚诅咒印，先降低攻击；达到阈值后由真实攻击提交触发失手判定。",
+      "use": {
+        "phase": "active_business",
+        "cast_world_seconds": 0.5,
+        "hands_required": 1,
+        "stationary": true,
+        "can_use_while_heavy_carry": false,
+        "cast_modifier_floor_seconds": 0.25,
+        "input_recovery_world_seconds": 1,
+        "target": "one_manifested_hostile_independent_pool",
+        "range_tiles": 4,
+        "radius_tiles": null,
+        "consume_units": 1,
+        "commit": "revalidate target/actual object/LOS/effect capability, then debit this carried instance and apply exactly one effect transaction",
+        "cancel_before_commit": "no effect/no unit debit; elapsed world time is not refunded",
+        "target_invalid_at_commit": "no effect/no unit debit; no automatic replacement target",
+        "effect_duration_world_seconds": 10,
+        "after_successful_commit": "no refund for later expiry, dodge, suppression, departure or death",
+        "dedupe_key": "campaign_id:shift_id:item_instance_id:use_sequence",
+        "save_reload": "committed units, active effects, absolute expiries and pending once budgets restore together; no reroll or renewed duration"
+      },
+      "parameters": {
+        "status": "curse",
+        "amount": 2,
+        "mark_duration_s": 10,
+        "outgoing_reduction_per_mark": 0.04,
+        "direct_damage": 0,
+        "misfortune_probability": {
+          "normal": 0.3,
+          "elite": 0.2
+        }
+      },
+      "consumer": "Two paid TD05 curse marks; stable attack_id RNG once per real attack, threshold4 or3 with susceptible, ordinary trigger cooldown8s.",
+      "paid_effect_budget": {
+        "curse_marks": 2
+      },
+      "tower_synergies": [
+        "T08.A1",
+        "T08.A2"
+      ],
+      "monster_examples": [
+        "S14",
+        "S32"
+      ],
+      "limits": [
+        "不取消已经发出的独立弹体，不改变规则错误后果、任务截止或环境SAN损失。",
+        "满层续印替换真实旧印，不把全部旧层的期限刷新。",
+        "失攻后不生成命中、电荷、反击躲避或击杀回执；读档不会重掷同一attack_id。"
+      ],
+      "shared_contract": "content/equipment_contracts_eq01.json",
+      "source_contracts": [
+        "content/combat_contracts_td05.json",
+        "content/monster_contracts_md01.json"
+      ]
+    },
+    {
+      "id": "I31",
+      "name": "电容贴",
+      "rarity": "uncommon",
+      "design_origin": "original_game_item",
+      "runtime_integrated": false,
+      "design_candidate_enabled": true,
+      "runtime_acquisition_enabled": false,
+      "consumable": true,
+      "category": "special_buff",
+      "role": "monster_electric_single_seed",
+      "shop_unit_price": {
+        "coin": 14,
+        "ledger": "current_week_coin"
+      },
+      "lottery_reward_units": 1,
+      "acquisition": {
+        "lottery_candidate": true,
+        "pre_shift_shop": true,
+        "unlock": "special_item_basics",
+        "no_lottery_only_power": true,
+        "handler_and_consumer_required": true,
+        "essential_rule_tool": false
+      },
+      "summary": "向一个真实敌对血池注入3单位电荷；以D=6的完整原生效力接入现有电链。",
+      "use": {
+        "phase": "active_business",
+        "cast_world_seconds": 0.5,
+        "hands_required": 1,
+        "stationary": true,
+        "can_use_while_heavy_carry": false,
+        "cast_modifier_floor_seconds": 0.25,
+        "input_recovery_world_seconds": 1,
+        "target": "one_manifested_hostile_independent_pool",
+        "range_tiles": 4,
+        "radius_tiles": null,
+        "consume_units": 1,
+        "commit": "revalidate target/actual object/LOS/effect capability, then debit this carried instance and apply exactly one effect transaction",
+        "cancel_before_commit": "no effect/no unit debit; elapsed world time is not refunded",
+        "target_invalid_at_commit": "no effect/no unit debit; no automatic replacement target",
+        "effect_duration_world_seconds": 8,
+        "after_successful_commit": "no refund for later expiry, dodge, suppression, departure or death",
+        "dedupe_key": "campaign_id:shift_id:item_instance_id:use_sequence",
+        "save_reload": "committed units, active effects, absolute expiries and pending once budgets restore together; no reroll or renewed duration"
+      },
+      "parameters": {
+        "status": "electric_charge",
+        "charge_units": 3,
+        "source_overload_D": 6,
+        "charge_expiry_s": 8,
+        "direct_damage": 0,
+        "independent_paid_charge_pulse": true
+      },
+      "consumer": "TD05 explicit paid charge application, distinct from electric positive-damage feedback. Exactly3 units at D6 and original now+8 expiry; process thresholds after atomic application.",
+      "paid_effect_budget": {
+        "charge_units": 3,
+        "potency_mass": 18,
+        "expiry_s": 8
+      },
+      "tower_synergies": [
+        "T09.A1",
+        "T09.A2",
+        "T09.B1"
+      ],
+      "monster_examples": [
+        "F12",
+        "S28"
+      ],
+      "limits": [
+        "普通5电/易感4电门槛不变，3电本身不保证过载；与已持电荷共同结算。",
+        "允许在MD01的1HP致死门槛上付费注入，随后过载若造成0实际伤害就不凭空回电。",
+        "不是一次命中再额外加通用1电：该独立脉冲总计正好3电。",
+        "不生成电器、虚拟导体或人体电节点；后续合法电伤反馈仍无全波电荷总上限。"
+      ],
+      "shared_contract": "content/equipment_contracts_eq01.json",
+      "source_contracts": [
+        "content/combat_contracts_td05.json",
+        "content/monster_contracts_md01.json"
+      ]
+    },
+    {
+      "id": "I32",
+      "name": "浓缩墨毒",
+      "rarity": "uncommon",
+      "design_origin": "original_game_item",
+      "runtime_integrated": false,
+      "design_candidate_enabled": true,
+      "runtime_acquisition_enabled": false,
+      "consumable": true,
+      "category": "special_buff",
+      "role": "monster_permanent_poison",
+      "shop_unit_price": {
+        "coin": 14,
+        "ledger": "current_week_coin"
+      },
+      "lottery_reward_units": 1,
+      "acquisition": {
+        "lottery_candidate": true,
+        "pre_shift_shop": true,
+        "unlock": "special_item_basics",
+        "no_lottery_only_power": true,
+        "handler_and_consumer_required": true,
+        "essential_rule_tool": false
+      },
+      "summary": "给一个敌对血池加入q=4的永久毒量，基础新增毒伤2/秒；转场与短暂失去视线不清除。",
+      "use": {
+        "phase": "active_business",
+        "cast_world_seconds": 0.5,
+        "hands_required": 1,
+        "stationary": true,
+        "can_use_while_heavy_carry": false,
+        "cast_modifier_floor_seconds": 0.25,
+        "input_recovery_world_seconds": 1,
+        "target": "one_manifested_hostile_independent_pool",
+        "range_tiles": 4,
+        "radius_tiles": null,
+        "consume_units": 1,
+        "commit": "revalidate target/actual object/LOS/effect capability, then debit this carried instance and apply exactly one effect transaction",
+        "cancel_before_commit": "no effect/no unit debit; elapsed world time is not refunded",
+        "target_invalid_at_commit": "no effect/no unit debit; no automatic replacement target",
+        "effect_duration_world_seconds": null,
+        "after_successful_commit": "no refund for later expiry, dodge, suppression, departure or death",
+        "dedupe_key": "campaign_id:shift_id:item_instance_id:use_sequence",
+        "save_reload": "committed units, active effects, absolute expiries and pending once budgets restore together; no reroll or renewed duration"
+      },
+      "parameters": {
+        "status": "poison",
+        "new_q": 4,
+        "raw_dps_per_q": 0.5,
+        "direct_damage": 0,
+        "maturity_extra_q": 0,
+        "contagion_tickets": 0,
+        "death_inheritable": false,
+        "source_kind": "paid_consumable_primary"
+      },
+      "consumer": "EQ01 explicitly extends qualified poison primary sources with a genuinely consumed item instance. This fixed new q4 joins TD05 aggregate exactly once; item has no maturity, propagation or death inheritance entitlement.",
+      "paid_effect_budget": {
+        "new_q": 4,
+        "once_per_consumed_instance": true
+      },
+      "tower_synergies": [
+        "T02.A1",
+        "T04.B1",
+        "T07.A1"
+      ],
+      "monster_examples": [
+        "F12",
+        "F27"
+      ],
+      "limits": [
+        "没有旧毒总量复制、即时结算全部未来毒伤或额外传播票。",
+        "按当前灵防与易伤逐段结算；T02.B2不能继承这份未被该塔原生标记的毒。",
+        "分裂时q4的已分配贡献守恒；压制阶段按MD01暂停tick，真终态清除。",
+        "普通消耗品重复使用可以各增加真实支付的q4，受实际带入数量限制，不为永久毒设置新全局上限。"
+      ],
+      "shared_contract": "content/equipment_contracts_eq01.json",
+      "source_contracts": [
+        "content/combat_contracts_td05.json",
+        "content/monster_contracts_md01.json"
+      ]
+    },
+    {
+      "id": "I33",
+      "name": "开缝粉",
+      "rarity": "uncommon",
+      "design_origin": "original_game_item",
+      "runtime_integrated": false,
+      "design_candidate_enabled": true,
+      "runtime_acquisition_enabled": false,
+      "consumable": true,
+      "category": "special_buff",
+      "role": "monster_physical_break",
+      "shop_unit_price": {
+        "coin": 14,
+        "ledger": "current_week_coin"
+      },
+      "lottery_reward_units": 1,
+      "acquisition": {
+        "lottery_candidate": true,
+        "pre_shift_shop": true,
+        "unlock": "special_item_basics",
+        "no_lottery_only_power": true,
+        "handler_and_consumer_required": true,
+        "essential_rule_tool": false
+      },
+      "summary": "8秒内降低一个敌人的物防20个百分点，为狙击和实体攻击打开窗口。",
+      "use": {
+        "phase": "active_business",
+        "cast_world_seconds": 0.5,
+        "hands_required": 1,
+        "stationary": true,
+        "can_use_while_heavy_carry": false,
+        "cast_modifier_floor_seconds": 0.25,
+        "input_recovery_world_seconds": 1,
+        "target": "one_manifested_hostile_independent_pool",
+        "range_tiles": 4,
+        "radius_tiles": null,
+        "consume_units": 1,
+        "commit": "revalidate target/actual object/LOS/effect capability, then debit this carried instance and apply exactly one effect transaction",
+        "cancel_before_commit": "no effect/no unit debit; elapsed world time is not refunded",
+        "target_invalid_at_commit": "no effect/no unit debit; no automatic replacement target",
+        "effect_duration_world_seconds": 8,
+        "after_successful_commit": "no refund for later expiry, dodge, suppression, departure or death",
+        "dedupe_key": "campaign_id:shift_id:item_instance_id:use_sequence",
+        "save_reload": "committed units, active effects, absolute expiries and pending once budgets restore together; no reroll or renewed duration"
+      },
+      "parameters": {
+        "status": "generic_physical_break",
+        "defense_reduction_pp": 0.2,
+        "duration_s": 8,
+        "stacking": "strongest live generic physical break; no additive duplicates",
+        "minimum_effective_defense": 0,
+        "direct_damage": 0
+      },
+      "consumer": "TD05 defense order: permanent rule base → strongest live generic physical break → source penetration → clamp0..75%. Each source owns its potency and expiry.",
+      "paid_effect_budget": {
+        "break_sources": 1,
+        "strength_pp": 0.2,
+        "duration_s": 8
+      },
+      "tower_synergies": [
+        "T01.A1",
+        "T01.A2",
+        "T03.B2"
+      ],
+      "monster_examples": [
+        "F12",
+        "F27"
+      ],
+      "limits": [
+        "不改变灵防，不解除致死门槛，不把当前HP等效缩小。",
+        "与同类破甲只取最强；不会把临时20个百分点写成永久机制事实。",
+        "若目标物防为0且没有可生效的物理减防结果，不能消耗成无效粉；强来源到期后只剩本剂本身尚有效的20点。"
+      ],
+      "shared_contract": "content/equipment_contracts_eq01.json",
+      "source_contracts": [
+        "content/combat_contracts_td05.json",
+        "content/monster_contracts_md01.json"
+      ]
+    },
+    {
+      "id": "I34",
+      "name": "灵壳溶剂",
+      "rarity": "uncommon",
+      "design_origin": "original_game_item",
+      "runtime_integrated": false,
+      "design_candidate_enabled": true,
+      "runtime_acquisition_enabled": false,
+      "consumable": true,
+      "category": "special_buff",
+      "role": "monster_spiritual_break",
+      "shop_unit_price": {
+        "coin": 14,
+        "ledger": "current_week_coin"
+      },
+      "lottery_reward_units": 1,
+      "acquisition": {
+        "lottery_candidate": true,
+        "pre_shift_shop": true,
+        "unlock": "special_item_basics",
+        "no_lottery_only_power": true,
+        "handler_and_consumer_required": true,
+        "essential_rule_tool": false
+      },
+      "summary": "8秒内降低一个敌人的灵防15个百分点，强化真实毒伤、光束与电击的输出。",
+      "use": {
+        "phase": "active_business",
+        "cast_world_seconds": 0.5,
+        "hands_required": 1,
+        "stationary": true,
+        "can_use_while_heavy_carry": false,
+        "cast_modifier_floor_seconds": 0.25,
+        "input_recovery_world_seconds": 1,
+        "target": "one_manifested_hostile_independent_pool",
+        "range_tiles": 4,
+        "radius_tiles": null,
+        "consume_units": 1,
+        "commit": "revalidate target/actual object/LOS/effect capability, then debit this carried instance and apply exactly one effect transaction",
+        "cancel_before_commit": "no effect/no unit debit; elapsed world time is not refunded",
+        "target_invalid_at_commit": "no effect/no unit debit; no automatic replacement target",
+        "effect_duration_world_seconds": 8,
+        "after_successful_commit": "no refund for later expiry, dodge, suppression, departure or death",
+        "dedupe_key": "campaign_id:shift_id:item_instance_id:use_sequence",
+        "save_reload": "committed units, active effects, absolute expiries and pending once budgets restore together; no reroll or renewed duration"
+      },
+      "parameters": {
+        "status": "generic_spiritual_break",
+        "defense_reduction_pp": 0.15,
+        "duration_s": 8,
+        "stacking": "strongest live generic spiritual break; no additive duplicates",
+        "minimum_effective_defense": 0,
+        "direct_damage": 0
+      },
+      "consumer": "TD05 strongest live generic ward-break slot; current defense is read at each real direct/DoT packet, so attached poison benefits only during actual live debuff.",
+      "paid_effect_budget": {
+        "break_sources": 1,
+        "strength_pp": 0.15,
+        "duration_s": 8
+      },
+      "tower_synergies": [
+        "T02.A1",
+        "T04.B1",
+        "T09.A1"
+      ],
+      "monster_examples": [
+        "S08",
+        "S40"
+      ],
+      "limits": [
+        "不增加永久毒量，不降低状态爆发门槛，不复制过载或刷新电荷期限。",
+        "已经压制、离场、不可攻击的异常源不能作为施药目标；S32陶瓮本身无血池。",
+        "多份本剂不相加到30%/45%，更强来源到期不把其强度续给本剂。"
+      ],
+      "shared_contract": "content/equipment_contracts_eq01.json",
+      "source_contracts": [
+        "content/combat_contracts_td05.json",
+        "content/monster_contracts_md01.json"
+      ]
+    },
+    {
+      "id": "I35",
+      "name": "截句封签",
+      "rarity": "uncommon",
+      "design_origin": "original_game_item",
+      "runtime_integrated": false,
+      "design_candidate_enabled": true,
+      "runtime_acquisition_enabled": false,
+      "consumable": true,
+      "category": "special_buff",
+      "role": "monster_preparation_interrupt",
+      "shop_unit_price": {
+        "coin": 14,
+        "ledger": "current_week_coin"
+      },
+      "lottery_reward_units": 1,
+      "acquisition": {
+        "lottery_candidate": true,
+        "pre_shift_shop": true,
+        "unlock": "special_item_basics",
+        "no_lottery_only_power": true,
+        "handler_and_consumer_required": true,
+        "essential_rule_tool": false
+      },
+      "summary": "打断一个正处于可封特殊能力前摇的目标，并施加1秒短封，争取真实操作机会。",
+      "use": {
+        "phase": "active_business",
+        "cast_world_seconds": 0.5,
+        "hands_required": 1,
+        "stationary": true,
+        "can_use_while_heavy_carry": false,
+        "cast_modifier_floor_seconds": 0.25,
+        "input_recovery_world_seconds": 1,
+        "target": "one_manifested_hostile_pool_with_current_sealable_uncommitted_special",
+        "range_tiles": 4,
+        "radius_tiles": null,
+        "consume_units": 1,
+        "commit": "revalidate target/actual object/LOS/effect capability, then debit this carried instance and apply exactly one effect transaction",
+        "cancel_before_commit": "no effect/no unit debit; elapsed world time is not refunded",
+        "target_invalid_at_commit": "no effect/no unit debit; no automatic replacement target",
+        "effect_duration_world_seconds": 1,
+        "after_successful_commit": "no refund for later expiry, dodge, suppression, departure or death",
+        "dedupe_key": "campaign_id:shift_id:item_instance_id:use_sequence",
+        "save_reload": "committed units, active effects, absolute expiries and pending once budgets restore together; no reroll or renewed duration"
+      },
+      "parameters": {
+        "status": "generic_seal",
+        "duration_s": 1,
+        "requires_current_special_preparation": true,
+        "initial_registered_ability_ids": [
+          "F27_signature",
+          "craft_replica",
+          "S40_ability_1"
+        ],
+        "cancels_uncommitted_named_special": true,
+        "ordinary_walk_disabled": false,
+        "ordinary_attack_disabled": false,
+        "direct_damage": 0
+      },
+      "consumer": "Use the same registered sealability consumer as T08.B: actual ability_id must be currently preparing and not committed; generic seal consumes shared3s/8s budget and3s post-seal immunity.",
+      "paid_effect_budget": {
+        "seal_request_s": 1,
+        "global_seal_budget_unchanged": true
+      },
+      "tower_synergies": [
+        "T08.B1",
+        "T07.B1",
+        "T01.A1"
+      ],
+      "monster_examples": [
+        "F27",
+        "S14",
+        "S40"
+      ],
+      "limits": [
+        "首批明确适配F27货担顶撞、S14造物装配、S40取述穿行；必须当前实例仍有该能力且可封标记就绪。后续能力逐项适配，不按名称猜测可封。",
+        "不封普通步行或普通攻击，不对已经飞出的弹体、已发生的转场追溯撤销。",
+        "不封S15备用卵转送这类没有明确封印消费者的任务流程，不删除原件或返还已花材料。",
+        "在施法完成时前摇已结束、目标无可封动作、共享免封或预算不足时不扣件。",
+        "中断只进入该能力已有的恢复/重试策略；不产生主规则成功、永久封印或真实转场回执。",
+        "若打断了S40转场，本次没有真实跨区税或落点截停；不能同时宣称取消转场又收取那条未发生路径的伤害。"
+      ],
+      "shared_contract": "content/equipment_contracts_eq01.json",
+      "source_contracts": [
+        "content/combat_contracts_td05.json",
+        "content/monster_contracts_md01.json"
+      ]
+    },
+    {
+      "id": "I36",
+      "name": "导电薄膜",
+      "rarity": "uncommon",
+      "design_origin": "original_game_item",
+      "runtime_integrated": false,
+      "design_candidate_enabled": true,
+      "runtime_acquisition_enabled": false,
+      "consumable": true,
+      "category": "special_buff",
+      "role": "monster_electric_graph_reach",
+      "shop_unit_price": {
+        "coin": 14,
+        "ledger": "current_week_coin"
+      },
+      "lottery_reward_units": 1,
+      "acquisition": {
+        "lottery_candidate": true,
+        "pre_shift_shop": true,
+        "unlock": "special_item_basics",
+        "no_lottery_only_power": true,
+        "handler_and_consumer_required": true,
+        "essential_rule_tool": false
+      },
+      "summary": "给一个已经带电的怪物涂上8秒导电膜，让它与真实带电邻居的导电连接距离从2.5扩大到3.25格。",
+      "use": {
+        "phase": "active_business",
+        "cast_world_seconds": 0.5,
+        "hands_required": 1,
+        "stationary": true,
+        "can_use_while_heavy_carry": false,
+        "cast_modifier_floor_seconds": 0.25,
+        "input_recovery_world_seconds": 1,
+        "target": "one_currently_charged_manifested_hostile_independent_pool",
+        "range_tiles": 4,
+        "radius_tiles": null,
+        "consume_units": 1,
+        "commit": "revalidate target/actual object/LOS/effect capability, then debit this carried instance and apply exactly one effect transaction",
+        "cancel_before_commit": "no effect/no unit debit; elapsed world time is not refunded",
+        "target_invalid_at_commit": "no effect/no unit debit; no automatic replacement target",
+        "effect_duration_world_seconds": 8,
+        "after_successful_commit": "no refund for later expiry, dodge, suppression, departure or death",
+        "dedupe_key": "campaign_id:shift_id:item_instance_id:use_sequence",
+        "save_reload": "committed units, active effects, absolute expiries and pending once budgets restore together; no reroll or renewed duration"
+      },
+      "parameters": {
+        "status": "conductive_reach",
+        "edge_radius_tiles": 3.25,
+        "duration_s": 8,
+        "requires_existing_charge": true,
+        "applies_to_monster_monster_edges": true,
+        "applies_to_appliance_edges": false,
+        "source_overload_D_override": null,
+        "extra_charge": 0,
+        "stacking": "max valid radius per actual edge; Q34 may provide4, never3.25+4"
+      },
+      "consumer": "EQ01 electrical edge resolver: for two current charged legal pools, symmetric distance threshold is max(normal2.5, eligible live endpoint reach, eligible Q34 pair reach); all original electrical visibility/height/conduction checks remain. Use identical current adjacency for component traversal and each receiver localN; appliance adjacency is unchanged.",
+      "paid_effect_budget": {
+        "live_reach_modifier_targets": 1,
+        "duration_s": 8,
+        "extra_nodes": 0,
+        "extra_charge": 0
+      },
+      "tower_synergies": [
+        "T09.A2",
+        "T09.B1",
+        "T09.B2"
+      ],
+      "monster_examples": [
+        "S28",
+        "S32"
+      ],
+      "limits": [
+        "本剂不提供电荷；目标失去最后一单位有效电荷时不再是导电节点，剩余膜期仍自然流逝。",
+        "不增加电器E、不伪造额外N，不跨越原有电网络不准入的阻断；整个真实连通分量仍尽可能遍历。",
+        "节点死亡/离场/压制即从网络移除；分裂不复制这个单体涂膜，原池转为后继时该膜结束。",
+        "与Q34或另一份导电膜只取合法边最长范围；每次实际波结算重新计算，不把用药时开场人数锁死。"
+      ],
+      "shared_contract": "content/equipment_contracts_eq01.json",
+      "source_contracts": [
+        "content/combat_contracts_td05.json",
+        "content/monster_contracts_md01.json"
+      ]
+    },
+    {
+      "id": "I37",
+      "name": "余裕砂漏",
+      "rarity": "uncommon",
+      "design_origin": "original_game_item",
+      "runtime_integrated": false,
+      "design_candidate_enabled": true,
+      "runtime_acquisition_enabled": false,
+      "consumable": true,
+      "category": "special_buff",
+      "role": "monster_real_telegraph_extension",
+      "shop_unit_price": {
+        "coin": 14,
+        "ledger": "current_week_coin"
+      },
+      "lottery_reward_units": 1,
+      "acquisition": {
+        "lottery_candidate": true,
+        "pre_shift_shop": true,
+        "unlock": "special_item_basics",
+        "no_lottery_only_power": true,
+        "handler_and_consumer_required": true,
+        "essential_rule_tool": false
+      },
+      "summary": "将一段尚未提交的真实攻击预告延后1秒，给躲避或手头操作多留一点时间。",
+      "use": {
+        "phase": "active_business",
+        "cast_world_seconds": 0.5,
+        "hands_required": 1,
+        "stationary": true,
+        "can_use_while_heavy_carry": false,
+        "cast_modifier_floor_seconds": 0.25,
+        "input_recovery_world_seconds": 1,
+        "target": "one_current_public_extendable_uncommitted_attack_id",
+        "range_tiles": 4,
+        "radius_tiles": null,
+        "consume_units": 1,
+        "commit": "revalidate target/actual object/LOS/effect capability, then debit this carried instance and apply exactly one effect transaction",
+        "cancel_before_commit": "no effect/no unit debit; elapsed world time is not refunded",
+        "target_invalid_at_commit": "no effect/no unit debit; no automatic replacement target",
+        "effect_duration_world_seconds": null,
+        "after_successful_commit": "no refund for later expiry, dodge, suppression, departure or death",
+        "dedupe_key": "campaign_id:shift_id:item_instance_id:use_sequence",
+        "save_reload": "committed units, active effects, absolute expiries and pending once budgets restore together; no reroll or renewed duration"
+      },
+      "parameters": {
+        "attack_telegraph_added_s": 1,
+        "same_attack_id_once_per_item_family": true,
+        "all_source_extension_total_cap_s": 3,
+        "does_not_pause_world": true,
+        "does_not_extend_rule_deadline": true,
+        "moves_locked_target": false,
+        "direct_damage": 0
+      },
+      "consumer": "Explicit EQ01 telegraph-extension adapter for ordinary target-locked damaging attacks plus F50_signature and F60_signature already admitted by I21; actual attack_id owns extension_used. Effect adds min(1,3-existing_total) to that uncommitted attack deadline exactly once; I21 uses the same total extension ledger.",
+      "paid_effect_budget": {
+        "extension_per_attack_id_s": 1,
+        "shared_all_source_max_added_s": 3
+      },
+      "tower_synergies": [
+        "T05.A2",
+        "T01.A1",
+        "T03.B1"
+      ],
+      "monster_examples": [
+        "F12",
+        "F50",
+        "F60"
+      ],
+      "limits": [
+        "不是暂停全世界，不延长订单、供电、状态期限或营业时间。",
+        "不改变已锁目标/落点，不能刷新预告；同attack_id重复使用本族无收益，不扣件。",
+        "只把仍未提交攻击的提交截止后移；该攻击尚未开始的命中与收招按新的实际提交时刻计算，不能一边延长前摇一边保留原来提前命中的定时器。已经发出的弹体、进行中的飞行/俯冲不能延长。",
+        "只扩已登记可延后的攻击前摇；不扩S40转场、不改S15吐卵/孵化、S28分裂或未知规则计时。",
+        "I21已经把同次攻击总增量用到3秒时，本剂不再增加。",
+        "实际攻击因其他原因取消后延时券已完成消耗，不转给下一次攻击。"
+      ],
+      "shared_contract": "content/equipment_contracts_eq01.json",
+      "source_contracts": [
+        "content/combat_contracts_td05.json",
+        "content/monster_contracts_md01.json"
+      ]
+    },
+    {
+      "id": "I38",
+      "name": "相位预订票",
+      "rarity": "uncommon",
+      "design_origin": "original_game_item",
+      "runtime_integrated": false,
+      "design_candidate_enabled": true,
+      "runtime_acquisition_enabled": false,
+      "consumable": true,
+      "category": "special_buff",
+      "role": "tower_placement_timing_support",
+      "shop_unit_price": {
+        "coin": 14,
+        "ledger": "current_week_coin"
+      },
+      "lottery_reward_units": 1,
+      "acquisition": {
+        "lottery_candidate": true,
+        "pre_shift_shop": true,
+        "unlock": "T10_B_reservation_tutorial",
+        "no_lottery_only_power": true,
+        "handler_and_consumer_required": true,
+        "essential_rule_tool": false
+      },
+      "summary": "指定一座已有落点预约塔：12秒内接下来两次合法既有格预约各只需0.10秒，更容易赶上公开落点。",
+      "use": {
+        "phase": "active_business",
+        "cast_world_seconds": 0.5,
+        "hands_required": 1,
+        "stationary": true,
+        "can_use_while_heavy_carry": false,
+        "cast_modifier_floor_seconds": 0.25,
+        "input_recovery_world_seconds": 1,
+        "target": "one_owned_enabled_T10_B_or_T10_B1_or_T10_B2_tower",
+        "range_tiles": 4,
+        "radius_tiles": null,
+        "consume_units": 1,
+        "commit": "revalidate target/actual object/LOS/effect capability, then debit this carried instance and apply exactly one effect transaction",
+        "cancel_before_commit": "no effect/no unit debit; elapsed world time is not refunded",
+        "target_invalid_at_commit": "no effect/no unit debit; no automatic replacement target",
+        "effect_duration_world_seconds": 12,
+        "after_successful_commit": "no refund for later expiry, dodge, suppression, departure or death",
+        "dedupe_key": "campaign_id:shift_id:item_instance_id:use_sequence",
+        "save_reload": "committed units, active effects, absolute expiries and pending once budgets restore together; no reroll or renewed duration"
+      },
+      "parameters": {
+        "eligible_nodes": [
+          "T10.B",
+          "T10.B1",
+          "T10.B2"
+        ],
+        "reservation_operations": 2,
+        "original_rearm_s_by_node": {
+          "T10.B": 0.5,
+          "T10.B1": 0.25,
+          "T10.B2": 0.5
+        },
+        "modified_rearm_s": 0.1,
+        "new_cell_count": 0,
+        "world_cell_deadline_reset": false,
+        "period_extension_s": 0,
+        "pending_recast_policy": "reject_without_cost_while_same_player_I38_record_has_unspent_tokens_and_is_unexpired"
+      },
+      "consumer": "Two finite speed tokens for the next actually started legal reservation operations of the selected tower instance; consume one operation token at reservation start, shorten only that internal rearm to0.10s. Actual item use still costs0.5s (quickcast floor0.25s). Requires a genuine current public destination and existing free cell; old cell is inactive while rearming.",
+      "paid_effect_budget": {
+        "accelerated_existing_cell_operations": 2,
+        "expires_s": 12
+      },
+      "tower_synergies": [
+        "T10.B",
+        "T10.B1",
+        "T10.B2"
+      ],
+      "monster_examples": [
+        "F19",
+        "S22",
+        "S40"
+      ],
+      "limits": [
+        "不能升级、补建、加格、补弹或刷新伤害冷却；每次仍只移动一个实际已有空闲格，同一真实转场仍只结算一次。",
+        "B/B2的0.5秒与B1的0.25秒内部武装均变为0.10秒；这不是把道具施放读条压到0.10秒，A系没有预约消费者。",
+        "本家族还有未用且未到期预算时拒绝第二件，不扣费、不换目标塔、不刷新12秒；两次用完或到期后才能再次使用。",
+        "塔在物件使用后被拆除/停机，或12秒内没有有效预约，本剂自然失效，不退件。",
+        "预约开始后取消不退回该次加速；尚未武装完的新格不收过去已经发生的转场伤害。",
+        "不与Q16等路线信息效果合并为额外格、宽限伤害或旧转场重算；公开落点真实性和正常射程仍须逐次成立。"
+      ],
+      "shared_contract": "content/equipment_contracts_eq01.json",
+      "source_contracts": [
+        "content/combat_contracts_td05.json",
+        "content/monster_contracts_md01.json"
+      ]
+    },
+    {
+      "id": "I39",
+      "name": "回身反咒",
+      "rarity": "rare",
+      "design_origin": "original_game_item",
+      "runtime_integrated": false,
+      "design_candidate_enabled": true,
+      "runtime_acquisition_enabled": false,
+      "consumable": true,
+      "category": "special_buff",
+      "role": "player_evasion_counterplay",
+      "shop_unit_price": {
+        "coin": 24,
+        "ledger": "current_week_coin"
+      },
+      "lottery_reward_units": 1,
+      "acquisition": {
+        "lottery_candidate": true,
+        "pre_shift_shop": true,
+        "unlock": "special_item_basics",
+        "no_lottery_only_power": true,
+        "handler_and_consumer_required": true,
+        "essential_rule_tool": false
+      },
+      "summary": "12秒内，接下来两次真正靠走位躲开的指向自身攻击，各给攻击者2枚诅咒，并使其减速25%持续4秒。",
+      "use": {
+        "phase": "active_business",
+        "cast_world_seconds": 0.5,
+        "hands_required": 1,
+        "stationary": true,
+        "can_use_while_heavy_carry": false,
+        "cast_modifier_floor_seconds": 0.25,
+        "input_recovery_world_seconds": 1,
+        "target": "self_then_actual_attacker_on_qualified_geometry_miss",
+        "range_tiles": 0,
+        "radius_tiles": null,
+        "consume_units": 1,
+        "commit": "revalidate target/actual object/LOS/effect capability, then debit this carried instance and apply exactly one effect transaction",
+        "cancel_before_commit": "no effect/no unit debit; elapsed world time is not refunded",
+        "target_invalid_at_commit": "no effect/no unit debit; no automatic replacement target",
+        "effect_duration_world_seconds": 12,
+        "after_successful_commit": "no refund for later expiry, dodge, suppression, departure or death",
+        "dedupe_key": "campaign_id:shift_id:item_instance_id:use_sequence",
+        "save_reload": "committed units, active effects, absolute expiries and pending once budgets restore together; no reroll or renewed duration"
+      },
+      "parameters": {
+        "qualifying_attack_receipts": 2,
+        "same_attack_id_once": true,
+        "requires_all_subordinate_hits_resolved": true,
+        "requires_zero_actual_player_collision_entire_attack": true,
+        "buff_must_be_live_at_whole_attack_resolution": true,
+        "same_pool_can_qualify_with_distinct_attack_ids": true,
+        "trigger_attacker_range_tiles": 4,
+        "curse_amount_per_receipt": 2,
+        "curse_mark_duration_s": 10,
+        "slow_fraction": 0.25,
+        "slow_duration_s": 4,
+        "slow_aggregation": "maximum family not product",
+        "direct_damage": 0,
+        "player_invulnerability_s": 0,
+        "pending_recast_policy": "reject_without_cost_while_same_player_I39_record_has_unspent_tokens_and_is_unexpired"
+      },
+      "consumer": "New read-only whole-attack-resolved event adapter: attack was player-aimed and committed, player was in its real locked danger geometry when locked, then actual player positional movement caused complete geometric miss. All subordinate hits/projectiles of the same attack_id must have resolved, with zero actual player collision throughout; an early miss followed by a later hit is not eligible. Facing-only avoidance is not this event. At aggregate completion this buff must still be live and attacker legal/visible within4 tiles. Consume one of2 paid response tokens, then apply native TD05 curse and soft slow. Persist each accepted attack_id.",
+      "paid_effect_budget": {
+        "response_tokens": 2,
+        "maximum_new_curse_marks": 4,
+        "no_generated_attack_events": true
+      },
+      "tower_synergies": [
+        "T08.A1",
+        "T08.A2",
+        "T07.B1",
+        "T10.A1"
+      ],
+      "monster_examples": [
+        "F12",
+        "F13",
+        "F27"
+      ],
+      "limits": [
+        "诅咒失攻、提前打断、取消的墙挡攻击、受击保护挡伤、无敌、纸偶代挡都不是几何躲避。",
+        "不提供闪避按钮、瞬移或无敌帧；玩家必须真的离开该攻击空间。单纯转背、F60视线条件失败或其他规则正确应对不属于本触发。",
+        "本家族还有未用且未到期预算时拒绝第二件，不扣费、不叠到4次、不刷新12秒；用完两次或到期才可再次使用。",
+        "同attack_id的全部子命中/投射物必须结束，且全程没有实际玩家碰撞才发完全落空回执；首段落空后段命中不触发。必须在整次攻击结束时buff仍有效，不预留过期后的反咒。",
+        "同一个怪物的两个真实攻击可以分别消耗两次预算，适合日常单怪；同次多段只计一份。",
+        "反咒在真实落空回执之后施加，只影响后续攻击，不能回头改判或重掷刚刚已结算的同一攻击。",
+        "减速遵守全局最强家族与60%上限，不与冻结相乘；不向同源递归生成新的躲避回执。",
+        "已提交投射物被真正走位躲开可以合格，但攻击者已离场/不可见/超距时不远程反咒，也不消耗响应次数。"
+      ],
+      "shared_contract": "content/equipment_contracts_eq01.json",
+      "source_contracts": [
+        "content/combat_contracts_td05.json",
+        "content/monster_contracts_md01.json"
+      ]
+    },
+    {
+      "id": "I40",
+      "name": "协奏凭条",
+      "rarity": "rare",
+      "design_origin": "original_game_item",
+      "runtime_integrated": false,
+      "design_candidate_enabled": true,
+      "runtime_acquisition_enabled": false,
+      "consumable": true,
+      "category": "special_buff",
+      "role": "player_rule_to_tower_timing",
+      "shop_unit_price": {
+        "coin": 24,
+        "ledger": "current_week_coin"
+      },
+      "lottery_reward_units": 1,
+      "acquisition": {
+        "lottery_candidate": true,
+        "pre_shift_shop": true,
+        "unlock": "special_item_basics",
+        "no_lottery_only_power": true,
+        "handler_and_consumer_required": true,
+        "essential_rule_tool": false
+      },
+      "summary": "指定最多3座低频塔，12秒内完成一次真实主机制后，各将一份正在进行的普通弹槽装填推进其基础工作量的50%。",
+      "use": {
+        "phase": "active_business",
+        "cast_world_seconds": 0.5,
+        "hands_required": 1,
+        "stationary": true,
+        "can_use_while_heavy_carry": false,
+        "cast_modifier_floor_seconds": 0.25,
+        "input_recovery_world_seconds": 1,
+        "target": "self_buff_with_up_to3_actual_selected_low_frequency_tower_ids",
+        "range_tiles": 4,
+        "radius_tiles": null,
+        "consume_units": 1,
+        "commit": "revalidate target/actual object/LOS/effect capability, then debit this carried instance and apply exactly one effect transaction",
+        "cancel_before_commit": "no effect/no unit debit; elapsed world time is not refunded",
+        "target_invalid_at_commit": "no effect/no unit debit; no automatic replacement target",
+        "effect_duration_world_seconds": 12,
+        "after_successful_commit": "no refund for later expiry, dodge, suppression, departure or death",
+        "dedupe_key": "campaign_id:shift_id:item_instance_id:use_sequence",
+        "save_reload": "committed units, active effects, absolute expiries and pending once budgets restore together; no reroll or renewed duration"
+      },
+      "parameters": {
+        "max_selected_towers": 3,
+        "tower_range_tiles_at_cast_and_trigger": 4,
+        "trigger": "first_genuine_main_rule_success_after_arming",
+        "rule_events": 1,
+        "ordinary_slot_work_advance_fraction": 0.5,
+        "minimum_ordinary_slot_reload_work_s": 1.5,
+        "ready_capacity_increase": 0,
+        "immediate_extra_attack": false,
+        "eligible_attack_modes": "discrete ordinary primary reload slot only",
+        "pending_recast_policy": "reject_without_cost_while_same_player_I40_record_is_untriggered_and_unexpired",
+        "eligible_nodes": [
+          "T01.A",
+          "T01.A1",
+          "T01.A2",
+          "T02",
+          "T02.A",
+          "T02.A1",
+          "T02.B",
+          "T02.B1",
+          "T02.B2",
+          "T03",
+          "T03.B",
+          "T03.B1",
+          "T03.B2",
+          "T07",
+          "T07.A",
+          "T07.A1"
+        ],
+        "excluded_multishot_nodes": [
+          "T02.A2",
+          "T03.A2"
+        ],
+        "base_reload_work": "interval_s minus aim_s only where attack_cycle_includes_aim=true; must be >=1.5 seconds; each listed node still revalidated"
+      },
+      "consumer": "Store selected actual tower IDs at cast; on one verified new MD01 main-rule receipt revalidate enabled/in4 tiles and one currently loading ordinary projectile clock. Only the explicit eligible_nodes map is supported, with actual reload work >=1.5s; add min(.5*base_reload_work,remaining_loading_work) once, clamp at one ready shot. Target selection and any aim phase remain required. No free projectile or overflow into a later cycle. T02.A2 magazine and T03.A2 multiwave clocks are excluded, with no invented per-slot timing.",
+      "paid_effect_budget": {
+        "verified_rule_receipts": 1,
+        "max_tower_progress_grants": 3,
+        "maximum_fraction_each": 0.5
+      },
+      "tower_synergies": [
+        "T01.A1",
+        "T01.A2",
+        "T02.A1",
+        "T03.B1",
+        "T07.A1"
+      ],
+      "monster_examples": [
+        "F12",
+        "F13",
+        "S28"
+      ],
+      "limits": [
+        "主规则可为解锁、削弱或离场；离场后仅其他仍真实在场的合法目标能被后续普通射击选中。",
+        "不追领装备前的历史规则，不把普通交互、部分步骤、物品施加或安全拒绝当主规则成功。",
+        "本家族还有未触发且未到期记录时拒绝第二件，不扣费、不叠成6塔、不改选塔、不刷新12秒。",
+        "只推进明确白名单中的一份现有普通装填；瞄准仍须实际发生，已就绪不囤第二发。T02.A2整仓与T03.A2多波次不准入，不发明每弹槽2秒等旧树未定义的计时。",
+        "每个实际普通弹槽的基础装填工作至少1.5秒才准入；双发间隔0.2秒不是新的可推进装填槽。",
+        "不推进纸偶重组、短封储印、T03.A1/T07.B持续场周期、T10格冷却、毒成熟、电荷过载队列或任何主动能力冷却。",
+        "和广播/其他推进同帧按稳定事件序列施加到同一剩余工作账；到就绪截断，不把溢出进度带入下一发。"
+      ],
+      "shared_contract": "content/equipment_contracts_eq01.json",
+      "source_contracts": [
+        "content/combat_contracts_td05.json",
+        "content/monster_contracts_md01.json"
+      ]
+    },
+    {
+      "id": "I41",
+      "name": "发酵催化包",
+      "rarity": "rare",
+      "design_origin": "original_game_item",
+      "runtime_integrated": false,
+      "design_candidate_enabled": true,
+      "runtime_acquisition_enabled": false,
+      "consumable": true,
+      "category": "special_buff",
+      "role": "monster_poison_tick_amplifier",
+      "shop_unit_price": {
+        "coin": 24,
+        "ledger": "current_week_coin"
+      },
+      "lottery_reward_units": 1,
+      "acquisition": {
+        "lottery_candidate": true,
+        "pre_shift_shop": true,
+        "unlock": "permanent_poison_tutorial",
+        "no_lottery_only_power": true,
+        "handler_and_consumer_required": true,
+        "essential_rule_tool": false
+      },
+      "summary": "向半径1.5格内所有已经中毒的合法敌人施加8秒发酵：其实际毒伤tick效力翻倍，毒量本身不变。",
+      "use": {
+        "phase": "active_business",
+        "cast_world_seconds": 0.5,
+        "hands_required": 1,
+        "stationary": true,
+        "can_use_while_heavy_carry": false,
+        "cast_modifier_floor_seconds": 0.25,
+        "input_recovery_world_seconds": 1,
+        "target": "visible_legal_center_then_all_current_legal_already_poisoned_pools",
+        "range_tiles": 4,
+        "radius_tiles": 1.5,
+        "consume_units": 1,
+        "commit": "revalidate target/actual object/LOS/effect capability, then debit this carried instance and apply exactly one effect transaction",
+        "cancel_before_commit": "no effect/no unit debit; elapsed world time is not refunded",
+        "target_invalid_at_commit": "no effect/no unit debit; no automatic replacement target",
+        "effect_duration_world_seconds": 8,
+        "after_successful_commit": "no refund for later expiry, dodge, suppression, departure or death",
+        "dedupe_key": "campaign_id:shift_id:item_instance_id:use_sequence",
+        "save_reload": "committed units, active effects, absolute expiries and pending once budgets restore together; no reroll or renewed duration"
+      },
+      "parameters": {
+        "status": "poison_catalysis",
+        "poison_tick_multiplier": 2,
+        "duration_s": 8,
+        "target_cap": null,
+        "requires_positive_current_q": true,
+        "affects_existing_q": true,
+        "affects_legitimate_new_q_while_live": true,
+        "creates_poison_q": 0,
+        "instant_damage": 0,
+        "contagion_budget": 0,
+        "stacking": "strongest live poison_catalysis multiplier, max2; own-source expiry, no duration addition"
+      },
+      "consumer": "Explicit EQ01 poison-only potency consumer: raw_poison_DPS=.5*q*max_live_catalysis, then current ward and existing additive vulnerability groups. Applies during each real tick segment while this finite target buff is live. q, source attribution, maturity/ticket schedules and inheritance eligibility are untouched.",
+      "paid_effect_budget": {
+        "paid_aoe_buffs": 1,
+        "max_multiplier": 2,
+        "max_duration_s": 8,
+        "new_q": 0
+      },
+      "tower_synergies": [
+        "T02.A1",
+        "T02.A2",
+        "T02.B1",
+        "T02.B2"
+      ],
+      "monster_examples": [
+        "F12",
+        "F27",
+        "S28"
+      ],
+      "limits": [
+        "没有瞬间毒爆，也不复制永久q：q12原始6DPS变12DPS，满8秒多48原始伤害，结束回6DPS。",
+        "与烧伤易伤分别执行已有步骤；不建立新通用易伤组，也不突破烧伤+规则协作40%的那一组上限。",
+        "本剂本身不是新毒剂量、命中、传播、击杀或电伤，不产传播票、成熟预算、电荷或普通附伤触发。",
+        "必须至少命中一个真实q>0的可攻击池才扣件；施加后新合法毒会受同一剩余8秒强化，但不刷新时限。",
+        "目标分裂时后继沿用该同一付费来源的原绝对截止与乘数，q仍守恒，两个子体不会各复制一份q或重新获得8秒。",
+        "MD01压制期暂停毒tick且本buff仍按世界时间到期；不会在重构时追补暂停的伤害。"
+      ],
+      "shared_contract": "content/equipment_contracts_eq01.json",
+      "source_contracts": [
+        "content/combat_contracts_td05.json",
+        "content/monster_contracts_md01.json"
+      ]
+    },
+    {
+      "id": "I42",
+      "name": "并联引线",
+      "rarity": "rare",
+      "design_origin": "original_game_item",
+      "runtime_integrated": false,
+      "design_candidate_enabled": true,
+      "runtime_acquisition_enabled": false,
+      "consumable": true,
+      "category": "special_buff",
+      "role": "monster_electric_component_ignition",
+      "shop_unit_price": {
+        "coin": 24,
+        "ledger": "current_week_coin"
+      },
+      "lottery_reward_units": 1,
+      "acquisition": {
+        "lottery_candidate": true,
+        "pre_shift_shop": true,
+        "unlock": "special_item_basics",
+        "no_lottery_only_power": true,
+        "handler_and_consumer_required": true,
+        "essential_rule_tool": false
+      },
+      "summary": "给主目标注入4电，给其周围1.5格内每个其他合法独立血池各注入1电，主动为一段真实电链点火。",
+      "use": {
+        "phase": "active_business",
+        "cast_world_seconds": 0.5,
+        "hands_required": 1,
+        "stationary": true,
+        "can_use_while_heavy_carry": false,
+        "cast_modifier_floor_seconds": 0.25,
+        "input_recovery_world_seconds": 1,
+        "target": "one_manifested_hostile_primary_then_all_other_legal_pools_near_primary",
+        "range_tiles": 4,
+        "radius_tiles": 1.5,
+        "consume_units": 1,
+        "commit": "revalidate target/actual object/LOS/effect capability, then debit this carried instance and apply exactly one effect transaction",
+        "cancel_before_commit": "no effect/no unit debit; elapsed world time is not refunded",
+        "target_invalid_at_commit": "no effect/no unit debit; no automatic replacement target",
+        "effect_duration_world_seconds": 8,
+        "after_successful_commit": "no refund for later expiry, dodge, suppression, departure or death",
+        "dedupe_key": "campaign_id:shift_id:item_instance_id:use_sequence",
+        "save_reload": "committed units, active effects, absolute expiries and pending once budgets restore together; no reroll or renewed duration"
+      },
+      "parameters": {
+        "primary_charge_units": 4,
+        "secondary_charge_units_each": 1,
+        "secondary_radius_tiles": 1.5,
+        "secondary_target_cap": null,
+        "source_overload_D": 6,
+        "charge_expiry_s": 8,
+        "direct_damage": 0,
+        "independent_paid_charge_pulse": true,
+        "primary_receives_secondary_too": false
+      },
+      "consumer": "At commit snapshot current legal independent pools, apply all paid lots as one atomic primary+area injection, each pool once. Then enqueue normal threshold requests and resolve the full actual conductive component using current localN+E; deaths between waves rebuild adjacency. Ordinary threshold5, susceptible4.",
+      "paid_effect_budget": {
+        "primary_charge_units": 4,
+        "secondary_each": 1,
+        "secondary_total": "actual eligible independent secondary pools",
+        "potency_mass_each_unit": 6,
+        "expiry_s": 8
+      },
+      "tower_synergies": [
+        "T09.A1",
+        "T09.A2",
+        "T09.B1",
+        "T04.A2"
+      ],
+      "monster_examples": [
+        "S08",
+        "S28",
+        "S32"
+      ],
+      "limits": [
+        "主目标总共4电，不是4+1；没有近邻时仍是完整4电，日常单怪也可配易感当场启动。",
+        "周围副目标没有任意数量硬限，但必须真实在1.5格作用范围、显形敌对、独立血池且作用线合法。",
+        "不凭空生成电器或强行连上超距怪；被注入但不在同一合法网络的目标保留自己的真实电荷，等待后续合法连接。",
+        "本次注入与随后电伤反馈分别记账；不把纯注入再当成正电伤赠送一单位。",
+        "过载D6、局部N+E和每次正数实际电伤反馈仍遵守TD05，既不设全波反馈总额上限，也不冻结开场人数。"
+      ],
+      "shared_contract": "content/equipment_contracts_eq01.json",
+      "source_contracts": [
+        "content/combat_contracts_td05.json",
+        "content/monster_contracts_md01.json"
+      ]
+    }
+  ]
+}

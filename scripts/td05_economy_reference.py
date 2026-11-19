@@ -601,8 +601,27 @@ def command_counterexamples(economy,traps):
                   'paid_spare_remained_backpack':next(a['location'] for a in state['assets'].values() if a['instance_id']=='spare-tape')=='backpack'})
 
 
-def week_replay(economy,tower_tree,traps,scenario):
-    """Seven actual pre-purchase / stock / load / deploy cycles with phase gates."""
+def week_replay(economy,tower_tree,traps,scenario,personal_purchases_by_night=None):
+    """Seven actual pre-purchase / stock / load / deploy cycles with phase gates.
+
+    EQ01 optional reference schedule debits real personal-equipment purchases
+    after existing trap service and before defense priorities, on nights 2..7.
+    The default schedule is empty and preserves the original TD05 replay.
+    This hook is a budget counterfactual, not a runtime shop or gear simulator.
+    """
+    personal_schedule=copy.deepcopy(personal_purchases_by_night or {})
+    seen_personal_ids=set()
+    for night_number,requested in personal_schedule.items():
+        if type(night_number) is not int or not 2<=night_number<=7:
+            raise ValueError('reference personal purchases must be before nights 2..7')
+        for purchase in requested:
+            if not isinstance(purchase.get('item_id'),str) or not purchase['item_id']:
+                raise ValueError('personal purchase needs an authored item ID')
+            if purchase['item_id'] in seen_personal_ids:
+                raise ValueError('permanent equipment cannot be repurchased for stacked ownership')
+            seen_personal_ids.add(purchase['item_id'])
+            if type(purchase.get('coin')) is not int or purchase['coin']<=0:
+                raise ValueError('personal purchase price must be a positive actual coin amount')
     tower_defs={n['id']:n for n in tower_nodes(tower_tree)}
     trap_defs={t['id']:t for t in traps['traps']}
     definitions={**tower_defs}
@@ -688,6 +707,14 @@ def week_replay(economy,tower_tree,traps,scenario):
                     assert event['applied'];service+=event['coin_spent'];services.append(event)
                     feasible &= state['assets'][key]['hp']==state['assets'][key]['max_hp']
             spent_service+=service
+            for purchase in personal_schedule.get(night,[]):
+                price=purchase['coin']
+                if state['coin']<price:
+                    raise ValueError('optional personal equipment purchase is unaffordable')
+                state['coin']-=price;service+=price;spent_service+=price
+                services.append({'kind':'eq01_personal_equipment_purchase',
+                                 'item_id':purchase['item_id'],'coin':price,
+                                 'persistent_personal_item':True,'defense_refund':False})
             for nid in replay['purchase_priority']:
                 root=nid.split('.')[0];node=definitions[nid];asset=state['assets'].get(root);parent=node.get('parent')
                 if asset and nid in asset['path']:continue

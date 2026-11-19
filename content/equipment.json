@@ -469,5 +469,7 @@
   },
   "auxiliary_effect_contract": "content/auxiliary_effects_v010.json",
   "auxiliary_client_implemented": false,
-  "action_costs_v010": "未定义基础体力/噪声的旧加减改成具体既有动作/容量/速度效果；不添加第五资源或脚步声怪物感知。"
+  "action_costs_v010": "未定义基础体力/噪声的旧加减改成具体既有动作/容量/速度效果；不添加第五资源或脚步声怪物感知。",
+  "current_planned_equipment_system": "content/equipment_contracts_eq01.json",
+  "eq01_runtime_integrated": false
 }
