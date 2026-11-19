@@ -21,6 +21,10 @@ export function buyAssist(previous, config, actionId, commandId, context = {}) {
   const action = config.emergency_power.actions.find(a => a.id === actionId);
   if (!action) throw new Error('unknown_assist');
   if (typeof commandId !== 'string' || !commandId) throw new Error('missing_command_id');
+  // Historical entries remain in the catalogue, but only explicitly enabled
+  // actions may spend reserve or publish an effect/receipt. This also guards
+  // callers such as changeServiceMode('shutter') before they mutate service.
+  if (action.enabled_current !== true) return {ok: false, reason: 'assist_disabled', state};
   if (state.spentIds.includes(commandId)) return {ok: false, reason: 'already_committed', state};
   if (context.paused) return {ok: false, reason: 'world_paused', state};
   if (actionId === 'brace_door' && context.blocksRequiredExit)

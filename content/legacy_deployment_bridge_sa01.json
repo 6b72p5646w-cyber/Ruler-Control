@@ -1,0 +1,403 @@
+{
+  "version": "SA01",
+  "runtime_integrated": false,
+  "baseline_commit": "961ccdbcdc5e8fb81b6cae534ab0317e64de4da5",
+  "scope": "七夜模式中旧B01–B08、I16和Q08挂点计数的显式迁移；保留各自任务用途，不归档能力。",
+  "authority": {
+    "seven_night": "本文件覆盖旧部署的管理阶段、部署计数与跨夜/跨周生命周期；效果未列改动仍读V0.10原消费者。不得再并行执行旧宽松部署或旧夜末回仓逻辑。",
+    "legacy_mode": "旧V0.10练习/运行器继续旧基线；不得把七夜合同一半接入、一半沿旧资产生命周期。",
+    "combat": "TD05异常与几何、MD01生命/结局、MA01攻击与前摇增量合同。",
+    "equipment": "Q08仍读EQ01两点/共享30电量；每个真实灯点加入本文件共享计数，不加载第二套Q08。"
+  },
+  "phase_permissions": {
+    "pre_shift_only": [
+      "buy",
+      "install",
+      "move",
+      "recover",
+      "pack",
+      "upgrade",
+      "refill",
+      "reload",
+      "repair_if_originally_supported",
+      "replace",
+      "sell_if_current_policy_explicitly_supports"
+    ],
+    "business_allowed": [
+      "activate_preinstalled_finite_ability",
+      "toggle_preinstalled_light",
+      "automatic_valid_trigger",
+      "fire_preloaded_B05_ammo",
+      "apply_prepared_B06_to_same_actual_meat",
+      "finish_already_committed_effect"
+    ],
+    "business_never_reopens_management": "非追逐、暂停、安全点、临时无怪、背包已有备用或刚获得收入都不解除锁定。",
+    "native_rule_actions_unrestricted_by_deployment_lock": [
+      "亲取免费必要任务工具",
+      "手动撒已亲取回形针",
+      "拿放原物与封柜",
+      "按原合同取石和投石",
+      "其他原生免费主机制动作"
+    ],
+    "guard": "命令绑定当前week_id/night_id/phase、同一资产ID与唯一回执；任何前置失败不得扣钱/物/次数或改变布置。"
+  },
+  "capacity": {
+    "shared_with_R_traps_total_installed_objects": 8,
+    "legacy_auxiliary_subcap": 3,
+    "legacy_counted_definitions": [
+      "B01",
+      "B02",
+      "B03",
+      "B04",
+      "B05",
+      "B06",
+      "B07",
+      "B08",
+      "I16",
+      "Q08_each_installed_point"
+    ],
+    "Q08_two_points_count": 2,
+    "R_and_legacy_floor_cells_total": 16,
+    "R_barricade_cells_subcap": 6,
+    "towers_separate_cap": 8,
+    "unused_inventory_occupies_installed_slot": false,
+    "spent_installed_hardware_keeps_slot_until_pre_shift_recovery": true,
+    "one_instance_one_installed_position": true,
+    "slot_limits_use_intersection_not_separate_extra_allowance": true,
+    "max_installed_per_legacy_definition": 1,
+    "Q08_exception": "单件Q08最多两个原灯点，各占一名额；不是两件Q08或额外两部署名额。"
+  },
+  "geometry": {
+    "verified_actual_socket_or_alias_required": true,
+    "actual_physical_floor_cells_required_for_floor_installation": true,
+    "known_coordinate_is_not_full_footprint": true,
+    "unknown_footprint": "本轮不猜格数；必须等逐挂点安装适配器声明真实floor cells或经过验证的墙/台挂方式，未通过则不准安装/运行。",
+    "wall_or_table_mount": "只有明确实物挂法验证后可记0新增地板格；仍占1总部署名额，不因台挂而免名额。",
+    "overlap_and_routes": "实际物理格不能重叠、侵占原物/工位/必要落点，必须保留客流、逃生与怪物可行路线。",
+    "effect_area_not_footprint": true,
+    "enemy_circle_override": {
+      "B01_radius_tiles": 1.5,
+      "B01_effective_floor_domain": "沿当前TD05合法可达区域及静态遮挡补偿；原F12限定不扩大。"
+    },
+    "B08_player_guard_radius_is_not_enemy_field": true,
+    "no_unregistered_power_node": true
+  },
+  "persistence": {
+    "hardware": "同一硬件、位置、等级、余电/余次/已装弹药和已花预算七夜保留；第七夜结算后连同未部署B硬件周清。",
+    "night_end": "撤销临时世界效果并关灯；保留硬件及真实资源。未启动的一次能力仍可留到下一夜，已启动的有限寿命不跨夜、不在次夜重开。",
+    "timed_activation": "B02/B07/I16每个付费实例只有一次启动预算；首次真实启动记录绝对世界截止。点灭、回收、读档不暂停或刷新；提前夜结也不退回启动预算。",
+    "B06": "同一原肉箱的30/45秒修正到原截止、实际拆套、目标终态或夜结；资源已用就保持0，换夜不补套。",
+    "B03": "仅亮灯耗电，夜结关灯后保存余电；既有B03可在班前用真实I06补25至30，完整消费同一电池，营业不得借电池补已部署设备。",
+    "charged_hardware": "B01/B04/B06余次数保存；未定义明确补充商品/价格的型号不出现补次数按钮，可在班前购买新实例并依名额替换。B08损坏后仍不可修复。",
+    "upgrade": "既有实例升级不补已用次数、余电、弹药或启动寿命，新增容量为空；新购L2如目录明确含初始资源，则由该次实际付费购买建立，不能伪造升级退款再重置。",
+    "Q08": "共享电量与每点状态沿EQ01保存，营业中仅开关；本七夜管理统一覆盖其营业回收许可为班前回收。",
+    "week_clear": "已转为周布防实例的I16、B硬件及Q08当周安装点/位置清空；未使用未安装的个人I16、I06和Q08装备本体按EQ01跨周保留，Q08不会因拆点自动补满电量。"
+  },
+  "I16_conversion": {
+    "commit": "班前实际安装提交时，验证同一未消耗I16、合法灯槽和全部容量，再消费原个人物一次并建立当周安装实例。",
+    "activation": "营业点亮只消费安装实例的一次启动预算，不再扣第二根I16。",
+    "recovery": "回收仍是同一周内安装硬件，不能还原为跨周个人I16、售回新周币或重新获得20秒。",
+    "cancellation": "安装提交前取消或几何失败保留原个人物且不占位；已经安装后的管理按当前周资产规则。"
+  },
+  "B05_ammo": {
+    "load_phase": "pre_shift_only",
+    "source": "真实玩家亲取的原paperclip_supply，绑定同一portion_id；可以在班前用原免费来源准备，不从盒子生成。",
+    "capacity_by_tier": {
+      "L1": 3,
+      "L2": 2
+    },
+    "during_business": "仅发射已装份；无弹拒绝且不能通过免费手取再装盒。玩家仍可亲取并原生手撒，原F12免费解不受限制。",
+    "upgrade": "L1→L2前把超出2的同弹在班前退到原真实库存，不销毁、不复制；容量缩减不改变已经发生的诱饵回执。"
+  },
+  "B08_interception": {
+    "allowed_attack_definitions": [
+      "F12:BASIC",
+      "F13:BASIC"
+    ],
+    "requires": [
+      "原怪攻击已提交且咒判未取消",
+      "玩家位于原保护圈",
+      "真实攻击几何已经碰到玩家",
+      "该attack_id尚未结伤且未被拦截",
+      "当前无已有效受击宽限",
+      "来源仍安装、未损坏且有一次余量",
+      "这次命中实际将造成正伤害"
+    ],
+    "atomic_result": [
+      "记录真实碰撞：I39不成立",
+      "消耗同一垫的一次余量并标损坏",
+      "该攻击的SAN和同次轻伤不提交",
+      "该attack_id已被处理，不能宽限后补伤",
+      "给予原L1 3秒/L2 2秒全怪命中框宽限，期限取max不相加"
+    ],
+    "does_not": [
+      "拦无预告普通体触",
+      "拦其他怪或新增所有MELEE白名单",
+      "因已有保护、咒失攻或零伤害而扣次数",
+      "生成流血或额外SAN回复",
+      "取消追逐或完成主机制",
+      "修复或换实例刷新已给宽限"
+    ]
+  },
+  "entries": [
+    {
+      "id": "B01",
+      "name": "空箱缓冲带",
+      "design_enabled": true,
+      "runtime_enabled": false,
+      "kind": "enemy_floor_slow",
+      "legacy_effect_source": "content/auxiliary_effects_v010.json#/entries/B01",
+      "socket_binding": "SO05",
+      "purchase_coin": 18,
+      "l2_increment_coin": 10,
+      "currency": "current_week_coin",
+      "setup_world_seconds": {
+        "L1": 1,
+        "L2": 1.5
+      },
+      "activation": "自动触发并消耗已装次数。",
+      "effect": "F12真实地面追逐者进入已武装圆域；半径由旧1改为1.5格，2秒40%减速、6秒同目标间隔与实际离区再入保持。",
+      "initial_paid_resource": {
+        "L1": 2,
+        "L2": 3
+      },
+      "resource_kind": "charges",
+      "installed_count": 1,
+      "floor_footprint_cells": null,
+      "geometry_status": "source_socket_exists_but_actual_installation_cell_or_mount_adapter_required",
+      "unstarted_resource_carries_between_nights": true,
+      "recovery_returns": "same_week_bound_hardware_and_actual_remaining_state",
+      "new_appliance_node": false
+    },
+    {
+      "id": "B02",
+      "name": "促销遮挡屏",
+      "design_enabled": true,
+      "runtime_enabled": false,
+      "kind": "rule_sight_screen",
+      "legacy_effect_source": "content/auxiliary_effects_v010.json#/entries/B02",
+      "socket_binding": "SO07",
+      "purchase_coin": 22,
+      "l2_increment_coin": 12,
+      "currency": "current_week_coin",
+      "setup_world_seconds": {
+        "L1": 1,
+        "L2": 1
+      },
+      "activation": "展开已安装屏一次，0.3世界秒；从本次实际展开开始计时，不在班前装上时提前耗尽。",
+      "effect": "只遮挡实际穿过原屏线的F60直视；L1长2格/20秒，L2长3格/15秒；不挡玩家、身体碰撞或F50俯冲。",
+      "initial_paid_resource": {
+        "L1": 1,
+        "L2": 1
+      },
+      "resource_kind": "activation_budget",
+      "installed_count": 1,
+      "floor_footprint_cells": null,
+      "geometry_status": "source_socket_exists_but_actual_installation_cell_or_mount_adapter_required",
+      "unstarted_resource_carries_between_nights": true,
+      "recovery_returns": "same_week_bound_hardware_and_actual_remaining_state",
+      "new_appliance_node": false
+    },
+    {
+      "id": "B03",
+      "name": "应急台灯",
+      "design_enabled": true,
+      "runtime_enabled": false,
+      "kind": "local_light",
+      "legacy_effect_source": "content/auxiliary_effects_v010.json#/entries/B03",
+      "socket_binding": "SO01_or_SO06",
+      "purchase_coin": 20,
+      "l2_increment_coin": 12,
+      "currency": "current_week_coin",
+      "setup_world_seconds": {
+        "L1": 1,
+        "L2": 1
+      },
+      "activation": "只开关已安装灯，手动切换0.3秒；只有点亮才耗原电量。",
+      "effect": "原30电量；L1半径3/耗1每秒，L2半径4/耗1.5；黑视改善0.5格、取最强且不超过原5格；不恢复SAN。",
+      "initial_paid_resource": {
+        "L1": 30,
+        "L2": 30
+      },
+      "resource_kind": "battery",
+      "installed_count": 1,
+      "floor_footprint_cells": null,
+      "geometry_status": "source_socket_exists_but_actual_installation_cell_or_mount_adapter_required",
+      "unstarted_resource_carries_between_nights": true,
+      "recovery_returns": "same_week_bound_hardware_and_actual_remaining_state",
+      "new_appliance_node": false
+    },
+    {
+      "id": "B04",
+      "name": "门铃提醒器",
+      "design_enabled": true,
+      "runtime_enabled": false,
+      "kind": "entry_notice",
+      "legacy_effect_source": "content/auxiliary_effects_v010.json#/entries/B04",
+      "socket_binding": "SO01_or_actual_F50_window_alias",
+      "purchase_coin": 16,
+      "l2_increment_coin": 8,
+      "currency": "current_week_coin",
+      "setup_world_seconds": {
+        "L1": 1,
+        "L2": 1
+      },
+      "activation": "自动监听真实入区或同窗真实预告；仅有预告而无合法正差不扣，单次复合触发也只扣一次。",
+      "effect": "原入区提示与F50同窗预告消费者；L1三次、L2五次。普通顾客真实入区也会消耗提示次数，但不透露真假身份。",
+      "initial_paid_resource": {
+        "L1": 3,
+        "L2": 5
+      },
+      "resource_kind": "charges",
+      "installed_count": 1,
+      "floor_footprint_cells": null,
+      "geometry_status": "source_socket_exists_but_actual_installation_cell_or_mount_adapter_required",
+      "unstarted_resource_carries_between_nights": true,
+      "recovery_returns": "same_week_bound_hardware_and_actual_remaining_state",
+      "new_appliance_node": false
+    },
+    {
+      "id": "B05",
+      "name": "回形针投放盒",
+      "design_enabled": true,
+      "runtime_enabled": false,
+      "kind": "manual_task_launcher",
+      "legacy_effect_source": "content/auxiliary_effects_v010.json#/entries/B05",
+      "socket_binding": "SO03",
+      "purchase_coin": 24,
+      "l2_increment_coin": 12,
+      "currency": "current_week_coin",
+      "setup_world_seconds": {
+        "L1": 1,
+        "L2": 1
+      },
+      "activation": "距盒≤1.5格用0.3秒发射班前已装弹药，实际视线/落点重新验证；营业中不可给盒装弹。",
+      "effect": "L1容量3/射程3，L2容量2/射程4；仅把玩家真实亲取的同份回形针变成合法手撒来源诱饵，沿原F12蓝图。",
+      "initial_paid_resource": {
+        "L1": 0,
+        "L2": 0
+      },
+      "resource_kind": "ammo_portions",
+      "installed_count": 1,
+      "floor_footprint_cells": null,
+      "geometry_status": "source_socket_exists_but_actual_installation_cell_or_mount_adapter_required",
+      "unstarted_resource_carries_between_nights": true,
+      "recovery_returns": "same_week_bound_hardware_and_actual_remaining_state",
+      "new_appliance_node": false
+    },
+    {
+      "id": "B06",
+      "name": "保冷转运套",
+      "design_enabled": true,
+      "runtime_enabled": false,
+      "kind": "same_item_carry_sleeve",
+      "legacy_effect_source": "content/auxiliary_effects_v010.json#/entries/B06",
+      "socket_binding": "SO04",
+      "purchase_coin": 20,
+      "l2_increment_coin": 10,
+      "currency": "current_week_coin",
+      "setup_world_seconds": {
+        "L1": 1,
+        "L2": 1
+      },
+      "activation": "在已准备工位用0.3秒将唯一准备套件实际套到当前原肉箱，扣一次；没有原箱就不消耗。",
+      "effect": "原登记肉箱同ID；L1在30秒内2.6→2.8，L2在45秒内2.6→2.7；与Q15/Q24取最强搬运修正。",
+      "initial_paid_resource": {
+        "L1": 1,
+        "L2": 1
+      },
+      "resource_kind": "charges",
+      "installed_count": 1,
+      "floor_footprint_cells": null,
+      "geometry_status": "source_socket_exists_but_actual_installation_cell_or_mount_adapter_required",
+      "unstarted_resource_carries_between_nights": true,
+      "recovery_returns": "same_week_bound_hardware_and_actual_remaining_state",
+      "new_appliance_node": false
+    },
+    {
+      "id": "B07",
+      "name": "吸水隔离垫",
+      "design_enabled": true,
+      "runtime_enabled": false,
+      "kind": "registered_wet_edge_filter",
+      "legacy_effect_source": "content/auxiliary_effects_v010.json#/entries/B07",
+      "socket_binding": "AUX_B07_COLD",
+      "purchase_coin": 18,
+      "l2_increment_coin": 10,
+      "currency": "current_week_coin",
+      "setup_world_seconds": {
+        "L1": 1,
+        "L2": 1
+      },
+      "activation": "用0.3秒启动班前已铺好的垫，真实边仍须存在且合法；启动一次后寿命不暂停、不刷新。",
+      "effect": "仅原WET_COLD割点边；L1一边20秒、L2两边12秒；F57受保护水路不受影响，不删除水和原篮。",
+      "initial_paid_resource": {
+        "L1": 1,
+        "L2": 1
+      },
+      "resource_kind": "activation_budget",
+      "installed_count": 1,
+      "floor_footprint_cells": null,
+      "geometry_status": "source_socket_exists_but_actual_installation_cell_or_mount_adapter_required",
+      "unstarted_resource_carries_between_nights": true,
+      "recovery_returns": "same_week_bound_hardware_and_actual_remaining_state",
+      "new_appliance_node": false
+    },
+    {
+      "id": "B08",
+      "name": "柜台防护垫",
+      "design_enabled": true,
+      "runtime_enabled": false,
+      "kind": "player_hit_guard",
+      "legacy_effect_source": "content/auxiliary_effects_v010.json#/entries/B08",
+      "socket_binding": "SO02",
+      "purchase_coin": 24,
+      "l2_increment_coin": 12,
+      "currency": "current_week_coin",
+      "setup_world_seconds": {
+        "L1": 1,
+        "L2": 1
+      },
+      "activation": "自动拦截F12:BASIC或F13:BASIC已经提交、实际命中且尚未结伤的一次攻击，之后损坏不可修。",
+      "effect": "玩家保护圈L1半径1/宽限3秒、L2半径1.5/宽限2秒，保留一次挡击；这是玩家保护范围，不属于敌方小圆下限修订。",
+      "initial_paid_resource": {
+        "L1": 1,
+        "L2": 1
+      },
+      "resource_kind": "charges",
+      "installed_count": 1,
+      "floor_footprint_cells": null,
+      "geometry_status": "source_socket_exists_but_actual_installation_cell_or_mount_adapter_required",
+      "unstarted_resource_carries_between_nights": true,
+      "recovery_returns": "same_week_bound_hardware_and_actual_remaining_state",
+      "new_appliance_node": false
+    },
+    {
+      "id": "I16",
+      "name": "应急灯棒",
+      "design_enabled": true,
+      "runtime_enabled": false,
+      "kind": "installed_consumable_light",
+      "legacy_effect_source": "content/auxiliary_effects_v010.json#/entries/I16",
+      "socket_binding": "one_actual_empty_lamp_socket",
+      "purchase_coin": 26,
+      "l2_increment_coin": null,
+      "currency": "current_week_coin",
+      "setup_world_seconds": 1,
+      "setup_hands": 1,
+      "activation": "安装后手动点亮0.3秒；只首次合法点亮启动20世界秒寿命，点灭不暂停截止，不能第二次续命。",
+      "effect": "原3格照明/黑视局部+0.5/正常5格上限，真实遮挡、同类取强；不恢复SAN。",
+      "initial_paid_resource": {
+        "single": 1
+      },
+      "resource_kind": "activation_budget",
+      "installed_count": 1,
+      "floor_footprint_cells": null,
+      "geometry_status": "verified_empty_existing_lamp_socket_and_mount_adapter_required",
+      "unstarted_resource_carries_between_nights": true,
+      "recovery_returns": "same_week_bound_installed_instance_not_personal_I16",
+      "new_appliance_node": false
+    }
+  ],
+  "validation_boundary": "有限参考只验证阶段/身份/容量/寿命和B08命中拦截；已知socket坐标不等于实机安装碰撞/寻路/全部9能力处理器。所有运行准入继续关闭。"
+}

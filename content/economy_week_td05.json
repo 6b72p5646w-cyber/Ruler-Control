@@ -284,7 +284,7 @@
     "instance_identity_on_backpack_to_floor_changes": false,
     "accounting": "purchase spends coin once; deploy moves existing item; reload purchase spends coin into week-scoped stock; load transfers stock to item with zero second payment",
     "zero_stock_or_destroyed_item": "remains unavailable for the rest of this shift; prepaid spare deployment waits until next preparation",
-    "not_applied_to_tower_management": "this new timing restriction concerns traps; tower permissions follow their own shared contract",
+    "not_applied_to_tower_management": "陷阱库存事务和塔资产事务分别执行，但SA01统一二者的采购/建造/升级/移位/出售为班前；营业仅执行已部署能力。",
     "command_guards": [
       "current_week_id",
       "correct_shift_phase",
@@ -293,5 +293,11 @@
       "active_capacity_and_legal_geometry",
       "sufficient_current_wallet"
     ]
+  },
+  "phase_permission_authority": "system_authority_sa01.json#/phase_permissions",
+  "sa01_revision": {
+    "baseline_commit": "961ccdbcdc5e8fb81b6cae534ab0317e64de4da5",
+    "reason": "恢复用户指定1.5格最小作用范围、重新检查真实投影，并统一班前资产管理权限。",
+    "runtime_integrated": false
   }
 }

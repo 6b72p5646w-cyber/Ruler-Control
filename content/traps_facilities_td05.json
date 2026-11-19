@@ -18,7 +18,7 @@
       "preserve_workpoints_rule_items_locked_landings": true,
       "validate_enemy_body_width_and_break_route": true,
       "upgrade_default_changes_footprint": false,
-      "circular_effect_min_radius_tiles": 1,
+      "circular_effect_min_radius_tiles": 1.5,
       "effect_shape_is_separate_from_physical_footprint": true,
       "floor_effect_center_must_be_walkable": true,
       "effective_field": "compensated circle intersect reachable body-clear floor and source LOS, excluding static solid fixtures and walls; target is nominal-circle usable centre area on empty floor",
@@ -36,7 +36,7 @@
       "field_position_update_creates_entry": false,
       "geometry_contract_ref": "combat_contracts_td05.json#/effective_floor_domain",
       "static_area_compensation": {
-        "nominal_circle_minimum_radius_tiles": 1,
+        "nominal_circle_minimum_radius_tiles": 1.5,
         "empty_floor_target_area": "pi * nominal_radius^2",
         "reference_body_radius_tiles": 0.3,
         "body_rule": "body center inside circle; collision body must fit real floor, not fit entirely inside the effect circle",
@@ -442,10 +442,10 @@
               "coin": 16,
               "spirit": 4
             },
-            "effect": "本次进入可给1格内另一个地面生命池施加25%减速2.5秒；次级目标不再扩散。",
+            "effect": "本次进入可给1.5格内另一个地面生命池施加25%减速2.5秒；次级目标不再扩散。",
             "parameters": {
               "secondary_pool_cap": 1,
-              "secondary_radius_tiles": 1,
+              "secondary_radius_tiles": 1.5,
               "secondary_slow_fraction": 0.25,
               "secondary_duration_s": 2.5,
               "secondary_can_propagate": false
@@ -487,6 +487,11 @@
                 "reload_during_open": false,
                 "same_week_identity_preserved": true,
                 "last_use_effect_finishes": true
+              },
+              "sa01_radius_correction": {
+                "minimum_effect_radius_tiles": 1.5,
+                "physical_footprint_unchanged": true,
+                "damage_status_cadence_charges_and_price_unchanged": true
               }
             },
             "effective_parameters": {
@@ -499,7 +504,7 @@
               "requires_prepaid_stock": true,
               "capacity_delta_from_l1": 2,
               "secondary_pool_cap": 1,
-              "secondary_radius_tiles": 1,
+              "secondary_radius_tiles": 1.5,
               "secondary_slow_fraction": 0.25,
               "secondary_duration_s": 2.5,
               "secondary_can_propagate": false
@@ -807,10 +812,10 @@
               "coin": 16,
               "spirit": 4
             },
-            "effect": "向1格内另一个地面生命池追加1寒意单位；由本次直接触发派生一次，不继续传播。",
+            "effect": "向1.5格内另一个地面生命池追加1寒意单位；由本次直接触发派生一次，不继续传播。",
             "parameters": {
               "secondary_pool_cap": 1,
-              "secondary_radius_tiles": 1,
+              "secondary_radius_tiles": 1.5,
               "secondary_frost_units": 1,
               "secondary_can_propagate": false
             },
@@ -855,6 +860,11 @@
                 "reload_during_open": false,
                 "same_week_identity_preserved": true,
                 "last_use_effect_finishes": true
+              },
+              "sa01_radius_correction": {
+                "minimum_effect_radius_tiles": 1.5,
+                "physical_footprint_unchanged": true,
+                "damage_status_cadence_charges_and_price_unchanged": true
               }
             },
             "effective_parameters": {
@@ -871,7 +881,7 @@
               "slow_fraction": 0.2,
               "slow_duration_s": 3,
               "secondary_pool_cap": 1,
-              "secondary_radius_tiles": 1,
+              "secondary_radius_tiles": 1.5,
               "secondary_frost_units": 1,
               "secondary_can_propagate": false
             },
@@ -1416,10 +1426,10 @@
               "coin": 16,
               "spirit": 4
             },
-            "effect": "同次触发可锚定1格内另一合法生命池1.5秒，各自受封技预算；不由次级锚定再扩散。",
+            "effect": "同次触发可锚定1.5格内另一合法生命池1.5秒，各自受封技预算；不由次级锚定再扩散。",
             "parameters": {
               "secondary_pool_cap": 1,
-              "secondary_radius_tiles": 1,
+              "secondary_radius_tiles": 1.5,
               "secondary_anchor_s": 1.5,
               "secondary_can_propagate": false
             },
@@ -1460,6 +1470,11 @@
                 "reload_during_open": false,
                 "same_week_identity_preserved": true,
                 "last_use_effect_finishes": true
+              },
+              "sa01_radius_correction": {
+                "minimum_effect_radius_tiles": 1.5,
+                "physical_footprint_unchanged": true,
+                "damage_status_cadence_charges_and_price_unchanged": true
               }
             },
             "effective_parameters": {
@@ -1475,7 +1490,7 @@
               ],
               "once_per_movement_id": true,
               "secondary_pool_cap": 1,
-              "secondary_radius_tiles": 1,
+              "secondary_radius_tiles": 1.5,
               "secondary_anchor_s": 1.5,
               "secondary_can_propagate": false
             },
@@ -2617,11 +2632,11 @@
           },
           "parameters": {
             "secondary_pool_cap": 1,
-            "secondary_radius_tiles": 1,
+            "secondary_radius_tiles": 1.5,
             "secondary_armor_break_pp": 15,
             "secondary_duration_s": 4
           },
-          "effect": "主目标效果不变，向1格内另一个地面生命池施加15个百分点破甲4秒。",
+          "effect": "主目标效果不变，向1.5格内另一个地面生命池施加15个百分点破甲4秒。",
           "tradeoff": "副目标效果较弱；没有第二目标不回填主目标。",
           "l3": {
             "id": "R07.B3",
@@ -2674,6 +2689,11 @@
                 "reload_during_open": false,
                 "same_week_identity_preserved": true,
                 "last_use_effect_finishes": true
+              },
+              "sa01_radius_correction": {
+                "minimum_effect_radius_tiles": 1.5,
+                "physical_footprint_unchanged": true,
+                "damage_status_cadence_charges_and_price_unchanged": true
               }
             },
             "effective_parameters": {
@@ -2685,7 +2705,7 @@
               "allowed_management_phase": "pre_shift_only",
               "requires_prepaid_stock": true,
               "secondary_pool_cap": 2,
-              "secondary_radius_tiles": 1,
+              "secondary_radius_tiles": 1.5,
               "secondary_armor_break_pp": 15,
               "secondary_duration_s": 4,
               "secondary_can_propagate": false
@@ -2732,6 +2752,11 @@
               "reload_during_open": false,
               "same_week_identity_preserved": true,
               "last_use_effect_finishes": true
+            },
+            "sa01_radius_correction": {
+              "minimum_effect_radius_tiles": 1.5,
+              "physical_footprint_unchanged": true,
+              "damage_status_cadence_charges_and_price_unchanged": true
             }
           },
           "effective_parameters": {
@@ -2743,7 +2768,7 @@
             "allowed_management_phase": "pre_shift_only",
             "requires_prepaid_stock": true,
             "secondary_pool_cap": 1,
-            "secondary_radius_tiles": 1,
+            "secondary_radius_tiles": 1.5,
             "secondary_armor_break_pp": 15,
             "secondary_duration_s": 4
           },
@@ -5041,11 +5066,11 @@
       "layers": [
         "ground"
       ],
-      "trigger": "合法地面目标真实进入后启动6秒；以可走格心为中心，半径1格，排除墙、货架、柜体后的实际区域内结算。",
+      "trigger": "合法地面目标真实进入后启动6秒；以可走格心为中心，半径1.5格，排除墙、货架、柜体后的实际区域内结算。",
       "base_effect": "实际驻留按2点灵性DPS积分（显示节拍0.5秒）；每1秒直接给1热，首个状态脉冲在1秒。自身未必点燃，烧伤易伤读取共享合同。",
       "base_parameters": {
         "active_s": 6,
-        "radius_tiles": 1,
+        "radius_tiles": 1.5,
         "damage_interval_s": 0.5,
         "damage": 1,
         "channel": "spiritual",
@@ -5075,7 +5100,7 @@
             "burn_build_interval_s": 0.5,
             "burn_build_units": 1
           },
-          "effect": "直接伤降至1点灵性DPS，热量改为每0.5秒1单位，首脉冲0.5秒；实际驻留4秒可满8热。半径仍1格。",
+          "effect": "直接伤降至1点灵性DPS，热量改为每0.5秒1单位，首脉冲0.5秒；实际驻留4秒可满8热。半径仍1.5格。",
           "tradeoff": "直接输出更低，需要其他塔利用易伤。",
           "l3": {
             "id": "R13.A3",
@@ -5085,10 +5110,10 @@
               "coin": 16,
               "spirit": 4
             },
-            "effect": "场持续延长为9秒，半径1格；每0.5秒1热，可在真实驻留t4与t8各触发一次烧伤，其余控制与易伤叠加规则不变。",
+            "effect": "场持续延长为9秒，半径1.5格；每0.5秒1热，可在真实驻留t4与t8各触发一次烧伤，其余控制与易伤叠加规则不变。",
             "parameters": {
               "active_s": 9,
-              "radius_tiles": 1
+              "radius_tiles": 1.5
             },
             "standalone_trigger": true,
             "standalone_trigger_scope": "burn_ignition",
@@ -5110,7 +5135,7 @@
               "benchmark_measures": {
                 "charge_capacity": 2,
                 "physical_footprint_cells": 1,
-                "radius_tiles": 1,
+                "radius_tiles": 1.5,
                 "residence_raw_dps": 1.0,
                 "full_dwell_s": 9,
                 "full_dwell_raw_field_damage": 9.0,
@@ -5137,11 +5162,16 @@
                 "reload_during_open": false,
                 "same_week_identity_preserved": true,
                 "last_use_effect_finishes": true
+              },
+              "sa01_radius_correction": {
+                "minimum_effect_radius_tiles": 1.5,
+                "physical_footprint_unchanged": true,
+                "damage_status_cadence_charges_and_price_unchanged": true
               }
             },
             "effective_parameters": {
               "active_s": 9,
-              "radius_tiles": 1,
+              "radius_tiles": 1.5,
               "damage_interval_s": 0.5,
               "damage": 0.5,
               "channel": "spiritual",
@@ -5181,7 +5211,7 @@
             "benchmark_measures": {
               "charge_capacity": 2,
               "physical_footprint_cells": 1,
-              "radius_tiles": 1,
+              "radius_tiles": 1.5,
               "residence_raw_dps": 1.0,
               "full_dwell_s": 6,
               "full_dwell_raw_field_damage": 6.0,
@@ -5208,11 +5238,16 @@
               "reload_during_open": false,
               "same_week_identity_preserved": true,
               "last_use_effect_finishes": true
+            },
+            "sa01_radius_correction": {
+              "minimum_effect_radius_tiles": 1.5,
+              "physical_footprint_unchanged": true,
+              "damage_status_cadence_charges_and_price_unchanged": true
             }
           },
           "effective_parameters": {
             "active_s": 6,
-            "radius_tiles": 1,
+            "radius_tiles": 1.5,
             "damage_interval_s": 0.5,
             "damage": 0.5,
             "channel": "spiritual",
@@ -5245,7 +5280,7 @@
             "damage_interval_s": 0.5,
             "burn_build_interval_s": 1
           },
-          "effect": "保留每秒1热，直接场伤提高为3点灵性DPS；半径仍1格，按实际驻留时间积分。",
+          "effect": "保留每秒1热，直接场伤提高为3点灵性DPS；半径仍1.5格，按实际驻留时间积分。",
           "tradeoff": "对固定目标高效，目标离开立即停止场伤。",
           "l3": {
             "id": "R13.B3",
@@ -5255,12 +5290,12 @@
               "coin": 16,
               "spirit": 4
             },
-            "effect": "直接场伤改为4点灵性DPS，持续仍6秒、半径仍1格；满驻留原始场伤24，不包含可能来自外部热源的烧伤。",
+            "effect": "直接场伤改为4点灵性DPS，持续仍6秒、半径仍1.5格；满驻留原始场伤24，不包含可能来自外部热源的烧伤。",
             "parameters": {
               "damage": 2,
               "damage_interval_s": 0.5,
               "active_s": 6,
-              "radius_tiles": 1
+              "radius_tiles": 1.5
             },
             "standalone_trigger": false,
             "standalone_trigger_scope": "burn_ignition",
@@ -5282,7 +5317,7 @@
               "benchmark_measures": {
                 "charge_capacity": 2,
                 "physical_footprint_cells": 1,
-                "radius_tiles": 1,
+                "radius_tiles": 1.5,
                 "residence_raw_dps": 4.0,
                 "full_dwell_s": 6,
                 "full_dwell_raw_field_damage": 24.0,
@@ -5309,11 +5344,16 @@
                 "reload_during_open": false,
                 "same_week_identity_preserved": true,
                 "last_use_effect_finishes": true
+              },
+              "sa01_radius_correction": {
+                "minimum_effect_radius_tiles": 1.5,
+                "physical_footprint_unchanged": true,
+                "damage_status_cadence_charges_and_price_unchanged": true
               }
             },
             "effective_parameters": {
               "active_s": 6,
-              "radius_tiles": 1,
+              "radius_tiles": 1.5,
               "damage_interval_s": 0.5,
               "damage": 2,
               "channel": "spiritual",
@@ -5353,7 +5393,7 @@
             "benchmark_measures": {
               "charge_capacity": 2,
               "physical_footprint_cells": 1,
-              "radius_tiles": 1,
+              "radius_tiles": 1.5,
               "residence_raw_dps": 3.0,
               "full_dwell_s": 6,
               "full_dwell_raw_field_damage": 18.0,
@@ -5380,11 +5420,16 @@
               "reload_during_open": false,
               "same_week_identity_preserved": true,
               "last_use_effect_finishes": true
+            },
+            "sa01_radius_correction": {
+              "minimum_effect_radius_tiles": 1.5,
+              "physical_footprint_unchanged": true,
+              "damage_status_cadence_charges_and_price_unchanged": true
             }
           },
           "effective_parameters": {
             "active_s": 6,
-            "radius_tiles": 1,
+            "radius_tiles": 1.5,
             "damage_interval_s": 0.5,
             "damage": 1.5,
             "channel": "spiritual",
@@ -5426,7 +5471,7 @@
         "benchmark_measures": {
           "charge_capacity": 2,
           "physical_footprint_cells": 1,
-          "radius_tiles": 1,
+          "radius_tiles": 1.5,
           "residence_raw_dps": 2.0,
           "full_dwell_s": 6,
           "full_dwell_raw_field_damage": 12.0,
@@ -5453,11 +5498,16 @@
           "reload_during_open": false,
           "same_week_identity_preserved": true,
           "last_use_effect_finishes": true
+        },
+        "sa01_radius_correction": {
+          "minimum_effect_radius_tiles": 1.5,
+          "physical_footprint_unchanged": true,
+          "damage_status_cadence_charges_and_price_unchanged": true
         }
       },
       "effective_parameters": {
         "active_s": 6,
-        "radius_tiles": 1,
+        "radius_tiles": 1.5,
         "damage_interval_s": 0.5,
         "damage": 1,
         "channel": "spiritual",
@@ -6889,7 +6939,7 @@
         "reference_body_center_clear": true,
         "center_reachable_from_front_on_cardinal_cell_graph": true,
         "straight_projection_distance_tiles": 1.0,
-        "estimated_effective_walkable_area_tiles2": 3.92125,
+        "estimated_effective_walkable_area_tiles2": 8.881875,
         "area_estimate_method": "deterministic midpoint0.025: walk surface, body radius0.3 solid clearance, front-connected cell graph and straight solid LOS; static reference only",
         "explicit_exclusions": [
           "own fixture occupied part",
@@ -6897,10 +6947,10 @@
           "walls"
         ],
         "dynamic_and_larger_body_check_required": true,
-        "nominal_radius_tiles": 1,
-        "compensated_radius_tiles": 1.3,
-        "estimated_nominal_body_center_area_tiles2": 1.9675,
-        "estimated_compensated_body_center_area_tiles2": 3.105,
+        "nominal_radius_tiles": 1.5,
+        "compensated_radius_tiles": 2.225,
+        "estimated_nominal_body_center_area_tiles2": 3.7825,
+        "estimated_compensated_body_center_area_tiles2": 6.9375,
         "area_compensation_target_met": true
       },
       {
@@ -6920,7 +6970,7 @@
         "reference_body_center_clear": true,
         "center_reachable_from_front_on_cardinal_cell_graph": true,
         "straight_projection_distance_tiles": 1.0,
-        "estimated_effective_walkable_area_tiles2": 3.92125,
+        "estimated_effective_walkable_area_tiles2": 8.881875,
         "area_estimate_method": "deterministic midpoint0.025: walk surface, body radius0.3 solid clearance, front-connected cell graph and straight solid LOS; static reference only",
         "explicit_exclusions": [
           "own fixture occupied part",
@@ -6928,10 +6978,10 @@
           "walls"
         ],
         "dynamic_and_larger_body_check_required": true,
-        "nominal_radius_tiles": 1,
-        "compensated_radius_tiles": 1.3,
-        "estimated_nominal_body_center_area_tiles2": 1.9675,
-        "estimated_compensated_body_center_area_tiles2": 3.105,
+        "nominal_radius_tiles": 1.5,
+        "compensated_radius_tiles": 2.225,
+        "estimated_nominal_body_center_area_tiles2": 3.7825,
+        "estimated_compensated_body_center_area_tiles2": 6.9375,
         "area_compensation_target_met": true
       },
       {
@@ -6942,16 +6992,16 @@
           12.5
         ],
         "field_center": [
-          11.5,
-          11.5
+          14.5,
+          12.5
         ],
         "anchor_inside_own_fixture": true,
         "field_center_walkable": true,
         "reference_body_radius_tiles": 0.3,
         "reference_body_center_clear": true,
         "center_reachable_from_front_on_cardinal_cell_graph": true,
-        "straight_projection_distance_tiles": 1.0,
-        "estimated_effective_walkable_area_tiles2": 3.92125,
+        "straight_projection_distance_tiles": 3.0,
+        "estimated_effective_walkable_area_tiles2": 7.90625,
         "area_estimate_method": "deterministic midpoint0.025: walk surface, body radius0.3 solid clearance, front-connected cell graph and straight solid LOS; static reference only",
         "explicit_exclusions": [
           "own fixture occupied part",
@@ -6959,11 +7009,22 @@
           "walls"
         ],
         "dynamic_and_larger_body_check_required": true,
-        "nominal_radius_tiles": 1,
-        "compensated_radius_tiles": 1.3,
-        "estimated_nominal_body_center_area_tiles2": 1.9675,
-        "estimated_compensated_body_center_area_tiles2": 3.105,
-        "area_compensation_target_met": true
+        "nominal_radius_tiles": 1.5,
+        "compensated_radius_tiles": 1.6,
+        "estimated_nominal_body_center_area_tiles2": 6.365,
+        "estimated_compensated_body_center_area_tiles2": 6.98125,
+        "area_compensation_target_met": true,
+        "registered_outward_emitter": [
+          13.001,
+          12.5
+        ],
+        "sa01_relocated_projection": {
+          "old_center": [
+            11.5,
+            11.5
+          ],
+          "reason": "旧投影在1.5格名义圆与1.5倍补偿上限下不足；改用同挂点合法外侧发射口和可见地面落点。"
+        }
       },
       {
         "tower_anchor_id": "TA04",
@@ -6982,7 +7043,7 @@
         "reference_body_center_clear": true,
         "center_reachable_from_front_on_cardinal_cell_graph": true,
         "straight_projection_distance_tiles": 1.0,
-        "estimated_effective_walkable_area_tiles2": 3.92125,
+        "estimated_effective_walkable_area_tiles2": 8.13875,
         "area_estimate_method": "deterministic midpoint0.025: walk surface, body radius0.3 solid clearance, front-connected cell graph and straight solid LOS; static reference only",
         "explicit_exclusions": [
           "own fixture occupied part",
@@ -6990,10 +7051,10 @@
           "walls"
         ],
         "dynamic_and_larger_body_check_required": true,
-        "nominal_radius_tiles": 1,
-        "compensated_radius_tiles": 1.3,
-        "estimated_nominal_body_center_area_tiles2": 1.9675,
-        "estimated_compensated_body_center_area_tiles2": 3.1725,
+        "nominal_radius_tiles": 1.5,
+        "compensated_radius_tiles": 1.975,
+        "estimated_nominal_body_center_area_tiles2": 4.1325,
+        "estimated_compensated_body_center_area_tiles2": 7.06625,
         "area_compensation_target_met": true
       },
       {
@@ -7013,7 +7074,7 @@
         "reference_body_center_clear": true,
         "center_reachable_from_front_on_cardinal_cell_graph": true,
         "straight_projection_distance_tiles": 1.0,
-        "estimated_effective_walkable_area_tiles2": 3.92125,
+        "estimated_effective_walkable_area_tiles2": 8.26375,
         "area_estimate_method": "deterministic midpoint0.025: walk surface, body radius0.3 solid clearance, front-connected cell graph and straight solid LOS; static reference only",
         "explicit_exclusions": [
           "own fixture occupied part",
@@ -7021,10 +7082,10 @@
           "walls"
         ],
         "dynamic_and_larger_body_check_required": true,
-        "nominal_radius_tiles": 1,
-        "compensated_radius_tiles": 1.3,
-        "estimated_nominal_body_center_area_tiles2": 1.9675,
-        "estimated_compensated_body_center_area_tiles2": 3.1725,
+        "nominal_radius_tiles": 1.5,
+        "compensated_radius_tiles": 2.0,
+        "estimated_nominal_body_center_area_tiles2": 4.1325,
+        "estimated_compensated_body_center_area_tiles2": 7.08375,
         "area_compensation_target_met": true
       },
       {
@@ -7035,16 +7096,16 @@
           24.5
         ],
         "field_center": [
-          3.5,
-          23.5
+          5.5,
+          22.5
         ],
         "anchor_inside_own_fixture": true,
         "field_center_walkable": true,
         "reference_body_radius_tiles": 0.3,
         "reference_body_center_clear": true,
         "center_reachable_from_front_on_cardinal_cell_graph": true,
-        "straight_projection_distance_tiles": 1.0,
-        "estimated_effective_walkable_area_tiles2": 3.92125,
+        "straight_projection_distance_tiles": 2.828427,
+        "estimated_effective_walkable_area_tiles2": 8.58,
         "area_estimate_method": "deterministic midpoint0.025: walk surface, body radius0.3 solid clearance, front-connected cell graph and straight solid LOS; static reference only",
         "explicit_exclusions": [
           "own fixture occupied part",
@@ -7052,11 +7113,22 @@
           "walls"
         ],
         "dynamic_and_larger_body_check_required": true,
-        "nominal_radius_tiles": 1,
-        "compensated_radius_tiles": 1.3,
-        "estimated_nominal_body_center_area_tiles2": 1.9675,
-        "estimated_compensated_body_center_area_tiles2": 3.105,
-        "area_compensation_target_met": true
+        "nominal_radius_tiles": 1.5,
+        "compensated_radius_tiles": 1.775,
+        "estimated_nominal_body_center_area_tiles2": 5.51125,
+        "estimated_compensated_body_center_area_tiles2": 7.07875,
+        "area_compensation_target_met": true,
+        "registered_outward_emitter": [
+          4.001,
+          23.999
+        ],
+        "sa01_relocated_projection": {
+          "old_center": [
+            3.5,
+            23.5
+          ],
+          "reason": "旧投影在1.5格名义圆与1.5倍补偿上限下不足；改用同挂点合法外侧发射口和可见地面落点。"
+        }
       },
       {
         "tower_anchor_id": "TA07",
@@ -7075,7 +7147,7 @@
         "reference_body_center_clear": true,
         "center_reachable_from_front_on_cardinal_cell_graph": true,
         "straight_projection_distance_tiles": 1.0,
-        "estimated_effective_walkable_area_tiles2": 3.92125,
+        "estimated_effective_walkable_area_tiles2": 8.111875,
         "area_estimate_method": "deterministic midpoint0.025: walk surface, body radius0.3 solid clearance, front-connected cell graph and straight solid LOS; static reference only",
         "explicit_exclusions": [
           "own fixture occupied part",
@@ -7083,10 +7155,10 @@
           "walls"
         ],
         "dynamic_and_larger_body_check_required": true,
-        "nominal_radius_tiles": 1,
-        "compensated_radius_tiles": 1.3,
-        "estimated_nominal_body_center_area_tiles2": 1.9675,
-        "estimated_compensated_body_center_area_tiles2": 3.1725,
+        "nominal_radius_tiles": 1.5,
+        "compensated_radius_tiles": 1.975,
+        "estimated_nominal_body_center_area_tiles2": 4.1325,
+        "estimated_compensated_body_center_area_tiles2": 6.993125,
         "area_compensation_target_met": true
       },
       {
@@ -7106,7 +7178,7 @@
         "reference_body_center_clear": true,
         "center_reachable_from_front_on_cardinal_cell_graph": true,
         "straight_projection_distance_tiles": 1.0,
-        "estimated_effective_walkable_area_tiles2": 3.92125,
+        "estimated_effective_walkable_area_tiles2": 8.111875,
         "area_estimate_method": "deterministic midpoint0.025: walk surface, body radius0.3 solid clearance, front-connected cell graph and straight solid LOS; static reference only",
         "explicit_exclusions": [
           "own fixture occupied part",
@@ -7114,10 +7186,10 @@
           "walls"
         ],
         "dynamic_and_larger_body_check_required": true,
-        "nominal_radius_tiles": 1,
-        "compensated_radius_tiles": 1.3,
-        "estimated_nominal_body_center_area_tiles2": 1.9675,
-        "estimated_compensated_body_center_area_tiles2": 3.1725,
+        "nominal_radius_tiles": 1.5,
+        "compensated_radius_tiles": 1.975,
+        "estimated_nominal_body_center_area_tiles2": 4.1325,
+        "estimated_compensated_body_center_area_tiles2": 6.993125,
         "area_compensation_target_met": true
       },
       {
@@ -7128,16 +7200,16 @@
           12.5
         ],
         "field_center": [
-          27.5,
-          14.5
+          25.5,
+          15.5
         ],
         "anchor_inside_own_fixture": true,
         "field_center_walkable": true,
         "reference_body_radius_tiles": 0.3,
         "reference_body_center_clear": true,
         "center_reachable_from_front_on_cardinal_cell_graph": true,
-        "straight_projection_distance_tiles": 2.0,
-        "estimated_effective_walkable_area_tiles2": 4.05,
+        "straight_projection_distance_tiles": 3.605551,
+        "estimated_effective_walkable_area_tiles2": 7.7575,
         "area_estimate_method": "deterministic midpoint0.025: walk surface, body radius0.3 solid clearance, front-connected cell graph and straight solid LOS; static reference only",
         "explicit_exclusions": [
           "own fixture occupied part",
@@ -7145,11 +7217,22 @@
           "walls"
         ],
         "dynamic_and_larger_body_check_required": true,
-        "nominal_radius_tiles": 1,
-        "compensated_radius_tiles": 1.325,
-        "estimated_nominal_body_center_area_tiles2": 1.9675,
-        "estimated_compensated_body_center_area_tiles2": 3.118125,
-        "area_compensation_target_met": true
+        "nominal_radius_tiles": 1.5,
+        "compensated_radius_tiles": 1.575,
+        "estimated_nominal_body_center_area_tiles2": 6.5075,
+        "estimated_compensated_body_center_area_tiles2": 6.981875,
+        "area_compensation_target_met": true,
+        "registered_outward_emitter": [
+          26.499,
+          14.001
+        ],
+        "sa01_relocated_projection": {
+          "old_center": [
+            27.5,
+            14.5
+          ],
+          "reason": "旧投影在1.5格名义圆与1.5倍补偿上限下不足；改用同挂点合法外侧发射口和可见地面落点。"
+        }
       },
       {
         "tower_anchor_id": "TA10",
@@ -7168,7 +7251,7 @@
         "reference_body_center_clear": true,
         "center_reachable_from_front_on_cardinal_cell_graph": true,
         "straight_projection_distance_tiles": 1.0,
-        "estimated_effective_walkable_area_tiles2": 3.92125,
+        "estimated_effective_walkable_area_tiles2": 8.668125,
         "area_estimate_method": "deterministic midpoint0.025: walk surface, body radius0.3 solid clearance, front-connected cell graph and straight solid LOS; static reference only",
         "explicit_exclusions": [
           "own fixture occupied part",
@@ -7176,10 +7259,10 @@
           "walls"
         ],
         "dynamic_and_larger_body_check_required": true,
-        "nominal_radius_tiles": 1,
-        "compensated_radius_tiles": 1.3,
-        "estimated_nominal_body_center_area_tiles2": 1.9675,
-        "estimated_compensated_body_center_area_tiles2": 3.119375,
+        "nominal_radius_tiles": 1.5,
+        "compensated_radius_tiles": 2.2,
+        "estimated_nominal_body_center_area_tiles2": 3.88875,
+        "estimated_compensated_body_center_area_tiles2": 6.9875,
         "area_compensation_target_met": true
       },
       {
@@ -7199,7 +7282,7 @@
         "reference_body_center_clear": true,
         "center_reachable_from_front_on_cardinal_cell_graph": true,
         "straight_projection_distance_tiles": 2.236068,
-        "estimated_effective_walkable_area_tiles2": 3.92125,
+        "estimated_effective_walkable_area_tiles2": 8.111875,
         "area_estimate_method": "deterministic midpoint0.025: walk surface, body radius0.3 solid clearance, front-connected cell graph and straight solid LOS; static reference only",
         "explicit_exclusions": [
           "own fixture occupied part",
@@ -7207,10 +7290,10 @@
           "walls"
         ],
         "dynamic_and_larger_body_check_required": true,
-        "nominal_radius_tiles": 1,
-        "compensated_radius_tiles": 1.3,
-        "estimated_nominal_body_center_area_tiles2": 1.9675,
-        "estimated_compensated_body_center_area_tiles2": 3.1725,
+        "nominal_radius_tiles": 1.5,
+        "compensated_radius_tiles": 1.975,
+        "estimated_nominal_body_center_area_tiles2": 4.1325,
+        "estimated_compensated_body_center_area_tiles2": 6.993125,
         "area_compensation_target_met": true
       },
       {
@@ -7230,7 +7313,7 @@
         "reference_body_center_clear": true,
         "center_reachable_from_front_on_cardinal_cell_graph": true,
         "straight_projection_distance_tiles": 2.236068,
-        "estimated_effective_walkable_area_tiles2": 3.92125,
+        "estimated_effective_walkable_area_tiles2": 8.739375,
         "area_estimate_method": "deterministic midpoint0.025: walk surface, body radius0.3 solid clearance, front-connected cell graph and straight solid LOS; static reference only",
         "explicit_exclusions": [
           "own fixture occupied part",
@@ -7238,10 +7321,10 @@
           "walls"
         ],
         "dynamic_and_larger_body_check_required": true,
-        "nominal_radius_tiles": 1,
-        "compensated_radius_tiles": 1.3,
-        "estimated_nominal_body_center_area_tiles2": 1.9675,
-        "estimated_compensated_body_center_area_tiles2": 3.17,
+        "nominal_radius_tiles": 1.5,
+        "compensated_radius_tiles": 2.1,
+        "estimated_nominal_body_center_area_tiles2": 4.02875,
+        "estimated_compensated_body_center_area_tiles2": 7.010625,
         "area_compensation_target_met": true
       }
     ],
@@ -7293,374 +7376,446 @@
     ],
     "source_git_blob_sha": "f41319e1e7b9d799672a40dfcb5efe5c4694074c",
     "area_compensation_reference": {
+      "accepted_count": 12,
       "examples": [
         {
-          "center": [
-            4.5,
-            11.5
-          ],
-          "nominal_radius_tiles": 1,
-          "effective_radius_tiles": 1.3,
-          "maximum_radius_tiles": 1.5,
-          "target_area_tiles2": 3.141593,
-          "nominal_usable_body_center_area_tiles2": 1.9675,
-          "effective_usable_body_center_area_tiles2": 3.105,
-          "effective_visible_reachable_floor_area_tiles2": 3.92125,
-          "restored_target_fraction": 0.988352,
-          "center_legal_and_connected": true,
-          "area_target_met": true,
-          "circular_mode_allowed_at_this_projection": true,
-          "requires_other_projection_or_anchor": false,
-          "body_radius_tiles": 0.3,
-          "grid_step_tiles": 0.025,
-          "area_tolerance_fraction": 0.02,
-          "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-          "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
           "anchor": "TA01",
+          "anchor_in_own_fixture": true,
+          "area_target_met": true,
+          "area_tolerance_fraction": 0.02,
+          "body_radius_tiles": 0.3,
+          "center": [
+            4.5,
+            11.5
+          ],
+          "center_legal_and_connected": true,
+          "circular_mode_allowed_at_this_projection": true,
+          "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
+          "effective_radius_tiles": 2.225,
+          "effective_usable_body_center_area_tiles2": 6.9375,
+          "effective_visible_reachable_floor_area_tiles2": 8.881875,
+          "emitter_to_field_los_clear": true,
           "fixture": "FX11",
-          "anchor_in_own_fixture": true
+          "grid_step_tiles": 0.025,
+          "maximum_radius_tiles": 2.25,
+          "nominal_radius_tiles": 1.5,
+          "nominal_usable_body_center_area_tiles2": 3.7825,
+          "projection_within_minimum_4_5_cast_range": true,
+          "registered_outward_emitter": [
+            4.5,
+            11.5
+          ],
+          "requires_other_projection_or_anchor": false,
+          "restored_target_fraction": 0.981455,
+          "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
+          "target_area_tiles2": 7.068583
         },
         {
+          "anchor": "TA02",
+          "anchor_in_own_fixture": true,
+          "area_target_met": true,
+          "area_tolerance_fraction": 0.02,
+          "body_radius_tiles": 0.3,
           "center": [
             4.5,
             18.5
           ],
-          "nominal_radius_tiles": 1,
-          "effective_radius_tiles": 1.3,
-          "maximum_radius_tiles": 1.5,
-          "target_area_tiles2": 3.141593,
-          "nominal_usable_body_center_area_tiles2": 1.9675,
-          "effective_usable_body_center_area_tiles2": 3.105,
-          "effective_visible_reachable_floor_area_tiles2": 3.92125,
-          "restored_target_fraction": 0.988352,
           "center_legal_and_connected": true,
-          "area_target_met": true,
           "circular_mode_allowed_at_this_projection": true,
-          "requires_other_projection_or_anchor": false,
-          "body_radius_tiles": 0.3,
-          "grid_step_tiles": 0.025,
-          "area_tolerance_fraction": 0.02,
           "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-          "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-          "anchor": "TA02",
+          "effective_radius_tiles": 2.225,
+          "effective_usable_body_center_area_tiles2": 6.9375,
+          "effective_visible_reachable_floor_area_tiles2": 8.881875,
+          "emitter_to_field_los_clear": true,
           "fixture": "FX11",
-          "anchor_in_own_fixture": true
-        },
-        {
-          "center": [
-            11.5,
-            11.5
-          ],
-          "nominal_radius_tiles": 1,
-          "effective_radius_tiles": 1.3,
-          "maximum_radius_tiles": 1.5,
-          "target_area_tiles2": 3.141593,
-          "nominal_usable_body_center_area_tiles2": 1.9675,
-          "effective_usable_body_center_area_tiles2": 3.105,
-          "effective_visible_reachable_floor_area_tiles2": 3.92125,
-          "restored_target_fraction": 0.988352,
-          "center_legal_and_connected": true,
-          "area_target_met": true,
-          "circular_mode_allowed_at_this_projection": true,
-          "requires_other_projection_or_anchor": false,
-          "body_radius_tiles": 0.3,
           "grid_step_tiles": 0.025,
-          "area_tolerance_fraction": 0.02,
-          "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
+          "maximum_radius_tiles": 2.25,
+          "nominal_radius_tiles": 1.5,
+          "nominal_usable_body_center_area_tiles2": 3.7825,
+          "projection_within_minimum_4_5_cast_range": true,
+          "registered_outward_emitter": [
+            4.5,
+            18.5
+          ],
+          "requires_other_projection_or_anchor": false,
+          "restored_target_fraction": 0.981455,
           "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-          "anchor": "TA03",
-          "fixture": "FX12",
-          "anchor_in_own_fixture": true
+          "target_area_tiles2": 7.068583
         },
         {
+          "anchor": "TA03",
+          "anchor_in_own_fixture": true,
+          "area_target_met": true,
+          "area_tolerance_fraction": 0.02,
+          "body_radius_tiles": 0.3,
+          "center": [
+            14.5,
+            12.5
+          ],
+          "center_legal_and_connected": true,
+          "circular_mode_allowed_at_this_projection": true,
+          "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
+          "effective_radius_tiles": 1.6,
+          "effective_usable_body_center_area_tiles2": 6.98125,
+          "effective_visible_reachable_floor_area_tiles2": 7.90625,
+          "emitter_to_field_los_clear": true,
+          "fixture": "FX12",
+          "grid_step_tiles": 0.025,
+          "maximum_radius_tiles": 2.25,
+          "nominal_radius_tiles": 1.5,
+          "nominal_usable_body_center_area_tiles2": 6.365,
+          "projection_within_minimum_4_5_cast_range": true,
+          "registered_outward_emitter": [
+            13.001,
+            12.5
+          ],
+          "requires_other_projection_or_anchor": false,
+          "restored_target_fraction": 0.987645,
+          "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
+          "target_area_tiles2": 7.068583
+        },
+        {
+          "anchor": "TA04",
+          "anchor_in_own_fixture": true,
+          "area_target_met": true,
+          "area_tolerance_fraction": 0.02,
+          "body_radius_tiles": 0.3,
           "center": [
             11.5,
             18.5
           ],
-          "nominal_radius_tiles": 1,
-          "effective_radius_tiles": 1.3,
-          "maximum_radius_tiles": 1.5,
-          "target_area_tiles2": 3.141593,
-          "nominal_usable_body_center_area_tiles2": 1.9675,
-          "effective_usable_body_center_area_tiles2": 3.1725,
-          "effective_visible_reachable_floor_area_tiles2": 3.92125,
-          "restored_target_fraction": 1.009838,
           "center_legal_and_connected": true,
-          "area_target_met": true,
           "circular_mode_allowed_at_this_projection": true,
-          "requires_other_projection_or_anchor": false,
-          "body_radius_tiles": 0.3,
-          "grid_step_tiles": 0.025,
-          "area_tolerance_fraction": 0.02,
           "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-          "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-          "anchor": "TA04",
+          "effective_radius_tiles": 1.975,
+          "effective_usable_body_center_area_tiles2": 7.06625,
+          "effective_visible_reachable_floor_area_tiles2": 8.13875,
+          "emitter_to_field_los_clear": true,
           "fixture": "FX12",
-          "anchor_in_own_fixture": true
+          "grid_step_tiles": 0.025,
+          "maximum_radius_tiles": 2.25,
+          "nominal_radius_tiles": 1.5,
+          "nominal_usable_body_center_area_tiles2": 4.1325,
+          "projection_within_minimum_4_5_cast_range": true,
+          "registered_outward_emitter": [
+            11.5,
+            18.5
+          ],
+          "requires_other_projection_or_anchor": false,
+          "restored_target_fraction": 0.99967,
+          "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
+          "target_area_tiles2": 7.068583
         },
         {
+          "anchor": "TA05",
+          "anchor_in_own_fixture": true,
+          "area_target_met": true,
+          "area_tolerance_fraction": 0.02,
+          "body_radius_tiles": 0.3,
           "center": [
             15.5,
             14.5
           ],
-          "nominal_radius_tiles": 1,
-          "effective_radius_tiles": 1.3,
-          "maximum_radius_tiles": 1.5,
-          "target_area_tiles2": 3.141593,
-          "nominal_usable_body_center_area_tiles2": 1.9675,
-          "effective_usable_body_center_area_tiles2": 3.1725,
-          "effective_visible_reachable_floor_area_tiles2": 3.92125,
-          "restored_target_fraction": 1.009838,
           "center_legal_and_connected": true,
-          "area_target_met": true,
           "circular_mode_allowed_at_this_projection": true,
-          "requires_other_projection_or_anchor": false,
-          "body_radius_tiles": 0.3,
-          "grid_step_tiles": 0.025,
-          "area_tolerance_fraction": 0.02,
           "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-          "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-          "anchor": "TA05",
+          "effective_radius_tiles": 2.0,
+          "effective_usable_body_center_area_tiles2": 7.08375,
+          "effective_visible_reachable_floor_area_tiles2": 8.26375,
+          "emitter_to_field_los_clear": true,
           "fixture": "FX13",
-          "anchor_in_own_fixture": true
-        },
-        {
-          "center": [
-            3.5,
-            23.5
-          ],
-          "nominal_radius_tiles": 1,
-          "effective_radius_tiles": 1.3,
-          "maximum_radius_tiles": 1.5,
-          "target_area_tiles2": 3.141593,
-          "nominal_usable_body_center_area_tiles2": 1.9675,
-          "effective_usable_body_center_area_tiles2": 3.105,
-          "effective_visible_reachable_floor_area_tiles2": 3.92125,
-          "restored_target_fraction": 0.988352,
-          "center_legal_and_connected": true,
-          "area_target_met": true,
-          "circular_mode_allowed_at_this_projection": true,
-          "requires_other_projection_or_anchor": false,
-          "body_radius_tiles": 0.3,
           "grid_step_tiles": 0.025,
-          "area_tolerance_fraction": 0.02,
-          "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
+          "maximum_radius_tiles": 2.25,
+          "nominal_radius_tiles": 1.5,
+          "nominal_usable_body_center_area_tiles2": 4.1325,
+          "projection_within_minimum_4_5_cast_range": true,
+          "registered_outward_emitter": [
+            15.5,
+            14.5
+          ],
+          "requires_other_projection_or_anchor": false,
+          "restored_target_fraction": 1.002146,
           "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-          "anchor": "TA06",
-          "fixture": "FX18",
-          "anchor_in_own_fixture": true
+          "target_area_tiles2": 7.068583
         },
         {
+          "anchor": "TA06",
+          "anchor_in_own_fixture": true,
+          "area_target_met": true,
+          "area_tolerance_fraction": 0.02,
+          "body_radius_tiles": 0.3,
+          "center": [
+            5.5,
+            22.5
+          ],
+          "center_legal_and_connected": true,
+          "circular_mode_allowed_at_this_projection": true,
+          "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
+          "effective_radius_tiles": 1.775,
+          "effective_usable_body_center_area_tiles2": 7.07875,
+          "effective_visible_reachable_floor_area_tiles2": 8.58,
+          "emitter_to_field_los_clear": true,
+          "fixture": "FX18",
+          "grid_step_tiles": 0.025,
+          "maximum_radius_tiles": 2.25,
+          "nominal_radius_tiles": 1.5,
+          "nominal_usable_body_center_area_tiles2": 5.51125,
+          "projection_within_minimum_4_5_cast_range": true,
+          "registered_outward_emitter": [
+            4.001,
+            23.999
+          ],
+          "requires_other_projection_or_anchor": false,
+          "restored_target_fraction": 1.001438,
+          "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
+          "target_area_tiles2": 7.068583
+        },
+        {
+          "anchor": "TA07",
+          "anchor_in_own_fixture": true,
+          "area_target_met": true,
+          "area_tolerance_fraction": 0.02,
+          "body_radius_tiles": 0.3,
           "center": [
             7.5,
             23.5
           ],
-          "nominal_radius_tiles": 1,
-          "effective_radius_tiles": 1.3,
-          "maximum_radius_tiles": 1.5,
-          "target_area_tiles2": 3.141593,
-          "nominal_usable_body_center_area_tiles2": 1.9675,
-          "effective_usable_body_center_area_tiles2": 3.1725,
-          "effective_visible_reachable_floor_area_tiles2": 3.92125,
-          "restored_target_fraction": 1.009838,
           "center_legal_and_connected": true,
-          "area_target_met": true,
           "circular_mode_allowed_at_this_projection": true,
-          "requires_other_projection_or_anchor": false,
-          "body_radius_tiles": 0.3,
-          "grid_step_tiles": 0.025,
-          "area_tolerance_fraction": 0.02,
           "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-          "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-          "anchor": "TA07",
+          "effective_radius_tiles": 1.975,
+          "effective_usable_body_center_area_tiles2": 6.993125,
+          "effective_visible_reachable_floor_area_tiles2": 8.111875,
+          "emitter_to_field_los_clear": true,
           "fixture": "FX18",
-          "anchor_in_own_fixture": true
+          "grid_step_tiles": 0.025,
+          "maximum_radius_tiles": 2.25,
+          "nominal_radius_tiles": 1.5,
+          "nominal_usable_body_center_area_tiles2": 4.1325,
+          "projection_within_minimum_4_5_cast_range": true,
+          "registered_outward_emitter": [
+            7.5,
+            23.5
+          ],
+          "requires_other_projection_or_anchor": false,
+          "restored_target_fraction": 0.989325,
+          "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
+          "target_area_tiles2": 7.068583
         },
         {
+          "anchor": "TA08",
+          "anchor_in_own_fixture": true,
+          "area_target_met": true,
+          "area_tolerance_fraction": 0.02,
+          "body_radius_tiles": 0.3,
           "center": [
             21.5,
             12.5
           ],
-          "nominal_radius_tiles": 1,
-          "effective_radius_tiles": 1.3,
-          "maximum_radius_tiles": 1.5,
-          "target_area_tiles2": 3.141593,
-          "nominal_usable_body_center_area_tiles2": 1.9675,
-          "effective_usable_body_center_area_tiles2": 3.1725,
-          "effective_visible_reachable_floor_area_tiles2": 3.92125,
-          "restored_target_fraction": 1.009838,
           "center_legal_and_connected": true,
-          "area_target_met": true,
           "circular_mode_allowed_at_this_projection": true,
-          "requires_other_projection_or_anchor": false,
-          "body_radius_tiles": 0.3,
-          "grid_step_tiles": 0.025,
-          "area_tolerance_fraction": 0.02,
           "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-          "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-          "anchor": "TA08",
+          "effective_radius_tiles": 1.975,
+          "effective_usable_body_center_area_tiles2": 6.993125,
+          "effective_visible_reachable_floor_area_tiles2": 8.111875,
+          "emitter_to_field_los_clear": true,
           "fixture": "FX14",
-          "anchor_in_own_fixture": true
-        },
-        {
-          "center": [
-            27.5,
-            14.5
-          ],
-          "nominal_radius_tiles": 1,
-          "effective_radius_tiles": 1.325,
-          "maximum_radius_tiles": 1.5,
-          "target_area_tiles2": 3.141593,
-          "nominal_usable_body_center_area_tiles2": 1.9675,
-          "effective_usable_body_center_area_tiles2": 3.118125,
-          "effective_visible_reachable_floor_area_tiles2": 4.05,
-          "restored_target_fraction": 0.99253,
-          "center_legal_and_connected": true,
-          "area_target_met": true,
-          "circular_mode_allowed_at_this_projection": true,
-          "requires_other_projection_or_anchor": false,
-          "body_radius_tiles": 0.3,
           "grid_step_tiles": 0.025,
-          "area_tolerance_fraction": 0.02,
-          "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
+          "maximum_radius_tiles": 2.25,
+          "nominal_radius_tiles": 1.5,
+          "nominal_usable_body_center_area_tiles2": 4.1325,
+          "projection_within_minimum_4_5_cast_range": true,
+          "registered_outward_emitter": [
+            21.5,
+            12.5
+          ],
+          "requires_other_projection_or_anchor": false,
+          "restored_target_fraction": 0.989325,
           "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-          "anchor": "TA09",
-          "fixture": "FX15",
-          "anchor_in_own_fixture": true
+          "target_area_tiles2": 7.068583
         },
         {
+          "anchor": "TA09",
+          "anchor_in_own_fixture": true,
+          "area_target_met": true,
+          "area_tolerance_fraction": 0.02,
+          "body_radius_tiles": 0.3,
+          "center": [
+            25.5,
+            15.5
+          ],
+          "center_legal_and_connected": true,
+          "circular_mode_allowed_at_this_projection": true,
+          "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
+          "effective_radius_tiles": 1.575,
+          "effective_usable_body_center_area_tiles2": 6.981875,
+          "effective_visible_reachable_floor_area_tiles2": 7.7575,
+          "emitter_to_field_los_clear": true,
+          "fixture": "FX15",
+          "grid_step_tiles": 0.025,
+          "maximum_radius_tiles": 2.25,
+          "nominal_radius_tiles": 1.5,
+          "nominal_usable_body_center_area_tiles2": 6.5075,
+          "projection_within_minimum_4_5_cast_range": true,
+          "registered_outward_emitter": [
+            26.499,
+            14.001
+          ],
+          "requires_other_projection_or_anchor": false,
+          "restored_target_fraction": 0.987733,
+          "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
+          "target_area_tiles2": 7.068583
+        },
+        {
+          "anchor": "TA10",
+          "anchor_in_own_fixture": true,
+          "area_target_met": true,
+          "area_tolerance_fraction": 0.02,
+          "body_radius_tiles": 0.3,
           "center": [
             27.5,
             24.5
           ],
-          "nominal_radius_tiles": 1,
-          "effective_radius_tiles": 1.3,
-          "maximum_radius_tiles": 1.5,
-          "target_area_tiles2": 3.141593,
-          "nominal_usable_body_center_area_tiles2": 1.9675,
-          "effective_usable_body_center_area_tiles2": 3.119375,
-          "effective_visible_reachable_floor_area_tiles2": 3.92125,
-          "restored_target_fraction": 0.992928,
           "center_legal_and_connected": true,
-          "area_target_met": true,
           "circular_mode_allowed_at_this_projection": true,
-          "requires_other_projection_or_anchor": false,
-          "body_radius_tiles": 0.3,
-          "grid_step_tiles": 0.025,
-          "area_tolerance_fraction": 0.02,
           "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-          "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-          "anchor": "TA10",
+          "effective_radius_tiles": 2.2,
+          "effective_usable_body_center_area_tiles2": 6.9875,
+          "effective_visible_reachable_floor_area_tiles2": 8.668125,
+          "emitter_to_field_los_clear": true,
           "fixture": "FX23",
-          "anchor_in_own_fixture": true
+          "grid_step_tiles": 0.025,
+          "maximum_radius_tiles": 2.25,
+          "nominal_radius_tiles": 1.5,
+          "nominal_usable_body_center_area_tiles2": 3.88875,
+          "projection_within_minimum_4_5_cast_range": true,
+          "registered_outward_emitter": [
+            27.5,
+            24.5
+          ],
+          "requires_other_projection_or_anchor": false,
+          "restored_target_fraction": 0.988529,
+          "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
+          "target_area_tiles2": 7.068583
         },
         {
+          "anchor": "TA11",
+          "anchor_in_own_fixture": true,
+          "area_target_met": true,
+          "area_tolerance_fraction": 0.02,
+          "body_radius_tiles": 0.3,
           "center": [
             16.5,
             3.5
           ],
-          "nominal_radius_tiles": 1,
-          "effective_radius_tiles": 1.3,
-          "maximum_radius_tiles": 1.5,
-          "target_area_tiles2": 3.141593,
-          "nominal_usable_body_center_area_tiles2": 1.9675,
-          "effective_usable_body_center_area_tiles2": 3.1725,
-          "effective_visible_reachable_floor_area_tiles2": 3.92125,
-          "restored_target_fraction": 1.009838,
           "center_legal_and_connected": true,
-          "area_target_met": true,
           "circular_mode_allowed_at_this_projection": true,
-          "requires_other_projection_or_anchor": false,
-          "body_radius_tiles": 0.3,
-          "grid_step_tiles": 0.025,
-          "area_tolerance_fraction": 0.02,
           "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-          "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-          "anchor": "TA11",
+          "effective_radius_tiles": 1.975,
+          "effective_usable_body_center_area_tiles2": 6.993125,
+          "effective_visible_reachable_floor_area_tiles2": 8.111875,
+          "emitter_to_field_los_clear": true,
           "fixture": "FX06",
-          "anchor_in_own_fixture": true
+          "grid_step_tiles": 0.025,
+          "maximum_radius_tiles": 2.25,
+          "nominal_radius_tiles": 1.5,
+          "nominal_usable_body_center_area_tiles2": 4.1325,
+          "projection_within_minimum_4_5_cast_range": true,
+          "registered_outward_emitter": [
+            16.5,
+            3.5
+          ],
+          "requires_other_projection_or_anchor": false,
+          "restored_target_fraction": 0.989325,
+          "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
+          "target_area_tiles2": 7.068583
         },
         {
+          "anchor": "TA12",
+          "anchor_in_own_fixture": true,
+          "area_target_met": true,
+          "area_tolerance_fraction": 0.02,
+          "body_radius_tiles": 0.3,
           "center": [
             24.5,
             3.5
           ],
-          "nominal_radius_tiles": 1,
-          "effective_radius_tiles": 1.3,
-          "maximum_radius_tiles": 1.5,
-          "target_area_tiles2": 3.141593,
-          "nominal_usable_body_center_area_tiles2": 1.9675,
-          "effective_usable_body_center_area_tiles2": 3.17,
-          "effective_visible_reachable_floor_area_tiles2": 3.92125,
-          "restored_target_fraction": 1.009042,
           "center_legal_and_connected": true,
-          "area_target_met": true,
           "circular_mode_allowed_at_this_projection": true,
-          "requires_other_projection_or_anchor": false,
-          "body_radius_tiles": 0.3,
-          "grid_step_tiles": 0.025,
-          "area_tolerance_fraction": 0.02,
           "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-          "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-          "anchor": "TA12",
+          "effective_radius_tiles": 2.1,
+          "effective_usable_body_center_area_tiles2": 7.010625,
+          "effective_visible_reachable_floor_area_tiles2": 8.739375,
+          "emitter_to_field_los_clear": true,
           "fixture": "FX07",
-          "anchor_in_own_fixture": true
+          "grid_step_tiles": 0.025,
+          "maximum_radius_tiles": 2.25,
+          "nominal_radius_tiles": 1.5,
+          "nominal_usable_body_center_area_tiles2": 4.02875,
+          "projection_within_minimum_4_5_cast_range": true,
+          "registered_outward_emitter": [
+            24.5,
+            3.5
+          ],
+          "requires_other_projection_or_anchor": false,
+          "restored_target_fraction": 0.991801,
+          "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
+          "target_area_tiles2": 7.068583
         }
       ],
-      "minimum_radius": 1,
-      "accepted_count": 12,
+      "minimum_radius": 1.5,
       "scope": "deterministic static area compensation reference; not gameplay integration"
     },
     "area_compensation_counterexamples": {
-      "unobstructed": {
-        "center": [
-          5.5,
-          5.5
-        ],
-        "nominal_radius_tiles": 1,
-        "effective_radius_tiles": 1.0,
-        "maximum_radius_tiles": 1.5,
-        "target_area_tiles2": 3.141593,
-        "nominal_usable_body_center_area_tiles2": 3.14,
-        "effective_usable_body_center_area_tiles2": 3.14,
-        "effective_visible_reachable_floor_area_tiles2": 3.14,
-        "restored_target_fraction": 0.999493,
-        "center_legal_and_connected": true,
-        "area_target_met": true,
-        "circular_mode_allowed_at_this_projection": true,
-        "requires_other_projection_or_anchor": false,
-        "body_radius_tiles": 0.3,
-        "grid_step_tiles": 0.025,
-        "area_tolerance_fraction": 0.02,
-        "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-        "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required"
-      },
+      "cannot_compensate_through_wall": true,
       "narrow_insufficient_area_projection": {
+        "area_target_met": false,
+        "area_tolerance_fraction": 0.02,
+        "body_radius_tiles": 0.3,
         "center": [
           5.5,
           5.5
         ],
-        "nominal_radius_tiles": 1,
-        "effective_radius_tiles": 1.5,
-        "maximum_radius_tiles": 1.5,
-        "target_area_tiles2": 3.141593,
-        "nominal_usable_body_center_area_tiles2": 0.795,
-        "effective_usable_body_center_area_tiles2": 1.2,
-        "effective_visible_reachable_floor_area_tiles2": 2.945,
-        "restored_target_fraction": 0.381972,
         "center_legal_and_connected": true,
-        "area_target_met": false,
         "circular_mode_allowed_at_this_projection": false,
-        "requires_other_projection_or_anchor": true,
-        "body_radius_tiles": 0.3,
-        "grid_step_tiles": 0.025,
-        "area_tolerance_fraction": 0.02,
         "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-        "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required"
+        "effective_radius_tiles": 2.25,
+        "effective_usable_body_center_area_tiles2": 1.8,
+        "effective_visible_reachable_floor_area_tiles2": 4.4625,
+        "grid_step_tiles": 0.025,
+        "maximum_radius_tiles": 2.25,
+        "nominal_radius_tiles": 1.5,
+        "nominal_usable_body_center_area_tiles2": 1.2,
+        "requires_other_projection_or_anchor": true,
+        "restored_target_fraction": 0.254648,
+        "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
+        "target_area_tiles2": 7.068583
       },
-      "solid_wall_line_of_sight_is_clear": false,
       "reference_body_does_not_expand_empty_circle": true,
-      "cannot_compensate_through_wall": true
+      "solid_wall_line_of_sight_is_clear": false,
+      "unobstructed": {
+        "area_target_met": true,
+        "area_tolerance_fraction": 0.02,
+        "body_radius_tiles": 0.3,
+        "center": [
+          5.5,
+          5.5
+        ],
+        "center_legal_and_connected": true,
+        "circular_mode_allowed_at_this_projection": true,
+        "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
+        "effective_radius_tiles": 1.5,
+        "effective_usable_body_center_area_tiles2": 7.065,
+        "effective_visible_reachable_floor_area_tiles2": 7.065,
+        "grid_step_tiles": 0.025,
+        "maximum_radius_tiles": 2.25,
+        "nominal_radius_tiles": 1.5,
+        "nominal_usable_body_center_area_tiles2": 7.065,
+        "requires_other_projection_or_anchor": false,
+        "restored_target_fraction": 0.999493,
+        "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
+        "target_area_tiles2": 7.068583
+      }
     },
     "electric_two_pool_store_fixture": {
       "unit_positions": {
@@ -7878,6 +8033,20 @@
       "third_appliance_note": "AP_COLD_CABINET is reachable through AP_FREEZER, but outside each pool local2.5 range; it remains a relay node and is not counted as a third local E.",
       "same_circuit_used_as_edge": false,
       "scope": "static authored-map fixture for two independent charged health pools; no predicted enemy behavior or runtime integration"
+    },
+    "sa01_original_projection_counterexamples": {
+      "nominal_radius": 1.5,
+      "failed_before_relocation": [
+        "TA03",
+        "TA06",
+        "TA09"
+      ],
+      "original_target_fractions": {
+        "TA03": 0.911427,
+        "TA06": 0.885344,
+        "TA09": 0.753333
+      },
+      "corrected_by": "same_fixture_legal_outward_projection_not_wall_penetration"
     }
   },
   "monster_matchup_examples": [
@@ -8082,8 +8251,8 @@
     "同一2秒窗口连续走三新区每格2，共6；走回旧区无重复。真瞬移、影跃、镜穿跨这三格同样每格2共6，即使刚收过也重新结算并把三格时钟设抵达+2秒。",
     "同一phase_event_id重放既不再扣R09充能也不再发伤害/刷新，取消或零位移不造收益。",
     "审计中段只给明确分区伤；普通陷阱、电器经过和驻留火场仍需要真实位置，墙和货架本身不是可计伤格。",
-    "挂架r1圆不把被柜体侵占面积丢弃：12挂点参考扩到r1.30–1.325，恢复约π格²可进入中心域；实体、不可达和LOS遮挡面积仍不计。",
-    "空旷r1不扩大；狭道在1.5r上限仍不够时换投影/挂点，不能让场绕墙弥补。玩家路障和怪物挤占不扩大补偿半径。",
+    "挂架名义r1.5圆不把被柜体侵占面积丢弃：12挂点参考扩到r1.575–2.225，恢复名义7.06858格²的98.15%–100.21%可进入中心域；实体、不可达和LOS遮挡面积仍不计。TA03/TA06/TA09使用同挂点合法外侧投影。",
+    "空旷r1.5不扩大；狭道在1.5r即2.25格上限仍不够时换投影/挂点，不能让场绕墙弥补。玩家路障和怪物挤占不扩大补偿半径。",
     "R13.B3真实驻留2.25秒只得9原始场伤；面积补偿、显示帧和状态易感均不乘场伤。",
     "R16.B轨+单真设备每次2直接电荷+1接触反馈，t0/t4可达6；仅轨在有效易感时两次可达4，无易感不足5。",
     "过载连到多少合法节点就处理多少，死者立即离图，下一波本地N+E用剩余节点重算；不把死亡成员继续留在公式。",
@@ -9164,5 +9333,10 @@
     ],
     "revision": "TD05",
     "all_nodes_have_absolute_effective_parameters": true
+  },
+  "sa01_revision": {
+    "baseline_commit": "961ccdbcdc5e8fb81b6cae534ab0317e64de4da5",
+    "reason": "恢复用户指定1.5格最小作用范围、重新检查真实投影，并统一班前资产管理权限。",
+    "runtime_integrated": false
   }
 }

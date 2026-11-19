@@ -4,7 +4,7 @@
   "baseline_commit": "6445d758b9d1b63afad0afb7d75bc422e0d900a6",
   "structural_passed": 734,
   "structural_failed": 0,
-  "finite_passed": 142,
+  "finite_passed": 157,
   "finite_failed": 0,
   "monster_count": 105,
   "attack_definition_count": 184,
@@ -47,35 +47,35 @@
       "passed": true
     },
     {
-      "name": "content/monster_folklore_md01.json original blob unchanged",
+      "name": "content/monster_folklore_md01.json baseline or explicit SA01 correction",
       "passed": true
     },
     {
-      "name": "content/monster_scp_a_md01.json original blob unchanged",
+      "name": "content/monster_scp_a_md01.json baseline or explicit SA01 correction",
       "passed": true
     },
     {
-      "name": "content/monster_scp_b_md01.json original blob unchanged",
+      "name": "content/monster_scp_b_md01.json baseline or explicit SA01 correction",
       "passed": true
     },
     {
-      "name": "content/tower_defense_td05.json original blob unchanged",
+      "name": "content/tower_defense_td05.json baseline or explicit SA01 correction",
       "passed": true
     },
     {
-      "name": "content/traps_facilities_td05.json original blob unchanged",
+      "name": "content/traps_facilities_td05.json baseline or explicit SA01 correction",
       "passed": true
     },
     {
-      "name": "content/equipment_eq01.json original blob unchanged",
+      "name": "content/equipment_eq01.json baseline or explicit SA01 correction",
       "passed": true
     },
     {
-      "name": "content/consumables_eq01.json original blob unchanged",
+      "name": "content/consumables_eq01.json baseline or explicit SA01 correction",
       "passed": true
     },
     {
-      "name": "content/economy_week_td05.json original blob unchanged",
+      "name": "content/economy_week_td05.json baseline or explicit SA01 correction",
       "passed": true
     },
     {
@@ -4630,23 +4630,24 @@
     "Separated a recovered actor action from its still-live independent residual danger sequence; the latter retains a scene slot and delays whole-attack I39 resolution.",
     "Aligned the physical stone radius with the final shared contract: 0.1 tile, retaining actual wall clipping and zero monster HP damage.",
     "Clarified source-pool death versus full-root termination for already launched independent payloads.",
-    "A ritual base warning may be 6..8 seconds; paid legal extensions add at most 3 real seconds, including the actual pulse deadline and following pursuit timing.",
+    "SA01 replay confirmed two cross-system defects: the old reference accepted I21 on a ritual despite its F50/F60-only consumer, and added B04+P05 instead of taking the legacy maximum. Source/attack-definition/amount matching now rejects these counterexamples. Legacy maximum L and the once-only I37 increment J share total min(3,L+J), with only positive differences committed.",
+    "A ritual base warning may be 6..8 seconds. Current legal source I37 adds exactly one real second once, so the current maximum is9; the general3-second safety cap does not grant I21 or other old helpers a new ritual consumer. The prior positive test incorrectly treated the cap as source eligibility and has been replaced with negative cases.",
     "Recorded automated runs passed at each stage; scope/contract corrections above were made during review and are not presented as full-world verification.",
     "Initial integration check had112 failures: legacy-ability mapping shape, post-rule enabled/disabled field names, and CONTACT aim-lock spelling differed between authors. These semantic fields were standardized before the final check; this is not claimed as a first-pass all-green integration.",
     "S35 native6-second4.2-speed lane bound was restored after an incorrect8-tile draft cap.",
     "F47 voluntary sealed-bag contest has no legal damage event; the attack admission explicitly remains noncombat, retaining its MD01 rule-leave outcome and unique reward receipts."
   ],
   "input_hashes": {
-    "content/monster_attacks_folklore_ma01.json": "fd94356d231bdef28b8360bd47c0b9cbfa0ed9bce125e5a1d0d5df143215df02",
+    "content/monster_attacks_folklore_ma01.json": "ac92dc16cabbb18069f0da2471dc2d3b560c87e0d91ac024fc0278653ec11fe2",
     "content/monster_attacks_scp_ma01.json": "5fd3b9db11c5c6d0caf5398b67a223e43f7c304f8fff529d72e3954caaef8684",
     "content/monster_folklore_md01.json": "f7b019223130f255b49a5a7ce8aa44811db096542c235c36d5aa8c5d44ae01ae",
     "content/monster_scp_a_md01.json": "23faa741c2aff38e6c2f254a46f5d9671a88620f73d9a67d0f53b51218272f01",
     "content/monster_scp_b_md01.json": "2ec35fb9e9436474054f0ad3b8be488cc8b995bb6062e4f9f4b8a836e0526a38",
-    "content/attack_contracts_ma01.json": "fd4abe63bbe04449f29c1593b2bec0349265f26cac1a33dff192966da038ba58",
-    "content/monster_attack_roster_ma01.json": "99dd9be970d830dd047eb21b8ee101dce20e1f30b8fcb798ff6c6f3930def132",
-    "scripts/ma01_reference.py": "391a5c53d038e5310a364014901660b7244516b401c8c290ef176afe0fecf4be",
-    "scripts/check_ma01_reference.py": "38a98327519a7931ff4bd46e2c23635806d170f76a1834cb3ac3d2e64dd5d35c",
-    "scripts/check_ma01_design.py": "1762b85e8c796d2a8c3a49494a42fa23f7b61f36a0247400c759813cd156a5a8",
-    "scripts/render_ma01_design.py": "c84afd2f8613575b481a898e75ea5a23b31d5878a272db4cbdb9b997164f12d4"
+    "content/attack_contracts_ma01.json": "9df8f8456abf5872c97d5d88c2d3a2aa264bb68940e5c2ad39320e67918d078f",
+    "content/monster_attack_roster_ma01.json": "d17499af0ed790eee04a2613a0fedf33b442eba991a6baffb80f8c135ce35284",
+    "scripts/ma01_reference.py": "44eae1a63e9a2757a9d1a1ea02a65b43e1ff9bdd4124318a75fcdebf775f5a3e",
+    "scripts/check_ma01_reference.py": "da9c365f8174e3cf8ff491f705804825f3878f5f05534f2f73bf78f38c6f7354",
+    "scripts/check_ma01_design.py": "e5ebd3b37fa14123c8f643a07f7de378d31a293f58cbc4fab5bb56fafa01d07a",
+    "scripts/render_ma01_design.py": "3f32406cf39c8527a9aa30bdd9c755858c60780007f53011f867f22c6fb14dc7"
   }
 }

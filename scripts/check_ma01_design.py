@@ -9,6 +9,8 @@ import re
 ROOT=Path(__file__).resolve().parents[1]
 BASE='6445d758b9d1b63afad0afb7d75bc422e0d900a6'
 EXPECTED_BLOBS={"content/monster_folklore_md01.json":"d3bbec91e4be2f2a7bc68e3079363c30ef5a6c76","content/monster_scp_a_md01.json":"fe3a69b4031345edc2f84d6b5fc7055e7e107145","content/monster_scp_b_md01.json":"20cf76da654982ae8e95a337328896db44959a41","content/tower_defense_td05.json":"4e8d7b42179e1aeafc9882eb9aadd1bd969e4fb3","content/traps_facilities_td05.json":"284fab6f1e3eb20e33b9622f97934a829ee22926","content/equipment_eq01.json":"31cfd8892b300c3b43c1f8b38a21d1d06ca2b4cf","content/consumables_eq01.json":"f388739832983c4ed0c7203ded63315f81ae4d8d","content/economy_week_td05.json":"d7367ffdcc22a160c22eeb6c0714c08fd5211c09"}
+# SA01 intentionally corrects the user-specified radius, projections and phase permissions.
+AUTHORIZED_SA01_BLOBS={"content/tower_defense_td05.json": "8e77f92af41cfad9a0a83807c01f9519aa52fa43", "content/traps_facilities_td05.json": "f25e34d4e8abb9b7937614ece4ff5683896056ce", "content/economy_week_td05.json": "d9e88a6979fe0ae55b91dfc36713f725b11432cf"}
 ATTACK_FILES=['content/monster_attacks_folklore_ma01.json','content/monster_attacks_scp_ma01.json']
 SOURCE_FILES=['content/monster_folklore_md01.json','content/monster_scp_a_md01.json','content/monster_scp_b_md01.json']
 
@@ -48,7 +50,7 @@ def run():
     check('105 original IDs exactly once',len(cards)==105 and set(lookup)==expected_ids)
     check('shared contract runtime remains closed',contract['runtime_integrated'] is False and contract['validation']['runtime_admission'] is False)
     for path,sha in EXPECTED_BLOBS.items():
-        check(path+' original blob unchanged',blob_sha(path)==sha)
+        check(path+' baseline or explicit SA01 correction',blob_sha(path)==AUTHORIZED_SA01_BLOBS.get(path,sha))
     tower_ids=ids(read('content/tower_defense_td05.json'))
     gear_ids=ids(read('content/equipment_eq01.json'))
     item_ids=ids(read('content/consumables_eq01.json'))
@@ -142,7 +144,7 @@ def run():
         check(path+' indexed content hash current',hashlib.sha256((ROOT/path).read_bytes()).hexdigest()==sha)
     reference=read('docs/ma01_reference_report.json')
     current_refs=all(hashlib.sha256((ROOT/p).read_bytes()).hexdigest()==h for p,h in reference.get('input_hashes',{}).items())
-    check('finite reference report is current and passed',reference['failed']==0 and current_refs and len(reference.get('input_hashes',{}))==2)
+    check('finite reference report is current and passed',reference['failed']==0 and current_refs and {'scripts/ma01_reference.py','scripts/check_ma01_reference.py','content/auxiliary_effects_v010.json','content/consumables_eq01.json'}==set(reference.get('input_hashes',{})))
     counts=collections.Counter(m['baseline_resolution'] for m in cards)
     check('22 gates 45 departures 38 weakenings preserved',dict(counts)=={'kill_unlocked':22,'rule_leave':45,'rule_weaken':38})
     passed=sum(x['passed'] for x in checks)

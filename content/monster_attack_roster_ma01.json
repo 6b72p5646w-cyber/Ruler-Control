@@ -8,7 +8,7 @@
   "baseline_roster": "content/monster_roster_md01.json",
   "scope": "Attack-only overlays; original identity, HP/defense/base movement, resolution and child budgets remain MD01.",
   "data_sha256": {
-    "content/monster_attacks_folklore_ma01.json": "fd94356d231bdef28b8360bd47c0b9cbfa0ed9bce125e5a1d0d5df143215df02",
+    "content/monster_attacks_folklore_ma01.json": "ac92dc16cabbb18069f0da2471dc2d3b560c87e0d91ac024fc0278653ec11fe2",
     "content/monster_attacks_scp_ma01.json": "5fd3b9db11c5c6d0caf5398b67a223e43f7c304f8fff529d72e3954caaef8684"
   },
   "entries": [

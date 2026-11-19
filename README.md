@@ -1,6 +1,36 @@
-# EQ01：装备能力与特殊奖励（2026-11-19）
+# 午夜便利店 Ruler Control
 
-## MA01：怪物攻击设计（当前新增）
+## SA01：全系统自洽审计与便利店设备（2026-11-19）
+
+本轮对照当前营业、TD05、MD01、EQ01与MA01，修正已找到的范围、旧道具适用域、停用设备消费者、操作阶段与整周事务冲突。**目前不能宣称完整游戏所有机制都已自洽并实机验证：已有明确合同、尚未启用的候选和仍缺的设计分别列出。** 14类真实设备已有营业/规则/空间职责，本轮补齐双用途候选；没有免费给每台设备复制一座塔的能力。
+
+| 入口 | 内容 |
+|---|---|
+| [本轮总审计](docs/80_sa01_system_audit.md) | 真实问题、修订依据、结论及运行边界 |
+| [设备营业与塔防职责](docs/81_sa01_facilities.md) | 14类设备、3台真实电器、5个数值候选与其成本；候选全部未启用 |
+| [整局/整周与剩余设计](docs/82_sa01_missing_design.md) | 失败整笔回滚、跨周工资、统一钱包、地图/排程/教学等优先级 |
+| [旧部署迁移桥](docs/83_sa01_legacy_bridge.md) | B01–B08、I16、Q08的班前锁、共同容量、余量和原物归属 |
+| [跨系统权威](content/system_authority_sa01.json) | 各版本的唯一消费者与操作阶段；旧练习和拟实现模式分开 |
+| [当前审计报告](docs/sa01_validation_report.json) | 来源、范围、报告新鲜度与有限验证；不等同整周试玩 |
+
+小范围敌方圆统一至少1.5格，12挂点补偿按真实可用地面重新核验。旧营业模块已修复停用的门加固/保温仍可购买的问题。当前两怪HTML仅刷新既有物品路由元数据；它不包含该营业模块，也没有因此接入完整新战斗。详见总审计。
+
+复现本轮：
+
+```sh
+python3 scripts/check_td05_balance.py
+python3 scripts/check_ma01_reference.py
+python3 scripts/render_ma01_design.py
+python3 scripts/check_ma01_design.py
+python3 scripts/render_ma01_design.py
+python3 scripts/check_sa01_lifecycle.py
+python3 scripts/check_sa01_legacy_bridge.py
+node prototype/check_store_core_v05.mjs
+python3 scripts/build_playable_v09.py
+python3 scripts/check_sa01_design.py
+```
+
+## MA01：怪物攻击设计基础
 
 在既有105怪、TD05塔陷阱与EQ01装备上，补齐逐怪攻击几何、蓄力/收招、冲刺与危险体表、射线、投石打断仪式后追击、丝带缠绕与免费脱困。保留原三结局、数值主体、子体和奖励预算。**设计与有限参考模型已补，完整世界AI/地图/美术尚未接入。**
 
@@ -10,7 +40,9 @@
 - 数据：[共享攻击合同](content/attack_contracts_ma01.json) · [105攻击索引](content/monster_attack_roster_ma01.json)
 
 
-本轮完成六槽36张装备目录（34个启用设计候选、2个原停用条目）、18种特殊消耗品、短时奔跑与塔防配合、完整三品质抽奖池。装备/个人道具跨周保留，塔陷阱与建造币沿TD05周清。所有新增运行准入仍关闭，待实际世界适配与试玩。
+## EQ01：装备能力与特殊奖励
+
+EQ01完成六槽36张装备目录（34个启用设计候选、2个原停用条目）、18种特殊消耗品、短时奔跑与塔防配合、完整三品质抽奖池。装备/个人道具跨周保留，塔陷阱与建造币沿TD05周清。所有新增运行准入仍关闭，待实际世界适配与试玩。
 
 - [系统总览](docs/66_eq01_system_overview.md)
 - [完整装备目录](docs/67_eq01_equipment_catalog.md)
@@ -25,7 +57,7 @@
 
 ---
 
-# 午夜便利店 Ruler Control
+## 项目与运行范围
 
 面向微信小游戏的2D俯瞰规则怪谈游戏。**当前运行基线仍为V0.10。最新玩法设计MD01把60个既有民俗条目与本轮新增45项SCP改编整理为105项怪物/异常遭遇，逐条明确机制结局、移动、速度、HP、防御与塔陷阱对策；抽奖机先完成方向。设计数据尚未接入完整客户端。**
 
@@ -69,7 +101,7 @@ MD01只覆盖怪物结局/参数及抽奖方向；TD05完整塔树、陷阱、�
 | [陷阱设备](content/traps_facilities_td05.json) / [怪物适配](content/monster_matchups_td05.json) | 实际空间与原型身份对应 |
 | [追逐数据](content/chase_profiles_td05.json) / [周经济](content/economy_week_td05.json) / [场景](content/balance_scenarios_td05.json) | 可复算速度、库存收支与模型输入 |
 
-运行 `python3 scripts/check_td05_balance.py` 重算；当前[机器报告](docs/td05_balance_report.json)通过 **718 项**，0失败，保留输入与脚本哈希。它不替代客户端战斗、动态导航和手机试玩。TD04及更早TD文档是历史记录；未被TD05修改的既有营业、身份与原物规则继续保留。
+运行 `python3 scripts/check_td05_balance.py` 重算；SA01修订后的当前[机器报告](docs/td05_balance_report.json)通过 **753 项**，0失败，保留输入与实际依赖脚本哈希。它不替代客户端战斗、动态导航和手机试玩。TD04及更早TD文档是历史记录；未被TD05修改的既有营业、身份与原物规则继续保留。
 
 ## 两怪规则实操
 

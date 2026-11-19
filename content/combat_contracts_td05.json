@@ -542,7 +542,7 @@
   },
   "persistent_field": {
     "role": "small_area_damage_for_actual_residence",
-    "illustrative_radius_tiles": 1,
+    "illustrative_radius_tiles": 1.5,
     "illustrative_interval_s": 0.25,
     "illustrative_raw_damage_per_tick": 3,
     "illustrative_raw_dps": 12,
@@ -553,10 +553,10 @@
     "height_and_los_required": true,
     "source_disable_ends_maintained_field": true,
     "finite_field_snapshot": "an explicitly launched independent finite field keeps only its originally declared duration and payload",
-    "balance": "nominal radius is at least one tile; recover shelf-occluded usable area via bounded lawful expansion, preserve actual residence/DPS/duty cycle",
+    "balance": "nominal radius is at least 1.5 tiles; recover shelf-occluded usable area via bounded lawful expansion, preserve actual residence/DPS/duty cycle",
     "illustrative_status_sample_interval_s": 1,
     "no_global_status_application_interval": true,
-    "minimum_circular_radius_tiles": 1,
+    "minimum_circular_radius_tiles": 1.5,
     "geometry_authority": "effective_floor_domain",
     "phase_audit_has_residence": false,
     "phase_endpoint_residence": "only time actually spent at legal departure or arrival positions counts; the symbolic phase-audit middle contributes no residence"
@@ -981,7 +981,7 @@
   "scope": "TD05: uncapped electric feedback with finite-health deaths, equal per-zone displacement toll, susceptibility, compensated floor coverage, and short paper interception",
   "replaces": "TD04 feedback charge budget and potency attenuation, phase-specific damage multipliers, uncorrected clipped coverage, and long-lived paper blocking",
   "effective_floor_domain": {
-    "minimum_circular_radius_tiles": 1,
+    "minimum_circular_radius_tiles": 1.5,
     "applies_to": [
       "circular persistent damage field",
       "circular area debuff",
@@ -1015,7 +1015,7 @@
     "geometry_checks_are_not_full_runtime_navigation": true,
     "area_compensation": {
       "purpose": "recover useful area lost to shelf/counter occupancy around a legal projection, rather than quietly accepting a nominal circle that mostly covers furniture",
-      "nominal_radius_min_tiles": 1,
+      "nominal_radius_min_tiles": 1.5,
       "reference_body_radius_tiles": 0.3,
       "target_area": "pi * nominal_radius^2 of reachable legal reference-body centers; the body center lies inside the field but the whole body need not lie inside its circle",
       "collision_test": "the whole reference body must remain outside actual solids and inside traversable world, with lawful height/LOS and a connected approach",
@@ -1042,5 +1042,10 @@
     "paper intercept never extends beyond one second across any source, and rebuild does not reset the target clock",
     "trap items and refills are purchased and loaded before opening; all replenishment/moving/upgrade/repair routes reject while open",
     "seven-day inventory and money replay retains actual assets and stock, then clears the week atomically"
-  ]
+  ],
+  "sa01_revision": {
+    "baseline_commit": "961ccdbcdc5e8fb81b6cae534ab0317e64de4da5",
+    "reason": "恢复用户指定1.5格最小作用范围、重新检查真实投影，并统一班前资产管理权限。",
+    "runtime_integrated": false
+  }
 }

@@ -41,7 +41,10 @@
     "weekly_reset": "clear_placed_towers_and_upgrades_once_after_week_settlement",
     "economic_authority": "economy_week_td05.json",
     "daily_reset_upgrades": false,
-    "tower_guard_rebuild_is_intrinsic_ability_not_trap_replenishment": true
+    "tower_guard_rebuild_is_intrinsic_ability_not_trap_replenishment": true,
+    "management_phase": "pre_shift_only",
+    "management_permission_authority": "system_authority_sa01.json#/phase_permissions",
+    "retargeting_during_open": "only_existing_authored_ability_target_or_guard_point_change_with_actual_cast_time; no asset relocation, rebuild purchase or branch change"
   },
   "shared_status_snapshot": {
     "heat": {
@@ -3838,7 +3841,7 @@
               "tier": 3,
               "parent": "T04.A",
               "name": "双点值灯",
-              "mechanic": "基础名义半径2.6照区外，配置两个名义半径1.15、距外侧光源不超过4.5格的稳定光斑；单体8灵性DPS。已显形敌人在任一真实光斑连续受照1秒后获得2秒易感，持续真实照射每0.5秒续期；离开或断光停止刷新，双斑重叠不叠减阈值。",
+              "mechanic": "基础名义半径2.6照区外，配置两个名义半径1.5、距外侧光源不超过4.5格的稳定光斑；单体8灵性DPS。已显形敌人在任一真实光斑连续受照1秒后获得2秒易感，持续真实照射每0.5秒续期；离开或断光停止刷新，双斑重叠不叠减阈值。",
               "favorable": [
                 "两个窄影出口或两条操作侧路",
                 "用可达的小光斑提前凑齐热、寒、咒、电阈值"
@@ -3867,7 +3870,7 @@
                 "max_secondary_generation": 1,
                 "light_radius_tiles": 2.6,
                 "spot_count": 2,
-                "spot_radius_tiles": 1.15,
+                "spot_radius_tiles": 1.5,
                 "spot_max_range_tiles": 4.5,
                 "spot_retarget_duration_s": 2,
                 "secondary_generation_policy": "ordinary_proc_generation_limit; electric_positive_hit_feedback_has_no_generation_or_total_charge_cap_and_uses_finite_hp_event_queue",
@@ -3919,7 +3922,7 @@
                     "source_active",
                     "each_spot_actual_light_los"
                   ],
-                  "radius_tiles": 1.15,
+                  "radius_tiles": 1.5,
                   "max_range_tiles": 4.5,
                   "schedule_kind": "explicit_event_or_schedule"
                 },
@@ -4210,7 +4213,14 @@
                     "after": true
                   }
                 ],
-                "historical_diff_is_not_current_parameter_authority": true
+                "historical_diff_is_not_current_parameter_authority": true,
+                "sa01_radius_correction": {
+                  "reason": "用户要求最小小范围半径1.5格；固定L3小炉保留1.2倍半径优势为1.8格。电器脉冲作用带也提高到1.5格；表面接触1格与电图邻接2.5格各保留。",
+                  "previous": 1.15,
+                  "current": 1.5,
+                  "damage_status_cadence_target_cap_and_price_unchanged": true,
+                  "larger_coverage_requires_runtime_calibration": true
+                }
               }
             }
           ],
@@ -9085,7 +9095,7 @@
           "tier": 2,
           "parent": "T07",
           "name": "小炉炙烤",
-          "mechanic": "向侧挂发射口4.5格内合法可走点投半径1格小炉，实际驻留8灵性DPS，持续4秒/周期6秒。0、1、2、3秒各+2热；伤害按实际驻留积分，每0.5秒支付，离场或截止结清末段。",
+          "mechanic": "向侧挂发射口4.5格内合法可走点投半径1.5格小炉，实际驻留8灵性DPS，持续4秒/周期6秒。0、1、2、3秒各+2热；伤害按实际驻留积分，每0.5秒支付，离场或截止结清末段。",
           "favorable": [
             "固定小区",
             "控制留住的目标"
@@ -9111,7 +9121,7 @@
             "can_target_hidden": false,
             "parameters_are_absolute": true,
             "max_secondary_generation": 1,
-            "field_radius_tiles": 1.0,
+            "field_radius_tiles": 1.5,
             "damage_per_second": 8,
             "active_duration_s": 4,
             "cycle_s": 6,
@@ -9193,7 +9203,7 @@
               "tier": 3,
               "parent": "T07.B",
               "name": "驻点炙烤",
-              "mechanic": "半径1.2格固定炉，排除货架本体和被遮挡区域后实际驻留12灵性DPS，持续6秒/周期8秒；0至5秒每秒+2热。未强化单点秒伤换更可靠的合法覆盖，冻结和纸偶创造驻留收益。",
+              "mechanic": "半径1.8格固定炉，排除货架本体和被遮挡区域后实际驻留12灵性DPS，持续6秒/周期8秒；0至5秒每秒+2热。未强化单点秒伤换更可靠的合法覆盖，冻结和纸偶创造驻留收益。",
               "favorable": [
                 "冻结/纸偶留住的单体或紧密小群"
               ],
@@ -9218,7 +9228,7 @@
                 "can_target_hidden": false,
                 "parameters_are_absolute": true,
                 "max_secondary_generation": 1,
-                "field_radius_tiles": 1.2,
+                "field_radius_tiles": 1.8,
                 "damage_per_second": 12,
                 "active_duration_s": 6,
                 "cycle_s": 8,
@@ -9328,7 +9338,7 @@
                   "metrics_are_conditioned_not_full_combat_simulation": true,
                   "active_raw_dps_per_resident_pool": 12,
                   "cycle_average_raw_dps_if_fully_resident": 9.0,
-                  "radius_tiles": 1.2,
+                  "radius_tiles": 1.8,
                   "raw_residence_damage_0_75_2_25_6_seconds": [
                     9.0,
                     27.0,
@@ -9460,7 +9470,14 @@
                     "after": "ordinary_proc_generation_limit; electric_positive_hit_feedback_has_no_generation_or_total_charge_cap_and_uses_finite_hp_event_queue"
                   }
                 ],
-                "historical_diff_is_not_current_parameter_authority": true
+                "historical_diff_is_not_current_parameter_authority": true,
+                "sa01_radius_correction": {
+                  "reason": "用户要求最小小范围半径1.5格；固定L3小炉保留1.2倍半径优势为1.8格。电器脉冲作用带也提高到1.5格；表面接触1格与电图邻接2.5格各保留。",
+                  "previous": 1.2,
+                  "current": 1.8,
+                  "damage_status_cadence_target_cap_and_price_unchanged": true,
+                  "larger_coverage_requires_runtime_calibration": true
+                }
               }
             },
             {
@@ -9468,7 +9485,7 @@
               "tier": 3,
               "parent": "T07.B",
               "name": "随行焰芯",
-              "mechanic": "半径1格移动炉，最多2.2格/秒沿合法地面追踪可见目标，实际驻留10灵性DPS，持续5秒/周期7秒；0至4秒每秒+2热。不能穿柜、不能瞬移追出口，停视线即停跟随。",
+              "mechanic": "半径1.5格移动炉，最多2.2格/秒沿合法地面追踪可见目标，实际驻留10灵性DPS，持续5秒/周期7秒；0至4秒每秒+2热。不能穿柜、不能瞬移追出口，停视线即停跟随。",
               "favorable": [
                 "可见慢追逐",
                 "短距移动导致固定炉空烧的场景"
@@ -9494,7 +9511,7 @@
                 "can_target_hidden": false,
                 "parameters_are_absolute": true,
                 "max_secondary_generation": 1,
-                "field_radius_tiles": 1.0,
+                "field_radius_tiles": 1.5,
                 "damage_per_second": 10,
                 "active_duration_s": 5,
                 "cycle_s": 7,
@@ -9610,7 +9627,7 @@
                   "metrics_are_conditioned_not_full_combat_simulation": true,
                   "active_raw_dps_per_resident_pool": 10,
                   "cycle_average_raw_dps_if_fully_resident": 7.142857,
-                  "radius_tiles": 1.0,
+                  "radius_tiles": 1.5,
                   "raw_residence_damage_0_75_2_25_6_seconds": [
                     7.5,
                     22.5,
@@ -9740,7 +9757,14 @@
                     "after": "ordinary_proc_generation_limit; electric_positive_hit_feedback_has_no_generation_or_total_charge_cap_and_uses_finite_hp_event_queue"
                   }
                 ],
-                "historical_diff_is_not_current_parameter_authority": true
+                "historical_diff_is_not_current_parameter_authority": true,
+                "sa01_radius_correction": {
+                  "reason": "用户要求最小小范围半径1.5格；固定L3小炉保留1.2倍半径优势为1.8格。电器脉冲作用带也提高到1.5格；表面接触1格与电图邻接2.5格各保留。",
+                  "previous": 1.0,
+                  "current": 1.5,
+                  "damage_status_cadence_target_cap_and_price_unchanged": true,
+                  "larger_coverage_requires_runtime_calibration": true
+                }
               }
             }
           ],
@@ -9777,7 +9801,7 @@
               "metrics_are_conditioned_not_full_combat_simulation": true,
               "active_raw_dps_per_resident_pool": 8,
               "cycle_average_raw_dps_if_fully_resident": 5.333333,
-              "radius_tiles": 1.0,
+              "radius_tiles": 1.5,
               "raw_residence_damage_0_75_2_25_6_seconds": [
                 6.0,
                 18.0,
@@ -9905,7 +9929,14 @@
                 "after": "ordinary_proc_generation_limit; electric_positive_hit_feedback_has_no_generation_or_total_charge_cap_and_uses_finite_hp_event_queue"
               }
             ],
-            "historical_diff_is_not_current_parameter_authority": true
+            "historical_diff_is_not_current_parameter_authority": true,
+            "sa01_radius_correction": {
+              "reason": "用户要求最小小范围半径1.5格；固定L3小炉保留1.2倍半径优势为1.8格。电器脉冲作用带也提高到1.5格；表面接触1格与电图邻接2.5格各保留。",
+              "previous": 1.0,
+              "current": 1.5,
+              "damage_status_cadence_target_cap_and_price_unchanged": true,
+              "larger_coverage_requires_runtime_calibration": true
+            }
           }
         }
       ]
@@ -10975,7 +11006,7 @@
               "tier": 3,
               "parent": "T08.B",
               "name": "公示禁区",
-              "mechanic": "保留10灵性/1.5秒直伤与一枚待部署许可；只有合法半径1.2落场范围内出现可封准备者，才开启3秒公示场并从实际部署开始8秒冷却。场内最多两个不同池各申请一次0.8秒短封。升级保留L2现有一印或装填进度，不白领就绪；无合格准备不空放。",
+              "mechanic": "保留10灵性/1.5秒直伤与一枚待部署许可；只有合法半径1.5落场范围内出现可封准备者，才开启3秒公示场并从实际部署开始8秒冷却。场内最多两个不同池各申请一次0.8秒短封。升级保留L2现有一印或装填进度，不白领就绪；无合格准备不空放。",
               "favorable": [
                 "交汇区两个接近的技能准备者",
                 "需要先等预告再决定合法落场的位置"
@@ -11001,7 +11032,7 @@
                 "can_target_hidden": false,
                 "parameters_are_absolute": true,
                 "max_secondary_generation": 1,
-                "seal_field_radius_tiles": 1.2,
+                "seal_field_radius_tiles": 1.5,
                 "seal_field_active_s": 3,
                 "seal_field_cycle_s": null,
                 "seal_field_target_cap": 2,
@@ -11183,7 +11214,14 @@
                     "after": "ordinary_proc_generation_limit; electric_positive_hit_feedback_has_no_generation_or_total_charge_cap_and_uses_finite_hp_event_queue"
                   }
                 ],
-                "historical_diff_is_not_current_parameter_authority": true
+                "historical_diff_is_not_current_parameter_authority": true,
+                "sa01_radius_correction": {
+                  "reason": "用户要求最小小范围半径1.5格；固定L3小炉保留1.2倍半径优势为1.8格。电器脉冲作用带也提高到1.5格；表面接触1格与电图邻接2.5格各保留。",
+                  "previous": 1.2,
+                  "current": 1.5,
+                  "damage_status_cadence_target_cap_and_price_unchanged": true,
+                  "larger_coverage_requires_runtime_calibration": true
+                }
               }
             }
           ],
@@ -12233,7 +12271,7 @@
           "tier": 2,
           "parent": "T09",
           "name": "家电感应",
-          "mechanic": "选择一件真实通电设备，以实际外表面名义1.3格感应域每1.5秒发独立脉冲，最多3池各2灵性电伤+1电荷，重叠去重。纯注入首次普通阈值6秒、易感4.5秒；D=6，设备可中继，正过载伤害逐存活池再+1，全波反馈无总额上限。",
+          "mechanic": "选择一件真实通电设备，以实际外表面名义1.5格感应域每1.5秒发独立脉冲，最多3池各2灵性电伤+1电荷，重叠去重。纯注入首次普通阈值6秒、易感4.5秒；D=6，设备可中继，正过载伤害逐存活池再+1，全波反馈无总额上限。",
           "favorable": [
             "真实电器附近引怪",
             "群体铺电"
@@ -12284,7 +12322,7 @@
             "target_cap_per_device": 3,
             "environment_contact_radius_tiles": 1,
             "device_selection_range_tiles": 5,
-            "induction_radius_tiles": 1.3,
+            "induction_radius_tiles": 1.5,
             "pulse_cycle_s": 1.5,
             "pulse_first_s": 0,
             "pulse_is_independent_permission": true,
@@ -12336,7 +12374,7 @@
                 0
               ],
               "one_per_pool_per_pulse": true,
-              "induction_radius_tiles": 1.3,
+              "induction_radius_tiles": 1.5,
               "schedule_kind": "explicit_event_or_schedule",
               "named_secondary_exception": "electric_positive_hit_feedback",
               "primary_deposit_merges_with_electric_damage_deposit": true,
@@ -12367,7 +12405,7 @@
               "tier": 3,
               "parent": "T09.B",
               "name": "家电联防",
-              "mechanic": "选择两件不同真实通电设备，共用1.8秒脉冲、0秒首发，每域名义1.3格、最多3池。每池每共享脉冲最多2灵性电伤+1电荷；纯注入首次普通7.2秒、易感5.4秒，D=6。侧重双站可靠铺网；连锁反馈不限总量，已死池不再充当节点或排队源。",
+              "mechanic": "选择两件不同真实通电设备，共用1.8秒脉冲、0秒首发，每域名义1.5格、最多3池。每池每共享脉冲最多2灵性电伤+1电荷；纯注入首次普通7.2秒、易感5.4秒，D=6。侧重双站可靠铺网；连锁反馈不限总量，已死池不再充当节点或排队源。",
               "favorable": [
                 "玩家可绕多个真实电器引怪的线路"
               ],
@@ -12417,7 +12455,7 @@
                 "target_cap_per_device": 3,
                 "environment_contact_radius_tiles": 1,
                 "device_selection_range_tiles": 5,
-                "induction_radius_tiles": 1.3,
+                "induction_radius_tiles": 1.5,
                 "pulse_cycle_s": 1.8,
                 "pulse_first_s": 0,
                 "pulse_is_independent_permission": true,
@@ -12469,7 +12507,7 @@
                     0
                   ],
                   "one_per_pool_per_pulse": true,
-                  "induction_radius_tiles": 1.3,
+                  "induction_radius_tiles": 1.5,
                   "schedule_kind": "explicit_event_or_schedule",
                   "named_secondary_exception": "electric_positive_hit_feedback",
                   "primary_deposit_merges_with_electric_damage_deposit": true,
@@ -12646,7 +12684,14 @@
                     "after": "ordinary_proc_generation_limit; electric_positive_hit_feedback_has_no_generation_or_total_charge_cap_and_uses_finite_hp_event_queue"
                   }
                 ],
-                "historical_diff_is_not_current_parameter_authority": true
+                "historical_diff_is_not_current_parameter_authority": true,
+                "sa01_radius_correction": {
+                  "reason": "用户要求最小小范围半径1.5格；固定L3小炉保留1.2倍半径优势为1.8格。电器脉冲作用带也提高到1.5格；表面接触1格与电图邻接2.5格各保留。",
+                  "previous": 1.3,
+                  "current": 1.5,
+                  "damage_status_cadence_target_cap_and_price_unchanged": true,
+                  "larger_coverage_requires_runtime_calibration": true
+                }
               }
             },
             {
@@ -13180,7 +13225,14 @@
                 "after": "ordinary_proc_generation_limit; electric_positive_hit_feedback_has_no_generation_or_total_charge_cap_and_uses_finite_hp_event_queue"
               }
             ],
-            "historical_diff_is_not_current_parameter_authority": true
+            "historical_diff_is_not_current_parameter_authority": true,
+            "sa01_radius_correction": {
+              "reason": "用户要求最小小范围半径1.5格；固定L3小炉保留1.2倍半径优势为1.8格。电器脉冲作用带也提高到1.5格；表面接触1格与电图邻接2.5格各保留。",
+              "previous": 1.3,
+              "current": 1.5,
+              "damage_status_cadence_target_cap_and_price_unchanged": true,
+              "larger_coverage_requires_runtime_calibration": true
+            }
           }
         }
       ]
@@ -14811,7 +14863,7 @@
     }
   ],
   "shared_geometry": {
-    "minimum_positive_circular_damage_radius_tiles": 1,
+    "minimum_positive_circular_damage_radius_tiles": 1.5,
     "not_a_minimum_for_projectile_width_or_melee_reach": true,
     "projected_field_center": "legal_reachable_walkable_floor_outside_fixture_footprints",
     "target_area": "nominal_unobstructed_circle_pi_r0_squared_of_legal_target_center_domain",
@@ -14885,5 +14937,10 @@
     "each_overload_wave_rebuilds_alive_graph_before_next_wave": true,
     "susceptible_threshold_review_complete": true,
     "prior_td04_global_feedback_cap_is_not_active": true
+  },
+  "sa01_revision": {
+    "baseline_commit": "961ccdbcdc5e8fb81b6cae534ab0317e64de4da5",
+    "reason": "恢复用户指定1.5格最小作用范围、重新检查真实投影，并统一班前资产管理权限。",
+    "runtime_integrated": false
   }
 }

@@ -21,7 +21,7 @@ from td05_economy_reference import (week_replay, command_counterexamples,
     depleted_sale_comparisons, repair_sale_comparisons, stock_pressure_replays,
     unused_stock_week_boundary_fixture)
 from td05_geometry_reference import (geometry_examples, geometry_counterexamples,
-    electric_store_fixture)
+    electric_store_fixture, StaticFloor, compensate_circle)
 from td05_chase_reference import run_reference as chase_reference
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -75,6 +75,13 @@ def run():
     data = {name: read('content/' + name + '_td05.json') for name in names}
     towers, contract, traps, economy, matchups, chase, scenarios = [data[n] for n in names]
     maps = read('content/maps.json')
+    check('user_minimum_1_5_contract',contract['effective_floor_domain']['minimum_circular_radius_tiles']==1.5 and contract['persistent_field']['minimum_circular_radius_tiles']==1.5 and towers['shared_geometry']['minimum_positive_circular_damage_radius_tiles']==1.5 and traps['shared_contract']['placement']['circular_effect_min_radius_tiles']==1.5)
+    invalid_radius_rejected=False
+    try:
+        compensate_circle(StaticFloor({'walk_surfaces':[{'rect':[0,0,10,10]}],'walls':[],'fixtures':[]},start=(5,5)),(5.5,5.5),1.49)
+    except ValueError:
+        invalid_radius_rejected=True
+    check('below_user_minimum_radius_rejected_before_measurement',invalid_radius_rejected)
     for name, item in data.items():
         check('design_scope_' + name, item['version'] == 'TD05' and item['runtime_integrated'] is False)
     all_nodes = list(nodes(towers))
@@ -85,6 +92,10 @@ def run():
     for node in all_nodes:
         tier = node['tier']
         check('absolute_and_reviewed_' + node['id'], node['parameters']['parameters_are_absolute'] and bool(node['balance_profile']))
+        for key in node['parameters'].get('compensable_floor_circle_radius_parameter_keys',[]):
+            check('user_minimum_1_5_circle_' + node['id'] + '_' + key, node['parameters'][key]>=1.5)
+        if 'induction_radius_tiles' in node['parameters']:
+            check('user_minimum_1_5_induction_' + node['id'],node['parameters']['induction_radius_tiles']>=1.5)
         check('tree_parent_' + node['id'], tier == 1 or node['parent'] in by_id and by_id[node['parent']]['tier'] == tier - 1)
         check('build_cost_' + node['id'], (tier == 1 and 35 <= node['cost']['coin'] <= 45) or
               (tier == 2 and node['cost'] == {'coin': 28, 'spirit': 4}) or
@@ -106,6 +117,9 @@ def run():
     check('trap_topology_16_80', len(traps['traps']) == 16 and len(trap_nodes) == len({n['id'] for n in trap_nodes}) == 80)
     for node in trap_nodes:
         check('trap_resolved_and_reviewed_' + node['id'], bool(node['effective_parameters']) and bool(node['balance_profile']))
+        for key in ('radius_tiles','secondary_radius_tiles'):
+            if key in node['effective_parameters']:
+                check('trap_minimum_1_5_circle_' + node['id'] + '_' + key,node['effective_parameters'][key]>=1.5)
     s = contract['statuses']
     check('susceptible_thresholds', s['susceptible']['thresholds'] == {'heat': {'base': 8, 'susceptible': 7}, 'frost': {'base': 4, 'susceptible': 3}, 'curse': {'base': 4, 'susceptible': 3}, 'electric': {'base': 5, 'susceptible': 4}})
     check('only_three_susceptible_sources', {v['id'] for v in s['susceptible']['sources']} == {'T04.A2', 'T06.B2', 'R08.B3'})
@@ -241,7 +255,7 @@ def run():
     geometry = geometry_examples(traps, maps)
     geo_bad = geometry_counterexamples()
     for row in geometry['examples']:
-        check('compensated_actual_anchor_' + row['anchor'], row['area_target_met'] and row['center_legal_and_connected'] and 1 <= row['effective_radius_tiles'] <= 1.5 and row['restored_target_fraction'] >= .98)
+        check('compensated_actual_anchor_' + row['anchor'], row['area_target_met'] and row['center_legal_and_connected'] and 1.5 <= row['effective_radius_tiles'] <= 2.25 and row['restored_target_fraction'] >= .98 and row['emitter_to_field_los_clear'] and row['projection_within_minimum_4_5_cast_range'])
     check('free_floor_stays_nominal_radius', geo_bad['reference_body_does_not_expand_empty_circle'])
     check('bounded_compensation_rejects_narrow_dead_area', not geo_bad['narrow_insufficient_area_projection']['area_target_met'])
     check('compensation_never_sees_through_walls', geo_bad['cannot_compensate_through_wall'])
@@ -285,10 +299,18 @@ def run():
 
     inputs = {str(Path('content')/(n+'_td05.json')): hashlib.sha256(locate('content/'+n+'_td05.json').read_bytes()).hexdigest() for n in names}
     inputs['content/maps.json'] = hashlib.sha256(locate('content/maps.json').read_bytes()).hexdigest()
-    scripts = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted((ROOT/'scripts').glob('*.py'))}
+    # Record the actual local dependency closure, not unrelated historical
+    # scripts that happened to be present in a staging overlay.
+    dependency_names = ('check_td05_balance.py', 'td05_reference.py',
+                        'td05_economy_reference.py', 'td05_geometry_reference.py',
+                        'td05_chase_reference.py')
+    scripts = {name: hashlib.sha256((ROOT/'scripts'/name).read_bytes()).hexdigest()
+               for name in dependency_names}
     report = clean({'version':'TD05','runtime_integrated':False,
         'scope':'finite reference checks and model calibration; no assertion of full AI, phone input, runtime persistence or seven-night playtest',
         'source_commit':'2de5054a12ee1655ad817dae73ce643d1db82047',
+        'sa01_revision':{'baseline_commit':'961ccdbcdc5e8fb81b6cae534ab0317e64de4da5',
+                         'scope':'1.5-tile hostile-circle lower bound, lawful same-anchor projections and phase authority; original TD05 source_commit retained as history'},
         'input_sha256':inputs,'script_sha256':scripts,
         'checks_passed':sum(c['passed'] for c in CHECKS),'checks_failed':sum(not c['passed'] for c in CHECKS),
         'nominal_no_death_offense':nominal,'defense_sensitivity':defense,

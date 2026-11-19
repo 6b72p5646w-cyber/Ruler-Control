@@ -3,7 +3,7 @@
 
 Nominal circles count a legal enemy centre inside their circle. A body need not
 fit wholly inside that circle; it must fit on real floor and avoid solid objects.
-Thus an empty unobstructed r=1 circle remains r=1 even for a radius-.3 body.
+Thus an empty unobstructed r=1.5 circle remains r=1.5 even for a radius-.3 body.
 """
 from collections import deque
 from bisect import bisect_right
@@ -91,8 +91,8 @@ def compensate_circle(floor, center, nominal_radius, maximum_factor=1.5,
     area. No points behind fixtures or in isolated rooms become compensation.
     Radius expansion neither changes DPS, status count nor target cap.
     """
-    if nominal_radius < 1:
-        raise ValueError('a circular effect must have at least one-tile radius')
+    if nominal_radius < 1.5:
+        raise ValueError('a hostile circular effect must have at least 1.5-tile radius')
     if not 1 <= maximum_factor <= 1.5:
         raise ValueError('compensation is bounded at 1.5 times nominal radius')
     maximum_radius = nominal_radius * maximum_factor
@@ -148,7 +148,7 @@ def compensate_circle(floor, center, nominal_radius, maximum_factor=1.5,
     }
 
 
-def geometry_examples(traps, maps, nominal_radius=1, grid_step=.025):
+def geometry_examples(traps, maps, nominal_radius=1.5, grid_step=.025):
     scene=next(s for s in maps['scenes'] if s['id']=='MAP_STORE')
     floor=StaticFloor(scene)
     fixtures={f['id']:f for f in scene['fixtures']}
@@ -157,6 +157,10 @@ def geometry_examples(traps, maps, nominal_radius=1, grid_step=.025):
         row=compensate_circle(floor, example['field_center'], nominal_radius,grid_step=grid_step)
         row.update(anchor=example['tower_anchor_id'],fixture=example['fixture_id'],
                    anchor_in_own_fixture=inside_rect(example['anchor_position'],fixtures[example['fixture_id']]['rect']))
+        emitter=example.get('registered_outward_emitter',example['field_center'])
+        row['registered_outward_emitter']=emitter
+        row['emitter_to_field_los_clear']=floor.visible(emitter,example['field_center'])
+        row['projection_within_minimum_4_5_cast_range']=math.dist(example['anchor_position'],example['field_center'])<=4.5
         rows.append(row)
     return {'examples':rows,'minimum_radius':nominal_radius,
             'accepted_count':sum(r['area_target_met'] for r in rows),
@@ -167,22 +171,22 @@ def geometry_counterexamples():
     """Empty floor stays nominal; wall cannot become useful extra area."""
     empty={'walk_surfaces':[{'rect':[0,0,10,10]}],'walls':[],'fixtures':[]}
     f=StaticFloor(empty,start=(5,5))
-    open_circle=compensate_circle(f,(5.5,5.5),1)
+    open_circle=compensate_circle(f,(5.5,5.5),1.5)
     # A one-wide corridor permits a .3-radius enemy, but only .4 width of
-    # available centres. Even r=1.5 cannot recreate a pi-square-tile area.
+    # available centres. Even r=2.25 cannot recreate a 2.25*pi-square-tile area.
     narrow={'walk_surfaces':[{'rect':[0,0,10,10]}],
             'walls':[{'rect':[0,0,5,10]},{'rect':[6,0,4,10]}],
             'fixtures':[]}
     f2=StaticFloor(narrow,start=(5,5))
     # A connected real corridor still lacks sufficient visible area.
-    confined=compensate_circle(f2,(5.5,5.5),1)
+    confined=compensate_circle(f2,(5.5,5.5),1.5)
     blocked={'walk_surfaces':[{'rect':[0,0,10,10]}],
              'walls':[{'rect':[4,0,1,10]}],'fixtures':[]}
     f3=StaticFloor(blocked,start=(2,5))
     through_wall=f3.visible((3.5,5.5),(5.5,5.5))
     return {'unobstructed':open_circle,'narrow_insufficient_area_projection':confined,
             'solid_wall_line_of_sight_is_clear':through_wall,
-            'reference_body_does_not_expand_empty_circle':open_circle['effective_radius_tiles']==1,
+            'reference_body_does_not_expand_empty_circle':open_circle['effective_radius_tiles']==1.5,
             'cannot_compensate_through_wall':not through_wall}
 
 

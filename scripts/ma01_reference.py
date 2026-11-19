@@ -108,6 +108,32 @@ def preset_sweep_direction(start_degrees, arc_degrees, elapsed, duration, clockw
     return (cos(angle), sin(angle))
 
 
+def warning_extension_request(definition_id, source, seconds, *, ritual=False):
+    """Validate the source's existing consumer, not only the shared time cap.
+
+    The world adapter still proves ownership, stock, real action identity and
+    remaining shift budget. Legacy sources request a maximum TOTAL in their
+    shared group; I37 contributes one separate increment, with a combined cap3.
+    """
+    source = {'P05.special': 'P05', 'P07.special': 'P07',
+              'I21.warning': 'I21', 'B04.active': 'B04'}.get(source, source)
+    seconds = q(seconds)
+    if source == 'I37' and seconds == 1:
+        return source, 'increment'
+    if ritual:
+        return None
+    allowed = {
+        ('F50:DIVE', 'I21'): (F(3),),
+        ('F60:GAZE', 'I21'): (F(3),),
+        ('F50:DIVE', 'P05'): (F(2),),
+        ('F60:GAZE', 'P07'): (F(2),),
+        ('F50:DIVE', 'B04'): (F(1), F(1, 2)),
+    }
+    if seconds in allowed.get((definition_id, source), ()):
+        return source, 'legacy_maximum'
+    return None
+
+
 @dataclass
 class AttackTimeline:
     attack_id: str
@@ -127,10 +153,19 @@ class AttackTimeline:
     closed_at: F | None = None
     curse_draws: int = 0
     canceled_reason: str | None = None
+    definition_id: str | None = None
+    legacy_extension: F = F(0)
+    i37_extension: F = F(0)
 
     def __post_init__(self):
-        for key in ('start', 'windup', 'active', 'recovery', 'cooldown', 'extension'):
+        for key in ('start', 'windup', 'active', 'recovery', 'cooldown', 'extension',
+                    'legacy_extension', 'i37_extension'):
             setattr(self, key, q(getattr(self, key)))
+        if self.definition_id is None and self.attack_id in ('F50:DIVE', 'F60:GAZE'):
+            self.definition_id = self.attack_id
+        if (not 0 <= self.legacy_extension <= 3 or self.i37_extension not in (0, 1)
+                or self.extension != min(F(3), self.legacy_extension+self.i37_extension)):
+            raise ValueError('warning extension ledger is inconsistent')
         self.independent_payload |= self.autonomous_projectile
         self.action_active = self.active if self.action_active is None else q(self.action_active)
         if not self.attack_id or self.windup < F(3,2) or min(self.active,self.recovery,self.cooldown) < 0:
@@ -157,12 +192,19 @@ class AttackTimeline:
 
     def extend(self, now, source='I37', seconds=1):
         now, seconds = q(now), q(seconds)
-        if self.state != 'preparing' or now < self.start or now >= self.deadline or source in self.extension_sources or seconds <= 0:
+        request = warning_extension_request(self.definition_id, source, seconds)
+        if request is None:
             return F(0)
-        amount = min(seconds, F(3)-self.extension)
+        source, kind = request
+        if self.state != 'preparing' or now < self.start or now >= self.deadline or source in self.extension_sources:
+            return F(0)
+        legacy = max(self.legacy_extension, seconds) if kind == 'legacy_maximum' else self.legacy_extension
+        increment = F(1) if kind == 'increment' else self.i37_extension
+        total = min(F(3), legacy+increment)
+        amount = total-self.extension
         if amount <= 0:
             return F(0)
-        self.extension += amount
+        self.legacy_extension, self.i37_extension, self.extension = legacy, increment, total
         self.extension_sources.add(source)
         return amount
 
@@ -385,10 +427,14 @@ class RitualCycle:
 
     def extend(self, now, source='I37', seconds=1):
         now, seconds = q(now), q(seconds)
-        if (self.mode != 'chanting' or now < self.started_at or now >= self.pulse_at
-                or source in self.extension_sources or seconds <= 0):
+        request = warning_extension_request(self.ritual_id, source, seconds, ritual=True)
+        if request is None:
             return F(0)
-        amount=min(seconds,F(3)-self.extension_total)
+        source, _ = request
+        if (self.mode != 'chanting' or now < self.started_at or now >= self.pulse_at
+                or source in self.extension_sources):
+            return F(0)
+        amount = F(1)-self.extension_total
         if amount <= 0:
             return F(0)
         self.extension_total += amount

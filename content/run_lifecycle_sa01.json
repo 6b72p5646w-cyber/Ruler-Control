@@ -1,0 +1,234 @@
+{
+  "version": "SA01",
+  "runtime_integrated": false,
+  "baseline_commit": "961ccdbcdc5e8fb81b6cae534ab0317e64de4da5",
+  "scope": "七夜塔防模式的身份、失败检查点、正式交班、日间钱包迁移与周清事务；有限参考不实现寻路、完整日历执行器或生产存储。",
+  "authorities": {
+    "seven_night_wallet": "content/economy_week_td05.json",
+    "personal_assets": "content/equipment_contracts_eq01.json",
+    "lottery": "content/lottery_rewards_eq01.json",
+    "monster_roots": "content/monster_contracts_md01.json",
+    "old_day_resources": "content/balance.json",
+    "old_day_executor": "prototype/day_cycle_core_v09.mjs",
+    "old_settlement_executor": "prototype/shift_settlement_core_v09.mjs",
+    "precedence": "只对七夜模式补齐跨模块生命周期与旧钱包映射；旧V0.10练习与执行器不因本文件自动迁移。",
+    "legacy_deployment": "content/legacy_deployment_bridge_sa01.json"
+  },
+  "identity": {
+    "campaign_id": "一份持续战役的稳定身份，重试、读档、周清不改变。",
+    "week_id": "本战役单调递增周号对应的稳定ID，不读现实周一或登录时间。",
+    "night_index": "周内1–7，仅用于排程与展示，不能单独作为跨周奖励键。",
+    "night_key_fields": [
+      "campaign_id",
+      "week_id",
+      "night_index"
+    ],
+    "key_encoding": "结构化元组/JSON数组，禁止以未经转义的字符串拼接制造身份碰撞。",
+    "absolute_night_ordinal": "7 * (week_ordinal - 1) + night_index",
+    "legacy_night_id": "向只接受campaignId+nightId的V0.9工资/日历适配器传 campaign内绝对夜号编码，例如night:8；绝不把第二周第1夜再次传night:1。",
+    "attempt_id": "同一逻辑夜的不同尝试身份；仅供轨迹/临时物件动作回执追踪，不能改变工资、券、根奖励归属。",
+    "root_reward_key": [
+      "campaign_id",
+      "week_id",
+      "night_index",
+      "scheduled_root_instance_id",
+      "reward_kind"
+    ],
+    "attempt_effect_key": [
+      "night_key",
+      "attempt_id",
+      "source_instance_id",
+      "event_sequence"
+    ],
+    "preparation_transaction_key": "既有班前购买/开奖使用稳定交易ID；同夜重试不能把已完成交易变成新的未支付操作。",
+    "stale_commands": "旧attempt命令、已关闭week命令、过期预留和旧实例引用不得写入当前尝试。已成功交班的逻辑夜不能再进入失败回滚。"
+  },
+  "checkpoint": {
+    "boundary": "当夜班前购买、抽奖选择、布置、装载、必要任务物预约、换装和两快捷清单均已完成后，开门前保存一次完整检查点。",
+    "no_pending_draw": "尚未解决的抽奖选择或未提交采购不允许开门；领取箱可保留已经固定的不可变领取权，但不能带入未声明夜间清单。",
+    "frozen_source": "当前周当前逻辑夜、已完成班前交易和实际开门清单；不能退回抽奖扣券前或购买前。",
+    "snapshot_fields": [
+      "current_week_wallet_and_spirit",
+      "all_defense_instances_and_investment",
+      "deployed_and_unopened_traps",
+      "loose_refill_stock",
+      "personal_item_instances_and_ownership",
+      "selected_equipment_and_opening_manifest",
+      "actual_resources_and_panic_state",
+      "world_game_and_phase_clocks",
+      "coffee_debts_and_daily_supply_receipts",
+      "equipment_mobility_item_and_attack_cooldowns",
+      "per_night_free_uses_and_consumption_receipts",
+      "RNG_state_and_frozen_director_plan",
+      "scheduled_root_ids_and_rule_objects",
+      "monster_states_and_statuses",
+      "positions_and_map_device_states",
+      "manager_identity_and_handover_state",
+      "pending_actions_and_reservations",
+      "provisional_order_root_gift_and_other_reward_ledgers",
+      "attack_ids_hit_grace_tethers_and_ritual_stone_identity",
+      "legacy_B01_B08_and_deployed_I16_instances_in_week_defense_partition"
+    ],
+    "durable_before_open": "已提交的班前开奖结果、保底、持有装备、领取权、消费与采购回执均属于检查点已有事实；重试恢复同一结果，不再抽签。",
+    "failure": "本夜未完成/主动退场后，资源、物品、消耗、受损、暂得收益、冷却、三种时钟、RNG与世界事实整笔恢复同一个检查点。既回滚物品就必须同时回滚效果、债务、使用次数和来源回执。",
+    "retry": "默认原布置重试；增加attempt_id，恢复相同候选计划与RNG，不用死亡或返回标题重抽。当次失败产生的收入、道具掉落、正式工资和新券不保留。",
+    "ordinary_load": "普通读档恢复已保存当前事务，不清冷却、不补物、不倒退时间；只有明确失败重试执行上述整笔回滚。",
+    "optional_reprepare": "若界面允许失败后重整，先完成同一失败回滚，再在真正班前阶段通过原支付/出售/补充规则产生新交易，随后替换开门检查点；不回滚已提交开奖，不清同组冷却，不重抽该逻辑夜已锁定导演计划。首版参考仅覆盖原布置重试。",
+    "knowledge_exception": "保留已学免费操作和真实失败观察档案，标记其原attempt与失败来源；不能把失败档案冒充当前世界物件、身份连续性、已完成主机制或新根奖励。已知内容不重发经济奖；重新开始不更换已锁定本夜候选。",
+    "integrity": "检查点需版本/内容版本/夜键和完整摘要；恢复时整体核验，半份/错夜检查点拒绝。生产持久化必须一次提交或有可恢复日志，有限内存深拷贝不等于存储防回滚实现。"
+  },
+  "settlement": {
+    "actual_gate": [
+      "true_06_00",
+      "no_unresolved_critical_threat",
+      "no_active_panic",
+      "positive_SAN",
+      "actual_verified_same_manager_body",
+      "actual_original_keys_and_records_transfer"
+    ],
+    "order": "同刻合法完成动作及已到期资源先提交→截止资格→关键威胁/恐慌→当前店长核验与交接→本夜最终收益→若第7夜再周清。",
+    "receipt_key": "night_key；与attempt_id无关，第二周第1夜与第一周第1夜不同。",
+    "wages": "沿原base80、实际完成工单/订单奖金min(40,4*duties+2*min(8,orders))及真实店务债最多20；只写一个当周金币钱包。",
+    "orders": "真实有效订单每单6币，上限12；同一订单只记一次，退款/重复交付不是新订单。",
+    "monster_rewards": "沿MD01每成功根12币4灵能、真实主规则完成再2灵能；只发一次，不按子体/状态跳数刷钱。",
+    "tickets": "EQ01/MD01规定安全正式交班即1基础券，A/B/C都适用；旧4工单/6订单门槛仅为旧模式历史，不接入七夜模式。",
+    "provisional": "夜内营业、根与有限赠礼可以即时显示和支付当前允许操作，但与整夜检查点同归属；失败一起回滚。正式交班才固化为该夜已完成事实。",
+    "duplicates": "重复交班返回原结算回执，零新增金币、券、SAN奖励；不再执行周清。attempt改名不能绕过去重。",
+    "adapter_boundary": "参考模型的validated_receipt是调用者已核验事实的输入；模型不生成店长真身、成功主机制、实际销售或06:00世界过程。"
+  },
+  "day_wallet_bridge": {
+    "currency": "current_week_coin",
+    "old_personal_wallet_enabled_in_seven_night_mode": false,
+    "apply_once": "旧day_cycle.coins与新TD05.coin只保留一个主账，界面镜像不得各加一次。先由原动作适配器提交实际行动，再一次映射既有金额与物件变化。",
+    "income": [
+      {
+        "source": "A09",
+        "amount": 30,
+        "source_ref": "content/balance.json#/day_actions",
+        "condition": "真实已完成一个占格兼职行动；原精力-12与日历成本同一事务"
+      },
+      {
+        "source": "formal_handover",
+        "source_ref": "content/store_systems_v05.json#/completion",
+        "condition": "只走settlement，不同时收旧工资与新工资"
+      },
+      {
+        "source": "ordinary_order_or_MD01_root",
+        "condition": "各走其唯一已验证回执，不额外复制day_coins"
+      },
+      {
+        "source": "authored_friendly_or_event_coin",
+        "condition": "仅读取现有原卡已明定且有真实消费者的金额与唯一回执；不按名字或泛用收益标签自动给钱"
+      }
+    ],
+    "expenses": [
+      {
+        "source": "E062_quiet_sleep",
+        "amount": 10,
+        "source_ref": "content/consumer_closure_v08.json",
+        "condition": "同一睡眠格、真实可用资料室休息点；原地免费选项仍在"
+      },
+      {
+        "source": "A08_matching_care_supply",
+        "source_ref": "content/pets.json#/care_supplies",
+        "prices": {
+          "PC01": 5,
+          "PC02": 6,
+          "PC03": 5,
+          "PC04": 5,
+          "PC05": 5,
+          "PC06": 5,
+          "PC07": 8,
+          "PC08": 10
+        },
+        "condition": "原规定允许在照料行动中补购同一份匹配用品，随后真实消耗；不额外占格。它是照料事务例外，不开放日间随意购买EQ01战斗道具或营业补陷阱。"
+      },
+      {
+        "source": "legacy_personal_supplies",
+        "source_ref": "content/items.json",
+        "condition": "沿合法固定店铺和已定义价格；只扣本周主账，不另收24币参考税"
+      },
+      {
+        "source": "EQ01_gear_and_special",
+        "source_ref": "content/equipment_contracts_eq01.json#/acquisition_and_wallet",
+        "condition": "仍只在20–22采购；各卡实际价格、班前清单和原退款约束保持"
+      },
+      {
+        "source": "TD05_defense",
+        "source_ref": "content/economy_week_td05.json",
+        "condition": "沿各自真实权限、材料与实例支付"
+      }
+    ],
+    "unresolved_sources": "A07特殊商店、宠物获取/升级、未接入事件折扣或额外赏金，必须先绑定原现有商品/价格/实际消费者与可用时段；未有完整适配就不报价、不扣时、不收钱、不发收益。",
+    "forbidden": "未知coin_delta、无原始消费者的自动收入、未来工资、同回执双钱包、每夜24预留自动税和已关闭周的补发/退款进入新周。",
+    "day_resources": "四资源、六个行动格、咖啡债务和日领餐仍读原日间合同；映射钱包不改变精力/饱腹成本或免费岗位食物。"
+  },
+  "week_close": {
+    "boundary": "第7夜正式结算成功后的同一提交，不按现实星期或登录时间。",
+    "clears": [
+      "塔与陷阱实例/等级/位置/HP/次数",
+      "未布置防御物与补充材料",
+      "旧周金币与灵能",
+      "旧周未提交指令和预约",
+      "B01–B08硬件与已从个人库存移入本周布防的I16实例；包含同一实物尚未到期效果的来源身份"
+    ],
+    "keeps": [
+      "已拥有个人装备",
+      "未用个人消耗品与固定领取权",
+      "抽奖券/碎片/保底",
+      "真实知识与图鉴记录",
+      "四资源及尚未到期咖啡债务",
+      "跨阶段能力绝对到期与实际冷却",
+      "已完成开奖/正式交班/周清唯一回执",
+      "尚未班前装入布防的I16个人库存；已装入者不在此保留集合"
+    ],
+    "next_week": {
+      "coin": 120,
+      "spirit": 0,
+      "free_tower": "T02",
+      "night_index": 1
+    },
+    "no_refund_or_conversion": "旧周余额不兑换下周币；周清不退款、不补个人物品，不清能力冷却，不给第二份开局装备/开局券。",
+    "seventh_night_income": "先记入旧周结算与成绩再关闭；不倒流第7夜布防、不新增旧币采购窗。它的长期激励/成绩展示仍是后续设计任务，本补件不添加兑换规则。",
+    "score_scope": "记录本周真实订单、根、完成夜数与最终余额；未定义的剧情、外观或能力解锁不能从周清自动获得。",
+    "legacy_deployment_conversion": "按legacy_deployment_bridge_sa01：B01–B08与已部署I16都只在真正班前管理；旧部署子上限3包含于总8件，不额外加3。I16班前放置时从个人库存原子移出，同一实例转为周防御来源；打包、耗尽、销毁和周清不返还未用I16。B硬件位置/余量七夜保留，短效果按原期限结束，不因下夜延长或免费恢复。"
+  },
+  "reference": {
+    "module": "scripts/sa01_lifecycle_reference.py",
+    "check": "scripts/check_sa01_lifecycle.py",
+    "report": "docs/sa01_lifecycle_report.json",
+    "proves": [
+      "统一夜键与旧nightId映射",
+      "同夜失败整笔恢复有限状态与RNG",
+      "已班前开奖不重抽",
+      "交班幂等",
+      "跨周分区清理与旧指令拒绝",
+      "既有日间金额单账映射",
+      "跨夜必须接收已清退并绑定新夜的世界快照，旧短效/攻击/石头不沿用",
+      "B05已装未消费原物留在周防御分区，已发出诱饵按当夜清退，同一portion_id不双挂"
+    ],
+    "does_not_prove": [
+      "生产数据库持久化/外部存档认证",
+      "完整白天与06:00调度",
+      "所有旧奖励消费者已适配",
+      "顾客/店长真实身份与销售",
+      "105怪AI、完整地图与整周胜率",
+      "实际世界/日间适配器清退和重新布置过程"
+    ],
+    "runtime_admission_remains_closed": true
+  },
+  "between_nights": {
+    "world_teardown": "正式夜结关闭本夜攻击/弹体/缠绕/异常残留、个人已支付的本夜短战斗效果和仍归属本夜世界的任务石/任务物实例；不把它们直接留到下一夜，也不因此退还次数、物品或费用。持续咖啡债务、个人能力冷却和明确周资产另行保留。已合法装入B05周防御库存且尚未消费的原物弹药不属于本夜任务物清退集合。",
+    "next_world_input": "实际世界/日间适配器先完成上夜清退与合法新夜预置，再提供绑定下一night_key及清退回执的新world_snapshot。参考边界拒绝缺快照、旧攻击/短效、旧夜实体/任务物/石头和旧店长现场核验；不自行凭空生成新地图或新物件。",
+    "fixed_devices_and_week_assets": "固定设施状态和周防御实例由新快照/周账继续保存；只有原规则允许的实际修复、补充、迁移或夜间服务才可改变。重新载入场景不能免费重建装置。",
+    "B05_ammo_ownership": {
+      "retained": "班前已合法装入且未发射的真实原paperclip_supply余份属于B05周防御实例，保留同一portion_id、原来源和实际余量；来源夜已结束不会自动清退它。有限参考以defenses[B05实例].ammo_portions按portion_id记账，实际装弹合法性仍由legacy_deployment_bridge_sa01对应适配器验证。",
+      "emitted": "合法发射提交时，原portion_id从B05已装余弹中原子移出，再成为本夜世界中的诱饵实例。已发出的诱饵在本夜结束时清退，不还原为未消费弹药、不返个人库存。参考模型接收这个实际发射事实，不模拟投放或F12判定。",
+      "single_owner": "同一portion_id不能同时保存在B05周库存和下一夜实体/任务物/石头集合；下一夜快照不能通过改写night_key保留第二份已装原物。",
+      "week_end": "周清同时清除B05硬件及其尚未发射的余弹，不转换成跨周个人物品。"
+    },
+    "ordinary_service": "塔普通装填与纸偶重组可沿TD05既有between-night服务就绪；地面陷阱/B部署/I16的HP、已耗次数和材料不能因此恢复。",
+    "night_use_budget": "每夜一次免费稳定等新夜额度来自真实日间/开班适配器，并在新夜检查点内固定；缺预算快照不开放。失败同夜只恢复原检查点，不再新增第二份额度。",
+    "reference_boundary": "本模型验证接受快照的身份和有限分区，不实现真实清退、导航、阶段调度或全部状态的到期。"
+  }
+}

@@ -1,7 +1,7 @@
 {
   "version": "MA01",
   "runtime_integrated": false,
-  "passed": 142,
+  "passed": 157,
   "failed": 0,
   "scope": "Finite 2-D sweep/beam fixtures, attack timing/whole-miss receipts, shared hit protection, pressure reservations, actual task-stone ledger, ritual interruption and bounded tether lifecycle. Not all105AI, map navigation, height layers, reflected beam geometry, whole-week outcomes or live playtesting.",
   "review_corrections": [
@@ -9,7 +9,8 @@
     "Separated a recovered actor action from its still-live independent residual danger sequence; the latter retains a scene slot and delays whole-attack I39 resolution.",
     "Aligned the physical stone radius with the final shared contract: 0.1 tile, retaining actual wall clipping and zero monster HP damage.",
     "Clarified source-pool death versus full-root termination for already launched independent payloads.",
-    "A ritual base warning may be 6..8 seconds; paid legal extensions add at most 3 real seconds, including the actual pulse deadline and following pursuit timing.",
+    "SA01 replay confirmed two cross-system defects: the old reference accepted I21 on a ritual despite its F50/F60-only consumer, and added B04+P05 instead of taking the legacy maximum. Source/attack-definition/amount matching now rejects these counterexamples. Legacy maximum L and the once-only I37 increment J share total min(3,L+J), with only positive differences committed.",
+    "A ritual base warning may be 6..8 seconds. Current legal source I37 adds exactly one real second once, so the current maximum is9; the general3-second safety cap does not grant I21 or other old helpers a new ritual consumer. The prior positive test incorrectly treated the cap as source eligibility and has been replaced with negative cases.",
     "Recorded automated runs passed at each stage; scope/contract corrections above were made during review and are not presented as full-world verification."
   ],
   "checks": [
@@ -98,7 +99,7 @@
       "passed": true
     },
     {
-      "name": "I21 and I37 share a three second cap",
+      "name": "I21 and I37 share a three second cap on the eligible F50 dive",
       "passed": true
     },
     {
@@ -107,6 +108,58 @@
     },
     {
       "name": "curse failure cannot immediately retry same attack ID",
+      "passed": true
+    },
+    {
+      "name": "legacy B04 and P05 share maximum total rather than adding one plus two",
+      "passed": true
+    },
+    {
+      "name": "weaker legacy warning has no chargeable positive difference",
+      "passed": true
+    },
+    {
+      "name": "I37 adds one real increment to the legacy maximum",
+      "passed": true
+    },
+    {
+      "name": "I37 then P05 gives the same final deadline as reverse order",
+      "passed": true
+    },
+    {
+      "name": "P07 cannot extend F50 despite sharing the old warning consumer",
+      "passed": true
+    },
+    {
+      "name": "F60 accepts its own P07 warning and not F50 P05 or B04",
+      "passed": true
+    },
+    {
+      "name": "I21 cannot extend the same monster basic attack",
+      "passed": true
+    },
+    {
+      "name": "unknown or inflated extension sources change no attack ledger",
+      "passed": true
+    },
+    {
+      "name": "persistent attack identity uses a separate verified definition for old consumer matching",
+      "passed": true
+    },
+    {
+      "name": "reference I21 whitelist matches its unchanged authoritative consumer",
+      "passed": true
+    },
+    {
+      "name": "pet warning amounts retain the correct original actions",
+      "passed": true
+    },
+    {
+      "name": "B04 keeps only F50 and its actual tier request amounts",
+      "passed": true
+    },
+    {
+      "name": "I37 source budget is one second once while three seconds remains only the shared cap",
       "passed": true
     },
     {
@@ -430,7 +483,11 @@
       "passed": true
     },
     {
-      "name": "ritual all-source extension remains capped at three seconds",
+      "name": "I21 and old monster-specific helpers cannot extend a ritual",
+      "passed": true
+    },
+    {
+      "name": "ritual I37 cannot claim the unused general three second budget",
       "passed": true
     },
     {
@@ -443,6 +500,10 @@
     },
     {
       "name": "new ritual sequence resets only its own extension allowance",
+      "passed": true
+    },
+    {
+      "name": "original illegal ritual I21 counterexample now preserves the eight second deadline",
       "passed": true
     },
     {
@@ -583,7 +644,9 @@
     }
   ],
   "input_hashes": {
-    "scripts/ma01_reference.py": "391a5c53d038e5310a364014901660b7244516b401c8c290ef176afe0fecf4be",
-    "scripts/check_ma01_reference.py": "38a98327519a7931ff4bd46e2c23635806d170f76a1834cb3ac3d2e64dd5d35c"
+    "scripts/ma01_reference.py": "44eae1a63e9a2757a9d1a1ea02a65b43e1ff9bdd4124318a75fcdebf775f5a3e",
+    "scripts/check_ma01_reference.py": "da9c365f8174e3cf8ff491f705804825f3878f5f05534f2f73bf78f38c6f7354",
+    "content/auxiliary_effects_v010.json": "1ed28d06f786d9433efe8d9d737ae1a02381f52c6e258fc970911ec85117f000",
+    "content/consumables_eq01.json": "1c55d7eaf3738a3c0be9e9a693797bae89f5b09d3fa8d7b66c711dc1afe598ed"
   }
 }

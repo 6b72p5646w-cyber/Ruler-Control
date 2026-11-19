@@ -1,0 +1,728 @@
+{
+  "version": "SA01",
+  "runtime_integrated": false,
+  "scope": "Finite transaction state with supplied verified facts; no actual world, full calendar, production persistence or game completion proof.",
+  "input_hashes": {
+    "content/run_lifecycle_sa01.json": "0b31c3811423ea3967fb5de3f8ab67947b96b61d4a81770a76efbe990780c389",
+    "scripts/sa01_lifecycle_reference.py": "0a548766c49a2377878241b8c568f229470a19e74c7109e57f8f827fa98e39cf",
+    "scripts/check_sa01_lifecycle.py": "a32da21cda27d611475c002f6a265a247cb0005192111eac430b9f4062b94a8b",
+    "content/economy_week_td05.json": "9b58a603fa4c80380e9d53d54f5e7678f353d2cbd7014f08ce5d25ac57f8c791",
+    "content/equipment_contracts_eq01.json": "9ac5188a3e323c00ceb4bd7c01e13303d472d206cdaeecc5758a745b833a8f2e",
+    "content/lottery_rewards_eq01.json": "77878fd6e69396e2e50f9d6588d7b26a06843cf695649401210bf5bcfae7d129",
+    "content/balance.json": "a93f5eae98a413e0ba89c6a45833bb7855214cdc77ac438f895d85513233785e",
+    "content/pets.json": "841f61fdf5a916be0577dd983de6f58980481f094c1b561ead4d4915d3af86b0",
+    "content/legacy_deployment_bridge_sa01.json": "36054b21c5f0034dbb5696c2b568649950bbc2f11588c3eb0c6e8147a93168e6"
+  },
+  "passed": 104,
+  "failed": 0,
+  "checks": [
+    {
+      "id": "legacy_local_night_counterexample",
+      "passed": true,
+      "evidence": "Hypothetical direct wiring collision; old prototype remains unchanged."
+    },
+    {
+      "id": "canonical_week_distinguishes_night",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "legacy_adapter_absolute_1_vs_8",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "opens_complete_preparation",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "consumes_real_opening_item",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "records_actual_provisional_order",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "records_actual_provisional_root",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "retry_applies_whole_checkpoint",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "all_snapshot_partitions_match",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "retry_changes_attempt_not_logical_night",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "spent_item_restored_without_paid_buff",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "failed_gift_not_retained",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "failed_coin_and_spirit_reverted",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "trap_charge_hp_stock_reverted",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "resources_panic_and_free_use_reverted",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "clocks_cooldown_and_rng_reverted_together",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "coffee_and_daily_food_receipts_reverted_together",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "preopening_draw_and_pity_remain_committed",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "observation_retained_only_as_failed_archive",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "old_attempt_command_rejected",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "stale_attempt_or_not_open"
+      }
+    },
+    {
+      "id": "same_root_can_be_paid_once_in_retried_attempt",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "root_duplicate_rejected",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "source_already_paid"
+      }
+    },
+    {
+      "id": "unverified_income_rejected",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "verified_declared_source_required"
+      }
+    },
+    {
+      "id": "unknown_income_type_rejected",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "verified_declared_source_required"
+      }
+    },
+    {
+      "id": "early_handover_rejected",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "true_six_required"
+      }
+    },
+    {
+      "id": "tampered_snapshot_rejected",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "invalid_whole_checkpoint"
+      }
+    },
+    {
+      "id": "partial_snapshot_rejected",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "incomplete_or_settled_checkpoint"
+      }
+    },
+    {
+      "id": "wrong_night_snapshot_rejected",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "invalid_whole_checkpoint"
+      }
+    },
+    {
+      "id": "pending_draw_blocks_opening",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "unresolved_preparation_transaction"
+      }
+    },
+    {
+      "id": "week_night_1_opens",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_1_settles_once",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_1_duplicate_handover",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "already_settled",
+        "original_award": {
+          "night_key": "[\"week-case\",\"week-case:week:1\",1]",
+          "week_id": "week-case:week:1",
+          "legacy_night_id": "night:1",
+          "wage": 80,
+          "ticket": 1,
+          "orders": 0,
+          "roots": 0
+        }
+      }
+    },
+    {
+      "id": "week_night_1_day_adapter_boundary",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_1_transients_not_carried",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_2_opens",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_2_settles_once",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_2_duplicate_handover",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "already_settled",
+        "original_award": {
+          "night_key": "[\"week-case\",\"week-case:week:1\",2]",
+          "week_id": "week-case:week:1",
+          "legacy_night_id": "night:2",
+          "wage": 80,
+          "ticket": 1,
+          "orders": 0,
+          "roots": 0
+        }
+      }
+    },
+    {
+      "id": "week_night_2_day_adapter_boundary",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_2_transients_not_carried",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_3_opens",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_3_settles_once",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_3_duplicate_handover",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "already_settled",
+        "original_award": {
+          "night_key": "[\"week-case\",\"week-case:week:1\",3]",
+          "week_id": "week-case:week:1",
+          "legacy_night_id": "night:3",
+          "wage": 80,
+          "ticket": 1,
+          "orders": 0,
+          "roots": 0
+        }
+      }
+    },
+    {
+      "id": "week_night_3_day_adapter_boundary",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_3_transients_not_carried",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_4_opens",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_4_settles_once",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_4_duplicate_handover",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "already_settled",
+        "original_award": {
+          "night_key": "[\"week-case\",\"week-case:week:1\",4]",
+          "week_id": "week-case:week:1",
+          "legacy_night_id": "night:4",
+          "wage": 80,
+          "ticket": 1,
+          "orders": 0,
+          "roots": 0
+        }
+      }
+    },
+    {
+      "id": "week_night_4_day_adapter_boundary",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_4_transients_not_carried",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_5_opens",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_5_settles_once",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_5_duplicate_handover",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "already_settled",
+        "original_award": {
+          "night_key": "[\"week-case\",\"week-case:week:1\",5]",
+          "week_id": "week-case:week:1",
+          "legacy_night_id": "night:5",
+          "wage": 80,
+          "ticket": 1,
+          "orders": 0,
+          "roots": 0
+        }
+      }
+    },
+    {
+      "id": "week_night_5_day_adapter_boundary",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_5_transients_not_carried",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_6_opens",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_6_settles_once",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_6_duplicate_handover",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "already_settled",
+        "original_award": {
+          "night_key": "[\"week-case\",\"week-case:week:1\",6]",
+          "week_id": "week-case:week:1",
+          "legacy_night_id": "night:6",
+          "wage": 80,
+          "ticket": 1,
+          "orders": 0,
+          "roots": 0
+        }
+      }
+    },
+    {
+      "id": "week_night_6_day_adapter_boundary",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_6_transients_not_carried",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_7_opens",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_7_settles_once",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_night_7_duplicate_handover",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "already_settled",
+        "original_award": {
+          "night_key": "[\"week-case\",\"week-case:week:1\",7]",
+          "week_id": "week-case:week:1",
+          "legacy_night_id": "night:7",
+          "wage": 80,
+          "ticket": 1,
+          "orders": 0,
+          "roots": 0
+        }
+      }
+    },
+    {
+      "id": "week_two_current_identity",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_clear_coin_spirit_exact",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_clear_defenses_and_stock",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_keeps_personal_gear_items_claims",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_clears_deployed_I16_and_B_without_refund",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_clears_B05_loaded_ammo_without_personal_refund",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_keeps_only_unused_personal_I16",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_keeps_tickets_fragments_pity_draws",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_keeps_cooldowns_and_coffee_debt",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_records_then_closes_last_wage",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "zero_orders_safe_handover_still_earns_ticket",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "old_week_handover_cannot_credit_new_week",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "already_settled",
+        "original_award": {
+          "night_key": "[\"week-case\",\"week-case:week:1\",7]",
+          "week_id": "week-case:week:1",
+          "legacy_night_id": "night:7",
+          "wage": 80,
+          "ticket": 1,
+          "orders": 0,
+          "roots": 0
+        }
+      }
+    },
+    {
+      "id": "no_unverified_day_jump",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "actual_day_transition_required"
+      }
+    },
+    {
+      "id": "over_capacity_day_stamina_rejected",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "stamina_exceeds_actual_energy_cap"
+      }
+    },
+    {
+      "id": "old_week_day_income_cannot_credit_new_week",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "stale_or_missing_source_week"
+      }
+    },
+    {
+      "id": "no_prepared_world_snapshot_rejected",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "actual_prepared_world_snapshot_required"
+      }
+    },
+    {
+      "id": "old_night_stone_snapshot_rejected",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "dynamic_world_object_has_old_night_scope"
+      }
+    },
+    {
+      "id": "old_short_effect_snapshot_rejected",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "previous_attack_effect_or_manager_verification_not_cleared"
+      }
+    },
+    {
+      "id": "fixed_device_state_is_preserved_by_prepared_snapshot",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "new_night_free_use_requires_new_snapshot",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "week_two_first_key_is_new",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "second_week_first_wage_is_not_suppressed",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "settled_night_cannot_retry",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "stale_attempt_or_not_open"
+      }
+    },
+    {
+      "id": "B05_fixture_actual_handover",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "B05_emitted_old_night_bait_cannot_carry",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "dynamic_world_object_has_old_night_scope"
+      }
+    },
+    {
+      "id": "B05_week_ammo_cannot_be_rekeyed_as_new_night_copy",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "week_ammo_cannot_also_be_night_object"
+      }
+    },
+    {
+      "id": "B05_prepared_world_accepts_retained_week_ammo",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "B05_unspent_original_keeps_identity_and_source_night",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "B05_emitted_bait_cleared_without_ammo_refund",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "A09_existing_amount_maps_once",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "unbound_source_week_rejected",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "stale_or_missing_source_week"
+      }
+    },
+    {
+      "id": "A09_duplicate_does_not_double_pay",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "day_receipt_already_applied"
+      }
+    },
+    {
+      "id": "quiet_rest_uses_same_wallet",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "pet_care_uses_actual_matching_price",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "id": "unknown_coin_source_rejected",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "source_adapter_not_modelled"
+      }
+    },
+    {
+      "id": "altered_A09_amount_rejected",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "authored_amount_mismatch"
+      }
+    },
+    {
+      "id": "insufficient_quiet_rest_keeps_state",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "insufficient_current_week_coin"
+      }
+    },
+    {
+      "id": "day_money_cannot_arrive_during_business",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "verified_day_action_required"
+      }
+    },
+    {
+      "id": "missing_manager_evidence_blocks_handover",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "actual_safe_handover_required"
+      }
+    },
+    {
+      "id": "unresolved_threat_blocks_handover",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "actual_safe_handover_required"
+      }
+    },
+    {
+      "id": "zero_SAN_blocks_handover",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "actual_safe_handover_required"
+      }
+    },
+    {
+      "id": "actual_panic_blocks_false_clear_flag",
+      "passed": true,
+      "evidence": {
+        "applied": false,
+        "reason": "actual_safe_handover_required"
+      }
+    }
+  ],
+  "counterexample_interpretation": "The old week-local night wiring is a demonstrated key collision under naive composition. Partial rollback is an identified integration risk, not a claim that a complete shipped runtime had this bug.",
+  "not_covered": [
+    "Authenticating source receipts",
+    "Old day action and pet adapter implementation",
+    "All actual world fields/AI restoration",
+    "Database crash recovery or external save tampering",
+    "Complete 105-monster night, phase schedules and seventh-night incentives"
+  ]
+}

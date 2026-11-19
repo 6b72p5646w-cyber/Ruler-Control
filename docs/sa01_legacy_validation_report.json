@@ -1,0 +1,246 @@
+{
+  "version": "SA01",
+  "runtime_integrated": false,
+  "passed": 58,
+  "failed": 0,
+  "scope": "Finite management, intersecting capacities, caller-verified geometry admission, I16 same-item ownership conversion, paid timed lifetime, prepared B05 ammunition and B08 hit migration. No all-device AI, map footprint proof, combat balance or playtest claim.",
+  "checks": [
+    {
+      "name": "all eight old B helpers and I16 remain enabled designs with runtime closed",
+      "passed": true
+    },
+    {
+      "name": "unknown authored footprints stay unknown instead of fabricated one-cell placements",
+      "passed": true
+    },
+    {
+      "name": "B01 enemy field is1.5 but B08 player circle remains its original separate scope",
+      "passed": true
+    },
+    {
+      "name": "Q08 two real lamp points participate in the same legacy subcap",
+      "passed": true
+    },
+    {
+      "name": "open shift cannot buy",
+      "passed": true
+    },
+    {
+      "name": "open shift cannot install",
+      "passed": true
+    },
+    {
+      "name": "open shift cannot move",
+      "passed": true
+    },
+    {
+      "name": "open shift cannot pack",
+      "passed": true
+    },
+    {
+      "name": "open shift cannot recover",
+      "passed": true
+    },
+    {
+      "name": "open shift cannot refill",
+      "passed": true
+    },
+    {
+      "name": "open shift cannot reload",
+      "passed": true
+    },
+    {
+      "name": "open shift cannot repair",
+      "passed": true
+    },
+    {
+      "name": "open shift cannot replace",
+      "passed": true
+    },
+    {
+      "name": "open shift cannot sell",
+      "passed": true
+    },
+    {
+      "name": "open shift cannot upgrade",
+      "passed": true
+    },
+    {
+      "name": "peaceful text cannot impersonate preparation",
+      "passed": true
+    },
+    {
+      "name": "actual preparation can load and recover hardware",
+      "passed": true
+    },
+    {
+      "name": "unknown management action is rejected even in preparation",
+      "passed": true
+    },
+    {
+      "name": "three old helpers plus five R traps fit the shared eight object cap",
+      "passed": true
+    },
+    {
+      "name": "three old helpers are not extra capacity beyond eight R traps",
+      "passed": true
+    },
+    {
+      "name": "a fourth legacy helper fails even below the overall cap",
+      "passed": true
+    },
+    {
+      "name": "physical footprint seventeen fails despite few objects",
+      "passed": true
+    },
+    {
+      "name": "negative or fractional capacity counts cannot mint space",
+      "passed": true
+    },
+    {
+      "name": "unverified socket coordinates are not installable footprints",
+      "passed": true
+    },
+    {
+      "name": "actual floor install needs a nonempty physical cell set",
+      "passed": true
+    },
+    {
+      "name": "verified wall mount counts zero floor cells rather than an invented area",
+      "passed": true
+    },
+    {
+      "name": "duplicate physical cells cannot fake a footprint budget",
+      "passed": true
+    },
+    {
+      "name": "I16 cannot be installed from inventory during business",
+      "passed": true
+    },
+    {
+      "name": "failed geometry leaves the same personal I16 unconsumed",
+      "passed": true
+    },
+    {
+      "name": "failed capacity leaves no partial installed instance",
+      "passed": true
+    },
+    {
+      "name": "I16 install atomically moves from personal ownership into a week-bound installation",
+      "passed": true
+    },
+    {
+      "name": "replaying the same I16 installation cannot clone a second device",
+      "passed": true
+    },
+    {
+      "name": "preinstalled I16 has not spent its twenty seconds before activation",
+      "passed": true
+    },
+    {
+      "name": "I16 activation spends no second personal item",
+      "passed": true
+    },
+    {
+      "name": "timed light is active until but not at its exact expiry",
+      "passed": true
+    },
+    {
+      "name": "night end does not revive an already used I16",
+      "passed": true
+    },
+    {
+      "name": "week clearing installed hardware preserves genuinely unused personal I16",
+      "passed": true
+    },
+    {
+      "name": "an unactivated paid screen may first activate on a later night",
+      "passed": true
+    },
+    {
+      "name": "early handover consumes a started finite screen budget without next-night renewal",
+      "passed": true
+    },
+    {
+      "name": "invalid target or negative time cannot spend a prepared activation",
+      "passed": true
+    },
+    {
+      "name": "finite activation survives save as the same absolute deadline and spent budget",
+      "passed": true
+    },
+    {
+      "name": "B05 loads only a real fetched portion during preparation",
+      "passed": true
+    },
+    {
+      "name": "B05 refuses business reload even when a free real portion is in hand",
+      "passed": true
+    },
+    {
+      "name": "B05 invalid path leaves paid loaded ammo intact",
+      "passed": true
+    },
+    {
+      "name": "B05 business activation consumes exactly one preloaded original portion",
+      "passed": true
+    },
+    {
+      "name": "same B05 firing receipt and empty box cannot produce new bait",
+      "passed": true
+    },
+    {
+      "name": "blocked B05 refill leaves free native hand-scatter supply available",
+      "passed": true
+    },
+    {
+      "name": "B08 does not spend on uncommitted",
+      "passed": true
+    },
+    {
+      "name": "B08 does not spend on no real collision",
+      "passed": true
+    },
+    {
+      "name": "B08 does not spend on outside guard",
+      "passed": true
+    },
+    {
+      "name": "B08 does not spend on curse failure",
+      "passed": true
+    },
+    {
+      "name": "B08 does not spend on no pending positive damage",
+      "passed": true
+    },
+    {
+      "name": "B08 does not spend on existing grace",
+      "passed": true
+    },
+    {
+      "name": "B08 does not widen to other melee or ordinary body touch",
+      "passed": true
+    },
+    {
+      "name": "B08 intercepts a real F12 basic exactly at old grace expiry",
+      "passed": true
+    },
+    {
+      "name": "B08 collision does not grant I39 or invent blood",
+      "passed": true
+    },
+    {
+      "name": "broken B08 cannot intercept another attack or replay the same one",
+      "passed": true
+    },
+    {
+      "name": "B08 L2 preserves its original two-second grace tradeoff",
+      "passed": true
+    }
+  ],
+  "input_hashes": {
+    "content/legacy_deployment_bridge_sa01.json": "36054b21c5f0034dbb5696c2b568649950bbc2f11588c3eb0c6e8147a93168e6",
+    "scripts/sa01_legacy_reference.py": "349d62db40aa8bcdd0720d6cde5c2eb4b305ce226f252e763749257dc4d6071d",
+    "scripts/check_sa01_legacy_bridge.py": "421a890a0aac0fc0c7cd36dd66ea57f49d0ccd2642c2e7bd44401321ef40f95b"
+  }
+}

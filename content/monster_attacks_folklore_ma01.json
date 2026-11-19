@@ -9443,7 +9443,7 @@
             "interior_impact_cells_from": "defense_groups",
             "no_extra_flight_after_deadline": true,
             "legacy_damage_dedup": "本七夜攻击版读MD01的10SAN；原locked_dive同次SAN−8回执被本次伤害替代，绝不叠扣18。",
-            "legitimate_warning_extension": "8秒是基础截止；原P05/I21/P07/B04与EQ01 I37依同一公开预告组取最强，总延长≤3秒。当前真实撞击时刻为start+8+已实际提交的合法延长，不因观察、错窗或读档刷新。"
+            "legitimate_warning_extension": "8秒是基础截止；仅原P05/I21/B04可在本俯冲的legacy组取最大请求L，P07仍只服务F60。EQ01 I37提供一次增量J=1，总延长min(3,L+J)，只提交实际正差。真实撞击时刻为start+8+已提交总延长，不因观察、错窗、读档或换源刷新；现有正差仍需完整装入阶段与真实06:00预算。"
           }
         }
       ],
@@ -11621,7 +11621,8 @@
             "commit_point": "前摇结束时提交一次凝视payload、做一次咒判并快照伤害；提交后最多3秒检验连续互视，I37只可延长提交前预告。",
             "valid_rule_miss": "若本次payload已合法提交，真实帘交线或玩家锁背向使双向直视不成立，则该attack_id结束为对应规则落空，暴露后颈3秒。之后必须满足10秒起手冷却、实际恢复并真正开始/结束下一编号凝视；不能只切帘刷计数。第二次保持同一真实背向/帘状态可以成功，不强迫先挨一下或开帘。",
             "non_response_cancel": "诅咒失攻、冻结、压制、源消失、未实际提交payload均为取消，不冒充主机制帘/背向回应。",
-            "legacy_damage_dedup": "MA01直接凝视攻击采用MD01当前14SAN，只提交一次；旧同次−6fear回执停用，不把同一凝视算两路损失。"
+            "legacy_damage_dedup": "MA01直接凝视攻击采用MD01当前14SAN，只提交一次；旧同次−6fear回执停用，不把同一凝视算两路损失。",
+            "legitimate_warning_extension": "初次8秒/后续1.5秒是各次基础预告；仅原P07/I21在本凝视legacy组取最大请求L，P05/B04不适用。I37同attack_id一次提供J=1，总延长min(3,L+J)，只提交实际正差且须装入原阶段和06:00预算；真实提交/凝视与后颈恢复同步后移，不生成新的规则回应。"
           }
         }
       ],

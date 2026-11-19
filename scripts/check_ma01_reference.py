@@ -55,11 +55,38 @@ def run():
     check('old damage timer cannot fire after extended warning',not a.commit(1.5))
     check('new commit determines projectile and recovery timing',a.commit(2.5) and a.active_end==3 and a.complete(3) and a.next_start==5)
     check('already launched/completed attack cannot be extended',a.extend(3.1,'I21',3)==0)
-    a=AttackTimeline('fixture:cap',0,1.5,0,3,4.5)
+    a=AttackTimeline('F50:DIVE',0,8,0,4,10)
     first=a.extend(.2,'I37',1);second=a.extend(.3,'I21',3);third=a.extend(.4,'other',1)
-    check('I21 and I37 share a three second cap',first==1 and second==2 and third==0 and a.deadline==q(4.5))
-    check('curse failure is one decision for whole payload',not a.commit(4.5,curse_failure=True) and a.curse_draws==1 and a.state=='canceled')
-    check('curse failure cannot immediately retry same attack ID',not a.commit(4.6) and a.curse_draws==1 and a.next_start==q(7.5))
+    check('I21 and I37 share a three second cap on the eligible F50 dive',first==1 and second==2 and third==0 and a.deadline==11)
+    check('curse failure is one decision for whole payload',not a.commit(11,curse_failure=True) and a.curse_draws==1 and a.state=='canceled')
+    check('curse failure cannot immediately retry same attack ID',not a.commit(11.1) and a.curse_draws==1 and a.next_start==15)
+    a=AttackTimeline('F50:DIVE',0,8,0,4,10)
+    first=a.extend(1,'B04',1);second=a.extend(2,'P05',2)
+    check('legacy B04 and P05 share maximum total rather than adding one plus two',first==1 and second==1 and a.extension==2 and a.deadline==10)
+    check('weaker legacy warning has no chargeable positive difference',a.extend(3,'B04.active',1)==0)
+    check('I37 adds one real increment to the legacy maximum',a.extend(3,'I37',1)==1 and a.extension==3 and a.deadline==11)
+    a=AttackTimeline('F50:DIVE',0,8,0,4,10)
+    check('I37 then P05 gives the same final deadline as reverse order',a.extend(1,'I37',1)==1 and a.extend(2,'P05',2)==2 and a.deadline==11)
+    check('P07 cannot extend F50 despite sharing the old warning consumer',a.extend(3,'P07',2)==0)
+    a=AttackTimeline('F60:GAZE',0,8,3,3,10)
+    check('F60 accepts its own P07 warning and not F50 P05 or B04',a.extend(1,'P05',2)==0 and a.extend(1,'B04',1)==0 and a.extend(1,'P07',2)==2)
+    a=AttackTimeline('F50:BASIC',0,1.5,0,3,4.5)
+    check('I21 cannot extend the same monster basic attack',a.extend(.5,'I21',3)==0 and a.extension==0)
+    a=AttackTimeline('fixture:unknown',0,1.5,0,3,4.5)
+    before=deepcopy(a)
+    check('unknown or inflated extension sources change no attack ledger',a.extend(.5,'I21',3)==0 and a.extend(.5,'I37',3)==0 and a.extend(.5,'unknown',1)==0 and a==before)
+    a=AttackTimeline('actual-root-instance:attack-7',0,8,0,4,10,definition_id='F50:DIVE')
+    check('persistent attack identity uses a separate verified definition for old consumer matching',a.extend(1,'B04',.5)==q(.5) and a.extend(2,'I21',3)==q(2.5) and a.deadline==11)
+    base=Path(__file__).resolve().parents[1]
+    auxiliary={entry['id']:entry for entry in json.loads((base/'content/auxiliary_effects_v010.json').read_text())['entries']}
+    old={item:{effect['effect_id']:effect for effect in auxiliary[item]['effects']} for item in ('I21','P05','P07','B04')}
+    i21=old['I21']['I21.warning']['parameters']
+    check('reference I21 whitelist matches its unchanged authoritative consumer',i21['allowed_monsters']==['F50','F60'] and i21['allowed_actions']==['roof_dive','turn_to_face'] and i21['requested_total_bonus_world_seconds']==3)
+    check('pet warning amounts retain the correct original actions',old['P05']['P05.special']['parameters']['action_id']=='roof_dive' and old['P05']['P05.special']['parameters']['requested_total_bonus_world_seconds']==2 and old['P07']['P07.special']['parameters']['action_id']=='turn_to_face' and old['P07']['P07.special']['parameters']['requested_total_bonus_world_seconds']==2)
+    b04=old['B04']['B04.active']['parameters']
+    check('B04 keeps only F50 and its actual tier request amounts',b04['warning_monster_ids']==['F50'] and b04['warning_action_ids']==['roof_dive'] and b04['warning_total_bonus_by_tier_world_seconds']=={'L1':1,'L2':.5})
+    i37=next(item for item in json.loads((base/'content/consumables_eq01.json').read_text())['items'] if item['id']=='I37')['parameters']
+    check('I37 source budget is one second once while three seconds remains only the shared cap',i37['attack_telegraph_added_s']==1 and i37['same_attack_id_once_per_item_family'] and i37['all_source_extension_total_cap_s']==3)
     a=AttackTimeline('fixture:freeze',0,1.5,0,3,4.5)
     check('position root does not cancel a stationary pending attack',not a.interrupt(.5,'root') and a.state=='preparing')
     check('freeze cancels uncommitted attack without curse draw',a.interrupt(.6,'freeze') and not a.commit(1.5) and a.curse_draws==0)
@@ -192,11 +219,15 @@ def run():
     ritual=RitualCycle('extended');ritual.begin(0,8)
     check('eight second ritual baseline can accept a paid real extension',ritual.extend(1,'I37',1)==1 and ritual.pulse_at==9)
     check('ritual I37 cannot refresh the same attack twice',ritual.extend(2,'I37',1)==0)
-    check('ritual all-source extension remains capped at three seconds',ritual.extend(3,'I21',3)==2 and ritual.pulse_at==11 and ritual.extend(4,'other',1)==0)
+    before=deepcopy(ritual)
+    check('I21 and old monster-specific helpers cannot extend a ritual',all(ritual.extend(3,source,amount)==0 for source,amount in [('I21',3),('P05',2),('P07',2),('B04',1),('other',1)]) and ritual==before)
+    check('ritual I37 cannot claim the unused general three second budget',ritual.extend(3,'I37',3)==0 and ritual.pulse_at==9)
     check('extended ritual cannot damage at its old eight second deadline',not ritual.commit_pulse(8) and ritual.mode=='chanting')
-    ritual.interrupt(10.8,'stone',receipt='late-extended-hit',actual_focus_hit=True)
-    check('late extended ritual interruption preserves full eight second pursuit',ritual.forced_chase_until==q(19.6) and not ritual.begin(16) and ritual.begin(19.6))
+    ritual.interrupt(8.8,'stone',receipt='late-extended-hit',actual_focus_hit=True)
+    check('late extended ritual interruption preserves full eight second pursuit',ritual.forced_chase_until==q(17.6) and not ritual.begin(16) and ritual.begin(17.6))
     check('new ritual sequence resets only its own extension allowance',ritual.extension_total==0 and ritual.extend(20,'I37',1)==1 and ritual.attempt_number==2)
+    ritual=RitualCycle('F21:RITUAL');ritual.begin(0,8)
+    check('original illegal ritual I21 counterexample now preserves the eight second deadline',ritual.extend(1,'I21',3)==0 and ritual.pulse_at==8)
 
     # Mission stones remain exactly the same three physical IDs through all actions.
     stones=StoneLedger({'p1':(0,0),'p2':(.2,0),'p3':(2,0)})
@@ -257,7 +288,8 @@ def run():
                 'Separated a recovered actor action from its still-live independent residual danger sequence; the latter retains a scene slot and delays whole-attack I39 resolution.',
                 'Aligned the physical stone radius with the final shared contract: 0.1 tile, retaining actual wall clipping and zero monster HP damage.',
                 'Clarified source-pool death versus full-root termination for already launched independent payloads.',
-                'A ritual base warning may be 6..8 seconds; paid legal extensions add at most 3 real seconds, including the actual pulse deadline and following pursuit timing.',
+                'SA01 replay confirmed two cross-system defects: the old reference accepted I21 on a ritual despite its F50/F60-only consumer, and added B04+P05 instead of taking the legacy maximum. Source/attack-definition/amount matching now rejects these counterexamples. Legacy maximum L and the once-only I37 increment J share total min(3,L+J), with only positive differences committed.',
+                'A ritual base warning may be 6..8 seconds. Current legal source I37 adds exactly one real second once, so the current maximum is9; the general3-second safety cap does not grant I21 or other old helpers a new ritual consumer. The prior positive test incorrectly treated the cap as source eligibility and has been replaced with negative cases.',
                 'Recorded automated runs passed at each stage; scope/contract corrections above were made during review and are not presented as full-world verification.'
             ],
             'checks':checks}
@@ -266,7 +298,7 @@ def run():
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--output',default='docs/ma01_reference_report.json');args=parser.parse_args()
     report=run();base=Path(__file__).resolve().parents[1]
-    report['input_hashes']={name:hashlib.sha256((base/name).read_bytes()).hexdigest() for name in ['scripts/ma01_reference.py','scripts/check_ma01_reference.py']}
+    report['input_hashes']={name:hashlib.sha256((base/name).read_bytes()).hexdigest() for name in ['scripts/ma01_reference.py','scripts/check_ma01_reference.py','content/auxiliary_effects_v010.json','content/consumables_eq01.json']}
     output=Path(args.output);output=output if output.is_absolute() else base/output
     output.parent.mkdir(parents=True,exist_ok=True);output.write_text(json.dumps(clean(report),ensure_ascii=False,indent=2)+'\n')
     print(json.dumps({'passed':report['passed'],'failed':report['failed'],'output':str(output),'failures':[x['name'] for x in report['checks'] if not x['passed']]},ensure_ascii=False))

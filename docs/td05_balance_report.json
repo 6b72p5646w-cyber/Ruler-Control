@@ -365,7 +365,7 @@
       "raw_direct_damage_nominal_24s": 192,
       "raw_direct_dps_nominal": 8,
       "spot_count": 2,
-      "spot_radius_tiles": 1.15,
+      "spot_radius_tiles": 1.5,
       "target_cap": 1,
       "window_s": 24
     },
@@ -711,7 +711,7 @@
         "ground"
       ],
       "mode": "heat_residence_field",
-      "radius_tiles": 1.0,
+      "radius_tiles": 1.5,
       "range_tiles": 4.5,
       "raw_direct_damage_nominal_24s": 128,
       "raw_direct_dps_nominal": 5.333333,
@@ -725,7 +725,7 @@
         "ground"
       ],
       "mode": "heat_residence_field",
-      "radius_tiles": 1.2,
+      "radius_tiles": 1.8,
       "range_tiles": 4.5,
       "raw_direct_damage_nominal_24s": 216,
       "raw_direct_dps_nominal": 9,
@@ -739,7 +739,7 @@
         "ground"
       ],
       "mode": "moving_heat_residence_field",
-      "radius_tiles": 1.0,
+      "radius_tiles": 1.5,
       "range_tiles": 4.5,
       "raw_direct_damage_nominal_24s": 180,
       "raw_direct_dps_nominal": 7.5,
@@ -1846,6 +1846,16 @@
   "checks": [
     {
       "detail": null,
+      "name": "user_minimum_1_5_contract",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "below_user_minimum_radius_rejected_before_measurement",
+      "passed": true
+    },
+    {
+      "detail": null,
       "name": "design_scope_tower_defense",
       "passed": true
     },
@@ -2181,6 +2191,11 @@
     },
     {
       "detail": null,
+      "name": "user_minimum_1_5_circle_T03.A1_field_radius_tiles",
+      "passed": true
+    },
+    {
+      "detail": null,
       "name": "tree_parent_T03.A1",
       "passed": true
     },
@@ -2256,6 +2271,11 @@
     },
     {
       "detail": null,
+      "name": "user_minimum_1_5_circle_T04_light_radius_tiles",
+      "passed": true
+    },
+    {
+      "detail": null,
       "name": "tree_parent_T04",
       "passed": true
     },
@@ -2267,6 +2287,11 @@
     {
       "detail": null,
       "name": "absolute_and_reviewed_T04.A",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "user_minimum_1_5_circle_T04.A_light_radius_tiles",
       "passed": true
     },
     {
@@ -2286,6 +2311,11 @@
     },
     {
       "detail": null,
+      "name": "user_minimum_1_5_circle_T04.A1_light_radius_tiles",
+      "passed": true
+    },
+    {
+      "detail": null,
       "name": "tree_parent_T04.A1",
       "passed": true
     },
@@ -2297,6 +2327,16 @@
     {
       "detail": null,
       "name": "absolute_and_reviewed_T04.A2",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "user_minimum_1_5_circle_T04.A2_light_radius_tiles",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "user_minimum_1_5_circle_T04.A2_spot_radius_tiles",
       "passed": true
     },
     {
@@ -2316,6 +2356,11 @@
     },
     {
       "detail": null,
+      "name": "user_minimum_1_5_circle_T04.B_light_radius_tiles",
+      "passed": true
+    },
+    {
+      "detail": null,
       "name": "tree_parent_T04.B",
       "passed": true
     },
@@ -2331,6 +2376,11 @@
     },
     {
       "detail": null,
+      "name": "user_minimum_1_5_circle_T04.B1_light_radius_tiles",
+      "passed": true
+    },
+    {
+      "detail": null,
       "name": "tree_parent_T04.B1",
       "passed": true
     },
@@ -2342,6 +2392,11 @@
     {
       "detail": null,
       "name": "absolute_and_reviewed_T04.B2",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "user_minimum_1_5_circle_T04.B2_light_radius_tiles",
       "passed": true
     },
     {
@@ -2546,6 +2601,11 @@
     },
     {
       "detail": null,
+      "name": "user_minimum_1_5_circle_T06.A2_pull_area_radius_tiles",
+      "passed": true
+    },
+    {
+      "detail": null,
       "name": "tree_parent_T06.A2",
       "passed": true
     },
@@ -2621,6 +2681,11 @@
     },
     {
       "detail": null,
+      "name": "user_minimum_1_5_circle_T07.A_blast_radius_tiles",
+      "passed": true
+    },
+    {
+      "detail": null,
       "name": "tree_parent_T07.A",
       "passed": true
     },
@@ -2632,6 +2697,11 @@
     {
       "detail": null,
       "name": "absolute_and_reviewed_T07.A1",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "user_minimum_1_5_circle_T07.A1_blast_radius_tiles",
       "passed": true
     },
     {
@@ -2666,6 +2736,11 @@
     },
     {
       "detail": null,
+      "name": "user_minimum_1_5_circle_T07.B_field_radius_tiles",
+      "passed": true
+    },
+    {
+      "detail": null,
       "name": "tree_parent_T07.B",
       "passed": true
     },
@@ -2681,6 +2756,11 @@
     },
     {
       "detail": null,
+      "name": "user_minimum_1_5_circle_T07.B1_field_radius_tiles",
+      "passed": true
+    },
+    {
+      "detail": null,
       "name": "tree_parent_T07.B1",
       "passed": true
     },
@@ -2692,6 +2772,11 @@
     {
       "detail": null,
       "name": "absolute_and_reviewed_T07.B2",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "user_minimum_1_5_circle_T07.B2_field_radius_tiles",
       "passed": true
     },
     {
@@ -2726,6 +2811,11 @@
     },
     {
       "detail": null,
+      "name": "user_minimum_1_5_circle_T08.A_blast_radius_tiles",
+      "passed": true
+    },
+    {
+      "detail": null,
       "name": "tree_parent_T08.A",
       "passed": true
     },
@@ -2737,6 +2827,11 @@
     {
       "detail": null,
       "name": "absolute_and_reviewed_T08.A1",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "user_minimum_1_5_circle_T08.A1_blast_radius_tiles",
       "passed": true
     },
     {
@@ -2797,6 +2892,11 @@
     {
       "detail": null,
       "name": "absolute_and_reviewed_T08.B2",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "user_minimum_1_5_circle_T08.B2_seal_field_radius_tiles",
       "passed": true
     },
     {
@@ -2896,6 +2996,11 @@
     },
     {
       "detail": null,
+      "name": "user_minimum_1_5_induction_T09.B",
+      "passed": true
+    },
+    {
+      "detail": null,
       "name": "tree_parent_T09.B",
       "passed": true
     },
@@ -2916,6 +3021,11 @@
     },
     {
       "detail": null,
+      "name": "user_minimum_1_5_induction_T09.B1",
+      "passed": true
+    },
+    {
+      "detail": null,
       "name": "tree_parent_T09.B1",
       "passed": true
     },
@@ -2932,6 +3042,11 @@
     {
       "detail": null,
       "name": "absolute_and_reviewed_T09.B2",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "user_minimum_1_5_induction_T09.B2",
       "passed": true
     },
     {
@@ -3121,6 +3236,11 @@
     },
     {
       "detail": null,
+      "name": "trap_minimum_1_5_circle_R01.B3_secondary_radius_tiles",
+      "passed": true
+    },
+    {
+      "detail": null,
       "name": "trap_resolved_and_reviewed_R02",
       "passed": true
     },
@@ -3142,6 +3262,11 @@
     {
       "detail": null,
       "name": "trap_resolved_and_reviewed_R02.B3",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "trap_minimum_1_5_circle_R02.B3_secondary_radius_tiles",
       "passed": true
     },
     {
@@ -3182,6 +3307,11 @@
     {
       "detail": null,
       "name": "trap_resolved_and_reviewed_R04.A3",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "trap_minimum_1_5_circle_R04.A3_secondary_radius_tiles",
       "passed": true
     },
     {
@@ -3266,7 +3396,17 @@
     },
     {
       "detail": null,
+      "name": "trap_minimum_1_5_circle_R07.B_secondary_radius_tiles",
+      "passed": true
+    },
+    {
+      "detail": null,
       "name": "trap_resolved_and_reviewed_R07.B3",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "trap_minimum_1_5_circle_R07.B3_secondary_radius_tiles",
       "passed": true
     },
     {
@@ -3291,7 +3431,17 @@
     },
     {
       "detail": null,
+      "name": "trap_minimum_1_5_circle_R08.B_secondary_radius_tiles",
+      "passed": true
+    },
+    {
+      "detail": null,
       "name": "trap_resolved_and_reviewed_R08.B3",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "trap_minimum_1_5_circle_R08.B3_secondary_radius_tiles",
       "passed": true
     },
     {
@@ -3401,7 +3551,17 @@
     },
     {
       "detail": null,
+      "name": "trap_minimum_1_5_circle_R13_radius_tiles",
+      "passed": true
+    },
+    {
+      "detail": null,
       "name": "trap_resolved_and_reviewed_R13.A",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "trap_minimum_1_5_circle_R13.A_radius_tiles",
       "passed": true
     },
     {
@@ -3411,12 +3571,27 @@
     },
     {
       "detail": null,
+      "name": "trap_minimum_1_5_circle_R13.A3_radius_tiles",
+      "passed": true
+    },
+    {
+      "detail": null,
       "name": "trap_resolved_and_reviewed_R13.B",
       "passed": true
     },
     {
       "detail": null,
+      "name": "trap_minimum_1_5_circle_R13.B_radius_tiles",
+      "passed": true
+    },
+    {
+      "detail": null,
       "name": "trap_resolved_and_reviewed_R13.B3",
+      "passed": true
+    },
+    {
+      "detail": null,
+      "name": "trap_minimum_1_5_circle_R13.B3_radius_tiles",
       "passed": true
     },
     {
@@ -5446,7 +5621,7 @@
     }
   ],
   "checks_failed": 0,
-  "checks_passed": 718,
+  "checks_passed": 753,
   "defense_sensitivity": {
     "T01.A1": {
       "0": 384,
@@ -50151,17 +50326,17 @@
         "center_legal_and_connected": true,
         "circular_mode_allowed_at_this_projection": false,
         "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-        "effective_radius_tiles": 1.5,
-        "effective_usable_body_center_area_tiles2": 1.2,
-        "effective_visible_reachable_floor_area_tiles2": 2.945,
+        "effective_radius_tiles": 2.25,
+        "effective_usable_body_center_area_tiles2": 1.8,
+        "effective_visible_reachable_floor_area_tiles2": 4.4625,
         "grid_step_tiles": 0.025,
-        "maximum_radius_tiles": 1.5,
-        "nominal_radius_tiles": 1,
-        "nominal_usable_body_center_area_tiles2": 0.795,
+        "maximum_radius_tiles": 2.25,
+        "nominal_radius_tiles": 1.5,
+        "nominal_usable_body_center_area_tiles2": 1.2,
         "requires_other_projection_or_anchor": true,
-        "restored_target_fraction": 0.381972,
+        "restored_target_fraction": 0.254648,
         "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-        "target_area_tiles2": 3.141593
+        "target_area_tiles2": 7.068583
       },
       "reference_body_does_not_expand_empty_circle": true,
       "solid_wall_line_of_sight_is_clear": false,
@@ -50176,17 +50351,17 @@
         "center_legal_and_connected": true,
         "circular_mode_allowed_at_this_projection": true,
         "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-        "effective_radius_tiles": 1.0,
-        "effective_usable_body_center_area_tiles2": 3.14,
-        "effective_visible_reachable_floor_area_tiles2": 3.14,
+        "effective_radius_tiles": 1.5,
+        "effective_usable_body_center_area_tiles2": 7.065,
+        "effective_visible_reachable_floor_area_tiles2": 7.065,
         "grid_step_tiles": 0.025,
-        "maximum_radius_tiles": 1.5,
-        "nominal_radius_tiles": 1,
-        "nominal_usable_body_center_area_tiles2": 3.14,
+        "maximum_radius_tiles": 2.25,
+        "nominal_radius_tiles": 1.5,
+        "nominal_usable_body_center_area_tiles2": 7.065,
         "requires_other_projection_or_anchor": false,
         "restored_target_fraction": 0.999493,
         "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-        "target_area_tiles2": 3.141593
+        "target_area_tiles2": 7.068583
       }
     },
     "electric_store": {
@@ -50420,18 +50595,24 @@
         "center_legal_and_connected": true,
         "circular_mode_allowed_at_this_projection": true,
         "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-        "effective_radius_tiles": 1.3,
-        "effective_usable_body_center_area_tiles2": 3.105,
-        "effective_visible_reachable_floor_area_tiles2": 3.92125,
+        "effective_radius_tiles": 2.225,
+        "effective_usable_body_center_area_tiles2": 6.9375,
+        "effective_visible_reachable_floor_area_tiles2": 8.881875,
+        "emitter_to_field_los_clear": true,
         "fixture": "FX11",
         "grid_step_tiles": 0.025,
-        "maximum_radius_tiles": 1.5,
-        "nominal_radius_tiles": 1,
-        "nominal_usable_body_center_area_tiles2": 1.9675,
+        "maximum_radius_tiles": 2.25,
+        "nominal_radius_tiles": 1.5,
+        "nominal_usable_body_center_area_tiles2": 3.7825,
+        "projection_within_minimum_4_5_cast_range": true,
+        "registered_outward_emitter": [
+          4.5,
+          11.5
+        ],
         "requires_other_projection_or_anchor": false,
-        "restored_target_fraction": 0.988352,
+        "restored_target_fraction": 0.981455,
         "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-        "target_area_tiles2": 3.141593
+        "target_area_tiles2": 7.068583
       },
       {
         "anchor": "TA02",
@@ -50446,18 +50627,24 @@
         "center_legal_and_connected": true,
         "circular_mode_allowed_at_this_projection": true,
         "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-        "effective_radius_tiles": 1.3,
-        "effective_usable_body_center_area_tiles2": 3.105,
-        "effective_visible_reachable_floor_area_tiles2": 3.92125,
+        "effective_radius_tiles": 2.225,
+        "effective_usable_body_center_area_tiles2": 6.9375,
+        "effective_visible_reachable_floor_area_tiles2": 8.881875,
+        "emitter_to_field_los_clear": true,
         "fixture": "FX11",
         "grid_step_tiles": 0.025,
-        "maximum_radius_tiles": 1.5,
-        "nominal_radius_tiles": 1,
-        "nominal_usable_body_center_area_tiles2": 1.9675,
+        "maximum_radius_tiles": 2.25,
+        "nominal_radius_tiles": 1.5,
+        "nominal_usable_body_center_area_tiles2": 3.7825,
+        "projection_within_minimum_4_5_cast_range": true,
+        "registered_outward_emitter": [
+          4.5,
+          18.5
+        ],
         "requires_other_projection_or_anchor": false,
-        "restored_target_fraction": 0.988352,
+        "restored_target_fraction": 0.981455,
         "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-        "target_area_tiles2": 3.141593
+        "target_area_tiles2": 7.068583
       },
       {
         "anchor": "TA03",
@@ -50466,24 +50653,30 @@
         "area_tolerance_fraction": 0.02,
         "body_radius_tiles": 0.3,
         "center": [
-          11.5,
-          11.5
+          14.5,
+          12.5
         ],
         "center_legal_and_connected": true,
         "circular_mode_allowed_at_this_projection": true,
         "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-        "effective_radius_tiles": 1.3,
-        "effective_usable_body_center_area_tiles2": 3.105,
-        "effective_visible_reachable_floor_area_tiles2": 3.92125,
+        "effective_radius_tiles": 1.6,
+        "effective_usable_body_center_area_tiles2": 6.98125,
+        "effective_visible_reachable_floor_area_tiles2": 7.90625,
+        "emitter_to_field_los_clear": true,
         "fixture": "FX12",
         "grid_step_tiles": 0.025,
-        "maximum_radius_tiles": 1.5,
-        "nominal_radius_tiles": 1,
-        "nominal_usable_body_center_area_tiles2": 1.9675,
+        "maximum_radius_tiles": 2.25,
+        "nominal_radius_tiles": 1.5,
+        "nominal_usable_body_center_area_tiles2": 6.365,
+        "projection_within_minimum_4_5_cast_range": true,
+        "registered_outward_emitter": [
+          13.001,
+          12.5
+        ],
         "requires_other_projection_or_anchor": false,
-        "restored_target_fraction": 0.988352,
+        "restored_target_fraction": 0.987645,
         "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-        "target_area_tiles2": 3.141593
+        "target_area_tiles2": 7.068583
       },
       {
         "anchor": "TA04",
@@ -50498,18 +50691,24 @@
         "center_legal_and_connected": true,
         "circular_mode_allowed_at_this_projection": true,
         "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-        "effective_radius_tiles": 1.3,
-        "effective_usable_body_center_area_tiles2": 3.1725,
-        "effective_visible_reachable_floor_area_tiles2": 3.92125,
+        "effective_radius_tiles": 1.975,
+        "effective_usable_body_center_area_tiles2": 7.06625,
+        "effective_visible_reachable_floor_area_tiles2": 8.13875,
+        "emitter_to_field_los_clear": true,
         "fixture": "FX12",
         "grid_step_tiles": 0.025,
-        "maximum_radius_tiles": 1.5,
-        "nominal_radius_tiles": 1,
-        "nominal_usable_body_center_area_tiles2": 1.9675,
+        "maximum_radius_tiles": 2.25,
+        "nominal_radius_tiles": 1.5,
+        "nominal_usable_body_center_area_tiles2": 4.1325,
+        "projection_within_minimum_4_5_cast_range": true,
+        "registered_outward_emitter": [
+          11.5,
+          18.5
+        ],
         "requires_other_projection_or_anchor": false,
-        "restored_target_fraction": 1.009838,
+        "restored_target_fraction": 0.99967,
         "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-        "target_area_tiles2": 3.141593
+        "target_area_tiles2": 7.068583
       },
       {
         "anchor": "TA05",
@@ -50524,18 +50723,24 @@
         "center_legal_and_connected": true,
         "circular_mode_allowed_at_this_projection": true,
         "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-        "effective_radius_tiles": 1.3,
-        "effective_usable_body_center_area_tiles2": 3.1725,
-        "effective_visible_reachable_floor_area_tiles2": 3.92125,
+        "effective_radius_tiles": 2.0,
+        "effective_usable_body_center_area_tiles2": 7.08375,
+        "effective_visible_reachable_floor_area_tiles2": 8.26375,
+        "emitter_to_field_los_clear": true,
         "fixture": "FX13",
         "grid_step_tiles": 0.025,
-        "maximum_radius_tiles": 1.5,
-        "nominal_radius_tiles": 1,
-        "nominal_usable_body_center_area_tiles2": 1.9675,
+        "maximum_radius_tiles": 2.25,
+        "nominal_radius_tiles": 1.5,
+        "nominal_usable_body_center_area_tiles2": 4.1325,
+        "projection_within_minimum_4_5_cast_range": true,
+        "registered_outward_emitter": [
+          15.5,
+          14.5
+        ],
         "requires_other_projection_or_anchor": false,
-        "restored_target_fraction": 1.009838,
+        "restored_target_fraction": 1.002146,
         "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-        "target_area_tiles2": 3.141593
+        "target_area_tiles2": 7.068583
       },
       {
         "anchor": "TA06",
@@ -50544,24 +50749,30 @@
         "area_tolerance_fraction": 0.02,
         "body_radius_tiles": 0.3,
         "center": [
-          3.5,
-          23.5
+          5.5,
+          22.5
         ],
         "center_legal_and_connected": true,
         "circular_mode_allowed_at_this_projection": true,
         "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-        "effective_radius_tiles": 1.3,
-        "effective_usable_body_center_area_tiles2": 3.105,
-        "effective_visible_reachable_floor_area_tiles2": 3.92125,
+        "effective_radius_tiles": 1.775,
+        "effective_usable_body_center_area_tiles2": 7.07875,
+        "effective_visible_reachable_floor_area_tiles2": 8.58,
+        "emitter_to_field_los_clear": true,
         "fixture": "FX18",
         "grid_step_tiles": 0.025,
-        "maximum_radius_tiles": 1.5,
-        "nominal_radius_tiles": 1,
-        "nominal_usable_body_center_area_tiles2": 1.9675,
+        "maximum_radius_tiles": 2.25,
+        "nominal_radius_tiles": 1.5,
+        "nominal_usable_body_center_area_tiles2": 5.51125,
+        "projection_within_minimum_4_5_cast_range": true,
+        "registered_outward_emitter": [
+          4.001,
+          23.999
+        ],
         "requires_other_projection_or_anchor": false,
-        "restored_target_fraction": 0.988352,
+        "restored_target_fraction": 1.001438,
         "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-        "target_area_tiles2": 3.141593
+        "target_area_tiles2": 7.068583
       },
       {
         "anchor": "TA07",
@@ -50576,18 +50787,24 @@
         "center_legal_and_connected": true,
         "circular_mode_allowed_at_this_projection": true,
         "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-        "effective_radius_tiles": 1.3,
-        "effective_usable_body_center_area_tiles2": 3.1725,
-        "effective_visible_reachable_floor_area_tiles2": 3.92125,
+        "effective_radius_tiles": 1.975,
+        "effective_usable_body_center_area_tiles2": 6.993125,
+        "effective_visible_reachable_floor_area_tiles2": 8.111875,
+        "emitter_to_field_los_clear": true,
         "fixture": "FX18",
         "grid_step_tiles": 0.025,
-        "maximum_radius_tiles": 1.5,
-        "nominal_radius_tiles": 1,
-        "nominal_usable_body_center_area_tiles2": 1.9675,
+        "maximum_radius_tiles": 2.25,
+        "nominal_radius_tiles": 1.5,
+        "nominal_usable_body_center_area_tiles2": 4.1325,
+        "projection_within_minimum_4_5_cast_range": true,
+        "registered_outward_emitter": [
+          7.5,
+          23.5
+        ],
         "requires_other_projection_or_anchor": false,
-        "restored_target_fraction": 1.009838,
+        "restored_target_fraction": 0.989325,
         "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-        "target_area_tiles2": 3.141593
+        "target_area_tiles2": 7.068583
       },
       {
         "anchor": "TA08",
@@ -50602,18 +50819,24 @@
         "center_legal_and_connected": true,
         "circular_mode_allowed_at_this_projection": true,
         "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-        "effective_radius_tiles": 1.3,
-        "effective_usable_body_center_area_tiles2": 3.1725,
-        "effective_visible_reachable_floor_area_tiles2": 3.92125,
+        "effective_radius_tiles": 1.975,
+        "effective_usable_body_center_area_tiles2": 6.993125,
+        "effective_visible_reachable_floor_area_tiles2": 8.111875,
+        "emitter_to_field_los_clear": true,
         "fixture": "FX14",
         "grid_step_tiles": 0.025,
-        "maximum_radius_tiles": 1.5,
-        "nominal_radius_tiles": 1,
-        "nominal_usable_body_center_area_tiles2": 1.9675,
+        "maximum_radius_tiles": 2.25,
+        "nominal_radius_tiles": 1.5,
+        "nominal_usable_body_center_area_tiles2": 4.1325,
+        "projection_within_minimum_4_5_cast_range": true,
+        "registered_outward_emitter": [
+          21.5,
+          12.5
+        ],
         "requires_other_projection_or_anchor": false,
-        "restored_target_fraction": 1.009838,
+        "restored_target_fraction": 0.989325,
         "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-        "target_area_tiles2": 3.141593
+        "target_area_tiles2": 7.068583
       },
       {
         "anchor": "TA09",
@@ -50622,24 +50845,30 @@
         "area_tolerance_fraction": 0.02,
         "body_radius_tiles": 0.3,
         "center": [
-          27.5,
-          14.5
+          25.5,
+          15.5
         ],
         "center_legal_and_connected": true,
         "circular_mode_allowed_at_this_projection": true,
         "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-        "effective_radius_tiles": 1.325,
-        "effective_usable_body_center_area_tiles2": 3.118125,
-        "effective_visible_reachable_floor_area_tiles2": 4.05,
+        "effective_radius_tiles": 1.575,
+        "effective_usable_body_center_area_tiles2": 6.981875,
+        "effective_visible_reachable_floor_area_tiles2": 7.7575,
+        "emitter_to_field_los_clear": true,
         "fixture": "FX15",
         "grid_step_tiles": 0.025,
-        "maximum_radius_tiles": 1.5,
-        "nominal_radius_tiles": 1,
-        "nominal_usable_body_center_area_tiles2": 1.9675,
+        "maximum_radius_tiles": 2.25,
+        "nominal_radius_tiles": 1.5,
+        "nominal_usable_body_center_area_tiles2": 6.5075,
+        "projection_within_minimum_4_5_cast_range": true,
+        "registered_outward_emitter": [
+          26.499,
+          14.001
+        ],
         "requires_other_projection_or_anchor": false,
-        "restored_target_fraction": 0.99253,
+        "restored_target_fraction": 0.987733,
         "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-        "target_area_tiles2": 3.141593
+        "target_area_tiles2": 7.068583
       },
       {
         "anchor": "TA10",
@@ -50654,18 +50883,24 @@
         "center_legal_and_connected": true,
         "circular_mode_allowed_at_this_projection": true,
         "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-        "effective_radius_tiles": 1.3,
-        "effective_usable_body_center_area_tiles2": 3.119375,
-        "effective_visible_reachable_floor_area_tiles2": 3.92125,
+        "effective_radius_tiles": 2.2,
+        "effective_usable_body_center_area_tiles2": 6.9875,
+        "effective_visible_reachable_floor_area_tiles2": 8.668125,
+        "emitter_to_field_los_clear": true,
         "fixture": "FX23",
         "grid_step_tiles": 0.025,
-        "maximum_radius_tiles": 1.5,
-        "nominal_radius_tiles": 1,
-        "nominal_usable_body_center_area_tiles2": 1.9675,
+        "maximum_radius_tiles": 2.25,
+        "nominal_radius_tiles": 1.5,
+        "nominal_usable_body_center_area_tiles2": 3.88875,
+        "projection_within_minimum_4_5_cast_range": true,
+        "registered_outward_emitter": [
+          27.5,
+          24.5
+        ],
         "requires_other_projection_or_anchor": false,
-        "restored_target_fraction": 0.992928,
+        "restored_target_fraction": 0.988529,
         "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-        "target_area_tiles2": 3.141593
+        "target_area_tiles2": 7.068583
       },
       {
         "anchor": "TA11",
@@ -50680,18 +50915,24 @@
         "center_legal_and_connected": true,
         "circular_mode_allowed_at_this_projection": true,
         "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-        "effective_radius_tiles": 1.3,
-        "effective_usable_body_center_area_tiles2": 3.1725,
-        "effective_visible_reachable_floor_area_tiles2": 3.92125,
+        "effective_radius_tiles": 1.975,
+        "effective_usable_body_center_area_tiles2": 6.993125,
+        "effective_visible_reachable_floor_area_tiles2": 8.111875,
+        "emitter_to_field_los_clear": true,
         "fixture": "FX06",
         "grid_step_tiles": 0.025,
-        "maximum_radius_tiles": 1.5,
-        "nominal_radius_tiles": 1,
-        "nominal_usable_body_center_area_tiles2": 1.9675,
+        "maximum_radius_tiles": 2.25,
+        "nominal_radius_tiles": 1.5,
+        "nominal_usable_body_center_area_tiles2": 4.1325,
+        "projection_within_minimum_4_5_cast_range": true,
+        "registered_outward_emitter": [
+          16.5,
+          3.5
+        ],
         "requires_other_projection_or_anchor": false,
-        "restored_target_fraction": 1.009838,
+        "restored_target_fraction": 0.989325,
         "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-        "target_area_tiles2": 3.141593
+        "target_area_tiles2": 7.068583
       },
       {
         "anchor": "TA12",
@@ -50706,21 +50947,27 @@
         "center_legal_and_connected": true,
         "circular_mode_allowed_at_this_projection": true,
         "collision_rule": "center in effect circle; body avoids solids; no requirement body fit inside effect circle",
-        "effective_radius_tiles": 1.3,
-        "effective_usable_body_center_area_tiles2": 3.17,
-        "effective_visible_reachable_floor_area_tiles2": 3.92125,
+        "effective_radius_tiles": 2.1,
+        "effective_usable_body_center_area_tiles2": 7.010625,
+        "effective_visible_reachable_floor_area_tiles2": 8.739375,
+        "emitter_to_field_los_clear": true,
         "fixture": "FX07",
         "grid_step_tiles": 0.025,
-        "maximum_radius_tiles": 1.5,
-        "nominal_radius_tiles": 1,
-        "nominal_usable_body_center_area_tiles2": 1.9675,
+        "maximum_radius_tiles": 2.25,
+        "nominal_radius_tiles": 1.5,
+        "nominal_usable_body_center_area_tiles2": 4.02875,
+        "projection_within_minimum_4_5_cast_range": true,
+        "registered_outward_emitter": [
+          24.5,
+          3.5
+        ],
         "requires_other_projection_or_anchor": false,
-        "restored_target_fraction": 1.009042,
+        "restored_target_fraction": 0.991801,
         "scope": "static body-clear floor and straight LOS; dynamic enemies, height and runtime nav still required",
-        "target_area_tiles2": 3.141593
+        "target_area_tiles2": 7.068583
       }
     ],
-    "minimum_radius": 1,
+    "minimum_radius": 1.5,
     "scope": "deterministic static area compensation reference; not gameplay integration"
   },
   "group_curse": {
@@ -50804,12 +51051,12 @@
   "input_sha256": {
     "content/balance_scenarios_td05.json": "4446a56f1a04ce640a1037467c70dc594c567d5c531b83ce42c6335cebb88004",
     "content/chase_profiles_td05.json": "770c2304944733edc791632d17de3f542cfeab28edf8b1a658a0878d64d34e12",
-    "content/combat_contracts_td05.json": "43b06462108ea071a1de79d642df0f1bbd666c358460805b677c1b12b6a05189",
-    "content/economy_week_td05.json": "49dce374ffe63f6549ef4964194347b87b477325daf7e7c35adfde2a9c941469",
+    "content/combat_contracts_td05.json": "f83f18ae0314d3a19134a934ed347c7254c9eb2b5d5711305e007434dd5d8823",
+    "content/economy_week_td05.json": "9b58a603fa4c80380e9d53d54f5e7678f353d2cbd7014f08ce5d25ac57f8c791",
     "content/maps.json": "773e39b35bc16c63e6b4f294e27f8a944072599f21b8ad1bae46527f0a093b9a",
     "content/monster_matchups_td05.json": "3431ebd98f86a1344267c856e1a14a07e2dc04d4e0494ca26c81419f16e24019",
-    "content/tower_defense_td05.json": "35c6331a786739249c5b96676a11acf76cf1a068134b8ab5a507f0e087a716a5",
-    "content/traps_facilities_td05.json": "18eb56afd481a15eb8fc14694cc1e26ab44f0f0a54be8276362c8761599a8efa"
+    "content/tower_defense_td05.json": "e7919156f0e6f56f732f107221e28c8d71cddae8563e6a4a95b26474fd35c970",
+    "content/traps_facilities_td05.json": "a83c470f8a3c555076c6401b418a8ce99a1e5f0725d36905c9a337359202ec5a"
   },
   "nominal_no_death_offense": {
     "T01.A1": {
@@ -51078,12 +51325,16 @@
     "no_phase_multiplier": true
   },
   "runtime_integrated": false,
+  "sa01_revision": {
+    "baseline_commit": "961ccdbcdc5e8fb81b6cae534ab0317e64de4da5",
+    "scope": "1.5-tile hostile-circle lower bound, lawful same-anchor projections and phase authority; original TD05 source_commit retained as history"
+  },
   "scope": "finite reference checks and model calibration; no assertion of full AI, phone input, runtime persistence or seven-night playtest",
   "script_sha256": {
-    "check_td05_balance.py": "3d264ba17e321658f6f62324b32147d15f90ea85a93e04b43d92544cfbec9be6",
+    "check_td05_balance.py": "f8d6a6a66495cc995316ca32af7a12b7b9d25a1be70763606c129b82150ad54d",
     "td05_chase_reference.py": "dca97cd7fea8ab31bc6dee8c0835c0e4de90ea3ee91f35fedc9e3c2bcb1735d3",
-    "td05_economy_reference.py": "e07b635e7f244469b9d2ee842c6c59c6f41f9eafc2bea053d91af95583f9000e",
-    "td05_geometry_reference.py": "f181a74dbb4bc367546e83f59bbaa05f811cd4eaaa2cec444b0736cd3dc10847",
+    "td05_economy_reference.py": "26bd1113fb9c67e0fbcb8bb97fbe916895ad9d4e94c9af116c66cf51ee833b11",
+    "td05_geometry_reference.py": "b2da8adeede976f837283ff71c8f1bf4b2ab1bec4695433d66a2e9bed1e14aa2",
     "td05_reference.py": "59b8d4094199975742d0d06e2d79439748fcfd942a2ee16bec15bf5109616a02"
   },
   "small_field_residence": {

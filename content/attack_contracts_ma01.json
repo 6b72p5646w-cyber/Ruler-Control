@@ -146,7 +146,7 @@
     "pulse_success": "按卡收招，恢复追逐；再起仍需冷却与空间/资源准入。",
     "rewards": "打断不是主规则、击杀或任务生产回执，不给钱灵券。",
     "avoid": "可离开公开区域暂避；石击让危险结束并把本体带入塔区。",
-    "channel_max_scope": "8秒为准入预先选定的自然聚能上限；I37/I21合法付费延长仍按同attack_id累计最多3秒，实际可到11秒，不截断已支付延长。"
+    "channel_max_scope": "8秒为准入预先选定的自然聚能上限；当前三种仪式只有I37可合法延长，同attack_id一次+1秒，因此当前实际聚能为基础6–8秒或延长后7–9秒。共享3秒总上限不是自动授予额外来源；I21/P05/P07/B04只保留原F50/F60消费者，不能作用于仪式。"
   },
   "stones": {
     "source_id": "MA01:ritual_pebbles",
@@ -248,14 +248,69 @@
     "fairness_scope": "可达保证用于首次强制机制、未教过的新攻击以及导演追加的组合，不是每次伤害前替玩家寻找免伤。玩家自行进死角、错过已经完整给出的预告或继续工作不躲，可以被合法普通攻击命中；已公开攻击不因玩家后续误入而自动撤销。新增第二危险招仍须避免由导演额外制造不可避叠加。"
   },
   "equipment": {
-    "I37": "当前公开未提交attack_id+1s；同ID一次，与I21等累计≤3s；提交/活跃/恢复实际顺延，不改已发弹。",
+    "I37": "当前公开未提交attack_id一次+1s。旧I21/P05/P07/B04仍逐来源核对原怪与原动作；旧源在legacy组取请求总量最大值L，I37增量为J∈{0,1}，同次总延长min(3,L+J)。只提交相对当前真实截止的正差，零正差不扣次数或道具；提交/活跃/恢复同步顺延。",
     "I39": "全序列全部子弹/区域关闭、实际瞄准玩家且全程零几何接触、因走位完全躲过才记一次。取消/咒失败/保护/背向凝视不算。再检查EQ01目标合法可见≤4格、buff未过期和剩余次数。",
     "Q28_I38": "仍只准备现有T10格，取最强，不改敌招/单格伤害。",
     "Q25": "择时释放已装填塔弹，抓冲空/聚能/维持窗口。",
     "Q33": "仅催已有毒性记录；仪式中断不生成毒量或主规则回执。",
     "Q31_Q32": "增强走位选择，基础准入仍按无鞋0体力。",
     "Q35": "不加速拾石、投石、挣脱或怪物主机制。",
-    "I35": "原封技白名单保持。"
+    "I35": "原封技白名单保持。",
+    "warning_extension_group": {
+      "legacy_max_sources": {
+        "I21": {
+          "attack_definitions": [
+            "F50:DIVE",
+            "F60:GAZE"
+          ],
+          "requested_total_seconds": 3
+        },
+        "P05": {
+          "attack_definitions": [
+            "F50:DIVE"
+          ],
+          "requested_total_seconds": 2
+        },
+        "P07": {
+          "attack_definitions": [
+            "F60:GAZE"
+          ],
+          "requested_total_seconds": 2
+        },
+        "B04": {
+          "attack_definitions": [
+            "F50:DIVE"
+          ],
+          "requested_total_seconds_by_tier": {
+            "L1": 1,
+            "L2": 0.5
+          }
+        }
+      },
+      "increment_source": {
+        "I37": {
+          "target": "one_current_public_uncommitted_attack_id",
+          "increment_seconds": 1,
+          "max_per_attack": 1
+        }
+      },
+      "formula": "legacy_max L=max(valid legacy requests); I37 increment J is 0 or1; total=min(3,L+J); grant=max(0,total-current_total)",
+      "legacy_adapter": "七夜模式下旧attack_warning_total_bonus消费者的existing_total指同一legacy组L，不把I37的J倒灌为旧源请求；旧源仍取最大，不把B04+P05相加。I37与同一旧源先后顺序不能改变最终截止。",
+      "source_admission": "同时匹配真实攻击定义、原怪、当前未提交预告与原来源参数；I21不作用于F50/F60普攻，也不作用于F21/F28/F44仪式。不得因共享消费者名称而扩大白名单。",
+      "transaction": "准入核对原实例、次数/道具、当次未使用和阶段/真实06:00预算；实际正差必须完整容纳，否则零扣除、零改截止。正差提交后保存同attack_id/来源组回执，读档不重复。",
+      "current_ritual_max_bonus_seconds": 1,
+      "current_ritual_sources": [
+        "I37"
+      ],
+      "general_total_cap_seconds": 3,
+      "legacy_authority": "content/auxiliary_effects_v010.json",
+      "legacy_record_ids": [
+        "I21",
+        "P05",
+        "P07",
+        "B04"
+      ]
+    }
   },
   "validation": {
     "included": [

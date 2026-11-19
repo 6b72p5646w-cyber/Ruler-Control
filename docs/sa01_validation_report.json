@@ -1,0 +1,836 @@
+{
+  "version": "SA01",
+  "baseline_commit": "961ccdbcdc5e8fb81b6cae534ab0317e64de4da5",
+  "runtime_integrated": false,
+  "all_gameplay_proven": false,
+  "scope": "Cross-source roles, exact references, authority gates, user radius policy, current finite reports and unchanged original catalogs; not AI, live pathfinding or full-week balance.",
+  "passed": 138,
+  "failed": 0,
+  "upstream_results": {
+    "TD05_finite_and_structure": 753,
+    "MA01_structure": 734,
+    "MA01_finite": 157,
+    "SA01_lifecycle": 104,
+    "SA01_legacy_bridge": 58,
+    "existing_store_scenarios": 24
+  },
+  "not_covered": [
+    "所有105AI与72事件组合可玩",
+    "动态导航与大体型实际可达",
+    "手机操作舒适性",
+    "完整首周经济和胜率",
+    "微信性能与持久化故障恢复"
+  ],
+  "checks": [
+    {
+      "name": "all four SA01 design contracts explicitly unintegrated",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "authority source exists base_map_geometry",
+      "passed": true,
+      "evidence": [
+        "content/maps.json",
+        "content/map_mechanics_v05.json"
+      ]
+    },
+    {
+      "name": "authority source exists store_work_and_free_mechanisms",
+      "passed": true,
+      "evidence": [
+        "content/store_systems_v05.json",
+        "content/mechanism_closure_v010.json",
+        "content/temporal_resource_contract_v07.json",
+        "content/consumer_closure_v08.json"
+      ]
+    },
+    {
+      "name": "authority source exists original_folklore_steps",
+      "passed": true,
+      "evidence": [
+        "content/mechanism_cases_v010_a.json",
+        "content/mechanism_cases_v010_b.json",
+        "content/encounter_blueprints.json"
+      ]
+    },
+    {
+      "name": "authority source exists monster_identity_stats_endings",
+      "passed": true,
+      "evidence": [
+        "content/monster_roster_md01.json",
+        "content/monster_contracts_md01.json"
+      ]
+    },
+    {
+      "name": "authority source exists attack_timing_geometry",
+      "passed": true,
+      "evidence": [
+        "content/monster_attack_roster_ma01.json",
+        "content/attack_contracts_ma01.json"
+      ]
+    },
+    {
+      "name": "authority source exists tower_tree_status_geometry",
+      "passed": true,
+      "evidence": [
+        "content/tower_defense_td05.json",
+        "content/combat_contracts_td05.json"
+      ]
+    },
+    {
+      "name": "authority source exists trap_inventory_and_electric_devices",
+      "passed": true,
+      "evidence": [
+        "content/traps_facilities_td05.json",
+        "content/economy_week_td05.json"
+      ]
+    },
+    {
+      "name": "authority source exists current_equipment_and_lottery",
+      "passed": true,
+      "evidence": [
+        "content/equipment_contracts_eq01.json",
+        "content/equipment_eq01.json",
+        "content/consumables_eq01.json",
+        "content/lottery_rewards_eq01.json"
+      ]
+    },
+    {
+      "name": "authority source exists legacy_item_pet_consumers",
+      "passed": true,
+      "evidence": [
+        "content/auxiliary_effects_v010.json"
+      ]
+    },
+    {
+      "name": "authority source exists legacy_deployment_overrides",
+      "passed": true,
+      "evidence": [
+        "content/legacy_deployment_bridge_sa01.json"
+      ]
+    },
+    {
+      "name": "authority source exists run_identity_retry_week_close",
+      "passed": true,
+      "evidence": [
+        "content/run_lifecycle_sa01.json"
+      ]
+    },
+    {
+      "name": "authority source exists facility_inventory_and_candidates",
+      "passed": true,
+      "evidence": [
+        "content/facility_roles_sa01.json"
+      ]
+    },
+    {
+      "name": "protected original catalog content/monster_folklore_md01.json",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "protected original catalog content/monster_scp_a_md01.json",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "protected original catalog content/monster_scp_b_md01.json",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "protected original catalog content/equipment_eq01.json",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "protected original catalog content/consumables_eq01.json",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "105 unique original monster definitions",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "three outcomes retained",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "10 tower families with two L2 and four L3 each",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "16 trap families with original five-node paths",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "hostile circle authorities all honor user minimum 1.5",
+      "passed": true,
+      "evidence": [
+        1.5,
+        1.5,
+        1.5,
+        1.5,
+        1.5
+      ]
+    },
+    {
+      "name": "only three registered powered-appliance definitions",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "POS without actual placement and wiring stays disabled",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "fourteen distinct facility roles",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR01 proposal stays disabled with no invented upgrade price",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR01 real fixture anchor and AP references",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR01 source pointer content/store_systems_v05.json#/work_contract",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR01 source pointer content/store_systems_v05.json#/service",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR01 source pointer content/map_mechanics_v05.json#/objects/14",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR01 source pointer content/traps_facilities_td05.json#/appliances",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR01 candidate enemy circle minimum",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR01 work bonus has positive net time after activation",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR01 finite paid work opportunity",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR02 proposal stays disabled with no invented upgrade price",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR02 real fixture anchor and AP references",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR02 source pointer content/maps.json#/scenes/0/fixtures",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR02 source pointer content/traps_facilities_td05.json#/map_constraints/side_hung_projection_examples",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR02 source pointer content/equipment_contracts_eq01.json#/ordinary_attack_progress",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR02 source pointer content/equipment_contracts_eq01.json#/attribute_aggregation",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR02 work bonus has positive net time after activation",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR02 finite paid work opportunity",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR03 proposal stays disabled with no invented upgrade price",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR03 real fixture anchor and AP references",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR03 source pointer content/store_systems_v05.json#/duties/2",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR03 source pointer content/store_systems_v05.json#/emergency_power/actions/4",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR03 source pointer content/traps_facilities_td05.json#/appliances/0",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR03 source pointer content/combat_contracts_td05.json#/statuses/burn",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR03 candidate enemy circle minimum",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR03 work bonus has positive net time after activation",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR03 finite paid work opportunity",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR04 proposal stays disabled with no invented upgrade price",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR04 real fixture anchor and AP references",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR04 source pointer content/store_systems_v05.json#/duties/2",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR04 source pointer content/store_systems_v05.json#/emergency_power",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR04 source pointer content/traps_facilities_td05.json#/appliances/1",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR04 source pointer content/encounter_blueprints.json",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR04 source pointer content/combat_contracts_td05.json#/statuses/frost",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR04 candidate enemy circle minimum",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR04 work bonus has positive net time after activation",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR04 finite paid work opportunity",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR05 proposal stays disabled with no invented upgrade price",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR05 real fixture anchor and AP references",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR05 source pointer content/maps.json#/scenes/0/anchors/11",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR05 source pointer content/traps_facilities_td05.json#/appliances/2",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR05 source pointer content/consumer_closure_v08.json#/food_verification",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR06 proposal stays disabled with no invented upgrade price",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR06 real fixture anchor and AP references",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR06 source pointer content/map_mechanics_v05.json#/objects/0",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR06 source pointer content/map_mechanics_v05.json#/objects/2",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR06 source pointer content/store_systems_v05.json#/information",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR06 source pointer content/combat_contracts_td05.json#/statuses/susceptible",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR07 proposal stays disabled with no invented upgrade price",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR07 real fixture anchor and AP references",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR07 source pointer content/maps.json#/scenes/0/anchors/22",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR07 source pointer content/map_mechanics_v05.json#/objects/0",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR07 source pointer content/store_systems_v05.json#/emergency_power/actions/0",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR07 source pointer content/store_systems_v05.json#/information",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR08 proposal stays disabled with no invented upgrade price",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR08 real fixture anchor and AP references",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR08 source pointer content/store_systems_v05.json#/emergency_power/actions/1",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR08 source pointer content/store_systems_v05.json#/emergency_power/actions/3",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR08 source pointer content/tower_defense_td05.json#/families/3",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR08 source pointer content/traps_facilities_td05.json#/traps/4",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR08 candidate enemy circle minimum",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR09 proposal stays disabled with no invented upgrade price",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR09 real fixture anchor and AP references",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR09 source pointer content/store_systems_v05.json#/systems/5",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR09 source pointer content/store_systems_v05.json#/service",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR09 source pointer content/tower_defense_td05.json#/families/5",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR10 proposal stays disabled with no invented upgrade price",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR10 real fixture anchor and AP references",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR10 source pointer content/maps.json#/scenes/0/doors",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR10 source pointer content/maps.json#/scenes/0/fixed_attachments/13",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR10 source pointer content/map_mechanics_v05.json#/objects/7",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR10 source pointer content/store_systems_v05.json#/emergency_power/actions/2",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR11 proposal stays disabled with no invented upgrade price",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR11 real fixture anchor and AP references",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR11 source pointer content/store_systems_v05.json#/systems/4",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR11 source pointer content/map_mechanics_v05.json#/station_local_panels/0",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR11 source pointer content/map_mechanics_v05.json#/registered_water_controls_v010",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR12 proposal stays disabled with no invented upgrade price",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR12 real fixture anchor and AP references",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR12 source pointer content/maps.json#/scenes/0/fixtures",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR12 source pointer content/maps.json#/scenes/0/fixed_attachments/5",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR12 source pointer content/store_systems_v05.json#/systems/6",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR12 source pointer content/store_systems_v05.json#/systems/8",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR13 proposal stays disabled with no invented upgrade price",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR13 real fixture anchor and AP references",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR13 source pointer content/maps.json#/scenes/0/fixtures",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR13 source pointer content/consumer_closure_v08.json",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR13 source pointer content/items.json",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR13 source pointer content/equipment_contracts_eq01.json#/resources_and_actions",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR14 proposal stays disabled with no invented upgrade price",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR14 real fixture anchor and AP references",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR14 source pointer content/lottery_direction_md01.json#/machine",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "FR14 source pointer content/lottery_rewards_eq01.json#/machine_contract",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "facility sources use exact actual references",
+      "passed": true,
+      "evidence": 52
+    },
+    {
+      "name": "facility catalog claims zero newly activated effects",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "emergency assist gate matches actual configuration",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "zero reserve keeps all original free essentials",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "tower and trap asset management share pre-shift boundary",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "existing morning equipment and lottery windows retained",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "legacy three is a subset of total eight with actual shared floor budget",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "unknown legacy physical footprints stay runtime-disabled",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "logical night distinguishes week and attempt",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "docs/td05_balance_report.json current inputs and no recorded failures",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "name": "all twelve actual static projections meet bounded restored area",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "published derived geometry matches recomputed report",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "docs/ma01_validation_report.json current inputs and no recorded failures",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "name": "docs/ma01_reference_report.json current inputs and no recorded failures",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "name": "docs/sa01_lifecycle_report.json current inputs and no recorded failures",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "name": "docs/sa01_legacy_validation_report.json current inputs and no recorded failures",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "name": "docs/sa01_store_guard_report.json current inputs and no recorded failures",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "name": "docs/playable_build_v09.json current inputs and no recorded failures",
+      "passed": true,
+      "evidence": []
+    },
+    {
+      "name": "existing standalone artifact matches current source build",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "name": "standalone build is not claimed to contain store guard",
+      "passed": true,
+      "evidence": null
+    }
+  ],
+  "input_hashes": {
+    "content/attack_contracts_ma01.json": "9df8f8456abf5872c97d5d88c2d3a2aa264bb68940e5c2ad39320e67918d078f",
+    "content/auxiliary_effects_v010.json": "1ed28d06f786d9433efe8d9d737ae1a02381f52c6e258fc970911ec85117f000",
+    "content/balance.json": "a93f5eae98a413e0ba89c6a45833bb7855214cdc77ac438f895d85513233785e",
+    "content/balance_scenarios_td05.json": "4446a56f1a04ce640a1037467c70dc594c567d5c531b83ce42c6335cebb88004",
+    "content/chase_profiles_td05.json": "770c2304944733edc791632d17de3f542cfeab28edf8b1a658a0878d64d34e12",
+    "content/combat_contracts_td05.json": "f83f18ae0314d3a19134a934ed347c7254c9eb2b5d5711305e007434dd5d8823",
+    "content/condition_lifecycle_v06.json": "dcf7e1bad8c36e4c2945a0eeb190523035ace7a7421afd3d4fc428fc419651a5",
+    "content/consumables_eq01.json": "1c55d7eaf3738a3c0be9e9a693797bae89f5b09d3fa8d7b66c711dc1afe598ed",
+    "content/consumer_closure_v08.json": "75658857589b38e48b7549ee90d04fd27eaf984923bf308fc362e7574e8f3118",
+    "content/economy_week_td05.json": "9b58a603fa4c80380e9d53d54f5e7678f353d2cbd7014f08ce5d25ac57f8c791",
+    "content/encounter_blueprints.json": "e76c13f935738b87e362bb904ec93985b3730cb9c66b85481e1c8ee30f19c266",
+    "content/equipment_contracts_eq01.json": "9ac5188a3e323c00ceb4bd7c01e13303d472d206cdaeecc5758a745b833a8f2e",
+    "content/equipment_eq01.json": "16d93c871dd1398bdeefad7512d48966daf9cc06ae1538d88fe71565a277815e",
+    "content/facility_roles_sa01.json": "8ed018c25c6b910b6a9de6f1ec7dd2da5416aa0c591b45c2e223626ab31564d7",
+    "content/integration_v09.json": "304a0ded5ab4522bb9931a0d90c260354be7cc86b597c95821ff8f196d03b51b",
+    "content/interactions.json": "3502aaf2106c0cc08f1749b6108d7cbeda292a4e4b1f6f1cc27da6b5460d17d5",
+    "content/items.json": "6b4f3a23fde1de57d554d40bb9f9d791230f8a0b22dba43bd0828be9bc8fe097",
+    "content/legacy_deployment_bridge_sa01.json": "36054b21c5f0034dbb5696c2b568649950bbc2f11588c3eb0c6e8147a93168e6",
+    "content/lottery_direction_md01.json": "745531abd2d376aa43a58af3e0167478f614621c4d3ebb1c33c244fe26fa7bf0",
+    "content/lottery_rewards_eq01.json": "77878fd6e69396e2e50f9d6588d7b26a06843cf695649401210bf5bcfae7d129",
+    "content/map_mechanics_v05.json": "af126cd615549118fb4ab73200c88427d117e869aedf3eba47f73464732748bc",
+    "content/maps.json": "773e39b35bc16c63e6b4f294e27f8a944072599f21b8ad1bae46527f0a093b9a",
+    "content/mechanism_cases_v010_a.json": "4b7afdedb2aae8f0f1720d68c9737c7c8d5ef07aea7e2114afa4ebb7558c4608",
+    "content/mechanism_cases_v010_b.json": "a865eb7019131d7b6162fb10c91d93e65bbb49a9955e4bc16b54fd7a720064e1",
+    "content/mechanism_closure_v010.json": "bf95775644c5bf4b8d13ac8571987c883c54cbe3caaccb8c2d2c3d030061da30",
+    "content/monster_attack_roster_ma01.json": "d17499af0ed790eee04a2613a0fedf33b442eba991a6baffb80f8c135ce35284",
+    "content/monster_attacks_folklore_ma01.json": "ac92dc16cabbb18069f0da2471dc2d3b560c87e0d91ac024fc0278653ec11fe2",
+    "content/monster_attacks_scp_ma01.json": "5fd3b9db11c5c6d0caf5398b67a223e43f7c304f8fff529d72e3954caaef8684",
+    "content/monster_contracts_md01.json": "1dd0af0700a094f1b98c53b9060118c0f3e62068a45a90898c3504347d082f09",
+    "content/monster_folklore_md01.json": "f7b019223130f255b49a5a7ce8aa44811db096542c235c36d5aa8c5d44ae01ae",
+    "content/monster_matchups_td05.json": "3431ebd98f86a1344267c856e1a14a07e2dc04d4e0494ca26c81419f16e24019",
+    "content/monster_roster_md01.json": "d488eba268f7155da0bcebaf97faea028e5c9151cccfc41b167053b171cd2676",
+    "content/monster_scp_a_md01.json": "23faa741c2aff38e6c2f254a46f5d9671a88620f73d9a67d0f53b51218272f01",
+    "content/monster_scp_b_md01.json": "2ec35fb9e9436474054f0ad3b8be488cc8b995bb6062e4f9f4b8a836e0526a38",
+    "content/pets.json": "841f61fdf5a916be0577dd983de6f58980481f094c1b561ead4d4915d3af86b0",
+    "content/qte.json": "cc23cea190904e846f5c6b162c7b8f82aefa3aadef3bd581cefe13bc90c5771a",
+    "content/run_lifecycle_sa01.json": "0b31c3811423ea3967fb5de3f8ab67947b96b61d4a81770a76efbe990780c389",
+    "content/store_systems_v05.json": "a879ab27be4a74ff08fe2ef2b88d8b4be4b93c9767bd7e4d3e7ab11148f998b4",
+    "content/system_authority_sa01.json": "a649019a9ce22d73b83f335f71d2bf61b253032cb09f45dbd8c83222c5fc7e5d",
+    "content/temporal_resource_contract_v07.json": "b9acc49166c3ffdb1f32a353aa1810c940a8979435a340931dadc5325a2a8862",
+    "content/tower_defense_td05.json": "e7919156f0e6f56f732f107221e28c8d71cddae8563e6a4a95b26474fd35c970",
+    "content/traps_facilities_td05.json": "a83c470f8a3c555076c6401b418a8ce99a1e5f0725d36905c9a337359202ec5a",
+    "docs/ma01_reference_report.json": "29bc9dfb8aebe402b4482c59bb2524fcf6f5b06e90521f9cb7db84515085c122",
+    "docs/ma01_validation_report.json": "9b26d261c2af1bbcfbbaac8dcb87cb2c28ce3bcd5e189b84534d98a902c55d4b",
+    "docs/playable_build_v09.json": "3711aa6249059435310877151cb8ceb09a3e897e4a56fb09873b3d46589e955a",
+    "docs/sa01_legacy_validation_report.json": "3bb51dcdef4f34dfa24e4426ad1ee2bdddefc3cbc7e7123a6811ac8a9108c096",
+    "docs/sa01_lifecycle_report.json": "0a2803e1ab3a5a748d54f74538a4b512440850b08d16e87670e0b9852e0a9e2e",
+    "docs/sa01_store_guard_report.json": "15605e8a2a1b5e93fe6cdb4e6d6be408609ebcc5f07508734d77d89335e9334c",
+    "docs/td05_balance_report.json": "52386bdce166bc535e7bc730c2c3f4ecb65e67acc29d6a236e1397ef9cd1bd2e",
+    "prototype/check_store_core_v05.mjs": "98484340903f64b352dd3bcdf3c85db1a51adb285369cc819f94dd192b45ff77",
+    "prototype/condition_core_v06.mjs": "ad76d678c9dc974e2f4877969c3aff93967175d9510837796120b3476fa8f03d",
+    "prototype/day_cycle_core_v09.mjs": "1d291ff7a584e26da5fc741ab6e8b59d280a667c3a5dca4749357393d08fd5f7",
+    "prototype/day_knowledge_core_v08.mjs": "8b73eb77a1867f7bb6d2a2784c77c7fdeace6bb81ee94a83e52b017768167939",
+    "prototype/playable_v09.css": "6d93c30e9ba681eeea001689cd42996611b969933782e7219c2b04b271537ccb",
+    "prototype/playable_v09.html": "8ccaf9133a3e44b066d364c294f509a1e6204cc011d16995527386bf1a8f6280",
+    "prototype/playable_v09.mjs": "3a218e2b4e46c8ca99b39c47f8800fc0acc13087d11d295a76ca217987c17f54",
+    "prototype/playable_v09.template.html": "6f21516ef96da12646ee7f6865ba02d6f35288b0138a500725d152751dd2c88f",
+    "prototype/practice_session_core_v09.mjs": "3a7599b0c3b036119c987df08daef37c69ba2e58768f896d58ac3aba5f73c47f",
+    "prototype/rule_core.mjs": "474acecf2e46948000a19c47dfe58ea1e19776451eea63b8e3107f81be21e12c",
+    "prototype/store_core_v05.mjs": "04575147e2035f657681619ecd1662573be479dc5bdc497c4700eba18ec77793",
+    "prototype/world_core_v09.mjs": "7f7ed5d657c73fef401517684dd4973512bf086d77d06039c1e4e21969fc86ab",
+    "scripts/check_ma01_design.py": "e5ebd3b37fa14123c8f643a07f7de378d31a293f58cbc4fab5bb56fafa01d07a",
+    "scripts/check_ma01_reference.py": "da9c365f8174e3cf8ff491f705804825f3878f5f05534f2f73bf78f38c6f7354",
+    "scripts/check_sa01_design.py": "2143aa36d1a49b03575f0ba7dcbb6d8f84e7fc0cfa111d773479fa3484e97333",
+    "scripts/check_sa01_legacy_bridge.py": "421a890a0aac0fc0c7cd36dd66ea57f49d0ccd2642c2e7bd44401321ef40f95b",
+    "scripts/check_sa01_lifecycle.py": "a32da21cda27d611475c002f6a265a247cb0005192111eac430b9f4062b94a8b",
+    "scripts/check_td05_balance.py": "f8d6a6a66495cc995316ca32af7a12b7b9d25a1be70763606c129b82150ad54d",
+    "scripts/ma01_reference.py": "44eae1a63e9a2757a9d1a1ea02a65b43e1ff9bdd4124318a75fcdebf775f5a3e",
+    "scripts/render_ma01_design.py": "3f32406cf39c8527a9aa30bdd9c755858c60780007f53011f867f22c6fb14dc7",
+    "scripts/sa01_legacy_reference.py": "349d62db40aa8bcdd0720d6cde5c2eb4b305ce226f252e763749257dc4d6071d",
+    "scripts/sa01_lifecycle_reference.py": "0a548766c49a2377878241b8c568f229470a19e74c7109e57f8f827fa98e39cf",
+    "scripts/td05_chase_reference.py": "dca97cd7fea8ab31bc6dee8c0835c0e4de90ea3ee91f35fedc9e3c2bcb1735d3",
+    "scripts/td05_economy_reference.py": "26bd1113fb9c67e0fbcb8bb97fbe916895ad9d4e94c9af116c66cf51ee833b11",
+    "scripts/td05_geometry_reference.py": "b2da8adeede976f837283ff71c8f1bf4b2ab1bec4695433d66a2e9bed1e14aa2",
+    "scripts/td05_reference.py": "59b8d4094199975742d0d06e2d79439748fcfd942a2ee16bec15bf5109616a02"
+  }
+}

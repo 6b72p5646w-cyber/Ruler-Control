@@ -6,6 +6,10 @@ import {createStore,buyAssist,rechargeReserve,changeServiceMode,setGreeting,orde
 import {storeTaskMeat,stepF13} from './rule_core.mjs';
 
 const config = JSON.parse(readFileSync(new URL('../content/store_systems_v05.json', import.meta.url)));
+// Explicit historical fixture only: preserves tests of the archived shutter
+// timer/exit semantics without enabling it in the current content or runtime.
+const historicalShutterFixture = structuredClone(config);
+historicalShutterFixture.emergency_power.actions.find(a => a.id === 'brace_door').enabled_current = true;
 let tests = 0;
 const check = (name, fn) => { fn(); tests++; process.stdout.write('PASS ' + name + '\n'); };
 
@@ -39,22 +43,66 @@ check('battery cannot recharge both lamp and reserve or twice per night', () => 
   assert.equal(rechargeReserve({...r.state,reserve:4},config,'b2',{batteryAvailable:true}).ok,false);
 });
 
-check('shutter cannot block required exit; free manual mode remains at zero reserve', () => {
+check('disabled assists never spend, record receipts or expose an effect', () => {
+  for (const actionId of ['brace_door','temperature_hold']) {
+    assert.equal(config.emergency_power.actions.find(a => a.id === actionId).enabled_current,false);
+    const before=createStore(config),snapshot=structuredClone(before);
+    const result=buyAssist(before,config,actionId,'disabled:'+actionId);
+    assert.equal(result.ok,false);assert.equal(result.reason,'assist_disabled');
+    assert.deepEqual(result.state,snapshot);assert.deepEqual(before,snapshot);
+    assert.equal('effect' in result,false);assert.equal('duration' in result,false);
+    assert.deepEqual(buyAssist(result.state,config,actionId,'disabled:'+actionId).state,snapshot);
+  }
+});
+
+check('disabled shutter cannot cancel active checkout or change mode and deadline', () => {
+  let before=arriveOrder(createStore(config),config,'live-order');
+  before=beginService(before,config,'live-order').state;
+  before=advanceStore(before,config,.5);
+  const snapshot=structuredClone(before);
+  const rejected=changeServiceMode(before,config,'shutter','disabled-mode');
+  assert.equal(rejected.ok,false);assert.equal(rejected.reason,'assist_disabled');
+  assert.deepEqual(rejected.state,snapshot);assert.deepEqual(before,snapshot);
+  assert.equal(finishService(advanceStore(rejected.state,config,1),'live-order').ok,true);
+});
+
+check('assist enablement is explicit; missing flags do not activate catalogue entries', () => {
+  const missingFlagFixture=structuredClone(config);
+  delete missingFlagFixture.emergency_power.actions.find(a => a.id === 'snapshot').enabled_current;
+  const before=createStore(missingFlagFixture);
+  const result=buyAssist(before,missingFlagFixture,'snapshot','unregistered-enable');
+  assert.equal(result.ok,false);assert.equal(result.reason,'assist_disabled');
+  assert.deepEqual(result.state,before);
+});
+
+check('current snapshots and lights retain their declared costs and durations', () => {
+  for (const id of ['snapshot','side_light','route_light']) {
+    const action=config.emergency_power.actions.find(a => a.id === id);
+    const result=buyAssist(createStore(config),config,id,'enabled:'+id);
+    assert.equal(result.ok,true);assert.equal(result.state.reserve,12-action.units);
+    assert.equal(result.effect,id);assert.equal(result.duration,action.duration_world_seconds??0);
+    assert.equal(result.requiredWorldSeconds,action.world_seconds);
+    assert.deepEqual(result.state.spentIds,['enabled:'+id]);
+  }
+});
+
+check('historical enabled fixture still refuses a required-exit block; current manual mode is free', () => {
   const s=createStore(config);
-  const rejected=changeServiceMode(s,config,'shutter','brace',{blocksRequiredExit:true});
+  const rejected=changeServiceMode(s,historicalShutterFixture,'shutter','brace',{blocksRequiredExit:true});
   assert.equal(rejected.reason,'required_exit'); assert.equal(rejected.state.reserve,12);
   const empty={...s,reserve:0};
   assert.equal(changeServiceMode(empty,config,'window','manual').ok,true);
   assert.equal(changeServiceMode(empty,config,'shutter','powered').ok,false);
 });
 
-check('shutter expires on world clock and does not resolve an admitted monster', () => {
+check('historical enabled fixture: shutter expires on world clock without resolving a monster', () => {
   const s=createStore(config);s.encounters['F12:1']={episodes:0,active:true};
-  const r=changeServiceMode(s,config,'shutter','brace').state;
+  const r=changeServiceMode(s,historicalShutterFixture,'shutter','brace').state;
   assert.equal(r.reserve,10);
-  assert.equal(advanceStore(r,config,99,{paused:true}).mode,'shutter');
-  const after=advanceStore(r,config,12);
+  assert.equal(advanceStore(r,historicalShutterFixture,99,{paused:true}).mode,'shutter');
+  const after=advanceStore(r,historicalShutterFixture,12);
   assert.equal(after.mode,'window');assert.deepEqual(after.encounters,s.encounters);
+  assert.equal(config.emergency_power.actions.find(a => a.id === 'brace_door').enabled_current,false);
 });
 
 check('quiet greeting and window cost one manual confirmation, not two', () => {
@@ -72,8 +120,8 @@ check('changing service mode or greeting cancels work without resetting patience
   assert.equal(s.orders[0].status,'waiting');assert.equal(s.orders[0].expiresAt,24);
   assert.equal(finishService(advanceStore(s,config,.5),'c1').ok,false);
   const begun=beginService(s,config,'c1');assert.equal(begun.duration,3.5);
-  const shutter=changeServiceMode(begun.state,config,'shutter','brace').state;
-  const after=advanceStore(shutter,config,12);
+  const reopened=changeServiceMode(begun.state,config,'open','reopen').state;
+  const after=advanceStore(reopened,config,1);
   assert.equal(after.orders[0].status,'waiting');assert.equal(finishService(after,'c1').ok,false);
   const again=beginService(after,config,'c1').state;
   assert.equal(setGreeting(again,config,'silent').orders[0].status,'waiting');

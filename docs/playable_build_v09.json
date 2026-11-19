@@ -1,8 +1,8 @@
 {
   "status": "PASS",
   "standalone_html": "prototype/playable_v09.html",
-  "bytes": 560990,
-  "sha256": "435eac3a3fba0592b878f6fcf56630a435dbfe871b77c2789fc018a4e95ab0fb",
+  "bytes": 561287,
+  "sha256": "8ccaf9133a3e44b066d364c294f509a1e6204cc011d16995527386bf1a8f6280",
   "module_count": 7,
   "source_sha256": {
     "prototype/playable_v09.mjs": "3a218e2b4e46c8ca99b39c47f8800fc0acc13087d11d295a76ca217987c17f54",
@@ -18,7 +18,7 @@
     "content/interactions.json": "3502aaf2106c0cc08f1749b6108d7cbeda292a4e4b1f6f1cc27da6b5460d17d5",
     "content/balance.json": "a93f5eae98a413e0ba89c6a45833bb7855214cdc77ac438f895d85513233785e",
     "content/condition_lifecycle_v06.json": "dcf7e1bad8c36e4c2945a0eeb190523035ace7a7421afd3d4fc428fc419651a5",
-    "content/items.json": "05a544924b9e43aaf5ce7bd6d2a8888a857f4c4b15b5e03c03554778f070e8a0",
+    "content/items.json": "6b4f3a23fde1de57d554d40bb9f9d791230f8a0b22dba43bd0828be9bc8fe097",
     "content/qte.json": "cc23cea190904e846f5c6b162c7b8f82aefa3aadef3bd581cefe13bc90c5771a",
     "content/integration_v09.json": "304a0ded5ab4522bb9931a0d90c260354be7cc86b597c95821ff8f196d03b51b",
     "prototype/playable_v09.css": "6d93c30e9ba681eeea001689cd42996611b969933782e7219c2b04b271537ccb",

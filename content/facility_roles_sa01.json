@@ -1,0 +1,1259 @@
+{
+  "version": "SA01",
+  "baseline_commit": "961ccdbcdc5e8fb81b6cae534ab0317e64de4da5",
+  "runtime_integrated": false,
+  "scope": "Audit of real store-facility roles plus deliberately disabled candidate improvements; not an activated facility upgrade tree.",
+  "existing_mechanics_authorities": [
+    "content/store_systems_v05.json",
+    "content/maps.json",
+    "content/map_mechanics_v05.json",
+    "content/traps_facilities_td05.json",
+    "content/combat_contracts_td05.json",
+    "content/economy_week_td05.json",
+    "content/equipment_contracts_eq01.json",
+    "content/lottery_rewards_eq01.json",
+    "content/attack_contracts_ma01.json"
+  ],
+  "distinctions": {
+    "base_fixture": "固定营业物件与免费主机制载体；不因周清删除货架、门或必需冰柜。",
+    "tower": "另购、占现有TA挂点的T01–T10；名称类似家电不意味着设施本体已取得能力。",
+    "appliance": "只按当前启用注册表的3个唯一AP计电网；状态、槽位、塔、灯、读屏、导轨和抽奖机不增加数量。",
+    "candidate_module": "本文件单独列出的proposed_pending_balance候选，全部disabled；新增消费者、成本校准和地图验证完成前不参与旧测试/收益。"
+  },
+  "active_appliance_ids": [
+    "AP_HOT_FOOD",
+    "AP_FREEZER",
+    "AP_COLD_CABINET"
+  ],
+  "inactive_appliance_ids": [
+    "AP_POS"
+  ],
+  "shared_candidate_limits": {
+    "all_proposals_enabled": false,
+    "all_proposals_runtime_integrated": false,
+    "powered_action_source": "沿已有12格应急储备；不新增能量条。候选费用仅调校输入，没有加入当前enabled_actions。",
+    "main_power_vs_reserve": "C1/C2/C3真实供电与可选应急储备分别判断。零储备不关闭基础冷链/手动门/免费主解；电器断电不得仍按AP计数。",
+    "ordinary_work": "同EQ01耗时倍率同组取最强、最低0.8。只加速普通work进度，不能改MD01取放/搬运/封存/等待/身份核验/怪物前摇。",
+    "combat_targets": "敌方状态目标只允许已显形、可选、真实相交且层/LOS合法的敌方独立生命池；正常人类、共池部件、影像、道具不吃对怪状态。FR02的友塔装填另按其同架、普通单弹、已在装填的白名单，不能把友塔当敌方生命池。",
+    "geometry": "新增圆形敌方作用名义半径至少1.5格，排除货架占位并合理补偿；目标身体实际可进入；不因同回路隔墙传递。",
+    "status_caps": "热/寒/咒/易感完全沿TD05/EQ01：真实层数和独立截止、最强减速、共享冻结/封技免疫、易感仅-1。候选来源必须显式登记，不靠名称添加。",
+    "power_loss": "有供电要求的预约在源隔离/断电时不再触发；已经合法施加的独立热/寒/咒/易感保留原截止。不得以通断电刷新期限或退回费用。",
+    "persistence": "固定基础设施不随周清消失。候选预约/临时buff夜结清退；未来若购买设施模块，其付费实例须纳入七夜周账/周清，价格与容量仍待定，当前不创建购买能力。",
+    "economy": "不新增订单名额/灵能/击杀/工资/奖券；已有客单、工单、主机制和根奖励按原唯一回执结算。UI和设备状态切换不产收入。",
+    "trap_boundary": "任何候选都不能在营业中补充/维修/部署陷阱，也不能把托盘、灯或模块计作AP。",
+    "destroy_or_break": "不新增全店设施HP或万能维修。只有原机制已登记的故障/损坏可由对应修复消费者处理；塔/陷阱耐久另算。",
+    "pending_required": [
+      "真实consumer与输入接口",
+      "逐怪白名单和可达几何",
+      "12格电资源取舍与全夜机会成本",
+      "与普通工作0.8上限及塔/装备事件叠加的平衡",
+      "如出售模块则新增明确成本/容量/退款/周清账本，不直接套塔价"
+    ]
+  },
+  "roles": [
+    {
+      "id": "FR01",
+      "name": "收银台与柜台服务",
+      "status": "existing_roles_with_separate_disabled_proposal",
+      "runtime_integrated": false,
+      "physical_bindings": {
+        "fixture_ids": [
+          "FX18",
+          "FX19"
+        ],
+        "anchor_roles": [
+          "cashier",
+          "safe_counter"
+        ],
+        "tower_anchor_ids": [
+          "TA06",
+          "TA07"
+        ],
+        "active_appliance_ids": []
+      },
+      "existing": {
+        "business": "普通交易1.5秒；静音/窗口3.5秒，12个原客单每单唯一结算。柜台有班表、物件交接和真实F32规则边界。",
+        "monster_or_defense_use": "两个现有塔挂点；柜台实体影响移动/攻击几何。标记员工边界只按F32白名单生效，不是通用安全区。积毒收银机T02是另购塔，不是台体被动。"
+      },
+      "unclosed_design": [
+        "没有收银设施独立营业强化数值",
+        "AP_POS没有终端几何和接线，不能参与电网"
+      ],
+      "proposal": {
+        "name": "一次安心结账",
+        "status": "proposed_pending_balance",
+        "enabled": false,
+        "runtime_integrated": false,
+        "business_effect": "20秒内下一笔已有普通订单的结账耗时×0.85，仍受普通工作最低0.8倍率；窗口与静音成本按原模式计算。",
+        "defense_effect": "同一订单实际完成后，可向投影域内最近一名已显形合法敌人加1咒；若无目标，此次机会结束。",
+        "cost": {
+          "emergency_power_units": 1,
+          "action_world_seconds": 0,
+          "upgrade_coin": null,
+          "upgrade_spirit": null,
+          "purchase_price_status": "not_designed_or_charged",
+          "payment": "普通工作与本次预约均合法后原子扣1电并启动20秒预约。取消工作不退已经支付的预约；20秒内只有本设施下一份真实普通工作回执可兑现，过期不退款。",
+          "activation": "在原普通工作起手同次显式选择并支付1应急电，不另占1秒；原工作仍耗实际缩短后的时间。"
+        },
+        "duration": {
+          "armed_window_world_seconds": 20,
+          "local_rearm_cooldown_world_seconds": 30,
+          "cooldown_starts": "actual_paid_arm_commit"
+        },
+        "geometry": {
+          "mode": "projected_visible_reachable_floor_circle",
+          "nominal_radius_tiles": 1.5,
+          "occlusion_compensation": "SA01最低1.5格；排除实体并沿共享有效面积规则补偿；无合法投影则拒绝",
+          "layers": [
+            "ground",
+            "low_air"
+          ],
+          "source_origin": "actual_authorized_station_emitter",
+          "new_floor_area": false
+        },
+        "max_recipients": 1,
+        "status_payload": [
+          {
+            "status": "curse",
+            "amount": 1,
+            "duration_s": 10,
+            "outgoing_reduction_per_mark": 0.04
+          }
+        ],
+        "required_real_consumer_events": [
+          "ordinary_order_checkout_committed_once"
+        ],
+        "anti_repeat": [
+          "唯一activation_id和实际原工作/订单receipt去重",
+          "同一真实回执只能给当前设备一次收益；重开门/重放UI/取消重接均不造回执",
+          "每次付费预约最多触发一次；到期丢弃未用机会",
+          "不新增订单、不自动完成主机制、不复制货物或角色"
+        ],
+        "extra_boundaries": [
+          "订单收入仍为原6币，不增加灵能或票券",
+          "怪物特殊契约、身份核验、退款和赠品领取不触发",
+          "不能从收银台推定AP_POS已启用",
+          "工作型预约并入原工作起手，不新增独立启动时间；避免1秒按钮成本大于0.225–0.525秒工作节约。"
+        ],
+        "business_timing_example": {
+          "base_checkout_or_short_work_s": 1.5,
+          "work_multiplier": 0.85,
+          "effective_work_s": 1.275,
+          "extra_activation_s": 0,
+          "net_saved_world_s": 0.225,
+          "not_a_throughput_or_profit_simulation": true
+        }
+      },
+      "sources": [
+        "content/store_systems_v05.json#/work_contract",
+        "content/store_systems_v05.json#/service",
+        "content/map_mechanics_v05.json#/objects/14",
+        "content/traps_facilities_td05.json#/appliances"
+      ],
+      "power_and_failure": "基础手动收银/柜台动作沿原规则；没有可用AP_POS。候选若实现，由已支付应急模块供这一次预约，需登记模块源/外侧发射点，不推定C1已经给终端接线。",
+      "lifecycle": "基础固定设施跨夜/跨周保留；候选预约/临时优势夜结清退。尚无可买模块，未来购买必须接入周账/周清，不默认为永久升级。",
+      "status_limits_ref": "#/shared_candidate_limits/status_caps"
+    },
+    {
+      "id": "FR02",
+      "name": "货架、文具架与储物架",
+      "status": "existing_roles_with_separate_disabled_proposal",
+      "runtime_integrated": false,
+      "physical_bindings": {
+        "fixture_ids": [
+          "FX06",
+          "FX11",
+          "FX12",
+          "FX13"
+        ],
+        "anchor_roles": [
+          "storage_shelf",
+          "goods_shelf",
+          "metal_shelf"
+        ],
+        "tower_anchor_ids": [
+          "TA01",
+          "TA02",
+          "TA03",
+          "TA04",
+          "TA05",
+          "TA11"
+        ],
+        "active_appliance_ids": []
+      },
+      "existing": {
+        "business": "普通上架、取货、实际库存容器与免费回形针来源；货架占位形成主环路。",
+        "monster_or_defense_use": "六个既有塔挂点、实体遮挡和绕行路线；塔场中心需投向可达地面。货架本身无攻击或全图伤害加成。"
+      },
+      "unclosed_design": [
+        "普通补货工单尚无设备强化消费者",
+        "未设计设施升级路径或价格"
+      ],
+      "proposal": {
+        "name": "整架调度",
+        "status": "proposed_pending_balance",
+        "enabled": false,
+        "runtime_integrated": false,
+        "business_effect": "20秒内下一次普通补货工作耗时×0.85；同一货箱真实上架后只记原工单一次。",
+        "defense_effect": "真实上架回执让本架上一座符合普通单弹装填白名单、且正在装填的塔推进其完整装填工作的10%；没有合法塔则机会作废。",
+        "cost": {
+          "emergency_power_units": 1,
+          "action_world_seconds": 0,
+          "upgrade_coin": null,
+          "upgrade_spirit": null,
+          "purchase_price_status": "not_designed_or_charged",
+          "payment": "普通工作与本次预约均合法后原子扣1电并启动20秒预约。取消工作不退已经支付的预约；20秒内只有本设施下一份真实普通工作回执可兑现，过期不退款。",
+          "activation": "在原普通工作起手同次显式选择并支付1应急电，不另占1秒；原工作仍耗实际缩短后的时间。"
+        },
+        "duration": {
+          "armed_window_world_seconds": 20,
+          "local_rearm_cooldown_world_seconds": 30,
+          "cooldown_starts": "actual_paid_arm_commit"
+        },
+        "geometry": {
+          "mode": "existing_station_action_or_read_only_information",
+          "radius_tiles": null,
+          "new_floor_area": false
+        },
+        "max_recipients": 1,
+        "status_payload": [],
+        "required_real_consumer_events": [
+          "ordinary_stock_box_placed_and_work_committed_once"
+        ],
+        "anti_repeat": [
+          "唯一activation_id和实际原工作/订单receipt去重",
+          "同一真实回执只能给当前设备一次收益；重开门/重放UI/取消重接均不造回执",
+          "每次付费预约最多触发一次；到期丢弃未用机会",
+          "不新增订单、不自动完成主机制、不复制货物或角色"
+        ],
+        "extra_boundaries": [
+          "不加速任务物搬运、F12取诱饵或F13入柜",
+          "推进只针对已存在装填，截到ready，无溢出、不新增射击、不提前瞄准",
+          "多段弹匣/多波/持续场/纸偶/封印储印/毒成熟/电过载均排除；需新增真实facility消费者后才可用",
+          "工作进度同EQ01同组取强，不叠乘",
+          "工作型预约并入原工作起手，不新增独立启动时间；避免1秒按钮成本大于0.225–0.525秒工作节约。"
+        ],
+        "business_timing_example": {
+          "base_checkout_or_short_work_s": 1.5,
+          "work_multiplier": 0.85,
+          "effective_work_s": 1.275,
+          "extra_activation_s": 0,
+          "net_saved_world_s": 0.225,
+          "not_a_throughput_or_profit_simulation": true
+        }
+      },
+      "sources": [
+        "content/maps.json#/scenes/0/fixtures",
+        "content/traps_facilities_td05.json#/map_constraints/side_hung_projection_examples",
+        "content/equipment_contracts_eq01.json#/ordinary_attack_progress",
+        "content/equipment_contracts_eq01.json#/attribute_aggregation"
+      ],
+      "power_and_failure": "货架本体不需要电。候选一次调度来自已支付应急模块；不得把货架或提示灯登记为新AP。",
+      "lifecycle": "基础固定设施跨夜/跨周保留；候选预约/临时优势夜结清退。尚无可买模块，未来购买必须接入周账/周清，不默认为永久升级。",
+      "status_limits_ref": "#/shared_candidate_limits/status_caps"
+    },
+    {
+      "id": "FR03",
+      "name": "热食台",
+      "status": "existing_roles_with_separate_disabled_proposal",
+      "runtime_integrated": false,
+      "physical_bindings": {
+        "fixture_ids": [
+          "FX14"
+        ],
+        "anchor_roles": [
+          "hot_food"
+        ],
+        "tower_anchor_ids": [
+          "TA08"
+        ],
+        "active_appliance_ids": [
+          "AP_HOT_FOOD"
+        ]
+      },
+      "existing": {
+        "business": "完成既有热食工单、提供已登记的热饮/灶位机制；不具备通用品质计时或自动小费系统。",
+        "monster_or_defense_use": "一处塔挂点和一个真实C2电器节点；旧新灶位是同一组件。对带电怪提供原电感应/网络用途；台体不自带烧伤。"
+      },
+      "unclosed_design": [
+        "temperature_hold因无品质计时和收益消费者保持停用",
+        "没有营业操作与热状态协作的实际facility处理器"
+      ],
+      "proposal": {
+        "name": "余热收束",
+        "status": "proposed_pending_balance",
+        "enabled": false,
+        "runtime_integrated": false,
+        "business_effect": "20秒内下一次普通热食制作工作耗时×0.85，真实配料与原订单照常消耗。",
+        "defense_effect": "该普通工单真正完成时向合法投影圆内最近最多2池各给予2热量；仅提供叠层，达到阈值才按TD05产生烧伤。",
+        "cost": {
+          "emergency_power_units": 1,
+          "action_world_seconds": 0,
+          "upgrade_coin": null,
+          "upgrade_spirit": null,
+          "purchase_price_status": "not_designed_or_charged",
+          "payment": "普通工作与本次预约均合法后原子扣1电并启动20秒预约。取消工作不退已经支付的预约；20秒内只有本设施下一份真实普通工作回执可兑现，过期不退款。",
+          "activation": "在原普通工作起手同次显式选择并支付1应急电，不另占1秒；原工作仍耗实际缩短后的时间。"
+        },
+        "duration": {
+          "armed_window_world_seconds": 20,
+          "local_rearm_cooldown_world_seconds": 30,
+          "cooldown_starts": "actual_paid_arm_commit"
+        },
+        "geometry": {
+          "mode": "projected_visible_reachable_floor_circle",
+          "nominal_radius_tiles": 1.5,
+          "occlusion_compensation": "SA01最低1.5格；排除实体并沿共享有效面积规则补偿；无合法投影则拒绝",
+          "layers": [
+            "ground",
+            "low_air"
+          ],
+          "source_origin": "actual_authorized_station_emitter",
+          "new_floor_area": false
+        },
+        "max_recipients": 2,
+        "status_payload": [
+          {
+            "status": "heat",
+            "amount": 2,
+            "mark_duration_s": 6,
+            "full_source_burn_dps": 2,
+            "full_source_burn_vulnerability": 0.15
+          }
+        ],
+        "required_real_consumer_events": [
+          "ordinary_hot_food_work_committed_once"
+        ],
+        "anti_repeat": [
+          "唯一activation_id和实际原工作/订单receipt去重",
+          "同一真实回执只能给当前设备一次收益；重开门/重放UI/取消重接均不造回执",
+          "每次付费预约最多触发一次；到期丢弃未用机会",
+          "不新增订单、不自动完成主机制、不复制货物或角色"
+        ],
+        "extra_boundaries": [
+          "不改F06杯温、F49冷却和其他原任务时钟",
+          "不会生成环境火焰或给正常人类伤害",
+          "断开C2或设备被有效隔离时不能触发；关开电不创造工单",
+          "工作型预约并入原工作起手，不新增独立启动时间；避免1秒按钮成本大于0.225–0.525秒工作节约。"
+        ],
+        "business_timing_example": {
+          "base_checkout_or_short_work_s": 1.5,
+          "work_multiplier": 0.85,
+          "effective_work_s": 1.275,
+          "extra_activation_s": 0,
+          "net_saved_world_s": 0.225,
+          "not_a_throughput_or_profit_simulation": true
+        }
+      },
+      "sources": [
+        "content/store_systems_v05.json#/duties/2",
+        "content/store_systems_v05.json#/emergency_power/actions/4",
+        "content/traps_facilities_td05.json#/appliances/0",
+        "content/combat_contracts_td05.json#/statuses/burn"
+      ],
+      "power_and_failure": "AP_HOT_FOOD必须实际C2供电且未隔离；候选还需一次1电应急支出。断电/隔离关闭未触发预约，已附着热量沿原期限。",
+      "lifecycle": "基础固定设施跨夜/跨周保留；候选预约/临时优势夜结清退。尚无可买模块，未来购买必须接入周账/周清，不默认为永久升级。",
+      "status_limits_ref": "#/shared_candidate_limits/status_caps"
+    },
+    {
+      "id": "FR04",
+      "name": "主冰柜",
+      "status": "existing_roles_with_separate_disabled_proposal",
+      "runtime_integrated": false,
+      "physical_bindings": {
+        "fixture_ids": [
+          "FX15"
+        ],
+        "anchor_roles": [
+          "freezer_main"
+        ],
+        "tower_anchor_ids": [
+          "TA09"
+        ],
+        "active_appliance_ids": [
+          "AP_FREEZER"
+        ]
+      },
+      "existing": {
+        "business": "普通冷链与F13同一登记肉箱入柜关盖；基础可用不消耗可选应急储备。",
+        "monster_or_defense_use": "一处塔挂点、一个真实C2电器节点。正确封存按原主机制结算；冰柜本体没有持续冰环或永久冻结。"
+      },
+      "unclosed_design": [
+        "普通关柜与寒意辅助缺独立消费者",
+        "必须区分ordinary_work与F13必要动作，不能缩短关键搬放步骤"
+      ],
+      "proposal": {
+        "name": "冷凝回收",
+        "status": "proposed_pending_balance",
+        "enabled": false,
+        "runtime_integrated": false,
+        "business_effect": "20秒内下一次普通冷链工单的非关键工作段耗时×0.85，任务取放/关盖时长保持原值。",
+        "defense_effect": "普通冷链工单最终关盖、唯一提交后，向投影域内最近最多2个合法池各给1寒意。",
+        "cost": {
+          "emergency_power_units": 1,
+          "action_world_seconds": 0,
+          "upgrade_coin": null,
+          "upgrade_spirit": null,
+          "purchase_price_status": "not_designed_or_charged",
+          "payment": "普通工作与本次预约均合法后原子扣1电并启动20秒预约。取消工作不退已经支付的预约；20秒内只有本设施下一份真实普通工作回执可兑现，过期不退款。",
+          "activation": "在原普通工作起手同次显式选择并支付1应急电，不另占1秒；原工作仍耗实际缩短后的时间。"
+        },
+        "duration": {
+          "armed_window_world_seconds": 20,
+          "local_rearm_cooldown_world_seconds": 30,
+          "cooldown_starts": "actual_paid_arm_commit"
+        },
+        "geometry": {
+          "mode": "projected_visible_reachable_floor_circle",
+          "nominal_radius_tiles": 1.5,
+          "occlusion_compensation": "SA01最低1.5格；排除实体并沿共享有效面积规则补偿；无合法投影则拒绝",
+          "layers": [
+            "ground",
+            "low_air"
+          ],
+          "source_origin": "actual_authorized_station_emitter",
+          "new_floor_area": false
+        },
+        "max_recipients": 2,
+        "status_payload": [
+          {
+            "status": "chill",
+            "amount": 1,
+            "duration_s": 6,
+            "slow_per_mark": 0.08,
+            "freeze_normal_s": 1,
+            "freeze_elite_s": 0.6,
+            "shared_attempt_cd_s": 8
+          }
+        ],
+        "required_real_consumer_events": [
+          "ordinary_cold_chain_work_closed_and_committed_once"
+        ],
+        "anti_repeat": [
+          "唯一activation_id和实际原工作/订单receipt去重",
+          "同一真实回执只能给当前设备一次收益；重开门/重放UI/取消重接均不造回执",
+          "每次付费预约最多触发一次；到期丢弃未用机会",
+          "不新增订单、不自动完成主机制、不复制货物或角色"
+        ],
+        "extra_boundaries": [
+          "先结算主规则终态，再选仍合法存活池；不得给已离场F13补效果",
+          "反复空开关柜不是工单，不会生成寒意",
+          "实际设备断电/隔离取消未触发预约；基础主解使用原有效冰柜合同，不借走冷链电",
+          "工作型预约并入原工作起手，不新增独立启动时间；避免1秒按钮成本大于0.225–0.525秒工作节约。"
+        ],
+        "business_timing_example": {
+          "base_checkout_or_short_work_s": 1.5,
+          "work_multiplier": 0.85,
+          "effective_work_s": 1.275,
+          "extra_activation_s": 0,
+          "net_saved_world_s": 0.225,
+          "not_a_throughput_or_profit_simulation": true
+        }
+      },
+      "sources": [
+        "content/store_systems_v05.json#/duties/2",
+        "content/store_systems_v05.json#/emergency_power",
+        "content/traps_facilities_td05.json#/appliances/1",
+        "content/encounter_blueprints.json",
+        "content/combat_contracts_td05.json#/statuses/frost"
+      ],
+      "power_and_failure": "AP_FREEZER必须实际C2供电；基础有效冰柜不依赖应急储备。候选另支1电；断电时是否仍可完成任务只读原有效柜合同，不擅自撤销已成功F13。",
+      "lifecycle": "基础固定设施跨夜/跨周保留；候选预约/临时优势夜结清退。尚无可买模块，未来购买必须接入周账/周清，不默认为永久升级。",
+      "status_limits_ref": "#/shared_candidate_limits/status_caps"
+    },
+    {
+      "id": "FR05",
+      "name": "饮料冷柜与备用柜用途",
+      "status": "existing_roles_with_separate_disabled_proposal",
+      "runtime_integrated": false,
+      "physical_bindings": {
+        "fixture_ids": [
+          "FX16"
+        ],
+        "anchor_roles": [
+          "cold_cabinet",
+          "freezer_backup"
+        ],
+        "tower_anchor_ids": [],
+        "active_appliance_ids": [
+          "AP_COLD_CABINET"
+        ]
+      },
+      "existing": {
+        "business": "普通冷柜取物；freezer_backup只有已有能力登记后才可作任务备用柜，默认不因是冷柜就自动具备资格。",
+        "monster_or_defense_use": "一个真实C2电器节点，可中继电网；没有额外塔挂点、自动减速光环或第二个AP。"
+      },
+      "unclosed_design": [
+        "没有独立饮料机或咖啡机生产系统",
+        "备用任务容器资格不能由设备名称推断"
+      ],
+      "proposal": {
+        "name": "可核验补给快捷位",
+        "status": "proposed_pending_balance",
+        "enabled": false,
+        "runtime_integrated": false,
+        "business_effect": "为既有、实际持有且已核验的自用饮品建立快捷取用界面；取出/食用仍执行原动作、占手和库存事务。",
+        "defense_effect": "玩家获得饮品原本定义的体力/饱腹等收益，帮助追逐；不额外回血、不免费生成饮品，不另附对怪减益。",
+        "cost": {
+          "emergency_power_units": 0,
+          "action_world_seconds": 0,
+          "upgrade_coin": null,
+          "upgrade_spirit": null,
+          "purchase_price_status": "not_designed_or_charged",
+          "payment": "若为付费候选，实际动作合法提交时扣一次；开始仅预留，合法取消不扣；提交后未触发或目标离开不退款。"
+        },
+        "duration": {
+          "armed_window_world_seconds": 0,
+          "local_rearm_cooldown_world_seconds": 0,
+          "cooldown_starts": "not_applicable"
+        },
+        "geometry": {
+          "mode": "existing_station_action_or_read_only_information",
+          "radius_tiles": null,
+          "new_floor_area": false
+        },
+        "max_recipients": 0,
+        "status_payload": [],
+        "required_real_consumer_events": [
+          "existing_item_withdrawal",
+          "existing_verified_food_consumption"
+        ],
+        "anti_repeat": [
+          "唯一activation_id和实际原工作/订单receipt去重",
+          "同一真实回执只能给当前设备一次收益；重开门/重放UI/取消重接均不造回执",
+          "每次付费预约最多触发一次；到期丢弃未用机会",
+          "不新增订单、不自动完成主机制、不复制货物或角色"
+        ],
+        "extra_boundaries": [
+          "这里只减少界面查找，不减机制动作时长",
+          "同一FX16的冷柜、备用柜操作位始终只计一个AP",
+          "若没有实际饮品或核验资格，快捷位无可用效果"
+        ]
+      },
+      "sources": [
+        "content/maps.json#/scenes/0/anchors/11",
+        "content/traps_facilities_td05.json#/appliances/2",
+        "content/consumer_closure_v08.json#/food_verification"
+      ],
+      "power_and_failure": "AP_COLD_CABINET只在实际C2供电时入电网；取物/备用柜资格各读原消费者。快捷界面不制造供电或冷藏资格。",
+      "lifecycle": "基础固定设施跨夜/跨周保留；候选预约/临时优势夜结清退。尚无可买模块，未来购买必须接入周账/周清，不默认为永久升级。",
+      "status_limits_ref": "#/shared_candidate_limits/status_caps"
+    },
+    {
+      "id": "FR06",
+      "name": "身份核验台",
+      "status": "existing_roles_with_separate_disabled_proposal",
+      "runtime_integrated": false,
+      "physical_bindings": {
+        "fixture_ids": [
+          "FX23"
+        ],
+        "anchor_roles": [
+          "verification_desk"
+        ],
+        "tower_anchor_ids": [
+          "TA10"
+        ],
+        "active_appliance_ids": []
+      },
+      "existing": {
+        "business": "已有原钥匙、班表、快照、手压观察镜及两类独立事实核验；免费手动模式保留。",
+        "monster_or_defense_use": "一处塔挂点，权限限制可阻止对应假扮后果。身份核验不是万能识别，台体没有通用破隐。"
+      },
+      "unclosed_design": [
+        "战斗扫描与身份事实必须分开",
+        "尚无设备扫描源写入易感的消费者"
+      ],
+      "proposal": {
+        "name": "定点显影核验",
+        "status": "proposed_pending_balance",
+        "enabled": false,
+        "runtime_integrated": false,
+        "business_effect": "并列显示已经取得的不同来源事实、时刻和当前权限，帮助玩家减少来回查表；不自动新增事实或完成核验。",
+        "defense_effect": "玩家在真实台位用2秒扫描一个已显形、当前合法可选的敌人，成功后给3秒易感；不能扫描隐藏本体或把身份不明人类变成敌人。",
+        "cost": {
+          "emergency_power_units": 1,
+          "action_world_seconds": 2,
+          "upgrade_coin": null,
+          "upgrade_spirit": null,
+          "purchase_price_status": "not_designed_or_charged",
+          "payment": "若为付费候选，实际动作合法提交时扣一次；开始仅预留，合法取消不扣；提交后未触发或目标离开不退款。"
+        },
+        "duration": {
+          "armed_window_world_seconds": 0,
+          "local_rearm_cooldown_world_seconds": 30,
+          "cooldown_starts": "actual_paid_arm_commit"
+        },
+        "geometry": {
+          "mode": "actual_station_to_selected_target_los",
+          "range_tiles": 3,
+          "layers": [
+            "ground",
+            "low_air"
+          ]
+        },
+        "max_recipients": 1,
+        "status_payload": [
+          {
+            "status": "susceptible",
+            "duration_s": 3,
+            "threshold_reduction": 1,
+            "stacking": false
+          }
+        ],
+        "required_real_consumer_events": [
+          "actual_visible_hostile_scan_committed"
+        ],
+        "anti_repeat": [
+          "唯一activation_id和实际原工作/订单receipt去重",
+          "同一真实回执只能给当前设备一次收益；重开门/重放UI/取消重接均不造回执",
+          "每次付费预约最多触发一次；到期丢弃未用机会",
+          "不新增订单、不自动完成主机制、不复制货物或角色"
+        ],
+        "extra_boundaries": [
+          "这是新候选来源，未列入当前已启用易感source列表",
+          "两份同源图片仍只算一路证据；对目标施加易感不等于通过身份判断",
+          "与T04/T06/R08/I27等易感只合并有效期限，不减2层"
+        ]
+      },
+      "sources": [
+        "content/map_mechanics_v05.json#/objects/0",
+        "content/map_mechanics_v05.json#/objects/2",
+        "content/store_systems_v05.json#/information",
+        "content/combat_contracts_td05.json#/statuses/susceptible"
+      ],
+      "power_and_failure": "免费手压镜和现场核验保留；新扫描拟用一次应急电，不推导出新的带电终端或AP身份。源失效时未完成扫描取消。",
+      "lifecycle": "基础固定设施跨夜/跨周保留；候选预约/临时优势夜结清退。尚无可买模块，未来购买必须接入周账/周清，不默认为永久升级。",
+      "status_limits_ref": "#/shared_candidate_limits/status_caps"
+    },
+    {
+      "id": "FR07",
+      "name": "监控终端与远程读屏",
+      "status": "existing_roles_with_separate_disabled_proposal",
+      "runtime_integrated": false,
+      "physical_bindings": {
+        "fixture_ids": [],
+        "anchor_roles": [
+          "monitor_terminal",
+          "verification_desk"
+        ],
+        "tower_anchor_ids": [],
+        "active_appliance_ids": []
+      },
+      "existing": {
+        "business": "从已登记CAM采集当刻快照，1应急电+1世界秒；旧记录免费读，位置/在场推断8秒后过时。",
+        "monster_or_defense_use": "提供真实范围内的路线与位置线索，不能穿墙锁定、自动识破伪装或证明持续凝视；追逐中不能打开全屏监控。"
+      },
+      "unclosed_design": [
+        "monitor_terminal只有交互锚点，没有独立电器几何与AP接线",
+        "缺将当前订单/队列事实和已知敌位统一显示的界面"
+      ],
+      "proposal": {
+        "name": "同源态势看板",
+        "status": "proposed_pending_balance",
+        "enabled": false,
+        "runtime_integrated": false,
+        "business_effect": "将已经取得的顾客等待、工位占用和快照证据按来源显示，缺数据的区域保留未知。",
+        "defense_effect": "在合法非全屏查看方式下显示同一快照的最后已知敌位最多3秒；不生成live追踪、不授予塔穿墙射击。",
+        "cost": {
+          "emergency_power_units": 1,
+          "action_world_seconds": 1,
+          "upgrade_coin": null,
+          "upgrade_spirit": null,
+          "purchase_price_status": "not_designed_or_charged",
+          "payment": "若为付费候选，实际动作合法提交时扣一次；开始仅预留，合法取消不扣；提交后未触发或目标离开不退款。",
+          "reuse_existing_action_payment": true
+        },
+        "duration": {
+          "armed_window_world_seconds": 3,
+          "local_rearm_cooldown_world_seconds": 0,
+          "cooldown_starts": "no_additional_cooldown_on_existing_action"
+        },
+        "geometry": {
+          "mode": "existing_station_action_or_read_only_information",
+          "radius_tiles": null,
+          "new_floor_area": false
+        },
+        "max_recipients": 0,
+        "status_payload": [],
+        "required_real_consumer_events": [
+          "existing_snapshot_captured_once"
+        ],
+        "anti_repeat": [
+          "复用同一实际快照/照明提交，不新增一笔电费或一个动作",
+          "UI查看/切页/保存不重新采集事实，不刷新效果截止",
+          "新战斗/显示绑定未实现时，原已定义动作仍按原规则可用"
+        ],
+        "extra_boundaries": [
+          "复用snapshot同一1电和1秒，不另收一次费或额外采一帧",
+          "不改既有8秒过时规则；3秒显示结束不会使历史事实失效",
+          "不增加AP_MONITOR，必须先有实际设备几何/布线评审才可另提案"
+        ]
+      },
+      "sources": [
+        "content/maps.json#/scenes/0/anchors/22",
+        "content/map_mechanics_v05.json#/objects/0",
+        "content/store_systems_v05.json#/emergency_power/actions/0",
+        "content/store_systems_v05.json#/information"
+      ],
+      "power_and_failure": "读取实际C3摄像区/终端可用性，再沿原snapshot支出；旧记录仍可按原读取规则查看。快照不是供电证明，终端锚点不自动算AP。",
+      "lifecycle": "基础固定设施跨夜/跨周保留；候选预约/临时优势夜结清退。尚无可买模块，未来购买必须接入周账/周清，不默认为永久升级。",
+      "status_limits_ref": "#/shared_candidate_limits/status_caps"
+    },
+    {
+      "id": "FR08",
+      "name": "局部照明与核验侧灯",
+      "status": "existing_roles_with_separate_disabled_proposal",
+      "runtime_integrated": false,
+      "physical_bindings": {
+        "fixture_ids": [],
+        "anchor_roles": [
+          "power_panel",
+          "verification_desk"
+        ],
+        "tower_anchor_ids": [],
+        "active_appliance_ids": []
+      },
+      "existing": {
+        "business": "当前side_light和route_light各用1电、1秒动作、20秒期限，提供更清楚的轮廓/路线；默认灯与免费手动镜仍可用。",
+        "monster_or_defense_use": "实际照明可被明确绑定光照条件的怪物消费；当前T04/R05有各自影节点效果，普通照明不能自动等同它们的伤害、易感或封技。"
+      },
+      "unclosed_design": [
+        "侧灯/路线灯尚未统一登记实际照射体积和怪物光条件消费者",
+        "灯不是额外AP，不能因加灯提高电系E计数"
+      ],
+      "proposal": {
+        "name": "注册照区",
+        "status": "proposed_pending_balance",
+        "enabled": false,
+        "runtime_integrated": false,
+        "business_effect": "保留20秒看清当前路线和工位的用途；无SAN恢复、QTE扩大或通用工作加速。",
+        "defense_effect": "将实际投影照区绑定到原怪物已声明的光照条件：只关闭真正被照到且支持光封锁的阴影节点；不显出未可选本体、不代替眼睛凝视、不给予易感。",
+        "cost": {
+          "emergency_power_units": 1,
+          "action_world_seconds": 1,
+          "upgrade_coin": null,
+          "upgrade_spirit": null,
+          "purchase_price_status": "not_designed_or_charged",
+          "payment": "若为付费候选，实际动作合法提交时扣一次；开始仅预留，合法取消不扣；提交后未触发或目标离开不退款。",
+          "reuse_existing_action_payment": true
+        },
+        "duration": {
+          "armed_window_world_seconds": 20,
+          "local_rearm_cooldown_world_seconds": 0,
+          "cooldown_starts": "no_additional_cooldown_on_existing_action"
+        },
+        "geometry": {
+          "mode": "projected_visible_reachable_floor_circle",
+          "nominal_radius_tiles": 1.5,
+          "occlusion_compensation": "SA01最低1.5格；排除实体并沿共享有效面积规则补偿；无合法投影则拒绝",
+          "layers": [
+            "ground",
+            "low_air"
+          ],
+          "source_origin": "actual_authorized_station_emitter",
+          "new_floor_area": false
+        },
+        "max_recipients": 0,
+        "status_payload": [],
+        "required_real_consumer_events": [
+          "existing_side_light_or_route_light_commit",
+          "actual_registered_illumination_sample"
+        ],
+        "anti_repeat": [
+          "复用同一实际快照/照明提交，不新增一笔电费或一个动作",
+          "UI查看/切页/保存不重新采集事实，不刷新效果截止",
+          "新战斗/显示绑定未实现时，原已定义动作仍按原规则可用"
+        ],
+        "extra_boundaries": [
+          "同一源一份真实20秒截止，切面板/回路或重新保存不刷新",
+          "额外战斗绑定需逐怪白名单与实际LOS适配，未完成前只保留原信息作用",
+          "照区不能借半径跨墙、绕货架或复制T04光斑"
+        ]
+      },
+      "sources": [
+        "content/store_systems_v05.json#/emergency_power/actions/1",
+        "content/store_systems_v05.json#/emergency_power/actions/3",
+        "content/tower_defense_td05.json#/families/3",
+        "content/traps_facilities_td05.json#/traps/4"
+      ],
+      "power_and_failure": "按所选真实照明回路/灯源是否可用决定输出；主回路故障、源失效结束维持照区，不因切面板重新续20秒。基本应急标线/手动镜沿原免费保底。",
+      "lifecycle": "基础固定设施跨夜/跨周保留；候选预约/临时优势夜结清退。尚无可买模块，未来购买必须接入周账/周清，不默认为永久升级。",
+      "status_limits_ref": "#/shared_candidate_limits/status_caps"
+    },
+    {
+      "id": "FR09",
+      "name": "迎宾、叫号与广播声道",
+      "status": "existing_roles_with_separate_disabled_proposal",
+      "runtime_integrated": false,
+      "physical_bindings": {
+        "fixture_ids": [],
+        "anchor_roles": [
+          "cashier",
+          "hot_food",
+          "power_panel"
+        ],
+        "tower_anchor_ids": [],
+        "active_appliance_ids": []
+      },
+      "existing": {
+        "business": "SG06的迎宾/叫号/电话/设备提示是分开的声道；静音叫号可用纸号交付，普通服务仍走原1.5/3.5秒。",
+        "monster_or_defense_use": "关闭对应声道可回应特定声源怪物。T06广播塔的普通攻速、调位和规则回执配合是独立购买的塔能力，不免费赋给商店广播。"
+      },
+      "unclosed_design": [
+        "没有登记统一广播机身/喇叭几何，不存在可数的AP_BROADCAST",
+        "普通队列便利与T06战斗强化的来源边界需在UI分开"
+      ],
+      "proposal": {
+        "name": "声道职责面板",
+        "status": "proposed_pending_balance",
+        "enabled": false,
+        "runtime_integrated": false,
+        "business_effect": "显示当前待服务的已有订单和各声道开关；按纸号交付仍完成真实原订单。",
+        "defense_effect": "同一面板展示已建T06的实际声域与可用能力，由原塔控制器执行；关商店迎宾不会消除已经存在的声音怪或自动关闭/重置T06。",
+        "cost": {
+          "emergency_power_units": 0,
+          "action_world_seconds": 0,
+          "upgrade_coin": null,
+          "upgrade_spirit": null,
+          "purchase_price_status": "not_designed_or_charged",
+          "payment": "若为付费候选，实际动作合法提交时扣一次；开始仅预留，合法取消不扣；提交后未触发或目标离开不退款。"
+        },
+        "duration": {
+          "armed_window_world_seconds": 0,
+          "local_rearm_cooldown_world_seconds": 0,
+          "cooldown_starts": "not_applicable"
+        },
+        "geometry": {
+          "mode": "existing_station_action_or_read_only_information",
+          "radius_tiles": null,
+          "new_floor_area": false
+        },
+        "max_recipients": 0,
+        "status_payload": [],
+        "required_real_consumer_events": [
+          "existing_service_channel_toggle",
+          "existing_T06_source_state"
+        ],
+        "anti_repeat": [
+          "唯一activation_id和实际原工作/订单receipt去重",
+          "同一真实回执只能给当前设备一次收益；重开门/重放UI/取消重接均不造回执",
+          "每次付费预约最多触发一次；到期丢弃未用机会",
+          "不新增订单、不自动完成主机制、不复制货物或角色"
+        ],
+        "extra_boundaries": [
+          "只有界面整合，不新增攻速、延长耐心、自动失攻或电器节点",
+          "声道关闭是否影响具体怪物/塔须读各自源绑定；不能把所有声音合成一个万能静音开关"
+        ]
+      },
+      "sources": [
+        "content/store_systems_v05.json#/systems/5",
+        "content/store_systems_v05.json#/service",
+        "content/tower_defense_td05.json#/families/5"
+      ],
+      "power_and_failure": "各声道分别读其真实源状态；广播机身布线尚未登记，不推定新电器节点。T06使用原塔源状态，不能借营业静音重置塔。",
+      "lifecycle": "基础固定设施跨夜/跨周保留；候选预约/临时优势夜结清退。尚无可买模块，未来购买必须接入周账/周清，不默认为永久升级。",
+      "status_limits_ref": "#/shared_candidate_limits/status_caps"
+    },
+    {
+      "id": "FR10",
+      "name": "正后门、服务窗与实体遮线帘",
+      "status": "existing_roles_with_separate_disabled_proposal",
+      "runtime_integrated": false,
+      "physical_bindings": {
+        "fixture_ids": [],
+        "anchor_roles": [
+          "front_door",
+          "rear_door",
+          "forecourt_handoff",
+          "convex_mirror"
+        ],
+        "tower_anchor_ids": [],
+        "active_appliance_ids": []
+      },
+      "existing": {
+        "business": "实际开闭、窗口服务、权限闸门与交接；浏览客仍要真实入店，不能靠窗口虚拟完成全部12单。",
+        "monster_or_defense_use": "实体门/帘按原几何和怪物白名单改变入口或视线；F32邀请、F50窗防、F60互视等各自成立。已在店内者不因关门离场。"
+      },
+      "unclosed_design": [
+        "brace_door与shutter停用，不能算现有防御主动",
+        "不同门帘对攻击、规则视线、身高的阻挡仍需完整世界适配"
+      ],
+      "proposal": {
+        "name": "阻挡预览与白名单说明",
+        "status": "proposed_pending_balance",
+        "enabled": false,
+        "runtime_integrated": false,
+        "business_effect": "在现有开闭操作前显示对当前营业方式、已到顾客和出口的影响；实际操作仍用原1秒/特定怪物时长。",
+        "defense_effect": "显示这一实体目前实际能挡的射线/视线/通行，以及不能阻挡的声路/湿路；按原合同操作，不新增12秒加固。",
+        "cost": {
+          "emergency_power_units": 0,
+          "action_world_seconds": 0,
+          "upgrade_coin": null,
+          "upgrade_spirit": null,
+          "purchase_price_status": "not_designed_or_charged",
+          "payment": "若为付费候选，实际动作合法提交时扣一次；开始仅预留，合法取消不扣；提交后未触发或目标离开不退款。"
+        },
+        "duration": {
+          "armed_window_world_seconds": 0,
+          "local_rearm_cooldown_world_seconds": 0,
+          "cooldown_starts": "not_applicable"
+        },
+        "geometry": {
+          "mode": "existing_station_action_or_read_only_information",
+          "radius_tiles": null,
+          "new_floor_area": false
+        },
+        "max_recipients": 0,
+        "status_payload": [],
+        "required_real_consumer_events": [
+          "existing_door_or_curtain_committed_state"
+        ],
+        "anti_repeat": [
+          "唯一activation_id和实际原工作/订单receipt去重",
+          "同一真实回执只能给当前设备一次收益；重开门/重放UI/取消重接均不造回执",
+          "每次付费预约最多触发一次；到期丢弃未用机会",
+          "不新增订单、不自动完成主机制、不复制货物或角色"
+        ],
+        "extra_boundaries": [
+          "预览读取当前实际已知规则，不提前揭露隐藏怪物身份",
+          "任何状态不得关死唯一必要逃生/主机制路径",
+          "SA01不复活brace_door、不重新收2电"
+        ]
+      },
+      "sources": [
+        "content/maps.json#/scenes/0/doors",
+        "content/maps.json#/scenes/0/fixed_attachments/13",
+        "content/map_mechanics_v05.json#/objects/7",
+        "content/store_systems_v05.json#/emergency_power/actions/2"
+      ],
+      "power_and_failure": "正常手动门窗/帘不耗应急电；brace_door停用，不因新怪会冲刺就自动激活。",
+      "lifecycle": "基础固定设施跨夜/跨周保留；候选预约/临时优势夜结清退。尚无可买模块，未来购买必须接入周账/周清，不默认为永久升级。",
+      "status_limits_ref": "#/shared_candidate_limits/status_caps"
+    },
+    {
+      "id": "FR11",
+      "name": "水槽、分支阀与排水控制",
+      "status": "existing_roles_with_separate_disabled_proposal",
+      "runtime_integrated": false,
+      "physical_bindings": {
+        "fixture_ids": [
+          "FX17"
+        ],
+        "anchor_roles": [
+          "sink",
+          "water_valve",
+          "drain_channel",
+          "mop_station"
+        ],
+        "tower_anchor_ids": [],
+        "active_appliance_ids": []
+      },
+      "existing": {
+        "business": "清洁真实湿格、操作具体支路、处理普通清扫工单；后院主水路与员工椅等独立支路分别登记。",
+        "monster_or_defense_use": "擦断真实湿边、关对应来源和干侧取物可完成特定水怪主机制或削弱条件；没有对全体怪物的免费水减速。"
+      },
+      "unclosed_design": [
+        "需将每个阀和湿路的源关系做成清晰预览",
+        "新增全局冲洗/导电水/通用减速会改写原湿图和电网，当前不应引入"
+      ],
+      "proposal": {
+        "name": "湿路割点辅助",
+        "status": "proposed_pending_balance",
+        "enabled": false,
+        "runtime_integrated": false,
+        "business_effect": "提示已经实际观察到的湿格连接与可到达干侧；仍需玩家真实擦拭/开闭，不凭看图记完成。",
+        "defense_effect": "对原有水路依赖怪物产生其已经声明的断路后果；其它敌人不平白减速或带电。",
+        "cost": {
+          "emergency_power_units": 0,
+          "action_world_seconds": 0,
+          "upgrade_coin": null,
+          "upgrade_spirit": null,
+          "purchase_price_status": "not_designed_or_charged",
+          "payment": "若为付费候选，实际动作合法提交时扣一次；开始仅预留，合法取消不扣；提交后未触发或目标离开不退款。"
+        },
+        "duration": {
+          "armed_window_world_seconds": 0,
+          "local_rearm_cooldown_world_seconds": 0,
+          "cooldown_starts": "not_applicable"
+        },
+        "geometry": {
+          "mode": "existing_station_action_or_read_only_information",
+          "radius_tiles": null,
+          "new_floor_area": false
+        },
+        "max_recipients": 0,
+        "status_payload": [],
+        "required_real_consumer_events": [
+          "existing_wet_edge_removed",
+          "existing_named_water_control_committed"
+        ],
+        "anti_repeat": [
+          "唯一activation_id和实际原工作/订单receipt去重",
+          "同一真实回执只能给当前设备一次收益；重开门/重放UI/取消重接均不造回执",
+          "每次付费预约最多触发一次；到期丢弃未用机会",
+          "不新增订单、不自动完成主机制、不复制货物或角色"
+        ],
+        "extra_boundaries": [
+          "只显示已知来源，不自动揭露隐藏支路",
+          "F28试水支路、cold_branch、rear_source共界面但状态独立",
+          "维持原水务取舍，不让总阀一键清所有水怪"
+        ]
+      },
+      "sources": [
+        "content/store_systems_v05.json#/systems/4",
+        "content/map_mechanics_v05.json#/station_local_panels/0",
+        "content/map_mechanics_v05.json#/registered_water_controls_v010"
+      ],
+      "power_and_failure": "具名水阀和机械控制沿原状态机，不用可选应急电；水源断开仅改变该绑定支路。",
+      "lifecycle": "基础固定设施跨夜/跨周保留；候选预约/临时优势夜结清退。尚无可买模块，未来购买必须接入周账/周清，不默认为永久升级。",
+      "status_limits_ref": "#/shared_candidate_limits/status_caps"
+    },
+    {
+      "id": "FR12",
+      "name": "验收、打包、隔离与分袋工位",
+      "status": "existing_roles_with_separate_disabled_proposal",
+      "runtime_integrated": false,
+      "physical_bindings": {
+        "fixture_ids": [
+          "FX07",
+          "FX08",
+          "FX09",
+          "FX10"
+        ],
+        "anchor_roles": [
+          "receiving",
+          "packing",
+          "isolation_cage",
+          "waste_sort"
+        ],
+        "tower_anchor_ids": [
+          "TA12"
+        ],
+        "active_appliance_ids": []
+      },
+      "existing": {
+        "business": "真实验收、分装、封袋和隔离同一件物；沿唯一物件/任务/奖励回执结算。",
+        "monster_or_defense_use": "通过正确归属、封存、限制数量和时限改变对应怪物条件；验收台有一个既有塔挂点。普通封袋不自动等于压制任意怪。"
+      },
+      "unclosed_design": [
+        "普通工作辅助与异常QTE/承诺操作的消费者尚需区分",
+        "没有额外无限隔离槽位或自动封印设备"
+      ],
+      "proposal": {
+        "name": "对象与承诺并列显示",
+        "status": "proposed_pending_balance",
+        "enabled": false,
+        "runtime_integrated": false,
+        "business_effect": "显示当前同一物件的来源、已完成小步骤、承诺数量和截止；取消后保留原物与合法进度。",
+        "defense_effect": "帮助玩家在攻击恢复窗口完成已有封存/撤权机制，实际成功时仍由MD01给削弱/离场/解锁；设备不另送通用封技。",
+        "cost": {
+          "emergency_power_units": 0,
+          "action_world_seconds": 0,
+          "upgrade_coin": null,
+          "upgrade_spirit": null,
+          "purchase_price_status": "not_designed_or_charged",
+          "payment": "若为付费候选，实际动作合法提交时扣一次；开始仅预留，合法取消不扣；提交后未触发或目标离开不退款。"
+        },
+        "duration": {
+          "armed_window_world_seconds": 0,
+          "local_rearm_cooldown_world_seconds": 0,
+          "cooldown_starts": "not_applicable"
+        },
+        "geometry": {
+          "mode": "existing_station_action_or_read_only_information",
+          "radius_tiles": null,
+          "new_floor_area": false
+        },
+        "max_recipients": 0,
+        "status_payload": [],
+        "required_real_consumer_events": [
+          "existing_same_item_work_commit",
+          "existing_rule_outcome_receipt"
+        ],
+        "anti_repeat": [
+          "唯一activation_id和实际原工作/订单receipt去重",
+          "同一真实回执只能给当前设备一次收益；重开门/重放UI/取消重接均不造回执",
+          "每次付费预约最多触发一次；到期丢弃未用机会",
+          "不新增订单、不自动完成主机制、不复制货物或角色"
+        ],
+        "extra_boundaries": [
+          "不缩短MD01必要步骤、真实等待或QTE计时",
+          "不创造额外库存/隔离槽，不复制供物和原证据",
+          "界面提示与原规则奖励各自去重，不再发一份经营奖励"
+        ]
+      },
+      "sources": [
+        "content/maps.json#/scenes/0/fixtures",
+        "content/maps.json#/scenes/0/fixed_attachments/5",
+        "content/store_systems_v05.json#/systems/6",
+        "content/store_systems_v05.json#/systems/8"
+      ],
+      "power_and_failure": "普通手动验收/封袋/隔离按原消费者，不推定所有工位带电；任务原物/权限仍真实存在。",
+      "lifecycle": "基础固定设施跨夜/跨周保留；候选预约/临时优势夜结清退。尚无可买模块，未来购买必须接入周账/周清，不默认为永久升级。",
+      "status_limits_ref": "#/shared_candidate_limits/status_caps"
+    },
+    {
+      "id": "FR13",
+      "name": "员工休息与自用补给区",
+      "status": "existing_roles_with_separate_disabled_proposal",
+      "runtime_integrated": false,
+      "physical_bindings": {
+        "fixture_ids": [
+          "FX01",
+          "FX03",
+          "FX04"
+        ],
+        "anchor_roles": [
+          "staff_desk",
+          "rest_chair",
+          "break_table",
+          "staff_locker"
+        ],
+        "tower_anchor_ids": [],
+        "active_appliance_ids": []
+      },
+      "existing": {
+        "business": "原短休、员工物品、真实食品与咖啡等消耗品管理；休息位先按本怪要求检查。",
+        "monster_or_defense_use": "原体力/精力/SAN资源影响跑动与生存；使用已有物品改善状态。休息椅不是免伤区，咖啡不因放在店里就无限供应。"
+      },
+      "unclosed_design": [
+        "没有单独咖啡机或微波炉设施、生产原料和服务消费者",
+        "若新增咖啡产出会影响咖啡债务和长期物品经济，必须另做闭环"
+      ],
+      "proposal": {
+        "name": "班前补给安排",
+        "status": "proposed_pending_balance",
+        "enabled": false,
+        "runtime_integrated": false,
+        "business_effect": "班前指定已拥有且符合核验的自用物品快捷位；营业时仍按原手数、取食、消费和债务操作。",
+        "defense_effect": "沿原食品/咖啡/休息效果恢复或支持既有资源，不新增被动回血、安全圈或免费冲刺。",
+        "cost": {
+          "emergency_power_units": 0,
+          "action_world_seconds": 0,
+          "upgrade_coin": null,
+          "upgrade_spirit": null,
+          "purchase_price_status": "not_designed_or_charged",
+          "payment": "若为付费候选，实际动作合法提交时扣一次；开始仅预留，合法取消不扣；提交后未触发或目标离开不退款。"
+        },
+        "duration": {
+          "armed_window_world_seconds": 0,
+          "local_rearm_cooldown_world_seconds": 0,
+          "cooldown_starts": "not_applicable"
+        },
+        "geometry": {
+          "mode": "existing_station_action_or_read_only_information",
+          "radius_tiles": null,
+          "new_floor_area": false
+        },
+        "max_recipients": 0,
+        "status_payload": [],
+        "required_real_consumer_events": [
+          "existing_verified_food_use",
+          "existing_coffee_use_and_debt",
+          "existing_safe_rest_commit"
+        ],
+        "anti_repeat": [
+          "唯一activation_id和实际原工作/订单receipt去重",
+          "同一真实回执只能给当前设备一次收益；重开门/重放UI/取消重接均不造回执",
+          "每次付费预约最多触发一次；到期丢弃未用机会",
+          "不新增订单、不自动完成主机制、不复制货物或角色"
+        ],
+        "extra_boundaries": [
+          "普通自用库存与免费主机制材料分别预留",
+          "没有物品或休息资格就没有收益；不随相位刷新咖啡",
+          "具体休息遇追逐/座位异常仍按原消费者拒绝"
+        ]
+      },
+      "sources": [
+        "content/maps.json#/scenes/0/fixtures",
+        "content/consumer_closure_v08.json",
+        "content/items.json",
+        "content/equipment_contracts_eq01.json#/resources_and_actions"
+      ],
+      "power_and_failure": "休息、真实自有食品按原资源系统；不新增通电回复光环或咖啡生产。",
+      "lifecycle": "基础固定设施跨夜/跨周保留；候选预约/临时优势夜结清退。尚无可买模块，未来购买必须接入周账/周清，不默认为永久升级。",
+      "status_limits_ref": "#/shared_candidate_limits/status_caps"
+    },
+    {
+      "id": "FR14",
+      "name": "店内抽奖机",
+      "status": "existing_roles_with_separate_disabled_proposal",
+      "runtime_integrated": false,
+      "physical_bindings": {
+        "fixture_ids": [],
+        "anchor_roles": [
+          "LOTTERY_COUNTER_01_pending_exact_position"
+        ],
+        "tower_anchor_ids": [],
+        "active_appliance_ids": []
+      },
+      "existing": {
+        "business": "每张券消耗1张与15准备分钟；仅06–08交班后或20–22班前窗口开放，奖励沿EQ01奖池与保底。",
+        "monster_or_defense_use": "通过实际抽得的装备/一次性道具提供后续战斗构筑；机器本体不攻击、不挂塔、不参与电网。"
+      },
+      "unclosed_design": [
+        "1×1机身与另1格站位只有文字约束，尚未给精确地图坐标和动态通路证明"
+      ],
+      "proposal": {
+        "name": "固定落位与领取预览",
+        "status": "proposed_pending_balance",
+        "enabled": false,
+        "runtime_integrated": false,
+        "business_effect": "落实1×1机身和独立1格可达操作位，预览实际剩余准备分钟、票券、奖池与溢出处理。",
+        "defense_effect": "战斗价值来自已领取且班前装入的真实装备/消耗品；营业关闭，不给临场补陷阱、抽卡暂停战斗或增加AP。",
+        "cost": {
+          "emergency_power_units": 0,
+          "action_world_seconds": 0,
+          "upgrade_coin": null,
+          "upgrade_spirit": null,
+          "purchase_price_status": "not_designed_or_charged",
+          "payment": "若为付费候选，实际动作合法提交时扣一次；开始仅预留，合法取消不扣；提交后未触发或目标离开不退款。"
+        },
+        "duration": {
+          "armed_window_world_seconds": 0,
+          "local_rearm_cooldown_world_seconds": 0,
+          "cooldown_starts": "not_applicable"
+        },
+        "geometry": {
+          "mode": "existing_station_action_or_read_only_information",
+          "radius_tiles": null,
+          "new_floor_area": false
+        },
+        "max_recipients": 0,
+        "status_payload": [],
+        "required_real_consumer_events": [
+          "existing_EQ01_draw_transaction",
+          "existing_pre_shift_loadout_commit"
+        ],
+        "anti_repeat": [
+          "唯一activation_id和实际原工作/订单receipt去重",
+          "同一真实回执只能给当前设备一次收益；重开门/重放UI/取消重接均不造回执",
+          "每次付费预约最多触发一次；到期丢弃未用机会",
+          "不新增订单、不自动完成主机制、不复制货物或角色"
+        ],
+        "extra_boundaries": [
+          "这里0电/0世界秒指不增加新费用；原抽奖1券+15准备分钟照常，绝非免费抽奖",
+          "落位未证明前仍不能运行准入",
+          "保底/重复选择/回滚与已确定抽奖账本一起原子提交"
+        ]
+      },
+      "sources": [
+        "content/lottery_direction_md01.json#/machine",
+        "content/lottery_rewards_eq01.json#/machine_contract"
+      ],
+      "power_and_failure": "机器仅准备窗启用，营业关闭；不参加C2战斗电网，不让通断电重置保底/复制开奖结果。",
+      "lifecycle": "基础固定设施跨夜/跨周保留；候选预约/临时优势夜结清退。尚无可买模块，未来购买必须接入周账/周清，不默认为永久升级。",
+      "status_limits_ref": "#/shared_candidate_limits/status_caps"
+    }
+  ],
+  "review_summary": {
+    "role_count": 14,
+    "active_appliance_count": 3,
+    "existing_tower_anchor_count": 12,
+    "new_enabled_effect_count": 0,
+    "new_upgrade_prices_defined": false,
+    "universal_dual_combat_buff_required": false,
+    "reason": "设施可通过信息、地形、原机制、恢复或塔承载支持战斗，不必每台都附带伤害/减益；营业增益必须找到真实消费者。"
+  }
+}
