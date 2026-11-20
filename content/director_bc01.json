@@ -1,0 +1,366 @@
+{
+  "version": "BC01",
+  "status": "complete_design_with_executable_director_reference_not_game_client",
+  "user_revision": "正常营业蓄存战斗收益；随机怪物入侵与正常采购；追击期间不安排营业杂活；杂活有奖励；交班自动结算。",
+  "supersedes": {
+    "content/store_systems_v05.json": [
+      "director.usual_new_primary_per_phase",
+      "service.base_order_arrival_seconds_per_phase",
+      "service.base_order_mix",
+      "duties.phase",
+      "work_debt",
+      "completion.six_am_verified_handover_required",
+      "completion.reward_ticket_requirements"
+    ],
+    "content/economy_week_td05.json": [
+      "income.new_root_slots_per_night",
+      "income.order_limit_per_night"
+    ],
+    "preserved": [
+      "真实顾客过门与真实支付才计销售",
+      "怪物基本解与免费关键物件可达",
+      "一名玩家只有一项手部动作",
+      "真实主怪终局才发根奖励",
+      "营业失败回滚本夜检查点"
+    ]
+  },
+  "clock": {
+    "night_world_seconds": 720,
+    "clock_kind": "actual_unpaused_world_time",
+    "reference_tick_seconds": 0.25,
+    "pause_advances_world": false,
+    "hourly_monster_quota_enabled": false,
+    "game_hour_labels_are_display_only": true,
+    "closing": "720秒后不再生成顾客、杂活、预兆或新主怪；已在场顾客沿实际路线离开；存量关键威胁必须真实终结后自动结算，不超时判赢。",
+    "extension_survival_rewards": false
+  },
+  "phases": {
+    "BUSINESS": {
+      "first_window_seconds": [
+        80,
+        100
+      ],
+      "later_window_seconds": [
+        60,
+        80
+      ],
+      "ordinary_customers": true,
+      "ordinary_chores": true,
+      "new_hostile_roots": false
+    },
+    "OMEN": {
+      "minimum_seconds": 20,
+      "maximum_customer_evacuate_seconds": 35,
+      "ordinary_customers": false,
+      "ordinary_chores": false,
+      "normal_customer_policy": "未付款者撤销订单不收费；已付款者保留唯一回执。沿导航到street_boundary，出口未清不得生成主怪。",
+      "chore_policy": "保存进度、同一物件和任务身份，暂停普通截止与工资惩罚。"
+    },
+    "RAID": {
+      "ordinary_customers": false,
+      "ordinary_chores": false,
+      "normal_work_deadline_ticks": false,
+      "maximum_active_roots": 1,
+      "maximum_player_pursuers": 1,
+      "end_requires": "同夜同attempt同raid的真实root_lifecycle终局回执；动作脚本结束不等于击倒",
+      "allowed_player_actions": [
+        "战斗",
+        "该怪免费主解动作",
+        "拾取或放置关键任务物",
+        "主动选择的1秒战术拨闸（须真实到电闸位置）"
+      ]
+    },
+    "RECOVERY": {
+      "seconds": [
+        35,
+        45
+      ],
+      "ordinary_customers": false,
+      "ordinary_chores": true,
+      "new_hostile_roots": false,
+      "priority": [
+        "实际怪物停电的待恢复电闸",
+        "未卸完的真实卡车",
+        "补货",
+        "清洁"
+      ],
+      "safe_budget": "本窗口加紧接的60–80秒营业窗提供连续安全时段；玩家不做工不会延长预定袭击。"
+    }
+  },
+  "randomization": {
+    "streams": [
+      "raids",
+      "customers",
+      "chores",
+      "power",
+      "cosmetic"
+    ],
+    "seed_scope": "campaign/week/night plus explicit attempt seed checkpoint",
+    "serialization": "每流保存独立32位状态（取高位映射避免低位短循环）；全部顾客、工单、入侵倒计时、同源货物暂放点在快照中保存。取消交互不重掷，恢复快照产生相同后缀。",
+    "first_raid_alarm_seconds": [
+      80,
+      100
+    ],
+    "raid_count_cap": 4,
+    "last_new_omen_second": 620,
+    "selection": "仅从地图与组合合同准入白名单抽取；首版一次一根。主解未终结则不排下一根。",
+    "delay_policy": "顾客疏散占真实路线时间；玩家拒绝服务、拒绝杂活或开关店门不能无限推迟入侵。不可达出口应在准入检查拒绝该布局。",
+    "activation_gate": "预兆时冻结待生成怪物与实体位置；实际顾客已全部离场且玩家距怪物初始实体至少5格才激活。有限参考控制器必要时实际行走到安全退避位，计真实路线时间；不瞬移、不在玩家脚下刷怪。",
+    "logical_keys": {
+      "format": "json.dumps([\"bc01\", night_id, category, ordinal],separators=(\",\",\":\"),ensure_ascii=False)",
+      "categories": [
+        "customer",
+        "order",
+        "raid"
+      ],
+      "ordinal": "本夜按确定性排程生成的1起序号",
+      "attempt_id_included": false,
+      "purpose": "顾客、订单和root的随机赠礼/落位来源稳定；实际支付/动作回执仍校验attempt，失败回滚不重抽"
+    }
+  },
+  "customers": {
+    "maximum_simultaneous": 1,
+    "maximum_completed_orders": 12,
+    "maximum_offers": 20,
+    "first_arrival_delay_seconds": [
+      3,
+      8
+    ],
+    "between_customers_after_exit_seconds": [
+      4,
+      10
+    ],
+    "arrival_stop_second": 675,
+    "movement_tiles_per_second": 2.4,
+    "safe_wait_patience_seconds": 45,
+    "checkout_base_seconds": 1.5,
+    "ordinary_pickup_base_seconds": 1.5,
+    "normal_customer_exits_before_raid": true,
+    "variants": [
+      {
+        "facility_id": "FR02",
+        "sku": "STORE_GROCERY",
+        "use_anchor": "goods_shelf",
+        "usage_kind": "goods_selected"
+      },
+      {
+        "facility_id": "FR03",
+        "sku": "STORE_HOT_MEAL",
+        "use_anchor": "hot_food",
+        "usage_kind": "hot_food_collected"
+      },
+      {
+        "facility_id": "FR04",
+        "sku": "STORE_FROZEN_GOOD",
+        "use_anchor": "customer_freezer",
+        "usage_kind": "frozen_goods_collected"
+      },
+      {
+        "facility_id": "FR05",
+        "sku": "STORE_DRINK",
+        "use_anchor": "cold_cabinet",
+        "usage_kind": "cold_drink_collected"
+      }
+    ],
+    "inventory": {
+      "owner": "employer_store_stock",
+      "initial_shelf_units_per_sku": 2,
+      "initial_warehouse_units": 12,
+      "shelf_capacity_per_sku": 4,
+      "restock_units": 2,
+      "player_personal_or_defense_stock": false,
+      "out_of_stock": "顾客只选实际有货SKU；全部缺货则本次来客真实离店，无订单或虚构设施使用。"
+    },
+    "rewards": {
+      "coin_per_paid_order": 6,
+      "xp_per_paid_order": 8,
+      "checkout_extra_chore_reward": 0
+    },
+    "facility_event": "先记录真实使用事实；付款成功后向设施模块提交FR01及该单实际用到的一项购物设施。已付款顾客本人抵达离店边界时，另提交FR10实际离店；未付款、纯路过、重复扫描、无正常人身份不会发设备充能。"
+  },
+  "chores": {
+    "only_phases": [
+      "BUSINESS",
+      "RECOVERY"
+    ],
+    "deadline_penalties": "取消旧每小时杂活扣工资规则。未做杂活只失去该工单奖励/相应库存或设备功能，不按追击时长扣钱；没有杂活欠债连锁。",
+    "interrupt": "预兆保存剩余基础手部进度；正搬运的雇主箱/清洁包用0.5秒真实放于当前位置非阻塞地面overlay，保留同source_item_id并释放双手。RAID激活必须无营业货物占手。恢复先真实走回同暂放点，用0.5秒拾起同原物，再继续余路/动作；不瞬移回仓、不重造物件。",
+    "random_floor_types": [
+      "water_mirror",
+      "blood",
+      "trash"
+    ],
+    "hazard_partition": "普通脏地、血迹、垃圾仅生成安全阶段工单。怪物当前规则所需湿路/镜面仍属该怪主解动作；清洁不是跨怪万能解，也不由玩家制造后领奖。",
+    "jobs": [
+      {
+        "kind": "restock",
+        "coin": 3,
+        "xp": 6,
+        "maximum_paid_per_night": 4,
+        "trigger": "真实商品库存降至1，按独立杂活随机流选择缺货SKU；同SKU最多一个待办",
+        "steps": [
+          {
+            "to": "storage_shelf",
+            "action": "take_employer_box",
+            "seconds": 1.5
+          },
+          {
+            "to": "selected_shelf",
+            "travel_speed": 2.4,
+            "action": "place_two_store_items",
+            "seconds": 3
+          }
+        ]
+      },
+      {
+        "kind": "receive_truck",
+        "coin": 6,
+        "xp": 10,
+        "maximum_paid_per_night": 2,
+        "trigger_world_seconds": [
+          [
+            150,
+            190
+          ],
+          [
+            455,
+            495
+          ]
+        ],
+        "unsafe_arrival_policy": "物流车留在场景外等待；下一安全窗口才停靠装卸位，没有限时收货惩罚。",
+        "steps": [
+          {
+            "to": "loading_bay",
+            "action": "verify_real_delivery",
+            "seconds": 2
+          },
+          {
+            "to": "receiving",
+            "travel_speed": 2.4,
+            "action": "accept_box",
+            "seconds": 2
+          },
+          {
+            "to": "storage_shelf",
+            "travel_speed": 2.4,
+            "action": "store_employer_box",
+            "seconds": 3
+          }
+        ],
+        "warehouse_units_granted": 8
+      },
+      {
+        "kind": "clean",
+        "coin": 3,
+        "xp": 6,
+        "maximum_paid_per_night": 3,
+        "trigger": "一次真实正常使用或已结束怪物遭遇留下的有限污迹实例；独立随机流决定种类和合法格，禁玩家自制污迹领奖",
+        "steps": [
+          {
+            "to": "mop_station",
+            "action": "take_cleaning_kit",
+            "seconds": 1
+          },
+          {
+            "to": "floor_markers",
+            "action": "clean_registered_patch",
+            "seconds": 3
+          },
+          {
+            "to": "waste_sort",
+            "action": "bag_registered_waste",
+            "seconds": 1.5
+          }
+        ]
+      },
+      {
+        "kind": "restore_power",
+        "coin": 4,
+        "xp": 8,
+        "maximum_paid_per_night": 4,
+        "trigger": "怪物造成实际1→0电力状态变化且有唯一outage_id",
+        "steps": [
+          {
+            "to": "power_panel",
+            "action": "reset_breaker",
+            "seconds": 2
+          }
+        ],
+        "manual_toggle_farms_reward": false,
+        "while_raid": "仅玩家主动的可选1秒战术拨闸；不列必做工单、不因不做扣工资；恢复回执仍按同一outage只付一次。安全窗口常规拉闸为2秒。"
+      }
+    ],
+    "receipt": [
+      "event_id",
+      "night_id",
+      "attempt_id",
+      "chore_id",
+      "kind",
+      "completed_at",
+      "duration_s",
+      "coin",
+      "xp",
+      "source_id",
+      "actual_action_receipts"
+    ],
+    "ledger": "Director只签发候选回执；root统一ledger按event_id exactly-once发钱和XP，失败回滚时与对应本夜状态一起还原。",
+    "blood_source_policy": {
+      "normal_customer_sources": [
+        "water_mirror",
+        "trash"
+      ],
+      "ghost_rule_leave_sources": [
+        "water_mirror",
+        "trash"
+      ],
+      "blood_source": "仅F13同根躯体经过真实defeated+hp_after=0终局后的一份登记清洁污迹",
+      "biological_owner": "同raid_id，绝不是player",
+      "is_player_wound": false,
+      "can_activate_blood_conditional_encounters": false,
+      "no_new_rng_draw_for_source_filter": true
+    }
+  },
+  "power": {
+    "electrical_appliance_buffs_during_blackout": false,
+    "electric_overload_during_blackout": false,
+    "ordinary_manual_base_solution_disabled": false,
+    "new_blackout_requires_unique_actual_monster_source": true,
+    "repeated_outage_while_already_off": "不再生成一次奖励；同一source不得反复触发领奖。",
+    "restoration": "成功2秒手部拉闸后提交0→1；不补发停电时的治疗/资源/电流过载。",
+    "director_modifier": {
+      "id": "BC01_GRID_SURGE",
+      "first_night": 3,
+      "probability_per_admitted_raid": 0.25,
+      "maximum_per_raid": 1,
+      "maximum_actual_outages_per_night": 2,
+      "random_stream": "power",
+      "forecast": "本次预兆明确提示电网不稳",
+      "windup_at_seconds_after_raid_start": 3,
+      "pulse_at_seconds_after_raid_start": 6,
+      "new_monster_root": false,
+      "extra_root_reward": false,
+      "source": "同一raid_id的电网扰动，不改写105怪原型身份",
+      "main_solution": "断电只停电器buff与电流过载，免费手动主解保留"
+    }
+  },
+  "settlement": {
+    "manual_handover_actions": 0,
+    "manager_authentication_required": false,
+    "time_and_threat_condition": "world_time >= 720 AND no unresolved critical root AND normal customers physically exited",
+    "ordinary_chores_required_to_survive": false,
+    "base_wage": 80,
+    "performance_bonus": "min(40, 2 * min(12, paid_orders) + 2 * min(8, paid_noncheckout_chores))",
+    "ticket": "成功自动结算发1张沿用周合同奖券；不以旧六小时工单数额外卡住。",
+    "genuine_monster_handover_rules": "F38/S43等怪物本身的身份、权限、门闩条件仍按其独立主解，不因取消普通交班仪式而自动完成。"
+  },
+  "p0_reference": {
+    "script": "scripts/bc01_director_reference.py",
+    "continuous_night": true,
+    "orders_derived_from_actual_routes_and_actions": true,
+    "customer_teleportation": false,
+    "snapshot_restore_replay": true,
+    "full_game_ai_or_input_client_implemented": false,
+    "combat_policy": "主解行动脚本仅提供明确有限参考；requires_combat_after_rule时必须外部战斗resolver/真实终局回执，无resolver则停在未解决威胁，不伪造击倒。",
+    "movement_rate": "普通player travel基础speed=3使用当前player_move_speed；明确speed<3的搬货2.4/任务肉2.6仅乘独立player_carry_multiplier（默认1）。普通Q14/I25等步速不自动提高搬运。BC01 FR05临时8%允许作用于实际步行搬运，FR12搬运10%与之同组取强，root设max(1,1.08 if FR05,1.10 if FR12)且不相乘。NPC/怪物不乘玩家倍率。"
+  }
+}

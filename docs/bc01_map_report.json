@@ -1,0 +1,3887 @@
+{
+  "version": "BC01",
+  "status": "passed",
+  "scope": "actual assembled grid/body/LOS, serial mechanism scheduling, fail-closed admission, SA02 response regressions; not full enemy AI or victory rate",
+  "counts": {
+    "passed": 391,
+    "failed": 0,
+    "placed_operation_roles": 78,
+    "admission_catalog": 105,
+    "geometry_reference_cases": 12,
+    "director_reference_cases": 11,
+    "blocked_cases": 93,
+    "unordered_pair_guard_cases": 5460,
+    "conditional_pairs_allowed": 2,
+    "one_cell_temporary_placements": 10,
+    "two_cell_rotated_placements": 16
+  },
+  "anchor_routes": [
+    {
+      "role": "cashier",
+      "position": [
+        6.5,
+        26.5
+      ],
+      "distance_from_player_start": 0
+    },
+    {
+      "role": "safe_counter",
+      "position": [
+        7.5,
+        27.5
+      ],
+      "distance_from_player_start": 2.0
+    },
+    {
+      "role": "customer_wait",
+      "position": [
+        6.5,
+        22.5
+      ],
+      "distance_from_player_start": 10.0
+    },
+    {
+      "role": "verification_desk",
+      "position": [
+        25.5,
+        27.5
+      ],
+      "distance_from_player_start": 22.0
+    },
+    {
+      "role": "pickup_shelf",
+      "position": [
+        19.5,
+        25.5
+      ],
+      "distance_from_player_start": 14.0
+    },
+    {
+      "role": "goods_shelf",
+      "position": [
+        6.5,
+        15.5
+      ],
+      "distance_from_player_start": 17.0
+    },
+    {
+      "role": "metal_shelf",
+      "position": [
+        13.5,
+        17.5
+      ],
+      "distance_from_player_start": 16.0
+    },
+    {
+      "role": "hot_food",
+      "position": [
+        21.5,
+        15.5
+      ],
+      "distance_from_player_start": 26.0
+    },
+    {
+      "role": "sink",
+      "position": [
+        27.5,
+        11.5
+      ],
+      "distance_from_player_start": 36.0
+    },
+    {
+      "role": "cold_cabinet",
+      "position": [
+        26.5,
+        18.5
+      ],
+      "distance_from_player_start": 28.0
+    },
+    {
+      "role": "freezer_main",
+      "position": [
+        26.5,
+        14.5
+      ],
+      "distance_from_player_start": 32.0
+    },
+    {
+      "role": "freezer_backup",
+      "position": [
+        26.5,
+        19.5
+      ],
+      "distance_from_player_start": 27.0
+    },
+    {
+      "role": "warehouse_meat",
+      "position": [
+        16.5,
+        4.5
+      ],
+      "distance_from_player_start": 34.0
+    },
+    {
+      "role": "receiving",
+      "position": [
+        23.5,
+        3.5
+      ],
+      "distance_from_player_start": 40.0
+    },
+    {
+      "role": "packing",
+      "position": [
+        17.5,
+        6.5
+      ],
+      "distance_from_player_start": 33.0
+    },
+    {
+      "role": "storage_shelf",
+      "position": [
+        17.5,
+        3.5
+      ],
+      "distance_from_player_start": 36.0
+    },
+    {
+      "role": "isolation_cage",
+      "position": [
+        25.5,
+        5.5
+      ],
+      "distance_from_player_start": 40.0
+    },
+    {
+      "role": "lost_property",
+      "position": [
+        12.5,
+        27.5
+      ],
+      "distance_from_player_start": 9.0
+    },
+    {
+      "role": "staff_desk",
+      "position": [
+        4.5,
+        3.5
+      ],
+      "distance_from_player_start": 31.0
+    },
+    {
+      "role": "rest_chair",
+      "position": [
+        4.5,
+        6.5
+      ],
+      "distance_from_player_start": 28.0
+    },
+    {
+      "role": "staff_locker",
+      "position": [
+        8.5,
+        3.5
+      ],
+      "distance_from_player_start": 31.0
+    },
+    {
+      "role": "break_table",
+      "position": [
+        8.5,
+        8.5
+      ],
+      "distance_from_player_start": 22.0
+    },
+    {
+      "role": "monitor_terminal",
+      "position": [
+        2.5,
+        3.5
+      ],
+      "distance_from_player_start": 33.0
+    },
+    {
+      "role": "power_panel",
+      "position": [
+        11.5,
+        3.5
+      ],
+      "distance_from_player_start": 30.0
+    },
+    {
+      "role": "mop_station",
+      "position": [
+        20.5,
+        7.5
+      ],
+      "distance_from_player_start": 35.0
+    },
+    {
+      "role": "waste_sort",
+      "position": [
+        25.5,
+        7.5
+      ],
+      "distance_from_player_start": 38.0
+    },
+    {
+      "role": "dumpster",
+      "position": [
+        24.5,
+        -5.5
+      ],
+      "distance_from_player_start": 54.0
+    },
+    {
+      "role": "forecourt_handoff",
+      "position": [
+        20.5,
+        33.5
+      ],
+      "distance_from_player_start": 21.0
+    },
+    {
+      "role": "loading_bay",
+      "position": [
+        31.5,
+        -2.5
+      ],
+      "distance_from_player_start": 54.0
+    },
+    {
+      "role": "rear_threshold",
+      "position": [
+        27.5,
+        -1.5
+      ],
+      "distance_from_player_start": 49.0
+    },
+    {
+      "role": "street_boundary",
+      "position": [
+        15.5,
+        37.5
+      ],
+      "distance_from_player_start": 20.0
+    },
+    {
+      "role": "front_door",
+      "position": [
+        15.5,
+        28.5
+      ],
+      "distance_from_player_start": 11.0
+    },
+    {
+      "role": "rear_door",
+      "position": [
+        27.5,
+        1.5
+      ],
+      "distance_from_player_start": 46.0
+    },
+    {
+      "role": "front_exit",
+      "position": [
+        14.5,
+        33.5
+      ],
+      "distance_from_player_start": 15.0
+    },
+    {
+      "role": "rear_exit",
+      "position": [
+        27.5,
+        -4.5
+      ],
+      "distance_from_player_start": 52.0
+    },
+    {
+      "role": "convex_mirror",
+      "position": [
+        19.5,
+        22.5
+      ],
+      "distance_from_player_start": 17.0
+    },
+    {
+      "role": "reserve_seat",
+      "position": [
+        5.5,
+        21.5
+      ],
+      "distance_from_player_start": 12.0
+    },
+    {
+      "role": "construction_zone",
+      "position": [
+        10.5,
+        21.5
+      ],
+      "distance_from_player_start": 9.0
+    },
+    {
+      "role": "drain_channel",
+      "position": [
+        28.5,
+        -5.5
+      ],
+      "distance_from_player_start": 54.0
+    },
+    {
+      "role": "water_valve",
+      "position": [
+        28.5,
+        11.5
+      ],
+      "distance_from_player_start": 37.0
+    },
+    {
+      "role": "aisle_loop",
+      "position": [
+        8.5,
+        19.5
+      ],
+      "distance_from_player_start": 11.0
+    },
+    {
+      "role": "floor_markers",
+      "position": [
+        14.5,
+        19.5
+      ],
+      "distance_from_player_start": 15.0
+    },
+    {
+      "role": "player_start",
+      "position": [
+        6.5,
+        26.5
+      ],
+      "distance_from_player_start": 0
+    },
+    {
+      "role": "customer_spawn",
+      "position": [
+        15.5,
+        37.5
+      ],
+      "distance_from_player_start": 20.0
+    },
+    {
+      "role": "customer_exit",
+      "position": [
+        15.5,
+        37.5
+      ],
+      "distance_from_player_start": 20.0
+    },
+    {
+      "role": "customer_checkout",
+      "position": [
+        6.5,
+        22.5
+      ],
+      "distance_from_player_start": 10.0
+    },
+    {
+      "role": "customer_freezer",
+      "position": [
+        24.5,
+        14.5
+      ],
+      "distance_from_player_start": 30.0
+    },
+    {
+      "role": "public_supplies",
+      "position": [
+        22.5,
+        21.5
+      ],
+      "distance_from_player_start": 21.0
+    },
+    {
+      "role": "customer_return",
+      "position": [
+        23.5,
+        23.5
+      ],
+      "distance_from_player_start": 20.0
+    },
+    {
+      "role": "lucky_receipt",
+      "position": [
+        25.5,
+        21.5
+      ],
+      "distance_from_player_start": 24.0
+    },
+    {
+      "role": "security",
+      "position": [
+        2.5,
+        3.5
+      ],
+      "distance_from_player_start": 33.0
+    },
+    {
+      "role": "cleaning",
+      "position": [
+        20.5,
+        7.5
+      ],
+      "distance_from_player_start": 35.0
+    },
+    {
+      "role": "mirror_station",
+      "position": [
+        19.5,
+        22.5
+      ],
+      "distance_from_player_start": 17.0
+    },
+    {
+      "role": "clean_water",
+      "position": [
+        24.5,
+        11.5
+      ],
+      "distance_from_player_start": 33.0
+    },
+    {
+      "role": "clean_mirror_water",
+      "position": [
+        7.5,
+        17.5
+      ],
+      "distance_from_player_start": 14.0
+    },
+    {
+      "role": "clean_blood",
+      "position": [
+        11.5,
+        23.5
+      ],
+      "distance_from_player_start": 8.0
+    },
+    {
+      "role": "clean_trash",
+      "position": [
+        17.5,
+        23.5
+      ],
+      "distance_from_player_start": 14.0
+    },
+    {
+      "role": "cold_cut",
+      "position": [
+        24.5,
+        11.5
+      ],
+      "distance_from_player_start": 33.0
+    },
+    {
+      "role": "cold_dry_slot",
+      "position": [
+        25.5,
+        11.5
+      ],
+      "distance_from_player_start": 34.0
+    },
+    {
+      "role": "infrared_window",
+      "position": [
+        7.5,
+        19.5
+      ],
+      "distance_from_player_start": 12.0
+    },
+    {
+      "role": "wave_screen",
+      "position": [
+        8.5,
+        19.5
+      ],
+      "distance_from_player_start": 11.0
+    },
+    {
+      "role": "infrared_gate",
+      "position": [
+        9.5,
+        19.5
+      ],
+      "distance_from_player_start": 10.0
+    },
+    {
+      "role": "infrared_lure",
+      "position": [
+        9.5,
+        21.5
+      ],
+      "distance_from_player_start": 8.0
+    },
+    {
+      "role": "s29_light_control",
+      "position": [
+        6.5,
+        15.5
+      ],
+      "distance_from_player_start": 17.0
+    },
+    {
+      "role": "s29_target",
+      "position": [
+        8.5,
+        15.5
+      ],
+      "distance_from_player_start": 15.0
+    },
+    {
+      "role": "s29_dodge",
+      "position": [
+        9.5,
+        16.5
+      ],
+      "distance_from_player_start": 13.0
+    },
+    {
+      "role": "paper_load",
+      "position": [
+        25.5,
+        3.5
+      ],
+      "distance_from_player_start": 42.0
+    },
+    {
+      "role": "paper_take",
+      "position": [
+        27.5,
+        2.5
+      ],
+      "distance_from_player_start": 45.0
+    },
+    {
+      "role": "paper_wait",
+      "position": [
+        23.5,
+        3.5
+      ],
+      "distance_from_player_start": 40.0
+    },
+    {
+      "role": "s43_panel",
+      "position": [
+        2.5,
+        3.5
+      ],
+      "distance_from_player_start": 33.0
+    },
+    {
+      "role": "s43_latch",
+      "position": [
+        27.5,
+        1.5
+      ],
+      "distance_from_player_start": 46.0
+    },
+    {
+      "role": "s43_exit",
+      "position": [
+        27.5,
+        -4.5
+      ],
+      "distance_from_player_start": 52.0
+    },
+    {
+      "role": "parcel_guest_start",
+      "position": [
+        19.5,
+        22.5
+      ],
+      "distance_from_player_start": 17.0
+    },
+    {
+      "role": "parcel_retreat",
+      "position": [
+        15.5,
+        25.5
+      ],
+      "distance_from_player_start": 10.0
+    },
+    {
+      "role": "sound_side",
+      "position": [
+        17.5,
+        6.5
+      ],
+      "distance_from_player_start": 33.0
+    },
+    {
+      "role": "sound_safe",
+      "position": [
+        21.5,
+        6.5
+      ],
+      "distance_from_player_start": 35.0
+    },
+    {
+      "role": "combat_target",
+      "position": [
+        7.5,
+        22.5
+      ],
+      "distance_from_player_start": 9.0
+    },
+    {
+      "role": "combat_player",
+      "position": [
+        10.5,
+        22.5
+      ],
+      "distance_from_player_start": 8.0
+    }
+  ],
+  "customer_routes": [
+    {
+      "service_role": "customer_spawn",
+      "travel_distance": 48.0,
+      "travel_seconds_at_2_4": 20.0,
+      "evacuation_distance": 0
+    },
+    {
+      "service_role": "customer_exit",
+      "travel_distance": 48.0,
+      "travel_seconds_at_2_4": 20.0,
+      "evacuation_distance": 0
+    },
+    {
+      "service_role": "customer_checkout",
+      "travel_distance": 48.0,
+      "travel_seconds_at_2_4": 20.0,
+      "evacuation_distance": 24.0
+    },
+    {
+      "service_role": "goods_shelf",
+      "travel_distance": 62.0,
+      "travel_seconds_at_2_4": 25.833333,
+      "evacuation_distance": 31.0
+    },
+    {
+      "service_role": "hot_food",
+      "travel_distance": 74.0,
+      "travel_seconds_at_2_4": 30.833333,
+      "evacuation_distance": 28.0
+    },
+    {
+      "service_role": "customer_freezer",
+      "travel_distance": 82.0,
+      "travel_seconds_at_2_4": 34.166667,
+      "evacuation_distance": 32.0
+    },
+    {
+      "service_role": "cold_cabinet",
+      "travel_distance": 78.0,
+      "travel_seconds_at_2_4": 32.5,
+      "evacuation_distance": 30.0
+    },
+    {
+      "service_role": "verification_desk",
+      "travel_distance": 68.0,
+      "travel_seconds_at_2_4": 28.333333,
+      "evacuation_distance": 20.0
+    },
+    {
+      "service_role": "pickup_shelf",
+      "travel_distance": 56.0,
+      "travel_seconds_at_2_4": 23.333333,
+      "evacuation_distance": 16.0
+    },
+    {
+      "service_role": "public_supplies",
+      "travel_distance": 64.0,
+      "travel_seconds_at_2_4": 26.666667,
+      "evacuation_distance": 23.0
+    },
+    {
+      "service_role": "customer_return",
+      "travel_distance": 64.0,
+      "travel_seconds_at_2_4": 26.666667,
+      "evacuation_distance": 22.0
+    },
+    {
+      "service_role": "lucky_receipt",
+      "travel_distance": 72.0,
+      "travel_seconds_at_2_4": 30.0,
+      "evacuation_distance": 26.0
+    }
+  ],
+  "work_routes": [
+    {
+      "job": "restock",
+      "legs": [
+        {
+          "from": "cashier",
+          "to": "storage_shelf",
+          "distance": 36.0,
+          "speed": 3,
+          "seconds": 12.0
+        },
+        {
+          "from": "storage_shelf",
+          "to": "goods_shelf",
+          "distance": 23.0,
+          "speed": 2.4,
+          "seconds": 9.583333333333334
+        },
+        {
+          "from": "goods_shelf",
+          "to": "cashier",
+          "distance": 17.0,
+          "speed": 3,
+          "seconds": 5.666666666666667
+        }
+      ],
+      "travel_seconds": 27.25,
+      "action_seconds_included": false,
+      "ordinary_job_states": [
+        "BUSINESS",
+        "RECOVERY"
+      ]
+    },
+    {
+      "job": "truck_unload",
+      "legs": [
+        {
+          "from": "cashier",
+          "to": "loading_bay",
+          "distance": 54.0,
+          "speed": 3,
+          "seconds": 18.0
+        },
+        {
+          "from": "loading_bay",
+          "to": "receiving",
+          "distance": 14.0,
+          "speed": 2.4,
+          "seconds": 5.833333333333334
+        },
+        {
+          "from": "receiving",
+          "to": "storage_shelf",
+          "distance": 6.0,
+          "speed": 2.4,
+          "seconds": 2.5
+        },
+        {
+          "from": "storage_shelf",
+          "to": "cashier",
+          "distance": 36.0,
+          "speed": 3,
+          "seconds": 12.0
+        }
+      ],
+      "travel_seconds": 38.333333,
+      "action_seconds_included": false,
+      "ordinary_job_states": [
+        "BUSINESS",
+        "RECOVERY"
+      ]
+    },
+    {
+      "job": "water_clean",
+      "legs": [
+        {
+          "from": "cashier",
+          "to": "mop_station",
+          "distance": 35.0,
+          "speed": 3,
+          "seconds": 11.666666666666666
+        },
+        {
+          "from": "mop_station",
+          "to": "clean_water",
+          "distance": 8.0,
+          "speed": 3,
+          "seconds": 2.6666666666666665
+        },
+        {
+          "from": "clean_water",
+          "to": "waste_sort",
+          "distance": 5.0,
+          "speed": 3,
+          "seconds": 1.6666666666666667
+        },
+        {
+          "from": "waste_sort",
+          "to": "cashier",
+          "distance": 38.0,
+          "speed": 3,
+          "seconds": 12.666666666666666
+        }
+      ],
+      "travel_seconds": 28.666667,
+      "action_seconds_included": false,
+      "ordinary_job_states": [
+        "BUSINESS",
+        "RECOVERY"
+      ]
+    },
+    {
+      "job": "mirror_water_clean",
+      "legs": [
+        {
+          "from": "cashier",
+          "to": "mop_station",
+          "distance": 35.0,
+          "speed": 3,
+          "seconds": 11.666666666666666
+        },
+        {
+          "from": "mop_station",
+          "to": "clean_mirror_water",
+          "distance": 25.0,
+          "speed": 3,
+          "seconds": 8.333333333333334
+        },
+        {
+          "from": "clean_mirror_water",
+          "to": "waste_sort",
+          "distance": 28.0,
+          "speed": 3,
+          "seconds": 9.333333333333334
+        },
+        {
+          "from": "waste_sort",
+          "to": "cashier",
+          "distance": 38.0,
+          "speed": 3,
+          "seconds": 12.666666666666666
+        }
+      ],
+      "travel_seconds": 42.0,
+      "action_seconds_included": false,
+      "ordinary_job_states": [
+        "BUSINESS",
+        "RECOVERY"
+      ]
+    },
+    {
+      "job": "blood_clean",
+      "legs": [
+        {
+          "from": "cashier",
+          "to": "mop_station",
+          "distance": 35.0,
+          "speed": 3,
+          "seconds": 11.666666666666666
+        },
+        {
+          "from": "mop_station",
+          "to": "clean_blood",
+          "distance": 27.0,
+          "speed": 3,
+          "seconds": 9.0
+        },
+        {
+          "from": "clean_blood",
+          "to": "waste_sort",
+          "distance": 30.0,
+          "speed": 3,
+          "seconds": 10.0
+        },
+        {
+          "from": "waste_sort",
+          "to": "cashier",
+          "distance": 38.0,
+          "speed": 3,
+          "seconds": 12.666666666666666
+        }
+      ],
+      "travel_seconds": 43.333333,
+      "action_seconds_included": false,
+      "ordinary_job_states": [
+        "BUSINESS",
+        "RECOVERY"
+      ]
+    },
+    {
+      "job": "trash_clean",
+      "legs": [
+        {
+          "from": "cashier",
+          "to": "mop_station",
+          "distance": 35.0,
+          "speed": 3,
+          "seconds": 11.666666666666666
+        },
+        {
+          "from": "mop_station",
+          "to": "clean_trash",
+          "distance": 21.0,
+          "speed": 3,
+          "seconds": 7.0
+        },
+        {
+          "from": "clean_trash",
+          "to": "waste_sort",
+          "distance": 24.0,
+          "speed": 3,
+          "seconds": 8.0
+        },
+        {
+          "from": "waste_sort",
+          "to": "cashier",
+          "distance": 38.0,
+          "speed": 3,
+          "seconds": 12.666666666666666
+        }
+      ],
+      "travel_seconds": 39.333333,
+      "action_seconds_included": false,
+      "ordinary_job_states": [
+        "BUSINESS",
+        "RECOVERY"
+      ]
+    },
+    {
+      "job": "breaker_reset",
+      "legs": [
+        {
+          "from": "cashier",
+          "to": "power_panel",
+          "distance": 30.0,
+          "speed": 3,
+          "seconds": 10.0
+        },
+        {
+          "from": "power_panel",
+          "to": "cashier",
+          "distance": 30.0,
+          "speed": 3,
+          "seconds": 10.0
+        }
+      ],
+      "travel_seconds": 20.0,
+      "action_seconds_included": false,
+      "ordinary_job_states": [
+        "BUSINESS",
+        "RECOVERY"
+      ]
+    },
+    {
+      "job": "trash_to_dumpster",
+      "legs": [
+        {
+          "from": "waste_sort",
+          "to": "dumpster",
+          "distance": 16.0,
+          "speed": 2.4,
+          "seconds": 6.666666666666667
+        }
+      ],
+      "travel_seconds": 6.666667,
+      "action_seconds_included": false,
+      "ordinary_job_states": [
+        "BUSINESS",
+        "RECOVERY"
+      ]
+    },
+    {
+      "job": "free_task_meat",
+      "legs": [
+        {
+          "from": "warehouse_meat",
+          "to": "freezer_main",
+          "distance": 20.0,
+          "speed": 2.6,
+          "seconds": 7.692307692307692
+        }
+      ],
+      "travel_seconds": 7.692308,
+      "action_seconds_included": false,
+      "ordinary_job_states": [
+        "RAID"
+      ]
+    }
+  ],
+  "finite_encounter_plans": [
+    {
+      "monster_id": "F01",
+      "first_night": 1,
+      "terminal_kind": "rule_weaken",
+      "travel_seconds": 35.939394,
+      "manual_seconds": 7,
+      "true_wait_seconds": 0,
+      "minimum_serial_reference_seconds_before_combat": 42.939394,
+      "travel_legs": [
+        {
+          "actor": "player",
+          "from": "player_start",
+          "to": "receiving",
+          "distance": 40.0,
+          "seconds": 13.333333333333334
+        },
+        {
+          "actor": "player",
+          "from": "receiving",
+          "to": "packing",
+          "distance": 9.0,
+          "seconds": 3.0
+        },
+        {
+          "actor": "player",
+          "from": "packing",
+          "to": "packing",
+          "distance": 0,
+          "seconds": 0.0
+        },
+        {
+          "actor": "player",
+          "from": "packing",
+          "to": "combat_player",
+          "distance": 27.0,
+          "seconds": 9.0
+        },
+        {
+          "actor": "monster",
+          "from": [
+            24.5,
+            4.5
+          ],
+          "to": "combat_target",
+          "distance": 35.0,
+          "seconds": 10.606060606060607
+        }
+      ],
+      "combat_required": true,
+      "runtime_ai_verified": false
+    },
+    {
+      "monster_id": "F05",
+      "first_night": 1,
+      "terminal_kind": "rule_weaken",
+      "travel_seconds": 35.473684,
+      "manual_seconds": 4.7,
+      "true_wait_seconds": 0.2,
+      "minimum_serial_reference_seconds_before_combat": 40.373684,
+      "travel_legs": [
+        {
+          "actor": "player",
+          "from": "player_start",
+          "to": "mop_station",
+          "distance": 35.0,
+          "seconds": 11.666666666666666
+        },
+        {
+          "actor": "player",
+          "from": "mop_station",
+          "to": "water_valve",
+          "distance": 12.0,
+          "seconds": 4.0
+        },
+        {
+          "actor": "player",
+          "from": "water_valve",
+          "to": "cold_cut",
+          "distance": 4.0,
+          "seconds": 1.3333333333333333
+        },
+        {
+          "actor": "player",
+          "from": "cold_cut",
+          "to": "cold_cut",
+          "distance": 0,
+          "seconds": 0.0
+        },
+        {
+          "actor": "player",
+          "from": "cold_cut",
+          "to": "cold_dry_slot",
+          "distance": 1.0,
+          "seconds": 0.3333333333333333
+        },
+        {
+          "actor": "player",
+          "from": "cold_dry_slot",
+          "to": "cold_dry_slot",
+          "distance": 0,
+          "seconds": 0.0
+        },
+        {
+          "actor": "player",
+          "from": "cold_dry_slot",
+          "to": "combat_player",
+          "distance": 26.0,
+          "seconds": 8.666666666666666
+        },
+        {
+          "actor": "monster",
+          "from": [
+            23.5,
+            11.5
+          ],
+          "to": "combat_target",
+          "distance": 27.0,
+          "seconds": 9.473684210526315
+        }
+      ],
+      "combat_required": true,
+      "runtime_ai_verified": false
+    },
+    {
+      "monster_id": "F12",
+      "first_night": 3,
+      "terminal_kind": "rule_weaken",
+      "travel_seconds": 11.493827,
+      "manual_seconds": 1.25,
+      "true_wait_seconds": 1.5,
+      "minimum_serial_reference_seconds_before_combat": 14.243827,
+      "travel_legs": [
+        {
+          "actor": "player",
+          "from": "player_start",
+          "to": "metal_shelf",
+          "distance": 16.0,
+          "seconds": 5.333333333333333
+        },
+        {
+          "actor": "player",
+          "from": "metal_shelf",
+          "to": "aisle_loop",
+          "distance": 7.0,
+          "seconds": 2.3333333333333335
+        },
+        {
+          "actor": "monster",
+          "from": [
+            8.5,
+            22.5
+          ],
+          "to": "aisle_loop",
+          "distance": 3.0,
+          "seconds": 0.9259259259259258
+        },
+        {
+          "actor": "player",
+          "from": "aisle_loop",
+          "to": "combat_player",
+          "distance": 5.0,
+          "seconds": 1.6666666666666667
+        },
+        {
+          "actor": "monster",
+          "from": "aisle_loop",
+          "to": "combat_target",
+          "distance": 4.0,
+          "seconds": 1.2345679012345678
+        }
+      ],
+      "combat_required": true,
+      "runtime_ai_verified": false
+    },
+    {
+      "monster_id": "F13",
+      "first_night": 2,
+      "terminal_kind": "kill_unlocked",
+      "travel_seconds": 42.358974,
+      "manual_seconds": 1.2,
+      "true_wait_seconds": 0,
+      "minimum_serial_reference_seconds_before_combat": 43.558974,
+      "travel_legs": [
+        {
+          "actor": "player",
+          "from": "player_start",
+          "to": "warehouse_meat",
+          "distance": 34.0,
+          "seconds": 11.333333333333334
+        },
+        {
+          "actor": "player",
+          "from": "warehouse_meat",
+          "to": "freezer_main",
+          "distance": 20.0,
+          "seconds": 7.692307692307692
+        },
+        {
+          "actor": "player",
+          "from": "freezer_main",
+          "to": "combat_player",
+          "distance": 24.0,
+          "seconds": 8.0
+        },
+        {
+          "actor": "monster",
+          "from": [
+            27.5,
+            -3.5
+          ],
+          "to": "combat_target",
+          "distance": 46.0,
+          "seconds": 15.333333333333334
+        }
+      ],
+      "combat_required": true,
+      "runtime_ai_verified": false
+    },
+    {
+      "monster_id": "F17",
+      "first_night": 1,
+      "terminal_kind": "rule_leave",
+      "travel_seconds": 11.757576,
+      "manual_seconds": 3.5,
+      "true_wait_seconds": 2,
+      "minimum_serial_reference_seconds_before_combat": 17.257576,
+      "travel_legs": [
+        {
+          "actor": "player",
+          "from": "player_start",
+          "to": "pickup_shelf",
+          "distance": 14.0,
+          "seconds": 4.666666666666667
+        },
+        {
+          "actor": "player",
+          "from": "pickup_shelf",
+          "to": "parcel_retreat",
+          "distance": 4.0,
+          "seconds": 1.3333333333333333
+        },
+        {
+          "actor": "monster",
+          "from": "parcel_guest_start",
+          "to": "pickup_shelf",
+          "distance": 3.0,
+          "seconds": 0.9090909090909092
+        },
+        {
+          "actor": "monster",
+          "from": "pickup_shelf",
+          "to": "customer_exit",
+          "distance": 16.0,
+          "seconds": 4.848484848484849
+        }
+      ],
+      "combat_required": false,
+      "runtime_ai_verified": false
+    },
+    {
+      "monster_id": "F60",
+      "first_night": 4,
+      "terminal_kind": "rule_weaken",
+      "travel_seconds": 12.909091,
+      "manual_seconds": 3.5,
+      "true_wait_seconds": 11.5,
+      "minimum_serial_reference_seconds_before_combat": 27.909091,
+      "travel_legs": [
+        {
+          "actor": "player",
+          "from": "player_start",
+          "to": "convex_mirror",
+          "distance": 17.0,
+          "seconds": 5.666666666666667
+        },
+        {
+          "actor": "player",
+          "from": "convex_mirror",
+          "to": "combat_player",
+          "distance": 9.0,
+          "seconds": 3.0
+        },
+        {
+          "actor": "monster",
+          "from": [
+            21.5,
+            22.5
+          ],
+          "to": "combat_target",
+          "distance": 14.0,
+          "seconds": 4.242424242424242
+        }
+      ],
+      "combat_required": true,
+      "runtime_ai_verified": false
+    },
+    {
+      "monster_id": "S09",
+      "first_night": 3,
+      "terminal_kind": "rule_weaken",
+      "travel_seconds": 9.140399,
+      "manual_seconds": 3,
+      "true_wait_seconds": 0,
+      "minimum_serial_reference_seconds_before_combat": 12.140399,
+      "travel_legs": [
+        {
+          "actor": "player",
+          "from": "player_start",
+          "to": "infrared_window",
+          "distance": 12.0,
+          "seconds": 4.0
+        },
+        {
+          "actor": "player",
+          "from": "infrared_window",
+          "to": "wave_screen",
+          "distance": 1.0,
+          "seconds": 0.3333333333333333
+        },
+        {
+          "actor": "player",
+          "from": "wave_screen",
+          "to": "infrared_lure",
+          "distance": 3.0,
+          "seconds": 1.0
+        },
+        {
+          "actor": "monster",
+          "from": [
+            9.5,
+            18.5
+          ],
+          "to": "infrared_lure",
+          "distance": 3.0,
+          "seconds": 0.8695652173913043
+        },
+        {
+          "actor": "player",
+          "from": "infrared_lure",
+          "to": "infrared_gate",
+          "distance": 2.0,
+          "seconds": 0.6666666666666666
+        },
+        {
+          "actor": "player",
+          "from": "infrared_gate",
+          "to": "combat_player",
+          "distance": 4.0,
+          "seconds": 1.3333333333333333
+        },
+        {
+          "actor": "monster",
+          "from": "infrared_lure",
+          "to": "combat_target",
+          "distance": 3.0,
+          "seconds": 0.9375
+        }
+      ],
+      "combat_required": true,
+      "runtime_ai_verified": false
+    },
+    {
+      "monster_id": "S29",
+      "first_night": 4,
+      "terminal_kind": "rule_weaken",
+      "travel_seconds": 12.0,
+      "manual_seconds": 1.8,
+      "true_wait_seconds": 4,
+      "minimum_serial_reference_seconds_before_combat": 17.8,
+      "travel_legs": [
+        {
+          "actor": "player",
+          "from": "player_start",
+          "to": "s29_light_control",
+          "distance": 17.0,
+          "seconds": 5.666666666666667
+        },
+        {
+          "actor": "player",
+          "from": "s29_light_control",
+          "to": "s29_dodge",
+          "distance": 4.0,
+          "seconds": 1.3333333333333333
+        },
+        {
+          "actor": "player",
+          "from": "s29_dodge",
+          "to": "combat_player",
+          "distance": 7.0,
+          "seconds": 2.3333333333333335
+        },
+        {
+          "actor": "monster",
+          "from": [
+            8.5,
+            15.5
+          ],
+          "to": "combat_target",
+          "distance": 8.0,
+          "seconds": 2.6666666666666665
+        }
+      ],
+      "combat_required": true,
+      "runtime_ai_verified": false
+    },
+    {
+      "monster_id": "S34",
+      "first_night": 3,
+      "terminal_kind": "rule_leave",
+      "travel_seconds": 11.0,
+      "manual_seconds": 3.0,
+      "true_wait_seconds": 6,
+      "minimum_serial_reference_seconds_before_combat": 20.0,
+      "travel_legs": [
+        {
+          "actor": "player",
+          "from": "player_start",
+          "to": "sound_side",
+          "distance": 33.0,
+          "seconds": 11.0
+        }
+      ],
+      "combat_required": false,
+      "runtime_ai_verified": false
+    },
+    {
+      "monster_id": "S38",
+      "first_night": 2,
+      "terminal_kind": "rule_leave",
+      "travel_seconds": 7.333333,
+      "manual_seconds": 2.1,
+      "true_wait_seconds": 0,
+      "minimum_serial_reference_seconds_before_combat": 9.433333,
+      "travel_legs": [
+        {
+          "actor": "player",
+          "from": "player_start",
+          "to": "verification_desk",
+          "distance": 22.0,
+          "seconds": 7.333333333333333
+        },
+        {
+          "actor": "player",
+          "from": "verification_desk",
+          "to": "verification_desk",
+          "distance": 0,
+          "seconds": 0.0
+        },
+        {
+          "actor": "player",
+          "from": "verification_desk",
+          "to": "verification_desk",
+          "distance": 0,
+          "seconds": 0.0
+        }
+      ],
+      "combat_required": false,
+      "runtime_ai_verified": false
+    },
+    {
+      "monster_id": "S40",
+      "first_night": 6,
+      "terminal_kind": "rule_leave",
+      "travel_seconds": 18.666667,
+      "manual_seconds": 2.6,
+      "true_wait_seconds": 3.0,
+      "minimum_serial_reference_seconds_before_combat": 24.266667,
+      "travel_legs": [
+        {
+          "actor": "player",
+          "from": "player_start",
+          "to": "cashier",
+          "distance": 0,
+          "seconds": 0.0
+        },
+        {
+          "actor": "player",
+          "from": "cashier",
+          "to": "packing",
+          "distance": 33.0,
+          "seconds": 11.0
+        },
+        {
+          "actor": "player",
+          "from": "packing",
+          "to": "paper_load",
+          "distance": 11.0,
+          "seconds": 3.6666666666666665
+        },
+        {
+          "actor": "player",
+          "from": "paper_load",
+          "to": "paper_wait",
+          "distance": 2.0,
+          "seconds": 0.6666666666666666
+        },
+        {
+          "actor": "monster",
+          "from": "rear_threshold",
+          "to": "paper_take",
+          "distance": 4.0,
+          "seconds": 1.2121212121212122
+        },
+        {
+          "actor": "monster",
+          "from": "paper_take",
+          "to": "rear_exit",
+          "distance": 7.0,
+          "seconds": 2.121212121212121
+        }
+      ],
+      "combat_required": false,
+      "runtime_ai_verified": false
+    },
+    {
+      "monster_id": "S43",
+      "first_night": 4,
+      "terminal_kind": "rule_leave",
+      "travel_seconds": 34.30303,
+      "manual_seconds": 2.8,
+      "true_wait_seconds": 3,
+      "minimum_serial_reference_seconds_before_combat": 40.10303,
+      "travel_legs": [
+        {
+          "actor": "player",
+          "from": "player_start",
+          "to": "receiving",
+          "distance": 40.0,
+          "seconds": 13.333333333333334
+        },
+        {
+          "actor": "player",
+          "from": "receiving",
+          "to": "s43_panel",
+          "distance": 23.0,
+          "seconds": 7.666666666666667
+        },
+        {
+          "actor": "monster",
+          "from": "receiving",
+          "to": "s43_exit",
+          "distance": 12.0,
+          "seconds": 3.6363636363636367
+        },
+        {
+          "actor": "player",
+          "from": "s43_panel",
+          "to": "s43_latch",
+          "distance": 29.0,
+          "seconds": 9.666666666666666
+        }
+      ],
+      "combat_required": false,
+      "runtime_ai_verified": false
+    }
+  ],
+  "existing_tower_projection_noninterference": [
+    {
+      "anchor": "TA01",
+      "distance_to_new_fixture": 20.796634343085422,
+      "existing_effective_radius": 2.225,
+      "unaffected": true
+    },
+    {
+      "anchor": "TA02",
+      "distance_to_new_fixture": 18.66815470259447,
+      "existing_effective_radius": 2.225,
+      "unaffected": true
+    },
+    {
+      "anchor": "TA03",
+      "distance_to_new_fixture": 12.020815280171307,
+      "existing_effective_radius": 1.6,
+      "unaffected": true
+    },
+    {
+      "anchor": "TA04",
+      "distance_to_new_fixture": 11.76860229593982,
+      "existing_effective_radius": 1.975,
+      "unaffected": true
+    },
+    {
+      "anchor": "TA05",
+      "distance_to_new_fixture": 9.924716620639604,
+      "existing_effective_radius": 2.0,
+      "unaffected": true
+    },
+    {
+      "anchor": "TA06",
+      "distance_to_new_fixture": 17.5,
+      "existing_effective_radius": 1.775,
+      "unaffected": true
+    },
+    {
+      "anchor": "TA07",
+      "distance_to_new_fixture": 15.508062419270823,
+      "existing_effective_radius": 1.975,
+      "unaffected": true
+    },
+    {
+      "anchor": "TA08",
+      "distance_to_new_fixture": 8.631338250816034,
+      "existing_effective_radius": 1.975,
+      "unaffected": true
+    },
+    {
+      "anchor": "TA09",
+      "distance_to_new_fixture": 5.522680508593631,
+      "existing_effective_radius": 1.575,
+      "unaffected": true
+    },
+    {
+      "anchor": "TA10",
+      "distance_to_new_fixture": 2.9154759474226504,
+      "existing_effective_radius": 2.2,
+      "unaffected": true
+    },
+    {
+      "anchor": "TA11",
+      "distance_to_new_fixture": 18.66815470259447,
+      "existing_effective_radius": 1.975,
+      "unaffected": true
+    },
+    {
+      "anchor": "TA12",
+      "distance_to_new_fixture": 17.5,
+      "existing_effective_radius": 2.1,
+      "unaffected": true
+    }
+  ],
+  "temporary_trap_placements": {
+    "one_cell": [
+      {
+        "origin_cell": [
+          14,
+          13
+        ],
+        "cells": [
+          [
+            14,
+            13
+          ]
+        ],
+        "rotation": 0,
+        "footprint": [
+          1,
+          1
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          15,
+          15
+        ],
+        "cells": [
+          [
+            15,
+            15
+          ]
+        ],
+        "rotation": 0,
+        "footprint": [
+          1,
+          1
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          19,
+          17
+        ],
+        "cells": [
+          [
+            19,
+            17
+          ]
+        ],
+        "rotation": 0,
+        "footprint": [
+          1,
+          1
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          23,
+          17
+        ],
+        "cells": [
+          [
+            23,
+            17
+          ]
+        ],
+        "rotation": 0,
+        "footprint": [
+          1,
+          1
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          26,
+          23
+        ],
+        "cells": [
+          [
+            26,
+            23
+          ]
+        ],
+        "rotation": 0,
+        "footprint": [
+          1,
+          1
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          10,
+          32
+        ],
+        "cells": [
+          [
+            10,
+            32
+          ]
+        ],
+        "rotation": 0,
+        "footprint": [
+          1,
+          1
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          12,
+          34
+        ],
+        "cells": [
+          [
+            12,
+            34
+          ]
+        ],
+        "rotation": 0,
+        "footprint": [
+          1,
+          1
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          18,
+          35
+        ],
+        "cells": [
+          [
+            18,
+            35
+          ]
+        ],
+        "rotation": 0,
+        "footprint": [
+          1,
+          1
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          23,
+          34
+        ],
+        "cells": [
+          [
+            23,
+            34
+          ]
+        ],
+        "rotation": 0,
+        "footprint": [
+          1,
+          1
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          25,
+          32
+        ],
+        "cells": [
+          [
+            25,
+            32
+          ]
+        ],
+        "rotation": 0,
+        "footprint": [
+          1,
+          1
+        ],
+        "nonblocking": true
+      }
+    ],
+    "two_cell": [
+      {
+        "origin_cell": [
+          14,
+          13
+        ],
+        "cells": [
+          [
+            14,
+            13
+          ],
+          [
+            14,
+            14
+          ]
+        ],
+        "rotation": 0,
+        "footprint": [
+          1,
+          2
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          14,
+          13
+        ],
+        "cells": [
+          [
+            14,
+            13
+          ],
+          [
+            15,
+            13
+          ]
+        ],
+        "rotation": 90,
+        "footprint": [
+          2,
+          1
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          15,
+          15
+        ],
+        "cells": [
+          [
+            15,
+            15
+          ],
+          [
+            15,
+            16
+          ]
+        ],
+        "rotation": 0,
+        "footprint": [
+          1,
+          2
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          19,
+          17
+        ],
+        "cells": [
+          [
+            19,
+            17
+          ],
+          [
+            20,
+            17
+          ]
+        ],
+        "rotation": 90,
+        "footprint": [
+          2,
+          1
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          23,
+          17
+        ],
+        "cells": [
+          [
+            23,
+            17
+          ],
+          [
+            24,
+            17
+          ]
+        ],
+        "rotation": 90,
+        "footprint": [
+          2,
+          1
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          26,
+          23
+        ],
+        "cells": [
+          [
+            26,
+            23
+          ],
+          [
+            26,
+            24
+          ]
+        ],
+        "rotation": 0,
+        "footprint": [
+          1,
+          2
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          26,
+          23
+        ],
+        "cells": [
+          [
+            26,
+            23
+          ],
+          [
+            27,
+            23
+          ]
+        ],
+        "rotation": 90,
+        "footprint": [
+          2,
+          1
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          10,
+          32
+        ],
+        "cells": [
+          [
+            10,
+            32
+          ],
+          [
+            10,
+            33
+          ]
+        ],
+        "rotation": 0,
+        "footprint": [
+          1,
+          2
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          10,
+          32
+        ],
+        "cells": [
+          [
+            10,
+            32
+          ],
+          [
+            11,
+            32
+          ]
+        ],
+        "rotation": 90,
+        "footprint": [
+          2,
+          1
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          12,
+          34
+        ],
+        "cells": [
+          [
+            12,
+            34
+          ],
+          [
+            12,
+            35
+          ]
+        ],
+        "rotation": 0,
+        "footprint": [
+          1,
+          2
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          18,
+          35
+        ],
+        "cells": [
+          [
+            18,
+            35
+          ],
+          [
+            18,
+            36
+          ]
+        ],
+        "rotation": 0,
+        "footprint": [
+          1,
+          2
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          18,
+          35
+        ],
+        "cells": [
+          [
+            18,
+            35
+          ],
+          [
+            19,
+            35
+          ]
+        ],
+        "rotation": 90,
+        "footprint": [
+          2,
+          1
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          23,
+          34
+        ],
+        "cells": [
+          [
+            23,
+            34
+          ],
+          [
+            23,
+            35
+          ]
+        ],
+        "rotation": 0,
+        "footprint": [
+          1,
+          2
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          23,
+          34
+        ],
+        "cells": [
+          [
+            23,
+            34
+          ],
+          [
+            24,
+            34
+          ]
+        ],
+        "rotation": 90,
+        "footprint": [
+          2,
+          1
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          25,
+          32
+        ],
+        "cells": [
+          [
+            25,
+            32
+          ],
+          [
+            25,
+            33
+          ]
+        ],
+        "rotation": 0,
+        "footprint": [
+          1,
+          2
+        ],
+        "nonblocking": true
+      },
+      {
+        "origin_cell": [
+          25,
+          32
+        ],
+        "cells": [
+          [
+            25,
+            32
+          ],
+          [
+            26,
+            32
+          ]
+        ],
+        "rotation": 90,
+        "footprint": [
+          2,
+          1
+        ],
+        "nonblocking": true
+      }
+    ]
+  },
+  "conditional_pairs": [
+    [
+      "F17",
+      "S34"
+    ],
+    [
+      "F17",
+      "S38"
+    ]
+  ],
+  "mapped_response_regressions": [
+    {
+      "monster_id": "S40",
+      "actual_path": [
+        [
+          27.5,
+          -1.5
+        ],
+        [
+          27.5,
+          -0.5
+        ],
+        [
+          27.5,
+          0.5
+        ],
+        [
+          27.5,
+          1.5
+        ],
+        [
+          27.5,
+          2.5
+        ]
+      ],
+      "distance": 4.0,
+      "response_seconds": "245/66",
+      "final_phase": "complete",
+      "coins": 12,
+      "spirit": 6,
+      "q125_is_counterexample_state_not_claimed_live_acquisition": true
+    },
+    {
+      "monster_id": "S43",
+      "actual_path": [
+        [
+          23.5,
+          3.5
+        ],
+        [
+          24.5,
+          3.5
+        ],
+        [
+          25.5,
+          3.5
+        ],
+        [
+          26.5,
+          3.5
+        ],
+        [
+          26.5,
+          2.5
+        ],
+        [
+          26.5,
+          1.5
+        ],
+        [
+          26.5,
+          0.5
+        ],
+        [
+          26.5,
+          -0.5
+        ],
+        [
+          26.5,
+          -1.5
+        ],
+        [
+          26.5,
+          -2.5
+        ],
+        [
+          26.5,
+          -3.5
+        ],
+        [
+          26.5,
+          -4.5
+        ],
+        [
+          27.5,
+          -4.5
+        ]
+      ],
+      "distance": 12.0,
+      "response_seconds": "40/11",
+      "final_phase": "complete",
+      "coins": 12,
+      "spirit": 6,
+      "q125_is_counterexample_state_not_claimed_live_acquisition": true
+    },
+    {
+      "monster_id": "F17",
+      "actual_path": [
+        [
+          19.5,
+          22.5
+        ],
+        [
+          19.5,
+          23.5
+        ],
+        [
+          19.5,
+          24.5
+        ],
+        [
+          19.5,
+          25.5
+        ]
+      ],
+      "distance": 3,
+      "baseline_travel_and_collect_seconds": 2.909090909090909,
+      "legacy_q125_active_seconds_before_suppression": 2,
+      "protected_response_slow_cap": 0.6,
+      "maturities_and_absolute_timers_tested": true,
+      "same_root_only": true,
+      "q125_is_counterexample_state_not_claimed_live_acquisition": true
+    }
+  ],
+  "checks": [
+    {
+      "name": "assembled map legal for all player and customer stations",
+      "passed": true
+    },
+    {
+      "name": "new public cabinet really occupies four floor cells",
+      "passed": true
+    },
+    {
+      "name": "new counter does not become tower or AP",
+      "passed": true
+    },
+    {
+      "name": "checkout two actual operation sides stay four tiles apart",
+      "passed": true
+    },
+    {
+      "name": "paid frozen stock is separate from task meat handoff",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to cashier",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to safe_counter",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to customer_wait",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to verification_desk",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to pickup_shelf",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to goods_shelf",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to metal_shelf",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to hot_food",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to sink",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to cold_cabinet",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to freezer_main",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to freezer_backup",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to warehouse_meat",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to receiving",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to packing",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to storage_shelf",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to isolation_cage",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to lost_property",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to staff_desk",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to rest_chair",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to staff_locker",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to break_table",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to monitor_terminal",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to power_panel",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to mop_station",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to waste_sort",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to dumpster",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to forecourt_handoff",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to loading_bay",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to rear_threshold",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to street_boundary",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to front_door",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to rear_door",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to front_exit",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to rear_exit",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to convex_mirror",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to reserve_seat",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to construction_zone",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to drain_channel",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to water_valve",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to aisle_loop",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to floor_markers",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to player_start",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to customer_spawn",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to customer_exit",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to customer_checkout",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to customer_freezer",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to public_supplies",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to customer_return",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to lucky_receipt",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to security",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to cleaning",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to mirror_station",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to clean_water",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to clean_mirror_water",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to clean_blood",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to clean_trash",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to cold_cut",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to cold_dry_slot",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to infrared_window",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to wave_screen",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to infrared_gate",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to infrared_lure",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to s29_light_control",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to s29_target",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to s29_dodge",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to paper_load",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to paper_take",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to paper_wait",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to s43_panel",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to s43_latch",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to s43_exit",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to parcel_guest_start",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to parcel_retreat",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to sound_side",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to sound_safe",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to combat_target",
+      "passed": true
+    },
+    {
+      "name": "body-clear route to combat_player",
+      "passed": true
+    },
+    {
+      "name": "route crosses no diagonal grid edges",
+      "passed": true
+    },
+    {
+      "name": "actual fractional edge retains its 0.25 tile remainder",
+      "passed": true
+    },
+    {
+      "name": "invalid free off-graph coordinate is not silently snapped",
+      "passed": true
+    },
+    {
+      "name": "solid fixture start is rejected",
+      "passed": true
+    },
+    {
+      "name": "unknown task role is rejected",
+      "passed": true
+    },
+    {
+      "name": "public customer route stays out of staff area customer_spawn",
+      "passed": true
+    },
+    {
+      "name": "public customer route stays out of staff area customer_exit",
+      "passed": true
+    },
+    {
+      "name": "public customer route stays out of staff area customer_checkout",
+      "passed": true
+    },
+    {
+      "name": "public customer route stays out of staff area goods_shelf",
+      "passed": true
+    },
+    {
+      "name": "public customer route stays out of staff area hot_food",
+      "passed": true
+    },
+    {
+      "name": "public customer route stays out of staff area customer_freezer",
+      "passed": true
+    },
+    {
+      "name": "public customer route stays out of staff area cold_cabinet",
+      "passed": true
+    },
+    {
+      "name": "public customer route stays out of staff area verification_desk",
+      "passed": true
+    },
+    {
+      "name": "public customer route stays out of staff area pickup_shelf",
+      "passed": true
+    },
+    {
+      "name": "public customer route stays out of staff area public_supplies",
+      "passed": true
+    },
+    {
+      "name": "public customer route stays out of staff area customer_return",
+      "passed": true
+    },
+    {
+      "name": "public customer route stays out of staff area lucky_receipt",
+      "passed": true
+    },
+    {
+      "name": "customer route to staff desk forbidden",
+      "passed": true
+    },
+    {
+      "name": "customer route to truck forbidden",
+      "passed": true
+    },
+    {
+      "name": "breaker has twenty actual travel seconds not a free remote switch",
+      "passed": true
+    },
+    {
+      "name": "real route is longer than direct Euclidean crossing shelves",
+      "passed": true
+    },
+    {
+      "name": "blackout keeps every manual route",
+      "passed": true
+    },
+    {
+      "name": "blackout preserves actual route warehouse_meat->freezer_main",
+      "passed": true
+    },
+    {
+      "name": "blackout preserves actual route cashier->power_panel",
+      "passed": true
+    },
+    {
+      "name": "blackout preserves actual route receiving->s43_latch",
+      "passed": true
+    },
+    {
+      "name": "rear closed needs real external detour",
+      "passed": true
+    },
+    {
+      "name": "sealing both exits fails concrete admission",
+      "passed": true
+    },
+    {
+      "name": "paid barrier on actual operation point fails admission",
+      "passed": true
+    },
+    {
+      "name": "three legal paid barrier cells coexist with all workpoints",
+      "passed": true
+    },
+    {
+      "name": "new fixture outside existing compensated tower field TA01",
+      "passed": true
+    },
+    {
+      "name": "new fixture outside existing compensated tower field TA02",
+      "passed": true
+    },
+    {
+      "name": "new fixture outside existing compensated tower field TA03",
+      "passed": true
+    },
+    {
+      "name": "new fixture outside existing compensated tower field TA04",
+      "passed": true
+    },
+    {
+      "name": "new fixture outside existing compensated tower field TA05",
+      "passed": true
+    },
+    {
+      "name": "new fixture outside existing compensated tower field TA06",
+      "passed": true
+    },
+    {
+      "name": "new fixture outside existing compensated tower field TA07",
+      "passed": true
+    },
+    {
+      "name": "new fixture outside existing compensated tower field TA08",
+      "passed": true
+    },
+    {
+      "name": "new fixture outside existing compensated tower field TA09",
+      "passed": true
+    },
+    {
+      "name": "new fixture outside existing compensated tower field TA10",
+      "passed": true
+    },
+    {
+      "name": "new fixture outside existing compensated tower field TA11",
+      "passed": true
+    },
+    {
+      "name": "new fixture outside existing compensated tower field TA12",
+      "passed": true
+    },
+    {
+      "name": "one-cell candidate has store interior and forecourt choices",
+      "passed": true
+    },
+    {
+      "name": "R01 genuine two-cell rotations exist",
+      "passed": true
+    },
+    {
+      "name": "R01 counts both footprint cells",
+      "passed": true
+    },
+    {
+      "name": "full eight objects refuses a temporary trap",
+      "passed": true
+    },
+    {
+      "name": "R01 refuses only one remaining floor cell",
+      "passed": true
+    },
+    {
+      "name": "R02 can use last single floor cell",
+      "passed": true
+    },
+    {
+      "name": "active temporary instance blocks second one",
+      "passed": true
+    },
+    {
+      "name": "every protected or occupied candidate returns none",
+      "passed": true
+    },
+    {
+      "name": "actual live actors prevent underneath spawning",
+      "passed": true
+    },
+    {
+      "name": "all temporary footprints avoid actual free-rule and customer routes",
+      "passed": true
+    },
+    {
+      "name": "F01 action in actual operation position weigh",
+      "passed": true
+    },
+    {
+      "name": "F01 action in actual operation position measure",
+      "passed": true
+    },
+    {
+      "name": "F01 action in actual operation position sort",
+      "passed": true
+    },
+    {
+      "name": "F01 real bounded route fits 120 reference seconds",
+      "passed": true
+    },
+    {
+      "name": "F01 actual T02 range and LOS",
+      "passed": true
+    },
+    {
+      "name": "F01 mechanism does not automatically end damage required root",
+      "passed": true
+    },
+    {
+      "name": "F05 action in actual operation position take_cloth",
+      "passed": true
+    },
+    {
+      "name": "F05 action in actual operation position close_valve",
+      "passed": true
+    },
+    {
+      "name": "F05 action in actual operation position wipe_cut",
+      "passed": true
+    },
+    {
+      "name": "F05 action in actual operation position take_basket",
+      "passed": true
+    },
+    {
+      "name": "F05 action in actual operation position place_dry",
+      "passed": true
+    },
+    {
+      "name": "F05 wait immune to interaction proficiency same_source_water_disconnect_update",
+      "passed": true
+    },
+    {
+      "name": "F05 real bounded route fits 120 reference seconds",
+      "passed": true
+    },
+    {
+      "name": "F05 actual T02 range and LOS",
+      "passed": true
+    },
+    {
+      "name": "F05 mechanism does not automatically end damage required root",
+      "passed": true
+    },
+    {
+      "name": "F12 action in actual operation position take_clips",
+      "passed": true
+    },
+    {
+      "name": "F12 action in actual operation position scatter1",
+      "passed": true
+    },
+    {
+      "name": "F12 wait immune to interaction proficiency same_root_consumes_original_clip_and_finishes_feeding",
+      "passed": true
+    },
+    {
+      "name": "F12 real bounded route fits 120 reference seconds",
+      "passed": true
+    },
+    {
+      "name": "F12 actual T02 range and LOS",
+      "passed": true
+    },
+    {
+      "name": "F12 mechanism does not automatically end damage required root",
+      "passed": true
+    },
+    {
+      "name": "F13 action in actual operation position take_meat",
+      "passed": true
+    },
+    {
+      "name": "F13 action in actual operation position store_close",
+      "passed": true
+    },
+    {
+      "name": "F13 real bounded route fits 120 reference seconds",
+      "passed": true
+    },
+    {
+      "name": "F13 actual T02 range and LOS",
+      "passed": true
+    },
+    {
+      "name": "F13 mechanism does not automatically end damage required root",
+      "passed": true
+    },
+    {
+      "name": "F17 action in actual operation position untie_original_knot_1",
+      "passed": true
+    },
+    {
+      "name": "F17 action in actual operation position untie_original_knot_2",
+      "passed": true
+    },
+    {
+      "name": "F17 action in actual operation position untie_original_knot_3",
+      "passed": true
+    },
+    {
+      "name": "F17 action in actual operation position place_ready",
+      "passed": true
+    },
+    {
+      "name": "F17 wait immune to interaction proficiency same_guest_collects_same_original_parcel_after_player_retreat",
+      "passed": true
+    },
+    {
+      "name": "F17 real bounded route fits 120 reference seconds",
+      "passed": true
+    },
+    {
+      "name": "F17 rule leave includes actual exit or containment observation",
+      "passed": true
+    },
+    {
+      "name": "F60 action in actual operation position notice_turn",
+      "passed": true
+    },
+    {
+      "name": "F60 action in actual operation position read_mirror",
+      "passed": true
+    },
+    {
+      "name": "F60 action in actual operation position pull_curtain",
+      "passed": true
+    },
+    {
+      "name": "F60 action in actual operation position close_service",
+      "passed": true
+    },
+    {
+      "name": "F60 wait immune to interaction proficiency first_distinct_gaze_attack_misses_actual_occluder_or_back_facing",
+      "passed": true
+    },
+    {
+      "name": "F60 wait immune to interaction proficiency second_distinct_gaze_attack_misses_actual_occluder_or_back_facing",
+      "passed": true
+    },
+    {
+      "name": "F60 real bounded route fits 120 reference seconds",
+      "passed": true
+    },
+    {
+      "name": "F60 actual T02 range and LOS",
+      "passed": true
+    },
+    {
+      "name": "F60 mechanism does not automatically end damage required root",
+      "passed": true
+    },
+    {
+      "name": "S09 action in actual operation position S09:step1",
+      "passed": true
+    },
+    {
+      "name": "S09 action in actual operation position S09:step2",
+      "passed": true
+    },
+    {
+      "name": "S09 action in actual operation position S09:step3",
+      "passed": true
+    },
+    {
+      "name": "S09 real bounded route fits 120 reference seconds",
+      "passed": true
+    },
+    {
+      "name": "S09 actual T02 range and LOS",
+      "passed": true
+    },
+    {
+      "name": "S09 mechanism does not automatically end damage required root",
+      "passed": true
+    },
+    {
+      "name": "S29 action in actual operation position S29_step_1",
+      "passed": true
+    },
+    {
+      "name": "S29 action in actual operation position S29_step_2",
+      "passed": true
+    },
+    {
+      "name": "S29 wait immune to interaction proficiency same_monster_in_actual_full_light_during_2s_windup_and_2_5s_recovery",
+      "passed": true
+    },
+    {
+      "name": "S29 real bounded route fits 120 reference seconds",
+      "passed": true
+    },
+    {
+      "name": "S29 actual T02 range and LOS",
+      "passed": true
+    },
+    {
+      "name": "S29 mechanism does not automatically end damage required root",
+      "passed": true
+    },
+    {
+      "name": "S34 action in actual operation position S34_step_1",
+      "passed": true
+    },
+    {
+      "name": "S34 wait immune to interaction proficiency six_notes_finish_while_actual_baffle_occludes_player_side",
+      "passed": true
+    },
+    {
+      "name": "S34 action in actual operation position S34_step_2",
+      "passed": true
+    },
+    {
+      "name": "S34 action in actual operation position S34_step_3",
+      "passed": true
+    },
+    {
+      "name": "S34 real bounded route fits 120 reference seconds",
+      "passed": true
+    },
+    {
+      "name": "S34 rule leave includes actual exit or containment observation",
+      "passed": true
+    },
+    {
+      "name": "S38 action in actual operation position S38_step_1",
+      "passed": true
+    },
+    {
+      "name": "S38 action in actual operation position S38_step_2",
+      "passed": true
+    },
+    {
+      "name": "S38 action in actual operation position S38_step_3",
+      "passed": true
+    },
+    {
+      "name": "S38 real bounded route fits 120 reference seconds",
+      "passed": true
+    },
+    {
+      "name": "S38 rule leave includes actual exit or containment observation",
+      "passed": true
+    },
+    {
+      "name": "S40 action in actual operation position S40_step_1",
+      "passed": true
+    },
+    {
+      "name": "S40 action in actual operation position S40_step_2",
+      "passed": true
+    },
+    {
+      "name": "S40 action in actual operation position S40_step_3",
+      "passed": true
+    },
+    {
+      "name": "S40 wait immune to interaction proficiency same_tray_moves_one_tile_along_fixed_countertop_rail",
+      "passed": true
+    },
+    {
+      "name": "S40 wait immune to interaction proficiency same_shadow_takes_original_paper_with_player_outside_handoff_bounds",
+      "passed": true
+    },
+    {
+      "name": "S40 real bounded route fits 120 reference seconds",
+      "passed": true
+    },
+    {
+      "name": "S40 rule leave includes actual exit or containment observation",
+      "passed": true
+    },
+    {
+      "name": "S43 action in actual operation position S43_step_1",
+      "passed": true
+    },
+    {
+      "name": "S43 action in actual operation position S43_step_2",
+      "passed": true
+    },
+    {
+      "name": "S43 wait immune to interaction proficiency same_external_mall_returns_actual_open_receipt",
+      "passed": true
+    },
+    {
+      "name": "S43 action in actual operation position S43_step_3",
+      "passed": true
+    },
+    {
+      "name": "S43 real bounded route fits 120 reference seconds",
+      "passed": true
+    },
+    {
+      "name": "S43 rule leave includes actual exit or containment observation",
+      "passed": true
+    },
+    {
+      "name": "S38 passive storage has no success income",
+      "passed": true
+    },
+    {
+      "name": "first night pool cannot access late SCP entries",
+      "passed": true
+    },
+    {
+      "name": "every admitted initial actor is at least five tiles from actual safe-counter staging",
+      "passed": true
+    },
+    {
+      "name": "cashier is not silently treated as a safe F12 spawn distance",
+      "passed": true
+    },
+    {
+      "name": "F01 actually moves same monster into fire lane before damage resolver",
+      "passed": true
+    },
+    {
+      "name": "F05 actually moves same monster into fire lane before damage resolver",
+      "passed": true
+    },
+    {
+      "name": "F12 actually moves same monster into fire lane before damage resolver",
+      "passed": true
+    },
+    {
+      "name": "F13 actually moves same monster into fire lane before damage resolver",
+      "passed": true
+    },
+    {
+      "name": "F60 actually moves same monster into fire lane before damage resolver",
+      "passed": true
+    },
+    {
+      "name": "S09 actually moves same monster into fire lane before damage resolver",
+      "passed": true
+    },
+    {
+      "name": "S29 actually moves same monster into fire lane before damage resolver",
+      "passed": true
+    },
+    {
+      "name": "F13 low air is never silently converted into ground",
+      "passed": true
+    },
+    {
+      "name": "F05 cut action is physically within 1.5 tiles",
+      "passed": true
+    },
+    {
+      "name": "old general valve anchor cannot remotely wipe the cut",
+      "passed": true
+    },
+    {
+      "name": "F17 retreat charges actual four tiles instead of one-second shortcut",
+      "passed": true
+    },
+    {
+      "name": "S09 real trajectory crosses fixed detection plane",
+      "passed": true
+    },
+    {
+      "name": "S29 complete four seconds fit native 4.5 second attack window",
+      "passed": true
+    },
+    {
+      "name": "S29 light contains full body s29_target",
+      "passed": true
+    },
+    {
+      "name": "S29 light contains full body s29_dodge",
+      "passed": true
+    },
+    {
+      "name": "S34 two finishing actions fit actual quiet window",
+      "passed": true
+    },
+    {
+      "name": "actual barricade obstruction invalidates combat reference",
+      "passed": true
+    },
+    {
+      "name": "unplaced monster never gets generic combat proof",
+      "passed": true
+    },
+    {
+      "name": "all 105 original IDs appear once",
+      "passed": true
+    },
+    {
+      "name": "all unadapted cases carry an explicit block reason",
+      "passed": true
+    },
+    {
+      "name": "no map proof silently opens a live client AI",
+      "passed": true
+    },
+    {
+      "name": "all 5460 unordered pairs pass through admission guard",
+      "passed": true
+    },
+    {
+      "name": "only two explicit compatible contexts can pass",
+      "passed": true
+    },
+    {
+      "name": "missing context rejects F17+S34",
+      "passed": true
+    },
+    {
+      "name": "actual predicate lost rejects F17_original_parcel_reserved",
+      "passed": true
+    },
+    {
+      "name": "actual predicate lost rejects S34_original_box_reserved",
+      "passed": true
+    },
+    {
+      "name": "actual predicate lost rejects S34_sound_confined_to_packing_region",
+      "passed": true
+    },
+    {
+      "name": "actual predicate lost rejects F17_front_pickup_region_does_not_intersect_sound_domain",
+      "passed": true
+    },
+    {
+      "name": "actual predicate lost rejects player_resolves_F17_before_entering_S34_region",
+      "passed": true
+    },
+    {
+      "name": "missing context rejects F17+S38",
+      "passed": true
+    },
+    {
+      "name": "actual predicate lost rejects S38_not_provoked",
+      "passed": true
+    },
+    {
+      "name": "actual predicate lost rejects S38_passive_no_attack_target",
+      "passed": true
+    },
+    {
+      "name": "actual predicate lost rejects S38_storage_no_reward",
+      "passed": true
+    },
+    {
+      "name": "actual predicate lost rejects distinct_original_items",
+      "passed": true
+    },
+    {
+      "name": "two independent pursuers are refused",
+      "passed": true
+    },
+    {
+      "name": "high-pressure paper encounter is exclusive",
+      "passed": true
+    },
+    {
+      "name": "S40 computed map route enters existing no-damage response",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 1/10",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 1/5",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 3/10",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 2/5",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 1/2",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 3/5",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 7/10",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 4/5",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 9/10",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 1",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 11/10",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 6/5",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 13/10",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 7/5",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 3/2",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 8/5",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 17/10",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 9/5",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 19/10",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 2",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 21/10",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 11/5",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 23/10",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 12/5",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 5/2",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 13/5",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 27/10",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 14/5",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 29/10",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 3",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 31/10",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 16/5",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 33/10",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 17/5",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 7/2",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 18/5",
+      "passed": true
+    },
+    {
+      "name": "S40 q125 does not re-suppress protected real path at 37/10",
+      "passed": true
+    },
+    {
+      "name": "S40 mapped response settles once",
+      "passed": true
+    },
+    {
+      "name": "S43 computed map route enters existing no-damage response",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 31/10",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 16/5",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 33/10",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 17/5",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 7/2",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 18/5",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 37/10",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 19/5",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 39/10",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 4",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 41/10",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 21/5",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 43/10",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 22/5",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 9/2",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 23/5",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 47/10",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 24/5",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 49/10",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 5",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 51/10",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 26/5",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 53/10",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 27/5",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 11/2",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 28/5",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 57/10",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 29/5",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 59/10",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 6",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 61/10",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 31/5",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 63/10",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 32/5",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 13/2",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 33/5",
+      "passed": true
+    },
+    {
+      "name": "S43 q125 does not re-suppress protected real path at 73/11",
+      "passed": true
+    },
+    {
+      "name": "S43 real exit alone cannot pay root reward",
+      "passed": true
+    },
+    {
+      "name": "S43 same manual latch accepted only after actual exit",
+      "passed": true
+    },
+    {
+      "name": "S43 mapped response settles once",
+      "passed": true
+    },
+    {
+      "name": "F17 q125 unprotected activity is shorter than real pickup path and work",
+      "passed": true
+    },
+    {
+      "name": "F17 rejects unsupported actual predicate evidence_origin",
+      "passed": true
+    },
+    {
+      "name": "F17 rejects unsupported actual predicate root_id",
+      "passed": true
+    },
+    {
+      "name": "F17 rejects unsupported actual predicate attempt_id",
+      "passed": true
+    },
+    {
+      "name": "F17 rejects unsupported actual predicate actor_id",
+      "passed": true
+    },
+    {
+      "name": "F17 rejects unsupported actual predicate parcel_id",
+      "passed": true
+    },
+    {
+      "name": "F17 rejects unsupported actual predicate knots_open",
+      "passed": true
+    },
+    {
+      "name": "F17 rejects unsupported actual predicate parcel_owner",
+      "passed": true
+    },
+    {
+      "name": "F17 rejects unsupported actual predicate parcel_position",
+      "passed": true
+    },
+    {
+      "name": "F17 rejects unsupported actual predicate player_position",
+      "passed": true
+    },
+    {
+      "name": "F17 rejects unsupported actual predicate control_active",
+      "passed": true
+    },
+    {
+      "name": "F17 rejects unsupported actual predicate normal_human",
+      "passed": true
+    },
+    {
+      "name": "F17 cannot clear existing suppression to start pickup",
+      "passed": true
+    },
+    {
+      "name": "F17 actual saved freeze overrides an incorrect clear UI flag",
+      "passed": true
+    },
+    {
+      "name": "F17 can start after original freeze naturally expires",
+      "passed": true
+    },
+    {
+      "name": "F17 cannot extend short original deadline",
+      "passed": true
+    },
+    {
+      "name": "F17 original parcel enters limited response",
+      "passed": true
+    },
+    {
+      "name": "F17 rejects duplicate protection entry",
+      "passed": true
+    },
+    {
+      "name": "F17 malformed 99 percent slow still obeys existing global 60 percent cap",
+      "passed": true
+    },
+    {
+      "name": "F17 response stops only own attacks",
+      "passed": true
+    },
+    {
+      "name": "F17 protected poison and electric feedback cannot pay damage",
+      "passed": true
+    },
+    {
+      "name": "F17 actual slowed path travels 0.66 tiles in first half second",
+      "passed": true
+    },
+    {
+      "name": "F17 finite chill expires against absolute world time",
+      "passed": true
+    },
+    {
+      "name": "F17 paid dose matures once without clearing original q",
+      "passed": true
+    },
+    {
+      "name": "F17 actual slow expires without resetting original response clock",
+      "passed": true
+    },
+    {
+      "name": "F17 finite saved response retains route/progress/maturity",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 11/10",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 6/5",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 13/10",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 7/5",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 3/2",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 8/5",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 17/10",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 9/5",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 19/10",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 2",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 21/10",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 11/5",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 23/10",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 12/5",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 5/2",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 13/5",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 27/10",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 14/5",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 29/10",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 3",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 31/10",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 16/5",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 33/10",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 17/5",
+      "passed": true
+    },
+    {
+      "name": "F17 protected q125 path at 7/2",
+      "passed": true
+    },
+    {
+      "name": "F17 actual original pickup completes once despite high q",
+      "passed": true
+    },
+    {
+      "name": "F17 pickup terminal clears pool poison only at actual terminal",
+      "passed": true
+    },
+    {
+      "name": "F17 response save branch yields identical actual result",
+      "passed": true
+    },
+    {
+      "name": "F17 terminal replay cannot pay again",
+      "passed": true
+    },
+    {
+      "name": "F17 losing actual retreat ends protection immediately",
+      "passed": true
+    },
+    {
+      "name": "F17 interrupted work cannot rebind original parcel",
+      "passed": true
+    },
+    {
+      "name": "F17 correct original object may resume spent immutable plan",
+      "passed": true
+    },
+    {
+      "name": "F17 response grants no blanket enemy immunity",
+      "passed": true
+    }
+  ],
+  "source_sha256": {
+    "content/maps.json": "773e39b35bc16c63e6b4f294e27f8a944072599f21b8ad1bae46527f0a093b9a",
+    "content/map_mechanics_v05.json": "af126cd615549118fb4ab73200c88427d117e869aedf3eba47f73464732748bc",
+    "content/map_composition_bc01.json": "72b4517838d26fbe5afab1adcfb415c0be4b3ea80765a0b23922a90a94519dde",
+    "scripts/bc01_map_reference.py": "e8904021a7e1cec6d5a5871b9336b623132ff9c394ae0e1e3856b0521e110a34"
+  },
+  "open_runtime_work": [
+    "production adapters for real original-object predicates and hostile AI",
+    "moving enemy attack/dodge timing and all larger collision bodies",
+    "93 unadapted catalog entries stay closed until placed and verified"
+  ]
+}

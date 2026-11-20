@@ -1,0 +1,1706 @@
+{
+  "version": "BC01",
+  "runtime_integrated": false,
+  "status": "design_and_executable_reference",
+  "baseline_commit": "a3d09c3bc8b5e6de83d523daa9d07aa894937f3d",
+  "purpose": "正常顾客营业蓄战斗支援，随机入侵与安全店务，主角HP/等级和整夜整周事务。用户2026-11-20新要求覆盖旧冲突域；不是对旧模式同时追加一层。",
+  "player": {
+    "level_cap": 20,
+    "starting_level": 1,
+    "max_hp_base": 100,
+    "max_hp_per_level": 8,
+    "defense_per_level": 2,
+    "defense_formula": "damage_multiplier = 100/(100+2*(level-1))",
+    "xp_to_next_formula": "100 + 40*(current_level-1)",
+    "xp_to_level_formula": "100*(L-1)+20*(L-1)*(L-2)",
+    "xp_scope": "永久跨周；当夜XP暂记，成功自动夜结后固化，下一次班前生效；失败全部回滚。超过20级不增加属性，累计经验只作成绩。",
+    "proficiency_reduction_per_level": 0.015,
+    "proficiency_min_duration_multiplier": 0.75,
+    "manual_action_floor_multiplier": 0.6,
+    "manual_action_floor_seconds": 0.25,
+    "manual_action_types": [
+      "ordinary_checkout",
+      "restock",
+      "receive_delivery",
+      "clean_floor",
+      "breaker_reset",
+      "pick_up",
+      "place",
+      "close_lid",
+      "latch",
+      "scan",
+      "apply_rule_tool",
+      "untie_knot",
+      "stone_throw",
+      "ordinary_cast"
+    ],
+    "invariant_action_types": [
+      "npc_walk",
+      "npc_collect",
+      "monster_response",
+      "gaze_hold",
+      "listen_hold",
+      "observe_hold",
+      "identity_observation",
+      "ritual_wait",
+      "cooldown",
+      "telegraph",
+      "fixed_delay"
+    ],
+    "action_formula": "max(0.25, base_seconds*max(0.6, max(0.75,1-0.015*(L-1))*strongest_gear_factor*strongest_live_facility_factor))；真实进度按活跃分段积分，停电到期即重算，不能开工快照整段获益。",
+    "growth_apply_at": "next_pre_shift_after_successful_settlement",
+    "no_level_up_heal_during_raid": true,
+    "pre_shift_hp": "每天准备阶段免费补满当前等级HP，不耗周币，不因失败保留本夜XP或新等级；同夜重试恢复原开门HP。",
+    "hp_zero": "立刻本次失败；禁止死亡后治疗/结算，允许整笔重试。",
+    "san_zero": "仍按原SAN恐慌/失败状态合同，HP防御与回血不抵扣恐惧或合约成本。",
+    "meters": "战斗HUD主显HP/SAN/体力；精力/饱腹只在展开和日间显示；不在HP引入后仍称四资源。",
+    "direct_damage_floor_multiplier": 0.35,
+    "equipment_direct_mitigation_cap": 0.2,
+    "facility_direct_mitigation_cap": 0.08,
+    "hit_grace_seconds": 2,
+    "max_hits_per_attack_sequence": 1,
+    "direct_damage_formula": "原MA01攻击san数值1:1作为HP原伤害；先原咒印出伤快照，再100/(100+defense)，再装备(1-min(.2,减免))与顾客防护(1-min(.08,减免))；合计倍率最低.35。同一攻击不再额外扣SAN。",
+    "damage_domains": {
+      "MA01_direct_attack": "HP",
+      "authored_fear": "SAN",
+      "contract_payment": "SAN_or_original_resource",
+      "glass_bleeding": "保留原实际玻璃伤/出血消费者与90秒来源，不凭新HP受击生成血迹",
+      "environment_not_explicitly_migrated": "原频道；不得从文本中的伤害一词自动改写"
+    },
+    "temporary_movement": {
+      "base_walk": 3,
+      "permanent_walk_cap": 3.15,
+      "facility_walk_multiplier": 1.08,
+      "temporary_empty_hand_cap": 3.6,
+      "temporary_sprint_cap": 4.5,
+      "stacking": "现有I25最高普通步速来源与设施8%取较大增量，不相乘；等级不增加移速。FR12只提高已有合法搬运速度10%，不授予双手重物奔跑。",
+      "sprint": "原4.2/2秒/12体力每秒/30秒冷却保留；设施增速受4.5上限，不延长持续或免费体力。",
+      "carrying": "FR05顾客临时8%同样可提高真实搬运基速；FR12搬运10%与它取强不相乘。Q14/I25普通步速不加入搬运，原双手物不可冲刺。"
+    },
+    "equipment_stat_migration": {
+      "direct_attack_san_reduction": "direct_attack_hp_reduction",
+      "fear_san_reduction": "unchanged",
+      "Q29_conditional_direct_san_reduction": "同一实际电荷/通电邻接条件的HP减伤；停电时额外12%不成立，基础8%保留",
+      "I26_prevents_san_loss_false": "转为prevents_hp_loss=false；普通受击不打断token仍不免伤",
+      "ordinary_SAN_healing": "仍只恢复SAN，不能重复给HP"
+    },
+    "aliases_are_replacements_not_second_consumers": true
+  },
+  "blackout": {
+    "scope": "受怪物已验证断电事件影响的门店总电源；3个已登记AP及电器营业buff读取同一power_epoch。",
+    "on_loss": [
+      "立即停所有需要总电源的设备buff",
+      "禁止开始/执行/反馈电流过载（包括敌体到敌体、AP、虚拟配对边）",
+      "取消尚未兑现过载队列且不退款已提交的5电门槛",
+      "不再通过电伤回填新电荷/触发感应",
+      "原电荷仍按原绝对到期；不冻结延长",
+      "现存电器buff绝对截止继续走，来电不补欠跳"
+    ],
+    "direct_electric_damage": "塔独立灵能发动的原生直接电伤仍按已支付攻击发生；停电期间不新增电荷/反馈/过载；非电伤、毒、烧伤等按原合同。",
+    "independent_power": "个人电池灯、手摇任务装置、免费人工门/冰柜只完成原主解；不能为营业buff、AP或过载旁路供电。",
+    "restoration": "同一outage_id只给一次恢复奖励；安全BUSINESS/RECOVERY接电闸工作，RAID可选1秒战术拨闸且不得强制。有怪物持续锁电则按钮显示原因；失锁后再处理。",
+    "outage_frequency": "首发单根最多1次由实际怪物技能提交的总停电；玩家自断电/读档/开关重复不生新奖励；同刻多源合并一个episode，全部合法锁解除后恢复。",
+    "atomic_order": [
+      "主规则/终局",
+      "世界移动与动作提交",
+      "电源变化与失效",
+      "设备buff/自动陷阱/塔攻击",
+      "怪物命中",
+      "唯一收益与存档"
+    ],
+    "recovery_notice": "恢复会重启剩余时长，不重发已耗蓄存；持续时间已结束的不复活。",
+    "director_modifier": {
+      "id": "BC01_GRID_SURGE",
+      "first_night": 3,
+      "probability_per_single_root_raid": 0.25,
+      "maximum_per_night": 2,
+      "rng_stream": "power",
+      "omen_notice": true,
+      "warning_at_raid_seconds": 3,
+      "actual_trip_at_raid_seconds": 6,
+      "root_reward_added": false,
+      "source": "当前已提交单根入侵引发电网异常，不凭空增加第二个怪物；BC01新增世界修饰，非假定所有旧怪原卡自带断电技。",
+      "safety": "地面危险预告/免费规则图示保留可读；电源关闭不取消机械主解与手摇任务装置。"
+    }
+  },
+  "economy": {
+    "starting_coin": 120,
+    "starting_spirit": 0,
+    "free_tower": "T02",
+    "order_coin": 6,
+    "order_xp": 8,
+    "paid_order_cap_per_night": 12,
+    "chore_rewards": {
+      "restock": {
+        "coin": 3,
+        "xp": 6
+      },
+      "receive_delivery": {
+        "coin": 6,
+        "xp": 10
+      },
+      "clean_floor": {
+        "coin": 3,
+        "xp": 6
+      },
+      "breaker_reset": {
+        "coin": 4,
+        "xp": 8
+      }
+    },
+    "root_reward": {
+      "coin": 12,
+      "spirit": 4,
+      "xp": 20,
+      "real_main_rule_spirit": 2,
+      "real_main_rule_xp": 5
+    },
+    "survival_reward": {
+      "raid_alive_seconds_per_unit": 15,
+      "coin_per_unit": 1,
+      "xp_per_unit": 1,
+      "max_units_per_night": 12,
+      "eligibility": "有FR10额度、RAID、HP>0、非暂停、世界秒<=720；不能靠末夜拖延刷取"
+    },
+    "base_wage": 80,
+    "performance_bonus_max": 40,
+    "performance_formula": "min(40,2*min(12,paid_orders)+2*min(8,paid_chore_receipts))",
+    "completion_xp": 20,
+    "no_chore_debt_or_completion_requirement": true,
+    "checkout_double_chore_reward": false,
+    "goods_ownership": "store_stock是雇主商品账，运货不扣玩家周币，商品不能转为塔陷阱/个人消耗品；订单6币为岗位收益，不把收款商品金额另加玩家钱包。",
+    "root_limit": "由随机director和composition预算限制；移除旧每小时1根/每夜必须6根要求，按真实终局给奖。",
+    "night7_long_term": "第7夜同样固化等级XP、正常1抽奖券、真实图鉴与周成绩；周币/灵能先纳入成绩再周清，无临时兑换/返售/最后采购漏洞。",
+    "failure": "订单/杂活/根/存活/经验全部暂记，同夜失败整笔回到固定开门检查点；不存死亡刷等级。",
+    "settlement": "720秒到且当前全部根真实终结/实际顾客已出店、HP>0与原SAN安全条件成立即自动结算；删店长真身/钥匙/交班读条作为普通夜结必备；怪物自身身份/交付机制不删。"
+  },
+  "clocks": {
+    "night_seconds": 720,
+    "basis": "唯一实际world_seconds；日期时钟线性显示00:00→06:00，和真实暂停分开",
+    "precision_work": "旧budget步骤转为真实世界手动动作；暂停精密界面时世界/工作/增益/攻击/奖励全部停，不允许只工作推进；NPC/保持条件真实秒不加速",
+    "close": "720后关新顾客/入侵，余根必须真实处理；加时计世界秒但不再生存收入、不追加店务。"
+  },
+  "persistence": {
+    "schema_version": 1,
+    "content_version": "BC01",
+    "identity": [
+      "campaign_id",
+      "week_id",
+      "night_index",
+      "attempt_id"
+    ],
+    "partitions": {
+      "permanent": [
+        "total_xp",
+        "equipment",
+        "unused_personal_items",
+        "tickets",
+        "pity",
+        "knowledge",
+        "settled_nights",
+        "closed_weeks"
+      ],
+      "week": [
+        "coin",
+        "spirit",
+        "defense_instances",
+        "trap_stock",
+        "preparation_receipts"
+      ],
+      "attempt": [
+        "world_clock",
+        "player",
+        "director",
+        "facilities",
+        "electric",
+        "customers",
+        "store_stock",
+        "jobs",
+        "roots",
+        "projectiles",
+        "status_effects",
+        "mechanism_objects",
+        "manual_action",
+        "rule_responses",
+        "pending_reward_ledger",
+        "rng_streams"
+      ]
+    },
+    "required_state_keys": [
+      "schema_version",
+      "content_version",
+      "campaign_id",
+      "week_id",
+      "night_index",
+      "attempt_id",
+      "phase",
+      "permanent",
+      "week",
+      "attempt",
+      "checkpoint",
+      "settlement_receipts"
+    ],
+    "save": "单一SQLite事务保存完整JSON快照/sha256/递增revision和已应用command_id；journal与快照一同提交，CAS旧revision拒绝。文件级参考用真实重开与模拟中断验证，不声称微信云存档/防篡改服务器已完成。",
+    "failure_retry": "原检查点完整恢复，attempt_id递增，RNG计划不重抽；已结算夜不得重试。",
+    "normal_reload": "恢复世界绝对时间、部分动作、队列、顾客/设施/电路/奖励回执，不能通过load重置cooldown/buff/购物。",
+    "old_save": "V0.10/SA01/SA02不做静默局中升级；先结旧局或新建BC01模式，永久资产只能走显式经审计转换，不凭字段相同混载。",
+    "week_close": "夜7结算和XP/券固化、成绩、旧周清理、周号+1、新120币/0灵能/唯一免费T02同一事务；保留永久等级，不退款旧周剩余buff/临时陷阱/旧币。",
+    "ownership": {
+      "rule": "每份可变事实只有一个写入者；顶层跨系统索引使用owner_ref，不复制一份可分别修改的顾客/订单/时间。",
+      "director": [
+        "clock",
+        "customers",
+        "store_stock",
+        "jobs",
+        "actual_routed_actions",
+        "scheduled_roots",
+        "director_rng",
+        "root_terminal_receipts"
+      ],
+      "player": [
+        "hp",
+        "san",
+        "stamina",
+        "fixed_opening_level",
+        "hit_grace",
+        "heal_receipts"
+      ],
+      "facilities": [
+        "bank",
+        "buff_expiries",
+        "customer_use_dedupe",
+        "survival_credit",
+        "gift_trap_requests",
+        "facility_rng"
+      ],
+      "electric": [
+        "power_epoch",
+        "charges",
+        "pending_overload_queue"
+      ],
+      "campaign": [
+        "wallet",
+        "permanent_xp",
+        "pending_reward_ledger",
+        "settlement",
+        "checkpoint",
+        "preparation"
+      ],
+      "combat_world_adapter": [
+        "real_enemy_health",
+        "attack_sequences",
+        "projectiles",
+        "status_queues",
+        "original_mechanism_objects",
+        "SA02_response_segments"
+      ],
+      "unimplemented_adapters": "首发有限排程中不存在的实体记为空且准入关闭；不能用空数组覆盖一个真实活跃的世界。正式客户端接入时必须提供对应完整快照，缺任一活跃消费者即拒绝保存/切换。"
+    },
+    "reference_owner_index": {
+      "world_clock": "director.now",
+      "customers": "director.customer",
+      "store_stock": "director.stock+director.warehouse_units+director.returned_items",
+      "jobs": "director.jobs",
+      "roots": "director.raid+director.raids",
+      "manual_action": "director.player_task+director.raid.plan",
+      "rng_streams": "director.rng+facilities.rng",
+      "rule_responses": "director.raid.plan(SA02片段标记与实际路线)"
+    }
+  },
+  "acceptance_boundary": {
+    "design_p0_scope": "BC01首发地图与11个主动/1个被动无奖遭遇的明确准入、随机完整夜/首周设计参考、阶段权限、存档事务与教学；105条均登记，其他未适配条目禁止混入首发。",
+    "full_game_client_implemented": false,
+    "reference_models_are_not_playtest": true
+  },
+  "attack_migration": {
+    "count": 184,
+    "entries": [
+      {
+        "attack_id": "F01:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F01",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F02:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F02",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F03:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F03",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F03:LEAP",
+        "source": "content/monster_attacks_folklore_ma01.json#F03",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F04:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F04",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F04:TETHER",
+        "source": "content/monster_attacks_folklore_ma01.json#F04",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F05:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F05",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 8,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F05:TETHER",
+        "source": "content/monster_attacks_folklore_ma01.json#F05",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F06:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F06",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F06:FROST_RAY",
+        "source": "content/monster_attacks_folklore_ma01.json#F06",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F07:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F07",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F07:CRY",
+        "source": "content/monster_attacks_folklore_ma01.json#F07",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F08:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F08",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 8,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F08:COMBO",
+        "source": "content/monster_attacks_folklore_ma01.json#F08",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F09:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F09",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 8,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F09:NECK",
+        "source": "content/monster_attacks_folklore_ma01.json#F09",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F10:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F10",
+        "hp_damage": 16,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F10:WAVE",
+        "source": "content/monster_attacks_folklore_ma01.json#F10",
+        "hp_damage": 16,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F11:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F11",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F11:CHARGE",
+        "source": "content/monster_attacks_folklore_ma01.json#F11",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F12:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F12",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F13:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F13",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F15:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F15",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F16:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F16",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 8,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F17:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F17",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F17:TETHER",
+        "source": "content/monster_attacks_folklore_ma01.json#F17",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F18:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F18",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F18:CHARGE",
+        "source": "content/monster_attacks_folklore_ma01.json#F18",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F19:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F19",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F20:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F20",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F20:TETHER",
+        "source": "content/monster_attacks_folklore_ma01.json#F20",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F21:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F21",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F21:RITUAL",
+        "source": "content/monster_attacks_folklore_ma01.json#F21",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F22:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F22",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F22:CHARGE",
+        "source": "content/monster_attacks_folklore_ma01.json#F22",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F23:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F23",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F23:CHARGE",
+        "source": "content/monster_attacks_folklore_ma01.json#F23",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F24:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F24",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F24:CHARGE",
+        "source": "content/monster_attacks_folklore_ma01.json#F24",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F25:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F25",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 8,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F26:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F26",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F26:CHARGE",
+        "source": "content/monster_attacks_folklore_ma01.json#F26",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F27:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F27",
+        "hp_damage": 16,
+        "hp_damage_after_rule": 12,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F27:CHARGE",
+        "source": "content/monster_attacks_folklore_ma01.json#F27",
+        "hp_damage": 16,
+        "hp_damage_after_rule": 12,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F28:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F28",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F28:RITUAL",
+        "source": "content/monster_attacks_folklore_ma01.json#F28",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F29:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F29",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F29:BOWL_PULSE",
+        "source": "content/monster_attacks_folklore_ma01.json#F29",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F30:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F30",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F31:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F31",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 8,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F31:LEAP",
+        "source": "content/monster_attacks_folklore_ma01.json#F31",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F32:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F32",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F32:LEAP",
+        "source": "content/monster_attacks_folklore_ma01.json#F32",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F33:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F33",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F33:CHARGE",
+        "source": "content/monster_attacks_folklore_ma01.json#F33",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F34:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F34",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 8,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F34:CHARGE",
+        "source": "content/monster_attacks_folklore_ma01.json#F34",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F35:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F35",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F35:CHARGE",
+        "source": "content/monster_attacks_folklore_ma01.json#F35",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F36:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F36",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F37:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F37",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F37:CHARGE",
+        "source": "content/monster_attacks_folklore_ma01.json#F37",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F38:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F38",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F39:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F39",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 8,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F39:EMBER",
+        "source": "content/monster_attacks_folklore_ma01.json#F39",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F40:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F40",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F41:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F41",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F41:TETHER",
+        "source": "content/monster_attacks_folklore_ma01.json#F41",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F42:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F42",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F42:CHARGE",
+        "source": "content/monster_attacks_folklore_ma01.json#F42",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F43:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F43",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F43:CHARGE",
+        "source": "content/monster_attacks_folklore_ma01.json#F43",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F44:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F44",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F44:RITUAL",
+        "source": "content/monster_attacks_folklore_ma01.json#F44",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F45:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F45",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F45:CHARGE",
+        "source": "content/monster_attacks_folklore_ma01.json#F45",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F46:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F46",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 8,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F48:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F48",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F48:LEAP",
+        "source": "content/monster_attacks_folklore_ma01.json#F48",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F49:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F49",
+        "hp_damage": 16,
+        "hp_damage_after_rule": 12,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F49:FIRE_RAY",
+        "source": "content/monster_attacks_folklore_ma01.json#F49",
+        "hp_damage": 16,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F49:CONTACT",
+        "source": "content/monster_attacks_folklore_ma01.json#F49",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F49:CHARGE",
+        "source": "content/monster_attacks_folklore_ma01.json#F49",
+        "hp_damage": 16,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F50:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F50",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F50:DIVE",
+        "source": "content/monster_attacks_folklore_ma01.json#F50",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F51:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F51",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F51:TETHER",
+        "source": "content/monster_attacks_folklore_ma01.json#F51",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F52:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F52",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 8,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F52:TETHER",
+        "source": "content/monster_attacks_folklore_ma01.json#F52",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F53:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F53",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F53:COMBO",
+        "source": "content/monster_attacks_folklore_ma01.json#F53",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F54:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F54",
+        "hp_damage": 18,
+        "hp_damage_after_rule": 12,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F54:SUCTION",
+        "source": "content/monster_attacks_folklore_ma01.json#F54",
+        "hp_damage": 18,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F55:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F55",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 8,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F55:LEAP",
+        "source": "content/monster_attacks_folklore_ma01.json#F55",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F56:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F56",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F56:SURGE",
+        "source": "content/monster_attacks_folklore_ma01.json#F56",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F57:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F57",
+        "hp_damage": 16,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F57:CHANNEL_SWEEP",
+        "source": "content/monster_attacks_folklore_ma01.json#F57",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F58:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F58",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F58:TETHER",
+        "source": "content/monster_attacks_folklore_ma01.json#F58",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F59:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F59",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F59:COMBO",
+        "source": "content/monster_attacks_folklore_ma01.json#F59",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F60:BASIC",
+        "source": "content/monster_attacks_folklore_ma01.json#F60",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "F60:GAZE",
+        "source": "content/monster_attacks_folklore_ma01.json#F60",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S01:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S01",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S02:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S02",
+        "hp_damage": 16,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S03:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S03",
+        "hp_damage": 18,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S04:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S04",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S04:PALMS",
+        "source": "content/monster_attacks_scp_ma01.json#S04",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S05:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S05",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S06:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S06",
+        "hp_damage": 18,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S06:LUNGE",
+        "source": "content/monster_attacks_scp_ma01.json#S06",
+        "hp_damage": 18,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S07:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S07",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0,
+        "persisted_hazard_hp_damage": 12
+      },
+      {
+        "attack_id": "S08:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S08",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S08:FIRE_BODY",
+        "source": "content/monster_attacks_scp_ma01.json#S08",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S08:CHILD_BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S08",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 8,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S08:CHILD_FIRE_BODY",
+        "source": "content/monster_attacks_scp_ma01.json#S08",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S09:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S09",
+        "hp_damage": 9,
+        "hp_damage_after_rule": 8,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S09:SLEEP_WAVE",
+        "source": "content/monster_attacks_scp_ma01.json#S09",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S10:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S10",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 8,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S11:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S11",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S12:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S12",
+        "hp_damage": 16,
+        "hp_damage_after_rule": 12,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S12:SPINE_TETHER",
+        "source": "content/monster_attacks_scp_ma01.json#S12",
+        "hp_damage": 16,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S13:DOOR_PULSE",
+        "source": "content/monster_attacks_scp_ma01.json#S13",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S14:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S14",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 8,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S14:CHILD_CLOTH",
+        "source": "content/monster_attacks_scp_ma01.json#S14",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 8,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S14:CHILD_SCRAP",
+        "source": "content/monster_attacks_scp_ma01.json#S14",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S14:CHILD_PAPER",
+        "source": "content/monster_attacks_scp_ma01.json#S14",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 8,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S15:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S15",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S15:CHILD_PECK",
+        "source": "content/monster_attacks_scp_ma01.json#S15",
+        "hp_damage": 9,
+        "hp_damage_after_rule": 9,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S16:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S16",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 6,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S16:PACK_BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S16",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 6,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S17:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S17",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 6,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S17:PACK_BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S17",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 6,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S18:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S18",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 8,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S18:PAIRED_CHARGE",
+        "source": "content/monster_attacks_scp_ma01.json#S18",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S18:PARTNER_BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S18",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 8,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S19:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S19",
+        "hp_damage": 18,
+        "hp_damage_after_rule": 12,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S19:FEAST_LUNGE",
+        "source": "content/monster_attacks_scp_ma01.json#S19",
+        "hp_damage": 18,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S20:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S20",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 8,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S20:SLUDGE_PATCH",
+        "source": "content/monster_attacks_scp_ma01.json#S20",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0,
+        "persisted_hazard_hp_damage": null
+      },
+      {
+        "attack_id": "S21:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S21",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 9,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S22:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S22",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 9,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S23:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S23",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S23:EMBER_RAY",
+        "source": "content/monster_attacks_scp_ma01.json#S23",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S24:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S24",
+        "hp_damage": 16,
+        "hp_damage_after_rule": 12,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S24:BLADE_LINE",
+        "source": "content/monster_attacks_scp_ma01.json#S24",
+        "hp_damage": 16,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S25:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S25",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S25:SHADOW_LUNGE",
+        "source": "content/monster_attacks_scp_ma01.json#S25",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S26:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S26",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S26:CAT_LUNGE",
+        "source": "content/monster_attacks_scp_ma01.json#S26",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S27:CHILD_SPINE",
+        "source": "content/monster_attacks_scp_ma01.json#S27",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S27:CHILD_BAT",
+        "source": "content/monster_attacks_scp_ma01.json#S27",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S28:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S28",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S28:FLESH_BODY",
+        "source": "content/monster_attacks_scp_ma01.json#S28",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S28:CHILD_BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S28",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S28:CHILD_BODY",
+        "source": "content/monster_attacks_scp_ma01.json#S28",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S29:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S29",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 9,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S30:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S30",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 9,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S30:FLOOR_SILK",
+        "source": "content/monster_attacks_scp_ma01.json#S30",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0,
+        "persisted_hazard_hp_damage": null
+      },
+      {
+        "attack_id": "S30:THROWN_SILK",
+        "source": "content/monster_attacks_scp_ma01.json#S30",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S31:SKULL_LUNGE",
+        "source": "content/monster_attacks_scp_ma01.json#S31",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S32:CHILD_BITE",
+        "source": "content/monster_attacks_scp_ma01.json#S32",
+        "hp_damage": 6,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S33:EDGE_CONTACT",
+        "source": "content/monster_attacks_scp_ma01.json#S33",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 6,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S33:SPORE_ZONE",
+        "source": "content/monster_attacks_scp_ma01.json#S33",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S34:SIX_BEAT",
+        "source": "content/monster_attacks_scp_ma01.json#S34",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S35:LANE_CHARGE",
+        "source": "content/monster_attacks_scp_ma01.json#S35",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S36:SHRIEK",
+        "source": "content/monster_attacks_scp_ma01.json#S36",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S37:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S37",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S37:CORROSIVE_CONE",
+        "source": "content/monster_attacks_scp_ma01.json#S37",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S38:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S38",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S39:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S39",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 11,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S39:TAIL_SWEEP",
+        "source": "content/monster_attacks_scp_ma01.json#S39",
+        "hp_damage": 14,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S40:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S40",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S41:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S41",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 9,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S41:DARK_LUNGE",
+        "source": "content/monster_attacks_scp_ma01.json#S41",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S41:HELPER_BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S41",
+        "hp_damage": 8,
+        "hp_damage_after_rule": 6,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S42:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S42",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 10,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S42:OFFBEAT_LUNGE",
+        "source": "content/monster_attacks_scp_ma01.json#S42",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S43:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S43",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S44:PROJECTION_RAYS",
+        "source": "content/monster_attacks_scp_ma01.json#S44",
+        "hp_damage": 10,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S45:BASIC",
+        "source": "content/monster_attacks_scp_ma01.json#S45",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 8,
+        "san_damage_from_same_attack": 0
+      },
+      {
+        "attack_id": "S45:TOOL_LINE",
+        "source": "content/monster_attacks_scp_ma01.json#S45",
+        "hp_damage": 12,
+        "hp_damage_after_rule": 0,
+        "san_damage_from_same_attack": 0
+      }
+    ],
+    "child_override_count": 13,
+    "child_entries": [
+      {
+        "parent_id": "S08",
+        "template_id": "S08_split_successor",
+        "damage_override_hp": null,
+        "post_rule_damage_override_hp": null,
+        "null_means_inherit_not_zero": true
+      },
+      {
+        "parent_id": "S14",
+        "template_id": "S14_cloth",
+        "damage_override_hp": 8,
+        "post_rule_damage_override_hp": null,
+        "null_means_inherit_not_zero": true
+      },
+      {
+        "parent_id": "S14",
+        "template_id": "S14_scrap",
+        "damage_override_hp": 10,
+        "post_rule_damage_override_hp": null,
+        "null_means_inherit_not_zero": true
+      },
+      {
+        "parent_id": "S14",
+        "template_id": "S14_paper",
+        "damage_override_hp": 8,
+        "post_rule_damage_override_hp": null,
+        "null_means_inherit_not_zero": true
+      },
+      {
+        "parent_id": "S15",
+        "template_id": "S15_hatchling",
+        "damage_override_hp": 9,
+        "post_rule_damage_override_hp": null,
+        "null_means_inherit_not_zero": true
+      },
+      {
+        "parent_id": "S16",
+        "template_id": "S16_pack_member",
+        "damage_override_hp": 8,
+        "post_rule_damage_override_hp": 6,
+        "null_means_inherit_not_zero": true
+      },
+      {
+        "parent_id": "S17",
+        "template_id": "S17_pack_member",
+        "damage_override_hp": 8,
+        "post_rule_damage_override_hp": 6,
+        "null_means_inherit_not_zero": true
+      },
+      {
+        "parent_id": "S18",
+        "template_id": "S18_partner",
+        "damage_override_hp": 10,
+        "post_rule_damage_override_hp": 8,
+        "null_means_inherit_not_zero": true
+      },
+      {
+        "parent_id": "S27",
+        "template_id": "S27_spine",
+        "damage_override_hp": 8,
+        "post_rule_damage_override_hp": null,
+        "null_means_inherit_not_zero": true
+      },
+      {
+        "parent_id": "S27",
+        "template_id": "S27_bat",
+        "damage_override_hp": 8,
+        "post_rule_damage_override_hp": null,
+        "null_means_inherit_not_zero": true
+      },
+      {
+        "parent_id": "S28",
+        "template_id": "S28_successor",
+        "damage_override_hp": 14,
+        "post_rule_damage_override_hp": 10,
+        "null_means_inherit_not_zero": true
+      },
+      {
+        "parent_id": "S32",
+        "template_id": "S32_spawn",
+        "damage_override_hp": 6,
+        "post_rule_damage_override_hp": null,
+        "null_means_inherit_not_zero": true
+      },
+      {
+        "parent_id": "S41",
+        "template_id": "S41_helper",
+        "damage_override_hp": 8,
+        "post_rule_damage_override_hp": 6,
+        "null_means_inherit_not_zero": true
+      }
+    ],
+    "prevents_double_legacy_damage": true
+  }
+}

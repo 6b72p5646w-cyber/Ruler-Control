@@ -1,0 +1,144 @@
+{
+  "version": "BC01",
+  "baseline_commit": "a3d09c3bc8b5e6de83d523daa9d07aa894937f3d",
+  "runtime_integrated": false,
+  "purpose": "采用用户2026-11-20的新营业/战斗节奏、设备支援与等级方向，并关闭首发P0设计和有限参考验证。",
+  "execution_profiles": {
+    "current_design_bc01": "当前唯一拟实现设计模式；本表明确覆盖的字段优先于SA02及更早合同。",
+    "legacy_practice_v010": "既有F12/F13网页练习继续原适配器；本轮没有假装它已成为BC01完整客户端。",
+    "historical_sa02_sa01": "历史审计/反例，仅继承本表未覆盖部分；不可与BC01的同一字段同时消费。"
+  },
+  "previous_authority": "content/system_authority_sa02.json",
+  "authority_by_domain": {
+    "base_map_geometry": [
+      "content/maps.json",
+      "content/map_mechanics_v05.json"
+    ],
+    "store_work_and_free_mechanisms": [
+      "content/store_systems_v05.json",
+      "content/mechanism_closure_v010.json",
+      "content/temporal_resource_contract_v07.json",
+      "content/consumer_closure_v08.json"
+    ],
+    "original_folklore_steps": [
+      "content/mechanism_cases_v010_a.json",
+      "content/mechanism_cases_v010_b.json",
+      "content/encounter_blueprints.json"
+    ],
+    "monster_identity_stats_endings": [
+      "content/monster_roster_md01.json",
+      "content/monster_contracts_md01.json"
+    ],
+    "attack_timing_geometry": [
+      "content/monster_attack_roster_ma01.json",
+      "content/attack_contracts_ma01.json"
+    ],
+    "tower_tree_status_geometry": [
+      "content/tower_defense_td05.json",
+      "content/combat_contracts_td05.json"
+    ],
+    "trap_inventory_and_electric_devices": [
+      "content/traps_facilities_td05.json",
+      "content/economy_week_td05.json"
+    ],
+    "current_equipment_and_lottery": [
+      "content/equipment_contracts_eq01.json",
+      "content/equipment_eq01.json",
+      "content/consumables_eq01.json",
+      "content/lottery_rewards_eq01.json"
+    ],
+    "legacy_item_pet_consumers": [
+      "content/auxiliary_effects_v010.json"
+    ],
+    "legacy_deployment_overrides": [
+      "content/legacy_deployment_bridge_sa01.json"
+    ],
+    "run_identity_retry_week_close": [
+      "content/run_lifecycle_sa01.json"
+    ],
+    "facility_inventory_and_candidates": [
+      "content/facility_roles_sa01.json",
+      "content/facility_contracts_sa02.json"
+    ],
+    "legacy_events_seven_night_migration": [
+      "content/event_contracts_v010.json",
+      "content/event_migrations_sa02.json"
+    ],
+    "rule_leave_noncombat_response": [
+      "content/monster_contracts_md01.json",
+      "content/attack_contracts_ma01.json",
+      "content/rule_response_contracts_sa02.json"
+    ],
+    "current_player_hp_growth_and_damage": "content/campaign_bc01.json#/player",
+    "normal_customer_device_support": "content/facilities_bc01.json",
+    "random_director_and_safe_chores": "content/director_bc01.json",
+    "current_assembled_map_and_composition": "content/map_composition_bc01.json",
+    "current_lifecycle_economy_and_persistence": "content/campaign_bc01.json",
+    "first_week_teaching_and_feedback": "content/onboarding_bc01.json"
+  },
+  "scoped_overrides": [
+    {
+      "source": "content/campaign_bc01.json#/attack_migration",
+      "replaces": "MA01直接攻击damage.san/post_rule.damage_san、实际危险残留与13子体同类override 1:1迁HP；184攻击不再叠扣SAN。原真实恐惧/规则成本仍走各自原资源。EQ01直接伤害防护同源转HP，fear防护不转。"
+    },
+    {
+      "source": "content/facilities_bc01.json",
+      "replaces": "SA01/SA02五个玩家工作触发设备候选撤下；只有真实普通顾客使用+同笔付款蓄后续战斗支援。员工监控/照明本身保留控制职责，不能伪造顾客使用。"
+    },
+    {
+      "source": "content/director_bc01.json",
+      "replaces": "balance/store_systems_v05的每小时最多1新主怪、6固定小时怪槽、12必达订单、六项必做营业工单与交班跑图不再用于BC01。真实随机安全营业/预兆/入侵/整理由独立RNG和预算控制。"
+    },
+    {
+      "source": "content/campaign_bc01.json#/clocks",
+      "replaces": "BC01使用720真实世界秒名义夜班，pause全部停止。旧budget玩家手工步骤变真实手动动作；NPC/保持/观察的世界时长保持，不靠QTE暂停跳过怪物。"
+    },
+    {
+      "source": "content/campaign_bc01.json#/player",
+      "replaces": "EQ01 no_new_player_hp/no_new_meter/essential_rule_step_times不再一刀切：新增HP/永久等级，明确手动动作按熟练度，true-world-wait不变。普通永久速度cap保持，新的顾客短时增速有单独cap。"
+    },
+    {
+      "source": "content/campaign_bc01.json#/blackout",
+      "replaces": "全店停电立即关闭全部电器buff与所有电流过载队列/新增/反馈，不能用敌体-敌体边绕过总闸。塔已支付原生直接伤害不因此消失，但停电不新增电荷；个人电池和手摇主解不供战斗电网。"
+    },
+    {
+      "source": "content/facilities_bc01.json#/temporary_traps",
+      "replaces": "班中不可新增玩家库存陷阱保留；唯一新增例外为正常营业已蓄的临时顾客礼物。真实8件/16格同容量、不售卖、不回收补货，合法落位后才扣额度。"
+    },
+    {
+      "source": "content/campaign_bc01.json#/economy",
+      "replaces": "保留订单6币、根12币4灵能/真主解+2、工资80、封顶40奖金；新增工单奖、有限存活奖与XP。删除杂活债罚和店长/钥匙交班仪式；正式自动夜结才固化XP/券，HP0禁止夜结。"
+    },
+    {
+      "source": "content/map_composition_bc01.json",
+      "replaces": "旧纸面主解anchor由实际新增模块/操作面落位；F05干侧擦水、F17真实退距/领取等采用本版明确修订。所有105有准入记录，未装配的条目禁止首发随机抽到。"
+    },
+    {
+      "source": "content/map_composition_bc01.json#/rule_response_overrides",
+      "replaces": "新增F17同原包裹三结完成、放合法领取槽、实际退2.5格后的有限非敌对领取/离场片段；沿SA02保存HP/q/绝对截止、停本根敌对行为、不补算、不使玩家对其他怪无敌。S40/S43原SA02响应保持。"
+    },
+    {
+      "source": "content/campaign_bc01.json#/persistence",
+      "replaces": "SA01完整检查点分区新增HP/等级暂得XP、顾客/库存/工单部分进度与暂放原物、设施蓄存/临时陷阱、电源epoch/队列、随机导演。等级跨周；其他既有个人/周资产分区保持。"
+    }
+  ],
+  "unchanged_invariants": [
+    "105怪身份/真实原物与三结局未列部分",
+    "免费主解不依赖营业buff、等级、塔升级或现金",
+    "TD05塔/付费陷阱树、价格与消耗次数未列部分",
+    "原毒q无上限不衰减、主解不自动回血、真实终局才发根奖",
+    "同一角色只有一个手部动作，路径和搬运占实际时间",
+    "正常人永不作塔/陷阱敌对目标",
+    "SA02旧事件迁移gates，未做真实适配者继续关闭",
+    "班前采购/布防/修理/装填权限，临时顾客陷阱之外不开放班中补塔补库存"
+  ],
+  "validation": {
+    "runner": "scripts/run_validation_bc01.py",
+    "p0_report": "docs/bc01_p0_report.json",
+    "p0_acceptance": "docs/93_bc01_p0_acceptance.md",
+    "mode": "design_and_bounded_executable_reference",
+    "production_client_integrated": false,
+    "full_105_ai_or_mobile_playtest_proven": false
+  },
+  "design_vs_release": "P0设计交付完成以新报告逐项证据为准；游戏发行仍须实现已定义世界适配/图形输入与微信持久化，并做实机胜率和性能验收，不将这些未做的运行工作记为P0测试已通过。"
+}

@@ -1,0 +1,4449 @@
+{
+  "version": "BC01",
+  "status": "complete_bounded_map_and_admission_design_not_live_ai",
+  "runtime_integrated": false,
+  "authority": "BC01 replaces hourly admission and adds one public counter plus named task controls; existing MD01 identity, free original objects, terminal modes and SA02 noncombat response remain binding.",
+  "sources": [
+    "content/maps.json",
+    "content/map_mechanics_v05.json",
+    "content/monster_roster_md01.json",
+    "content/composition_contracts_v010.json",
+    "content/rule_response_contracts_sa02.json"
+  ],
+  "geometry": {
+    "scene": "MAP_STORE",
+    "player_radius_tiles": 0.3,
+    "customer_radius_tiles": 0.3,
+    "grid": "four_neighbour_half_integer_centres",
+    "travel_metric": "sum_of_actual_graph_segments_plus_body_clear_coordinate_connectors",
+    "uses_euclidean_distance_as_route": false,
+    "coordinate_connector_sweep_step": null,
+    "closed_door_revalidation": true,
+    "ordinary_customer_speed_tiles_s": 2.4,
+    "baseline_player_speed_tiles_s": 3.0,
+    "heavy_carry_speed_tiles_s": 2.4,
+    "task_meat_speed_tiles_s": 2.6,
+    "power_changes_navigation": false,
+    "blackout_keeps_manual_freezer_doors_and_task_controls": true,
+    "coordinate_connector_clearance": "analytic swept circle-to-rectangle distance; same four-neighbour graph edge only",
+    "raid_reference_staging_anchor": "safe_counter",
+    "raid_reference_staging_policy": "reference controller may actually walk here during omen; real player never teleported; actual distance >=5 rechecked or choose another valid encounter"
+  },
+  "new_fixtures": [
+    {
+      "id": "BC01_PUBLIC_SERVICE_COUNTER",
+      "name": "前场公共服务柜",
+      "rect": [
+        23,
+        21,
+        2,
+        2
+      ],
+      "blocks_navigation": true,
+      "blocks_rule_sight": false,
+      "faces": [
+        "public_supplies",
+        "customer_return",
+        "lucky_receipt"
+      ],
+      "appliance_network_node": false,
+      "new_tower_anchor": false
+    }
+  ],
+  "anchors": [
+    {
+      "role": "player_start",
+      "position": [
+        6.5,
+        26.5
+      ],
+      "purpose": "开班玩家操作位",
+      "access": "private"
+    },
+    {
+      "role": "customer_spawn",
+      "position": [
+        15.5,
+        37.5
+      ],
+      "purpose": "顾客到访与退场边界",
+      "access": "public"
+    },
+    {
+      "role": "customer_exit",
+      "position": [
+        15.5,
+        37.5
+      ],
+      "purpose": "疏散完成边界",
+      "access": "public"
+    },
+    {
+      "role": "customer_checkout",
+      "position": [
+        6.5,
+        22.5
+      ],
+      "purpose": "顾客支付面",
+      "access": "public"
+    },
+    {
+      "role": "customer_freezer",
+      "position": [
+        24.5,
+        14.5
+      ],
+      "purpose": "普通冷冻货自取槽，和任务肉分隔",
+      "access": "public"
+    },
+    {
+      "role": "public_supplies",
+      "position": [
+        22.5,
+        21.5
+      ],
+      "purpose": "公共补给柜西侧",
+      "access": "public"
+    },
+    {
+      "role": "customer_return",
+      "position": [
+        23.5,
+        23.5
+      ],
+      "purpose": "空瓶回收柜南侧",
+      "access": "public"
+    },
+    {
+      "role": "lucky_receipt",
+      "position": [
+        25.5,
+        21.5
+      ],
+      "purpose": "幸运小票屏东侧",
+      "access": "public"
+    },
+    {
+      "role": "security",
+      "position": [
+        2.5,
+        3.5
+      ],
+      "purpose": "既有监控终端的任务别名",
+      "access": "private"
+    },
+    {
+      "role": "cleaning",
+      "position": [
+        20.5,
+        7.5
+      ],
+      "purpose": "既有拖把工具柜的任务别名",
+      "access": "private"
+    },
+    {
+      "role": "mirror_station",
+      "position": [
+        19.5,
+        22.5
+      ],
+      "purpose": "已有凸镜近侧操作位",
+      "access": "public"
+    },
+    {
+      "role": "clean_water",
+      "position": [
+        24.5,
+        11.5
+      ],
+      "purpose": "冷区普通水渍清理干侧",
+      "access": "public"
+    },
+    {
+      "role": "clean_mirror_water",
+      "position": [
+        7.5,
+        17.5
+      ],
+      "purpose": "货架水膜镜面清理干侧",
+      "access": "public"
+    },
+    {
+      "role": "clean_blood",
+      "position": [
+        11.5,
+        23.5
+      ],
+      "purpose": "前场血污样例点，仅真实污染时启用",
+      "access": "public"
+    },
+    {
+      "role": "clean_trash",
+      "position": [
+        17.5,
+        23.5
+      ],
+      "purpose": "前场垃圾样例点，仅真实污染时启用",
+      "access": "public"
+    },
+    {
+      "role": "cold_cut",
+      "position": [
+        24.5,
+        11.5
+      ],
+      "purpose": "河童湿边割点的真实干侧",
+      "access": "public"
+    },
+    {
+      "role": "cold_dry_slot",
+      "position": [
+        25.5,
+        11.5
+      ],
+      "purpose": "河童原篮干侧放置位",
+      "access": "public"
+    },
+    {
+      "role": "infrared_window",
+      "position": [
+        7.5,
+        19.5
+      ],
+      "purpose": "货架末端手摇红外窗控制面",
+      "access": "public"
+    },
+    {
+      "role": "wave_screen",
+      "position": [
+        8.5,
+        19.5
+      ],
+      "purpose": "侧装遮波挡片控制面",
+      "access": "public"
+    },
+    {
+      "role": "infrared_gate",
+      "position": [
+        9.5,
+        19.5
+      ],
+      "purpose": "红外检测门侧控位",
+      "access": "public"
+    },
+    {
+      "role": "infrared_lure",
+      "position": [
+        9.5,
+        21.5
+      ],
+      "purpose": "检测门后玩家侧闪点",
+      "access": "public"
+    },
+    {
+      "role": "s29_light_control",
+      "position": [
+        6.5,
+        15.5
+      ],
+      "purpose": "任务补光灯手摇/反射控制面",
+      "access": "public"
+    },
+    {
+      "role": "s29_target",
+      "position": [
+        8.5,
+        15.5
+      ],
+      "purpose": "可容纳本体的任务补光区",
+      "access": "public"
+    },
+    {
+      "role": "s29_dodge",
+      "position": [
+        9.5,
+        16.5
+      ],
+      "purpose": "补光区侧闪点",
+      "access": "public"
+    },
+    {
+      "role": "paper_load",
+      "position": [
+        25.5,
+        3.5
+      ],
+      "purpose": "S40封盘侧控制面",
+      "access": "private"
+    },
+    {
+      "role": "paper_take",
+      "position": [
+        27.5,
+        2.5
+      ],
+      "purpose": "S40同一影客实际取纸位置",
+      "access": "private"
+    },
+    {
+      "role": "paper_wait",
+      "position": [
+        23.5,
+        3.5
+      ],
+      "purpose": "S40交接界外玩家等候位",
+      "access": "private"
+    },
+    {
+      "role": "s43_panel",
+      "position": [
+        2.5,
+        3.5
+      ],
+      "purpose": "本地接驳请求面板，非伪造源卖场状态",
+      "access": "private"
+    },
+    {
+      "role": "s43_latch",
+      "position": [
+        27.5,
+        1.5
+      ],
+      "purpose": "原后门外闩操作位",
+      "access": "private"
+    },
+    {
+      "role": "s43_exit",
+      "position": [
+        27.5,
+        -4.5
+      ],
+      "purpose": "巡场员沿接驳原门离店边界",
+      "access": "private"
+    },
+    {
+      "role": "parcel_guest_start",
+      "position": [
+        19.5,
+        22.5
+      ],
+      "purpose": "裹尸鬼领取前实体位置",
+      "access": "public"
+    },
+    {
+      "role": "parcel_retreat",
+      "position": [
+        15.5,
+        25.5
+      ],
+      "purpose": "距原包裹4格的公共后退位",
+      "access": "public"
+    },
+    {
+      "role": "sound_side",
+      "position": [
+        17.5,
+        6.5
+      ],
+      "purpose": "原打包台外侧声挡板操作面",
+      "access": "private"
+    },
+    {
+      "role": "sound_safe",
+      "position": [
+        21.5,
+        6.5
+      ],
+      "purpose": "三格爆音区外等候位",
+      "access": "private"
+    },
+    {
+      "role": "combat_target",
+      "position": [
+        7.5,
+        22.5
+      ],
+      "purpose": "TA07北侧有限火力参考目标位",
+      "access": "public"
+    },
+    {
+      "role": "combat_player",
+      "position": [
+        10.5,
+        22.5
+      ],
+      "purpose": "TA07火力参考玩家引导位",
+      "access": "public"
+    }
+  ],
+  "task_modules": [
+    {
+      "id": "BC01_IR_GATE",
+      "monsters": [
+        "S09"
+      ],
+      "mount": "fixed overhead sensor bar at y=20, x=6..10; three pull-cord/hand-crank controls; no floor posts",
+      "controls": [
+        "infrared_window",
+        "wave_screen",
+        "infrared_gate"
+      ],
+      "crossing_segment": [
+        [
+          6,
+          20
+        ],
+        [
+          10,
+          20
+        ]
+      ],
+      "lure_anchor": "infrared_lure",
+      "side_escape_anchors": [
+        "aisle_loop",
+        "floor_markers"
+      ],
+      "physical_floor_obstruction": false,
+      "free_power": "dedicated_hand_crank_task_sensor",
+      "buff_or_overload_source": false,
+      "under_blackout": "free task use works; no store electrical buff or electric charge",
+      "control_objects": [
+        {
+          "id": "BC01_IR_READ",
+          "position": [
+            7.5,
+            19.0
+          ],
+          "player_anchor": "infrared_window",
+          "interaction_radius": 1.5
+        },
+        {
+          "id": "BC01_WAVE_PULL",
+          "position": [
+            8.5,
+            19.0
+          ],
+          "player_anchor": "wave_screen",
+          "interaction_radius": 1.5
+        },
+        {
+          "id": "BC01_IR_TAG",
+          "position": [
+            9.5,
+            19.0
+          ],
+          "player_anchor": "infrared_gate",
+          "interaction_radius": 1.5
+        }
+      ]
+    },
+    {
+      "id": "BC01_TASK_LIGHT",
+      "monsters": [
+        "S29"
+      ],
+      "mount": "FX11 side",
+      "controls": [
+        "s29_light_control"
+      ],
+      "lit_rect": [
+        6,
+        13,
+        4,
+        5
+      ],
+      "target_anchor": "s29_target",
+      "dodge_anchor": "s29_dodge",
+      "physical_floor_obstruction": false,
+      "free_power": "dedicated_hand_crank_task_light",
+      "buff_or_overload_source": false,
+      "hold_seconds": 4,
+      "enemy_windup_recovery_seconds": [
+        2,
+        2.5
+      ],
+      "requires_same_actual_body_continuously_inside": true,
+      "lamp_position": [
+        6.001,
+        15.5
+      ],
+      "control_position": [
+        6.001,
+        15.5
+      ],
+      "interaction_radius": 1.5
+    },
+    {
+      "id": "BC01_PAPER_TRAY",
+      "monsters": [
+        "S40"
+      ],
+      "mount": "FX07 east countertop edge",
+      "control": "paper_load",
+      "tray_path": [
+        [
+          25.5,
+          2.5
+        ],
+        [
+          26.5,
+          2.5
+        ]
+      ],
+      "tray_motion_seconds": 0.5,
+      "entity_take_anchor": "paper_take",
+      "player_wait_anchor": "paper_wait",
+      "handoff_bounds": [
+        26,
+        1,
+        3,
+        4
+      ],
+      "take_seconds": 2.5,
+      "physical_floor_obstruction": false,
+      "free_power": "mechanical",
+      "requires_original_paper_id": true,
+      "response_contract": "SA02_same_pool_noncombat_response"
+    },
+    {
+      "id": "BC01_SOURCE_LINK",
+      "monsters": [
+        "S43"
+      ],
+      "mount": "monitor_terminal + original DOOR_REAR",
+      "controls": [
+        "s43_panel",
+        "s43_latch"
+      ],
+      "source_ack_world_seconds": 3,
+      "entity_exit_anchor": "s43_exit",
+      "physical_floor_obstruction": false,
+      "free_power": "mechanical_line_request_and_source_receipt",
+      "local_switch_fabricates_source_open": false,
+      "response_contract": "SA02_source_open_revoke_then_actual_walk_then_player_latch"
+    },
+    {
+      "id": "BC01_SOUND_BOX",
+      "monsters": [
+        "S34"
+      ],
+      "mount": "FX08 existing packing surface",
+      "control": "sound_side",
+      "safe_anchor": "sound_safe",
+      "object_position": [
+        17.5,
+        7.5
+      ],
+      "baffle_policy": "first real 0.8s baffle folds toward player side and masks north-facing service position; sound continues outside the registered solid baffle, never global safe aura",
+      "physical_floor_obstruction": false,
+      "free_power": "mechanical",
+      "quiet_wait_seconds": 6,
+      "clamp_seconds": 1.2,
+      "latch_seconds": 1,
+      "quiet_window_seconds": 3,
+      "baffle_segment": [
+        [
+          16,
+          7
+        ],
+        [
+          19,
+          7
+        ]
+      ],
+      "sound_source_position": [
+        17.5,
+        7.5
+      ],
+      "baffle_surface": "raised panel on existing FX08 north countertop edge; blocks sound rays crossing this actual segment only"
+    },
+    {
+      "id": "BC01_MIRROR_CASE",
+      "monsters": [
+        "S38"
+      ],
+      "mount": "FX23 top",
+      "control": "verification_desk",
+      "physical_floor_obstruction": false,
+      "free_power": "mechanical",
+      "unprovoked_storage_reward": 0,
+      "case_position": [
+        25.5,
+        26.5
+      ]
+    }
+  ],
+  "business_route_policy": {
+    "normal_customer_allowed_anchors": [
+      "customer_spawn",
+      "customer_exit",
+      "customer_checkout",
+      "goods_shelf",
+      "hot_food",
+      "customer_freezer",
+      "cold_cabinet",
+      "verification_desk",
+      "pickup_shelf",
+      "public_supplies",
+      "customer_return",
+      "lucky_receipt"
+    ],
+    "forbidden_customer_regions": [
+      [
+        0,
+        0,
+        30,
+        10
+      ]
+    ],
+    "do_not_route_customer_to_staff_or_warehouse": true,
+    "checkout_player_and_customer_distinct_sides": true,
+    "all_ordinary_chores_only_states": [
+      "BUSINESS",
+      "RECOVERY"
+    ],
+    "raid_never_requires_chore_completion": "Monster-specific original-object rules remain combat objectives; identical looking routine jobs are paused and not charged.",
+    "evacuation": "physical route to customer_exit; normal customer combat flag remains false and no paid receipt is invented"
+  },
+  "trap_placement": {
+    "candidate_cells": [
+      [
+        14,
+        13
+      ],
+      [
+        15,
+        15
+      ],
+      [
+        19,
+        17
+      ],
+      [
+        23,
+        17
+      ],
+      [
+        26,
+        23
+      ],
+      [
+        10,
+        32
+      ],
+      [
+        12,
+        34
+      ],
+      [
+        18,
+        35
+      ],
+      [
+        23,
+        34
+      ],
+      [
+        25,
+        32
+      ]
+    ],
+    "must_not_cover_any_live_actor": true,
+    "placement_distance_from_live_actor_min_tiles": 1.0,
+    "forbid_same_cell_as_workpoints_or_actual_required_paths": true,
+    "nonblocking_enemy_only": true,
+    "counts_toward_paid_and_temporary_shared_limits": {
+      "objects": 8,
+      "footprint_cells": 16
+    },
+    "temporary_active_max": 1,
+    "no_sell_no_ammo_no_refund": true,
+    "no_legal_cell": "leave charge stored; retry at most once per world second, never force placement",
+    "after_raid": "remove temporary instance without refund; paid traps untouched",
+    "templates": {
+      "R01": {
+        "footprint": [
+          1,
+          2
+        ],
+        "rotation": [
+          0,
+          90
+        ]
+      },
+      "R02": {
+        "footprint": [
+          1,
+          1
+        ],
+        "rotation": [
+          0
+        ]
+      },
+      "R07": {
+        "footprint": [
+          1,
+          1
+        ],
+        "rotation": [
+          0
+        ]
+      }
+    }
+  },
+  "combat_reference": {
+    "tower": "T02",
+    "tower_anchor_id": "TA07",
+    "tower_anchor_position": [
+      7.5,
+      24.5
+    ],
+    "emitter": [
+      7.5,
+      23.999
+    ],
+    "target_anchor": "combat_target",
+    "player_anchor": "combat_player",
+    "target_loop": [
+      [
+        7.5,
+        22.5
+      ],
+      [
+        10.5,
+        22.5
+      ],
+      [
+        10.5,
+        21.5
+      ],
+      [
+        7.5,
+        21.5
+      ]
+    ],
+    "range_tiles": 5.5,
+    "full_player_survival_or_enemy_ai_proven": false,
+    "guard": "only same actual legal manifested root after rule; respect actual LOS/height/HP/DoT and real attack receipts"
+  },
+  "composition": {
+    "max_active_roots": 2,
+    "max_active_player_pursuers": 1,
+    "high_pressure_root_exclusive": true,
+    "max_pressure_sum": 2,
+    "unknown_pair": "reject",
+    "explicit_pairs": [
+      {
+        "ids": [
+          "F17",
+          "S34"
+        ],
+        "state_predicates": [
+          "F17_original_parcel_reserved",
+          "S34_original_box_reserved",
+          "S34_sound_confined_to_packing_region",
+          "F17_front_pickup_region_does_not_intersect_sound_domain",
+          "player_resolves_F17_before_entering_S34_region"
+        ],
+        "reason": "one pursuer plus spatially isolated anchored hazard; no shared original item or work slot",
+        "reference_enabled": true
+      },
+      {
+        "ids": [
+          "F17",
+          "S38"
+        ],
+        "state_predicates": [
+          "S38_not_provoked",
+          "S38_passive_no_attack_target",
+          "S38_storage_no_reward",
+          "distinct_original_items"
+        ],
+        "reason": "one dangerous root and one passive no-reward anomaly; not two hostile pursuers",
+        "reference_enabled": true
+      }
+    ],
+    "power_modifier": "real root-bound blackout may accompany a single admitted encounter only; no extra invisible root or reward; free manual task routes remain available",
+    "reservation_order": [
+      "physical_task_slots",
+      "required_original_objects",
+      "dry_escape_and_customer_exit",
+      "tower_and_paid_trap_footprints",
+      "action_window_and_pressure",
+      "root_commit"
+    ],
+    "on_late_invalid": "stop new attacks from invalid root and rollback its uncommitted admission; do not erase already earned costs or clone task items"
+  },
+  "encounter_admission": [
+    {
+      "monster_id": "F01",
+      "name": "狐精",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 1,
+      "pressure_cost": 1.0,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "weigh",
+        "measure",
+        "sort"
+      ],
+      "required_anchors": [
+        "receiving",
+        "packing"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": true,
+      "director_reference_admitted": true,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [],
+      "exclusive_slots": [
+        "receiving",
+        "packing"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F02",
+      "name": "画皮鬼",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 2,
+      "pressure_cost": 1.0,
+      "encounter_role": "conditional_visitor",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "observe_edges",
+        "check_record",
+        "secure_and_depart"
+      ],
+      "required_anchors": [
+        "verification_desk"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "verification_desk"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F03",
+      "name": "僵尸",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 2,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "take_a",
+        "leave_breath",
+        "wait_landing",
+        "carry_a",
+        "wait_return",
+        "return_crossing",
+        "take_b",
+        "wait_landing_2",
+        "carry_b",
+        "withdraw_and_dissipate"
+      ],
+      "required_anchors": [
+        "goods_shelf",
+        "aisle_loop",
+        "safe_counter"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "goods_shelf",
+        "aisle_loop",
+        "safe_counter"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F04",
+      "name": "鲛人",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 2,
+      "pressure_cost": 1.0,
+      "encounter_role": "conditional_visitor",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "fill_tray",
+        "take_fiber",
+        "measure_close",
+        "deliver"
+      ],
+      "required_anchors": [
+        "sink",
+        "receiving",
+        "packing",
+        "isolation_cage"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "sink",
+        "receiving",
+        "packing",
+        "isolation_cage"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F05",
+      "name": "河童",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 1,
+      "pressure_cost": 1.0,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "take_cloth",
+        "close_valve",
+        "wipe_cut",
+        "take_basket",
+        "place_dry",
+        "confirm_disconnect"
+      ],
+      "required_anchors": [
+        "mop_station",
+        "water_valve",
+        "sink"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": true,
+      "director_reference_admitted": true,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [],
+      "exclusive_slots": [
+        "mop_station",
+        "water_valve",
+        "sink"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F06",
+      "name": "雪女",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 2,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "accept_mute_paper",
+        "make_cup",
+        "deliver"
+      ],
+      "required_anchors": [
+        "cashier",
+        "hot_food",
+        "pickup_shelf"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "cashier",
+        "hot_food",
+        "pickup_shelf"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F07",
+      "name": "座敷童子",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 1,
+      "pressure_cost": 1.0,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "hang_sign",
+        "redirect",
+        "watch_window",
+        "quiet_depart"
+      ],
+      "required_anchors": [
+        "reserve_seat",
+        "customer_wait"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "reserve_seat",
+        "customer_wait"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F08",
+      "name": "付丧神",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 2,
+      "pressure_cost": 1.0,
+      "encounter_role": "hunter",
+      "resolution_type": "kill_unlocked",
+      "source_step_ids": [
+        "locate_crack",
+        "repair_test"
+      ],
+      "required_anchors": [
+        "packing"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "packing"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F09",
+      "name": "轆轤首",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 2,
+      "pressure_cost": 1.0,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "tag_accept",
+        "take_goods",
+        "put_basket",
+        "wait_body",
+        "checkout"
+      ],
+      "required_anchors": [
+        "customer_wait",
+        "goods_shelf",
+        "cashier"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "customer_wait",
+        "goods_shelf",
+        "cashier"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F10",
+      "name": "海坊主",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 4,
+      "pressure_cost": 2.0,
+      "encounter_role": "anchored_hazard",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "take_cloth",
+        "lay_cloth",
+        "present_receipt",
+        "drain",
+        "close_window"
+      ],
+      "required_anchors": [
+        "mop_station",
+        "rear_door"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "mop_station",
+        "rear_door"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 0,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F11",
+      "name": "韩国鬼怪",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 2,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "take_food",
+        "give_food"
+      ],
+      "required_anchors": [
+        "hot_food",
+        "forecourt_handoff"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "hot_food",
+        "forecourt_handoff"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F12",
+      "name": "不可杀伊",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 3,
+      "pressure_cost": 2.0,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "take_clips",
+        "scatter1",
+        "wait_node1"
+      ],
+      "required_anchors": [
+        "metal_shelf",
+        "aisle_loop"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": true,
+      "director_reference_admitted": true,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [],
+      "exclusive_slots": [
+        "metal_shelf",
+        "aisle_loop"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F13",
+      "name": "飞头女鬼",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 2,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "kill_unlocked",
+      "source_step_ids": [
+        "take_meat",
+        "store_close"
+      ],
+      "required_anchors": [
+        "warehouse_meat",
+        "freezer_main"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": true,
+      "director_reference_admitted": true,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [],
+      "exclusive_slots": [
+        "warehouse_meat",
+        "freezer_main"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F14",
+      "name": "饕食附身灵",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 5,
+      "pressure_cost": 1.0,
+      "encounter_role": "conditional_visitor",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "pause_observe",
+        "move_slot1",
+        "move_slot2",
+        "close_box",
+        "send_box"
+      ],
+      "required_anchors": [
+        "break_table",
+        "forecourt_handoff"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist",
+        "source_default_disabled_requires_real_prerequisite"
+      ],
+      "exclusive_slots": [
+        "break_table",
+        "forecourt_handoff"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": false
+    },
+    {
+      "monster_id": "F15",
+      "name": "蓬蒂雅娜",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "demo_lamp",
+        "cover",
+        "close_bell",
+        "stable_return"
+      ],
+      "required_anchors": [
+        "packing"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "packing"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F16",
+      "name": "图尤尔",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 2,
+      "pressure_cost": 1.0,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "seal_till",
+        "place_test_coin",
+        "trace1",
+        "trace2",
+        "trace3",
+        "recover_coins",
+        "bag_return"
+      ],
+      "required_anchors": [
+        "cashier",
+        "front_exit"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "cashier",
+        "front_exit"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F17",
+      "name": "裹尸鬼",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 1,
+      "pressure_cost": 1.0,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "untie_all",
+        "place_ready",
+        "step_back",
+        "guest_pickup"
+      ],
+      "required_anchors": [
+        "pickup_shelf"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": true,
+      "director_reference_admitted": true,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [],
+      "exclusive_slots": [
+        "pickup_shelf"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F18",
+      "name": "阿斯旺",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1.5,
+      "encounter_role": "conditional_visitor",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "observe_trace",
+        "read_tally",
+        "deny_staff_access",
+        "guest_depart"
+      ],
+      "required_anchors": [
+        "rear_door",
+        "staff_locker"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "rear_door",
+        "staff_locker"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F19",
+      "name": "吠陀罗尸鬼",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "kill_unlocked",
+      "source_step_ids": [
+        "attach_first",
+        "waypoint_two",
+        "store_parcel"
+      ],
+      "required_anchors": [
+        "receiving",
+        "packing",
+        "pickup_shelf"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "receiving",
+        "packing",
+        "pickup_shelf"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F20",
+      "name": "罗刹访客",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "accept_one",
+        "pack_one",
+        "give_one",
+        "close_scope"
+      ],
+      "required_anchors": [
+        "front_door",
+        "hot_food"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "front_door",
+        "hot_food"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F21",
+      "name": "报丧女妖",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 2,
+      "pressure_cost": 1.0,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "check_flag",
+        "leave_station",
+        "isolate_device"
+      ],
+      "required_anchors": [
+        "hot_food"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "hot_food"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F22",
+      "name": "布朗尼家务精",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 2,
+      "pressure_cost": 1.0,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "take_offer_food",
+        "place_offer",
+        "assign_job",
+        "work_away_first",
+        "work_away_second",
+        "inspect"
+      ],
+      "required_anchors": [
+        "hot_food",
+        "reserve_seat",
+        "goods_shelf"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "hot_food",
+        "reserve_seat",
+        "goods_shelf"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F23",
+      "name": "塞尔基海豹人",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 2,
+      "pressure_cost": 1.0,
+      "encounter_role": "conditional_visitor",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "record_claims",
+        "inspect_match",
+        "return_coat",
+        "watch_depart"
+      ],
+      "required_anchors": [
+        "lost_property",
+        "pickup_shelf",
+        "front_door"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "lost_property",
+        "pickup_shelf",
+        "front_door"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F24",
+      "name": "凯尔皮水马",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 3,
+      "pressure_cost": 2.0,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "take_cloth",
+        "cut_water",
+        "take_cargo",
+        "place_dry"
+      ],
+      "required_anchors": [
+        "mop_station",
+        "rear_door"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "mop_station",
+        "rear_door"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F25",
+      "name": "普卡变形精",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "kill_unlocked",
+      "source_step_ids": [
+        "accept_item",
+        "refund_once"
+      ],
+      "required_anchors": [
+        "cashier"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "cashier"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F26",
+      "name": "红帽妖",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 4,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "take_dressing",
+        "dress_self",
+        "wipe_c",
+        "wipe_b",
+        "wipe_a",
+        "seal_park"
+      ],
+      "required_anchors": [
+        "cashier"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "cashier"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F27",
+      "name": "山林巨魔",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 4,
+      "pressure_cost": 2.0,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "sign_accept",
+        "take_a",
+        "give_a",
+        "take_b",
+        "give_b"
+      ],
+      "required_anchors": [
+        "forecourt_handoff",
+        "receiving"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "forecourt_handoff",
+        "receiving"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F28",
+      "name": "诺肯水乐灵",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "kill_unlocked",
+      "source_step_ids": [
+        "test_a",
+        "test_b",
+        "seal_known_source",
+        "cover_pan"
+      ],
+      "required_anchors": [
+        "water_valve"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "water_valve"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F29",
+      "name": "托姆特家园精灵",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 1,
+      "pressure_cost": 1.0,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "prepare",
+        "deliver_uncover"
+      ],
+      "required_anchors": [
+        "hot_food",
+        "reserve_seat"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "hot_food",
+        "reserve_seat"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F30",
+      "name": "海亡灵",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 4,
+      "pressure_cost": 2.0,
+      "encounter_role": "hunter",
+      "resolution_type": "kill_unlocked",
+      "source_step_ids": [
+        "weigh_unpack",
+        "seal_primary"
+      ],
+      "required_anchors": [
+        "receiving",
+        "forecourt_handoff"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "receiving",
+        "forecourt_handoff"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F31",
+      "name": "马拉梦魇",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1.0,
+      "encounter_role": "hunter",
+      "resolution_type": "kill_unlocked",
+      "source_step_ids": [
+        "decline_chair"
+      ],
+      "required_anchors": [
+        "rest_chair"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "rest_chair"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F32",
+      "name": "夜返吸血鬼",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "mute_welcome",
+        "mark_boundary",
+        "walk_patient",
+        "take_bandage",
+        "bandage_patient",
+        "targetless_departure"
+      ],
+      "required_anchors": [
+        "cashier",
+        "safe_counter"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "cashier",
+        "safe_counter"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F33",
+      "name": "狼人",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 2,
+      "pressure_cost": 1.0,
+      "encounter_role": "conditional_visitor",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "observe_form",
+        "place_aid",
+        "visitor_take_aid",
+        "depart",
+        "claim_aid"
+      ],
+      "required_anchors": [
+        "forecourt_handoff",
+        "front_door"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "forecourt_handoff",
+        "front_door"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F34",
+      "name": "鲁萨尔卡水灵",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "observe_beat",
+        "wipe_cut",
+        "retreat_dry",
+        "take_dry_bag",
+        "place_dry_bag"
+      ],
+      "required_anchors": [
+        "front_door"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "front_door"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F35",
+      "name": "芭芭雅嘎",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 4,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "set_boundary",
+        "place_broom",
+        "unwatched_clean",
+        "return_broom",
+        "credit_cleaning"
+      ],
+      "required_anchors": [
+        "packing"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "packing"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F36",
+      "name": "精灵访客",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "mark_slot",
+        "grant_slot",
+        "lease_twenty",
+        "clear_slot",
+        "collect_rent"
+      ],
+      "required_anchors": [
+        "storage_shelf"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "storage_shelf"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F37",
+      "name": "古尔荒野妖",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 2,
+      "pressure_cost": 1.0,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "verify_order",
+        "take_bag",
+        "place_registered",
+        "end_lure"
+      ],
+      "required_anchors": [
+        "staff_desk",
+        "pickup_shelf",
+        "front_door"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "staff_desk",
+        "pickup_shelf",
+        "front_door"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F38",
+      "name": "双重身",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 5,
+      "pressure_cost": 2.0,
+      "encounter_role": "conditional_visitor",
+      "resolution_type": "kill_unlocked",
+      "source_step_ids": [
+        "read_work_receipts",
+        "read_independent_roster",
+        "observe_current_private",
+        "observe_current_body",
+        "commit_current_check",
+        "see_second_arrive",
+        "separate_bodies",
+        "grant_tracked_body"
+      ],
+      "required_anchors": [
+        "monitor_terminal",
+        "staff_desk",
+        "verification_desk"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "monitor_terminal",
+        "staff_desk",
+        "verification_desk"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F39",
+      "name": "多莫沃伊家宅灵",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "warm_new",
+        "move_plaque",
+        "stop_old"
+      ],
+      "required_anchors": [
+        "hot_food"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "hot_food"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F40",
+      "name": "列希森林灵",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 4,
+      "pressure_cost": 2.0,
+      "encounter_role": "hunter",
+      "resolution_type": "kill_unlocked",
+      "source_step_ids": [
+        "mark_one",
+        "mark_two",
+        "mark_three",
+        "take_sapling",
+        "follow_last_mark",
+        "return_sapling"
+      ],
+      "required_anchors": [
+        "floor_markers",
+        "goods_shelf",
+        "front_door"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "floor_markers",
+        "goods_shelf",
+        "front_door"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F41",
+      "name": "哭泣女",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "read_seal",
+        "register_help",
+        "close_service",
+        "lure_depart"
+      ],
+      "required_anchors": [
+        "lost_property",
+        "cashier",
+        "front_door"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "lost_property",
+        "cashier",
+        "front_door"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F42",
+      "name": "哨声亡灵",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 4,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "open_low",
+        "take_cargo",
+        "place_across",
+        "return_close"
+      ],
+      "required_anchors": [
+        "rear_door",
+        "rear_threshold"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "rear_door",
+        "rear_threshold"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F43",
+      "name": "图恩达",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "observe_foot",
+        "read_record",
+        "deny_crossing"
+      ],
+      "required_anchors": [
+        "front_door",
+        "verification_desk"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "front_door",
+        "verification_desk"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F44",
+      "name": "巨帽夜曲客",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "set_price",
+        "take_good",
+        "wait_downbeat",
+        "deliver_downbeat",
+        "close_tray"
+      ],
+      "required_anchors": [
+        "cashier",
+        "pickup_shelf"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "cashier",
+        "pickup_shelf"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F45",
+      "name": "逆足林守",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "read_wheel_trace",
+        "take_box",
+        "place_correct",
+        "close_wrong_slot"
+      ],
+      "required_anchors": [
+        "receiving",
+        "storage_shelf"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "receiving",
+        "storage_shelf"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F46",
+      "name": "红帽萨西",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 2,
+      "pressure_cost": 1.0,
+      "encounter_role": "hunter",
+      "resolution_type": "kill_unlocked",
+      "source_step_ids": [
+        "take_sieve",
+        "observe_cycle",
+        "place_correct_sieve",
+        "step_clear",
+        "capture_next_pass",
+        "take_tool"
+      ],
+      "required_anchors": [
+        "storage_shelf"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "storage_shelf"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F47",
+      "name": "水歌伊阿拉",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "seal_one",
+        "claim_one",
+        "cash_out"
+      ],
+      "required_anchors": [
+        "sink"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "sink"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F48",
+      "name": "河海豚化人客",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 2,
+      "pressure_cost": 1.0,
+      "encounter_role": "conditional_visitor",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "accept_order",
+        "take_good",
+        "deliver_public",
+        "depart_public"
+      ],
+      "required_anchors": [
+        "cashier",
+        "pickup_shelf"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "cashier",
+        "pickup_shelf"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F49",
+      "name": "火蛇博伊塔塔",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 4,
+      "pressure_cost": 2.0,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "close_lid",
+        "cool_ten",
+        "cool_ten_2",
+        "serpent_recedes",
+        "take_cold_bag",
+        "dispose"
+      ],
+      "required_anchors": [
+        "waste_sort",
+        "dumpster"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "waste_sort",
+        "dumpster"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F50",
+      "name": "泽西恶魔",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "observe_target",
+        "take_board",
+        "push_correct",
+        "retreat_safe",
+        "wait_locked_impact",
+        "impact_passes"
+      ],
+      "required_anchors": [
+        "front_door"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "front_door"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F51",
+      "name": "蜘蛛故事商",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 5,
+      "pressure_cost": 2.0,
+      "encounter_role": "hunter",
+      "resolution_type": "kill_unlocked",
+      "source_step_ids": [
+        "read_three_receipts",
+        "place_contradiction",
+        "take_order_good",
+        "deliver_order",
+        "close_deal"
+      ],
+      "required_anchors": [
+        "cashier",
+        "pickup_shelf"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "cashier",
+        "pickup_shelf"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F52",
+      "name": "矮水灵托科洛舍",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 2,
+      "pressure_cost": 1.0,
+      "encounter_role": "hunter",
+      "resolution_type": "kill_unlocked",
+      "source_step_ids": [
+        "wipe_chair_cut",
+        "low_inspect"
+      ],
+      "required_anchors": [
+        "rest_chair"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "rest_chair"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F53",
+      "name": "水之母来访",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 4,
+      "pressure_cost": 2.0,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "accept_promise",
+        "take_pair",
+        "place_a",
+        "place_b",
+        "seal_pair"
+      ],
+      "required_anchors": [
+        "goods_shelf"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "goods_shelf"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F54",
+      "name": "吞世巨兽",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 6,
+      "pressure_cost": 3.0,
+      "encounter_role": "anchored_hazard",
+      "resolution_type": "kill_unlocked",
+      "source_step_ids": [
+        "pull_c",
+        "place_c",
+        "pull_b",
+        "place_b",
+        "pull_a",
+        "place_a"
+      ],
+      "required_anchors": [
+        "forecourt_handoff"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "forecourt_handoff"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 0,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F55",
+      "name": "护夜犬卡德霍",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "give_food",
+        "take_cargo",
+        "walk_node_one",
+        "walk_node_two",
+        "walk_node_three",
+        "deliver_real_receiver",
+        "return_empty"
+      ],
+      "required_anchors": [
+        "front_door",
+        "pickup_shelf",
+        "street_boundary"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "front_door",
+        "pickup_shelf",
+        "street_boundary"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F56",
+      "name": "深水邦耶普",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 4,
+      "pressure_cost": 2.0,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "probe_depth",
+        "cut_branch",
+        "take_original",
+        "put_original"
+      ],
+      "required_anchors": [
+        "aisle_loop",
+        "goods_shelf"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "aisle_loop",
+        "goods_shelf"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F57",
+      "name": "水路守护塔尼瓦",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 4,
+      "pressure_cost": 2.0,
+      "encounter_role": "anchored_hazard",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "clear_real_debris",
+        "pause_local",
+        "place_bridge",
+        "take_box",
+        "cross_place",
+        "remove_bridge",
+        "restore_flow",
+        "claim_maintenance"
+      ],
+      "required_anchors": [
+        "drain_channel"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "drain_channel"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 0,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F58",
+      "name": "雾笛访客",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 2,
+      "pressure_cost": 1.0,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "cover_hot_portion",
+        "wait_fog_end"
+      ],
+      "required_anchors": [
+        "hot_food"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "hot_food"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F59",
+      "name": "梅内胡内工队",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 4,
+      "pressure_cost": 1.5,
+      "encounter_role": "conditional_visitor",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "take_three_materials",
+        "place_material_1",
+        "place_material_2",
+        "place_material_3",
+        "turn_away_dark",
+        "construct_first_four",
+        "construct_last_four",
+        "take_component",
+        "install_component",
+        "test_device"
+      ],
+      "required_anchors": [
+        "storage_shelf",
+        "construction_zone",
+        "power_panel"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "storage_shelf",
+        "construction_zone",
+        "power_panel"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "F60",
+      "name": "马面引路者",
+      "source_file": "content/monster_folklore_md01.json",
+      "first_night": 4,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "notice_turn",
+        "read_mirror",
+        "pull_curtain",
+        "close_service",
+        "second_distinct_gaze_miss"
+      ],
+      "required_anchors": [
+        "convex_mirror",
+        "mirror_station"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": true,
+      "director_reference_admitted": true,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [],
+      "exclusive_slots": [
+        "convex_mirror",
+        "mirror_station"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S01",
+      "name": "凝视塑像",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 2,
+      "pressure_cost": 1.5,
+      "encounter_role": "conditional_visitor",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "S01:step1",
+        "S01:step2",
+        "S01:step3"
+      ],
+      "required_anchors": [
+        "shipping_cage_control",
+        "shipping_cage_lure_line"
+      ],
+      "missing_anchors": [
+        "shipping_cage_control",
+        "shipping_cage_lure_line"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:shipping_cage_control,shipping_cage_lure_line",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "shipping_cage_control",
+        "shipping_cage_lure_line"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S02",
+      "name": "腐蚀穿墙者",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 5,
+      "pressure_cost": 2.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "S02:step1",
+        "S02:step2",
+        "S02:step3"
+      ],
+      "required_anchors": [
+        "containment_tray",
+        "containment_lure",
+        "containment_control"
+      ],
+      "missing_anchors": [
+        "containment_tray",
+        "containment_lure",
+        "containment_control"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:containment_tray,containment_lure,containment_control",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "containment_tray",
+        "containment_lure",
+        "containment_control"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S03",
+      "name": "遮面追逐者",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 5,
+      "pressure_cost": 2.5,
+      "encounter_role": "conditional_visitor",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "S03:step1",
+        "S03:step2",
+        "S03:step3"
+      ],
+      "required_anchors": [
+        "incident_display",
+        "shipping_cage_side",
+        "shipping_cage_control"
+      ],
+      "missing_anchors": [
+        "incident_display",
+        "shipping_cage_side",
+        "shipping_cage_control"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:incident_display,shipping_cage_side,shipping_cage_control",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "incident_display",
+        "shipping_cage_side",
+        "shipping_cage_control"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S04",
+      "name": "诊疫医者",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1.5,
+      "encounter_role": "conditional_visitor",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "S04:step1",
+        "S04:step2",
+        "S04:step3"
+      ],
+      "required_anchors": [
+        "quarantine_counter",
+        "return_hatch"
+      ],
+      "missing_anchors": [
+        "quarantine_counter",
+        "return_hatch"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:quarantine_counter,return_hatch",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "quarantine_counter",
+        "return_hatch"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S05",
+      "name": "拟声猎群",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "S05:step1",
+        "S05:step2",
+        "S05:step3"
+      ],
+      "required_anchors": [
+        "staff_location_board",
+        "ventilation_switch",
+        "verification_window"
+      ],
+      "missing_anchors": [
+        "staff_location_board",
+        "ventilation_switch",
+        "verification_window"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:staff_location_board,ventilation_switch,verification_window",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "staff_location_board",
+        "ventilation_switch",
+        "verification_window"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S06",
+      "name": "不灭爬行者",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 7,
+      "pressure_cost": 3,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "S06:step1",
+        "S06:step2",
+        "S06:step3"
+      ],
+      "required_anchors": [
+        "containment_valve",
+        "containment_lure",
+        "containment_control"
+      ],
+      "missing_anchors": [
+        "containment_valve",
+        "containment_lure",
+        "containment_control"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:containment_valve,containment_lure,containment_control",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "containment_valve",
+        "containment_lure",
+        "containment_control"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S07",
+      "name": "附面假人",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 4,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "S07:step1",
+        "S07:step2",
+        "S07:step3"
+      ],
+      "required_anchors": [
+        "mannequin_stand",
+        "mannequin_side",
+        "quarantine_counter"
+      ],
+      "missing_anchors": [
+        "mannequin_stand",
+        "mannequin_side",
+        "quarantine_counter"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:mannequin_stand,mannequin_side,quarantine_counter",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "mannequin_stand",
+        "mannequin_side",
+        "quarantine_counter"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S08",
+      "name": "燃料分身",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 5,
+      "pressure_cost": 2.5,
+      "encounter_role": "hunter",
+      "resolution_type": "kill_unlocked",
+      "source_step_ids": [
+        "S08:step1",
+        "S08:step2",
+        "S08:step3"
+      ],
+      "required_anchors": [
+        "fuel_cutoff",
+        "fuel_isolation",
+        "mist_control"
+      ],
+      "missing_anchors": [
+        "fuel_cutoff",
+        "fuel_isolation",
+        "mist_control"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:fuel_cutoff,fuel_isolation,mist_control",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "fuel_cutoff",
+        "fuel_isolation",
+        "mist_control"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S09",
+      "name": "失眠潜猎者",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "S09:step1",
+        "S09:step2",
+        "S09:step3"
+      ],
+      "required_anchors": [
+        "infrared_window",
+        "wave_screen",
+        "infrared_gate"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": true,
+      "director_reference_admitted": true,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [],
+      "exclusive_slots": [
+        "infrared_window",
+        "wave_screen",
+        "infrared_gate"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S10",
+      "name": "余光攀行者",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 4,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "kill_unlocked",
+      "source_step_ids": [
+        "S10:step1",
+        "S10:step2",
+        "S10:step3"
+      ],
+      "required_anchors": [
+        "left_observation_window",
+        "right_observation_window",
+        "tracking_gate"
+      ],
+      "missing_anchors": [
+        "left_observation_window",
+        "right_observation_window",
+        "tracking_gate"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:left_observation_window,right_observation_window,tracking_gate",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "left_observation_window",
+        "right_observation_window",
+        "tracking_gate"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S11",
+      "name": "铃声后的瘦影",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "S11:step1",
+        "S11:step2",
+        "S11:step3"
+      ],
+      "required_anchors": [
+        "bell_tray",
+        "soundproof_box"
+      ],
+      "missing_anchors": [
+        "bell_tray",
+        "soundproof_box"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:bell_tray,soundproof_box",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "bell_tray",
+        "soundproof_box"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S12",
+      "name": "棘触心核",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 6,
+      "pressure_cost": 2.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "S12:step1",
+        "S12:step2",
+        "S12:step3"
+      ],
+      "required_anchors": [
+        "sludge_cutoff",
+        "sludge_tray",
+        "spine_recovery_slot"
+      ],
+      "missing_anchors": [
+        "sludge_cutoff",
+        "sludge_tray",
+        "spine_recovery_slot"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:sludge_cutoff,sludge_tray,spine_recovery_slot",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "sludge_cutoff",
+        "sludge_tray",
+        "spine_recovery_slot"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S13",
+      "name": "楼梯口无面影",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1,
+      "encounter_role": "anchored_hazard",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "S13:step1",
+        "S13:step2",
+        "S13:step3"
+      ],
+      "required_anchors": [
+        "stairwell_threshold",
+        "stairwell_door",
+        "stairwell_lock"
+      ],
+      "missing_anchors": [
+        "stairwell_threshold",
+        "stairwell_door",
+        "stairwell_lock"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:stairwell_threshold,stairwell_door,stairwell_lock",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "stairwell_threshold",
+        "stairwell_door",
+        "stairwell_lock"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 0,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S14",
+      "name": "缝材造物熊",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 5,
+      "pressure_cost": 2.5,
+      "encounter_role": "swarm_root",
+      "resolution_type": "kill_unlocked",
+      "source_step_ids": [
+        "S14:step1",
+        "S14:step2",
+        "S14:step3"
+      ],
+      "required_anchors": [
+        "craft_material_bins",
+        "craft_salvage_tray",
+        "craft_table_latch"
+      ],
+      "missing_anchors": [
+        "craft_material_bins",
+        "craft_salvage_tray",
+        "craft_table_latch"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:craft_material_bins,craft_salvage_tray,craft_table_latch",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "craft_material_bins",
+        "craft_salvage_tray",
+        "craft_table_latch"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S15",
+      "name": "孵卵拟人群",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 6,
+      "pressure_cost": 3,
+      "encounter_role": "swarm_root",
+      "resolution_type": "kill_unlocked",
+      "source_step_ids": [
+        "S15:step1",
+        "S15:step2",
+        "S15:step3"
+      ],
+      "required_anchors": [
+        "incubator_cutoff",
+        "incubator_slots",
+        "egg_capture_chute"
+      ],
+      "missing_anchors": [
+        "incubator_cutoff",
+        "incubator_slots",
+        "egg_capture_chute"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:incubator_cutoff,incubator_slots,egg_capture_chute",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "incubator_cutoff",
+        "incubator_slots",
+        "egg_capture_chute"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S16",
+      "name": "刀肢蟹队",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 4,
+      "pressure_cost": 2,
+      "encounter_role": "swarm_root",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "S16:step1",
+        "S16:step2",
+        "S16:step3"
+      ],
+      "required_anchors": [
+        "shallow_water_drain",
+        "water_gate",
+        "flank_screen"
+      ],
+      "missing_anchors": [
+        "shallow_water_drain",
+        "water_gate",
+        "flank_screen"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:shallow_water_drain,water_gate,flank_screen",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "shallow_water_drain",
+        "water_gate",
+        "flank_screen"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S17",
+      "name": "塑料火烈鸟群",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 5,
+      "pressure_cost": 2.5,
+      "encounter_role": "swarm_root",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "S17:step1",
+        "S17:step2",
+        "S17:step3"
+      ],
+      "required_anchors": [
+        "flamingo_territory",
+        "flamingo_manifest",
+        "flamingo_barrier"
+      ],
+      "missing_anchors": [
+        "flamingo_territory",
+        "flamingo_manifest",
+        "flamingo_barrier"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:flamingo_territory,flamingo_manifest,flamingo_barrier",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "flamingo_territory",
+        "flamingo_manifest",
+        "flamingo_barrier"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S18",
+      "name": "双灯猎行者",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 5,
+      "pressure_cost": 2,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "S18:step1",
+        "S18:step2",
+        "S18:step3"
+      ],
+      "required_anchors": [
+        "delivery_board",
+        "headlight_divider",
+        "headlight_shutter"
+      ],
+      "missing_anchors": [
+        "delivery_board",
+        "headlight_divider",
+        "headlight_shutter"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:delivery_board,headlight_divider,headlight_shutter",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "delivery_board",
+        "headlight_divider",
+        "headlight_shutter"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S19",
+      "name": "食宴巨客",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 5,
+      "pressure_cost": 2.5,
+      "encounter_role": "conditional_visitor",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "S19:step1",
+        "S19:step2",
+        "S19:step3"
+      ],
+      "required_anchors": [
+        "banquet_service",
+        "banquet_screen",
+        "banquet_return"
+      ],
+      "missing_anchors": [
+        "banquet_service",
+        "banquet_screen",
+        "banquet_return"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:banquet_service,banquet_screen,banquet_return",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "banquet_service",
+        "banquet_screen",
+        "banquet_return"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S20",
+      "name": "沼液伏客",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 4,
+      "pressure_cost": 1.5,
+      "encounter_role": "conditional_visitor",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "S20:step1",
+        "S20:step2",
+        "S20:step3"
+      ],
+      "required_anchors": [
+        "organic_waste_tray",
+        "waste_flow_cap",
+        "sealed_waste_cabinet"
+      ],
+      "missing_anchors": [
+        "organic_waste_tray",
+        "waste_flow_cap",
+        "sealed_waste_cabinet"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:organic_waste_tray,waste_flow_cap,sealed_waste_cabinet",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "organic_waste_tray",
+        "waste_flow_cap",
+        "sealed_waste_cabinet"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S21",
+      "name": "九尾伪装客",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 4,
+      "pressure_cost": 1.5,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "S21:step1",
+        "S21:step2",
+        "S21:step3"
+      ],
+      "required_anchors": [
+        "verification_window",
+        "side_verification_window",
+        "sealed_return_tray"
+      ],
+      "missing_anchors": [
+        "verification_window",
+        "side_verification_window",
+        "sealed_return_tray"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:verification_window,side_verification_window,sealed_return_tray",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "verification_window",
+        "side_verification_window",
+        "sealed_return_tray"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S22",
+      "name": "畏光烟影",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 5,
+      "pressure_cost": 2,
+      "encounter_role": "hunter",
+      "resolution_type": "kill_unlocked",
+      "source_step_ids": [
+        "S22:step1",
+        "S22:step2",
+        "S22:step3"
+      ],
+      "required_anchors": [
+        "shadow_node_safe_controls"
+      ],
+      "missing_anchors": [
+        "shadow_node_safe_controls"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:shadow_node_safe_controls",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "shadow_node_safe_controls"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S23",
+      "name": "路口焰眼犬",
+      "source_file": "content/monster_scp_a_md01.json",
+      "first_night": 4,
+      "pressure_cost": 2,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "S23:step1",
+        "S23:step2",
+        "S23:step3"
+      ],
+      "required_anchors": [
+        "crossroad_guides",
+        "crossroad_cover_control",
+        "crossroad_return_gate"
+      ],
+      "missing_anchors": [
+        "crossroad_guides",
+        "crossroad_cover_control",
+        "crossroad_return_gate"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:crossroad_guides,crossroad_cover_control,crossroad_return_gate",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "crossroad_guides",
+        "crossroad_cover_control",
+        "crossroad_return_gate"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S24",
+      "name": "黑刃复归者",
+      "source_file": "content/monster_scp_b_md01.json",
+      "first_night": 6,
+      "pressure_cost": 2,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "S24_step_1",
+        "S24_step_2",
+        "S24_step_3"
+      ],
+      "required_anchors": [
+        "receiving"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "receiving"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S25",
+      "name": "吞影小像",
+      "source_file": "content/monster_scp_b_md01.json",
+      "first_night": 4,
+      "pressure_cost": 1,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "S25_step_1",
+        "S25_step_2",
+        "S25_step_3"
+      ],
+      "required_anchors": [
+        "verification_desk",
+        "receiving"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "verification_desk",
+        "receiving"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S26",
+      "name": "幼猫幻相虎",
+      "source_file": "content/monster_scp_b_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1,
+      "encounter_role": "hunter",
+      "resolution_type": "kill_unlocked",
+      "source_step_ids": [
+        "S26_step_1",
+        "S26_step_2",
+        "S26_step_3"
+      ],
+      "required_anchors": [
+        "receiving",
+        "verification_desk"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "receiving",
+        "verification_desk"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S27",
+      "name": "红池支口",
+      "source_file": "content/monster_scp_b_md01.json",
+      "first_night": 7,
+      "pressure_cost": 3,
+      "encounter_role": "swarm_root",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "S27_step_1",
+        "S27_step_2",
+        "S27_step_3"
+      ],
+      "required_anchors": [
+        "service_yard"
+      ],
+      "missing_anchors": [
+        "service_yard"
+      ],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unplaced_task_anchors:service_yard",
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "service_yard"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S28",
+      "name": "离体肉殖团",
+      "source_file": "content/monster_scp_b_md01.json",
+      "first_night": 6,
+      "pressure_cost": 2.5,
+      "encounter_role": "swarm_root",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "S28_step_1",
+        "S28_step_2",
+        "S28_step_3"
+      ],
+      "required_anchors": [
+        "goods_shelf",
+        "packing"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "goods_shelf",
+        "packing"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S29",
+      "name": "暗育蜈群",
+      "source_file": "content/monster_scp_b_md01.json",
+      "first_night": 4,
+      "pressure_cost": 1,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "S29_step_1",
+        "S29_step_2",
+        "S29_step_3"
+      ],
+      "required_anchors": [
+        "goods_shelf"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": true,
+      "director_reference_admitted": true,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [],
+      "exclusive_slots": [
+        "goods_shelf"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S30",
+      "name": "银丝猎婆",
+      "source_file": "content/monster_scp_b_md01.json",
+      "first_night": 5,
+      "pressure_cost": 2,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "S30_step_1",
+        "S30_step_2",
+        "S30_step_3"
+      ],
+      "required_anchors": [
+        "goods_shelf",
+        "cleaning"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "goods_shelf",
+        "cleaning"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S31",
+      "name": "鹿骨饥壳",
+      "source_file": "content/monster_scp_b_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1,
+      "encounter_role": "conditional_visitor",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "S31_step_1",
+        "S31_step_2",
+        "S31_step_3"
+      ],
+      "required_anchors": [
+        "goods_shelf",
+        "packing"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "goods_shelf",
+        "packing"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S32",
+      "name": "涌兽陶瓮",
+      "source_file": "content/monster_scp_b_md01.json",
+      "first_night": 5,
+      "pressure_cost": 2.5,
+      "encounter_role": "swarm_root",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "S32_step_1",
+        "S32_step_2",
+        "S32_step_3"
+      ],
+      "required_anchors": [
+        "receiving"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "receiving"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S33",
+      "name": "镜头霉巢",
+      "source_file": "content/monster_scp_b_md01.json",
+      "first_night": 4,
+      "pressure_cost": 1,
+      "encounter_role": "anchored_hazard",
+      "resolution_type": "kill_unlocked",
+      "source_step_ids": [
+        "S33_step_1",
+        "S33_step_2",
+        "S33_step_3"
+      ],
+      "required_anchors": [
+        "security",
+        "goods_shelf"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "security",
+        "goods_shelf"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 0,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S34",
+      "name": "寻声线团",
+      "source_file": "content/monster_scp_b_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1,
+      "encounter_role": "anchored_hazard",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "S34_step_1",
+        "S34_step_2",
+        "S34_step_3"
+      ],
+      "required_anchors": [
+        "packing"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": true,
+      "director_reference_admitted": true,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [],
+      "exclusive_slots": [
+        "packing"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 0,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S35",
+      "name": "失控重载玩具车",
+      "source_file": "content/monster_scp_b_md01.json",
+      "first_night": 3,
+      "pressure_cost": 1,
+      "encounter_role": "conditional_visitor",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "S35_step_1",
+        "S35_step_2",
+        "S35_step_3"
+      ],
+      "required_anchors": [
+        "receiving"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "receiving"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S36",
+      "name": "惊笑偶像",
+      "source_file": "content/monster_scp_b_md01.json",
+      "first_night": 2,
+      "pressure_cost": 1,
+      "encounter_role": "conditional_visitor",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "S36_step_1",
+        "S36_step_2",
+        "S36_step_3"
+      ],
+      "required_anchors": [
+        "goods_shelf",
+        "packing"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "goods_shelf",
+        "packing"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S37",
+      "name": "噬口排水虫",
+      "source_file": "content/monster_scp_b_md01.json",
+      "first_night": 5,
+      "pressure_cost": 2,
+      "encounter_role": "hunter",
+      "resolution_type": "kill_unlocked",
+      "source_step_ids": [
+        "S37_step_1",
+        "S37_step_2",
+        "S37_step_3"
+      ],
+      "required_anchors": [
+        "cleaning"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "cleaning"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S38",
+      "name": "立体镜旁观者",
+      "source_file": "content/monster_scp_b_md01.json",
+      "first_night": 2,
+      "pressure_cost": 0.5,
+      "encounter_role": "conditional_visitor",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "S38_step_1",
+        "S38_step_2",
+        "S38_step_3"
+      ],
+      "required_anchors": [
+        "verification_desk"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": true,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [],
+      "exclusive_slots": [
+        "verification_desk"
+      ],
+      "high_pressure_exclusive": false,
+      "active_player_pursuers": 0,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S39",
+      "name": "游走骨龙",
+      "source_file": "content/monster_scp_b_md01.json",
+      "first_night": 5,
+      "pressure_cost": 2,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "S39_step_1",
+        "S39_step_2",
+        "S39_step_3"
+      ],
+      "required_anchors": [
+        "receiving"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "receiving"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S40",
+      "name": "取述影客",
+      "source_file": "content/monster_scp_b_md01.json",
+      "first_night": 6,
+      "pressure_cost": 2,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "S40_step_1",
+        "S40_step_2",
+        "S40_step_3"
+      ],
+      "required_anchors": [
+        "cashier",
+        "packing",
+        "receiving"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": true,
+      "director_reference_admitted": true,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [],
+      "exclusive_slots": [
+        "cashier",
+        "packing",
+        "receiving"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S41",
+      "name": "地窖食客群",
+      "source_file": "content/monster_scp_b_md01.json",
+      "first_night": 6,
+      "pressure_cost": 2.5,
+      "encounter_role": "swarm_root",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "S41_step_1",
+        "S41_step_2",
+        "S41_step_3"
+      ],
+      "required_anchors": [
+        "receiving"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "receiving"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S42",
+      "name": "断拍窥猎者",
+      "source_file": "content/monster_scp_b_md01.json",
+      "first_night": 5,
+      "pressure_cost": 2,
+      "encounter_role": "hunter",
+      "resolution_type": "kill_unlocked",
+      "source_step_ids": [
+        "S42_step_1",
+        "S42_step_2",
+        "S42_step_3"
+      ],
+      "required_anchors": [
+        "verification_desk",
+        "goods_shelf"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "verification_desk",
+        "goods_shelf"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S43",
+      "name": "闭店巡场员",
+      "source_file": "content/monster_scp_b_md01.json",
+      "first_night": 4,
+      "pressure_cost": 1,
+      "encounter_role": "conditional_visitor",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "S43_step_1",
+        "S43_step_2",
+        "S43_step_3"
+      ],
+      "required_anchors": [
+        "receiving",
+        "security"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": true,
+      "director_reference_admitted": true,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [],
+      "exclusive_slots": [
+        "receiving",
+        "security"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S44",
+      "name": "双灯影幕",
+      "source_file": "content/monster_scp_b_md01.json",
+      "first_night": 5,
+      "pressure_cost": 2,
+      "encounter_role": "anchored_hazard",
+      "resolution_type": "rule_leave",
+      "source_step_ids": [
+        "S44_step_1",
+        "S44_step_2",
+        "S44_step_3"
+      ],
+      "required_anchors": [
+        "security",
+        "packing"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "security",
+        "packing"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 0,
+      "source_default_enabled": true
+    },
+    {
+      "monster_id": "S45",
+      "name": "缝合外科客",
+      "source_file": "content/monster_scp_b_md01.json",
+      "first_night": 5,
+      "pressure_cost": 2,
+      "encounter_role": "hunter",
+      "resolution_type": "rule_weaken",
+      "source_step_ids": [
+        "S45_step_1",
+        "S45_step_2",
+        "S45_step_3"
+      ],
+      "required_anchors": [
+        "packing",
+        "cleaning"
+      ],
+      "missing_anchors": [],
+      "geometry_reference_admitted": false,
+      "director_reference_admitted": false,
+      "client_runtime_admitted": false,
+      "blocked_reasons": [
+        "unverified_actor_and_object_predicates_on_assembled_map",
+        "not_in_bc01_finite_reference_allowlist"
+      ],
+      "exclusive_slots": [
+        "packing",
+        "cleaning"
+      ],
+      "high_pressure_exclusive": true,
+      "active_player_pursuers": 1,
+      "source_default_enabled": true
+    }
+  ],
+  "validation_limit": "Grid routing and scripted object/action response are bounded reference evidence, not all 105 live AIs, arbitrary pair balance, mobile performance or playtest victory rates.",
+  "rule_response_overrides": {
+    "extends": "content/rule_response_contracts_sa02.json",
+    "additional_registered_monster_ids": [
+      "F17"
+    ],
+    "all_other_rule_leave_automatically_protected": false,
+    "F17": {
+      "trigger": [
+        "same_admitted_root_and_actor",
+        "same_original_parcel_id",
+        "three_original_knots_open",
+        "parcel_in_original_pickup_slot",
+        "player_at_least_2_5_tiles_from_actual_parcel",
+        "existing_suppression_and_control_finished",
+        "actual_body_clear_pickup_route"
+      ],
+      "parcel_position": [
+        19.5,
+        26.5
+      ],
+      "actor_pickup_position": [
+        19.5,
+        25.5
+      ],
+      "operation_seconds": 2,
+      "response_scope": "same_root_actual_pickup_route_and_original_parcel_collection_only",
+      "protection_budget": "immutable actual original route_distance / (base_speed * (1-global_slow_cap)) + 2s; never extends original encounter deadline",
+      "global_slow_cap": 0.6,
+      "actual_movement": "current actual slow applies until its original absolute expiry; freeze/control cannot be cleared at response entry",
+      "during_response": "cancel only this root attacks; do not receive damage/control/overload feedback; other roots can still attack player",
+      "hp_and_q": "preserve current HP, permanent poison and all prepaid maturity receipts; finite effects expire by world time; no catch-up damage on exit",
+      "precondition_lost": "end protection immediately; keep actual travelled distance, valid completed work and spent budget; cannot rebind root/actor/parcel/route or refresh deadline",
+      "completion": "same original parcel really transfers to same actor after full 2 world seconds; main rule settles root once; following exit motion is harmless and cannot pay again",
+      "counterexample": "with q125, 25% of F17 max230 HP restores to57.5; 0.5*q*(1-.30)=43.75 per second suppresses again after2s, less than actual3/3.3+2=2.909s pickup travel+work; resetting pickup on suppression could deadlock",
+      "reference": "scripts/bc01_map_reference.py#ParcelResponseReference"
+    }
+  }
+}
