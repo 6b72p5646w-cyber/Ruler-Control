@@ -1,0 +1,282 @@
+{
+  "version": "SA02",
+  "audit_date_client": "2026-11-20",
+  "client_timezone": "Asia/Calcutta",
+  "baseline_commit": "aa7941aef0bfc82f4cef15337084b0a0ad3dbc59",
+  "baseline_tree": "e561ad70bf2ef36dc23551dd8a79bcad64316026",
+  "scope": "Independent audit of the current design, bounded fixes for five disabled facilities, legacy event migration boundaries, and two registered rule-leave response segments.",
+  "runtime_integrated": false,
+  "new_runtime_feature_count": 0,
+  "all_gameplay_proven": false,
+  "full_night_playtested": false,
+  "full_week_playtested": false,
+  "baseline_reexecutions": [
+    {
+      "name": "V0.10",
+      "command": "python3 scripts/run_validation_v010.py",
+      "exit_code": 0,
+      "reported_fields": {
+        "status": "PASS",
+        "suite_count": 22,
+        "existing_headless_scenario_count": 322,
+        "finite_mechanism_model_count": 60,
+        "finite_mechanism_counts": {
+          "scenario_traces": 215,
+          "reached_guard_mutations": 2713,
+          "interrupted_operations": 1024,
+          "deadline_cases": 60,
+          "post_close_replay_checks": 1908,
+          "local_window_checks": 4,
+          "geometry_counterexamples": 5,
+          "committed_actions": 1015,
+          "declared_expiry_observations": 9,
+          "dawn_no_late_work_checks": 69,
+          "elapsed_deadline_checks": 1007,
+          "exact_boundary_checks": 6,
+          "immutable_timer_checks": 1,
+          "automatic_hazard_checks": 6
+        }
+      },
+      "reproduced_report_sha256": "79495c2a3a2e6bbd1886ef52cc9c1cdca1853ee1484e8c795aa54fced9d87c15"
+    },
+    {
+      "name": "TD05",
+      "command": "python3 scripts/check_td05_balance.py",
+      "exit_code": 0,
+      "reported_fields": {
+        "checks_passed": 753,
+        "checks_failed": 0
+      },
+      "reproduced_report_sha256": "52386bdce166bc535e7bc730c2c3f4ecb65e67acc29d6a236e1397ef9cd1bd2e"
+    },
+    {
+      "name": "MD01",
+      "command": "python3 scripts/check_md01_design.py",
+      "exit_code": 0,
+      "reported_fields": {
+        "passed": 1672,
+        "failed": 0,
+        "coverage": {
+          "total": 105,
+          "origin_counts": {
+            "existing_folklore": 60,
+            "new_scp_adaptation": 45
+          },
+          "resolution_counts": {
+            "rule_weaken": 38,
+            "rule_leave": 45,
+            "kill_unlocked": 22
+          },
+          "default_design_candidates": 104,
+          "noncombat_hp0": [
+            "F14",
+            "S27",
+            "S32"
+          ],
+          "actual_phase_ids": [
+            "F15",
+            "F19",
+            "F28",
+            "F30",
+            "F36",
+            "F38",
+            "F39",
+            "F40",
+            "F59",
+            "S02",
+            "S22",
+            "S23",
+            "S40"
+          ],
+          "independent_scp_articles": 45
+        }
+      },
+      "reproduced_report_sha256": "75a1e714cd727c0a00d7a819b3e2840de4c824c2cdb398e4fd39457f66e3c2c8"
+    },
+    {
+      "name": "EQ01",
+      "command": "python3 scripts/check_eq01_design.py",
+      "exit_code": 0,
+      "reported_fields": {
+        "passed": 404,
+        "failed": 0
+      },
+      "reproduced_report_sha256": "517b4549e48c4d69e7c8b46dfeae9d90095e44694ee9c351f2902603b10d3998"
+    },
+    {
+      "name": "MA01 finite",
+      "command": "python3 scripts/check_ma01_reference.py",
+      "exit_code": 0,
+      "reported_fields": {
+        "passed": 157,
+        "failed": 0
+      },
+      "reproduced_report_sha256": "29bc9dfb8aebe402b4482c59bb2524fcf6f5b06e90521f9cb7db84515085c122"
+    },
+    {
+      "name": "MA01 structure",
+      "command": "python3 scripts/check_ma01_design.py",
+      "exit_code": 0,
+      "reported_fields": {
+        "structural_passed": 734,
+        "structural_failed": 0,
+        "finite_passed": 157,
+        "finite_failed": 0
+      },
+      "reproduced_report_sha256": "9b26d261c2af1bbcfbbaac8dcb87cb2c28ce3bcd5e189b84534d98a902c55d4b"
+    },
+    {
+      "name": "SA01 lifecycle",
+      "command": "python3 scripts/check_sa01_lifecycle.py",
+      "exit_code": 0,
+      "reported_fields": {
+        "passed": 104,
+        "failed": 0
+      },
+      "reproduced_report_sha256": "0a2803e1ab3a5a748d54f74538a4b512440850b08d16e87670e0b9852e0a9e2e"
+    },
+    {
+      "name": "SA01 legacy bridge",
+      "command": "python3 scripts/check_sa01_legacy_bridge.py",
+      "exit_code": 0,
+      "reported_fields": {
+        "passed": 58,
+        "failed": 0
+      },
+      "reproduced_report_sha256": "3bb51dcdef4f34dfa24e4426ad1ee2bdddefc3cbc7e7123a6811ac8a9108c096"
+    },
+    {
+      "name": "SA01 cross-source",
+      "command": "python3 scripts/check_sa01_design.py",
+      "exit_code": 0,
+      "reported_fields": {
+        "passed": 138,
+        "failed": 0,
+        "upstream_results": {
+          "TD05_finite_and_structure": 753,
+          "MA01_structure": 734,
+          "MA01_finite": 157,
+          "SA01_lifecycle": 104,
+          "SA01_legacy_bridge": 58,
+          "existing_store_scenarios": 24
+        },
+        "all_gameplay_proven": false
+      },
+      "reproduced_report_sha256": "c59e9811369140af70dee06f2ddcca5243d5fef327d7991b96e9e85a08b45360"
+    }
+  ],
+  "sa02_results": [
+    {
+      "name": "facility",
+      "command": "python3 scripts/check_sa02_facility.py",
+      "report": "docs/sa02_facility_report.json",
+      "passed": 66,
+      "failed": 0,
+      "scope": "bounded facility receipt/cost/deadline counterexamples plus real-source checks",
+      "dependency_hashes_match": true,
+      "report_sha256": "150c6d1aa365f109191589aecbcbd4701e1bfe39a1890d10dcc9964cfc917f6e"
+    },
+    {
+      "name": "event",
+      "command": "python3 scripts/check_sa02_events.py",
+      "report": "docs/sa02_event_report.json",
+      "passed": 207,
+      "failed": 0,
+      "scope": "Explicit 72-ID migration index; 24 targeted economic/inventory/pet boundary reviews and 48 NOT reaudited lifecycles. Bounded supplied-fact accounting/claim examples only.",
+      "dependency_hashes_match": true,
+      "report_sha256": "c9843b4db79b7405ff25215101f8824cf44fd83b22f07f7c4148c96aabb224ac"
+    },
+    {
+      "name": "response",
+      "command": "python3 scripts/check_sa02_responses.py",
+      "report": "docs/sa02_response_report.json",
+      "passed": 88,
+      "failed": 0,
+      "scope": "Finite source-bound response priorities on caller-verified fixture routes; no map or full AI proof.",
+      "dependency_hashes_match": true,
+      "report_sha256": "b20e2e6aec678ef43d2f80803c8259bdc7dbea89d62be3a0202913e3d34c08cc"
+    }
+  ],
+  "coverage_limits": {
+    "facilities": {
+      "role_catalog": 14,
+      "numeric_candidates_refined": 5,
+      "runtime_enabled": 0
+    },
+    "legacy_events": {
+      "indexed": 72,
+      "targeted_boundary_reviews": 24,
+      "not_reaudited": 48,
+      "runtime_enabled": 0
+    },
+    "response_segments": {
+      "registered_monsters": [
+        "S40",
+        "S43"
+      ],
+      "other_rule_leave_entries_not_adapted_here": 43,
+      "runtime_enabled": 0
+    },
+    "counting": "Structural checks, bounded traces and old suites overlap. Counts must not be summed into playtests, unique integration coverage or a gameplay completeness percentage."
+  },
+  "manual_review": [
+    "Read actual current store duties before retaining any proposed speed benefit.",
+    "Cross-checked old event prices, item identities and lending duties against the new weekly wallet and opening manifest.",
+    "Reproduced q=125 suppression cycles with the original MD01 LifeState; actual map acquisition of q=125 remains unproven.",
+    "Root review found and corrected response attack permission during suppression and first-observation S43 source revocation with an initially blocked exit.",
+    "Source review narrowed the seventh-night lending claim; unmigrated accounting, not asserted universal uselessness, blocks admission."
+  ],
+  "remaining": [
+    "unified authored map and real facility geometry",
+    "full-night customer/work/chase/mechanism scheduling",
+    "actual first-release composition whitelist",
+    "real save-field ownership and interrupted storage transactions",
+    "time-driven seven-night economy and opportunity cost",
+    "first-week teaching, touch controls, failure review and seventh-night incentives"
+  ],
+  "changed_source_sha256": {
+    "README.md": "9952b3d91b44d3021eed33305615b71f60c82fe54fddc7018da3c4c7c94b81b3",
+    "content/event_migrations_sa02.json": "01e597a61dfaa9afe42dea406403e40afeae5dd18342bb676fce8a910aacbf6a",
+    "content/facility_contracts_sa02.json": "05cd9f54e25d12b8fd325677ba70371bf5fde63f89a649d9a69ef67150b782d4",
+    "content/rule_response_contracts_sa02.json": "b8a1253fed0fab033a61b7c889eb9efe15b48b8f1238c9242d1977d447ad39ae",
+    "content/system_authority_sa02.json": "0e74748dd0776d255dc0f359bcc03af1876c720b5516d1c490fc6f64d589e641",
+    "docs/80_sa01_system_audit.md": "4d1557083bae466c9731da0b6a34ee86dd62d1188e52fcdfd50635c306b775db",
+    "docs/81_sa01_facilities.md": "84170101127337c5dffb6ed3c139c6172ed687e70169f85371938fed44e4eac8",
+    "docs/84_sa02_independent_audit.md": "a3c47ce382df28653f6fd1f36610397acecfde2a6208f904e21ee7381e61c3f4",
+    "docs/85_sa02_facility_contracts.md": "3a44ddfe98dad5b6126fafed095a2a5432f2ea1aa117c8ca60aeb1bc17042115",
+    "docs/86_sa02_event_migrations.md": "4a12f5559efc3742f6bd75ceb9b3156db6e46fe9ebfef221fde5742bf31898dc",
+    "docs/87_sa02_rule_response.md": "c8b0b511f0e111d3364858bbcdbd4a8e3e45d78370c05d18c2071892db676308",
+    "docs/sa02_event_report.json": "c9843b4db79b7405ff25215101f8824cf44fd83b22f07f7c4148c96aabb224ac",
+    "docs/sa02_facility_report.json": "150c6d1aa365f109191589aecbcbd4701e1bfe39a1890d10dcc9964cfc917f6e",
+    "docs/sa02_response_report.json": "b20e2e6aec678ef43d2f80803c8259bdc7dbea89d62be3a0202913e3d34c08cc",
+    "scripts/check_sa02_events.py": "834f918f17f3f8f79512ea6d490960e73895f26814a841de25f25ebcd9a808d6",
+    "scripts/check_sa02_facility.py": "a598651fe92e2d953f1b6cb96ce14488fb7823299f6a2b6df3e63f8482bbb4b9",
+    "scripts/check_sa02_responses.py": "6fd14dd0e5c99abbc903089959920a31486fe2454808522640345ef890da0d1e",
+    "scripts/sa02_event_reference.py": "d5c2fdaf91e6683b41c719802d2a762eba5b307c767d70bd5ef7fbe970472946",
+    "scripts/sa02_facility_reference.py": "b959ae93e73d1d249b13bd5bda5ea64411b43cbbed2af61a145110c6af5808d6",
+    "scripts/sa02_response_reference.py": "66857ae5b8d259d513db3c8dadfef54e3bef20d4d1f10356a4719b0b3a2b8166"
+  },
+  "note": "Reports verify bounded references and supplied facts. A successful source-bound fixture does not authenticate a world event or enable a production consumer.",
+  "final_validation": {
+    "content_and_links": {
+      "command": "python3 scripts/validate_content.py",
+      "checks": 5753,
+      "errors": 0,
+      "exit_code": 0,
+      "scope": "Shared catalogs, preserved history and document links; not all gameplay"
+    },
+    "unchanged_SA01_authorities": {
+      "command": "python3 scripts/check_sa01_design.py",
+      "passed": 138,
+      "failed": 0,
+      "exit_code": 0
+    },
+    "SA02_source_freshness": {
+      "authority_domains": 14,
+      "source_manifest_files": 20,
+      "reports": 3,
+      "result": "PASS",
+      "python_ast_and_json_parse": "PASS"
+    }
+  }
+}

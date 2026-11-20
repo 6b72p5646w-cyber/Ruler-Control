@@ -1,0 +1,1655 @@
+{
+  "version": "SA02",
+  "baseline_commit": "aa7941aef0bfc82f4cef15337084b0a0ad3dbc59",
+  "profile": "current_design_sa02",
+  "runtime_integrated": false,
+  "scope": "旧72事件的逐ID迁移索引；其中24项经济/库存/宠物交界定向复核，48项仅显式挂起，不是72项全玩法重新验收。所有运行门禁仍关闭。",
+  "legacy_profile_unchanged": "legacy_practice_v010 reads its original contracts; this file does not rewrite old events or activate a client.",
+  "precedence": "七夜模式先读本文件的禁投/分支覆盖/未知拒绝，再读原事件真实物件、动作、时钟和退路；不能用旧enabled_current绕过新模式门禁。",
+  "default_unknown_event_or_branch": "reject_without_time_currency_inventory_effect_or_receipt_mutation",
+  "unknown_source_or_product": "reject; no guessed price, source, pet, debt or reward",
+  "reference_fixture_only": true,
+  "catalog_counts": {
+    "indexed_total": 72,
+    "targeted_boundary_reviews": 24,
+    "not_reaudited": 48,
+    "runtime_enabled": 0
+  },
+  "shared_rules": {
+    "wallet": "one current_week_coin ledger; original completion receipt consumed once, never old wallet plus new wallet",
+    "night_identity": "campaign_id/week_id/night_index; original absolute game day and source receipt identity retained",
+    "failure": "night income and newly granted claims belong to whole opening-checkpoint rollback; prior committed personal property remains prior fact",
+    "week_close": "personal property and fixed claims persist, but no sale to new-week coin; already closed-week command denied",
+    "manifest": "no new personal combat item enters current opening manifest; returning the same unused manifested instance does not create a new unit",
+    "free_essentials": "task objects, free personal food, reserved first aid and accepted-contract originals are excluded from pet hiding or recycling",
+    "loans": "E071/E045 disabled for every new seven-night offer until full obligation and payroll migration; existing old-profile obligations cannot be silently erased or imported as coffee/store debt",
+    "legacy_save_with_loans": "reject seven-night conversion and preserve original legacy save until a specific obligation migration is implemented; do not forgive, charge or create replacement debt",
+    "e067_claim": "same I21 only, provisional during open shift; validated safe handover may solidify it for later lawful claim, failure restores prior checkpoint; no new same-night manifestation",
+    "e048_free": "only offer if pre20 notice can reserve all60 optional minutes before any optional spend; mandatory60 and22–24 commute remain; if unsupported do not offer and keep normal commute baseline"
+  },
+  "bounded_reference_supported_branches": [
+    "E038:B1",
+    "E042:B1",
+    "E054:B1",
+    "E062:B2",
+    "E066:B1",
+    "E067:B1",
+    "E069:B1",
+    "E069:B2",
+    "E072:B1"
+  ],
+  "reference_does_not_prove": [
+    "72 event full lifecycles or new combination compatibility",
+    "actual source authentication, physical routes, game time and actor work",
+    "loan execution or persistent save conversion",
+    "production storage atomicity or full seven-night play",
+    "runtime eligibility of any event"
+  ],
+  "entries": [
+    {
+      "id": "E001",
+      "legacy_ref": "content/event_contracts_v010.json#/E001",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "本阶段两个尚未到场的原订单ID；保留pickup/browse原类别",
+      "legacy_branch_ids": [
+        "E001:B1",
+        "E001:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E002",
+      "legacy_ref": "content/event_contracts_v010.json#/E002",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "一笔真实待付现金单、已卡滞的钱匣、柜台内一只备用匣",
+      "legacy_branch_ids": [
+        "E002:B1",
+        "E002:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E003",
+      "legacy_ref": "content/event_contracts_v010.json#/E003",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "可追溯原销售的最多两件实际退货，其中最多一件为可见破裂玻璃",
+      "legacy_branch_ids": [
+        "E003:B1",
+        "E003:B2"
+      ],
+      "migration_status": "retain_pending_adapter",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "退货只冲销同一真实销售原行，不新增销售/奖励；旧周退款不得流入新周。",
+      "required_external_facts": [
+        "original_sale_line",
+        "actual_returned_object",
+        "same_week_sale_ledger"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E004",
+      "legacy_ref": "content/event_contracts_v010.json#/E004",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "下一小时尚空的一个原pickup订单名额、同批真实食材与交付容量",
+      "legacy_branch_ids": [
+        "E004:B1",
+        "E004:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E005",
+      "legacy_ref": "content/event_contracts_v010.json#/E005",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "真实普通求助者与其自带封签小包；求助号码来自可信店内联系簿",
+      "legacy_branch_ids": [
+        "E005:B1",
+        "E005:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E006",
+      "legacy_ref": "content/event_contracts_v010.json#/E006",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "一个未结算的现有订单和具体待购货物，无已接受代付承诺",
+      "legacy_branch_ids": [
+        "E006:B1",
+        "E006:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E007",
+      "legacy_ref": "content/event_contracts_v010.json#/E007",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "一个已登记失物、两位临时认领者；原登记中确有两个可独立核对细节",
+      "legacy_branch_ids": [
+        "E007:B1",
+        "E007:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E008",
+      "legacy_ref": "content/event_contracts_v010.json#/E008",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "一件已经实际打包完成的原pickup订单包裹、原预约记录，骑手尚未实际到场；到场前一次预告延后8预算秒。",
+      "legacy_branch_ids": [
+        "E008:B1",
+        "E008:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E009",
+      "legacy_ref": "content/event_contracts_v010.json#/E009",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "一个现有订单实际含三件商品，有两个空的普通打包槽",
+      "legacy_branch_ids": [
+        "E009:B1",
+        "E009:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E010",
+      "legacy_ref": "content/event_contracts_v010.json#/E010",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "天气导演真实雨脉冲，固定WET_FRONT湿格，从未与WET_COLD擅自连接",
+      "legacy_branch_ids": [
+        "E010:B1",
+        "E010:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E011",
+      "legacy_ref": "content/event_contracts_v010.json#/E011",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "已抽到的30世界秒室外雾窗，现有门牌与至少一条室内证据仍可见",
+      "legacy_branch_ids": [
+        "E011:B1",
+        "E011:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E012",
+      "legacy_ref": "content/event_contracts_v010.json#/E012",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "30世界秒热浪预报及真实普通饮水订单或F11/F53已登记分支",
+      "legacy_branch_ids": [
+        "E012:B1",
+        "E012:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E013",
+      "legacy_ref": "content/event_contracts_v010.json#/E013",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "一处普通饮料柜的可见外霜；关键任务冰柜不由该事件失效",
+      "legacy_branch_ids": [
+        "E013:B1",
+        "E013:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E014",
+      "legacy_ref": "content/event_contracts_v010.json#/E014",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "一次有方向预告的真实雷声/闪光脉冲，基础应急标线始终可读",
+      "legacy_branch_ids": [
+        "E014:B1",
+        "E014:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E015",
+      "legacy_ref": "content/event_contracts_v010.json#/E015",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "30世界秒普通自来水停供通知；所有已接受任务的免费独立水量已预留",
+      "legacy_branch_ids": [
+        "E015:B1",
+        "E015:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E016",
+      "legacy_ref": "content/event_contracts_v010.json#/E016",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "固定门前普通湿格和一条已验证干侧通路，不改变导航拓扑",
+      "legacy_branch_ids": [
+        "E016:B1",
+        "E016:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E017",
+      "legacy_ref": "content/event_contracts_v010.json#/E017",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "一只普通临时流浪动物、前场已有安全等候点；没有凭空解锁宠物",
+      "legacy_branch_ids": [
+        "E017:B1",
+        "E017:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E018",
+      "legacy_ref": "content/event_contracts_v010.json#/E018",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "30世界秒通风差状态，只读取F03屏息恢复延迟与F49已合盖冷却",
+      "legacy_branch_ids": [
+        "E018:B1",
+        "E018:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E019",
+      "legacy_ref": "content/event_contracts_v010.json#/E019",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "一条已登记普通设备支线故障，首兆前固定为跳闸或损坏部件；实际受影响的可选设备与fault_id可见，基础冷藏、手动门和免费核验独立。",
+      "legacy_branch_ids": [
+        "E019:B1",
+        "E019:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E020",
+      "legacy_ref": "content/event_contracts_v010.json#/E020",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "一处普通冷柜报警及同一真实普通货盒；F13主解必须有有效登记冰柜",
+      "legacy_branch_ids": [
+        "E020:B1",
+        "E020:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E021",
+      "legacy_ref": "content/event_contracts_v010.json#/E021",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "一个正制作的普通热食订单、已停转的普通微波档与已有备用档",
+      "legacy_branch_ids": [
+        "E021:B1",
+        "E021:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E022",
+      "legacy_ref": "content/event_contracts_v010.json#/E022",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "一张未出完的真实票据卡纸，原订单数据仍在封存账簿",
+      "legacy_branch_ids": [
+        "E022:B1",
+        "E022:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E023",
+      "legacy_ref": "content/event_contracts_v010.json#/E023",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "当前订单终端离线30世界秒，真实原订单本地记录已保存",
+      "legacy_branch_ids": [
+        "E023:B1",
+        "E023:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E024",
+      "legacy_ref": "content/event_contracts_v010.json#/E024",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "可见门铃测试灯故障，固定门线的实际过门记录仍可生成",
+      "legacy_branch_ids": [
+        "E024:B1",
+        "E024:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E025",
+      "legacy_ref": "content/event_contracts_v010.json#/E025",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "预告时已锁定的后门fails_to_open或fails_to_close，替代路线实际可达",
+      "legacy_branch_ids": [
+        "E025:B1",
+        "E025:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E026",
+      "legacy_ref": "content/event_contracts_v010.json#/E026",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "固定WET_REAR普通漏水支线以及一个低位普通货盒；不覆F57保护渠",
+      "legacy_branch_ids": [
+        "E026:B1",
+        "E026:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E027",
+      "legacy_ref": "content/event_contracts_v010.json#/E027",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "一件实际错时配送原箱和其真实送货单，未获得员工区通行权",
+      "legacy_branch_ids": [
+        "E027:B1",
+        "E027:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E028",
+      "legacy_ref": "content/event_contracts_v010.json#/E028",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "N01班前真实同事迟到，未生成第二个常驻员工",
+      "legacy_branch_ids": [
+        "E028:B1",
+        "E028:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E029",
+      "legacy_ref": "content/event_contracts_v010.json#/E029",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "已经准入的具有员工拟态能力F实例与同一真实同事；无绑定则不出现第二身体",
+      "legacy_branch_ids": [
+        "E029:B1",
+        "E029:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E030",
+      "legacy_ref": "content/event_contracts_v010.json#/E030",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "有远程拟声能力的已准入F实例；未绑定仅同一真实店长重拨",
+      "legacy_branch_ids": [
+        "E030:B1",
+        "E030:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E031",
+      "legacy_ref": "content/event_contracts_v010.json#/E031",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "真实当前账簿；真实已核验店长或已准入F20/F48提出查账",
+      "legacy_branch_ids": [
+        "E031:B1",
+        "E031:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E032",
+      "legacy_ref": "content/event_contracts_v010.json#/E032",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "现有同事工牌实际遗失或暂不可出示，当前身份与权限证据分别处理",
+      "legacy_branch_ids": [
+        "E032:B1",
+        "E032:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E033",
+      "legacy_ref": "content/event_contracts_v010.json#/E033",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "唯一同事已实际开始一项16世界秒低风险工位任务，途中连续8世界秒未被玩家看见且不在对讲可读工位；实际未超期。",
+      "legacy_branch_ids": [
+        "E033:B1",
+        "E033:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E034",
+      "legacy_ref": "content/event_contracts_v010.json#/E034",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "同一真实私约有班前保存记录，返岗者实际回答不一致",
+      "legacy_branch_ids": [
+        "E034:B1",
+        "E034:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E035",
+      "legacy_ref": "content/event_contracts_v010.json#/E035",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "预算700—710，真实店长已在verification_desk现场核验，普通访客实际在相邻公共点[24.5,27.5]；玩家也在该核验工位，已先预留交班容量和4秒识别准备＋6秒操作/退出，门外退出路线实际可用。",
+      "legacy_branch_ids": [
+        "E035:B1",
+        "E035:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E036",
+      "legacy_ref": "content/event_contracts_v010.json#/E036",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "收到提前下班通知，真实HUD预算仍小于720，未改变可信时钟",
+      "legacy_branch_ids": [
+        "E036:B1",
+        "E036:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E037",
+      "legacy_ref": "content/event_contracts_v010.json#/E037",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "在N02—N05阶段起点预约的唯一重大事件与实际前场队列",
+      "legacy_branch_ids": [
+        "E037:B1",
+        "E037:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E038",
+      "legacy_ref": "content/event_contracts_v010.json#/E038",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "一队实际迎亲队列在前场等待，店外既有通路与后台边界不重叠",
+      "legacy_branch_ids": [
+        "E038:B1",
+        "E038:B2"
+      ],
+      "migration_status": "retain_pending_adapter",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "真实队列通过且收回原通行条后按原6币一次；不复制原订单或根奖励。",
+      "required_external_facts": [
+        "actual_passage_completed",
+        "original_strip_returned",
+        "unique_event_reward_receipt"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E039",
+      "legacy_ref": "content/event_contracts_v010.json#/E039",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "一队实际送行者与一笔已预留的原pickup订单提出20秒静音请求；无真实该单不准入交易版",
+      "legacy_branch_ids": [
+        "E039:B1",
+        "E039:B2"
+      ],
+      "migration_status": "retain_pending_adapter",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "静音交易只完成原pickup订单；不附送第二笔事件收入。",
+      "required_external_facts": [
+        "same_original_pickup_order",
+        "reserved_original_food",
+        "actual_quiet_timer_and_delivery"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E040",
+      "legacy_ref": "content/event_contracts_v010.json#/E040",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "门前实际一处临时摊位，预先固定I21×1，正常目录价60币，本次公开售价42币",
+      "legacy_branch_ids": [
+        "E040:B1",
+        "E040:B2"
+      ],
+      "migration_status": "disabled_in_seven_night_design",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "营业中42币购买I21与20–22个人采购/开门清单不相容；七夜暂不投放，旧V0.10保留。",
+      "required_external_facts": [
+        "actual_stall_and_same_I21",
+        "night_purchase_policy_and_adapter_missing"
+      ],
+      "branch_overrides": {
+        "E040:B1": "reject_night_purchase",
+        "E040:B2": "not_a_reason_to_admit_a_disabled_event"
+      },
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E041",
+      "legacy_ref": "content/event_contracts_v010.json#/E041",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "最多三件已登记实际失物与各自原记录，不从传闻生成旧物",
+      "legacy_branch_ids": [
+        "E041:B1",
+        "E041:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E042",
+      "legacy_ref": "content/event_contracts_v010.json#/E042",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "同一客群携供台请求，店配可选供食2份与个人保底餐分离",
+      "legacy_branch_ids": [
+        "E042:B1",
+        "E042:B2"
+      ],
+      "migration_status": "retain_pending_adapter",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "店配两份供食实际交付后4币一次，个人保底餐不作供食，不另记销售。",
+      "required_external_facts": [
+        "two_reserved_work_food_portions",
+        "actual_delivery_completed",
+        "personal_food_excluded"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E043",
+      "legacy_ref": "content/event_contracts_v010.json#/E043",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "真实预算未到720的一次窗外假亮，不修改世界时钟",
+      "legacy_branch_ids": [
+        "E043:B1",
+        "E043:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E044",
+      "legacy_ref": "content/event_contracts_v010.json#/E044",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "最多三名临时群影在公共门外，两个空公共等候位可预约",
+      "legacy_branch_ids": [
+        "E044:B1",
+        "E044:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E045",
+      "legacy_ref": "content/event_contracts_v010.json#/E045",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "E071真实债务及事先预留的到期夜N05唯一重大席位，最多三份",
+      "legacy_branch_ids": [
+        "E045:B1",
+        "E045:B2"
+      ],
+      "migration_status": "disabled_in_seven_night_design",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "借贷原账、工资抵扣及重试/跨周保存未迁移；不得把25币借贷塞进最多20币店务扣款。",
+      "required_external_facts": [
+        "original_E071_obligation_ledger",
+        "loan_specific_payroll_adapter_missing"
+      ],
+      "branch_overrides": {
+        "E045:B1": "reject_unmigrated_loan_ledger",
+        "E045:B2": "reject_unmigrated_loan_ledger"
+      },
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E046",
+      "legacy_ref": "content/event_contracts_v010.json#/E046",
+      "legacy_phase": "day",
+      "legacy_enabled_current": true,
+      "legacy_source": "真实旧货商有一件当前可买Q装备、剩余白天格",
+      "legacy_branch_ids": [
+        "E046:B1",
+        "E046:B2"
+      ],
+      "migration_status": "disabled_in_seven_night_design",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "A07白天旧货采购没有七夜商品/时段消费者；不扣行动格、精力或币。",
+      "required_external_facts": [
+        "actual_vendor_offer",
+        "A07_shop_and_phase_adapter_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E047",
+      "legacy_ref": "content/event_contracts_v010.json#/E047",
+      "legacy_phase": "day",
+      "legacy_enabled_current": true,
+      "legacy_source": "20—22已核实商店价格表及一个有效20%折扣ID",
+      "legacy_branch_ids": [
+        "E047:B1",
+        "E047:B2"
+      ],
+      "migration_status": "disabled_in_seven_night_design",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "SA01已列未适配折扣源；不得把折扣套入未知商品或同时扣原价与折后价。",
+      "required_external_facts": [
+        "actual_discount_id",
+        "current_offer_and_actual_paid_price_adapter_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E048",
+      "legacy_ref": "content/event_contracts_v010.json#/E048",
+      "legacy_phase": "day",
+      "legacy_enabled_current": true,
+      "legacy_source": "20点前公告且60分钟可选整备未占用",
+      "legacy_branch_ids": [
+        "E048:B1",
+        "E048:B2"
+      ],
+      "migration_status": "override_pending_adapter",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "保留20点前预留免费提前出发的方向；付10币交通支路暂不开放，预留/通勤真实消费者仍待接。",
+      "required_external_facts": [
+        "actual_pre20_notice",
+        "all_60_optional_minutes_unspent",
+        "required_60_preparation_minutes_preserved",
+        "actual_commute_reservation"
+      ],
+      "branch_overrides": {
+        "E048:B1": "reserve_free_60_optional_minutes_before_spending",
+        "E048:B2": "reject_unmapped_transport_payment"
+      },
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E049",
+      "legacy_ref": "content/event_contracts_v010.json#/E049",
+      "legacy_phase": "day",
+      "legacy_enabled_current": true,
+      "legacy_source": "所选一个未学方法页本日确无货，至少一其他页可选或可休息",
+      "legacy_branch_ids": [
+        "E049:B1",
+        "E049:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E050",
+      "legacy_ref": "content/event_contracts_v010.json#/E050",
+      "legacy_phase": "day",
+      "legacy_enabled_current": true,
+      "legacy_source": "一个真实未学K01—K07页可选、未用行动格",
+      "legacy_branch_ids": [
+        "E050:B1",
+        "E050:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E051",
+      "legacy_ref": "content/event_contracts_v010.json#/E051",
+      "legacy_phase": "day",
+      "legacy_enabled_current": false,
+      "legacy_source": "无装备耐久生产者，A06停用",
+      "legacy_branch_ids": [
+        "E051:B1",
+        "E051:B2"
+      ],
+      "migration_status": "legacy_disabled",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "无装备耐久与维修消费者，继续关闭。",
+      "required_external_facts": [
+        "no_equipment_durability_consumer"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E052",
+      "legacy_ref": "content/event_contracts_v010.json#/E052",
+      "legacy_phase": "day",
+      "legacy_enabled_current": true,
+      "legacy_source": "实际候选宠物有未被领取的记录、一个白天格、既有价格及照料物",
+      "legacy_branch_ids": [
+        "E052:B1",
+        "E052:B2"
+      ],
+      "migration_status": "disabled_in_seven_night_design",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "未迁移宠物领养/升级及A07来源；事件不创建宠物。已有宠物A08照料和匹配用品例外不因此停用。",
+      "required_external_facts": [
+        "actual_unclaimed_pet_offer",
+        "acquisition_and_price_adapter_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E053",
+      "legacy_ref": "content/event_contracts_v010.json#/E053",
+      "legacy_phase": "day",
+      "legacy_enabled_current": true,
+      "legacy_source": "一份有真实邻居来源和封装批次的I01餐包，玩家本日尚未领取该来源",
+      "legacy_branch_ids": [
+        "E053:B1",
+        "E053:B2"
+      ],
+      "migration_status": "retain_pending_adapter",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "真实邻居同来源同游戏日一份I01；核验领取和实际食用分别处理，不多发SAN或自动加饱腹。",
+      "required_external_facts": [
+        "actual_neighbor_batch",
+        "same_I01_object",
+        "absolute_game_day_source_claim"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E054",
+      "legacy_ref": "content/event_contracts_v010.json#/E054",
+      "legacy_phase": "day",
+      "legacy_enabled_current": true,
+      "legacy_source": "确定2小时兼职岗位和剩余行动格",
+      "legacy_branch_ids": [
+        "E054:B1",
+        "E054:B2"
+      ],
+      "migration_status": "retain_pending_adapter",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "绑定同一次真实A09完成回执，+30币只路由到周主账一次；事件不另发30。",
+      "required_external_facts": [
+        "actual_completed_A09_receipt",
+        "one_day_slot_used",
+        "energy_minus_12",
+        "single_week_wallet_route"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E055",
+      "legacy_ref": "content/event_contracts_v010.json#/E055",
+      "legacy_phase": "day",
+      "legacy_enabled_current": true,
+      "legacy_source": "实际原笔记及至少一个未整理真实观察根",
+      "legacy_branch_ids": [
+        "E055:B1",
+        "E055:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E056",
+      "legacy_ref": "content/event_contracts_v010.json#/E056",
+      "legacy_phase": "day",
+      "legacy_enabled_current": true,
+      "legacy_source": "导师时段及实际新案例或未学方法页",
+      "legacy_branch_ids": [
+        "E056:B1",
+        "E056:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E057",
+      "legacy_ref": "content/event_contracts_v010.json#/E057",
+      "legacy_phase": "day",
+      "legacy_enabled_current": true,
+      "legacy_source": "真人同事白天公开场景且有一格活动可用",
+      "legacy_branch_ids": [
+        "E057:B1",
+        "E057:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E058",
+      "legacy_ref": "content/event_contracts_v010.json#/E058",
+      "legacy_phase": "day",
+      "legacy_enabled_current": true,
+      "legacy_source": "当前真实店长白天实际在场及一格可用",
+      "legacy_branch_ids": [
+        "E058:B1",
+        "E058:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E059",
+      "legacy_ref": "content/event_contracts_v010.json#/E059",
+      "legacy_phase": "day",
+      "legacy_enabled_current": true,
+      "legacy_source": "已读两份来源矛盾且实际观察根尚未整理",
+      "legacy_branch_ids": [
+        "E059:B1",
+        "E059:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E060",
+      "legacy_ref": "content/event_contracts_v010.json#/E060",
+      "legacy_phase": "day",
+      "legacy_enabled_current": true,
+      "legacy_source": "真实上一夜SAN<40且当前仍<40、同previous_night_id未处理",
+      "legacy_branch_ids": [
+        "E060:B1",
+        "E060:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E061",
+      "legacy_ref": "content/event_contracts_v010.json#/E061",
+      "legacy_phase": "day",
+      "legacy_enabled_current": true,
+      "legacy_source": "本日住所安静、尚未领过安静午睡额外奖励",
+      "legacy_branch_ids": [
+        "E061:B1",
+        "E061:B2"
+      ],
+      "migration_status": "retain_pending_adapter",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "同日一次真实安静A02完成额外精力+2；Q17若合法是独立SAN+4来源，不能重发整格。",
+      "required_external_facts": [
+        "actual_completed_A02",
+        "quiet_home_at_that_action",
+        "absolute_game_day_extra_quota"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E062",
+      "legacy_ref": "content/event_contracts_v010.json#/E062",
+      "legacy_phase": "day",
+      "legacy_enabled_current": true,
+      "legacy_source": "施工公告覆盖本次睡眠格，资料室已有安静休息位可预留",
+      "legacy_branch_ids": [
+        "E062:B1",
+        "E062:B2"
+      ],
+      "migration_status": "retain_pending_adapter",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "免费受扰睡眠保留；安静选择沿同一实际A01行动付10周币一次，资源由原日间动作结算。",
+      "required_external_facts": [
+        "actual_A01_sleep_receipt",
+        "actual_reserved_quiet_place_for_paid_branch",
+        "single_week_wallet_route"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E063",
+      "legacy_ref": "content/event_contracts_v010.json#/E063",
+      "legacy_phase": "day",
+      "legacy_enabled_current": true,
+      "legacy_source": "实际新案例或未学页、既定对照会和行动格",
+      "legacy_branch_ids": [
+        "E063:B1",
+        "E063:B2"
+      ],
+      "migration_status": "not_reaudited_fail_closed",
+      "review_scope": "index_only_not_full_lifecycle_review",
+      "decision": "本轮未重做该事件全流程；保留旧合同供后续迁移，七夜不据旧enabled_current自动准入。",
+      "required_external_facts": [
+        "original_authored_source",
+        "real_route_actor_object_and_budget_adapters",
+        "explicit_seven_night_review_missing"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E064",
+      "legacy_ref": "content/event_contracts_v010.json#/E064",
+      "legacy_phase": "day",
+      "legacy_enabled_current": true,
+      "legacy_source": "玩家实有普通奖券、无待选抽奖、已持久化候选种子与15分钟整备",
+      "legacy_branch_ids": [
+        "E064:B1",
+        "E064:B2"
+      ],
+      "migration_status": "retain_pending_adapter",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "只读EQ01二候选及同抽前保底，待选不得开第二抽/改变持有；旧within-tier规则不覆盖。",
+      "required_external_facts": [
+        "actual_E064_authorization",
+        "one_ticket",
+        "15_preparation_minutes",
+        "complete_admitted_EQ01_pools",
+        "persisted_same_pre_draw_snapshot"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E065",
+      "legacy_ref": "content/event_contracts_v010.json#/E065",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "已有一次可选完成原回执且本夜碎片上限未用；F47共享原根ID",
+      "legacy_branch_ids": [
+        "E065:B1",
+        "E065:B2"
+      ],
+      "migration_status": "retain_pending_adapter",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "本夜最多1真实碎片，与F47按同根去重；入夜内暂得账，失败回滚，3片换券只在原采购窗。",
+      "required_external_facts": [
+        "actual_optional_completion_or_F47_receipt",
+        "shared_root_reward_id",
+        "one_fragment_night_quota"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E066",
+      "legacy_ref": "content/event_contracts_v010.json#/E066",
+      "legacy_phase": "day",
+      "legacy_enabled_current": true,
+      "legacy_source": "一个真实已拥有重复道具、普通仓库空位或可显示实物回收价",
+      "legacy_branch_ids": [
+        "E066:B1",
+        "E066:B2"
+      ],
+      "migration_status": "override_pending_adapter",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "仅保留同一原物存放；付费回收关闭，不能把跨周个人物或免费奖品换回周币。",
+      "required_external_facts": [
+        "actual_owned_same_object",
+        "actual_storage_capacity",
+        "actual_store_action_receipt"
+      ],
+      "branch_overrides": {
+        "E066:B1": "store_same_object_without_coin",
+        "E066:B2": "reject_personal_asset_sale"
+      },
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E067",
+      "legacy_ref": "content/event_contracts_v010.json#/E067",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "柜台实际收到一个封签礼盒，来源可与已存在供应商批次对照",
+      "legacy_branch_ids": [
+        "E067:B1",
+        "E067:B2"
+      ],
+      "migration_status": "override_pending_adapter",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "核验原礼盒仍可获得固定I21领取权；七夜营业内奖励先入待固化领取记录，安全交班后按既有窗口领取，不能填当夜清单。",
+      "required_external_facts": [
+        "same_original_sealed_box",
+        "matching_real_supplier_batch_and_seal",
+        "actual_completed_verification",
+        "unique_I21_claim_id"
+      ],
+      "branch_overrides": {
+        "E067:B1": "provisional_deferred_I21_claim",
+        "E067:B2": "return_same_unclaimed_box_no_reward"
+      },
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E068",
+      "legacy_ref": "content/event_contracts_v010.json#/E068",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "P05已提交的实际门线穿越notice，或P07已提交的实际攻击预告标记回执；原方向确实存在且本回执未用于E068。其他宠物不凭空侦测。",
+      "legacy_branch_ids": [
+        "E068:B1",
+        "E068:B2"
+      ],
+      "migration_status": "retain_pending_adapter",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "只消费实际P05/P07来源回执和独立观察；不得凭事件自动拥有宠物、生成新预告或证明身份。",
+      "required_external_facts": [
+        "actual_owned_attending_P05_or_P07",
+        "same_committed_notice_receipt",
+        "remaining_real_handling_window"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E069",
+      "legacy_ref": "content/event_contracts_v010.json#/E069",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "P01/P03/P04出勤、邻近staff_desk一件玩家已拥有且实际放在台上的非关键小物；预告后宠物亲自取放该原物。",
+      "legacy_branch_ids": [
+        "E069:B1",
+        "E069:B2"
+      ],
+      "migration_status": "override_pending_adapter",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "保留同一原物找回；备用必须原ID已在本夜清单且未消耗，禁止营业从仓库取新战斗物。",
+      "required_external_facts": [
+        "actual_attending_P01_P03_or_P04",
+        "noncritical_small_original_object",
+        "actual_pet_pickup_and_path_receipt",
+        "actual_retrieval_receipt"
+      ],
+      "branch_overrides": {
+        "E069:B1": "retrieve_same_hidden_opening_item",
+        "E069:B2": "only_unused_existing_opening_manifest_spare"
+      },
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E070",
+      "legacy_ref": "content/event_contracts_v010.json#/E070",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "E014实际一次雷声脉冲、宠物已照料且主动次数>0、当夜未受惊过",
+      "legacy_branch_ids": [
+        "E070:B1",
+        "E070:B2"
+      ],
+      "migration_status": "retain_pending_adapter",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "实际雷声、已照料宠物和真实余次为来源；30秒自然解除或无追逐实际安抚6秒，不恢复次数。",
+      "required_external_facts": [
+        "actual_E014_thunder_receipt",
+        "owned_cared_attending_pet",
+        "positive_original_active_charges",
+        "no_new_startle_time"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E071",
+      "legacy_ref": "content/event_contracts_v010.json#/E071",
+      "legacy_phase": "night",
+      "legacy_enabled_current": true,
+      "legacy_source": "一份公开20币借款提案，下一夜N05有可预留E045席位和25币工资抵扣额度",
+      "legacy_branch_ids": [
+        "E071:B1",
+        "E071:B2"
+      ],
+      "migration_status": "disabled_in_seven_night_design",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "完整借贷账/工资抵扣未迁移，七夜所有夜次不投新借款。第7夜还另有本金周清而义务跨周的无消费窗问题。",
+      "required_external_facts": [
+        "actual_loan_offer",
+        "loan_lifecycle_and_payroll_adapter_missing"
+      ],
+      "branch_overrides": {
+        "E071:B1": "reject_unmigrated_loan_ledger",
+        "E071:B2": "not_a_reason_to_admit_a_disabled_event"
+      },
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    },
+    {
+      "id": "E072",
+      "legacy_ref": "content/event_contracts_v010.json#/E072",
+      "legacy_phase": "day",
+      "legacy_enabled_current": true,
+      "legacy_source": "本采购窗口实付原购买行、同原物未使用/转移且剩余5分钟",
+      "legacy_branch_ids": [
+        "E072:B1",
+        "E072:B2"
+      ],
+      "migration_status": "retain_pending_adapter",
+      "review_scope": "economic_inventory_pet_boundary_review",
+      "decision": "保留同采购窗、同周、同未用未转移实付原物一次原额退款；不能按新标价、彩票/赠品或旧周票退款。",
+      "required_external_facts": [
+        "same_original_purchase_line",
+        "same_unused_untransferred_object",
+        "same_procurement_window_and_week",
+        "actual_return_action_5_minutes"
+      ],
+      "branch_overrides": {},
+      "runtime_enabled": false,
+      "runtime_gate": "explicit_world_adapter_and_consumer_registration_plus_actual_sources_required; current_build_rejects"
+    }
+  ]
+}

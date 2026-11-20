@@ -1,0 +1,524 @@
+{
+  "version": "BC02",
+  "baseline_commit": "dfd2e32eecb8fb4dc7dd3efa066cfa3817363788",
+  "status": "whole_raid_customer_support_design_and_bounded_reference",
+  "design_enabled": true,
+  "runtime_enabled": false,
+  "runtime_integrated": false,
+  "authority": "BC02 supersedes BC01 short facility durations and its shared eight-token bank. The normal-customer, original paid-stock, source-geometry and free rule-solution contracts remain required. This is a design reference, not a client implementation.",
+  "sources": [
+    "content/facility_roles_sa01.json",
+    "content/facility_contracts_sa02.json",
+    "content/store_systems_v05.json",
+    "content/traps_facilities_td05.json",
+    "content/combat_contracts_td05.json",
+    "content/map_composition_bc01.json",
+    "content/facilities_bc01.json",
+    "content/campaign_bc01.json",
+    "content/director_bc01.json",
+    "content/customer_routes_bc02.json"
+  ],
+  "customer_use_contract": {
+    "method": "customer_use(event_id, customer_id, facility_id, paid_order_receipt, night_id, attempt_id, facts)",
+    "requires": [
+      "normal real customer, never a monster, disguised visitor, employee or player",
+      "same-night same-attempt paid ordinary store sale receipt belonging to this customer",
+      "actual completed physical use at the correct facility operation face",
+      "registered customer-use consumer and facility geometry, plus real source object/order association",
+      "customer used the required powered service while that circuit and main power were actually available"
+    ],
+    "paid_receipt_fields": [
+      "event_id",
+      "order_id",
+      "customer_id",
+      "night_id",
+      "attempt_id",
+      "paid",
+      "payment_kind",
+      "completed_at",
+      "normal_customer",
+      "items",
+      "facilities_used",
+      "logical_customer_id",
+      "logical_order_id"
+    ],
+    "payment_kind": "ordinary_store_sale",
+    "before_payment": "The world consumer may retain a real use fact before checkout; submit customer_use only after that same order pays. Unpaid, canceled and abandoned orders earn no facility credit.",
+    "dedupe": "One credit for (night, attempt, customer, paid order, facility); event IDs are immutable and replaying another event ID cannot duplicate the same use.",
+    "optional_service_limit_per_order": 2,
+    "natural_events_outside_optional_limit": [
+      "FR01",
+      "FR10"
+    ],
+    "optional_services": "The authored customer route must authorize the actual optional service. Walking past a device, player work, reading UI and synthetic facility_secondary events are not use.",
+    "stock_and_payment": "Normal products consume the employer's original store stock through the real sale. They never consume personal food, reserved quest goods or bought trap inventory. There is no additional player coin/spirit/emergency-power fee for the facility reward; the existing paid order is not paid a second time.",
+    "physical_stock_rule": "FR02/03/04/05 match a positive-quantity original receipt item and its source_item_id. Other service objects must be independently authenticated as belonging to the same paid customer/order; a returned empty bottle or consumed drink is the same owned object, not a new product grant.",
+    "late_service": "FR10 exit and a real post-payment public service may occur after checkout. They require their own actual world-use proof and do not rewrite the immutable payment.",
+    "no_real_consumer": "Reject without adding a credit. A designed public counter or an anchor name alone does not prove NPC service was performed.",
+    "attempt_id": "Positive integer, never bool; preserve the exact same integer in order, callback, save and retry.",
+    "completion": "Require the actual route action progress_complete receipt and its real positive use_duration_s. Authored base use seconds describe normal service; level/facility acceleration can reduce real manual time without invalidating a completed action. FR10 instead requires a real post-payment exit boundary crossing; it has no invented dwell.",
+    "logical_identity": "The actual director supplies explicit immutable logical_customer_id and logical_order_id independent of attempt. Each real customer/order binds to one logical key within the attempt, and no second real customer/order may alias the same key. Their authenticity is part of the paid receipt; do not derive them by stripping strings.",
+    "public_route_authority": "content/customer_routes_bc02.json binds actual public faces and original-object chains; FR06 uses bc02_customer_verification, never the legacy employee control verification_desk. BC02 reference routes derive proof facts; the actual client/Director adapter remains disabled.",
+    "temporal_provenance": {
+      "service_interval": "BC02 route receipts include actual_use_started_at and the true completed duration; end-start must match duration. Legacy references derive start=end-duration. The entire interval must avoid every actual raid interval, not merely its endpoints.",
+      "electrical_source": "A powered reward requires source power throughout the completed action, including a valid begin and finish. Manual payment may proceed through an outage but does not become powered FR01 credit merely because power returned before payment.",
+      "same_tick_order": "Actual action-start/action-completion and actual power transitions share source_event_stream_id and monotonic sequence. The completed action receipt contains its actual started_event and both power epoch IDs. Facilities matches the action records to receipt/customer/order and its own registered power_history epochs. Completion before a later same-time outage stays valid; an outage earlier in the sequence invalidates electrical use.",
+      "power_consumer_api": "power_changed may receive source_event_stream_id and source_sequence from the authoritative shared event stream. Customer use has matching action_started_sequence, action_completed_sequence, power_epoch_at_start and power_epoch_at_completion. Unknown or inconsistent epochs/order fail; source_powered=True is not an alternative proof.",
+      "legacy_timestamps": "Timestamp-only old reference receipts must be powered across the full interval and are rejected at ambiguous same-time power boundaries. Current BC02 route outputs always carry event ordering."
+    }
+  },
+  "bank": {
+    "per_facility_max_tokens": 2,
+    "whole_store_max_tokens": 24,
+    "scope": "current logical night and attempt checkpoint only",
+    "overflow": "The paid sale and real use remain completed. Do not replace or refresh older tokens, issue coins, convert to an item, or create a deferred reward. Record the use as processed so it cannot be replayed after space opens.",
+    "activation": "At actual raid_started, snapshot prior credits: one maintained/restorative token per source is reserved for this raid; a second token remains for the next raid. Powered reservations first activate on actual power availability in this raid. Never activate late-delivered credits that were absent from this raid-start snapshot; actual new normal service during RAID is rejected. FR02 may deploy up to two already-banked tokens; FR10 transfers both pre-existing 30-second credits within its 120-second storage cap.",
+    "during_raid_customer_use": "RAID has no ordinary customer service. A delayed receipt may bank only when its actual payment instant and the entire real use interval [actual_use_started_at,actual_use_at] are outside recorded actual RAID intervals. Positive-duration intersection with any current or closed raid is rejected even when both endpoints are outside it. A genuine earlier safe receipt delivered during RAID is next-raid credit only; caller phase booleans do not prove this.",
+    "duration": "Banked credit has no time expiry within this night. Maintained effects last to the actual raid_ended event, not a fixed number of seconds. Same source never stacks magnitude; the second token is next-raid coverage.",
+    "raid_end": "End all activated maintained effects and their unspent healing budgets; no refund of activated support. Remove placed one-charge traps without refund. An off-source reservation that never activated and every unplaced trap token remain identical bank entries for the next raid in this night. Unspent survival credit also carries within this night.",
+    "night_end": "Clear all banked credits, active effects, healing budgets, survival credit and temporary placements; show expired-by-night-end counts in settlement. Nothing converts into money, items or permanent stats. Death restores the complete attempt checkpoint, with stable logical source identities and fixed random results.",
+    "covered_reward_sources": 12,
+    "coverage": "Each of 12 actual reward sources has its own two-token capacity; the sum is at most 24. Checkout and exit cannot fill or replace another device slot. Low customer flow is expected: players choose optional service preferences before the shift; only services the real customer reaches and completes count. Visiting all 14 facilities is never required."
+  },
+  "power": {
+    "circuits": [
+      "C1",
+      "C2",
+      "C3"
+    ],
+    "main_switch": "MAIN",
+    "powered_predicate": "main_on && own_circuit_on",
+    "off": "Disable every affected maintained powered effect immediately, including healing, cold aura, direct guard, movement, interaction and ordinary reload. No world-time countdown exists for whole-raid support. Off-time consumes no healing budget and produces no delayed healing.",
+    "restart": "Enable the same activated source until this raid actually ends, preserving its exact remaining healing budget and fixed reward. A reservation made at raid start but not yet activated may activate once on restored power. Never refill a spent budget or activate late-delivered credit absent from the raid-start snapshot; power-on is neither contact nor a customer use.",
+    "mechanical": "Mechanical shelf gifts, actual-door survival credit, bottle-return support, parcel carrying and public bottled-water recovery do not need power. They still require actual eligible paid customer use.",
+    "completed_resources": "Already legally applied HP, stamina or earned payout facts are not reversed by a later outage. Future regeneration intervals and powered maintained effects stop.",
+    "overload_gate": "Electric overload is allowed only while MAIN and the combat appliance circuit C2 are on. MAIN outage or C2 loss stops queued and new overload resolution; the real electric consumer must release obsolete reservations and continue absolute charge expiry. Restore cannot treat power-on as contact or pay missed overloads.",
+    "partial_outage": "C1-only or C3-only loss stops the corresponding device buffs, while C2-powered electric combat may continue. MAIN loss stops all powered sources.",
+    "appliance_count": "A powered service buff does not automatically add an E node. Only explicitly registered real appliance IDs/geometries enter the TD05 network. New public service screens/lamps/counters are not counted by name."
+  },
+  "root_consumers": {
+    "hp": "hp_regen_budgeted_interval carries one non-stacking total healing offer and ordered source allocations. The real HP owner applies its current max HP, missing-HP clamp and alive check once by request_id, then calls hp_regen_ack with the actual before/after/max-HP receipt. Only actual restored HP/max HP is debited, in allocation order. Apply+ack and save are one atomic world-boundary transaction; next world advance, power change or raid close cannot pass an unresolved offer. No resurrection, offline healing or catch-up.",
+    "defense": "0.08 is a separate facility multiplier on received direct attack damage (x0.92), outside level/equipment defense. Root enforces its overall received-damage floor of 0.35. Rule consequences and contractual costs are not ordinary direct attack damage.",
+    "movement": "Whole-raid +8% may exceed the old permanent 3.15 cap. Root clamps final walk to 3.6 and sprint to 4.5; carrying uses its actual authored baseline and root cap. No move buff teleports or bypasses a required facing/position rule.",
+    "interaction": "x0.9 may combine with the level multiplier, but root preserves at least 0.6 of the original authored manual action time and at least 0.25 seconds. True world waits, enemy windups, physical path length and QTE timing are never shortened.",
+    "stacking": "Within each facility/stat group, take the strongest currently enabled value; deterministic source-ID order breaks ties. Effects remain until actual raid end and preserve source identity across outages. FR03 and FR14 healing never add rates: allocate time to one eligible source at a time, moving to the next only when its current budget is exhausted.",
+    "cold_aura": "The real world consumer tests player-to-enemy actual distance <=1.5, LOS, valid height and independent manifested hostile pool on every sample, then applies 12% soft slow after the target's authored slow resistance. Nonhostile response actors, hidden bodies, walls and shared parts cannot be affected. It adds no chill meter or hard control.",
+    "reload": "8% reload rate affects only existing eligible ordinary single-projectile reload work on actual enabled towers in the registered 6-tile audible area. Same rate group takes strongest; no instant shot, new ammo, magazine/multiwave/field/guard/poison/electric timer acceleration.",
+    "payout": "Typed coin/XP and stamina requests have immutable IDs. Root applies each once to its actual ledger/resources; this module contains no wallet or HP owner.",
+    "soft_slow_resistance": "FR11 reduces the remaining ordinary soft-slow magnitude by 25% (multiply by0.75 after the existing resistance calculation), strongest facility source only. It does not change hard-control time, rule consequences, zero-speed locks or immunity, and does not add25 percentage points to a level/equipment stat.",
+    "carrying": "FR12 increases the actual authored carrying movement rate by10% only while the player really holds the relevant legal same object. Its multiplier1.10 and FR05 temporary movement multiplier1.08 take the strongest, never multiply to1.188. Q14/I25 ordinary walking modifiers never change carrying. It creates no work/order/item and is ineffective when not carrying."
+  },
+  "survival_credit": {
+    "source_facility": "FR10",
+    "seconds_per_paid_customer_exit": 30,
+    "maximum_held_seconds_including_banked_tokens": 120,
+    "consume": "One credit second per real alive RAID world second. Business, pause, death, loading and a merely open combat UI do not consume credit or earn progress.",
+    "seconds_per_payout": 15,
+    "coin_per_payout": 1,
+    "xp_per_payout": 1,
+    "payouts_per_night_cap": 12,
+    "partial_progress": "Carry partial <15-second progress and unspent credit across real raids within this night; do not reset it by power toggles or duplicated raid start/end.",
+    "at_cap": "Retire excess survival credit and its banked tokens without another reward or refund. Later customer exits still settle their original sales, but create no new survival credit.",
+    "payout_id": "bc01:{night}:{attempt}:facility_survival:{one_based_ordinal}",
+    "does_not_extend_world": true,
+    "does_not_change_raid_deadline": true,
+    "eligibility_cutoff_world_s": 720,
+    "deadline": "actual_world_tick accepts eligibility_cutoff=720 (or an earlier explicit cutoff). Only alive actual raid seconds before that boundary consume credit or earn payout. An unresolved overtime raid keeps whole-raid maintained support and its unspent actual healing budget until its real raid_ended event, without further survival payout."
+  },
+  "temporary_traps": {
+    "source_facility": "FR02",
+    "banked_charges_max": 2,
+    "active_instances_per_raid_max": 1,
+    "deployments_per_raid_max": 2,
+    "lifetime_world_seconds": null,
+    "arming_warning_seconds": 0.5,
+    "charges_per_instance": 1,
+    "minimum_seconds_between_successful_deployments": 6,
+    "retry_max_frequency_seconds": 1,
+    "shared_object_cap": 8,
+    "shared_footprint_cap": 16,
+    "random_type": "Uniform independent three-way draw committed when the actual customer credit is earned. Stable seed namespace BC01_CUSTOMER_TRAP excludes attempt IDs and is independent of player lottery RNG. Save the selected variant; blocked placement never rerolls it.",
+    "type_pool": [
+      {
+        "id": "BC_GIFT_R01",
+        "source_trap": "R01",
+        "footprint": [
+          1,
+          2
+        ],
+        "effect": {
+          "slow_fraction": 0.35,
+          "slow_duration_s": 2.5,
+          "per_pool_icd_s": 6
+        },
+        "durability": null
+      },
+      {
+        "id": "BC_GIFT_R02",
+        "source_trap": "R02",
+        "footprint": [
+          1,
+          1
+        ],
+        "effect": {
+          "root_s": 0.8,
+          "after_slow_fraction": 0.2,
+          "after_slow_duration_s": 2,
+          "per_pool_icd_s": 8
+        },
+        "durability": 25
+      },
+      {
+        "id": "BC_GIFT_R07",
+        "source_trap": "R07",
+        "footprint": [
+          1,
+          1
+        ],
+        "effect": {
+          "armor_break_pp": 20,
+          "duration_s": 5,
+          "per_pool_icd_s": 8
+        },
+        "durability": null
+      }
+    ],
+    "explicit_exception": "Only a paid-customer-earned automatic temporary gift may request a new trap during a raid. Bought traps, inventory placement, replenishment, moving, repair, upgrades and selling keep their existing preparation-only rules.",
+    "placement": "Use the BC01 map candidate cells, then check the chosen variant's complete 0/90-degree footprint against current navigation revision, all actor bodies, actual essential paths/workpoints/items/reserved landings and real enemy body fit. The whole footprint must be walkable and visible; keep at least1 tile from every live actor and place under no active hostile trigger volume.",
+    "capacity": "Counts together with bought R traps and legacy helpers toward actual total8 objects and16 footprint cells. Reserve and commit against the actual world occupancy atomically; no extra free slot.",
+    "two_phase": "Propose a typed spawn request first. Consume exactly one stored token only after root acknowledges a real safe world placement with matching request, chosen variant, live navigation revision and final shared counts. Rejection or unavailable capacity leaves the fixed token intact.",
+    "no_site": "Keep the original fixed token and type when no safe live site or shared capacity exists; try at most once per world second. The unplaced credit has no timer within this night and can remain for a later raid. Never force placement or replace a paid trap.",
+    "trigger": "After the0.5-second warning, one actual new entry by a manifested legal hostile ground pool may consume the single charge. Spawning, moving a volume, power-on, the player, normal customers and nonhostile response actors are not entries. R02 control and all debuffs obey shared TD05 resistance/immunity/strongest-source rules.",
+    "ownership": "temporary_customer_service; not a purchased inventory item",
+    "forbidden": [
+      "sell",
+      "refund",
+      "pack into inventory",
+      "refill",
+      "repair",
+      "upgrade",
+      "feed another trap",
+      "duplicate as a drop",
+      "cross-night persistence"
+    ],
+    "ending": "The placed temporary instance persists through this actual raid until its single charge triggers, it is truly destroyed, or the raid/night ends. There is no 20-second expiry. Already valid finite target debuffs keep their original source durations. No unused-charge refund, free replacement, repair, sale or item conversion.",
+    "rng_identity": "Use the explicit paid receipt logical_customer_id/logical_order_id for fixed gift type and stable_source_key. Actual token/request IDs retain attempt. Placement draws use stable_source_key, stable logical raid_id and geometry-only nav_revision; never attempt, frame time, wall time or mutable lottery RNG. The same candidate list and geometry revision give the same site on retry or reload.",
+    "source_procs": "Finite trap statuses carry facility_secondary; they cannot recursively trigger equipment/status-source procs or create customer_use. This restriction does not cancel otherwise legal original tower/electric contact rules. Shared per-pool source-family ICD remains 6s for R01 and 8s for R02/R07; the real world consumer resolves it atomically before effect commit.",
+    "lifetime_policy": "until_one_real_trigger_or_actual_destruction_or_raid_end"
+  },
+  "roles": [
+    {
+      "id": "FR01",
+      "name": "收银台与柜台",
+      "audience": "normal_customer",
+      "powered": true,
+      "circuit": "C1",
+      "anchor": "customer_checkout",
+      "usage_kind": "checkout",
+      "natural_event": true,
+      "business": "原普通订单实际结账，原钱与XP只由营业账本发一次；手动免费主机制不收费。",
+      "reward": {
+        "kind": "direct_damage_reduction",
+        "value": 0.08,
+        "group": "facility_direct_guard",
+        "lifetime": "actual_raid"
+      },
+      "authored_base_use_seconds": 1.5
+    },
+    {
+      "id": "FR02",
+      "name": "商品货架",
+      "audience": "normal_customer",
+      "powered": false,
+      "circuit": null,
+      "anchor": "goods_shelf",
+      "usage_kind": "goods_selected",
+      "natural_event": false,
+      "business": "顾客真实选择并购买原库存商品，原物数量守恒。",
+      "reward": {
+        "kind": "temporary_trap_token",
+        "value": 1
+      },
+      "authored_base_use_seconds": 1.5
+    },
+    {
+      "id": "FR03",
+      "name": "热食台",
+      "audience": "normal_customer",
+      "powered": true,
+      "circuit": "C2",
+      "anchor": "hot_food",
+      "usage_kind": "hot_food_collected",
+      "natural_event": false,
+      "business": "顾客真实领取其已购热食；不靠玩家制作/杂活完成刷奖励。",
+      "reward": {
+        "kind": "hp_regen",
+        "value": 0.002,
+        "group": "facility_regeneration",
+        "lifetime": "actual_raid",
+        "actual_restore_budget_fraction": 0.2
+      },
+      "authored_base_use_seconds": 1.5
+    },
+    {
+      "id": "FR04",
+      "name": "主冰柜顾客冻货槽",
+      "audience": "normal_customer",
+      "powered": true,
+      "circuit": "C2",
+      "anchor": "customer_freezer",
+      "usage_kind": "frozen_goods_collected",
+      "natural_event": false,
+      "business": "普通冻货与F13任务肉分槽；客户只能领取本订单普通冻货。基础任务柜继续免费。",
+      "reward": {
+        "kind": "hostile_soft_slow_aura",
+        "value": 0.12,
+        "radius_tiles": 1.5,
+        "group": "facility_cold_aura",
+        "lifetime": "actual_raid"
+      },
+      "authored_base_use_seconds": 1.5
+    },
+    {
+      "id": "FR05",
+      "name": "饮料冷柜",
+      "audience": "normal_customer",
+      "powered": true,
+      "circuit": "C2",
+      "anchor": "cold_cabinet",
+      "usage_kind": "cold_drink_collected",
+      "natural_event": false,
+      "business": "顾客从实际冷柜领取原购买饮品；不生成个人免费饮料。",
+      "reward": {
+        "kind": "move_speed_bonus",
+        "value": 0.08,
+        "group": "facility_mobility",
+        "lifetime": "actual_raid"
+      },
+      "authored_base_use_seconds": 1.5
+    },
+    {
+      "id": "FR06",
+      "name": "核验台公共自助取货面",
+      "audience": "normal_customer",
+      "powered": true,
+      "circuit": "C1",
+      "anchor": "bc02_customer_verification",
+      "usage_kind": "pickup_identity_verified",
+      "natural_event": false,
+      "business": "顾客按同一真实订单完成自助取货核验；工作人员的主机制核验与免费手压镜保持原权限。",
+      "reward": {
+        "kind": "manual_interaction_multiplier",
+        "value": 0.9,
+        "group": "facility_interaction",
+        "lifetime": "actual_raid"
+      },
+      "authored_base_use_seconds": 1.5
+    },
+    {
+      "id": "FR07",
+      "name": "监控终端",
+      "audience": "employee_control",
+      "powered": true,
+      "circuit": "C3",
+      "anchor": "monitor_terminal",
+      "usage_kind": null,
+      "natural_event": false,
+      "business": "员工看实际订单、队列和已取得快照；提供路线信息，不虚构顾客监控操作。",
+      "reward": null,
+      "defense": "显示真实已知位置与预告；不穿墙锁定、破隐或代替凝视。断电停止实时获取，旧证据保留原语义。",
+      "authored_base_use_seconds": 0
+    },
+    {
+      "id": "FR08",
+      "name": "照明与核验侧灯",
+      "audience": "service_infrastructure",
+      "powered": true,
+      "circuit": "C1",
+      "anchor": "front_door",
+      "usage_kind": null,
+      "natural_event": false,
+      "business": "支持实际可读性、商品操作和已有光照条件；顾客路过不算新的奖励事件。",
+      "reward": null,
+      "defense": "原真实光条件仍需逐怪消费者；不附送塔T04或陷阱R05能力，基本应急标线和免费主解保留。",
+      "authored_base_use_seconds": 0
+    },
+    {
+      "id": "FR09",
+      "name": "迎宾与叫号广播",
+      "audience": "normal_customer",
+      "powered": true,
+      "circuit": "C1",
+      "anchor": "customer_wait",
+      "usage_kind": "order_call_acknowledged",
+      "natural_event": false,
+      "business": "实际在场顾客听到自己的原订单号并回应/领取；声道仍独立，静音纸号营业有效但不冒充通电广播使用。",
+      "reward": {
+        "kind": "ordinary_tower_reload_rate_bonus",
+        "value": 0.08,
+        "radius_tiles": 6,
+        "group": "ordinary_reload_rate",
+        "lifetime": "actual_raid"
+      },
+      "authored_base_use_seconds": 1
+    },
+    {
+      "id": "FR10",
+      "name": "门窗与真实离店边界",
+      "audience": "normal_customer",
+      "powered": false,
+      "circuit": null,
+      "anchor": "customer_exit",
+      "usage_kind": "paid_customer_exit",
+      "natural_event": true,
+      "business": "真实已付顾客完成原商品交付后越过离店边界才算：可携原商品离店，也可已在本单实际饮用/合法回收而离店。已付未领预订单的安全撤离不发FR10；领取权保持同原物/原单。跨夜免费履约不补发新夜储备。",
+      "reward": {
+        "kind": "survival_credit_seconds",
+        "value": 30
+      },
+      "defense": "门窗原入口、遮挡与撤离权限保留；不产生无敌门或收费主解。",
+      "authored_base_use_seconds": 0
+    },
+    {
+      "id": "FR11",
+      "name": "水槽与公共空瓶回收面",
+      "audience": "normal_customer",
+      "powered": false,
+      "circuit": null,
+      "anchor": "customer_return",
+      "usage_kind": "owned_empty_container_returned",
+      "natural_event": false,
+      "business": "客户真实归还本次购买并已使用的空容器；容器随原商品派生且只回收一次。不额外退款、不回收到可售库存。原分支水阀/清洁主机制独立。",
+      "reward": {
+        "kind": "soft_slow_resistance",
+        "value": 0.25,
+        "group": "facility_slow_resistance",
+        "lifetime": "actual_raid"
+      },
+      "authored_base_use_seconds": 1.5
+    },
+    {
+      "id": "FR12",
+      "name": "验收分袋与顾客取货面",
+      "audience": "normal_customer",
+      "powered": false,
+      "circuit": null,
+      "anchor": "pickup_shelf",
+      "usage_kind": "paid_parcel_collected",
+      "natural_event": false,
+      "business": "客户在公共自提架真实领取同一已付包裹，不进入后场私域。员工原验收/封袋操作本身不产设备奖励。",
+      "reward": {
+        "kind": "carrying_move_speed_bonus",
+        "value": 0.1,
+        "group": "facility_carry_mobility",
+        "lifetime": "actual_raid"
+      },
+      "defense": "适用于真正主机制的同件物搬运，仍按原占手/路线/朝向约束；不依赖RAID中新增杂活。",
+      "authored_base_use_seconds": 1.5
+    },
+    {
+      "id": "FR13",
+      "name": "员工补给与独立公共供给面",
+      "audience": "normal_customer",
+      "powered": false,
+      "circuit": null,
+      "anchor": "public_supplies",
+      "usage_kind": "owned_public_drink_consumed",
+      "natural_event": false,
+      "business": "公共台面与员工储物分离；顾客真实食用自己已购买且归属已核验的饮品。员工免费保底、个人食物和咖啡债不改变，不能生成免费饮料。",
+      "reward": {
+        "kind": "stamina_restore_fraction",
+        "value": 0.1
+      },
+      "defense": "One actual 10% maximum-stamina restoration request per raid from one prior customer token; the second token remains for the next raid. The actual resource owner clamps at max and never creates an item.",
+      "authored_base_use_seconds": 2
+    },
+    {
+      "id": "FR14",
+      "name": "玩家抽奖机与独立顾客幸运小票屏",
+      "audience": "normal_customer",
+      "powered": true,
+      "circuit": "C1",
+      "anchor": "lucky_receipt",
+      "usage_kind": "paid_lucky_receipt_scanned",
+      "natural_event": false,
+      "business": "顾客在独立公共读屏面真实扫描同一已付小票一次，免费附属服务不多造订单；玩家抽奖券、准备时间、奖池、保底、库存和RNG完全独立。",
+      "reward": {
+        "kind": "lucky_buff",
+        "variants": [
+          {
+            "kind": "hp_regen",
+            "value": 0.002,
+            "group": "facility_regeneration",
+            "lifetime": "actual_raid",
+            "actual_restore_budget_fraction": 0.1
+          },
+          {
+            "kind": "move_speed_bonus",
+            "value": 0.08,
+            "group": "facility_mobility",
+            "lifetime": "actual_raid"
+          },
+          {
+            "kind": "manual_interaction_multiplier",
+            "value": 0.9,
+            "group": "facility_interaction",
+            "lifetime": "actual_raid"
+          }
+        ]
+      },
+      "rng": "Uniform three-way BC01_CUSTOMER_LUCKY_RECEIPT namespace, stable paid-order identity excluding attempt, outcome committed once when credit is earned; no paid gameplay item is dispensed. BC02 preserves the namespace and committed variant; skipped use, failure, reload, ads and power changes cannot redraw it.",
+      "authored_base_use_seconds": 1.5
+    }
+  ],
+  "display": {
+    "maximum_primary_cards": 4,
+    "groups": [
+      "护持：生命恢复/防御",
+      "机动：移速/搬运/软减速抗性",
+      "行动：交互/普通装填",
+      "营业储备：临时陷阱/生存额度/补给"
+    ],
+    "requirements": "Show source coverage and bank 0/1/2, active this raid, reserved awaiting power, remaining healing budget, one-charge trap state and survival credit. Whole-raid support says this raid, not a countdown. Show night-end expiry counts. Use four grouped cards with source detail, not 14 persistent icons."
+  },
+  "validation_limits": {
+    "reference_only": true,
+    "actual_game_adapter": false,
+    "world_truth_inputs": [
+      "normal customer identity",
+      "physical use and paid order",
+      "stock consumption",
+      "navigation and safe trap footprint",
+      "HP/level/wallet/stamina ownership",
+      "actual enemy collision and target slow resistance"
+    ],
+    "not_proven": [
+      "all14 facility consumers in the game",
+      "full first-week economy or fun",
+      "phone controls",
+      "all105 monster combinations",
+      "production persistence",
+      "real SDK ad lifecycle or production save transaction",
+      "playtest balance of sustained guard and aura",
+      "public service paths are executable in BC02 customer-route reference, but the live Director/client NPC adapter remains unimplemented"
+    ]
+  },
+  "healing": {
+    "rate_fraction_max_hp_per_alive_powered_raid_second": 0.002,
+    "per_source_per_raid_actual_restore_fraction": {
+      "FR03": 0.2,
+      "FR14": 0.1
+    },
+    "maximum_combined_fraction_if_both_sources_heal": 0.3,
+    "same_group": "Strongest rate only; equal-rate sources ordered by source ID. Spend FR03 first; FR14 uses remaining eligible time only after FR03 exhausts or while FR03 is unavailable. A single request contains non-overlapping time segments. Actual missing-HP clamp consumes allocations in this same order. Unused offered time is discarded, not banked.",
+    "full_health": "Actual restored amount zero consumes zero budget. Healthy seconds cannot later be replayed.",
+    "scope": "Budget starts once per activated customer token in an actual raid, scales against the actual HP-owner max HP, and is discarded at raid end. Night level-up occurs only at the existing between-night checkpoint.",
+    "transaction": "At most one unresolved interval request. HP apply + hp_regen_ack + checkpoint commit are atomic; pending receipts survive snapshot. Retry the same request ID, never invent a second heal.",
+    "bounded_balance": "At level 1 (max HP 100), FR03 can restore at most 20 HP and FR14 10 HP per raid; level 20 (max HP 252): 50.4 and 25.2. These are design caps, not proof of difficulty or all-monster survival."
+  },
+  "pause_and_ads": {
+    "world_clock": "Caller uses the same paused world clock for menu, OS/background and independent ad-pause tokens. A paused actual_world_tick must pass identical world time; wall-clock ad duration never advances facilities, power, trap arming, cooldowns, enemy time or survival rewards.",
+    "advertiser_pause": "No ad grants or refreshes a facility credit. Pause sponsor placement consumes no token; disabling its SDK must leave normal pause working.",
+    "reward_separation": "Settlement doubling and extra player lottery opportunity are owned by the campaign/ad ledger, not customer support. They cannot replay customer_use, reroll FR14, add survival elapsed seconds, replace paid stock or reset heal budgets."
+  }
+}

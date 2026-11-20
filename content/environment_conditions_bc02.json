@@ -1,0 +1,5461 @@
+{
+  "version": "BC02",
+  "baseline_commit": "dfd2e32eecb8fb4dc7dd3efa066cfa3817363788",
+  "status": "design_contract_and_finite_reference_not_client_runtime",
+  "runtime_integrated": false,
+  "authority": {
+    "preserves": [
+      "MD01105个体既有能力，不从terrain_tag推新能力",
+      "MA01实际层/前摇/收招/真实转场审计",
+      "V06真实血源90秒/血迹30秒",
+      "BC01实体地图与停电归属"
+    ],
+    "overrides": "旧有限模型的wet_connected=True/forest_overlay=True等仅是测试初值；生产必须走本合同真实源事件和物件生命周期。",
+    "no_disable_substitute": "源暂不存在不强行投怪；同时设计可实现的预约载荷/到货/物理预兆部署和缺源恢复。未接引擎仍如实runtime_integrated:false。"
+  },
+  "source_graph": {
+    "node_types": [
+      "physical_object",
+      "world_action_receipt",
+      "source_episode",
+      "live_environment_instance",
+      "movement_or_attack_reservation",
+      "root_terminal_receipt"
+    ],
+    "edges": [
+      "实际到货/事件提交 -> source_episode",
+      "source_episode + 真实地格/光线 -> live_environment_instance",
+      "current_instances + species_capability + body_geometry -> reservation",
+      "前摇结束/抵达前再验 -> movement_commit 或 bounded_cancel_recovery",
+      "到期/清洁/遮盖/断电 -> revocation -> 撤未提交行为，不倒消已发生动作"
+    ],
+    "forbidden_edges": [
+      "random_monster_selection -> FRESH_BLOOD",
+      "F13_cleanup_blood -> FRESH_BLOOD",
+      "mirror_visual -> mirror_phase_capability",
+      "UI_hint_or_knowledge -> historical_work_receipt",
+      "old_snapshot -> current_live_condition",
+      "water_natural_expiry -> cleaning_work_reward",
+      "take_cold_backup_pack -> new_900s_heat_deadline",
+      "missing_F58_warm_source -> indefinite_root_combat_pause"
+    ]
+  },
+  "clock_and_commit": {
+    "clock": "world; pause/detail freeze stops propagation, TTL, actor travel, attack windows and rewards together",
+    "order": [
+      "completed_treatment_and_source_removal",
+      "power_and_door_changes",
+      "condition_expiry_and_geometry_recompute",
+      "pending_attack_recheck",
+      "actual_movement_commit",
+      "new_attack_selection"
+    ],
+    "movement_double_check": [
+      "root alive",
+      "same source_event_id/object/episode",
+      "instance revision or full predicate re-evaluation",
+      "same floor/layer",
+      "legal capability and maximum range",
+      "current usable entry/exit",
+      "destination not player/customer/tool protected space",
+      "remaining rule recovery and dry/safe fallback"
+    ],
+    "cancel_policy": "不重选更近落点、不刷新冷却、不清HP/毒/已付成熟计时；原处合法显形+个体收招。断路后暴露退影只能到预先公开且实际可达干侧，不穿墙。",
+    "ordinary_cleaning_phases": [
+      "BUSINESS",
+      "RECOVERY"
+    ],
+    "tactical_cleaning_exception": "水/血/影这一本根已公开主反制可在RAID按窗口做；普通随机杂活不进入RAID队列，也不因不清地罚伤。",
+    "formal_root_commit": "所有本次物理来源/部署与预防重验完成后才正式提交root；此前擦干/修复只算原店务回执，无怪奖，导演不补造相同条件。"
+  },
+  "conditions": [
+    {
+      "condition_id": "BC02_ENV_WET_CONNECTED",
+      "name": "同层真实连通水图",
+      "producer_ids": [
+        "P_BC02_RAIN",
+        "P_BC02_COLD_LEAK",
+        "P_BC02_REAR_FLOW",
+        "P_BC02_CUSTOMER_SPILL",
+        "P_BC02_CHAIR_SPILL",
+        "P_BC02_VISIBLE_WATER_MODULE",
+        "P_BC02_STONE_SEEP"
+      ],
+      "derived_from": [
+        "source_episode_id",
+        "water_cells",
+        "four_neighbour_edges",
+        "floor_layer",
+        "current_door_geometry"
+      ],
+      "lifetime": "真实源按各自供水时长/有限液量灌入；停源残水180世界秒，已擦割点不自行重连；杯子没有180秒持续供水",
+      "capacity": "全店31个原湿格；任务三盘另最多3点；每区1源",
+      "on_absent_or_removed": "没有路径就不水遁；正在水中者在原湿边公开退影1.5秒至已预留干格，恢复2.5秒，不改选近玩家落点",
+      "prior_status": "五个WET区已有坐标，缺统一实际生产/时钟/重验链",
+      "layer": "ground",
+      "runtime_integrated": false
+    },
+    {
+      "condition_id": "BC02_ENV_WET_EDGE",
+      "name": "活水与可达干格的共同边",
+      "producer_ids": [
+        "P_BC02_RAIN",
+        "P_BC02_COLD_LEAK",
+        "P_BC02_REAR_FLOW",
+        "P_BC02_CUSTOMER_SPILL",
+        "P_BC02_CHAIR_SPILL",
+        "P_BC02_VISIBLE_WATER_MODULE"
+      ],
+      "derived_from": [
+        "wet_component",
+        "adjacent_dry_cell",
+        "body_clear_segment"
+      ],
+      "lifetime": "随当前水图即时派生",
+      "capacity": "不新造物",
+      "on_absent_or_removed": "边被擦/占用则取消牵引/跃出，原主解断流进度保留",
+      "prior_status": "地图有割点和干侧位，攻击端未统一绑定",
+      "layer": "ground",
+      "runtime_integrated": false
+    },
+    {
+      "condition_id": "BC02_ENV_FLOWING_CHANNEL",
+      "name": "后院主渠真实复流",
+      "producer_ids": [
+        "P_BC02_REAR_FLOW"
+      ],
+      "derived_from": [
+        "CTRL_REAR_SOURCE",
+        "WET_REAR",
+        "actual_debris_id",
+        "ATT15_local_lever"
+      ],
+      "lifetime": "开阀至实际关闭；F57局部维护最多8世界秒",
+      "capacity": "一个主渠，不与冷区阀联动",
+      "on_absent_or_removed": "F57只能本渠；主源误关可同控件恢复，干绕保留，不能删渠令主解永久无解",
+      "prior_status": "已有CTRL_REAR_SOURCE与ATT15合同",
+      "layer": "ground",
+      "runtime_integrated": false
+    },
+    {
+      "condition_id": "BC02_ENV_REFLECTIVE_SURFACE",
+      "name": "实际反射表面",
+      "producer_ids": [
+        "P_BC02_MAP_ASSETS",
+        "P_BC02_CUSTOMER_SPILL",
+        "P_BC02_MIRROR_DELIVERY"
+      ],
+      "derived_from": [
+        "surface_instance_id",
+        "normal",
+        "reflectivity",
+        "cover_state",
+        "two_segment_visibility"
+      ],
+      "lifetime": "硬镜至遮盖/移走/碎裂；水膜至180秒/擦净",
+      "capacity": "固定凸镜1、候选任务镜2、污水反光最多6片",
+      "on_absent_or_removed": "取消反射射线，直接视线另算；不凭反光生成传送能力",
+      "prior_status": "F60凸镜/S23反射攻击有用途，普通镜面生成生命周期未统一",
+      "layer": "ground",
+      "runtime_integrated": false
+    },
+    {
+      "condition_id": "BC02_ENV_MIRROR_ENDPOINT_PAIR",
+      "name": "候选镜穿的双真实端点",
+      "producer_ids": [
+        "P_BC02_MIRROR_DELIVERY"
+      ],
+      "derived_from": [
+        "two_distinct_root_bound_mirror_ports",
+        "reflectivity>=0.65",
+        "uncovered",
+        "registered_front_landing",
+        "same_floor_layer",
+        "explicit_species_capability"
+      ],
+      "lifetime": "任一端移走/遮盖/破碎立即无效",
+      "capacity": "至多2端；当前105怪合法镜穿消费者数为0",
+      "on_absent_or_removed": "当前所有105怪均不得调用镜穿；接口试验只验证双端，不生成新怪能力",
+      "prior_status": "MA01仅预留registered_mirror_node；MD01/MA01没有镜穿消费实现",
+      "layer": "ground",
+      "runtime_integrated": false
+    },
+    {
+      "condition_id": "BC02_ENV_SHADOW_NODE",
+      "name": "有来源的登记影节点",
+      "producer_ids": [
+        "P_BC02_FOREST_PROJECTION",
+        "P_BC02_TASK_LIGHT_MODULE"
+      ],
+      "derived_from": [
+        "physical_projector_or_sapling_id",
+        "node_id",
+        "root_id",
+        "measured_illumination_or_named_forest_projection"
+      ],
+      "lifetime": "任务原物在场且节点未被灯/路标关闭",
+      "capacity": "F40三节点，S22三暗节点，每根独占",
+      "on_absent_or_removed": "F40路标/归苗关边后步行；S22无合法更远暗点则留原点公开停顿/封牌分支，禁止跳到未登记黑格",
+      "prior_status": "F40固定路标/S22三暗点仅文字，需真实部署与测光",
+      "layer": "ground",
+      "runtime_integrated": false
+    },
+    {
+      "condition_id": "BC02_ENV_DARK_AREA",
+      "name": "真实低照度区域",
+      "producer_ids": [
+        "P_BC02_MAP_ASSETS",
+        "P_BC02_TASK_LIGHT_MODULE",
+        "P_BC02_POWER_EVENT"
+      ],
+      "derived_from": [
+        "sum_unoccluded_light_contributions",
+        "lamp_circuit",
+        "local_switch"
+      ],
+      "lifetime": "照度<0.2才为暗；实时重算",
+      "capacity": "不作为全图传送图",
+      "on_absent_or_removed": "亮起立即取消依赖暗区的未提交扑击；不清已有HP/毒",
+      "prior_status": "S41/F59条件已有，缺共同光照生产者",
+      "layer": "ground",
+      "runtime_integrated": false
+    },
+    {
+      "condition_id": "BC02_ENV_LIGHT_COVERAGE",
+      "name": "真实有效照明",
+      "producer_ids": [
+        "P_BC02_MAP_ASSETS",
+        "P_BC02_TASK_LIGHT_MODULE",
+        "P_BC02_POWER_EVENT"
+      ],
+      "derived_from": [
+        "lamp_instance_id",
+        "power_domain",
+        "distance",
+        "occlusion",
+        "intensity"
+      ],
+      "lifetime": "实际供电时；任务隔离电池初始900世界秒只是初始能量，必要主解加时可在原安全端手摇2秒恢复同组60世界秒，不刷新旧机制deadline",
+      "capacity": "任务灯不是AP/营业Buff电器",
+      "on_absent_or_removed": "MAIN停电立即停MAIN光/电Buff；必要TASK能量不足不自动停战，实际安全侧2秒手摇才申请同能量周期一次3秒本根禁发新攻击窗，取消不续，原deadline/毒/世界继续。恢复同组60秒不供MAIN；原模块缺失或已过deadline不能复活。",
+      "prior_status": "BC01隔离任务灯已存在，扩展多灯来源",
+      "layer": "ground",
+      "runtime_integrated": false
+    },
+    {
+      "condition_id": "BC02_ENV_PLAYER_SHADOW",
+      "name": "玩家身体真正投下的影子",
+      "producer_ids": [
+        "P_BC02_BODY_LIGHT_INTERSECTION"
+      ],
+      "derived_from": [
+        "actual_body_position",
+        "directional_light",
+        "occluder_projection"
+      ],
+      "lifetime": "每次身体/灯变化重算",
+      "capacity": "同身体不多生成血池",
+      "on_absent_or_removed": "无投影/未与S25实际碰撞则不触发影扑",
+      "prior_status": "S25文字条件尚无投影计算",
+      "layer": "ground",
+      "runtime_integrated": false
+    },
+    {
+      "condition_id": "BC02_ENV_NO_SHADOW_ZONE",
+      "name": "双反光板补齐的无影圈",
+      "producer_ids": [
+        "P_BC02_TASK_LIGHT_MODULE",
+        "P_BC02_REFLECTOR_ALIGNMENT"
+      ],
+      "derived_from": [
+        "same_root_two_reflector_instances",
+        "real_angles",
+        "lit_region",
+        "actual_target_body_inside"
+      ],
+      "lifetime": "全部照明和物件姿态同时有效",
+      "capacity": "一根一圈，不覆盖全图",
+      "on_absent_or_removed": "缺一灯/反光板暂停封存计时，保留已完成实物步骤，可原控制端重试",
+      "prior_status": "S25已有步骤，未共同绑定实际灯/反光板",
+      "layer": "ground",
+      "runtime_integrated": false
+    },
+    {
+      "condition_id": "BC02_ENV_FRESH_BLOOD",
+      "name": "真实员工当前伤口",
+      "producer_ids": [
+        "P_BC02_GLASS_CONTACT",
+        "P_BC02_F21_GLASS_FAULT"
+      ],
+      "derived_from": [
+        "incident_id",
+        "actual_contact_receipt",
+        "actor_id",
+        "occurred_at"
+      ],
+      "lifetime": "严格90世界秒，包扎完成提前结束；重复接触不刷新",
+      "capacity": "每人每夜1次/全夜2次；PLAYER或COWORKER",
+      "on_absent_or_removed": "F32末伤口止血后3秒离场；F26还读原活迹和已产生污布；不造新伤口补候选",
+      "prior_status": "V06已闭合；BC02保留90秒与F21原40秒预告",
+      "layer": "ground",
+      "runtime_integrated": false,
+      "bc02_admission": "剩余>=实际预兆+实际反制路途动作+6恢复+3离场，预兆最短20；24秒反制时为53，保留90秒原寿命。"
+    },
+    {
+      "condition_id": "BC02_ENV_BLOOD_TRACE",
+      "name": "伤员真实移动留下的活血迹",
+      "producer_ids": [
+        "P_BC02_WOUNDED_MOVEMENT"
+      ],
+      "derived_from": [
+        "same_incident_id",
+        "body_path_distance",
+        "actual_position"
+      ],
+      "lifetime": "真实走每2格1迹；30世界秒；擦1.5秒",
+      "capacity": "每员工最多6枚；F26最多绑定3枚",
+      "on_absent_or_removed": "包扎不删旧迹；过期/擦净取消对应冲刺并收招，不换成另一事故",
+      "prior_status": "V06已有真实来源，禁止GRP_RED_TRACE静态点冒充",
+      "layer": "ground",
+      "runtime_integrated": false
+    },
+    {
+      "condition_id": "BC02_ENV_CLEANUP_BLOOD",
+      "name": "实体击退后的清洁污迹",
+      "producer_ids": [
+        "P_BC02_F13_DEFEAT"
+      ],
+      "derived_from": [
+        "actual_F13_root_terminal",
+        "hp_zero_receipt",
+        "body_landing_position"
+      ],
+      "lifetime": "至回合后清洁/夜终，不能变fresh",
+      "capacity": "同F13根最多1处",
+      "on_absent_or_removed": "仅清洁奖励一次；不触发F26/F32、不转生玩家伤口",
+      "prior_status": "BC01已有尸血与员工鲜血隔离",
+      "layer": "ground",
+      "runtime_integrated": false
+    },
+    {
+      "condition_id": "BC02_ENV_DOOR_THRESHOLD",
+      "name": "实际门与边界许可",
+      "producer_ids": [
+        "P_BC02_MAP_ASSETS",
+        "P_BC02_THRESHOLD_ACTION"
+      ],
+      "derived_from": [
+        "door_instance_id",
+        "open_state",
+        "body_clear_gate",
+        "actual_invitation_receipt",
+        "zone_permission"
+      ],
+      "lifetime": "门状态/同根许可实时；邀请不能靠设置welcome_enabled回溯产生",
+      "capacity": "沿地图五门、服务边界各自独立",
+      "on_absent_or_removed": "门关取消非法运动；服务缝不是可通行门；主解保留真实安全侧与撤离路",
+      "prior_status": "V05/V06已有门与邀请，需动作前后统一复验",
+      "layer": "ground",
+      "runtime_integrated": false
+    },
+    {
+      "condition_id": "BC02_ENV_WINDOW_OPENING",
+      "name": "真实窗缝与预告锁窗",
+      "producer_ids": [
+        "P_BC02_MAP_ASSETS",
+        "P_BC02_THRESHOLD_ACTION"
+      ],
+      "derived_from": [
+        "window_instance_id",
+        "aperture",
+        "board_instance_id",
+        "curtain_state",
+        "locked_attack_id"
+      ],
+      "lifetime": "锁窗期间不换窗；遮板/关窗完成即版本更新",
+      "capacity": "DEF_FRONT_PAIR两窗与ATT12一服务缝",
+      "on_absent_or_removed": "取消被阻的未提交俯冲/波带，按原落空收招；不绕到新窗口",
+      "prior_status": "原F10/F50窗口已有几何",
+      "layer": "ground",
+      "runtime_integrated": false
+    },
+    {
+      "condition_id": "BC02_ENV_SOUND_FIELD",
+      "name": "真实声源及传播路径",
+      "producer_ids": [
+        "P_BC02_SOUND_EMISSION"
+      ],
+      "derived_from": [
+        "sound_instance_id",
+        "source_body_or_device",
+        "active_until",
+        "acoustic_route",
+        "baffle_state"
+      ],
+      "lifetime": "本次发声时段；字幕可在但旧声音不能继续触发",
+      "capacity": "每root1个主要声道，现有真分体按预算",
+      "on_absent_or_removed": "停声/隔声先更新，旧锁点不能穿关闭隔断，听觉线索另保留历史",
+      "prior_status": "MA01逐攻击范围有定义，未统一来源/停电/传播",
+      "layer": "ground",
+      "runtime_integrated": false
+    },
+    {
+      "condition_id": "BC02_ENV_DIRECT_GAZE",
+      "name": "真实双向直视/单向观察",
+      "producer_ids": [
+        "P_BC02_OBSERVATION"
+      ],
+      "derived_from": [
+        "positions",
+        "facing_vectors",
+        "physical_sight_segments",
+        "same_subject_id"
+      ],
+      "lifetime": "按世界秒连续观察；遮挡/背向即失去本次持续条件",
+      "capacity": "不把镜中图像当F60直视",
+      "on_absent_or_removed": "未达到规定持续秒不提交；已怒S03不会因删图解除；镜观不生成真转场",
+      "prior_status": "F60已有真实位置模型，S01/S36读实际观察",
+      "layer": "ground",
+      "runtime_integrated": false
+    },
+    {
+      "condition_id": "BC02_ENV_VISIBLE_LINE",
+      "name": "本次实际无遮挡视线",
+      "producer_ids": [
+        "P_BC02_OBSERVATION"
+      ],
+      "derived_from": [
+        "actual_positions",
+        "occluder_height",
+        "solid_walls",
+        "current_doors"
+      ],
+      "lifetime": "发起与命中前重算",
+      "capacity": "无无形跨墙授权",
+      "on_absent_or_removed": "取消未满足视线的行为；按个体攻击保留已离手独立弹体合同",
+      "prior_status": "现地图/MA01有遮挡条款",
+      "layer": "ground",
+      "runtime_integrated": false
+    },
+    {
+      "condition_id": "BC02_ENV_PHASE_ANCHOR_PAIR",
+      "name": "物件/地标支持的真转场端点",
+      "producer_ids": [
+        "P_BC02_ROOT_ANCHOR",
+        "P_BC02_CORROSION_CONTACT",
+        "P_BC02_TELEGRAPH_FLOOR_MARK"
+      ],
+      "derived_from": [
+        "actual_origin",
+        "typed_destination_source",
+        "source_object_id",
+        "same_root_id",
+        "capability",
+        "range",
+        "layer"
+      ],
+      "lifetime": "端点绑定源物当前状态；离场注销；历史停放点只在该能力明示允许时保留",
+      "capacity": "各能力原上限，不按速度标尺补远端",
+      "on_absent_or_removed": "失效取消至原合法点并收招，保留冷却；不换点、不重置毒、不造虚拟地面触发",
+      "prior_status": "13种真转场有能力文字，落点source须分种绑定",
+      "layer": "ground",
+      "runtime_integrated": false
+    },
+    {
+      "condition_id": "BC02_ENV_BREATH_TRACE",
+      "name": "玩家真实呼吸雾点",
+      "producer_ids": [
+        "P_BC02_EXHALE"
+      ],
+      "derived_from": [
+        "actual_body_position",
+        "exposed_lane",
+        "exhale_action_receipt"
+      ],
+      "lifetime": "6世界秒；新吐气才新迹",
+      "capacity": "同玩家1活雾点；旧点只记忆不是活source",
+      "on_absent_or_removed": "F03过期点可按MA01公开旧位置做失锁跳/2.5秒恢复，不追改新位置；从未有点只基础追逐",
+      "prior_status": "原F03已定义6秒，不改成无期限环境Buff",
+      "layer": "ground",
+      "runtime_integrated": false
+    },
+    {
+      "condition_id": "BC02_ENV_WARM_FIELD",
+      "name": "真实保温区域",
+      "producer_ids": [
+        "P_BC02_WARM_APPLIANCE"
+      ],
+      "derived_from": [
+        "actual_heater_or_original_hot_food_id",
+        "actual_heat_receipt",
+        "power_domain",
+        "source_temperature_and_quality_deadline",
+        "field_geometry"
+      ],
+      "lifetime": "真实供热时有效；设备停热残温最多15秒。F58原热食40秒品质与30秒雾景分别按原时钟消耗，拿回/关盖/备用物不刷新。",
+      "capacity": "沿原设备与原热食库存；不新增900秒任务保温包或无限备用包",
+      "on_absent_or_removed": "F58暖源为可选分支；无源/到期直接保留原免费主解：原冷区牌0.5秒→真实3格到暖侧→退出提交0.5秒，MD01 rule_leave成功。只停普通冷区，不关任务冰柜/逃生门；未处理到原120预算秒上限则expired无成功奖，夜班可继续。没有无热源无限停战。",
+      "prior_status": "原F58已含无热食免费封区。BC02撤回先前新增的900秒备包主解依赖，恢复原OR路径并写明原钟与实际路线。",
+      "layer": "ground",
+      "runtime_integrated": false
+    },
+    {
+      "condition_id": "BC02_ENV_SURFACE_ROUTE",
+      "name": "按实际高度和体积可行走路径",
+      "producer_ids": [
+        "P_BC02_MAP_ASSETS"
+      ],
+      "derived_from": [
+        "fixed_map",
+        "current_doors",
+        "barricades",
+        "actor_radius",
+        "ground_or_low_air_or_high_air"
+      ],
+      "lifetime": "位置/地形变化即重算",
+      "capacity": "不移动原货架扩充路径",
+      "on_absent_or_removed": "无路不瞬移；保护原物与安全撤回/预约替代路线",
+      "prior_status": "BC01半径0.3真实寻路已验证",
+      "layer": "ground",
+      "runtime_integrated": false
+    },
+    {
+      "condition_id": "BC02_ENV_CROSSROAD_ANCHOR",
+      "name": "实际十字路口及返程通道",
+      "producer_ids": [
+        "P_BC02_MAP_ASSETS",
+        "P_BC02_ROOT_ANCHOR"
+      ],
+      "derived_from": [
+        "junction_cell",
+        "four_real_adjacent_edges",
+        "guides",
+        "return_gate"
+      ],
+      "lifetime": "地图及引导栏布局有效时",
+      "capacity": "每S23根1个路口",
+      "on_absent_or_removed": "被占则取消回跳保留2秒提示与4秒恢复；退开后可重新排一次同根返回，不永久封主解",
+      "prior_status": "S23仅已登记十字路口，需真实四向几何",
+      "layer": "ground",
+      "runtime_integrated": false
+    }
+  ],
+  "producers": [
+    {
+      "producer_id": "P_BC02_RAIN",
+      "producer_kind": "weather_and_actual_threshold_flow",
+      "trigger": "夜初weather_seed固定20%雨夜；BUSINESS第20秒开始真实降雨，正门打开时从WET_FRONT.source_cell逐格传播。关门/铺实际吸水垫阻断室内新水。",
+      "probability": 0.2,
+      "physical_origin": "门外[13.5,31.5]雨水入口及WET_FRONT六个真格",
+      "allowed_phases": [
+        "BUSINESS",
+        "RECOVERY"
+      ],
+      "lifetime_world_seconds": 180,
+      "capacity": "每夜一雨事件/六格",
+      "cancellation_or_prevention": "无雨或门关不能给选中怪补雨；雨停后残水自然过期。",
+      "power_domain": "none",
+      "source_refs": [
+        "content/map_mechanics_v05.json#/wet_regions/0"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false,
+      "source_feed_start_world": 23,
+      "source_end_world": 140,
+      "supply_kind": "weather_flux",
+      "source_duration_seconds": 120,
+      "prewarning": "第20秒雨声与外地实雨，3秒后允许门内水；关门/实际垫阻止进入",
+      "finite_residual": "雨在140s确定结束，最后真实供水后残水180s；并非180s无限下雨"
+    },
+    {
+      "producer_id": "P_BC02_COLD_LEAK",
+      "producer_kind": "service_wear_receipt",
+      "trigger": "第三次真实冷柜服务完成才掷独立10%漏水事件；管接头先滴水3秒，水从[26,10]流出；维修完成同episode停源。",
+      "probability": 0.1,
+      "physical_origin": "FX17水槽冷区支路、CTRL_COLD_BRANCH、WET_COLD",
+      "allowed_phases": [
+        "BUSINESS",
+        "RECOVERY"
+      ],
+      "lifetime_world_seconds": 180,
+      "capacity": "每夜1漏水episode",
+      "cancellation_or_prevention": "未实际服务或没有漏水roll不生成；已有事件修复后不能因候选怪重开。",
+      "power_domain": "none",
+      "source_refs": [
+        "content/map_mechanics_v05.json#/wet_regions/1"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false,
+      "supply_kind": "plumbed_water",
+      "source_end": "同接头实际隔离/CTRL_COLD_BRANCH关闭/班末",
+      "bounded_footprint": "最多WET_COLD六格，不能不断增加湿格",
+      "prewarning": "原接头可见滴水3秒，修复/关阀阻止正式扩散"
+    },
+    {
+      "producer_id": "P_BC02_REAR_FLOW",
+      "producer_kind": "shift_setup_real_valve",
+      "trigger": "班前巡检员从真实后门走到主阀，0.5秒打开CTRL_REAR_SOURCE；后渠从源格逐格流动。",
+      "probability": 1,
+      "physical_origin": "WET_REAR源[28,-6]与独立主阀；杂物只来自实际卸货遗落receipt",
+      "allowed_phases": [
+        "SETUP",
+        "BUSINESS",
+        "RECOVERY"
+      ],
+      "lifetime_world_seconds": null,
+      "capacity": "每夜一个主源",
+      "cancellation_or_prevention": "F57局部维护8秒到期保留真实停止状态并提示恢复，不自动伪造复流；冷区阀不影响此渠。",
+      "power_domain": "none",
+      "source_refs": [
+        "content/map_mechanics_v05.json#/wet_regions/2",
+        "content/map_mechanics_v05.json#/registered_water_controls_v010/1"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false,
+      "supply_kind": "plumbed_channel",
+      "source_end": "实际关闭CTRL_REAR_SOURCE或夜终",
+      "prewarning": "班前真实开阀3秒机械水声，渠道始终公开；不在raid突然新增"
+    },
+    {
+      "producer_id": "P_BC02_CUSTOMER_SPILL",
+      "producer_kind": "completed_service_path",
+      "trigger": "真实顾客消费饮料并沿离店路径走到公开地格后10%洒出同杯剩液；只使用该实际格及相邻合法格，WET_AISLE需路径真实经过该源。",
+      "probability": 0.1,
+      "physical_origin": "实际顾客持杯物件和当前位置；固定源变体[8.5,14.5]",
+      "allowed_phases": [
+        "BUSINESS",
+        "RECOVERY"
+      ],
+      "lifetime_world_seconds": 180,
+      "capacity": "每营业段1episode、最多6格/不含血",
+      "cancellation_or_prevention": "未完成服务/顾客已撤离不掷；清洁按原污迹episode只奖一次。",
+      "power_domain": "none",
+      "source_refs": [
+        "content/facilities_bc01.json"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false,
+      "supply_kind": "finite_original_cup",
+      "volume_cell_units": 6,
+      "feed_rule": "3秒杯倾斜预警后，原杯内容每秒向下一邻格灌1单位，6单位用完停源；已有湿格不再因杯子反复续期",
+      "source_duration_seconds_max": 6,
+      "prewarning": "只能真实顾客/杯仍在场且营业时阻止，取消入侵并不会再投杯"
+    },
+    {
+      "producer_id": "P_BC02_CHAIR_SPILL",
+      "producer_kind": "completed_staff_rest",
+      "trigger": "真实员工在休息区饮水完成后5%打翻原杯；先展示3秒可阻止的滴水，WET_CHAIR南支线逐格展开。",
+      "probability": 0.05,
+      "physical_origin": "真实杯/椅南[1.5,8.5]，不用ATT16废弃北湿格",
+      "allowed_phases": [
+        "BUSINESS",
+        "RECOVERY"
+      ],
+      "lifetime_world_seconds": 180,
+      "capacity": "每夜1episode/4格",
+      "cancellation_or_prevention": "没有真实员工饮水不制造；椅停用保留取物与干侧检查。",
+      "power_domain": "none",
+      "source_refs": [
+        "content/map_mechanics_v05.json#/wet_regions/4"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false,
+      "supply_kind": "finite_original_cup",
+      "volume_cell_units": 4,
+      "feed_rule": "3秒预警后每秒一单位，共4单位，杯空即停；原杯不能复制液体",
+      "source_duration_seconds_max": 4,
+      "prewarning": "真实杯先倾斜3秒，可扶正或隔离，不伤真人"
+    },
+    {
+      "producer_id": "P_BC02_VISIBLE_WATER_MODULE",
+      "producer_kind": "declared_payload_physical_deployment",
+      "trigger": "只有预告载荷已在营业期/SETUP预约，真实搬运员携一只可见浅盘/检修滴水管沿路径放到声明源后完成2秒连接，3秒公开水势与割点才可启用。F28三盘为原异常盘实体，不共用普通总阀。",
+      "probability": 1,
+      "physical_origin": "同一原浅盘/原漏水物；预设五条支线或F28三个有盖槽",
+      "allowed_phases": [
+        "SETUP",
+        "BUSINESS",
+        "OMEN",
+        "RECOVERY"
+      ],
+      "lifetime_world_seconds": 180,
+      "capacity": "每根1组；全场1个主要水任务组",
+      "cancellation_or_prevention": "OMEN开始冻结普通杂活；部署由已在位准备好的实体完成，未赶到则延后入场；玩家关源/擦断就是有效预防，不重造。",
+      "power_domain": "none",
+      "source_refs": [
+        "content/mechanism_cases_v010_a.json#/cases/27"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false,
+      "supply_kind": "root_bound_closed_loop_or_finite_pan",
+      "volume_cell_units": "按实际管/盘载荷登记，最多原区格数；F28三浅盘各一单位",
+      "feed_rule": "安装完成后3秒亮线预告；闭环管只循环已登记有限水量，不生成新格，擦去水量不会补造已关闭割点；源拆除/封盘/终根停止",
+      "source_end": "同源断开/封盖/原管移除/root terminal",
+      "prewarning": "部署耗真实路途+2秒安装，再3秒公开物源/割点；所有准备完成才提交正式root，防住后不重新补造水也无怪奖"
+    },
+    {
+      "producer_id": "P_BC02_STONE_SEEP",
+      "producer_kind": "actual_wrong_doorstop",
+      "trigger": "同一F30压箱石实际移到门下并完成顶门动作才从该石接触格渗出1格水；原石取走即停。",
+      "probability": 1,
+      "physical_origin": "真实F30 stone_id和doorstop位置",
+      "allowed_phases": [
+        "RAID"
+      ],
+      "lifetime_world_seconds": 30,
+      "capacity": "同根同石1格",
+      "cancellation_or_prevention": "不误用没有渗水；取石不复制，不用水状态倒造压箱石。",
+      "power_domain": "none",
+      "source_refs": [
+        "content/mechanism_cases_v010_a.json#/cases/29"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false,
+      "supply_kind": "same_stone_finite_seep",
+      "volume_cell_units": 1,
+      "source_duration_seconds_max": 1,
+      "prewarning": "错误顶门动作公开同石潮纹；开始渗水后至少3秒才允许依赖该水的能力，当前主解可直接取石"
+    },
+    {
+      "producer_id": "P_BC02_MAP_ASSETS",
+      "producer_kind": "map_load_verified_objects",
+      "trigger": "班前地图载入逐一注册实体墙/门/凸镜/窗/灯/通行面，坐标和ID必须来自权威地图并通过体积/退路门。",
+      "probability": 1,
+      "physical_origin": "MAP_STORE原fixtures、doors、anchors、DEF_FRONT_PAIR、OBJ_MIRROR_CURTAIN",
+      "allowed_phases": [
+        "SETUP"
+      ],
+      "lifetime_world_seconds": null,
+      "capacity": "唯一静态实例ID",
+      "cancellation_or_prevention": "摆位未通过不得公布可用；静态反光不注册镜穿端点。",
+      "power_domain": "none",
+      "source_refs": [
+        "content/maps.json#/scenes/0",
+        "content/map_mechanics_v05.json"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false
+    },
+    {
+      "producer_id": "P_BC02_MIRROR_DELIVERY",
+      "producer_kind": "candidate_payload_physical_deployment",
+      "trigger": "镜面设备到货后实体携镜从门外走到槽位、安装1.5秒，检查1秒，镜前地格可见；第二镜单独重复，不因一个物件复制两端。",
+      "probability": 1,
+      "physical_origin": "候选MIRROR_A=[19.5,22.5]、MIRROR_B=[22.5,22.5]；不同original_item_id，正面法线均[0,1]",
+      "allowed_phases": [
+        "SETUP",
+        "BUSINESS",
+        "OMEN",
+        "RECOVERY"
+      ],
+      "lifetime_world_seconds": null,
+      "capacity": "两端；当前消费者0",
+      "cancellation_or_prevention": "遮布1秒/搬走/碎裂移除端；小水渍和冷柜玻璃不升级传送口；普通镜到货可继续提供观察。",
+      "power_domain": "none",
+      "source_refs": [
+        "content/attack_contracts_ma01.json#/geometry/terrain_classes"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false
+    },
+    {
+      "producer_id": "P_BC02_FOREST_PROJECTION",
+      "producer_kind": "actual_source_item_and_omen",
+      "trigger": "F40原树苗必须已由真实错收上架；预兆从树苗现位置连续投出三条可见林影，按GRP_LESHY_MARKERS登记。此时只出现投影，未提前完成路标。",
+      "probability": 1,
+      "physical_origin": "same_sapling_id、原货架、[14.5,19.5]/[10.5,19.5]/[8.5,22.5]",
+      "allowed_phases": [
+        "OMEN",
+        "RAID"
+      ],
+      "lifetime_world_seconds": null,
+      "capacity": "同根3影节点",
+      "cancellation_or_prevention": "真实归还后3秒退影；每路标完成切同节点；一般停电不凭空造林影。",
+      "power_domain": "none",
+      "source_refs": [
+        "content/mechanism_cases_v010_b.json#/cases/9"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false
+    },
+    {
+      "producer_id": "P_BC02_TASK_LIGHT_MODULE",
+      "producer_kind": "declared_payload_physical_deployment",
+      "trigger": "任务灯/双反光板在SETUP或营业期由实体逐件安装并自检；S22 A/B/C每灯独立，900秒隔离电池在安装后供电，夜终回收；不会给电网反送电。",
+      "probability": 1,
+      "physical_origin": "S22节点[20.5,18.5]/[22.5,18.5]/[24.5,18.5]与安全控制[19.5,19.5]；S25/S41/S44实际模块由全105布置合同绑定",
+      "allowed_phases": [
+        "SETUP",
+        "BUSINESS",
+        "OMEN",
+        "RECOVERY"
+      ],
+      "lifetime_world_seconds": 900,
+      "capacity": "每任务原数量，不新增AP",
+      "cancellation_or_prevention": "灯坏且无合法原修复路径则撤回准入，依原失败/安全撤销终态处理并保留原物；仅必要能量不足使用有界同根手摇窗口，不无限停战，不代替S22最后节点原动作。",
+      "power_domain": "TASK_ISOLATED",
+      "source_refs": [
+        "content/monster_scp_a_md01.json"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false,
+      "S22_ambient_source_gate": "三节点的实际预装遮光筒/局部灯控必须在物理安装后挡住常照进入节点的光路；开场自检计算所有MAIN/任务灯真实LOS与照度，而非只读三任务灯。总照度<0.2才登记暗出口，初始无法形成暗点就不得准入。遮光筒位于头顶且不移动货架、不堵玩家；未通过通行/光路检查则延后布置。",
+      "overtime_energy_recovery": {
+        "physical_source": "同一原任务灯模块预装手摇发电器，连接其隔离电池，必随免费模块真实安装；不是新物件或无限无源供电",
+        "trigger": "必要灯任一剩余<=10世界秒且同原模块在位。耗尽本身不自动停战；玩家实际已到安全控制半径1.5并开始2秒手摇，且本根当前攻击序列已结束、旧冻结自然结束，才申请本能量周期的一次有界窗口。",
+        "control": "同一原模块既有安全侧控制端；S22=[19.5,19.5]，其它模块绑定各自原safe_control，不用去MAIN电闸",
+        "action_world_seconds": 2,
+        "cancel": "取消不补能；世界、伤口、计时器、原绝对deadline仍推进",
+        "energy_seconds_on_success": 60,
+        "charge_cap": "完成时同组原灯deadline=当前world+60，不可叠加预存；开关角度保留，不替玩家自动封最后节点",
+        "deadline_rule": "原机制绝对deadline不刷新；起手时或提交时已过期就不能恢复该已失败任务",
+        "power_boundary": "仅TASK_ISOLATED，不供MAIN/AP/过载/普通营业Buff，不产币/XP/重复维修奖",
+        "missing_item": "原灯/手摇器被实际移除则不准手充，保留原物回收/安全撤回规则",
+        "protection": {
+          "duration_world_seconds": 3,
+          "scope": "只阻止该root发起新的攻击，不给玩家全局无敌，不挡其它根/环境伤害",
+          "no_repeat": "同energy_cycle只打开一次，取消不刷新截止，走出安全侧即撤保护；同周期窗口用完须利用原怪既有>=2秒落空收招再操作，不再免费续保护",
+          "continues": "世界、原攻击冷却、真实伤口、永久毒q、已付成熟队列及原绝对deadline继续；不清状态、不追补被禁止的新攻击",
+          "eligibility": "既有安全侧实际可达，原动作至少2秒真实落空收招可用；缺此恢复条件的模块不得准入",
+          "successful_cycle": "真正手摇成功补60秒后才进入新energy_cycle，再耗到<=10秒才有新能量不足事件，不可取消刷周期"
+        }
+      }
+    },
+    {
+      "producer_id": "P_BC02_POWER_EVENT",
+      "producer_kind": "actual_grid_source_event",
+      "trigger": "仅实际BC01_GRID_SURGE/已登记故障改变MAIN；断电时立即取消MAIN光/电Buff/过载队列，几何和独立任务电池不消失。",
+      "probability": 1,
+      "physical_origin": "MAIN circuit source_episode_id与配电panel",
+      "allowed_phases": [
+        "OMEN",
+        "RAID",
+        "RECOVERY"
+      ],
+      "lifetime_world_seconds": null,
+      "capacity": "沿BC01每夜2次",
+      "cancellation_or_prevention": "修复同源只结一次工作奖励；开关不生成新源。",
+      "power_domain": "MAIN",
+      "source_refs": [
+        "content/director_bc01.json"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false
+    },
+    {
+      "producer_id": "P_BC02_BODY_LIGHT_INTERSECTION",
+      "producer_kind": "world_geometry_update",
+      "trigger": "每身体/灯/遮挡位姿更新，用实体轮廓背光投影地面，不以名字或恐怖文案赋影。",
+      "probability": 1,
+      "physical_origin": "玩家半径.3、高度1；已注册方向灯与地面",
+      "allowed_phases": [
+        "BUSINESS",
+        "OMEN",
+        "RAID",
+        "RECOVERY"
+      ],
+      "lifetime_world_seconds": 0,
+      "capacity": "同body投影",
+      "cancellation_or_prevention": "无灯/全向补光/墙挡光则本来投影失效。",
+      "power_domain": "none",
+      "source_refs": [
+        "content/monster_scp_a_md01.json"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false
+    },
+    {
+      "producer_id": "P_BC02_REFLECTOR_ALIGNMENT",
+      "producer_kind": "physical_interaction",
+      "trigger": "玩家从安全侧实际旋转同一反光板1秒，提交法线与版本；两板/原灯真实照到圈内才产生无影区。",
+      "probability": 1,
+      "physical_origin": "同S25根原两板、灯与透明罩",
+      "allowed_phases": [
+        "RAID"
+      ],
+      "lifetime_world_seconds": null,
+      "capacity": "同root两板",
+      "cancellation_or_prevention": "取消读条保留旧角度；已提交一板不回滚；免费可重试。",
+      "power_domain": "TASK_ISOLATED",
+      "source_refs": [
+        "content/monster_scp_a_md01.json"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false
+    },
+    {
+      "producer_id": "P_BC02_GLASS_CONTACT",
+      "producer_kind": "real_hazard_contact",
+      "trigger": "E003真实裂玻璃到货隔离物发出至少3秒警示后，实际徒手接触/踩真实碎片才产生伤口。免费刷扫或隔离可避免。",
+      "probability": 1,
+      "physical_origin": "同E003 glass_item_id/incident_id、PLAYER或已明确授权冒险的同事",
+      "allowed_phases": [
+        "BUSINESS",
+        "RECOVERY"
+      ],
+      "lifetime_world_seconds": 90,
+      "capacity": "每人1/全夜2",
+      "cancellation_or_prevention": "相同incident重碰不刷新；普通HP受击/F13尸血不能调用此producer。",
+      "power_domain": "none",
+      "source_refs": [
+        "content/condition_lifecycle_v06.json#/wounds"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false,
+      "reactive_bc02_budget": "actual_omen>=20；required_fresh_remaining=actual_omen+actual_response_route_action+6恢复+3离场；保守动作24时需53s。F26须另验至少一枚原30s血迹到场仍活。"
+    },
+    {
+      "producer_id": "P_BC02_F21_GLASS_FAULT",
+      "producer_kind": "real_guarded_fault",
+      "trigger": "已实际激活且占槽的F21玻璃变体预告40秒；到期真实人员还在未隔离危险格才割伤。",
+      "probability": 1,
+      "physical_origin": "F21 activation_receipt、glass_fault_id、危险格内同一人员",
+      "allowed_phases": [
+        "RAID"
+      ],
+      "lifetime_world_seconds": 90,
+      "capacity": "同故障最多1次",
+      "cancellation_or_prevention": "调离/停机避免；父故障修复不抹已经产生伤口；不得选F32后补造F21。",
+      "power_domain": "none",
+      "source_refs": [
+        "content/condition_lifecycle_v06.json#/wounds"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false,
+      "default_single_root_followup": "35s RECOVERY +60s BUSINESS +20s OMEN=115s >90s伤口；当前导演不允许由此向下一raid投F26/F32。仅未来另行验证复合槽可读这个真实源，不能延长伤口。"
+    },
+    {
+      "producer_id": "P_BC02_WOUNDED_MOVEMENT",
+      "producer_kind": "real_actor_path",
+      "trigger": "当前fresh且真实地面累计移动2格才在此刻脚点留下1迹，冲刺也按实际路径距离，不按时间生迹。",
+      "probability": 1,
+      "physical_origin": "同伤员真实坐标和同事故id",
+      "allowed_phases": [
+        "BUSINESS",
+        "OMEN",
+        "RAID",
+        "RECOVERY"
+      ],
+      "lifetime_world_seconds": 30,
+      "capacity": "每actor6；删除最旧活迹只为容量且取消其consumer锁",
+      "cancellation_or_prevention": "暂停/原地不产；换楼层须真实路径；包扎完成同tick先于新迹。",
+      "power_domain": "none",
+      "source_refs": [
+        "content/condition_lifecycle_v06.json#/wounds/blood_trace"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false
+    },
+    {
+      "producer_id": "P_BC02_F13_DEFEAT",
+      "producer_kind": "actual_root_terminal",
+      "trigger": "只有当前F13实际HP=0并已登记击退终态，真实低空身体落点创建一处清洁污迹。",
+      "probability": 1,
+      "physical_origin": "same_root defeat_receipt与body_pos",
+      "allowed_phases": [
+        "RAID",
+        "RECOVERY"
+      ],
+      "lifetime_world_seconds": null,
+      "capacity": "同root1",
+      "cancellation_or_prevention": "不是伤口，不喂F26/F32；无尸体落点则仅结终态不在任意坐标喷血。",
+      "power_domain": "none",
+      "source_refs": [
+        "content/facilities_bc01.json"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false
+    },
+    {
+      "producer_id": "P_BC02_THRESHOLD_ACTION",
+      "producer_kind": "real_door_window_invitation_action",
+      "trigger": "实际在门控/窗闩位置完成动作才改变开合；F32迎宾需本人真正接近阈值并播放已预警3秒的迎宾，开关状态不是邀请。",
+      "probability": 1,
+      "physical_origin": "对应door/window实例与当前actor位置",
+      "allowed_phases": [
+        "BUSINESS",
+        "OMEN",
+        "RAID",
+        "RECOVERY"
+      ],
+      "lifetime_world_seconds": null,
+      "capacity": "一个动作一个版本",
+      "cancellation_or_prevention": "取消不提交；封窗不封紧急门；许可不能扩到员工区。",
+      "power_domain": "none",
+      "source_refs": [
+        "content/condition_lifecycle_v06.json#/wounds/f32_invitation"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false
+    },
+    {
+      "producer_id": "P_BC02_SOUND_EMISSION",
+      "producer_kind": "real_body_device_emission",
+      "trigger": "真实本体/原设备在其固定发声时间段发声，保留发声源ID，按实际开口传播最短路及隔声板裁切；静音先撤该声源。",
+      "probability": 1,
+      "physical_origin": "同一喇叭/乐盘/嗓音本体和发声回执",
+      "allowed_phases": [
+        "BUSINESS",
+        "OMEN",
+        "RAID",
+        "RECOVERY"
+      ],
+      "lifetime_world_seconds": null,
+      "capacity": "同根独立声源预算",
+      "cancellation_or_prevention": "MAIN喇叭掉电即时停声；生物声/机械声不自动停，字幕不是声源。",
+      "power_domain": "source-specific",
+      "source_refs": [
+        "content/attack_contracts_ma01.json"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false
+    },
+    {
+      "producer_id": "P_BC02_OBSERVATION",
+      "producer_kind": "world_geometry_update",
+      "trigger": "由当前实体位置、视向和按高度可遮挡几何计算；镜观单独验证两段可见，不复制直视时间。",
+      "probability": 1,
+      "physical_origin": "current_body_id与遮挡几何",
+      "allowed_phases": [
+        "BUSINESS",
+        "OMEN",
+        "RAID",
+        "RECOVERY"
+      ],
+      "lifetime_world_seconds": 0,
+      "capacity": "即时查询",
+      "cancellation_or_prevention": "帘拉上/同侧绕行按真实线段重算；旧8秒证据不是当前可见。",
+      "power_domain": "none",
+      "source_refs": [
+        "content/mechanism_cases_v010_b.json#/cases/29"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false
+    },
+    {
+      "producer_id": "P_BC02_ROOT_ANCHOR",
+      "producer_kind": "actual_root_object_placement",
+      "trigger": "本怪原载荷/工单对象实际到指定槽并完成放置后才发布带subtype的锚；F19只用真实以前停放过原包裹的站，F30只用原石，F36只用实际授权槽，F39原木牌，F59实际三物料位。",
+      "probability": 1,
+      "physical_origin": "phase_anchor_catalog逐个怪列出的同一原物与真实槽位",
+      "allowed_phases": [
+        "SETUP",
+        "BUSINESS",
+        "OMEN",
+        "RAID",
+        "RECOVERY"
+      ],
+      "lifetime_world_seconds": null,
+      "capacity": "每root沿原能力",
+      "cancellation_or_prevention": "原物移走/封存/撤权立即关相应锚；保留移动与规则已提交状态。",
+      "power_domain": "none",
+      "source_refs": [
+        "content/monster_folklore_md01.json"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false
+    },
+    {
+      "producer_id": "P_BC02_CORROSION_CONTACT",
+      "producer_kind": "actual_hostile_wall_contact",
+      "trigger": "S02实体在真实可穿墙面停触1秒产生可见腐痕，配对背面须同层合法空地、墙厚与8格范围内；先发布1.5秒双端预告。",
+      "probability": 1,
+      "physical_origin": "同S02实体、真实墙面id、前后端落点",
+      "allowed_phases": [
+        "RAID"
+      ],
+      "lifetime_world_seconds": 30,
+      "capacity": "同根最多2活端；封板撤对应边",
+      "cancellation_or_prevention": "实际封板隔离后不能重开被主规则永久关闭的通道；无合法墙端则步行/槽内引振。",
+      "power_domain": "none",
+      "source_refs": [
+        "content/monster_scp_a_md01.json"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false
+    },
+    {
+      "producer_id": "P_BC02_TELEGRAPH_FLOOR_MARK",
+      "producer_kind": "actual_ability_telegraph",
+      "trigger": "只有明示无介质真转场能力的S40可从当前本体位置锁6格内可见合法落点并画1.5秒预告；预告是真能力动作，不伪造水/镜/影。",
+      "probability": 1,
+      "physical_origin": "S40原身体与已锁地格，不是任意怪公用fallback",
+      "allowed_phases": [
+        "RAID"
+      ],
+      "lifetime_world_seconds": 1.5,
+      "capacity": "同一本体一次序列",
+      "cancellation_or_prevention": "预告被取消不改点、不退冷却；落点占用则原处恢复。",
+      "power_domain": "none",
+      "source_refs": [
+        "content/monster_scp_b_md01.json"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false
+    },
+    {
+      "producer_id": "P_BC02_EXHALE",
+      "producer_kind": "actual_player_exhale",
+      "trigger": "玩家在F03已公开暴露通道实际0.5秒吐气完成，雾点放在当刻身体位置。",
+      "probability": 1,
+      "physical_origin": "玩家真实body_pos和吐气回执",
+      "allowed_phases": [
+        "RAID"
+      ],
+      "lifetime_world_seconds": 6,
+      "capacity": "同玩家1活点",
+      "cancellation_or_prevention": "取消动作无点；安全通道不传播雾点；不因怪选中直接落点。",
+      "power_domain": "none",
+      "source_refs": [
+        "content/mechanism_cases_v010_a.json#/cases/2"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false
+    },
+    {
+      "producer_id": "P_BC02_WARM_APPLIANCE",
+      "producer_kind": "real_heater_service",
+      "trigger": "实际加热设备已开启且供电，已声明范围和遮挡内形成暖域；营业支持充能与这里的热场独立。",
+      "probability": 1,
+      "physical_origin": "原热食设备/暖风机id",
+      "allowed_phases": [
+        "BUSINESS",
+        "OMEN",
+        "RAID",
+        "RECOVERY"
+      ],
+      "lifetime_world_seconds": 15,
+      "capacity": "每设备原域",
+      "cancellation_or_prevention": "掉电停止新供热，15秒残温不恢复电Buff。",
+      "power_domain": "MAIN",
+      "source_refs": [
+        "content/monster_folklore_md01.json"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false,
+      "F58_original_food": {
+        "supply": "SUP_HOT_MEAL，由真实热食工作产生的同一份原热食；SUP_TEMP_COVER为原保温盖",
+        "hot_quality_world_seconds": 40,
+        "fog_world_seconds": 30,
+        "missing_last_source_warning_world_seconds": 3,
+        "cover_action_world_seconds": 1.5,
+        "replace_same_food_world_seconds": 0.5,
+        "no_refresh": "拿起、放回、盖盖、别的热包、MAIN复电都不重置原热食品质或本次雾景时点",
+        "admission": "暖食路线只是可选：实际热食/盖存在且当前剩余寿命覆盖本次剩余雾景和实际路途/动作；BC0220秒预兆也要实扣。没有合格食物就用原免费封区，不因缺热食拒绝整卡，不在预兆制造历史热食。"
+      }
+    },
+    {
+      "producer_id": "P_BC02_TASK_WARM_MODULE",
+      "producer_kind": "withdrawn_thermal_backup_proposal",
+      "trigger": "不再投放。原F58已有无热食免费封区主解，故撤回先前BC02草案900秒任务包/同次无限备包作为必要前提的设计。",
+      "probability": 0,
+      "physical_origin": "无新增游戏库存；旧候选回归反例仅保留真实被加热过的同一物件、热源回执和绝对过期时刻",
+      "allowed_phases": [],
+      "lifetime_world_seconds": null,
+      "capacity": "0 admitted task warm packs",
+      "cancellation_or_prevention": "过期原包保持同ID冷物。不能通过取备用、重新绑定root或静候来得新900秒，不暂停本根攻击；使用F58原免费封区或原expired终态。",
+      "power_domain": "none; not an active source",
+      "source_refs": [
+        "content/monster_folklore_md01.json"
+      ],
+      "identity_fields": [
+        "source_event_id",
+        "source_episode_id",
+        "source_object_instance_id",
+        "origin_root_id",
+        "owner_root_id",
+        "floor_layer",
+        "created_world_at",
+        "expires_world_at",
+        "revision"
+      ],
+      "selection_creates_fact": false,
+      "status": "withdrawn_candidate_reference_only",
+      "generates_live_conditions": false
+    }
+  ],
+  "wet_regions": [
+    {
+      "id": "WET_FRONT",
+      "name": "前门左侧雨线",
+      "wet_cells": [
+        [
+          13,
+          27
+        ],
+        [
+          13,
+          28
+        ],
+        [
+          13,
+          29
+        ],
+        [
+          13,
+          30
+        ],
+        [
+          13,
+          31
+        ],
+        [
+          14,
+          27
+        ]
+      ],
+      "source_cell": [
+        13,
+        31
+      ],
+      "target_cell": [
+        14,
+        27
+      ],
+      "cut_cell": [
+        13,
+        29
+      ],
+      "dry_interact_position": [
+        14.5,
+        29.5
+      ],
+      "dry_safe_position": [
+        15.5,
+        28.5
+      ],
+      "cut_action_seconds": 2,
+      "cut_interaction_max_tiles": 1.5,
+      "drain_detached_component": true,
+      "blocks_navigation": false,
+      "preferred_monsters": [
+        "F24",
+        "F34",
+        "F41"
+      ],
+      "dry_required_roles": [
+        "cashier",
+        "front_door",
+        "verification_desk"
+      ],
+      "source_ref": "content/map_mechanics_v05.json#/wet_regions/0",
+      "producer_ids": [
+        "P_BC02_RAIN",
+        "P_BC02_VISIBLE_WATER_MODULE"
+      ],
+      "floor_layer": "ground",
+      "spread_edges": "four_neighbour_real_floor_no_closed_door",
+      "spread_seconds_per_edge": 1,
+      "detached_drain_seconds": 2,
+      "residual_ttl_world_seconds": 180,
+      "counterplay_telegraph_seconds": 3,
+      "cleaning_reward_key": "source_episode_id:cleanup_once",
+      "dry_cut_locked_until_episode_end": true
+    },
+    {
+      "id": "WET_COLD",
+      "name": "水槽西侧短漏水线",
+      "wet_cells": [
+        [
+          23,
+          10
+        ],
+        [
+          24,
+          10
+        ],
+        [
+          25,
+          10
+        ],
+        [
+          26,
+          10
+        ],
+        [
+          23,
+          11
+        ],
+        [
+          23,
+          12
+        ]
+      ],
+      "source_cell": [
+        26,
+        10
+      ],
+      "target_cell": [
+        23,
+        12
+      ],
+      "cut_cell": [
+        24,
+        10
+      ],
+      "dry_interact_position": [
+        24.5,
+        11.5
+      ],
+      "dry_safe_position": [
+        25.5,
+        11.5
+      ],
+      "cut_action_seconds": 2,
+      "cut_interaction_max_tiles": 1.5,
+      "drain_detached_component": true,
+      "blocks_navigation": false,
+      "preferred_monsters": [
+        "F05",
+        "F28",
+        "F47"
+      ],
+      "dry_required_roles": [
+        "sink",
+        "water_valve",
+        "freezer_main",
+        "rear_door"
+      ],
+      "control_anchor": "water_valve",
+      "source_control_id": "CTRL_COLD_BRANCH",
+      "source_ref": "content/map_mechanics_v05.json#/wet_regions/1",
+      "producer_ids": [
+        "P_BC02_COLD_LEAK",
+        "P_BC02_VISIBLE_WATER_MODULE"
+      ],
+      "floor_layer": "ground",
+      "spread_edges": "four_neighbour_real_floor_no_closed_door",
+      "spread_seconds_per_edge": 1,
+      "detached_drain_seconds": 2,
+      "residual_ttl_world_seconds": 180,
+      "counterplay_telegraph_seconds": 3,
+      "cleaning_reward_key": "source_episode_id:cleanup_once",
+      "dry_cut_locked_until_episode_end": true
+    },
+    {
+      "id": "WET_REAR",
+      "name": "后院东侧沟到门内渗水",
+      "wet_cells": [
+        [
+          28,
+          -6
+        ],
+        [
+          28,
+          -5
+        ],
+        [
+          28,
+          -4
+        ],
+        [
+          28,
+          -3
+        ],
+        [
+          28,
+          -2
+        ],
+        [
+          28,
+          -1
+        ],
+        [
+          28,
+          0
+        ],
+        [
+          28,
+          1
+        ],
+        [
+          28,
+          2
+        ]
+      ],
+      "source_cell": [
+        28,
+        -6
+      ],
+      "target_cell": [
+        28,
+        2
+      ],
+      "cut_cell": [
+        28,
+        -1
+      ],
+      "dry_interact_position": [
+        27.5,
+        -0.5
+      ],
+      "dry_safe_position": [
+        27.5,
+        1.5
+      ],
+      "cut_action_seconds": 2,
+      "cut_interaction_max_tiles": 1.5,
+      "drain_detached_component": true,
+      "blocks_navigation": false,
+      "preferred_monsters": [
+        "F10",
+        "F24",
+        "F57"
+      ],
+      "dry_required_roles": [
+        "rear_door",
+        "dumpster",
+        "waste_sort"
+      ],
+      "protected_source_cells": [
+        [
+          28,
+          -6
+        ],
+        [
+          28,
+          -5
+        ],
+        [
+          28,
+          -4
+        ],
+        [
+          28,
+          -3
+        ],
+        [
+          28,
+          -2
+        ]
+      ],
+      "source_must_remain_flowing_for": [
+        "F57"
+      ],
+      "protected_flow_maintenance_exception": {
+        "monster_id": "F57",
+        "attachment": "ATT15",
+        "max_world_seconds": 8,
+        "restore_before_receipt": true,
+        "permanent_source_cut_allowed": false
+      },
+      "source_control_id": "CTRL_REAR_SOURCE",
+      "local_maintenance_control": "ATT15_local_lever",
+      "source_ref": "content/map_mechanics_v05.json#/wet_regions/2",
+      "producer_ids": [
+        "P_BC02_REAR_FLOW",
+        "P_BC02_VISIBLE_WATER_MODULE"
+      ],
+      "floor_layer": "ground",
+      "spread_edges": "four_neighbour_real_floor_no_closed_door",
+      "spread_seconds_per_edge": 1,
+      "detached_drain_seconds": 2,
+      "residual_ttl_world_seconds": 180,
+      "counterplay_telegraph_seconds": 3,
+      "cleaning_reward_key": "source_episode_id:cleanup_once",
+      "dry_cut_locked_until_episode_end": true
+    },
+    {
+      "id": "WET_AISLE",
+      "name": "货架环路积水片",
+      "wet_cells": [
+        [
+          8,
+          14
+        ],
+        [
+          8,
+          15
+        ],
+        [
+          8,
+          16
+        ],
+        [
+          8,
+          17
+        ],
+        [
+          8,
+          18
+        ],
+        [
+          8,
+          19
+        ]
+      ],
+      "source_cell": [
+        8,
+        14
+      ],
+      "target_cell": [
+        8,
+        19
+      ],
+      "cut_cell": [
+        8,
+        17
+      ],
+      "dry_interact_position": [
+        7.5,
+        17.5
+      ],
+      "dry_safe_position": [
+        7.5,
+        19.5
+      ],
+      "cut_action_seconds": 2,
+      "cut_interaction_max_tiles": 1.5,
+      "drain_detached_component": true,
+      "blocks_navigation": false,
+      "preferred_monsters": [
+        "F56"
+      ],
+      "dry_required_roles": [
+        "goods_shelf",
+        "metal_shelf",
+        "front_door"
+      ],
+      "source_ref": "content/map_mechanics_v05.json#/wet_regions/3",
+      "producer_ids": [
+        "P_BC02_CUSTOMER_SPILL",
+        "P_BC02_VISIBLE_WATER_MODULE"
+      ],
+      "floor_layer": "ground",
+      "spread_edges": "four_neighbour_real_floor_no_closed_door",
+      "spread_seconds_per_edge": 1,
+      "detached_drain_seconds": 2,
+      "residual_ttl_world_seconds": 180,
+      "counterplay_telegraph_seconds": 3,
+      "cleaning_reward_key": "source_episode_id:cleanup_once",
+      "dry_cut_locked_until_episode_end": true
+    },
+    {
+      "id": "WET_CHAIR",
+      "name": "员工椅南侧短水线",
+      "wet_cells": [
+        [
+          1,
+          8
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          3,
+          8
+        ],
+        [
+          3,
+          7
+        ]
+      ],
+      "source_cell": [
+        1,
+        8
+      ],
+      "target_cell": [
+        3,
+        7
+      ],
+      "cut_cell": [
+        3,
+        8
+      ],
+      "dry_interact_position": [
+        4.5,
+        8.5
+      ],
+      "dry_safe_position": [
+        4.5,
+        7.5
+      ],
+      "cut_action_seconds": 2,
+      "cut_interaction_max_tiles": 1.5,
+      "drain_detached_component": true,
+      "blocks_navigation": false,
+      "preferred_monsters": [
+        "F52"
+      ],
+      "dry_required_roles": [
+        "staff_desk",
+        "rest_chair",
+        "monitor_terminal"
+      ],
+      "overrides_attachment": "ATT16",
+      "forbidden_wet_cells": [
+        [
+          4,
+          3
+        ]
+      ],
+      "source_ref": "content/map_mechanics_v05.json#/wet_regions/4",
+      "producer_ids": [
+        "P_BC02_CHAIR_SPILL",
+        "P_BC02_VISIBLE_WATER_MODULE"
+      ],
+      "floor_layer": "ground",
+      "spread_edges": "four_neighbour_real_floor_no_closed_door",
+      "spread_seconds_per_edge": 1,
+      "detached_drain_seconds": 2,
+      "residual_ttl_world_seconds": 180,
+      "counterplay_telegraph_seconds": 3,
+      "cleaning_reward_key": "source_episode_id:cleanup_once",
+      "dry_cut_locked_until_episode_end": true
+    }
+  ],
+  "mirror_surfaces": [
+    {
+      "id": "FIXED_CONVEX_MIRROR",
+      "position": [
+        19.5,
+        22.5
+      ],
+      "normal": [
+        0,
+        1
+      ],
+      "reflectivity": 0.85,
+      "phase_port": false,
+      "owner": "world",
+      "source_ref": "content/maps.json#/scenes/0/fixed_attachments/1",
+      "purpose": "F60安全观察，S23仅经其本次实际反射射线授权",
+      "asset_alias": "MAP_STORE:ATT02:mirror_surface",
+      "position_binding": "MAP_STORE anchor convex_mirror; ATT02.anchor_role=convex_mirror. Position must be loaded from map, not copied from a UI hint."
+    },
+    {
+      "id": "CANDIDATE_MIRROR_A",
+      "position": [
+        19.5,
+        22.5
+      ],
+      "normal": [
+        0,
+        1
+      ],
+      "reflectivity": 0.9,
+      "phase_port": true,
+      "owner": "candidate_root",
+      "source_ref": "BC02 physical mirror delivery",
+      "purpose": "候选双镜端口有限模型；与固定凸镜不同时占位，当前105无消费者"
+    },
+    {
+      "id": "CANDIDATE_MIRROR_B",
+      "position": [
+        22.5,
+        22.5
+      ],
+      "normal": [
+        0,
+        1
+      ],
+      "reflectivity": 0.9,
+      "phase_port": true,
+      "owner": "candidate_root",
+      "source_ref": "BC02 physical mirror delivery",
+      "purpose": "第二原镜单独交付，不能复制A"
+    }
+  ],
+  "shadow_layouts": [
+    {
+      "id": "F40_FOREST",
+      "nodes": [
+        [
+          14.5,
+          19.5
+        ],
+        [
+          10.5,
+          19.5
+        ],
+        [
+          8.5,
+          22.5
+        ]
+      ],
+      "producer_id": "P_BC02_FOREST_PROJECTION",
+      "floor_layer": "ground"
+    },
+    {
+      "id": "S22_LIGHTS",
+      "nodes": [
+        [
+          20.5,
+          18.5
+        ],
+        [
+          22.5,
+          18.5
+        ],
+        [
+          24.5,
+          18.5
+        ]
+      ],
+      "safe_control": [
+        19.5,
+        19.5
+      ],
+      "producer_id": "P_BC02_TASK_LIGHT_MODULE",
+      "floor_layer": "low_air",
+      "continuous_lamps": 3,
+      "last_node": "C",
+      "source_kind": "TASK_ISOLATED_900s"
+    }
+  ],
+  "phase_anchor_catalog": [
+    {
+      "monster_id": "F15",
+      "subtype": "same_root_bell_kit",
+      "physical_source": "原铃灯箱放台后投出的公开近端，合铃稳定后永久关",
+      "producer_id": "P_BC02_ROOT_ANCHOR",
+      "max_distance_tiles": 5.1,
+      "mirror_substitution": false
+    },
+    {
+      "monster_id": "F19",
+      "subtype": "previous_same_parcel_station",
+      "physical_source": "原包裹真实以前停过的站；身体当前点至该站超5.1格就步行",
+      "producer_id": "P_BC02_ROOT_ANCHOR",
+      "max_distance_tiles": 5.1,
+      "mirror_substitution": false
+    },
+    {
+      "monster_id": "F28",
+      "subtype": "same_anomalous_pan_branch",
+      "physical_source": "A/B/C物理浅盘及独立支阀，不是所有水格",
+      "producer_id": "P_BC02_VISIBLE_WATER_MODULE",
+      "max_distance_tiles": 5.1,
+      "mirror_substitution": false
+    },
+    {
+      "monster_id": "F30",
+      "subtype": "same_stone_anchor",
+      "physical_source": "实际原压箱石当前位置，封同石关锚",
+      "producer_id": "P_BC02_ROOT_ANCHOR",
+      "max_distance_tiles": 5.1,
+      "mirror_substitution": false
+    },
+    {
+      "monster_id": "F36",
+      "subtype": "actual_leased_slot",
+      "physical_source": "同次真实授权且未撤销的槽域，普通顾客权限不足",
+      "producer_id": "P_BC02_ROOT_ANCHOR",
+      "max_distance_tiles": 5.1,
+      "mirror_substitution": false
+    },
+    {
+      "monster_id": "F38",
+      "subtype": "same_identified_abnormal_body",
+      "physical_source": "连续身份链中的异常显体端点，真人不入敌池",
+      "producer_id": "P_BC02_ROOT_ANCHOR",
+      "max_distance_tiles": 5.1,
+      "mirror_substitution": false
+    },
+    {
+      "monster_id": "F39",
+      "subtype": "same_original_plaque",
+      "physical_source": "原灶位木牌/迁移目标灯真实安放，新旧两位各有源",
+      "producer_id": "P_BC02_ROOT_ANCHOR",
+      "max_distance_tiles": 5.1,
+      "mirror_substitution": false
+    },
+    {
+      "monster_id": "F40",
+      "subtype": "same_sapling_forest_nodes",
+      "physical_source": "三条林影只来自原苗，同路标逐点切断",
+      "producer_id": "P_BC02_FOREST_PROJECTION",
+      "max_distance_tiles": 6.42,
+      "mirror_substitution": false
+    },
+    {
+      "monster_id": "F59",
+      "subtype": "actual_work_material_slots",
+      "physical_source": "同故障原三材料与当前施工槽，不生成额外工具血池",
+      "producer_id": "P_BC02_ROOT_ANCHOR",
+      "max_distance_tiles": 5.1,
+      "mirror_substitution": false
+    },
+    {
+      "monster_id": "S02",
+      "subtype": "same_body_corrosion_wall",
+      "physical_source": "真实穿墙痕和背面空地；非镜/影/水替代",
+      "producer_id": "P_BC02_CORROSION_CONTACT",
+      "max_distance_tiles": 8,
+      "mirror_substitution": false
+    },
+    {
+      "monster_id": "S22",
+      "subtype": "same_three_task_dark_nodes",
+      "physical_source": "真实独立灯控三暗节点；只能跳更远，最末C保留原位确认",
+      "producer_id": "P_BC02_TASK_LIGHT_MODULE",
+      "max_distance_tiles": 8,
+      "mirror_substitution": false
+    },
+    {
+      "monster_id": "S23",
+      "subtype": "real_crossroad",
+      "physical_source": "真实路口和返程通道，只有偏离后回位",
+      "producer_id": "P_BC02_ROOT_ANCHOR",
+      "max_distance_tiles": 8,
+      "mirror_substitution": false
+    },
+    {
+      "monster_id": "S40",
+      "subtype": "same_body_locked_floor",
+      "physical_source": "原6格真转场能力锁定的实际地面，双端公开，无介质要求",
+      "producer_id": "P_BC02_TELEGRAPH_FLOOR_MARK",
+      "max_distance_tiles": 6,
+      "mirror_substitution": false
+    }
+  ],
+  "monster_consumers": [
+    {
+      "monster_id": "F01",
+      "name": "狐精",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/0/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/0/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/0",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F02",
+      "name": "画皮鬼",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/1/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/1/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/1",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F03",
+      "name": "僵尸",
+      "condition_ids": [
+        "BC02_ENV_BREATH_TRACE",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/2/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/2/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_BREATH_TRACE",
+          "consumer_type": "movement",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/2/movement",
+          "note": "吐气6秒，过期按已公开旧点失锁恢复，不能造新雾"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/2",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F04",
+      "name": "鲛人",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/3/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/3/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/3",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F05",
+      "name": "河童",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE",
+        "BC02_ENV_WET_CONNECTED",
+        "BC02_ENV_WET_EDGE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/4/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/4/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_WET_CONNECTED",
+          "consumer_type": "movement_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/4/mechanism",
+          "note": "当前同源水图连通才有水路能力；断流是有效反制，不要求保持危险给怪用"
+        },
+        {
+          "condition_id": "BC02_ENV_WET_EDGE",
+          "consumer_type": "attack_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/4/mechanism",
+          "note": "真实水边与原干侧交互位；不是任意蓝色装饰"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/4",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F06",
+      "name": "雪女",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/5/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/5/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/5",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F07",
+      "name": "座敷童子",
+      "condition_ids": [
+        "BC02_ENV_SOUND_FIELD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/6/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/6/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_SOUND_FIELD",
+          "consumer_type": "attack_cue_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/6/mechanism",
+          "note": "真实声源时间段与隔声几何，字幕无生产能力"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/6",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F08",
+      "name": "付丧神",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/7/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/7/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/7",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F09",
+      "name": "轆轤首",
+      "condition_ids": [
+        "BC02_ENV_DOOR_THRESHOLD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/8/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/8/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_DOOR_THRESHOLD",
+          "consumer_type": "movement_permission_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/8/mechanism",
+          "note": "实际门和权限/服务缝分别注册；邀请只来自真实接近后的发声"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/8",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F10",
+      "name": "海坊主",
+      "condition_ids": [
+        "BC02_ENV_SOUND_FIELD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE",
+        "BC02_ENV_WET_EDGE",
+        "BC02_ENV_WINDOW_OPENING"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/9/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/9/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_WET_EDGE",
+          "consumer_type": "attack_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/9/mechanism",
+          "note": "真实水边与原干侧交互位；不是任意蓝色装饰"
+        },
+        {
+          "condition_id": "BC02_ENV_WINDOW_OPENING",
+          "consumer_type": "attack_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/9/mechanism",
+          "note": "ATT12服务缝/F50原双窗锁点，关闭不封通行门"
+        },
+        {
+          "condition_id": "BC02_ENV_SOUND_FIELD",
+          "consumer_type": "attack_cue_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/9/mechanism",
+          "note": "真实声源时间段与隔声几何，字幕无生产能力"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/9",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F11",
+      "name": "韩国鬼怪",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/10/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/10/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/10",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F12",
+      "name": "不可杀伊",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/11/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/11/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/11",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F13",
+      "name": "飞头女鬼",
+      "condition_ids": [
+        "BC02_ENV_CLEANUP_BLOOD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/12/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/12/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_CLEANUP_BLOOD",
+          "consumer_type": "producer_only",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/12/mechanism",
+          "note": "真实击退后1污迹；不是玩家伤口"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/12",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F14",
+      "name": "饕食附身灵",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/13/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/13/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/13",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F15",
+      "name": "蓬蒂雅娜",
+      "condition_ids": [
+        "BC02_ENV_LIGHT_COVERAGE",
+        "BC02_ENV_PHASE_ANCHOR_PAIR",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/14/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/14/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_PHASE_ANCHOR_PAIR",
+          "consumer_type": "movement",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/14/movement",
+          "note": "按phase_anchor_catalog实体source与能力subtype，原物/主体不能替换"
+        },
+        {
+          "condition_id": "BC02_ENV_LIGHT_COVERAGE",
+          "consumer_type": "rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/14/mechanism",
+          "note": "读原灯/任务独立电源/真实照射与遮挡；不增加AP"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/14",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F16",
+      "name": "图尤尔",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/15/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/15/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/15",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F17",
+      "name": "裹尸鬼",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/16/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/16/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/16",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F18",
+      "name": "阿斯旺",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/17/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/17/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/17",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F19",
+      "name": "吠陀罗尸鬼",
+      "condition_ids": [
+        "BC02_ENV_PHASE_ANCHOR_PAIR",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/18/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/18/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_PHASE_ANCHOR_PAIR",
+          "consumer_type": "movement",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/18/movement",
+          "note": "按phase_anchor_catalog实体source与能力subtype，原物/主体不能替换"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/18",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F20",
+      "name": "罗刹访客",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/19/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/19/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/19",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F21",
+      "name": "报丧女妖",
+      "condition_ids": [
+        "BC02_ENV_SOUND_FIELD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/20/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/20/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_SOUND_FIELD",
+          "consumer_type": "attack_cue_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/20/mechanism",
+          "note": "真实声源时间段与隔声几何，字幕无生产能力"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/20",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F22",
+      "name": "布朗尼家务精",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/21/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/21/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/21",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F23",
+      "name": "塞尔基海豹人",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/22/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/22/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/22",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F24",
+      "name": "凯尔皮水马",
+      "condition_ids": [
+        "BC02_ENV_DOOR_THRESHOLD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE",
+        "BC02_ENV_WET_CONNECTED",
+        "BC02_ENV_WET_EDGE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/23/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/23/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_WET_CONNECTED",
+          "consumer_type": "movement_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/23/mechanism",
+          "note": "当前同源水图连通才有水路能力；断流是有效反制，不要求保持危险给怪用"
+        },
+        {
+          "condition_id": "BC02_ENV_WET_EDGE",
+          "consumer_type": "attack_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/23/mechanism",
+          "note": "真实水边与原干侧交互位；不是任意蓝色装饰"
+        },
+        {
+          "condition_id": "BC02_ENV_DOOR_THRESHOLD",
+          "consumer_type": "movement_permission_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/23/mechanism",
+          "note": "实际门和权限/服务缝分别注册；邀请只来自真实接近后的发声"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/23",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F25",
+      "name": "普卡变形精",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/24/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/24/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/24",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F26",
+      "name": "红帽妖",
+      "condition_ids": [
+        "BC02_ENV_BLOOD_TRACE",
+        "BC02_ENV_FRESH_BLOOD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/25/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/25/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_FRESH_BLOOD",
+          "consumer_type": "reactive_admission",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/25/mechanism",
+          "note": "BC02预兆>=20s，剩余必须覆盖预兆+实际反制路途动作+6恢复+3离场；24s反制需53s；90s不刷新，F21默认单根跨115s不可达下一raid"
+        },
+        {
+          "condition_id": "BC02_ENV_BLOOD_TRACE",
+          "consumer_type": "movement_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/25/mechanism",
+          "note": "同事故活迹最多3，冲刺走实际地面路径"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/25",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F27",
+      "name": "山林巨魔",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/26/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/26/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/26",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F28",
+      "name": "诺肯水乐灵",
+      "condition_ids": [
+        "BC02_ENV_PHASE_ANCHOR_PAIR",
+        "BC02_ENV_SOUND_FIELD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/27/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/27/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_PHASE_ANCHOR_PAIR",
+          "consumer_type": "movement",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/27/movement",
+          "note": "同异常盘三支路端，必须有同root真盘，普通停水不会删真盘"
+        },
+        {
+          "condition_id": "BC02_ENV_SOUND_FIELD",
+          "consumer_type": "identity_test",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/27/mechanism",
+          "note": "试阀实际拍纹与乐声同时变化才识别源"
+        },
+        {
+          "condition_id": "BC02_ENV_SOUND_FIELD",
+          "consumer_type": "attack_cue_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/27/mechanism",
+          "note": "真实声源时间段与隔声几何，字幕无生产能力"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/27",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F29",
+      "name": "托姆特家园精灵",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/28/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/28/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/28",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F30",
+      "name": "海亡灵",
+      "condition_ids": [
+        "BC02_ENV_DOOR_THRESHOLD",
+        "BC02_ENV_PHASE_ANCHOR_PAIR",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE",
+        "BC02_ENV_WET_CONNECTED"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/29/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/29/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_WET_CONNECTED",
+          "consumer_type": "conditional_misuse_only",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/29/mechanism",
+          "note": "只有原石真的顶门才产生本地1格水；不是预先准入条件"
+        },
+        {
+          "condition_id": "BC02_ENV_PHASE_ANCHOR_PAIR",
+          "consumer_type": "movement",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/29/movement",
+          "note": "按phase_anchor_catalog实体source与能力subtype，原物/主体不能替换"
+        },
+        {
+          "condition_id": "BC02_ENV_DOOR_THRESHOLD",
+          "consumer_type": "movement_permission_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/29/mechanism",
+          "note": "实际门和权限/服务缝分别注册；邀请只来自真实接近后的发声"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/29",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F31",
+      "name": "马拉梦魇",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/30/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/30/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/30",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F32",
+      "name": "夜返吸血鬼",
+      "condition_ids": [
+        "BC02_ENV_DOOR_THRESHOLD",
+        "BC02_ENV_FRESH_BLOOD",
+        "BC02_ENV_SOUND_FIELD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/31/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/31/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_FRESH_BLOOD",
+          "consumer_type": "reactive_admission",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/31/mechanism",
+          "note": "BC02预兆>=20s，剩余必须覆盖预兆+实际反制路途动作+6恢复+3离场；24s反制需53s；90s不刷新，F21默认单根跨115s不可达下一raid"
+        },
+        {
+          "condition_id": "BC02_ENV_DOOR_THRESHOLD",
+          "consumer_type": "movement_permission_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/31/mechanism",
+          "note": "实际门和权限/服务缝分别注册；邀请只来自真实接近后的发声"
+        },
+        {
+          "condition_id": "BC02_ENV_SOUND_FIELD",
+          "consumer_type": "attack_cue_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/31/mechanism",
+          "note": "真实声源时间段与隔声几何，字幕无生产能力"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/31",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F33",
+      "name": "狼人",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/32/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/32/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/32",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F34",
+      "name": "鲁萨尔卡水灵",
+      "condition_ids": [
+        "BC02_ENV_DOOR_THRESHOLD",
+        "BC02_ENV_SOUND_FIELD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE",
+        "BC02_ENV_WET_CONNECTED",
+        "BC02_ENV_WET_EDGE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/33/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/33/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_WET_CONNECTED",
+          "consumer_type": "movement_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/33/mechanism",
+          "note": "当前同源水图连通才有水路能力；断流是有效反制，不要求保持危险给怪用"
+        },
+        {
+          "condition_id": "BC02_ENV_WET_EDGE",
+          "consumer_type": "attack_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/33/mechanism",
+          "note": "真实水边与原干侧交互位；不是任意蓝色装饰"
+        },
+        {
+          "condition_id": "BC02_ENV_DOOR_THRESHOLD",
+          "consumer_type": "movement_permission_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/33/mechanism",
+          "note": "实际门和权限/服务缝分别注册；邀请只来自真实接近后的发声"
+        },
+        {
+          "condition_id": "BC02_ENV_SOUND_FIELD",
+          "consumer_type": "attack_cue_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/33/mechanism",
+          "note": "真实声源时间段与隔声几何，字幕无生产能力"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/33",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F35",
+      "name": "芭芭雅嘎",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/34/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/34/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/34",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F36",
+      "name": "精灵访客",
+      "condition_ids": [
+        "BC02_ENV_PHASE_ANCHOR_PAIR",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/35/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/35/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_PHASE_ANCHOR_PAIR",
+          "consumer_type": "movement",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/35/movement",
+          "note": "按phase_anchor_catalog实体source与能力subtype，原物/主体不能替换"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/35",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F37",
+      "name": "古尔荒野妖",
+      "condition_ids": [
+        "BC02_ENV_DOOR_THRESHOLD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/36/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/36/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_DOOR_THRESHOLD",
+          "consumer_type": "movement_permission_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/36/mechanism",
+          "note": "实际门和权限/服务缝分别注册；邀请只来自真实接近后的发声"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/36",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F38",
+      "name": "双重身",
+      "condition_ids": [
+        "BC02_ENV_PHASE_ANCHOR_PAIR",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/37/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/37/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_PHASE_ANCHOR_PAIR",
+          "consumer_type": "movement",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/37/movement",
+          "note": "按phase_anchor_catalog实体source与能力subtype，原物/主体不能替换"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/37",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F39",
+      "name": "多莫沃伊家宅灵",
+      "condition_ids": [
+        "BC02_ENV_LIGHT_COVERAGE",
+        "BC02_ENV_PHASE_ANCHOR_PAIR",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/38/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/38/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_PHASE_ANCHOR_PAIR",
+          "consumer_type": "movement",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/38/movement",
+          "note": "按phase_anchor_catalog实体source与能力subtype，原物/主体不能替换"
+        },
+        {
+          "condition_id": "BC02_ENV_LIGHT_COVERAGE",
+          "consumer_type": "rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/38/mechanism",
+          "note": "读原灯/任务独立电源/真实照射与遮挡；不增加AP"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/38",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F40",
+      "name": "列希森林灵",
+      "condition_ids": [
+        "BC02_ENV_SHADOW_NODE",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/39/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/39/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_SHADOW_NODE",
+          "consumer_type": "movement",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/39/movement",
+          "note": "F40林影由真实误收原苗产生；S22灯模块暗点且只远离玩家"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/39",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F41",
+      "name": "哭泣女",
+      "condition_ids": [
+        "BC02_ENV_DOOR_THRESHOLD",
+        "BC02_ENV_SOUND_FIELD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE",
+        "BC02_ENV_WET_EDGE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/40/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/40/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_WET_EDGE",
+          "consumer_type": "attack_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/40/mechanism",
+          "note": "真实水边与原干侧交互位；不是任意蓝色装饰"
+        },
+        {
+          "condition_id": "BC02_ENV_DOOR_THRESHOLD",
+          "consumer_type": "movement_permission_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/40/mechanism",
+          "note": "实际门和权限/服务缝分别注册；邀请只来自真实接近后的发声"
+        },
+        {
+          "condition_id": "BC02_ENV_SOUND_FIELD",
+          "consumer_type": "attack_cue_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/40/mechanism",
+          "note": "真实声源时间段与隔声几何，字幕无生产能力"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/40",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F42",
+      "name": "哨声亡灵",
+      "condition_ids": [
+        "BC02_ENV_DOOR_THRESHOLD",
+        "BC02_ENV_SOUND_FIELD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/41/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/41/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_DOOR_THRESHOLD",
+          "consumer_type": "movement_permission_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/41/mechanism",
+          "note": "实际门和权限/服务缝分别注册；邀请只来自真实接近后的发声"
+        },
+        {
+          "condition_id": "BC02_ENV_SOUND_FIELD",
+          "consumer_type": "attack_cue_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/41/mechanism",
+          "note": "真实声源时间段与隔声几何，字幕无生产能力"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/41",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F43",
+      "name": "图恩达",
+      "condition_ids": [
+        "BC02_ENV_DOOR_THRESHOLD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/42/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/42/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_DOOR_THRESHOLD",
+          "consumer_type": "movement_permission_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/42/mechanism",
+          "note": "实际门和权限/服务缝分别注册；邀请只来自真实接近后的发声"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/42",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F44",
+      "name": "巨帽夜曲客",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/43/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/43/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/43",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F45",
+      "name": "逆足林守",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/44/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/44/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/44",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F46",
+      "name": "红帽萨西",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/45/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/45/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/45",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F47",
+      "name": "水歌伊阿拉",
+      "condition_ids": [
+        "BC02_ENV_SOUND_FIELD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE",
+        "BC02_ENV_WET_CONNECTED",
+        "BC02_ENV_WET_EDGE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/46/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/46/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_WET_CONNECTED",
+          "consumer_type": "movement_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/46/mechanism",
+          "note": "当前同源水图连通才有水路能力；断流是有效反制，不要求保持危险给怪用"
+        },
+        {
+          "condition_id": "BC02_ENV_WET_EDGE",
+          "consumer_type": "attack_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/46/mechanism",
+          "note": "真实水边与原干侧交互位；不是任意蓝色装饰"
+        },
+        {
+          "condition_id": "BC02_ENV_SOUND_FIELD",
+          "consumer_type": "attack_cue_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/46/mechanism",
+          "note": "真实声源时间段与隔声几何，字幕无生产能力"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/46",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F48",
+      "name": "河海豚化人客",
+      "condition_ids": [
+        "BC02_ENV_DOOR_THRESHOLD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/47/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/47/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_DOOR_THRESHOLD",
+          "consumer_type": "movement_permission_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/47/mechanism",
+          "note": "实际门和权限/服务缝分别注册；邀请只来自真实接近后的发声"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/47",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F49",
+      "name": "火蛇博伊塔塔",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/48/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/48/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/48",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F50",
+      "name": "泽西恶魔",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE",
+        "BC02_ENV_WINDOW_OPENING"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/49/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/49/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_WINDOW_OPENING",
+          "consumer_type": "attack_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/49/mechanism",
+          "note": "ATT12服务缝/F50原双窗锁点，关闭不封通行门"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/49",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F51",
+      "name": "蜘蛛故事商",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/50/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/50/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/50",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F52",
+      "name": "矮水灵托科洛舍",
+      "condition_ids": [
+        "BC02_ENV_LIGHT_COVERAGE",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE",
+        "BC02_ENV_WET_CONNECTED",
+        "BC02_ENV_WET_EDGE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/51/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/51/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_WET_CONNECTED",
+          "consumer_type": "movement_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/51/mechanism",
+          "note": "当前同源水图连通才有水路能力；断流是有效反制，不要求保持危险给怪用"
+        },
+        {
+          "condition_id": "BC02_ENV_WET_EDGE",
+          "consumer_type": "attack_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/51/mechanism",
+          "note": "真实水边与原干侧交互位；不是任意蓝色装饰"
+        },
+        {
+          "condition_id": "BC02_ENV_LIGHT_COVERAGE",
+          "consumer_type": "rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/51/mechanism",
+          "note": "读原灯/任务独立电源/真实照射与遮挡；不增加AP"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/51",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F53",
+      "name": "水之母来访",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/52/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/52/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/52",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F54",
+      "name": "吞世巨兽",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/53/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/53/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/53",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F55",
+      "name": "护夜犬卡德霍",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/54/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/54/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/54",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F56",
+      "name": "深水邦耶普",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE",
+        "BC02_ENV_WET_CONNECTED",
+        "BC02_ENV_WET_EDGE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/55/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/55/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_WET_CONNECTED",
+          "consumer_type": "movement_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/55/mechanism",
+          "note": "当前同源水图连通才有水路能力；断流是有效反制，不要求保持危险给怪用"
+        },
+        {
+          "condition_id": "BC02_ENV_WET_EDGE",
+          "consumer_type": "attack_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/55/mechanism",
+          "note": "真实水边与原干侧交互位；不是任意蓝色装饰"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/55",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F57",
+      "name": "水路守护塔尼瓦",
+      "condition_ids": [
+        "BC02_ENV_FLOWING_CHANNEL",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE",
+        "BC02_ENV_WET_EDGE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/56/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/56/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_WET_EDGE",
+          "consumer_type": "attack_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/56/mechanism",
+          "note": "真实水边与原干侧交互位；不是任意蓝色装饰"
+        },
+        {
+          "condition_id": "BC02_ENV_FLOWING_CHANNEL",
+          "consumer_type": "rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/56/mechanism",
+          "note": "主渠复流和原箱真实过渠/干绕，冷阀不是主阀"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/56",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F58",
+      "name": "雾笛访客",
+      "condition_ids": [
+        "BC02_ENV_SOUND_FIELD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE",
+        "BC02_ENV_WARM_FIELD"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/57/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/57/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_WARM_FIELD",
+          "consumer_type": "optional_rule_branch",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/57/mechanism",
+          "note": "暖食/暖域仅可选：原品质40s/雾30s/取走补救3s不刷新。全部热源缺失或已冷仍可用原牌[24.5,15.5]0.5s→真实3格到[21.5,15.5]→退出0.5s完成MD01 rule_leave；不要求900s包/备用包，不无限停战，不封任务冰柜/逃生门。原120预算秒过期则expired无成功奖。"
+        },
+        {
+          "condition_id": "BC02_ENV_SOUND_FIELD",
+          "consumer_type": "attack_cue_or_rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/57/mechanism",
+          "note": "真实声源时间段与隔声几何，字幕无生产能力"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/57",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F59",
+      "name": "梅内胡内工队",
+      "condition_ids": [
+        "BC02_ENV_DARK_AREA",
+        "BC02_ENV_DIRECT_GAZE",
+        "BC02_ENV_LIGHT_COVERAGE",
+        "BC02_ENV_PHASE_ANCHOR_PAIR",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/58/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/58/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_PHASE_ANCHOR_PAIR",
+          "consumer_type": "movement",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/58/movement",
+          "note": "按phase_anchor_catalog实体source与能力subtype，原物/主体不能替换"
+        },
+        {
+          "condition_id": "BC02_ENV_DARK_AREA",
+          "consumer_type": "rule_or_attack",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/58/mechanism",
+          "note": "实际测光，不能把整店断电当所有怪的新传送源"
+        },
+        {
+          "condition_id": "BC02_ENV_LIGHT_COVERAGE",
+          "consumer_type": "rule",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/58/mechanism",
+          "note": "读原灯/任务独立电源/真实照射与遮挡；不增加AP"
+        },
+        {
+          "condition_id": "BC02_ENV_DIRECT_GAZE",
+          "consumer_type": "observation_or_attack",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/58/mechanism",
+          "note": "真实当前姿态与视线/凝视时长，不使用旧快照当当前直视"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/58",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "F60",
+      "name": "马面引路者",
+      "condition_ids": [
+        "BC02_ENV_DIRECT_GAZE",
+        "BC02_ENV_LIGHT_COVERAGE",
+        "BC02_ENV_REFLECTIVE_SURFACE",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/59/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/59/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_REFLECTIVE_SURFACE",
+          "consumer_type": "observation_or_attack",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/59/mechanism",
+          "note": "F60镜观不是直视；S23反射射线；S25反光板补光；均不是镜穿"
+        },
+        {
+          "condition_id": "BC02_ENV_DIRECT_GAZE",
+          "consumer_type": "observation_or_attack",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/59/mechanism",
+          "note": "真实当前姿态与视线/凝视时长，不使用旧快照当当前直视"
+        },
+        {
+          "condition_id": "BC02_ENV_LIGHT_COVERAGE",
+          "consumer_type": "observation",
+          "source_ref": "content/monster_folklore_md01.json#/monsters/59/mechanism",
+          "note": "镜观需要真实目标可见照明；MAIN停电可用原手压观察灯/固定低灯，不能在完全无光中凭反射面识别。关闭帘/背向主解无需镜观。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_folklore_md01.json#/monsters/59",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S01",
+      "name": "凝视塑像",
+      "condition_ids": [
+        "BC02_ENV_DIRECT_GAZE",
+        "BC02_ENV_LIGHT_COVERAGE",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/0/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/0/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_LIGHT_COVERAGE",
+          "consumer_type": "rule",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/0/mechanism",
+          "note": "读原灯/任务独立电源/真实照射与遮挡；不增加AP"
+        },
+        {
+          "condition_id": "BC02_ENV_DIRECT_GAZE",
+          "consumer_type": "observation_or_attack",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/0/mechanism",
+          "note": "真实当前姿态与视线/凝视时长，不使用旧快照当当前直视"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/0",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S02",
+      "name": "腐蚀穿墙者",
+      "condition_ids": [
+        "BC02_ENV_PHASE_ANCHOR_PAIR",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/1/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/1/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_PHASE_ANCHOR_PAIR",
+          "consumer_type": "movement",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/1/movement",
+          "note": "按phase_anchor_catalog实体source与能力subtype，原物/主体不能替换"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/1",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S03",
+      "name": "遮面追逐者",
+      "condition_ids": [
+        "BC02_ENV_DIRECT_GAZE",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/2/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/2/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_DIRECT_GAZE",
+          "consumer_type": "observation_or_attack",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/2/mechanism",
+          "note": "真实当前姿态与视线/凝视时长，不使用旧快照当当前直视"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/2",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S04",
+      "name": "诊疫医者",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/3/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/3/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/3",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S05",
+      "name": "拟声猎群",
+      "condition_ids": [
+        "BC02_ENV_SOUND_FIELD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/4/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/4/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_SOUND_FIELD",
+          "consumer_type": "attack_cue_or_rule",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/4/mechanism",
+          "note": "真实声源时间段与隔声几何，字幕无生产能力"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/4",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S06",
+      "name": "不灭爬行者",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/5/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/5/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/5",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S07",
+      "name": "附面假人",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/6/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/6/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/6",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S08",
+      "name": "燃料分身",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/7/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/7/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/7",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S09",
+      "name": "失眠潜猎者",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/8/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/8/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/8",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S10",
+      "name": "余光攀行者",
+      "condition_ids": [
+        "BC02_ENV_DIRECT_GAZE",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/9/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/9/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_DIRECT_GAZE",
+          "consumer_type": "observation_or_attack",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/9/mechanism",
+          "note": "真实当前姿态与视线/凝视时长，不使用旧快照当当前直视"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/9",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S11",
+      "name": "铃声后的瘦影",
+      "condition_ids": [
+        "BC02_ENV_DIRECT_GAZE",
+        "BC02_ENV_SOUND_FIELD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/10/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/10/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_SOUND_FIELD",
+          "consumer_type": "attack_cue_or_rule",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/10/mechanism",
+          "note": "真实声源时间段与隔声几何，字幕无生产能力"
+        },
+        {
+          "condition_id": "BC02_ENV_DIRECT_GAZE",
+          "consumer_type": "observation_or_attack",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/10/mechanism",
+          "note": "真实当前姿态与视线/凝视时长，不使用旧快照当当前直视"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/10",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S12",
+      "name": "棘触心核",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/11/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/11/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/11",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S13",
+      "name": "楼梯口无面影",
+      "condition_ids": [
+        "BC02_ENV_DOOR_THRESHOLD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/12/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/12/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_DOOR_THRESHOLD",
+          "consumer_type": "movement_permission_or_rule",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/12/mechanism",
+          "note": "实际门和权限/服务缝分别注册；邀请只来自真实接近后的发声"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/12",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S14",
+      "name": "缝材造物熊",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/13/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/13/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/13",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S15",
+      "name": "孵卵拟人群",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/14/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/14/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/14",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S16",
+      "name": "刀肢蟹队",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/15/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/15/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/15",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S17",
+      "name": "塑料火烈鸟群",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/16/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/16/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/16",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S18",
+      "name": "双灯猎行者",
+      "condition_ids": [
+        "BC02_ENV_LIGHT_COVERAGE",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/17/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/17/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_LIGHT_COVERAGE",
+          "consumer_type": "rule",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/17/mechanism",
+          "note": "读原灯/任务独立电源/真实照射与遮挡；不增加AP"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/17",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S19",
+      "name": "食宴巨客",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/18/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/18/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/18",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S20",
+      "name": "沼液伏客",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/19/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/19/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/19",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S21",
+      "name": "九尾伪装客",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/20/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/20/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/20",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S22",
+      "name": "畏光烟影",
+      "condition_ids": [
+        "BC02_ENV_DARK_AREA",
+        "BC02_ENV_LIGHT_COVERAGE",
+        "BC02_ENV_SHADOW_NODE",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/21/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/21/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_SHADOW_NODE",
+          "consumer_type": "movement",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/21/movement",
+          "note": "F40林影由真实误收原苗产生；S22灯模块暗点且只远离玩家"
+        },
+        {
+          "condition_id": "BC02_ENV_DARK_AREA",
+          "consumer_type": "rule_or_attack",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/21/mechanism",
+          "note": "实际测光，不能把整店断电当所有怪的新传送源"
+        },
+        {
+          "condition_id": "BC02_ENV_LIGHT_COVERAGE",
+          "consumer_type": "rule",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/21/mechanism",
+          "note": "读原灯/任务独立电源/真实照射与遮挡；不增加AP"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/21",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S23",
+      "name": "路口焰眼犬",
+      "condition_ids": [
+        "BC02_ENV_CROSSROAD_ANCHOR",
+        "BC02_ENV_DOOR_THRESHOLD",
+        "BC02_ENV_REFLECTIVE_SURFACE",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/22/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/22/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_DOOR_THRESHOLD",
+          "consumer_type": "movement_permission_or_rule",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/22/mechanism",
+          "note": "实际门和权限/服务缝分别注册；邀请只来自真实接近后的发声"
+        },
+        {
+          "condition_id": "BC02_ENV_REFLECTIVE_SURFACE",
+          "consumer_type": "observation_or_attack",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/22/mechanism",
+          "note": "焰眼本身是本次已预告真实发光源，仍要两段反射射线和原遮帘；没有镜穿。"
+        },
+        {
+          "condition_id": "BC02_ENV_CROSSROAD_ANCHOR",
+          "consumer_type": "movement_or_rule",
+          "source_ref": "content/monster_scp_a_md01.json#/monsters/22/mechanism",
+          "note": "固定四向路口真实存在，返程/眼罩操作可达，不回跳贴脸"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_a_md01.json#/monsters/22",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S24",
+      "name": "黑刃复归者",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/0/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/0/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_b_md01.json#/monsters/0",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S25",
+      "name": "吞影小像",
+      "condition_ids": [
+        "BC02_ENV_LIGHT_COVERAGE",
+        "BC02_ENV_NO_SHADOW_ZONE",
+        "BC02_ENV_PLAYER_SHADOW",
+        "BC02_ENV_REFLECTIVE_SURFACE",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/1/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/1/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_LIGHT_COVERAGE",
+          "consumer_type": "rule",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/1/mechanism",
+          "note": "读原灯/任务独立电源/真实照射与遮挡；不增加AP"
+        },
+        {
+          "condition_id": "BC02_ENV_PLAYER_SHADOW",
+          "consumer_type": "attack",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/1/mechanism",
+          "note": "实际人物投影与本体重叠，仅地面扑，无瞬移"
+        },
+        {
+          "condition_id": "BC02_ENV_NO_SHADOW_ZONE",
+          "consumer_type": "rule",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/1/mechanism",
+          "note": "两板和真实灯重合，目标真正入圈"
+        },
+        {
+          "condition_id": "BC02_ENV_REFLECTIVE_SURFACE",
+          "consumer_type": "observation_or_attack",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/1/mechanism",
+          "note": "F60镜观不是直视；S23反射射线；S25反光板补光；均不是镜穿"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_b_md01.json#/monsters/1",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S26",
+      "name": "幼猫幻相虎",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/2/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/2/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_b_md01.json#/monsters/2",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S27",
+      "name": "红池支口",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/3/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/3/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_b_md01.json#/monsters/3",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S28",
+      "name": "离体肉殖团",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/4/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/4/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_b_md01.json#/monsters/4",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S29",
+      "name": "暗育蜈群",
+      "condition_ids": [
+        "BC02_ENV_LIGHT_COVERAGE",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/5/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/5/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_LIGHT_COVERAGE",
+          "consumer_type": "rule",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/5/mechanism",
+          "note": "读原灯/任务独立电源/真实照射与遮挡；不增加AP"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_b_md01.json#/monsters/5",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S30",
+      "name": "银丝猎婆",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/6/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/6/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_b_md01.json#/monsters/6",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S31",
+      "name": "鹿骨饥壳",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/7/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/7/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_b_md01.json#/monsters/7",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S32",
+      "name": "涌兽陶瓮",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/8/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/8/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_b_md01.json#/monsters/8",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S33",
+      "name": "镜头霉巢",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/9/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/9/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_b_md01.json#/monsters/9",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S34",
+      "name": "寻声线团",
+      "condition_ids": [
+        "BC02_ENV_SOUND_FIELD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/10/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/10/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_SOUND_FIELD",
+          "consumer_type": "attack_cue_or_rule",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/10/mechanism",
+          "note": "真实声源时间段与隔声几何，字幕无生产能力"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_b_md01.json#/monsters/10",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S35",
+      "name": "失控重载玩具车",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/11/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/11/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_b_md01.json#/monsters/11",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S36",
+      "name": "惊笑偶像",
+      "condition_ids": [
+        "BC02_ENV_DIRECT_GAZE",
+        "BC02_ENV_SOUND_FIELD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/12/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/12/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_SOUND_FIELD",
+          "consumer_type": "attack_cue_or_rule",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/12/mechanism",
+          "note": "真实声源时间段与隔声几何，字幕无生产能力"
+        },
+        {
+          "condition_id": "BC02_ENV_DIRECT_GAZE",
+          "consumer_type": "observation_or_attack",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/12/mechanism",
+          "note": "真实当前姿态与视线/凝视时长，不使用旧快照当当前直视"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_b_md01.json#/monsters/12",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S37",
+      "name": "噬口排水虫",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/13/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/13/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_b_md01.json#/monsters/13",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S38",
+      "name": "立体镜旁观者",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/14/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/14/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_b_md01.json#/monsters/14",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S39",
+      "name": "游走骨龙",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/15/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/15/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_b_md01.json#/monsters/15",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S40",
+      "name": "取述影客",
+      "condition_ids": [
+        "BC02_ENV_PHASE_ANCHOR_PAIR",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/16/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/16/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_PHASE_ANCHOR_PAIR",
+          "consumer_type": "movement",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/16/movement",
+          "note": "按phase_anchor_catalog实体source与能力subtype，原物/主体不能替换"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_b_md01.json#/monsters/16",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S41",
+      "name": "地窖食客群",
+      "condition_ids": [
+        "BC02_ENV_DARK_AREA",
+        "BC02_ENV_LIGHT_COVERAGE",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/17/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/17/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_DARK_AREA",
+          "consumer_type": "rule_or_attack",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/17/mechanism",
+          "note": "实际测光，不能把整店断电当所有怪的新传送源"
+        },
+        {
+          "condition_id": "BC02_ENV_LIGHT_COVERAGE",
+          "consumer_type": "rule",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/17/mechanism",
+          "note": "读原灯/任务独立电源/真实照射与遮挡；不增加AP"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_b_md01.json#/monsters/17",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S42",
+      "name": "断拍窥猎者",
+      "condition_ids": [
+        "BC02_ENV_SOUND_FIELD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/18/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/18/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_SOUND_FIELD",
+          "consumer_type": "attack_cue_or_rule",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/18/mechanism",
+          "note": "真实声源时间段与隔声几何，字幕无生产能力"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_b_md01.json#/monsters/18",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S43",
+      "name": "闭店巡场员",
+      "condition_ids": [
+        "BC02_ENV_DOOR_THRESHOLD",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/19/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/19/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_DOOR_THRESHOLD",
+          "consumer_type": "movement_permission_or_rule",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/19/mechanism",
+          "note": "实际门和权限/服务缝分别注册；邀请只来自真实接近后的发声"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_b_md01.json#/monsters/19",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S44",
+      "name": "双灯影幕",
+      "condition_ids": [
+        "BC02_ENV_LIGHT_COVERAGE",
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/20/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/20/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        },
+        {
+          "condition_id": "BC02_ENV_LIGHT_COVERAGE",
+          "consumer_type": "rule",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/20/mechanism",
+          "note": "读原灯/任务独立电源/真实照射与遮挡；不增加AP"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_b_md01.json#/monsters/20",
+      "runtime_integrated": false
+    },
+    {
+      "monster_id": "S45",
+      "name": "缝合外科客",
+      "condition_ids": [
+        "BC02_ENV_SURFACE_ROUTE",
+        "BC02_ENV_VISIBLE_LINE"
+      ],
+      "uses": [
+        {
+          "condition_id": "BC02_ENV_SURFACE_ROUTE",
+          "consumer_type": "movement_and_player_work_access",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/21/movement",
+          "note": "按当前身体高度/半径以及原地图路径；锚定怪同样需要玩家真实可达控制位。"
+        },
+        {
+          "condition_id": "BC02_ENV_VISIBLE_LINE",
+          "consumer_type": "attack_or_observation",
+          "source_ref": "content/monster_scp_b_md01.json#/monsters/21/combat",
+          "note": "使用该怪MA01具体遮挡/攻击高度；本登记不赋新视觉/穿墙能力。"
+        }
+      ],
+      "mirror_phase_capability": false,
+      "source_ref": "content/monster_scp_b_md01.json#/monsters/21",
+      "runtime_integrated": false
+    }
+  ],
+  "coverage": {
+    "md01_monster_count": 105,
+    "ma01_attack_definition_count": 184,
+    "actual_mirror_phase_consumers": 0,
+    "mirror_visual_only_ids": [
+      "F60",
+      "S11",
+      "S23",
+      "S25",
+      "S38",
+      "S44"
+    ],
+    "water_movement_not_phase_ids": [
+      "F05",
+      "F47",
+      "F52",
+      "F56",
+      "F57"
+    ],
+    "exact_blood_consumer_ids": [
+      "F26",
+      "F32"
+    ],
+    "finite_reference_scope": "真实源物/路径/时间/连通图/当前双端/光照/鲜血轨迹/取消反例，非105 AI逐帧运行证明",
+    "finite_reference_boundary": "41 meaningful event/geometry lifecycle scenarios; S22 real physical-node motion is simulated. Other typed phase sources have explicit contracts and source bindings, but their original-item/history adapters remain engine integration requirements rather than arbitrary phase_anchor creation."
+  },
+  "implementation_requirements": [
+    "世界状态事件库持久化source_event_id/episode/object/root/revision",
+    "地面水图按source episode逐格更新，不以选怪写bool",
+    "镜/影来源属于实际物件，不继承装饰贴图语义",
+    "预告阶段调度真实部署者、路径与时长，部署未完延后怪",
+    "入侵中只保留本根明确战术反制，普通店务等待恢复",
+    "存档恢复clock/TTL/cancel/cooldown/源物位置，不能复活过期节点",
+    "P0客户端先接五湿区、F05/F26/F32/F40、S22、F60/S23反射验证；无现成镜穿怪就不展示镜穿能力"
+  ],
+  "terrain_tag_derivation": {
+    "registered_water_edge": "实际water source episodes的当前同层相邻格/湿干边；不等于电导率或镜端口",
+    "registered_shadow_node": "原树苗异常投影或实际灯/遮光模块的具名节点；普通暗格没有这个tag",
+    "registered_mirror_node": "两件真实注册且有phase_port的原镜端口拓扑；当前105的镜穿capability仍全部false",
+    "reflective_surface": "普通水膜/镜面/玻璃按自身实际反射率/法线，不自动注册传送口",
+    "electrical_permission": "水图和反射图不产生AP、过载、电量或营业Buff；这些仍读原电路合同",
+    "observation_light": "反射几何可成立但观察仍需实际照明或目标自发光；光路源与表面源分别查"
+  },
+  "f58_thermal_source_and_free_exit": {
+    "source_refs": [
+      "content/mechanism_cases_v010_b.json#/cases/27",
+      "content/monster_folklore_md01.json#/monsters/57/mechanism"
+    ],
+    "warm_branch_optional": true,
+    "required_free_assets": [
+      "OBJ_COLD_SECTION_SIGN",
+      "original_hot_food_safe_side_and_route"
+    ],
+    "no_hot_food_admission_allowed": true,
+    "thermal_pack_primary_substitute": false,
+    "actions": [
+      {
+        "id": "close_cold_section",
+        "position": [
+          24.5,
+          15.5
+        ],
+        "seconds": 0.5,
+        "source_object": "OBJ_COLD_SECTION_SIGN",
+        "commit": "ordinary_cold_service_open=false; task freezers/doors unchanged",
+        "cancel": "not completed means no change"
+      },
+      {
+        "id": "real_exit_walk",
+        "from": [
+          24.5,
+          15.5
+        ],
+        "to": [
+          21.5,
+          15.5
+        ],
+        "distance_tiles": 3,
+        "speed_tiles_s": 3,
+        "seconds": 1,
+        "commit": "actual player position only; no teleport",
+        "cancel": "keep actual intermediate position"
+      },
+      {
+        "id": "exit_cold_boundary",
+        "position": [
+          21.5,
+          15.5
+        ],
+        "seconds": 0.5,
+        "requires": "ordinary cold service actually closed and actual player outside cold boundary",
+        "commit": "F58 actual rule_leave terminal receipt once",
+        "cancel": "no terminal until actual action complete"
+      }
+    ],
+    "clock_contract": {
+      "hot_quality": "original remaining40 world seconds, never reset",
+      "fog": "original absolute start+30 world seconds, never reset",
+      "lost_source": "original3 world seconds, never reset by late replace",
+      "outer_deadline": "original120 budget seconds; this finite harness uses world/budget parity for F58 actions. At expiry emit original expired terminal, no success reward."
+    },
+    "reward": "实际正式root完成免费封区主解按MD01单根12C4E+规则2E一次；不再发普通清洁/补热/维修奖。预约前普通停业或原期限过期不生成怪奖。",
+    "recovery": "MAIN断电/两包同冷/无热食都不封锁免费原牌和退路；没有热源不会暂停攻击等待新源。错过原绝对deadline就按原expired撤销，不重置、重生、追补奖励。"
+  }
+}

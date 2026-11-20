@@ -1,0 +1,82 @@
+{
+  "version": "SA02",
+  "baseline_commit": "aa7941aef0bfc82f4cef15337084b0a0ad3dbc59",
+  "runtime_integrated": false,
+  "runtime_enabled": false,
+  "status": "restricted_design_and_finite_reference_only",
+  "purpose": "明确两项rule_leave非战斗响应与永久毒、压制、真实交付之间的优先级；不是通用免伤、清毒或自动完成机制。",
+  "source_authority": [
+    "content/monster_contracts_md01.json#/resolution_types/rule_leave",
+    "content/monster_scp_b_md01.json#S40",
+    "content/monster_scp_b_md01.json#S43",
+    "content/combat_contracts_td05.json#/statuses/poison",
+    "content/attack_contracts_ma01.json#/lifecycle",
+    "content/run_lifecycle_sa01.json"
+  ],
+  "scope": {
+    "registered_monsters": ["S40", "S43"],
+    "resolution_type": "rule_leave",
+    "rejected": ["normal_human", "kill_unlocked", "rule_weaken", "unregistered_response", "ui_only_evidence", "unverified_geometry"],
+    "remaining_rule_leave_entries": "其余rule_leave条目未逐卡适配；本文件不为它们自动创建响应保护，也不证明其全流程可达。",
+    "legacy_practice_unchanged": true
+  },
+  "admission": {
+    "evidence": "实际世界适配器证明同一root/attempt/actor、原物与容器、真实位置、路线、源状态和剩余世界期限；读提示、点击确认、看图标不能生成这些事实。",
+    "S43_source_before_route": "S43真实开店源回执独立于响应路径接纳：必须匹配已投放根绑定的源ID、当前root/attempt/actor、当前观察时刻，且实际3秒等待已完成。该事实立即撤销此主体敌对与旧伤害资格；首次路径不通、当前压制或响应时间不足都不能让它重新攻击。路径未核验则不创建响应计划、不产生位移、不发奖励；之后有合法路径才准入响应。UI、旧attempt、异源或过时观察不能撤销敌对。",
+    "no_early_control_release": "已压制或冻结的源先等待原控制/重构到期；不能借响应提前解除。到期真实恢复后，满足前置的响应请求先于该时刻新伤害；此前伤害不回滚。",
+    "route": "使用同一已核验步行路径、真实body clearance/层/LOS/目标操作面；参考模型只计算给定路径长度与源基速，不生成导航或地图证据。",
+    "time": "准入前把原剩余控制、真实路径时间、响应工序和仍需玩家完成的最后操作放进原事件/阶段/06:00最早截止；不足就不启动，不延后截止。",
+    "bindings": ["campaign_week_night_root", "attempt_id", "actor_id", "response_plan_id", "route_id", "original_object_or_source_receipt_id", "destination_id", "original_world_deadline"]
+  },
+  "response_state": {
+    "priority": "真实前置成立后，此根进入明确的非战斗响应片段；停止该根新敌对攻击并撤销它持有的异常攻击体积。其他根、玩家受击、世界钟和普通工作继续。所有新攻击还须原生命状态为active；压制态无论是否申请响应都不准新攻击。S43另先消费真实开店源事实，按准入域独立撤销敌对。",
+    "damage": "仅此响应主体在片段中退出受击/新控制/新压制与电图；没有正扣血，也没有电伤回填。不能把玩家、同场怪或任务设施一并保护。",
+    "hp": "进入、中断、续接都保留当前HP，不治疗、不重放旧伤害、不以重构名义再给25%HP。响应前已经发生的原重构仍按其原合同。",
+    "poison": "保留永久q与已支付未成熟来源；已排定成熟在原世界时刻至多兑现一次，但片段内不跳毒伤，退出不追补。没有新命中就不产生新毒/传播券。",
+    "timed_states": "所有限时层、电荷、催化、冷却和原截止继续按原世界钟到期；响应不冻结世界、不刷新状态。",
+    "physical_progress": "原实例、已实际走过的位置、已提交工序和原物所有权保留。S40同一原件的收拢有效秒可暂停续接；未满2.5秒不会转移原物。该例外不赠送旧玩家原子读条的进度。",
+    "completion": "真实路线与绑定响应工序完成后才检查原主规则终态。S43真实出界后还要玩家实际1秒关外闩；到达出口或点击面板均不直接领奖。",
+    "identity_and_save": "同根只有一个响应计划。保存计划绑定、路径进度、已消费保护秒、原物转移、原期限、原状态预算和attempt；读档/换调用实例不得生成第二份。完整失败重试沿SA01整检查点，不仅回滚响应。"
+  },
+  "bounded_reentry": {
+    "budget": "首入时以核验路径长度/原基速+白名单主体响应工序计算累计保护秒上限。S40另加2.5秒；S43只保护实际退场路程，外闩工序不需要也不获得保护。",
+    "interruption": "前置事实或实际路径失效立即结束响应保护并保存已产生的真实进度；不消费/返还尚未实际转移的原物，不回血，不清q。受击与攻击资格重新读取原世界事实；S43已由真实开店回执撤销敌对，不因路线失效虚构再次闭店、重新激怒或恢复旧毒伤。",
+    "resume": "只能续同一计划、同一原物、同一路线和当前实际位置；累计保护余量及原世界截止不变。已走过的路和已实际收拢的秒不重播；失败期间不计有效响应进度。",
+    "no_pause_farming": "没有任意暂停/反复确认来刷新保护时长的接口；中断期间无保护。重新进入不加预算，持续有效响应自动推进至真实动作完成，不能停在响应态无限免伤。",
+    "original_deadline": "有效完成恰好在截止时，先提交真实完成；未完成则走原超时/撤回处理且不结根奖励。模型不伪造安全拒绝或自动清场。",
+    "irreversible_exit": "S43已经实际离开本店后不为重试再刷回；保留出界事实，等待真实外闩回执。未关闩时不发最终根奖。"
+  },
+  "registered_responses": [
+    {
+      "id": "S40_collect_original_paper",
+      "monster_id": "S40",
+      "source_file": "content/monster_scp_b_md01.json",
+      "preconditions": ["本次播报源实际静音", "同一原始描述纸已在外侧取件盘", "玩家实际退出交接界", "同一影客与取件盘之间有已核验真实步行路径"],
+      "actor_work_seconds": 2.5,
+      "actor_work_source": "S40.mechanism.work_window：取纸前2.5s收拢停顿",
+      "route_speed_source": "S40.stats.move_speed",
+      "transfer": "真实到盘并完成2.5秒有效收拢后，同一原件从取件盘转到同一影客；不造副本、不把摆盘当取走。",
+      "terminal": "再核静音、原件实际取走、玩家在界外三条件，产生一次原S40_rule_complete。"
+    },
+    {
+      "id": "S43_return_to_open_mall",
+      "monster_id": "S43",
+      "source_file": "content/monster_scp_b_md01.json",
+      "preconditions": ["同一接驳卖场真实开店回执已到达", "原3秒外部状态等待已真实经过", "同一无面巡场员实际在本店", "沿原门到店外边界的真实路线已核验"],
+      "actor_work_seconds": 0,
+      "route_speed_source": "S43.stats.move_speed",
+      "post_exit_player_action_seconds": 1,
+      "post_exit_action_source": "S43.mechanism.steps[S43_step_3].seconds",
+      "transfer": "同一实体真实沿原门越过边界；已出界实体不再是本店伤害目标，不因未关门又刷回。",
+      "terminal": "玩家在真实外闩操作位完成1秒关闭，原开店回执、出界事实与外闩状态一致后，才产生一次原S43_rule_complete。",
+      "old_status_rule": "旧永久毒/已发伤害不能把响应重新判为玩家主动乱打并激怒；这不开放攻击普通人或其它被动访客。"
+    }
+  ],
+  "validation_boundary": {
+    "finite_model": "scripts/sa02_response_reference.py",
+    "checks": "scripts/check_sa02_responses.py",
+    "proves": ["已给定真实世界证据后的绑定/时序", "永久毒与压制的原数值反例", "限定响应保护及预算", "原物唯一性与最终回执", "精确截止/中断/续接的有限状态"],
+    "not_proven": ["q=125在实际地图上的取得路线", "S40/S43完整AI或真实导航", "其它rule_leave逐卡响应", "全105组合", "整夜/七夜试玩", "生产持久化/微信客户端"],
+    "all_gameplay_proven": false
+  }
+}

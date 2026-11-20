@@ -1,0 +1,80 @@
+{
+  "version": "BC02",
+  "baseline_commit": "dfd2e32eecb8fb4dc7dd3efa066cfa3817363788",
+  "runtime_integrated": false,
+  "previous_authority": "content/system_authority_bc01.json",
+  "purpose": "当前唯一拟实现设计入口。按明示域覆盖BC01；未覆盖的MD01/MA01/TD05/EQ01/SA02规则仍由BC01权威表递归解析。旧两怪网页继续原版本。",
+  "authority_by_domain": {
+    "normal_customer_support_duration_budget_power": "content/facilities_bc02.json",
+    "actual_public_customer_service_routes": "content/customer_routes_bc02.json",
+    "environment_sources_lifecycle_and_consumers": "content/environment_conditions_bc02.json",
+    "all_105_encounter_prerequisite_bindings": "content/encounter_prerequisites_bc02.json",
+    "player_loop_shared_preconditions": "content/player_loop_bc02.json",
+    "pause_ad_slots_and_reward_transactions": "content/ad_contracts_bc02.json",
+    "teaching_support_hud_and_ad_copy": "content/onboarding_bc02.json",
+    "codex_implementation_order_and_acceptance": "content/implementation_plan_bc02.json",
+    "base_player_hp_levels_damage_and_economy": "content/campaign_bc01.json",
+    "base_random_business_omen_raid_recovery": "content/director_bc01.json",
+    "base_map_and_first_twelve_geometry": "content/map_composition_bc01.json",
+    "all_other_unchanged_rules": "content/system_authority_bc01.json"
+  },
+  "scoped_overrides": [
+    {
+      "source": "content/facilities_bc02.json",
+      "replaces": "BC01 8–12秒设备buff、20秒临时陷阱寿命及全店8份容量；改本场生命周期、实际回血总额度、单源2份/全店24份、同源本场一份。已知随机类型/去重/强校验保留。"
+    },
+    {
+      "source": "content/facilities_bc02.json#/power",
+      "replaces": "本场开始时断电的原token可预约本场首次来电再启用；全场未通电留到本夜下场。已启用效果断电关闭，复电只恢复原剩余预算，不走旧8–12秒到期。"
+    },
+    {
+      "source": "content/customer_routes_bc02.json",
+      "replaces": "原设施仅有产品/收银/离店参考路线；补公共核验、叫号、饮用/派生空瓶、取包裹与小票真实路径规格，FR06使用专用公共操作面。不是开放所有员工anchor给普通顾客。"
+    },
+    {
+      "source": "content/environment_conditions_bc02.json",
+      "replaces": "旧terrain_tags只做标签、只列湿区坐标而缺来源的部分；补实体producer、传播/时效/擦断/遮挡/双重提交验证。真实伤口仍90秒、真实血迹30秒，不用F13尸血代替。"
+    },
+    {
+      "source": "content/encounter_prerequisites_bc02.json",
+      "replaces": "以逐条overrides和source/step/binding规定修复MD01及旧案例的时间/原物/任务NPC/终态冲突；其它怪物结局、HP与攻击数值不自动改变。不能仅据条目存在打开runtime。"
+    },
+    {
+      "source": "content/player_loop_bc02.json",
+      "replaces": "将来源寿命与真实预兆/撤客/路径统一复验，补无候选/源过期时导演行为、任务NPC分类、公共服务计数、操作/音画条件和唯一快照归属。"
+    },
+    {
+      "source": "content/ad_contracts_bc02.json",
+      "replaces": "新增三处可选广告接口和独立领取账，原免费玩法与标准奖励先结算；局末金币额外加一次原G，券另领1张。第7夜不翻立即清空的周币，不改原周清经济。"
+    },
+    {
+      "source": "content/onboarding_bc02.json",
+      "replaces": "旧HUD全店8槽、真实剩余秒和短时支援教程；改各来源0/2、本场有效、真实剩余预算与条件来源提示，附广告可选入口说明。"
+    },
+    {
+      "source": "content/environment_conditions_bc02.json",
+      "replaces": "必要TASK灯900秒能量不能成为加时软锁：补同原模块实际手摇2秒续60秒与有限操作保护，不刷新原绝对期限或供电网；具体能量cycle与取消规则按环境合同。"
+    }
+  ],
+  "execution_profiles": {
+    "legacy_v010_playable": "旧两怪HTML独立练习，未消费BC02新合同；不可作为BC02客户端验收。",
+    "bc01_historical_reference": "既有随机63夜/事务结果继续作为未修改基线证据，不当作BC02的105怪、整场支援或广告经济全周验证。",
+    "bc02_finite_reference": "新增设施、公共路线、环境、前提事务、广告等有限模型及反例；各报告分别记录是否实际移动/实例化及输入哈希。",
+    "bc02_future_client": "Codex按落地计划移植真实世界消费者后，逐模块交互/保存/触控验收，才打开对应admitted标志。未实现字段不能自动当true。"
+  },
+  "unchanged_invariants": [
+    "标准最多1主动主根和1追逐者；所有子体归同根奖励预算",
+    "永久毒q不衰减且不偷偷封顶，压制重构不清q，非敌对响应按原物与实际路线完成",
+    "怪物MAIN停电关闭全部电器支援及所有过载/新增电荷/反馈；独立任务电源不绕过",
+    "免费主解不依赖顾客buff、随机装备、等级或广告",
+    "真实库存、付款、原物、历史授权和角色路线产生事实；导演选中不是来源",
+    "失败整笔回滚本夜，稳定历史订单/已结算经验券等按原边界保存；随机流不因失败或广告重抽",
+    "暂停所有游戏时钟，恢复不补算广告期间世界；普通店务在RAID不推进也不催办扣薪",
+    "原SCP改编署名和许可文件继续保留，地图/内容文件的来源指针不能被新版本名称抹掉"
+  ],
+  "validation": {
+    "command": "python3 scripts/run_validation_bc02.py",
+    "report": "docs/bc02_validation_report.json",
+    "proof_boundary": "逐条设计供给规格与有限反例，不是105AI实战、全部组合、实机性能或广告认证。Codex验收不能用设计检查总数替代可玩结果。"
+  }
+}

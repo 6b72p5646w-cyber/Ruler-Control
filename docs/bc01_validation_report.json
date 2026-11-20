@@ -1,0 +1,100 @@
+{
+  "version": "BC01",
+  "baseline_commit": "a3d09c3bc8b5e6de83d523daa9d07aa894937f3d",
+  "status": "PASS",
+  "design_p0_complete": true,
+  "runtime_integrated": false,
+  "existing_behavior_reports_hash_verified": true,
+  "passed": 2809,
+  "failed": 0,
+  "reports": [
+    {
+      "name": "facility",
+      "path": "docs/bc01_facility_report.json",
+      "passed": 55,
+      "failed": 0,
+      "sha256": "fe79f1ef5338f76a1780440397d8249934d7db32366cbe7885b10814e5eb8312"
+    },
+    {
+      "name": "director",
+      "path": "docs/bc01_director_report.json",
+      "passed": 2145,
+      "failed": 0,
+      "sha256": "cb3ca76231216b5608aac38de86525d37cec25d6bfbe2dfb5409f2e02d832b89"
+    },
+    {
+      "name": "map",
+      "path": "docs/bc01_map_report.json",
+      "passed": 391,
+      "failed": 0,
+      "sha256": "02162557fd6a180abd9eded0ff7598983478d446e4441d8f1b26db152278337a"
+    },
+    {
+      "name": "campaign",
+      "path": "docs/bc01_campaign_report.json",
+      "passed": 99,
+      "failed": 0,
+      "sha256": "62a2d89867445ab5c452e8498a78911c832828f0e1c0e97b650d660c66b36027"
+    },
+    {
+      "name": "p0",
+      "path": "docs/bc01_p0_report.json",
+      "passed": 119,
+      "failed": 0,
+      "sha256": "791c30db648eebccb3a71eb6ca5d4f506e970ad847603b2afbeb6cfe5f9d3e92"
+    }
+  ],
+  "repository_static_validation": {
+    "status": "PASS",
+    "checks": 5795,
+    "scope": "Shared catalogs and preserved V0.4 history only; run validate_design_v05.py for current gameplay. Static/headless checks do not validate navigation, touch UI, phone performance or play balance."
+  },
+  "proof_boundary": "BC01设计/有限参考；真实顾客路线与账本、电源/HP/等级、静态导航、实际本地事务恢复。不是105AI或手机实机胜率。",
+  "behavior_commands": [
+    "check_bc01_facilities.py",
+    "check_bc01_director.py",
+    "check_bc01_map.py",
+    "check_bc01_campaign.py",
+    "check_bc01_p0.py"
+  ],
+  "this_summary_refresh_commands": [
+    "validate_content.py"
+  ],
+  "inputs_sha256": {
+    "content/campaign_bc01.json": "f9043ffb1dd96da68cfef9d6283cbc36e1760bbec3e8265022a5cb104c7246e5",
+    "content/director_bc01.json": "e31c47fe473987d991911908459d7d5bad5051577d104c8ed58b8d60fea4b995",
+    "content/facilities_bc01.json": "38a6120eddbb51f8ebb4a3d957cee375e2074bdcc860e1ba412f8fe8818baad0",
+    "content/map_composition_bc01.json": "72b4517838d26fbe5afab1adcfb415c0be4b3ea80765a0b23922a90a94519dde",
+    "content/onboarding_bc01.json": "c48e462a4ac4710a8d545298693498dcd9b9ad9b434f9e4c54eb3990e2793180",
+    "content/system_authority_bc01.json": "31bbb59fc324b6ee0f268a20b06203dd01f927d6174adbf318f5561487aa2304",
+    "scripts/bc01_campaign_reference.py": "f97984b95faaf41c4e4d1ca1f85cf0e208d78c2c9f25dd92961e7808c68650f3",
+    "scripts/bc01_director_reference.py": "a1d844c20dcd405715cb0b414a47f37981a7f6d96ccedbdb9368220ff4fd972e",
+    "scripts/bc01_facility_reference.py": "54e93fed4f85d8be732a39878c5e741e47ea86a24b4505fc7e3cde4648312e8f",
+    "scripts/bc01_joint_reference.py": "2ce36001334155fbe1caa87223097998fbb4a21be29f996f53c2c947c16d708f",
+    "scripts/bc01_map_reference.py": "e8904021a7e1cec6d5a5871b9336b623132ff9c394ae0e1e3856b0521e110a34",
+    "scripts/check_bc01_campaign.py": "15fe9c612caece5f2fde495f4e3fc5a1a741207acd1ef01085e6ba85873757ee",
+    "scripts/check_bc01_director.py": "25af43e9bc19a79370bba2c154afcc0c6cf86cdd799213d378206b395451e880",
+    "scripts/check_bc01_facilities.py": "a356d6f6654f4b207cf0f051bc463181b5271c3260e7495b48dd9a8b40e42a95",
+    "scripts/check_bc01_map.py": "0a1f031b98df108dc8f36dd8a5c04d64a9f2d3ab27a952b3f6850fc18190828f",
+    "scripts/check_bc01_p0.py": "1c6615143d58b6c5a8d7b74066a94ddb66925feffb9b2af6cf507ed3162f7475",
+    "scripts/run_validation_bc01.py": "fe9e5374530bae70a8e0a1de99ff22815c3d35111918d73f9b9ff7d694216424",
+    "content/maps.json": "773e39b35bc16c63e6b4f294e27f8a944072599f21b8ad1bae46527f0a093b9a",
+    "content/map_mechanics_v05.json": "af126cd615549118fb4ab73200c88427d117e869aedf3eba47f73464732748bc",
+    "content/tower_defense_td05.json": "e7919156f0e6f56f732f107221e28c8d71cddae8563e6a4a95b26474fd35c970",
+    "content/traps_facilities_td05.json": "a83c470f8a3c555076c6401b418a8ce99a1e5f0725d36905c9a337359202ec5a",
+    "content/combat_contracts_td05.json": "f83f18ae0314d3a19134a934ed347c7254c9eb2b5d5711305e007434dd5d8823",
+    "content/economy_week_td05.json": "9b58a603fa4c80380e9d53d54f5e7678f353d2cbd7014f08ce5d25ac57f8c791",
+    "content/monster_folklore_md01.json": "f7b019223130f255b49a5a7ce8aa44811db096542c235c36d5aa8c5d44ae01ae",
+    "content/monster_scp_a_md01.json": "23faa741c2aff38e6c2f254a46f5d9671a88620f73d9a67d0f53b51218272f01",
+    "content/monster_scp_b_md01.json": "2ec35fb9e9436474054f0ad3b8be488cc8b995bb6062e4f9f4b8a836e0526a38",
+    "content/monster_contracts_md01.json": "1dd0af0700a094f1b98c53b9060118c0f3e62068a45a90898c3504347d082f09",
+    "content/monster_attacks_folklore_ma01.json": "ac92dc16cabbb18069f0da2471dc2d3b560c87e0d91ac024fc0278653ec11fe2",
+    "content/monster_attacks_scp_ma01.json": "5fd3b9db11c5c6d0caf5398b67a223e43f7c304f8fff529d72e3954caaef8684",
+    "content/equipment_eq01.json": "16d93c871dd1398bdeefad7512d48966daf9cc06ae1538d88fe71565a277815e",
+    "content/equipment_contracts_eq01.json": "9ac5188a3e323c00ceb4bd7c01e13303d472d206cdaeecc5758a745b833a8f2e",
+    "content/rule_response_contracts_sa02.json": "b8a1253fed0fab033a61b7c889eb9efe15b48b8f1238c9242d1977d447ad39ae",
+    "scripts/md01_reference.py": "698fb19b65a81376521e10d6d4f95df93cf2e6c4ca5e46c37f3c5bacc136f0b6",
+    "scripts/sa02_response_reference.py": "66857ae5b8d259d513db3c8dadfef54e3bef20d4d1f10356a4719b0b3a2b8166",
+    "scripts/td05_reference.py": "59b8d4094199975742d0d06e2d79439748fcfd942a2ee16bec15bf5109616a02"
+  }
+}

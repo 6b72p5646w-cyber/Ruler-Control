@@ -1,0 +1,271 @@
+{
+  "version": "BC01",
+  "scope": "finite executable customer-service design reference",
+  "status": "pass",
+  "passed": 55,
+  "total": 55,
+  "runtime_enabled": false,
+  "runtime_integrated": false,
+  "actual_game_adapter": false,
+  "evidence": {
+    "routed_director_slice": {
+      "seed": 3,
+      "night_index": 7,
+      "attempt_id": 1,
+      "manual_action_factor": 0.6,
+      "paid_orders": 5,
+      "accepted_use_counts": {
+        "FR03": 2,
+        "FR01": 5,
+        "FR10": 5,
+        "FR02": 1,
+        "FR05": 2
+      },
+      "rejected_use_count": 0,
+      "minimum_actual_checkout_seconds": 0.9,
+      "facility_survival_payout_requests": 5,
+      "geometry_from_bc01_map": true,
+      "production_npc_or_world_adapter": false
+    }
+  },
+  "source_sha256": {
+    "content/facilities_bc01.json": "38a6120eddbb51f8ebb4a3d957cee375e2074bdcc860e1ba412f8fe8818baad0",
+    "scripts/bc01_facility_reference.py": "54e93fed4f85d8be732a39878c5e741e47ea86a24b4505fc7e3cde4648312e8f",
+    "scripts/check_bc01_facilities.py": "a356d6f6654f4b207cf0f051bc463181b5271c3260e7495b48dd9a8b40e42a95",
+    "content/traps_facilities_td05.json": "a83c470f8a3c555076c6401b418a8ce99a1e5f0725d36905c9a337359202ec5a",
+    "content/store_systems_v05.json": "a879ab27be4a74ff08fe2ef2b88d8b4be4b93c9767bd7e4d3e7ab11148f998b4",
+    "content/map_composition_bc01.json": "72b4517838d26fbe5afab1adcfb415c0be4b3ea80765a0b23922a90a94519dde",
+    "scripts/bc01_map_reference.py": "e8904021a7e1cec6d5a5871b9336b623132ff9c394ae0e1e3856b0521e110a34",
+    "content/director_bc01.json": "e31c47fe473987d991911908459d7d5bad5051577d104c8ed58b8d60fea4b995",
+    "scripts/bc01_director_reference.py": "a1d844c20dcd405715cb0b414a47f37981a7f6d96ccedbdb9368220ff4fd972e"
+  },
+  "checks": [
+    {
+      "name": "default adapter remains disabled without state mutation",
+      "passed": true
+    },
+    {
+      "name": "attempt is an exact positive integer, never bool or coerced string",
+      "passed": true
+    },
+    {
+      "name": "14 mapped responsibilities preserve control-only facilities and public areas",
+      "passed": true
+    },
+    {
+      "name": "gift shape, base effects, durability and shared capacity read real TD05 sources",
+      "passed": true
+    },
+    {
+      "name": "reject unproven or recursive actual use: normal_customer",
+      "passed": true
+    },
+    {
+      "name": "reject unproven or recursive actual use: customer_kind",
+      "passed": true
+    },
+    {
+      "name": "reject unproven or recursive actual use: actual_use_completed",
+      "passed": true
+    },
+    {
+      "name": "reject unproven or recursive actual use: consumer_registered",
+      "passed": true
+    },
+    {
+      "name": "reject unproven or recursive actual use: facility_geometry_bound",
+      "passed": true
+    },
+    {
+      "name": "reject unproven or recursive actual use: same_order_service",
+      "passed": true
+    },
+    {
+      "name": "reject unproven or recursive actual use: source_item_owner_customer",
+      "passed": true
+    },
+    {
+      "name": "reject unproven or recursive actual use: route_service_authorized",
+      "passed": true
+    },
+    {
+      "name": "reject unproven or recursive actual use: progress_complete",
+      "passed": true
+    },
+    {
+      "name": "reject unproven or recursive actual use: origin_kind",
+      "passed": true
+    },
+    {
+      "name": "reject invalid paid source: unpaid",
+      "passed": true
+    },
+    {
+      "name": "reject invalid paid source: unverified",
+      "passed": true
+    },
+    {
+      "name": "reject invalid paid source: wrong_attempt",
+      "passed": true
+    },
+    {
+      "name": "reject invalid paid source: bool_attempt",
+      "passed": true
+    },
+    {
+      "name": "reject invalid paid source: wrong_customer",
+      "passed": true
+    },
+    {
+      "name": "reject invalid paid source: personal_stock",
+      "passed": true
+    },
+    {
+      "name": "reject invalid paid source: malformed_stock",
+      "passed": true
+    },
+    {
+      "name": "reject invalid paid source: missing_logical_identity",
+      "passed": true
+    },
+    {
+      "name": "reject invalid paid source: source_use_mismatch",
+      "passed": true
+    },
+    {
+      "name": "completed accelerated checkout uses real progress rather than fixed 1.5 seconds",
+      "passed": true
+    },
+    {
+      "name": "event replay, payload conflict and changed event ID cannot duplicate a use",
+      "passed": true
+    },
+    {
+      "name": "immutable payment and unique logical identities prevent rebinding",
+      "passed": true
+    },
+    {
+      "name": "two optional services permit natural checkout and actual exit separately",
+      "passed": true
+    },
+    {
+      "name": "per-source two and total eight overflow never replaces, refreshes or defers",
+      "passed": true
+    },
+    {
+      "name": "customer use during raid waits for the subsequent actual raid",
+      "passed": true
+    },
+    {
+      "name": "two same-source credits extend time without doubling regen magnitude",
+      "passed": true
+    },
+    {
+      "name": "lucky and hot-food regeneration take strongest live source",
+      "passed": true
+    },
+    {
+      "name": "powered-off source bank waits for a later raid, not restart midraid",
+      "passed": true
+    },
+    {
+      "name": "outage stops powered buffs and overload with no missed healing or expiry refresh",
+      "passed": true
+    },
+    {
+      "name": "restoring power after original expiry never revives a buff",
+      "passed": true
+    },
+    {
+      "name": "local circuit loss disables its sources and respects actual C2 overload",
+      "passed": true
+    },
+    {
+      "name": "delayed payment cannot turn an unpowered historical use into credit",
+      "passed": true
+    },
+    {
+      "name": "typed HP and stamina requests leave actual resource ownership to root",
+      "passed": true
+    },
+    {
+      "name": "survival credit grants exactly one coin and XP per fifteen alive seconds",
+      "passed": true
+    },
+    {
+      "name": "pause, death and business earn nothing; partial raid credit persists",
+      "passed": true
+    },
+    {
+      "name": "survival facility payout stops at twelve per logical night",
+      "passed": true
+    },
+    {
+      "name": "720-second eligibility cutoff preserves overtime buff deadlines and healing",
+      "passed": true
+    },
+    {
+      "name": "snapshot continuation is identical and raid restart cannot duplicate effects",
+      "passed": true
+    },
+    {
+      "name": "actual map permits the full rotated 1x2 footprint within shared 8/16 caps",
+      "passed": true
+    },
+    {
+      "name": "two separated cells cannot masquerade as a 1x2 footprint",
+      "passed": true
+    },
+    {
+      "name": "failed actual placement keeps fixed type and consumes no charge",
+      "passed": true
+    },
+    {
+      "name": "one pending reservation and one live temporary object prevent parallel bypass",
+      "passed": true
+    },
+    {
+      "name": "warning boundary and real hostile ground-pool entry gate one trap effect",
+      "passed": true
+    },
+    {
+      "name": "temporary trap cannot become money, inventory, repair or refill",
+      "passed": true
+    },
+    {
+      "name": "destruction, six-second interval and twenty-second expiry have no refund",
+      "passed": true
+    },
+    {
+      "name": "same logical source across attempts keeps gift type and legal site; reload does not reroll",
+      "passed": true
+    },
+    {
+      "name": "raid and night cleanup remove actual temporary support without refunds",
+      "passed": true
+    },
+    {
+      "name": "real routed Director paid and exited customers feed unmodified receipts",
+      "passed": true
+    },
+    {
+      "name": "unavailable actual trap object retains original charge",
+      "passed": true
+    },
+    {
+      "name": "unavailable actual trap footprint retains original charge",
+      "passed": true
+    },
+    {
+      "name": "unavailable actual trap geometry retains original charge",
+      "passed": true
+    }
+  ],
+  "not_proven": [
+    "production game NPC/physics/HP/wallet integration",
+    "remaining public-service NPC consumers",
+    "full game balance or first-week difficulty",
+    "all monster interactions",
+    "save migration in production"
+  ]
+}

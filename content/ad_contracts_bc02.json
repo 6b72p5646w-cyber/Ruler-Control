@@ -1,0 +1,180 @@
+{
+  "version": "BC02",
+  "runtime_integrated": false,
+  "status": "reserved_surfaces_and_finite_transaction_reference_no_live_ad_provider",
+  "baseline_commit": "dfd2e32eecb8fb4dc7dd3efa066cfa3817363788",
+  "round": "一小局=一晚正式720世界秒夜班，真实威胁处理完成并成功自动夜结；不是单只怪物或七夜整周。",
+  "placements": [
+    {
+      "id": "AD_PAUSE_SPONSOR",
+      "kind": "non_rewarded_pause_surface",
+      "trigger": "玩家主动点暂停，先冻结世界并显示暂停菜单，再显示已就绪广告。切后台、死亡、预兆、怪物入场不自动弹广告。",
+      "surface": "暂停菜单中独立标注广告的卡片/横幅槽；继续、设置、退出占独立安全区域。窄屏槽位放在按钮区之外，未填充折叠。",
+      "interstitial_adapter_reserved": true,
+      "default_interstitial_enabled": false,
+      "first_show_after_active_world_seconds": 60,
+      "max_impressions_per_logical_night": 1,
+      "min_active_world_seconds_between_impressions": 180,
+      "cooldown_clock": "campaign_active_world_seconds; pause/广告/后台不累积，失败重试不清零频控账。",
+      "show_failure": "不挡继续，不扣任何资源；无广告时正常暂停。卡片退出时hide；平台插屏仅在已验证的支持环境和独立配置开启后使用。",
+      "reward": null
+    },
+    {
+      "id": "AD_RUN_DOUBLE_COIN",
+      "kind": "rewarded_video",
+      "trigger": "成功夜结结果页主动选择观看；普通收益已先入账，关闭结果页等于放弃尚未开始的邀请。",
+      "button": "观看广告，本局金币翻倍（额外+N）",
+      "reward": "额外发放该成功夜原始settlement_receipt.coin一次，含工资/绩效/订单/杂活/本根/有限存活金币。总效果原始金币×2。",
+      "excluded": [
+        "已有钱包余额",
+        "广告自身奖励",
+        "经验",
+        "灵能",
+        "基础奖券",
+        "装备",
+        "掉落物",
+        "商店退款",
+        "子体重复根奖"
+      ],
+      "max_claims_per_logical_night": 1,
+      "eligible_nights": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "night7_policy": "第7夜旧周金币立即计成绩并周清，没有额外消费窗。该夜不显示无实际用途的金币翻倍广告，结果页只保留额外抽奖机会。此例外明确显示，不把旧周金币搬到新周。",
+      "week_binding": "只可入原结算所属且仍开放的周钱包；同一结果页完整观看的完成回执与入账原子提交后才允许离页。迟到的已取消展示回调不生成新领取权。"
+    },
+    {
+      "id": "AD_EXTRA_DRAW",
+      "kind": "rewarded_video",
+      "trigger": "成功夜结页或其后的安全抽奖界面主动选择；每个成功逻辑夜只解锁一次资格，失效时间为下一次正式夜班开始。",
+      "button": "观看广告，额外获得1张抽奖券",
+      "reward": {
+        "standard_lottery_tickets": 1
+      },
+      "max_claims_per_successful_logical_night": 1,
+      "first_week_max_extra_tickets": 7,
+      "first_week_base_tickets_including_starting_one": 8,
+      "first_week_total_with_all_seven_optional_ads": 15,
+      "machine_rules": "只增加普通券，实际抽奖仍1券+15准备分钟，沿EQ01的60/30/10概率、两种保底、重复装备补偿、待领取箱。广告不指定品质、不重抽已展示结果，不触发E064双选。",
+      "draw_readiness": "所有正概率品质/类别都有真实可用消费者后才显示此广告入口；有pending_draw先解决原抽奖。领券与抽样是两个独立原子事务；广告本身不推进准备分钟。",
+      "carry": "已领取券/原保底跨夜跨周保留；尚未观看的邀请不积攒，多开战役或回滚本地档不能作为生产账户的额外资格。"
+    }
+  ],
+  "show_state_machine": {
+    "states": [
+      "offered",
+      "loading",
+      "showing",
+      "claimed",
+      "early_close",
+      "failed",
+      "cancelled"
+    ],
+    "identity": "offer_id=[account_or_local_profile_id,campaign_id,week_id,night_index,placement]; show_nonce独立递增且不可复用；逻辑夜身份不含attempt_id。",
+    "load_timeout_real_seconds": 5,
+    "loading_cancel": "玩家可取消/正常继续；取消nonce后迟到onLoad不得show。禁止广告加载重试暗中重新打开。",
+    "completion": "仅当前实际showing实例的onClose(res.isEnded===true)或该平台经过验证的完成通知产生完成候选；show Promise成功、onLoad、点击广告、后台停留都不是完成。",
+    "unknown_legacy_payload": "undefined/isEnded缺失不当作完整观看；不支持可靠完成语义的旧环境隐藏激励入口，不套用旧示例的undefined即成功兼容捷径。",
+    "failure": "提前关闭/无填充/离线/SDK错误不发额外奖励，不扣普通收益/券/保底，保留一次未完成资格供明确重试。广告显示中退出遵循平台关闭按钮。",
+    "listeners": "每个实例只挂一份监听，释放时注销同一函数；各placement绑定独立nonce，重进页面不能累积奖励监听。",
+    "crash": "已持久化完成候选但未展示结果可恢复同一奖励；提交已成功而ack丢失返回原回执。不知道是否看完的进程中断不能凭墙钟补奖；保留资格。具备服务端完成验证能力的平台可对同nonce补查，能力必须实测，不能伪造微信SSV接口。",
+    "before_show_commit": "begin只准备请求；CampaignRepository先把本次offer_id/show_nonce/递增sequence与expected_revision持久化并确认提交，之后才允许provider.show。尚未提交的nonce不外发；进程重启不自动重播展示，未知已提交请求恢复资格并在已提交sequence基础分配新nonce。",
+    "close_cleanup": "当前真实show关闭时，即使phase/原回执hash/周归属/奖励验证拒绝，也必须终结show并释放自己的ad pause token，保留manual/background和resume_confirmation；不发奖不能变成永久暂停。",
+    "navigation": "leave_results仅作用于最新尚未关闭且phase=settled的结果页；重复/迟到/错夜导航无副作用。下一夜开始后旧广告邀请失效，迟到onLoad再次查phase与最新夜并取消，不可突然显示。"
+  },
+  "pause_contract": {
+    "owners": [
+      "manual_menu",
+      "background",
+      "ad_show_nonce",
+      "resume_confirmation"
+    ],
+    "world_paused_if_any_owner": true,
+    "frozen": [
+      "director",
+      "monster_movement",
+      "attacks_projectiles",
+      "poison_and_maturity",
+      "blood_and_water_lifetime",
+      "manual_progress",
+      "buffs",
+      "HP_regeneration",
+      "survival_rewards",
+      "customer_patience",
+      "power_timing",
+      "night_deadline",
+      "random_streams",
+      "preparation_budget"
+    ],
+    "resume": "广告关闭只释放自己的pause token，保持手动暂停/后台token；回到页面仍需点继续。清空待处理移动/交互输入和墙钟delta；不补跑广告期间时间，不给恢复无敌/额外回血。",
+    "out_of_world_time": "广告加载超时和真实平台频控使用独立单调墙钟；这不是游戏收益或角色状态时钟。"
+  },
+  "ledger": {
+    "base_reward_first": true,
+    "amount_source": "immutable successful settlement receipt; never UI or SDK caller supplied amount",
+    "atomic_commit": [
+      "completed_show_receipt",
+      "claim_once_key",
+      "coin_or_ticket_delta",
+      "new_campaign_revision"
+    ],
+    "one_writer": "CampaignRepository/RewardLedger owns wallet and tickets; ad adapter only supplies events, never mutates player/lottery state.",
+    "stale_and_duplicates": "Reject old nonce, wrong placement/night, changed same-command payload, reused show completion, and duplicate claim. Save/failed retry never reset completed logical-night claim.",
+    "account_boundary": "正式联网奖账以平台登录账户绑定逻辑夜且有服务端幂等记录。本地参考只证明单档事务与去重，不宣称防改档或跨设备认证完成。",
+    "failure_retry": "夜间失败不会创建结算广告资格；夜间重试检查点必须包含此前稳定领取的券和广告回执。暂停曝光账在局外meta分区不随attempt回滚。"
+  },
+  "interfaces_to_build": {
+    "AdProvider": [
+      "capabilities()",
+      "preload(placement)",
+      "show(placement, show_nonce)",
+      "cancelLoad(show_nonce)",
+      "hidePauseSurface()",
+      "dispose()"
+    ],
+    "events": [
+      "ad_loaded",
+      "ad_show_started",
+      "ad_closed_complete",
+      "ad_closed_early",
+      "ad_failed",
+      "ad_cancelled"
+    ],
+    "PauseService": [
+      "acquire(owner)",
+      "release(owner)",
+      "requestUserResume()"
+    ],
+    "RewardLedger": [
+      "offerForSuccessfulNight(night_id, placement)",
+      "claimCompletedShow(offer_id, show_nonce, completion_receipt, expected_revision)"
+    ],
+    "providers": [
+      "DisabledProvider: no fill/no reward",
+      "FakeProvider: development only labelled simulation",
+      "WeChatProvider: actual appid/adUnitId supplied by project owner at release integration"
+    ]
+  },
+  "release_gates": [
+    "真实客户端已实现普通无广告完整一夜及退出/读档，全部广告入口有正常继续按钮",
+    "正常经营/免费主解/免费回血基础与进度不依赖广告；无广告首周通过既定验收",
+    "按实际目标平台后台资格、广告位类型、可用SDK和运营规范逐项验收；这里预留接口不等于已有流量主资格",
+    "真机验证完整观看、提前关、无填充、断网、横竖屏安全区、后台恢复、重复回调和周界",
+    "分别回放0广告、每夜金币广告、每夜抽奖广告、两者全看经济轨迹，报告塔升级/装备获取差异；不把BC01无广告63夜旧结果冒充BC02广告经济测试"
+  ],
+  "sources_checked_2026_11_20": [
+    {
+      "url": "https://github.com/wechat-miniprogram/minigame-api-typings/blob/master/test/game.test.ts",
+      "supports": "微信官方类型仓库示例展示createRewardedVideoAd/load/show/onError和createInterstitialAd/onClose；不提供本项目广告位资格或服务端完成认证。"
+    },
+    {
+      "url": "https://training.tencentads.com/uploads/202406/EPLBpxYt_5dDA71.pdf",
+      "supports": "腾讯广告官方培训的搜索索引明确onClose的isEnded完整/未完整语义。PDF直开403，仅采用可检索原文片段，不推导最新平台全量政策。"
+    }
+  ]
+}

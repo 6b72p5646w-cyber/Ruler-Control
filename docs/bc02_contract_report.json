@@ -1,0 +1,1276 @@
+{
+  "version": "BC02",
+  "status": "PASS",
+  "runtime_integrated": false,
+  "scope": "cross-contract and task-DAG validation; no additional live-gameplay claim",
+  "passed": 313,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "current authority source exists: normal_customer_support_duration_budget_power",
+      "passed": true
+    },
+    {
+      "name": "current authority source exists: actual_public_customer_service_routes",
+      "passed": true
+    },
+    {
+      "name": "current authority source exists: environment_sources_lifecycle_and_consumers",
+      "passed": true
+    },
+    {
+      "name": "current authority source exists: all_105_encounter_prerequisite_bindings",
+      "passed": true
+    },
+    {
+      "name": "current authority source exists: player_loop_shared_preconditions",
+      "passed": true
+    },
+    {
+      "name": "current authority source exists: pause_ad_slots_and_reward_transactions",
+      "passed": true
+    },
+    {
+      "name": "current authority source exists: teaching_support_hud_and_ad_copy",
+      "passed": true
+    },
+    {
+      "name": "current authority source exists: codex_implementation_order_and_acceptance",
+      "passed": true
+    },
+    {
+      "name": "current authority source exists: base_player_hp_levels_damage_and_economy",
+      "passed": true
+    },
+    {
+      "name": "current authority source exists: base_random_business_omen_raid_recovery",
+      "passed": true
+    },
+    {
+      "name": "current authority source exists: base_map_and_first_twelve_geometry",
+      "passed": true
+    },
+    {
+      "name": "current authority source exists: all_other_unchanged_rules",
+      "passed": true
+    },
+    {
+      "name": "BC02 retains explicit BC01 inheritance",
+      "passed": true
+    },
+    {
+      "name": "every current design honestly marks client integration false",
+      "passed": true
+    },
+    {
+      "name": "fourteen roles with exactly twelve genuine reward sources",
+      "passed": true
+    },
+    {
+      "name": "24 independent bank slots match 12 sources times two",
+      "passed": true
+    },
+    {
+      "name": "maintained effect lifetime is actual raid: FR01:direct_damage_reduction",
+      "passed": true
+    },
+    {
+      "name": "maintained effect lifetime is actual raid: FR03:hp_regen",
+      "passed": true
+    },
+    {
+      "name": "maintained effect lifetime is actual raid: FR04:hostile_soft_slow_aura",
+      "passed": true
+    },
+    {
+      "name": "maintained effect lifetime is actual raid: FR05:move_speed_bonus",
+      "passed": true
+    },
+    {
+      "name": "maintained effect lifetime is actual raid: FR06:manual_interaction_multiplier",
+      "passed": true
+    },
+    {
+      "name": "maintained effect lifetime is actual raid: FR09:ordinary_tower_reload_rate_bonus",
+      "passed": true
+    },
+    {
+      "name": "maintained effect lifetime is actual raid: FR11:soft_slow_resistance",
+      "passed": true
+    },
+    {
+      "name": "maintained effect lifetime is actual raid: FR12:carrying_move_speed_bonus",
+      "passed": true
+    },
+    {
+      "name": "maintained effect lifetime is actual raid: FR14:hp_regen",
+      "passed": true
+    },
+    {
+      "name": "maintained effect lifetime is actual raid: FR14:move_speed_bonus",
+      "passed": true
+    },
+    {
+      "name": "maintained effect lifetime is actual raid: FR14:manual_interaction_multiplier",
+      "passed": true
+    },
+    {
+      "name": "FR06 uses dedicated public face",
+      "passed": true
+    },
+    {
+      "name": "customer profiles cover twelve reward sources without inventing employee use",
+      "passed": true
+    },
+    {
+      "name": "per-order optional limit holds for goods_basic",
+      "passed": true
+    },
+    {
+      "name": "per-order optional limit holds for goods_lucky",
+      "passed": true
+    },
+    {
+      "name": "per-order optional limit holds for hot_basic",
+      "passed": true
+    },
+    {
+      "name": "per-order optional limit holds for hot_lucky",
+      "passed": true
+    },
+    {
+      "name": "per-order optional limit holds for frozen_basic",
+      "passed": true
+    },
+    {
+      "name": "per-order optional limit holds for frozen_lucky",
+      "passed": true
+    },
+    {
+      "name": "per-order optional limit holds for drink_basic",
+      "passed": true
+    },
+    {
+      "name": "per-order optional limit holds for drink_lucky",
+      "passed": true
+    },
+    {
+      "name": "per-order optional limit holds for hot_called",
+      "passed": true
+    },
+    {
+      "name": "per-order optional limit holds for drink_return",
+      "passed": true
+    },
+    {
+      "name": "per-order optional limit holds for drink_public",
+      "passed": true
+    },
+    {
+      "name": "per-order optional limit holds for parcel_verified",
+      "passed": true
+    },
+    {
+      "name": "all105 prerequisites without missing or duplicate monsters",
+      "passed": true
+    },
+    {
+      "name": "all105 environment consumers align with prerequisite roster",
+      "passed": true
+    },
+    {
+      "name": "23 explicit condition kinds, including optional mirror interface",
+      "passed": true
+    },
+    {
+      "name": "105 monsters have one and only one construction batch",
+      "passed": true
+    },
+    {
+      "name": "F01 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F01 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F02 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F02 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F03 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F03 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F04 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F04 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F05 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F05 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F06 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F06 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F07 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F07 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F08 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F08 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F09 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F09 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F10 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F10 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F11 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F11 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F12 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F12 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F13 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F13 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F14 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F14 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F15 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F15 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F16 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F16 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F17 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F17 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F18 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F18 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F19 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F19 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F20 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F20 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F21 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F21 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F22 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F22 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F23 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F23 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F24 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F24 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F25 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F25 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F26 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F26 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F27 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F27 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F28 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F28 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F29 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F29 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F30 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F30 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F31 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F31 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F32 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F32 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F33 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F33 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F34 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F34 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F35 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F35 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F36 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F36 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F37 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F37 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F38 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F38 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F39 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F39 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F40 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F40 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F41 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F41 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F42 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F42 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F43 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F43 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F44 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F44 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F45 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F45 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F46 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F46 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F47 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F47 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F48 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F48 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F49 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F49 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F50 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F50 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F51 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F51 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F52 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F52 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F53 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F53 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F54 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F54 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F55 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F55 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F56 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F56 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F57 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F57 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F58 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F58 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F59 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F59 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F60 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "F60 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S01 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S01 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S02 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S02 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S03 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S03 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S04 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S04 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S05 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S05 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S06 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S06 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S07 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S07 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S08 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S08 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S09 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S09 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S10 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S10 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S11 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S11 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S12 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S12 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S13 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S13 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S14 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S14 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S15 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S15 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S16 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S16 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S17 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S17 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S18 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S18 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S19 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S19 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S20 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S20 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S21 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S21 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S22 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S22 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S23 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S23 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S24 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S24 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S25 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S25 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S26 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S26 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S27 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S27 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S28 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S28 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S29 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S29 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S30 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S30 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S31 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S31 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S32 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S32 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S33 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S33 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S34 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S34 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S35 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S35 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S36 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S36 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S37 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S37 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S38 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S38 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S39 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S39 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S40 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S40 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S41 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S41 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S42 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S42 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S43 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S43 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S44 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S44 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "S45 environment binding IDs resolve and each has a stage",
+      "passed": true
+    },
+    {
+      "name": "S45 no design record enables a missing runtime module",
+      "passed": true
+    },
+    {
+      "name": "F13 does not need its future corpse to spawn",
+      "passed": true
+    },
+    {
+      "name": "S25 can start before player builds shadowless solution",
+      "passed": true
+    },
+    {
+      "name": "F30 misuse water is an actual future output, not a spawn prerequisite",
+      "passed": true
+    },
+    {
+      "name": "F58 warmth is optional and cannot block its original free exit",
+      "passed": true
+    },
+    {
+      "name": "F26 actually requires live blood, not just a blood handler",
+      "passed": true
+    },
+    {
+      "name": "F32 actually requires live blood, not just a blood handler",
+      "passed": true
+    },
+    {
+      "name": "F14 default opt-in protection remains",
+      "passed": true
+    },
+    {
+      "name": "teaching no longer promises eight slots or timed twelve-second support",
+      "passed": true
+    },
+    {
+      "name": "all requested ad surfaces reserved",
+      "passed": true
+    },
+    {
+      "name": "pause ads are unrewarded and interstitial opt-in configured",
+      "passed": true
+    },
+    {
+      "name": "night7 closed-week coins are not misleading ad rewards",
+      "passed": true
+    },
+    {
+      "name": "optional ads do not multiply XP/spirit/base tickets",
+      "passed": true
+    },
+    {
+      "name": "extra draw is one ordinary ticket and 15 first-week ceiling",
+      "passed": true
+    },
+    {
+      "name": "task IDs unique and implementation not falsely started",
+      "passed": true
+    },
+    {
+      "name": "Codex task dependencies are complete and acyclic",
+      "passed": true
+    },
+    {
+      "name": "concrete deliverable and acceptance for C00",
+      "passed": true
+    },
+    {
+      "name": "concrete deliverable and acceptance for C01",
+      "passed": true
+    },
+    {
+      "name": "concrete deliverable and acceptance for C02",
+      "passed": true
+    },
+    {
+      "name": "concrete deliverable and acceptance for C03",
+      "passed": true
+    },
+    {
+      "name": "concrete deliverable and acceptance for C04",
+      "passed": true
+    },
+    {
+      "name": "concrete deliverable and acceptance for C05",
+      "passed": true
+    },
+    {
+      "name": "concrete deliverable and acceptance for C06",
+      "passed": true
+    },
+    {
+      "name": "concrete deliverable and acceptance for C07",
+      "passed": true
+    },
+    {
+      "name": "concrete deliverable and acceptance for C08",
+      "passed": true
+    },
+    {
+      "name": "concrete deliverable and acceptance for C09",
+      "passed": true
+    },
+    {
+      "name": "concrete deliverable and acceptance for C10",
+      "passed": true
+    },
+    {
+      "name": "concrete deliverable and acceptance for P1_order_and_offer",
+      "passed": true
+    },
+    {
+      "name": "concrete deliverable and acceptance for P1_history_identity",
+      "passed": true
+    },
+    {
+      "name": "concrete deliverable and acceptance for P1_environment_routes",
+      "passed": true
+    },
+    {
+      "name": "concrete deliverable and acceptance for P1_work_orders",
+      "passed": true
+    },
+    {
+      "name": "concrete deliverable and acceptance for P1_timed_originals",
+      "passed": true
+    },
+    {
+      "name": "concrete deliverable and acceptance for P1_containment",
+      "passed": true
+    },
+    {
+      "name": "concrete deliverable and acceptance for P1_side_workstations",
+      "passed": true
+    },
+    {
+      "name": "concrete deliverable and acceptance for P1_finite_lineages",
+      "passed": true
+    },
+    {
+      "name": "concrete deliverable and acceptance for P2_host_opt_in",
+      "passed": true
+    },
+    {
+      "name": "concrete deliverable and acceptance for C11",
+      "passed": true
+    },
+    {
+      "name": "concrete deliverable and acceptance for C12",
+      "passed": true
+    },
+    {
+      "name": "plan uses actual audited batch unchanged: P0_existing_geometry",
+      "passed": true
+    },
+    {
+      "name": "plan uses actual audited batch unchanged: P1_order_and_offer",
+      "passed": true
+    },
+    {
+      "name": "plan uses actual audited batch unchanged: P1_history_identity",
+      "passed": true
+    },
+    {
+      "name": "plan uses actual audited batch unchanged: P1_environment_routes",
+      "passed": true
+    },
+    {
+      "name": "plan uses actual audited batch unchanged: P1_work_orders",
+      "passed": true
+    },
+    {
+      "name": "plan uses actual audited batch unchanged: P1_timed_originals",
+      "passed": true
+    },
+    {
+      "name": "plan uses actual audited batch unchanged: P1_containment",
+      "passed": true
+    },
+    {
+      "name": "plan uses actual audited batch unchanged: P1_side_workstations",
+      "passed": true
+    },
+    {
+      "name": "plan uses actual audited batch unchanged: P1_finite_lineages",
+      "passed": true
+    },
+    {
+      "name": "plan uses actual audited batch unchanged: P2_host_opt_in",
+      "passed": true
+    },
+    {
+      "name": "P0 six-item lottery has a real definition for every positive tier/class",
+      "passed": true
+    },
+    {
+      "name": "live ads not a prerequisite to finish playable P0",
+      "passed": true
+    },
+    {
+      "name": "actual runtime implementation not fabricated by handoff",
+      "passed": true
+    },
+    {
+      "name": "deliverable entry exists: 94_bc02_closure.md",
+      "passed": true
+    },
+    {
+      "name": "deliverable entry exists: 95_bc02_facility_duration.md",
+      "passed": true
+    },
+    {
+      "name": "deliverable entry exists: 96_bc02_environment_sources.md",
+      "passed": true
+    },
+    {
+      "name": "deliverable entry exists: 97_bc02_encounter_prerequisites.md",
+      "passed": true
+    },
+    {
+      "name": "deliverable entry exists: 98_bc02_codex_delivery_plan.md",
+      "passed": true
+    },
+    {
+      "name": "deliverable entry exists: 99_bc02_advertising.md",
+      "passed": true
+    },
+    {
+      "name": "deliverable entry exists: 100_bc02_codex_start.md",
+      "passed": true
+    },
+    {
+      "name": "deliverable entry exists: 101_bc02_customer_routes.md",
+      "passed": true
+    }
+  ],
+  "inputs_sha256": {
+    "content/ad_contracts_bc02.json": "e3d7437dcb87db0e40bee58fd1e87113e48b35b07f73681576e9e9981759a607",
+    "content/customer_routes_bc02.json": "6b3a0b3a34465a0bd228c15063bcb5bba1b7cea109da3df714b4df604fcb78cd",
+    "content/encounter_prerequisites_bc02.json": "21f5ce50c3e1928e2c47455dcfe046b055f43802a44b71559c94690557350b77",
+    "content/environment_conditions_bc02.json": "49cbe6128e489da6218d31b3506e81f318825d4f3a59fdf4d6836163f12fdb79",
+    "content/facilities_bc02.json": "14ff0273e2cd469e693e0a5a928ee28b4f3d4cc8743c34a8ac0dd2aa668fc839",
+    "content/implementation_plan_bc02.json": "1fe0d6bed8fdec04833b651e0f7f662168fe758b2c63522a0c42d80903420ef5",
+    "content/onboarding_bc02.json": "867dd50d6a50bbbd293ed5f27d04f0fa5dc53d6005e3dfe35dcf6fb71be5ea65",
+    "content/player_loop_bc02.json": "eac4489c9370da90959087a68b5227028e71692363d01fc5bad460305f157962",
+    "content/system_authority_bc02.json": "9465ac6d9f7104e681b951679eb9c2510372f8cde8a9d188d514d14f9b7922a5",
+    "scripts/check_bc02_contracts.py": "a3dd6e291005afa2eeb75c71150c0c8baf46d002e1953e0d7987426e6f16d66c",
+    "content/equipment_eq01.json": "16d93c871dd1398bdeefad7512d48966daf9cc06ae1538d88fe71565a277815e",
+    "content/consumables_eq01.json": "1c55d7eaf3738a3c0be9e9a693797bae89f5b09d3fa8d7b66c711dc1afe598ed"
+  }
+}

@@ -1,0 +1,394 @@
+{
+  "version": "BC02",
+  "status": "PASS",
+  "runtime_integrated": false,
+  "passed": 63,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "failed/unsettled night cannot mint ad offer",
+      "passed": true
+    },
+    {
+      "name": "300 real ad seconds leave full actual joint snapshot unchanged",
+      "passed": true
+    },
+    {
+      "name": "ad closed does not release manual pause",
+      "passed": true
+    },
+    {
+      "name": "manual resume does not release background owner",
+      "passed": true
+    },
+    {
+      "name": "resume advances only new world delta, never wall catchup",
+      "passed": true
+    },
+    {
+      "name": "base night has actual customers/routes and real root terminals",
+      "passed": true
+    },
+    {
+      "name": "normal income already paid before optional ad",
+      "passed": true
+    },
+    {
+      "name": "double means one extra original earned coin, not wallet",
+      "passed": true
+    },
+    {
+      "name": "SDK cannot initiate rewarded show without explicit user choice",
+      "passed": true
+    },
+    {
+      "name": "uncommitted show request cannot call the provider",
+      "passed": true
+    },
+    {
+      "name": "onLoad alone does not mint reward",
+      "passed": true
+    },
+    {
+      "name": "cancelled loading cannot show after delayed onLoad",
+      "passed": true
+    },
+    {
+      "name": "retry uses distinct show nonce, same immutable offer",
+      "passed": true
+    },
+    {
+      "name": "old completion cannot claim newly retried show",
+      "passed": true
+    },
+    {
+      "name": "early close does not debit base rewards",
+      "passed": true
+    },
+    {
+      "name": "only boolean true proves completion: None",
+      "passed": true
+    },
+    {
+      "name": "only boolean true proves completion: 1",
+      "passed": true
+    },
+    {
+      "name": "only boolean true proves completion: 'true'",
+      "passed": true
+    },
+    {
+      "name": "completed ad grants precisely original earned coin once",
+      "passed": true
+    },
+    {
+      "name": "XP, tickets, spirit, pity and equipment are not doubled",
+      "passed": true
+    },
+    {
+      "name": "duplicate completion returns original receipt without adding",
+      "passed": true
+    },
+    {
+      "name": "same logical night cannot show another completed coin ad",
+      "passed": true
+    },
+    {
+      "name": "missing lottery consumers hide rewarded draw",
+      "passed": true
+    },
+    {
+      "name": "pending real draw cannot be overwritten by ad",
+      "passed": true
+    },
+    {
+      "name": "lottery readiness must still hold at actual show",
+      "passed": true
+    },
+    {
+      "name": "rewarded draw gives one ticket without rolling or changing pity",
+      "passed": true
+    },
+    {
+      "name": "extra draw cap is one per completed logical night",
+      "passed": true
+    },
+    {
+      "name": "max first-week tickets is 8 ordinary plus 7 optional",
+      "passed": true
+    },
+    {
+      "name": "cannot watch earned coin ad in phase open",
+      "passed": true
+    },
+    {
+      "name": "cannot watch earned coin ad in phase failed",
+      "passed": true
+    },
+    {
+      "name": "leaving results expires unstarted coin offer",
+      "passed": true
+    },
+    {
+      "name": "extra draw stays available in subsequent safe preparation",
+      "passed": true
+    },
+    {
+      "name": "stale repeated result close cannot revert new open night",
+      "passed": true
+    },
+    {
+      "name": "old draw invitation stays expired after next night starts",
+      "passed": true
+    },
+    {
+      "name": "unknown result navigation also leaves the new night intact",
+      "passed": true
+    },
+    {
+      "name": "delayed onLoad cannot display an old draw ad after next night opens",
+      "passed": true
+    },
+    {
+      "name": "night7 does not offer immediately erased old-week double coin",
+      "passed": true
+    },
+    {
+      "name": "night7 extra ticket persists while new week coin stays 120",
+      "passed": true
+    },
+    {
+      "name": "background pause cannot trigger sponsor ad",
+      "passed": true
+    },
+    {
+      "name": "no-fill pause does not consume impression cap",
+      "passed": true
+    },
+    {
+      "name": "early first minute is ad free",
+      "passed": true
+    },
+    {
+      "name": "manual pause after sixty actual seconds can show one ready ad",
+      "passed": true
+    },
+    {
+      "name": "repeated pause does not repeatedly show ads",
+      "passed": true
+    },
+    {
+      "name": "active-world cooldown applies across logical nights",
+      "passed": true
+    },
+    {
+      "name": "cooldown expires by active play rather than ad wall time",
+      "passed": true
+    },
+    {
+      "name": "committed request survives real reopen and cannot reuse shown nonce",
+      "passed": true
+    },
+    {
+      "name": "restarted request must also be committed before showing",
+      "passed": true
+    },
+    {
+      "name": "real SQLite interrupted claim rolls back wallet and claim together",
+      "passed": true
+    },
+    {
+      "name": "committed claim and full wallet survive actual file reopen",
+      "passed": true
+    },
+    {
+      "name": "lost acknowledgement cannot duplicate claim after reopen",
+      "passed": true
+    },
+    {
+      "name": "same-command retry is idempotent",
+      "passed": true
+    },
+    {
+      "name": "same command with changed wallet rejected",
+      "passed": true
+    },
+    {
+      "name": "parallel stale campaign revision rejected",
+      "passed": true
+    },
+    {
+      "name": "unknown interrupted video cannot infer completion from wall time",
+      "passed": true
+    },
+    {
+      "name": "unknown video interruption keeps unclaimed retry entitlement",
+      "passed": true
+    },
+    {
+      "name": "invalid completed show rejects reward and always releases own ad pause: phase",
+      "passed": true
+    },
+    {
+      "name": "invalid completed show remains resumable: phase",
+      "passed": true
+    },
+    {
+      "name": "invalid completed show rejects reward and always releases own ad pause: receipt",
+      "passed": true
+    },
+    {
+      "name": "invalid completed show remains resumable: receipt",
+      "passed": true
+    },
+    {
+      "name": "invalid completed show rejects reward and always releases own ad pause: week",
+      "passed": true
+    },
+    {
+      "name": "invalid completed show remains resumable: week",
+      "passed": true
+    },
+    {
+      "name": "invalid completed show rejects reward and always releases own ad pause: offer_amount",
+      "passed": true
+    },
+    {
+      "name": "invalid completed show remains resumable: offer_amount",
+      "passed": true
+    }
+  ],
+  "actual_base_night": {
+    "source": "BC01 JointNight actual customer/route/reference terminal outputs",
+    "seed": 7,
+    "summary": {
+      "night_id": "[\"bc02-ad-reference\",1,1]",
+      "seed": 7,
+      "finished_at": 720.0,
+      "settled": true,
+      "status": "settled",
+      "paid_orders": 4,
+      "offered_customers": 6,
+      "completed_chores": 9,
+      "resolved_raids": 3,
+      "order_coin": 24,
+      "order_xp": 32,
+      "chore_coin": 33,
+      "chore_xp": 62,
+      "active_raid_seconds": 179.0,
+      "survival_eligible_seconds": 179.0,
+      "ordinary_work_during_raid_seconds": 0.0,
+      "player_travel_tiles": 869.0,
+      "customer_travel_tiles": 430.8,
+      "manual_work_seconds": 48.5,
+      "phases": [
+        {
+          "at": 90.0,
+          "phase": "OMEN"
+        },
+        {
+          "at": 110.0,
+          "phase": "RAID"
+        },
+        {
+          "at": 189.5,
+          "phase": "RECOVERY"
+        },
+        {
+          "at": 228.5,
+          "phase": "BUSINESS"
+        },
+        {
+          "at": 304.5,
+          "phase": "OMEN"
+        },
+        {
+          "at": 324.5,
+          "phase": "RAID"
+        },
+        {
+          "at": 341.5,
+          "phase": "RECOVERY"
+        },
+        {
+          "at": 386.5,
+          "phase": "BUSINESS"
+        },
+        {
+          "at": 464.5,
+          "phase": "OMEN"
+        },
+        {
+          "at": 484.5,
+          "phase": "RAID"
+        },
+        {
+          "at": 567.0,
+          "phase": "RECOVERY"
+        },
+        {
+          "at": 612.0,
+          "phase": "BUSINESS"
+        },
+        {
+          "at": 720.0,
+          "phase": "SETTLED"
+        }
+      ],
+      "grid_surge_count": 0,
+      "orders_are_simulation_outputs": true,
+      "full_game_ai_implemented": false,
+      "pending_chores": 0,
+      "error": null,
+      "level_at_open": 1,
+      "tower_node": "T02",
+      "facility_uses_accepted": 12,
+      "facility_uses_rejected": 0,
+      "survival_coin": 6,
+      "temporary_traps_placed": 1,
+      "power_off_events": 0,
+      "hp_regen_potential": 0,
+      "hp_restored_actual": 0,
+      "provisional_coin": 99,
+      "provisional_spirit": 18,
+      "provisional_xp": 175,
+      "enemy_attack_AI_simulated": false,
+      "combat_condition": "post-rule legal exposed target on map-verified T02 firing loop"
+    },
+    "settlement": {
+      "night_id": "[\"bc02-ad-reference\",1,1]",
+      "coin": 203,
+      "spirit": 18,
+      "xp": 195,
+      "wage": 80,
+      "performance_bonus": 24,
+      "counts": {
+        "order": 4,
+        "chore": 9,
+        "root": 3,
+        "survival": 6
+      },
+      "next_level": 2,
+      "ticket": 1,
+      "night7_income_recorded_in_old_week": false
+    }
+  },
+  "scope": "one routed BC01 base night + simulated SDK callbacks, ownership pause + actual local SQLite interruptions; no ad SDK/server authentication/client integration or ad-enabled weekly balance claim",
+  "inputs_sha256": {
+    "content/ad_contracts_bc02.json": "e3d7437dcb87db0e40bee58fd1e87113e48b35b07f73681576e9e9981759a607",
+    "scripts/bc02_ad_reference.py": "e0244e618ef10e2e8903fb38122ea6120dc83b881ddc53ddc7cd5652cf891cad",
+    "scripts/check_bc02_ads.py": "7da4bb986acd7529701a9f8e261dc04eb54c34eca27f3148784e0c6762981f88",
+    "scripts/bc01_campaign_reference.py": "f97984b95faaf41c4e4d1ca1f85cf0e208d78c2c9f25dd92961e7808c68650f3",
+    "scripts/bc01_joint_reference.py": "2ce36001334155fbe1caa87223097998fbb4a21be29f996f53c2c947c16d708f",
+    "scripts/bc01_director_reference.py": "a1d844c20dcd405715cb0b414a47f37981a7f6d96ccedbdb9368220ff4fd972e",
+    "scripts/bc01_facility_reference.py": "54e93fed4f85d8be732a39878c5e741e47ea86a24b4505fc7e3cde4648312e8f",
+    "scripts/bc01_map_reference.py": "e8904021a7e1cec6d5a5871b9336b623132ff9c394ae0e1e3856b0521e110a34",
+    "content/campaign_bc01.json": "f9043ffb1dd96da68cfef9d6283cbc36e1760bbec3e8265022a5cb104c7246e5",
+    "content/director_bc01.json": "e31c47fe473987d991911908459d7d5bad5051577d104c8ed58b8d60fea4b995",
+    "content/facilities_bc01.json": "38a6120eddbb51f8ebb4a3d957cee375e2074bdcc860e1ba412f8fe8818baad0",
+    "content/map_composition_bc01.json": "72b4517838d26fbe5afab1adcfb415c0be4b3ea80765a0b23922a90a94519dde",
+    "content/maps.json": "773e39b35bc16c63e6b4f294e27f8a944072599f21b8ad1bae46527f0a093b9a",
+    "content/map_mechanics_v05.json": "af126cd615549118fb4ab73200c88427d117e869aedf3eba47f73464732748bc",
+    "content/lottery_rewards_eq01.json": "77878fd6e69396e2e50f9d6588d7b26a06843cf695649401210bf5bcfae7d129"
+  }
+}

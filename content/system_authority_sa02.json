@@ -1,0 +1,228 @@
+{
+  "version": "SA02",
+  "baseline_commit": "aa7941aef0bfc82f4cef15337084b0a0ad3dbc59",
+  "runtime_integrated": false,
+  "purpose": "独立复核SA01后，限定补齐真实设备工序、旧事件七夜迁移和规则离场响应优先级。当前拟实现模式只加载本表；原SA01保留历史基线。",
+  "execution_profiles": {
+    "legacy_practice_v010": "prototype内既有两怪练习继续用原适配器；不把SA02当作已有网页新功能。",
+    "current_design_sa02": "以本表逐域合并唯一权威。SA02仅覆盖下列明确列出的字段；其余原身份、数值、免费解法、主物件与时间保持原合同。新模式完整世界适配未完成，所有SA02新增消费者与事件准入保持关闭。",
+    "historical_current_design_sa01": "只用于比较和回归旧设计，不能与current_design_sa02同时驱动同一局。"
+  },
+  "authority_by_domain": {
+    "base_map_geometry": [
+      "content/maps.json",
+      "content/map_mechanics_v05.json"
+    ],
+    "store_work_and_free_mechanisms": [
+      "content/store_systems_v05.json",
+      "content/mechanism_closure_v010.json",
+      "content/temporal_resource_contract_v07.json",
+      "content/consumer_closure_v08.json"
+    ],
+    "original_folklore_steps": [
+      "content/mechanism_cases_v010_a.json",
+      "content/mechanism_cases_v010_b.json",
+      "content/encounter_blueprints.json"
+    ],
+    "monster_identity_stats_endings": [
+      "content/monster_roster_md01.json",
+      "content/monster_contracts_md01.json"
+    ],
+    "attack_timing_geometry": [
+      "content/monster_attack_roster_ma01.json",
+      "content/attack_contracts_ma01.json"
+    ],
+    "tower_tree_status_geometry": [
+      "content/tower_defense_td05.json",
+      "content/combat_contracts_td05.json"
+    ],
+    "trap_inventory_and_electric_devices": [
+      "content/traps_facilities_td05.json",
+      "content/economy_week_td05.json"
+    ],
+    "current_equipment_and_lottery": [
+      "content/equipment_contracts_eq01.json",
+      "content/equipment_eq01.json",
+      "content/consumables_eq01.json",
+      "content/lottery_rewards_eq01.json"
+    ],
+    "legacy_item_pet_consumers": [
+      "content/auxiliary_effects_v010.json"
+    ],
+    "legacy_deployment_overrides": [
+      "content/legacy_deployment_bridge_sa01.json"
+    ],
+    "run_identity_retry_week_close": [
+      "content/run_lifecycle_sa01.json"
+    ],
+    "facility_inventory_and_candidates": [
+      "content/facility_roles_sa01.json",
+      "content/facility_contracts_sa02.json"
+    ],
+    "legacy_events_seven_night_migration": [
+      "content/event_contracts_v010.json",
+      "content/event_migrations_sa02.json"
+    ],
+    "rule_leave_noncombat_response": [
+      "content/monster_contracts_md01.json",
+      "content/attack_contracts_ma01.json",
+      "content/rule_response_contracts_sa02.json"
+    ]
+  },
+  "merge_rules": [
+    "MD01覆盖旧怪物HP、防御、移动基速与三类终态；MA01逐卡明确覆盖攻击及对应原步骤的时序适配；未声明修改的原物与成功条件仍保留。",
+    "Q装备只由EQ01消费一次；I01–I24与P01–P08保留原白名单，I25–I42读取EQ01。新攻击ID映射由MA01/SA01桥接，不从名字猜能力。",
+    "同一物件既是营业工单又是主机制时，分别满足真实消费者，但相同钱/物品/根奖励回执不能重复兑现。",
+    "facilities中的proposed_pending_balance只作候选，不能由状态名或文案直接启用；原免费设备保持原能力。",
+    "旧文档与新数据冲突时按本表来源执行；历史diff中的before/after是变更记录，不是当前数值。",
+    "SA02只在明确覆盖域优先于SA01/更早合同；已被撤下的设施加速和七夜事件分支不得由旧目录重新开启。",
+    "设施工作回执先提交真实原物和主机制结果，再决定该设施协同是否合法。目标已经进入合法非敌对响应或离场时，不补施敌方状态；未触发的预约仍按自身消费/期限处理。",
+    "原事件目录的enabled_current、设计候选资格、实际运行准入是三个不同字段。新模式必须同时取得本轮迁移裁定和真实世界适配能力。",
+    "同根响应片段不改变其他怪物的攻击或玩家受伤资格；响应断点、设备预约和夜内领取权属于当前attempt的完整检查点事务。"
+  ],
+  "phase_permissions": {
+    "tower_asset_management": {
+      "allowed_phase": "pre_shift",
+      "actions": [
+        "purchase",
+        "build",
+        "upgrade",
+        "branch_reselect",
+        "move",
+        "pack",
+        "repair",
+        "sell"
+      ],
+      "open_allowed": [
+        "ordinary_authored_attack",
+        "intrinsic_reload",
+        "paper_guard_intrinsic_rebuild",
+        "authored_manual_target_selection"
+      ],
+      "manual_target_selection": "只执行本塔已定义的调光斑、守位、择时等能力及原操作时间；不移动塔本体，不重置冷却、不恢复HP。"
+    },
+    "trap_asset_management": {
+      "allowed_phase": "pre_shift",
+      "actions": [
+        "purchase",
+        "deploy",
+        "move",
+        "pack",
+        "upgrade",
+        "branch_reselect",
+        "refill_purchase",
+        "load",
+        "repair",
+        "sell",
+        "reward_replenish"
+      ],
+      "open_allowed": [
+        "legal_hostile_trigger",
+        "actual_damage_to_destructible_trap",
+        "complete_committed_finite_effect"
+      ]
+    },
+    "legacy_deployables_and_I16": {
+      "authority": "content/legacy_deployment_bridge_sa01.json",
+      "management_phase": "pre_shift",
+      "open_allowed": "只启动已经存在、已经支付、保留余量的装置；不从背包补放第二件。"
+    },
+    "equipment": {
+      "loadout_changes": [
+        "settled",
+        "pre_shift"
+      ],
+      "loadout_window": "沿EQ01的06–08交班后休整与20–22班前窗口；仍校验槽位、携入清单和未决开奖，不开放营业换装。",
+      "open_allowed": "已装备能力、已携入并合法使用的个人道具；遵循EQ01时间、槽位、额度和消费者。"
+    },
+    "lottery": {
+      "allowed_phase": [
+        "settled",
+        "pre_shift"
+      ],
+      "open_allowed": false,
+      "practice_writes_formal_rewards": false
+    },
+    "free_mechanism_objects": {
+      "open_allowed": true,
+      "examples": [
+        "取同件任务肉并入柜",
+        "手撒实际回形针",
+        "拿取或投出原仪式石",
+        "操作实际门帘与支阀"
+      ],
+      "distinction": "这些是规则动作或既有设施控制，不是购买/新造塔陷阱；仍消耗实际世界时间与原物。"
+    },
+    "emergency_power": {
+      "currently_enabled_actions": [
+        "snapshot",
+        "side_light",
+        "route_light"
+      ],
+      "currently_disabled_actions": [
+        "brace_door",
+        "temperature_hold"
+      ],
+      "zero_reserve_preserves_free_baseline": true,
+      "battery_route": "I06只有一次真实消费；补应急储备沿原规则，给旧B03设备补电则只班前；两者不能同时领取。"
+    }
+  },
+  "geometry_correction": {
+    "hostile_circle_minimum_nominal_radius_tiles": 1.5,
+    "fixed_L3_small_heat_field_radius_tiles": 1.8,
+    "maximum_static_compensation_multiplier": 1.5,
+    "appliance_induction_band_min_tiles": 1.5,
+    "not_changed": [
+      "projectile_width",
+      "melee_reach",
+      "player_protection_radius",
+      "physical_trap_footprint",
+      "appliance_surface_contact_distance",
+      "electric_graph_2_5_adjacency"
+    ],
+    "static_area_reference": "12个挂点、0.3格参考身体、0.025格采样、2%容差；TA03/TA06/TA09原落点不足，使用同挂点合法外侧投影。",
+    "no_free_area": "不可用货架/墙体/不可达区域不计面积；无合法足量投影就拒绝该次落场，不加伤害。",
+    "balance_boundary": "价格、DPS、状态频率和目标上限保留；半径扩大提升实际覆盖，需后续实机调校，静态面积不证明实战胜率。"
+  },
+  "validation_boundary": {
+    "can_check_now": [
+      "来源与消费者对应",
+      "数值和范围下界",
+      "实际静态挂点面积",
+      "有界时序反例",
+      "阶段权限",
+      "同夜回滚及跨周回执模型",
+      "本轮源数据反例与受限设备事务",
+      "限定经济事件迁移及相同原物/原票约束",
+      "受限rule_leave响应与永久毒的有限反例"
+    ],
+    "not_proven": [
+      "所有105AI与72事件组合可玩",
+      "动态导航与大体型实际可达",
+      "手机操作舒适性",
+      "完整首周经济和胜率",
+      "微信性能与持久化故障恢复",
+      "五个设备候选在真实地图上的消费者和净价值",
+      "72事件迁移后逐个世界适配及所有组合",
+      "45个rule_leave条目的逐例响应片段与统一地图路线"
+    ],
+    "release_admission_requires_runtime_adapters": true,
+    "all_gameplay_proven": false
+  },
+  "previous_authority": "content/system_authority_sa01.json",
+  "scoped_override_precedence": [
+    {
+      "path": "content/facility_contracts_sa02.json",
+      "overrides": "FR01/02/03/04/06候选的工序、事务与取消/提交规则；FR02/03/04不再沿用未映射的0.85速度与假定1.5秒省时样例。基础设施、塔挂点、三AP不变。"
+    },
+    {
+      "path": "content/event_migrations_sa02.json",
+      "overrides": "七夜模式的旧E事件交易、领取时机、开门清单和准入；旧enabled_current不是新模式可运行许可。未重审/未适配事件不得凭旧标志启用。"
+    },
+    {
+      "path": "content/rule_response_contracts_sa02.json",
+      "overrides": "仅已明确登记的rule_leave非敌对响应片段与伤害/压制的优先级；不自动免除其他规则，不改永久毒q、怪物原身份或三结局。"
+    }
+  ],
+  "new_runtime_feature_count": 0
+}

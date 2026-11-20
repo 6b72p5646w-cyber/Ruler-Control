@@ -1,0 +1,42 @@
+{
+  "version": "BC01",
+  "runtime_integrated": false,
+  "scope": "首周教学、信息呈现和失败回顾的完整设计；随真实事件触发，不额外生成假订单、怪根或奖励。",
+  "principles": [
+    "每次只突出一个可执行动作；读说明暂停时世界、设备、怪物和奖励统一暂停。",
+    "正常顾客、可疑访客、已敌对怪物用轮廓/图标/动作三重区分，不只靠颜色。",
+    "免费原物与主解不由等级、抽奖、补货业绩或顾客buff解锁。",
+    "未见过的主解提示在预兆期给出原物和地图位置；先观察再实际操作，阅读不产生完成回执。",
+    "杂活完成奖、订单工资、顾客蓄存、主机制/击败奖分别显示来源，同一事实不能领两遍同种奖励。"
+  ],
+  "hud": {
+    "always": ["HP", "SAN", "体力", "BUSINESS/OMEN/RAID/RECOVERY状态和下一阶段提示", "总电源状态"],
+    "business": ["当前顾客真实需求和付款状态", "最多3条可选工单及币/XP奖", "下一战蓄存占用(最多8)", "有用的实际物件/货箱位置"],
+    "raid": ["当前主机制的一步操作", "最多4个分组增益图标及真实剩余秒", "停电失效来源", "临时陷阱落点预告", "后续店务已暂停提示"],
+    "support_groups": ["生存：回血/防护/体力", "机动：步行/搬运", "操作：熟练度/临时效率", "场地：陷阱/缓速/剩余存活额度"],
+    "expanded": ["精力", "饱腹", "各独立设备来源", "永久XP与本夜暂得XP", "同组不叠数值和断电原因"],
+    "no_stack_noise": "并存同组只显示真正生效值，展开显示来源及各自截止；不把失效电器buff留成亮图标。"
+  },
+  "milestones": [
+    {"id":"BC_T01","earliest_night":1,"trigger":"first_real_customer_enters","teach":"带顾客完成实际使用与收银，看到同一订单6币/8XP及下一战设备蓄存。","completion":"same_customer_actual_paid_sale","fallback":"本夜未做也不锁入侵/工资；下次真实顾客重提示，不凭空补单。"},
+    {"id":"BC_T02","earliest_night":1,"trigger":"first_safe_chore_offered","teach":"从一条补货/清洁的真实路线了解独立币与XP奖励；展示可暂放的同一货箱。","completion":"actual_paid_chore_receipt","fallback":"未完成只少该项收入，不扣罚、不阻结算。"},
+    {"id":"BC_T03","earliest_night":1,"trigger":"first_actual_omen","teach":"关闭新客、真实撤离、暂放店务物。标出免费原物和危险预告，准备进入战斗。","completion":"actual_raid_started_after_evacuation_and_activation_gate","fallback":"客人或玩家尚在危险出生区时延长预兆，时间和移动真实推进；不瞬移。"},
+    {"id":"BC_T04","earliest_night":2,"trigger":"first_customer_support_activation","teach":"支援来自上一段营业：防护/回血/移速限时；货架礼物只能占合法地格，按已抽定种类放置。","completion":"actual_buff_or_temporary_trap_receipt","fallback":"没有对应营业就不显示假buff，免费原物与T02仍可用。"},
+    {"id":"BC_T05","earliest_night":3,"trigger":"first_real_grid_surge_forecast","teach":"停电会停电器buff与电流过载。主解人工装置仍可用；可等安全整理期再拉闸。","completion":"same_outage_actual_restore","fallback":"随机未触发就顺延；不为教学秘密断电或加怪。"},
+    {"id":"BC_T06","earliest_night":4,"trigger":"first_next_pre_shift_level_increase","teach":"等级提高HP、防御和手动熟练度，已存经验跨周保留。等待怪物自己取物、蓄力和凝视时间不会缩短。","completion":"player_views_real_level_delta","fallback":"读图只标教学已见，不奖励XP或改数值。"},
+    {"id":"BC_T07","earliest_night":7,"trigger":"actual_seventh_night_auto_settlement","teach":"展示真实七夜订单、工单、根、收益、等级和1张当晚券。旧周布防与周币清空，新周保留个人装备/未用物/等级/知识。","completion":"same_atomic_week_close_receipt","fallback":"失败先整笔重试，不提前发第7夜永久奖励。"}
+  ],
+  "result_screen": {
+    "order": ["成功/失败与直接原因", "本夜完成/未完成的真实订单和工单", "本夜暂得与最终固化币/灵能/XP", "下一准备阶段等级变化", "真实用过的设备收益与停电损失", "一条有依据的下一次建议"],
+    "failure": "显示具体攻击/规则回执、当时HP/SAN、合法免费操作和原物位置；保留观察档案。钱、经验、物品、毒/电、随机计划一起回到原开门点。",
+    "grade": "业绩等级只作总结，不门控工资80、正式夜结或当晚1券；零订单只失去实际营业收益，不被判隐藏失败。",
+    "week7": "等级XP和图鉴为稳定长期回报；不把周币余额暗换永久资源。"
+  },
+  "mobile_interaction_design": {
+    "one_main_action": "左手移动、右手一个随实际对象变化的主交互；次要工单在安全阶段折叠列表。",
+    "cancel": "取消未提交读条不虚构完成；已完成子步骤和已暂放原物保留。",
+    "precision": "原需观察/选结的界面可全局暂停；不能暂停怪物却继续积XP/治疗/毒或完成工作。",
+    "visibility": "强制危险预告、HP低提示与断电原因不受屏幕亮度/装饰灯失效隐藏；声音信息有字幕和方向标。",
+    "playtest_gate": "这些是设计验收规则。手指遮挡、误触率、帧率和微信云存档仍需正式客户端实机验收，有限脚本不对此作通过声明。"
+  }
+}

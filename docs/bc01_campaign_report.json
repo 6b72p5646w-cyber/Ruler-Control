@@ -1,0 +1,442 @@
+{
+  "version": "BC01",
+  "passed": 99,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "184 explicit attack replacements, no duplicate IDs",
+      "passed": true
+    },
+    {
+      "name": "13 child attack overrides explicitly migrated",
+      "passed": true
+    },
+    {
+      "name": "monster_attacks_folklore_ma01.json: all source numbers preserved without same-hit SAN",
+      "passed": true
+    },
+    {
+      "name": "monster_attacks_scp_ma01.json: all source numbers preserved without same-hit SAN",
+      "passed": true
+    },
+    {
+      "name": "level 1: exact XP boundary",
+      "passed": true
+    },
+    {
+      "name": "level 5: exact XP boundary",
+      "passed": true
+    },
+    {
+      "name": "level 5: below boundary",
+      "passed": true
+    },
+    {
+      "name": "level 10: exact XP boundary",
+      "passed": true
+    },
+    {
+      "name": "level 10: below boundary",
+      "passed": true
+    },
+    {
+      "name": "level 20: exact XP boundary",
+      "passed": true
+    },
+    {
+      "name": "level 20: below boundary",
+      "passed": true
+    },
+    {
+      "name": "growth cap and defense are explicit",
+      "passed": true
+    },
+    {
+      "name": "new HP damage does not also deduct SAN",
+      "passed": true
+    },
+    {
+      "name": "same sequence never damages twice",
+      "passed": true
+    },
+    {
+      "name": "other root respects global two-second grace",
+      "passed": true
+    },
+    {
+      "name": "blocked hit is not delivered after leaving geometry",
+      "passed": true
+    },
+    {
+      "name": "valid fresh contact after grace works",
+      "passed": true
+    },
+    {
+      "name": "normal customer cannot deal a monster hit",
+      "passed": true
+    },
+    {
+      "name": "level and gear/facility DR multiply once",
+      "passed": true
+    },
+    {
+      "name": "HP defense does not reduce fear SAN",
+      "passed": true
+    },
+    {
+      "name": "healing clamps at max HP",
+      "passed": true
+    },
+    {
+      "name": "duplicate regen receipt is not replayed",
+      "passed": true
+    },
+    {
+      "name": "regen never resurrects failed attempt",
+      "passed": true
+    },
+    {
+      "name": "Lv20, equipment and facility action floor",
+      "passed": true
+    },
+    {
+      "name": "short hand action has visible floor",
+      "passed": true
+    },
+    {
+      "name": "real-world timing unchanged: npc_walk",
+      "passed": true
+    },
+    {
+      "name": "real-world timing unchanged: npc_collect",
+      "passed": true
+    },
+    {
+      "name": "real-world timing unchanged: monster_response",
+      "passed": true
+    },
+    {
+      "name": "real-world timing unchanged: gaze_hold",
+      "passed": true
+    },
+    {
+      "name": "real-world timing unchanged: listen_hold",
+      "passed": true
+    },
+    {
+      "name": "real-world timing unchanged: observe_hold",
+      "passed": true
+    },
+    {
+      "name": "real-world timing unchanged: identity_observation",
+      "passed": true
+    },
+    {
+      "name": "real-world timing unchanged: ritual_wait",
+      "passed": true
+    },
+    {
+      "name": "real-world timing unchanged: cooldown",
+      "passed": true
+    },
+    {
+      "name": "real-world timing unchanged: telegraph",
+      "passed": true
+    },
+    {
+      "name": "real-world timing unchanged: fixed_delay",
+      "passed": true
+    },
+    {
+      "name": "unmapped work cannot silently gain proficiency",
+      "passed": true
+    },
+    {
+      "name": "power-loss recomputes ongoing hand work",
+      "passed": true
+    },
+    {
+      "name": "pause does not advance work",
+      "passed": true
+    },
+    {
+      "name": "facility ordinary movement gain",
+      "passed": true
+    },
+    {
+      "name": "item/facility haste takes stronger, does not multiply",
+      "passed": true
+    },
+    {
+      "name": "sprint still capped",
+      "passed": true
+    },
+    {
+      "name": "carry support uses carry source, not sprint",
+      "passed": true
+    },
+    {
+      "name": "powered threshold commits actual charge",
+      "passed": true
+    },
+    {
+      "name": "blackout cancels queued overload with no refund",
+      "passed": true
+    },
+    {
+      "name": "off rejects new charge including positive feedback",
+      "passed": true
+    },
+    {
+      "name": "off rejects even enemy-to-enemy overload",
+      "passed": true
+    },
+    {
+      "name": "charge expiry continues through outage",
+      "passed": true
+    },
+    {
+      "name": "normal power receipt cannot replay epoch",
+      "passed": true
+    },
+    {
+      "name": "power snapshot restores exact queue/epoch",
+      "passed": true
+    },
+    {
+      "name": "real order rewards coin and XP once",
+      "passed": true
+    },
+    {
+      "name": "new event ID cannot duplicate same sale",
+      "passed": true
+    },
+    {
+      "name": "old attempt cannot award",
+      "passed": true
+    },
+    {
+      "name": "unpaid evacuation is not a sale",
+      "passed": true
+    },
+    {
+      "name": "real repair gets independent reward",
+      "passed": true
+    },
+    {
+      "name": "same outage with new work ID cannot farm",
+      "passed": true
+    },
+    {
+      "name": "player toggle cannot farm repair",
+      "passed": true
+    },
+    {
+      "name": "rule-only nonzero HP does not reward combat kill",
+      "passed": true
+    },
+    {
+      "name": "actual HP zero + main rule pays correct reward",
+      "passed": true
+    },
+    {
+      "name": "survival unit 1 bounded",
+      "passed": true
+    },
+    {
+      "name": "survival unit 2 bounded",
+      "passed": true
+    },
+    {
+      "name": "survival unit 3 bounded",
+      "passed": true
+    },
+    {
+      "name": "survival unit 4 bounded",
+      "passed": true
+    },
+    {
+      "name": "survival unit 5 bounded",
+      "passed": true
+    },
+    {
+      "name": "survival unit 6 bounded",
+      "passed": true
+    },
+    {
+      "name": "survival unit 7 bounded",
+      "passed": true
+    },
+    {
+      "name": "survival unit 8 bounded",
+      "passed": true
+    },
+    {
+      "name": "survival unit 9 bounded",
+      "passed": true
+    },
+    {
+      "name": "survival unit 10 bounded",
+      "passed": true
+    },
+    {
+      "name": "survival unit 11 bounded",
+      "passed": true
+    },
+    {
+      "name": "survival unit 12 bounded",
+      "passed": true
+    },
+    {
+      "name": "survival unit 13 bounded",
+      "passed": true
+    },
+    {
+      "name": "overtime cannot farm survival income",
+      "passed": true
+    },
+    {
+      "name": "ledger serialization retains dedupe and totals",
+      "passed": true
+    },
+    {
+      "name": "failure rolls back all transient coin/XP/HP/power",
+      "passed": true
+    },
+    {
+      "name": "retry RNG fixed, new attempt ID only",
+      "passed": true
+    },
+    {
+      "name": "deadline alone cannot settle unresolved root",
+      "passed": true
+    },
+    {
+      "name": "customers must actually finish evacuation",
+      "passed": true
+    },
+    {
+      "name": "HP zero cannot be revived by settling wage",
+      "passed": true
+    },
+    {
+      "name": "no chore quota/manager/keys required for safe completion",
+      "passed": true
+    },
+    {
+      "name": "repeated night settle returns original no new payout",
+      "passed": true
+    },
+    {
+      "name": "settled night cannot fail-retry",
+      "passed": true
+    },
+    {
+      "name": "night7 XP and ticket survive atomic week close",
+      "passed": true
+    },
+    {
+      "name": "week reset grants exactly fresh120/onefreeT02",
+      "passed": true
+    },
+    {
+      "name": "night7 earned coin recorded before reset",
+      "passed": true
+    },
+    {
+      "name": "duplicate night7 does not clear new week again",
+      "passed": true
+    },
+    {
+      "name": "first actual durable snapshot",
+      "passed": true
+    },
+    {
+      "name": "after_journal: transaction interruption",
+      "passed": true
+    },
+    {
+      "name": "after_journal: no partial state survives",
+      "passed": true
+    },
+    {
+      "name": "after_snapshot: transaction interruption",
+      "passed": true
+    },
+    {
+      "name": "after_snapshot: no partial state survives",
+      "passed": true
+    },
+    {
+      "name": "process dies mid-transaction: old snapshot intact after reopen",
+      "passed": true
+    },
+    {
+      "name": "lost ack retry is idempotent",
+      "passed": true
+    },
+    {
+      "name": "reopen preserves exact committed snapshot",
+      "passed": true
+    },
+    {
+      "name": "stale writer cannot overwrite live run",
+      "passed": true
+    },
+    {
+      "name": "same command with altered payload rejected",
+      "passed": true
+    },
+    {
+      "name": "old mode cannot silently enter BC01 save",
+      "passed": true
+    },
+    {
+      "name": "corrupt payload digest rejected",
+      "passed": true
+    },
+    {
+      "name": "incomplete live world save rejected",
+      "passed": true
+    }
+  ],
+  "attack_replacements": 184,
+  "child_override_replacements": 13,
+  "levels": [
+    {
+      "level": 1,
+      "max_hp": 100,
+      "defense": 0,
+      "manual_duration_factor": 1.0,
+      "total_xp_threshold": 0
+    },
+    {
+      "level": 5,
+      "max_hp": 132,
+      "defense": 8,
+      "manual_duration_factor": 0.94,
+      "total_xp_threshold": 640
+    },
+    {
+      "level": 10,
+      "max_hp": 172,
+      "defense": 18,
+      "manual_duration_factor": 0.865,
+      "total_xp_threshold": 2340
+    },
+    {
+      "level": 20,
+      "max_hp": 252,
+      "defense": 38,
+      "manual_duration_factor": 0.75,
+      "total_xp_threshold": 8740
+    }
+  ],
+  "actual_disk_interruption_recovery": true,
+  "scope": "finite HP/power/economy/lifecycle plus real local SQLite; no production cloud storage or full AI",
+  "inputs_sha256": {
+    "content/campaign_bc01.json": "f9043ffb1dd96da68cfef9d6283cbc36e1760bbec3e8265022a5cb104c7246e5",
+    "scripts/check_bc01_campaign.py": "15fe9c612caece5f2fde495f4e3fc5a1a741207acd1ef01085e6ba85873757ee",
+    "scripts/bc01_campaign_reference.py": "f97984b95faaf41c4e4d1ca1f85cf0e208d78c2c9f25dd92961e7808c68650f3"
+  }
+}

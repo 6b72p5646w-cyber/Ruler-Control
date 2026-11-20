@@ -1,0 +1,5348 @@
+{
+  "version": "BC02",
+  "status": "passed",
+  "check_count": 928,
+  "passed_count": 928,
+  "failed": [],
+  "scope": "105逐条来源/对象/模块/动作/响应设计 + 有限依赖图、事务、TTL、原物/收益反例；不是105连续AI实机通关",
+  "design_covered": 105,
+  "action_nodes": 406,
+  "prior_bc01_geometry_reference_count": 12,
+  "new_geometry_validated_count": 0,
+  "runtime_admitted_count": 0,
+  "history_gated_count": 37,
+  "module_family_count": 97,
+  "source_omission_experiments": 564,
+  "implementation_batches": {
+    "P0_existing_geometry": {
+      "count": 12,
+      "ids": [
+        "F01",
+        "F05",
+        "F12",
+        "F13",
+        "F17",
+        "F60",
+        "S09",
+        "S29",
+        "S34",
+        "S38",
+        "S40",
+        "S43"
+      ],
+      "depends": [
+        "transaction_identity",
+        "environment",
+        "same_root_response",
+        "actual_navigation"
+      ],
+      "purpose": "已有12几何参考转正式客户端；11主动+1无奖被动。"
+    },
+    "P1_order_and_offer": {
+      "count": 11,
+      "ids": [
+        "F04",
+        "F06",
+        "F09",
+        "F11",
+        "F20",
+        "F27",
+        "F29",
+        "F44",
+        "F47",
+        "F48",
+        "F55"
+      ],
+      "depends": [
+        "transaction_identity",
+        "order_ledger",
+        "NPC_transfer",
+        "actual_navigation"
+      ],
+      "purpose": "物理食品/商品供应、定时服务、异常来客与正常支付拆开。"
+    },
+    "P1_history_identity": {
+      "count": 12,
+      "ids": [
+        "F02",
+        "F16",
+        "F18",
+        "F19",
+        "F23",
+        "F25",
+        "F37",
+        "F38",
+        "F41",
+        "F43",
+        "F45",
+        "F51"
+      ],
+      "depends": [
+        "immutable_work_history",
+        "cross_night_sale_ledger",
+        "current_body_evidence",
+        "same_root_response"
+      ],
+      "purpose": "先真实发生历史，再抽对应怪；当前核验不由开班自动给真。"
+    },
+    "P1_environment_routes": {
+      "count": 11,
+      "ids": [
+        "F10",
+        "F24",
+        "F28",
+        "F34",
+        "F40",
+        "F52",
+        "F56",
+        "F57",
+        "S22",
+        "S23",
+        "S25"
+      ],
+      "depends": [
+        "environment",
+        "condition_TTL",
+        "phase_revalidation",
+        "actual_navigation"
+      ],
+      "purpose": "水源/干边/影节点/实际反射/通道模块与安全侧控制。"
+    },
+    "P1_work_orders": {
+      "count": 12,
+      "ids": [
+        "F07",
+        "F08",
+        "F21",
+        "F22",
+        "F31",
+        "F35",
+        "F36",
+        "F39",
+        "F49",
+        "F53",
+        "F58",
+        "F59"
+      ],
+      "depends": [
+        "real_jobs",
+        "staff_safe_staging",
+        "pause_clock",
+        "shift_close_ledger"
+      ],
+      "purpose": "真实杂务来源与根机制分账；任务保护窗口内可做必要规则动作。"
+    },
+    "P1_timed_originals": {
+      "count": 10,
+      "ids": [
+        "F03",
+        "F15",
+        "F26",
+        "F30",
+        "F32",
+        "F33",
+        "F42",
+        "F46",
+        "F50",
+        "F54"
+      ],
+      "depends": [
+        "hands_and_carry",
+        "source_transactions",
+        "world_timers",
+        "timed_route_proof"
+      ],
+      "purpose": "原物搬运、不可刷新窗口、活伤/活迹生成约束与有界失误恢复。"
+    },
+    "P1_containment": {
+      "count": 10,
+      "ids": [
+        "S01",
+        "S02",
+        "S03",
+        "S06",
+        "S07",
+        "S13",
+        "S31",
+        "S32",
+        "S35",
+        "S39"
+      ],
+      "depends": [
+        "reserved_large_module",
+        "actual_navigation",
+        "NPC_transfer",
+        "finite_children"
+      ],
+      "purpose": "固定笼/槽/车道/门/脚圈原位安装，实体真实进场/收容/返舱。"
+    },
+    "P1_side_workstations": {
+      "count": 17,
+      "ids": [
+        "S04",
+        "S05",
+        "S10",
+        "S11",
+        "S12",
+        "S19",
+        "S20",
+        "S21",
+        "S24",
+        "S26",
+        "S30",
+        "S33",
+        "S36",
+        "S37",
+        "S42",
+        "S44",
+        "S45"
+      ],
+      "depends": [
+        "reserved_counter_modules",
+        "physical_evidence",
+        "source_transactions",
+        "same_root_response"
+      ],
+      "purpose": "工具/证据/黏液/原丝/武器实际收回；安全侧工位与当前实体对应。"
+    },
+    "P1_finite_lineages": {
+      "count": 9,
+      "ids": [
+        "S08",
+        "S14",
+        "S15",
+        "S16",
+        "S17",
+        "S18",
+        "S27",
+        "S28",
+        "S41"
+      ],
+      "depends": [
+        "finite_children",
+        "material_identity",
+        "group_attack_reservations",
+        "condition_cleanup"
+      ],
+      "purpose": "有限原料/卵/源口/成对与群体池，已死编号可闭合，绝不要求重生。"
+    },
+    "P2_host_opt_in": {
+      "count": 1,
+      "ids": [
+        "F14"
+      ],
+      "depends": [
+        "verified_human_host",
+        "three_slot_shadow_module",
+        "no_human_damage"
+      ],
+      "purpose": "独立验证的人类宿主保护模式；默认禁用保留。"
+    }
+  },
+  "limitations": [
+    "依赖拓扑叶节点代表必须由真实适配器提交的观测，不是把所有条件当开场真值。",
+    "事务测试使用显式有限fixture，每个manifest bundle的全部成员/数量仍须实际场景逐个绑定。",
+    "已有12个BC01几何参考未在本检查中宣称新增通过；其余93仍须对应模块几何与时间验收。",
+    "全部105正式客户端AI/触屏/寻路/动画/连续伤害集成仍未由本脚本实现。",
+    "F14人类宿主模块单独可选默认关闭；新规则不能直接改runtime_admitted为true。"
+  ],
+  "coverage": [
+    {
+      "monster_id": "F01",
+      "name": "狐精",
+      "module_family": "inspection",
+      "implementation_batch": "P0_existing_geometry",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": true,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F02",
+      "name": "画皮鬼",
+      "module_family": "identity",
+      "implementation_batch": "P1_history_identity",
+      "source_count": 6,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F03",
+      "name": "僵尸",
+      "module_family": "short_cargo_lane",
+      "implementation_batch": "P1_timed_originals",
+      "source_count": 5,
+      "action_count": 10,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F04",
+      "name": "鲛人",
+      "module_family": "counter_delivery",
+      "implementation_batch": "P1_order_and_offer",
+      "source_count": 4,
+      "action_count": 4,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F05",
+      "name": "河童",
+      "module_family": "wet_route",
+      "implementation_batch": "P0_existing_geometry",
+      "source_count": 7,
+      "action_count": 6,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": true,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F06",
+      "name": "雪女",
+      "module_family": "order_service",
+      "implementation_batch": "P1_order_and_offer",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F07",
+      "name": "座敷童子",
+      "module_family": "reserved_seat",
+      "implementation_batch": "P1_work_orders",
+      "source_count": 6,
+      "action_count": 4,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F08",
+      "name": "付丧神",
+      "module_family": "repair_retire",
+      "implementation_batch": "P1_work_orders",
+      "source_count": 5,
+      "action_count": 2,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F09",
+      "name": "轆轤首",
+      "module_family": "order_service",
+      "implementation_batch": "P1_order_and_offer",
+      "source_count": 5,
+      "action_count": 5,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F10",
+      "name": "海坊主",
+      "module_family": "rear_window",
+      "implementation_batch": "P1_environment_routes",
+      "source_count": 8,
+      "action_count": 5,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F11",
+      "name": "韩国鬼怪",
+      "module_family": "challenge_ring",
+      "implementation_batch": "P1_order_and_offer",
+      "source_count": 4,
+      "action_count": 2,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F12",
+      "name": "不可杀伊",
+      "module_family": "bait_lane",
+      "implementation_batch": "P0_existing_geometry",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": true,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F13",
+      "name": "飞头女鬼",
+      "module_family": "meat_delivery",
+      "implementation_batch": "P0_existing_geometry",
+      "source_count": 4,
+      "action_count": 2,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": true,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F14",
+      "name": "饕食附身灵",
+      "module_family": "host_separation",
+      "implementation_batch": "P2_host_opt_in",
+      "source_count": 6,
+      "action_count": 5,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F15",
+      "name": "蓬蒂雅娜",
+      "module_family": "sequence_kit",
+      "implementation_batch": "P1_timed_originals",
+      "source_count": 6,
+      "action_count": 4,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F16",
+      "name": "图尤尔",
+      "module_family": "coin_trace",
+      "implementation_batch": "P1_history_identity",
+      "source_count": 5,
+      "action_count": 7,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F17",
+      "name": "裹尸鬼",
+      "module_family": "parcel_take",
+      "implementation_batch": "P0_existing_geometry",
+      "source_count": 4,
+      "action_count": 4,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": true,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F18",
+      "name": "阿斯旺",
+      "module_family": "identity",
+      "implementation_batch": "P1_history_identity",
+      "source_count": 6,
+      "action_count": 4,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F19",
+      "name": "吠陀罗尸鬼",
+      "module_family": "receipt_chain",
+      "implementation_batch": "P1_history_identity",
+      "source_count": 6,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F20",
+      "name": "罗刹访客",
+      "module_family": "order_service",
+      "implementation_batch": "P1_order_and_offer",
+      "source_count": 4,
+      "action_count": 4,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F21",
+      "name": "报丧女妖",
+      "module_family": "fault_safety",
+      "implementation_batch": "P1_work_orders",
+      "source_count": 7,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F22",
+      "name": "布朗尼家务精",
+      "module_family": "helper_job",
+      "implementation_batch": "P1_work_orders",
+      "source_count": 5,
+      "action_count": 6,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F23",
+      "name": "塞尔基海豹人",
+      "module_family": "lost_property",
+      "implementation_batch": "P1_history_identity",
+      "source_count": 5,
+      "action_count": 4,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F24",
+      "name": "凯尔皮水马",
+      "module_family": "rear_wet_cart",
+      "implementation_batch": "P1_environment_routes",
+      "source_count": 8,
+      "action_count": 4,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F25",
+      "name": "普卡变形精",
+      "module_family": "refund_identity",
+      "implementation_batch": "P1_history_identity",
+      "source_count": 6,
+      "action_count": 2,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F26",
+      "name": "红帽妖",
+      "module_family": "wound_cleanup",
+      "implementation_batch": "P1_timed_originals",
+      "source_count": 8,
+      "action_count": 6,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F27",
+      "name": "山林巨魔",
+      "module_family": "large_order",
+      "implementation_batch": "P1_order_and_offer",
+      "source_count": 4,
+      "action_count": 5,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F28",
+      "name": "诺肯水乐灵",
+      "module_family": "water_source_test",
+      "implementation_batch": "P1_environment_routes",
+      "source_count": 6,
+      "action_count": 4,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F29",
+      "name": "托姆特家园精灵",
+      "module_family": "food_surface",
+      "implementation_batch": "P1_order_and_offer",
+      "source_count": 4,
+      "action_count": 2,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F30",
+      "name": "海亡灵",
+      "module_family": "original_stone",
+      "implementation_batch": "P1_timed_originals",
+      "source_count": 6,
+      "action_count": 2,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F31",
+      "name": "马拉梦魇",
+      "module_family": "rest_fixture",
+      "implementation_batch": "P1_work_orders",
+      "source_count": 4,
+      "action_count": 1,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F32",
+      "name": "夜返吸血鬼",
+      "module_family": "wound_boundary",
+      "implementation_batch": "P1_timed_originals",
+      "source_count": 9,
+      "action_count": 6,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F33",
+      "name": "狼人",
+      "module_family": "visitor_aid",
+      "implementation_batch": "P1_timed_originals",
+      "source_count": 4,
+      "action_count": 5,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F34",
+      "name": "鲁萨尔卡水灵",
+      "module_family": "front_beat_water",
+      "implementation_batch": "P1_environment_routes",
+      "source_count": 9,
+      "action_count": 5,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F35",
+      "name": "芭芭雅嘎",
+      "module_family": "helper_job",
+      "implementation_batch": "P1_work_orders",
+      "source_count": 5,
+      "action_count": 5,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F36",
+      "name": "精灵访客",
+      "module_family": "lease_slot",
+      "implementation_batch": "P1_work_orders",
+      "source_count": 5,
+      "action_count": 5,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F37",
+      "name": "古尔荒野妖",
+      "module_family": "order_boundary",
+      "implementation_batch": "P1_history_identity",
+      "source_count": 6,
+      "action_count": 4,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F38",
+      "name": "双重身",
+      "module_family": "dual_identity",
+      "implementation_batch": "P1_history_identity",
+      "source_count": 9,
+      "action_count": 8,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F39",
+      "name": "多莫沃伊家宅灵",
+      "module_family": "paired_workbench",
+      "implementation_batch": "P1_work_orders",
+      "source_count": 7,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F40",
+      "name": "列希森林灵",
+      "module_family": "marked_shadow_route",
+      "implementation_batch": "P1_environment_routes",
+      "source_count": 6,
+      "action_count": 6,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F41",
+      "name": "哭泣女",
+      "module_family": "lost_property",
+      "implementation_batch": "P1_history_identity",
+      "source_count": 8,
+      "action_count": 4,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F42",
+      "name": "哨声亡灵",
+      "module_family": "pressure_threshold",
+      "implementation_batch": "P1_timed_originals",
+      "source_count": 7,
+      "action_count": 4,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F43",
+      "name": "图恩达",
+      "module_family": "identity",
+      "implementation_batch": "P1_history_identity",
+      "source_count": 7,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F44",
+      "name": "巨帽夜曲客",
+      "module_family": "rhythm_order",
+      "implementation_batch": "P1_order_and_offer",
+      "source_count": 4,
+      "action_count": 5,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F45",
+      "name": "逆足林守",
+      "module_family": "wheeltrace_order",
+      "implementation_batch": "P1_history_identity",
+      "source_count": 5,
+      "action_count": 4,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F46",
+      "name": "红帽萨西",
+      "module_family": "three_node_wind",
+      "implementation_batch": "P1_timed_originals",
+      "source_count": 6,
+      "action_count": 6,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F47",
+      "name": "水歌伊阿拉",
+      "module_family": "rhythm_offer",
+      "implementation_batch": "P1_order_and_offer",
+      "source_count": 7,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F48",
+      "name": "河海豚化人客",
+      "module_family": "restricted_order",
+      "implementation_batch": "P1_order_and_offer",
+      "source_count": 5,
+      "action_count": 4,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F49",
+      "name": "火蛇博伊塔塔",
+      "module_family": "hot_waste",
+      "implementation_batch": "P1_work_orders",
+      "source_count": 5,
+      "action_count": 6,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F50",
+      "name": "泽西恶魔",
+      "module_family": "window_defense",
+      "implementation_batch": "P1_timed_originals",
+      "source_count": 5,
+      "action_count": 6,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F51",
+      "name": "蜘蛛故事商",
+      "module_family": "receipt_story",
+      "implementation_batch": "P1_history_identity",
+      "source_count": 5,
+      "action_count": 5,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F52",
+      "name": "矮水灵托科洛舍",
+      "module_family": "chair_water",
+      "implementation_batch": "P1_environment_routes",
+      "source_count": 7,
+      "action_count": 2,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F53",
+      "name": "水之母来访",
+      "module_family": "bottle_contract",
+      "implementation_batch": "P1_work_orders",
+      "source_count": 4,
+      "action_count": 5,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F54",
+      "name": "吞世巨兽",
+      "module_family": "giant_retrieval",
+      "implementation_batch": "P1_timed_originals",
+      "source_count": 5,
+      "action_count": 6,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F55",
+      "name": "护夜犬卡德霍",
+      "module_family": "escort",
+      "implementation_batch": "P1_order_and_offer",
+      "source_count": 5,
+      "action_count": 7,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F56",
+      "name": "深水邦耶普",
+      "module_family": "aisle_depth",
+      "implementation_batch": "P1_environment_routes",
+      "source_count": 7,
+      "action_count": 4,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F57",
+      "name": "水路守护塔尼瓦",
+      "module_family": "channel_crossing",
+      "implementation_batch": "P1_environment_routes",
+      "source_count": 7,
+      "action_count": 8,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F58",
+      "name": "雾笛访客",
+      "module_family": "warm_fog",
+      "implementation_batch": "P1_work_orders",
+      "source_count": 6,
+      "action_count": 5,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F59",
+      "name": "梅内胡内工队",
+      "module_family": "repair_worksite",
+      "implementation_batch": "P1_work_orders",
+      "source_count": 9,
+      "action_count": 10,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "F60",
+      "name": "马面引路者",
+      "module_family": "gaze_curtain",
+      "implementation_batch": "P0_existing_geometry",
+      "source_count": 5,
+      "action_count": 5,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": true,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S01",
+      "name": "凝视塑像",
+      "module_family": "containment_cage",
+      "implementation_batch": "P1_containment",
+      "source_count": 6,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S02",
+      "name": "腐蚀穿墙者",
+      "module_family": "containment_tray",
+      "implementation_batch": "P1_containment",
+      "source_count": 5,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S03",
+      "name": "遮面追逐者",
+      "module_family": "containment_cage",
+      "implementation_batch": "P1_containment",
+      "source_count": 5,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S04",
+      "name": "诊疫医者",
+      "module_family": "quarantine_hatch",
+      "implementation_batch": "P1_side_workstations",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S05",
+      "name": "拟声猎群",
+      "module_family": "staff_ventilation",
+      "implementation_batch": "P1_side_workstations",
+      "source_count": 6,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S06",
+      "name": "不灭爬行者",
+      "module_family": "large_containment",
+      "implementation_batch": "P1_containment",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S07",
+      "name": "附面假人",
+      "module_family": "mannequin_clamp",
+      "implementation_batch": "P1_containment",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S08",
+      "name": "燃料分身",
+      "module_family": "fuel_mist",
+      "implementation_batch": "P1_finite_lineages",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S09",
+      "name": "失眠潜猎者",
+      "module_family": "infrared_gate",
+      "implementation_batch": "P0_existing_geometry",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": true,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S10",
+      "name": "余光攀行者",
+      "module_family": "dual_observation",
+      "implementation_batch": "P1_side_workstations",
+      "source_count": 5,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S11",
+      "name": "铃声后的瘦影",
+      "module_family": "sound_box",
+      "implementation_batch": "P1_side_workstations",
+      "source_count": 6,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S12",
+      "name": "棘触心核",
+      "module_family": "sludge_recovery",
+      "implementation_batch": "P1_side_workstations",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S13",
+      "name": "楼梯口无面影",
+      "module_family": "service_door",
+      "implementation_batch": "P1_containment",
+      "source_count": 5,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S14",
+      "name": "缝材造物熊",
+      "module_family": "finite_crafting",
+      "implementation_batch": "P1_finite_lineages",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S15",
+      "name": "孵卵拟人群",
+      "module_family": "finite_incubator",
+      "implementation_batch": "P1_finite_lineages",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S16",
+      "name": "刀肢蟹队",
+      "module_family": "shallow_pack",
+      "implementation_batch": "P1_finite_lineages",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S17",
+      "name": "塑料火烈鸟群",
+      "module_family": "territory_frame",
+      "implementation_batch": "P1_finite_lineages",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S18",
+      "name": "双灯猎行者",
+      "module_family": "paired_lanes",
+      "implementation_batch": "P1_finite_lineages",
+      "source_count": 6,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S19",
+      "name": "食宴巨客",
+      "module_family": "banquet_service",
+      "implementation_batch": "P1_side_workstations",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S20",
+      "name": "沼液伏客",
+      "module_family": "organic_waste",
+      "implementation_batch": "P1_side_workstations",
+      "source_count": 5,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S21",
+      "name": "九尾伪装客",
+      "module_family": "double_window",
+      "implementation_batch": "P1_side_workstations",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S22",
+      "name": "畏光烟影",
+      "module_family": "three_shadow_lamps",
+      "implementation_batch": "P1_environment_routes",
+      "source_count": 7,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S23",
+      "name": "路口焰眼犬",
+      "module_family": "crossroad_gaze",
+      "implementation_batch": "P1_environment_routes",
+      "source_count": 7,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S24",
+      "name": "黑刃复归者",
+      "module_family": "blade_stop",
+      "implementation_batch": "P1_side_workstations",
+      "source_count": 5,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S25",
+      "name": "吞影小像",
+      "module_family": "shadow_capture",
+      "implementation_batch": "P1_environment_routes",
+      "source_count": 8,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S26",
+      "name": "幼猫幻相虎",
+      "module_family": "evidence_delivery",
+      "implementation_batch": "P1_side_workstations",
+      "source_count": 6,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S27",
+      "name": "红池支口",
+      "module_family": "pool_cap",
+      "implementation_batch": "P1_finite_lineages",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S28",
+      "name": "离体肉殖团",
+      "module_family": "tissue_cargo",
+      "implementation_batch": "P1_finite_lineages",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S29",
+      "name": "暗育蜈群",
+      "module_family": "light_capture",
+      "implementation_batch": "P0_existing_geometry",
+      "source_count": 6,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": true,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S30",
+      "name": "银丝猎婆",
+      "module_family": "silk_recovery",
+      "implementation_batch": "P1_side_workstations",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S31",
+      "name": "鹿骨饥壳",
+      "module_family": "skull_limiter",
+      "implementation_batch": "P1_containment",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S32",
+      "name": "涌兽陶瓮",
+      "module_family": "jar_chamber",
+      "implementation_batch": "P1_containment",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S33",
+      "name": "镜头霉巢",
+      "module_family": "camera_mold",
+      "implementation_batch": "P1_side_workstations",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S34",
+      "name": "寻声线团",
+      "module_family": "sound_box",
+      "implementation_batch": "P0_existing_geometry",
+      "source_count": 5,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": true,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S35",
+      "name": "失控重载玩具车",
+      "module_family": "remote_vehicle_lane",
+      "implementation_batch": "P1_containment",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S36",
+      "name": "惊笑偶像",
+      "module_family": "idol_blackout_box",
+      "implementation_batch": "P1_side_workstations",
+      "source_count": 6,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S37",
+      "name": "噬口排水虫",
+      "module_family": "pipe_clamp",
+      "implementation_batch": "P1_side_workstations",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S38",
+      "name": "立体镜旁观者",
+      "module_family": "glasses_storage",
+      "implementation_batch": "P0_existing_geometry",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": true,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S39",
+      "name": "游走骨龙",
+      "module_family": "sample_foot_limiter",
+      "implementation_batch": "P1_containment",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S40",
+      "name": "取述影客",
+      "module_family": "original_paper_take",
+      "implementation_batch": "P0_existing_geometry",
+      "source_count": 6,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": true,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S41",
+      "name": "地窖食客群",
+      "module_family": "burrow_light",
+      "implementation_batch": "P1_finite_lineages",
+      "source_count": 6,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S42",
+      "name": "断拍窥猎者",
+      "module_family": "rhythm_tracking",
+      "implementation_batch": "P1_side_workstations",
+      "source_count": 5,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S43",
+      "name": "闭店巡场员",
+      "module_family": "source_link",
+      "implementation_batch": "P0_existing_geometry",
+      "source_count": 6,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": true,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S44",
+      "name": "双灯影幕",
+      "module_family": "dual_projector",
+      "implementation_batch": "P1_side_workstations",
+      "source_count": 5,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    },
+    {
+      "monster_id": "S45",
+      "name": "缝合外科客",
+      "module_family": "tool_return",
+      "implementation_batch": "P1_side_workstations",
+      "source_count": 4,
+      "action_count": 3,
+      "dependency_reachable": true,
+      "all_source_omissions_block": true,
+      "existing_bc01_geometry_reference": false,
+      "new_continuous_geometry_or_AI_proof": false,
+      "runtime_admitted": false
+    }
+  ],
+  "checks": [
+    {
+      "name": "exactly all 105 independent monster IDs covered",
+      "passed": true
+    },
+    {
+      "name": "all existing 12 geometry references preserved without adding a new layout",
+      "passed": true
+    },
+    {
+      "name": "all 105 client admission gates remain honest",
+      "passed": true
+    },
+    {
+      "name": "F14 still opt-in and disabled by default",
+      "passed": true
+    },
+    {
+      "name": "implementation batches cover each card exactly once",
+      "passed": true
+    },
+    {
+      "name": "F01: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F01: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F01: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F01: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F01: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F01: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F01: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F01: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F02: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F02: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F02: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F02: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F02: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F02: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F02: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F02: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F03: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F03: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F03: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F03: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F03: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F03: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F03: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F03: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F04: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F04: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F04: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F04: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F04: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F04: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F04: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F04: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F05: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F05: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F05: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F05: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F05: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F05: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F05: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F05: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F06: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F06: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F06: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F06: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F06: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F06: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F06: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F06: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F07: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F07: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F07: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F07: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F07: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F07: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F07: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F07: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F08: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F08: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F08: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F08: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F08: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F08: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F08: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F08: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F09: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F09: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F09: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F09: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F09: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F09: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F09: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F09: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F10: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F10: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F10: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F10: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F10: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F10: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F10: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F10: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F11: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F11: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F11: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F11: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F11: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F11: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F11: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F11: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F12: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F12: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F12: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F12: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F12: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F12: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F12: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F12: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F13: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F13: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F13: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F13: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F13: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F13: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F13: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F13: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F14: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F14: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F14: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F14: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F14: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F14: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F14: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F14: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F15: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F15: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F15: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F15: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F15: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F15: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F15: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F15: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F16: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F16: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F16: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F16: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F16: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F16: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F16: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F16: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F17: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F17: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F17: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F17: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F17: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F17: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F17: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F17: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F18: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F18: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F18: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F18: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F18: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F18: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F18: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F18: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F19: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F19: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F19: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F19: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F19: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F19: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F19: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F19: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F20: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F20: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F20: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F20: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F20: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F20: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F20: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F20: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F21: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F21: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F21: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F21: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F21: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F21: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F21: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F21: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F22: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F22: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F22: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F22: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F22: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F22: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F22: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F22: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F23: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F23: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F23: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F23: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F23: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F23: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F23: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F23: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F24: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F24: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F24: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F24: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F24: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F24: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F24: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F24: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F25: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F25: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F25: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F25: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F25: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F25: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F25: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F25: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F26: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F26: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F26: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F26: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F26: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F26: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F26: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F26: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F27: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F27: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F27: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F27: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F27: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F27: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F27: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F27: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F28: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F28: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F28: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F28: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F28: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F28: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F28: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F28: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F29: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F29: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F29: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F29: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F29: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F29: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F29: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F29: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F30: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F30: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F30: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F30: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F30: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F30: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F30: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F30: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F31: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F31: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F31: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F31: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F31: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F31: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F31: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F31: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F32: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F32: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F32: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F32: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F32: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F32: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F32: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F32: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F33: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F33: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F33: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F33: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F33: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F33: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F33: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F33: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F34: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F34: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F34: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F34: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F34: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F34: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F34: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F34: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F35: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F35: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F35: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F35: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F35: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F35: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F35: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F35: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F36: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F36: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F36: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F36: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F36: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F36: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F36: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F36: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F37: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F37: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F37: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F37: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F37: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F37: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F37: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F37: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F38: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F38: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F38: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F38: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F38: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F38: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F38: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F38: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F39: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F39: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F39: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F39: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F39: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F39: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F39: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F39: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F40: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F40: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F40: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F40: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F40: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F40: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F40: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F40: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F41: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F41: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F41: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F41: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F41: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F41: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F41: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F41: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F42: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F42: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F42: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F42: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F42: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F42: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F42: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F42: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F43: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F43: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F43: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F43: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F43: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F43: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F43: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F43: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F44: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F44: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F44: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F44: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F44: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F44: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F44: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F44: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F45: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F45: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F45: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F45: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F45: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F45: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F45: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F45: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F46: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F46: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F46: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F46: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F46: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F46: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F46: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F46: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F47: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F47: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F47: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F47: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F47: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F47: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F47: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F47: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F48: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F48: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F48: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F48: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F48: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F48: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F48: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F48: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F49: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F49: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F49: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F49: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F49: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F49: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F49: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F49: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F50: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F50: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F50: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F50: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F50: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F50: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F50: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F50: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F51: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F51: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F51: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F51: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F51: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F51: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F51: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F51: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F52: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F52: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F52: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F52: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F52: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F52: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F52: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F52: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F53: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F53: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F53: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F53: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F53: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F53: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F53: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F53: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F54: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F54: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F54: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F54: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F54: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F54: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F54: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F54: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F55: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F55: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F55: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F55: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F55: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F55: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F55: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F55: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F56: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F56: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F56: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F56: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F56: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F56: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F56: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F56: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F57: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F57: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F57: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F57: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F57: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F57: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F57: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F57: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F58: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F58: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F58: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F58: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F58: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F58: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F58: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F58: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F59: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F59: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F59: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F59: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F59: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F59: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F59: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F59: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F60: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "F60: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "F60: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "F60: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "F60: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "F60: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "F60: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "F60: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S01: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S01: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S01: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S01: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S01: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S01: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S01: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S01: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S02: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S02: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S02: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S02: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S02: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S02: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S02: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S02: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S03: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S03: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S03: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S03: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S03: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S03: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S03: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S03: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S04: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S04: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S04: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S04: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S04: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S04: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S04: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S04: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S05: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S05: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S05: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S05: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S05: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S05: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S05: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S05: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S06: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S06: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S06: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S06: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S06: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S06: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S06: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S06: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S07: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S07: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S07: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S07: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S07: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S07: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S07: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S07: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S08: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S08: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S08: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S08: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S08: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S08: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S08: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S08: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S09: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S09: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S09: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S09: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S09: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S09: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S09: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S09: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S10: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S10: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S10: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S10: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S10: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S10: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S10: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S10: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S11: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S11: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S11: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S11: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S11: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S11: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S11: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S11: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S12: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S12: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S12: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S12: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S12: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S12: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S12: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S12: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S13: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S13: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S13: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S13: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S13: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S13: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S13: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S13: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S14: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S14: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S14: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S14: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S14: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S14: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S14: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S14: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S15: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S15: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S15: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S15: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S15: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S15: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S15: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S15: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S16: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S16: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S16: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S16: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S16: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S16: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S16: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S16: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S17: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S17: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S17: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S17: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S17: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S17: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S17: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S17: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S18: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S18: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S18: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S18: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S18: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S18: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S18: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S18: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S19: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S19: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S19: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S19: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S19: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S19: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S19: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S19: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S20: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S20: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S20: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S20: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S20: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S20: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S20: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S20: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S21: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S21: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S21: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S21: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S21: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S21: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S21: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S21: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S22: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S22: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S22: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S22: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S22: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S22: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S22: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S22: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S23: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S23: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S23: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S23: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S23: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S23: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S23: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S23: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S24: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S24: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S24: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S24: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S24: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S24: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S24: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S24: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S25: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S25: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S25: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S25: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S25: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S25: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S25: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S25: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S26: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S26: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S26: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S26: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S26: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S26: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S26: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S26: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S27: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S27: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S27: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S27: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S27: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S27: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S27: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S27: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S28: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S28: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S28: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S28: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S28: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S28: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S28: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S28: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S29: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S29: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S29: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S29: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S29: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S29: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S29: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S29: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S30: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S30: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S30: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S30: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S30: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S30: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S30: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S30: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S31: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S31: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S31: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S31: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S31: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S31: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S31: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S31: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S32: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S32: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S32: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S32: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S32: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S32: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S32: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S32: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S33: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S33: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S33: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S33: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S33: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S33: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S33: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S33: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S34: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S34: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S34: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S34: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S34: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S34: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S34: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S34: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S35: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S35: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S35: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S35: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S35: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S35: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S35: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S35: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S36: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S36: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S36: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S36: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S36: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S36: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S36: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S36: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S37: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S37: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S37: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S37: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S37: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S37: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S37: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S37: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S38: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S38: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S38: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S38: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S38: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S38: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S38: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S38: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S39: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S39: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S39: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S39: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S39: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S39: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S39: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S39: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S40: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S40: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S40: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S40: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S40: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S40: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S40: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S40: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S41: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S41: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S41: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S41: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S41: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S41: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S41: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S41: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S42: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S42: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S42: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S42: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S42: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S42: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S42: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S42: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S43: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S43: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S43: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S43: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S43: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S43: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S43: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S43: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S44: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S44: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S44: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S44: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S44: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S44: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S44: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S44: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "S45: all explicit repository source pointers resolve",
+      "passed": true
+    },
+    {
+      "name": "S45: terrain IDs are existing definitions",
+      "passed": true
+    },
+    {
+      "name": "S45: current step source has actual production outputs",
+      "passed": true
+    },
+    {
+      "name": "S45: no literal old example root is executable",
+      "passed": true
+    },
+    {
+      "name": "S45: source/action graph is acyclic and reaches declared main terminal",
+      "passed": true
+    },
+    {
+      "name": "S45: module specification contains actual binding constraints",
+      "passed": true
+    },
+    {
+      "name": "S45: free tools are nonpositional module refs, not arbitrary supplier slots",
+      "passed": true
+    },
+    {
+      "name": "S45: each required source removal blocks declared completion",
+      "passed": true
+    },
+    {
+      "name": "F25 missing original sale rejects before reserving any objects",
+      "passed": true
+    },
+    {
+      "name": "failed atomic reserve leaves all physical stock free",
+      "passed": true
+    },
+    {
+      "name": "draw cannot manufacture historic sales/failed glass events",
+      "passed": true
+    },
+    {
+      "name": "claim-only NPC speech is not history receipt",
+      "passed": true
+    },
+    {
+      "name": "future history cannot predate itself",
+      "passed": true
+    },
+    {
+      "name": "historical sale for another physical original rejected",
+      "passed": true
+    },
+    {
+      "name": "all originals reserved to one stable logical root",
+      "passed": true
+    },
+    {
+      "name": "cannot commit before actual actor arrival",
+      "passed": true
+    },
+    {
+      "name": "hands occupied blocks combat commit",
+      "passed": true
+    },
+    {
+      "name": "unsafe ordinary customer blocks combat commit",
+      "passed": true
+    },
+    {
+      "name": "writing a new spec never opens missing client adapter",
+      "passed": true
+    },
+    {
+      "name": "finite source transaction can commit without claiming runtime",
+      "passed": true
+    },
+    {
+      "name": "stable logical root cannot commit again",
+      "passed": true
+    },
+    {
+      "name": "F25 rule unlock is not automatic monster death/reward",
+      "passed": true
+    },
+    {
+      "name": "same actual root terminal is rewarded once after replay",
+      "passed": true
+    },
+    {
+      "name": "monster trade does not create ordinary customer appliance support",
+      "passed": true
+    },
+    {
+      "name": "aborting after delivery retains real original position",
+      "passed": true
+    },
+    {
+      "name": "abort releases reservation but gives no currency",
+      "passed": true
+    },
+    {
+      "name": "cannot clone original item with another object ID",
+      "passed": true
+    },
+    {
+      "name": "critical parcel cannot be replaced with a new similar one",
+      "passed": true
+    },
+    {
+      "name": "wet/environment source expired between reserve and commit blocks spawn",
+      "passed": true
+    },
+    {
+      "name": "expiry does not rewrite environment TTL",
+      "passed": true
+    },
+    {
+      "name": "non-original support tool repair creates one linked replacement",
+      "passed": true
+    },
+    {
+      "name": "tool repair replay cannot create another tool/reward",
+      "passed": true
+    },
+    {
+      "name": "S38 passive original-glasses storage never pays root money",
+      "passed": true
+    },
+    {
+      "name": "blood baseline includes 20 second omen and 24 second response route",
+      "passed": true
+    },
+    {
+      "name": "fresh real BUSINESS glass source and recent physical trail can admit",
+      "passed": true
+    },
+    {
+      "name": "old 45-second remaining shortcut fails the 53-second actual lead budget",
+      "passed": true
+    },
+    {
+      "name": "30 second blood trail can expire during 20 second omen even with fresh wound",
+      "passed": true
+    },
+    {
+      "name": "F13 cleaning blood never substitutes living wound source",
+      "passed": true
+    },
+    {
+      "name": "default F21 next-raid blood dependency rejects 115s over 90s TTL",
+      "passed": true
+    },
+    {
+      "name": "F32 may require real wound without requiring a trail",
+      "passed": true
+    },
+    {
+      "name": "S30 actual filament damage expires after eight world seconds",
+      "passed": true
+    },
+    {
+      "name": "S30 expired danger leaves original material physically recoverable",
+      "passed": true
+    },
+    {
+      "name": "S30 cannot close a missing two-original-material chain",
+      "passed": true
+    },
+    {
+      "name": "S30 one recovered filament cannot be gathered twice",
+      "passed": true
+    },
+    {
+      "name": "S30 late inert-filament recovery still closes the actual source chain",
+      "passed": true
+    },
+    {
+      "name": "S30 sealing replay is idempotent and does not respawn filament",
+      "passed": true
+    },
+    {
+      "name": "normal paying customer actual device use creates support",
+      "passed": true
+    },
+    {
+      "name": "ANOMALOUS_VISITOR cannot impersonate normal-customer device payment",
+      "passed": true
+    },
+    {
+      "name": "DISGUISED_EMPLOYEE cannot impersonate normal-customer device payment",
+      "passed": true
+    },
+    {
+      "name": "COWORKER cannot impersonate normal-customer device payment",
+      "passed": true
+    },
+    {
+      "name": "PLAYER cannot impersonate normal-customer device payment",
+      "passed": true
+    },
+    {
+      "name": "MANAGER cannot impersonate normal-customer device payment",
+      "passed": true
+    },
+    {
+      "name": "SUMMON_CHILD cannot impersonate normal-customer device payment",
+      "passed": true
+    },
+    {
+      "name": "unpaid normal use does not charge support",
+      "passed": true
+    },
+    {
+      "name": "normal paid order without device use does not charge support",
+      "passed": true
+    },
+    {
+      "name": "F03 composite crossing pays carry distance exactly once",
+      "passed": true
+    },
+    {
+      "name": "F03 MA01 remaining preview+flight+recovery covers its composite crossing",
+      "passed": true
+    },
+    {
+      "name": "F34 true 6s rest covers actual two-way walking and 2s wipe",
+      "passed": true
+    },
+    {
+      "name": "F34 2.5s attack recovery alone does not cover same roundtrip",
+      "passed": true
+    },
+    {
+      "name": "F42 exact zero-stamina transfer fits eight-second pressure window",
+      "passed": true
+    },
+    {
+      "name": "F46 one tile cannot be crossed at 3 tiles per second in .25s",
+      "passed": true
+    },
+    {
+      "name": "F38 short same-body grant chain fits 8s only before extra walking",
+      "passed": true
+    },
+    {
+      "name": "F53 new night-close excludes forced manual manager/keys chores",
+      "passed": true
+    },
+    {
+      "name": "F16 current theft is not an immutable pre-selection history gate",
+      "passed": true
+    },
+    {
+      "name": "F16 cannot commit until original coin was visibly transferred",
+      "passed": true
+    },
+    {
+      "name": "F16 cannot borrow earlier unrelated theft for current arrival",
+      "passed": true
+    },
+    {
+      "name": "F16 reserves then actually steals then commits same root",
+      "passed": true
+    },
+    {
+      "name": "F38 current A observations precede actual B arrival root commit",
+      "passed": true
+    },
+    {
+      "name": "F38 precommit observation never requires B already arrived",
+      "passed": true
+    },
+    {
+      "name": "F38 source commit waits on actual second-body walk",
+      "passed": true
+    },
+    {
+      "name": "paid-only customer claim cannot fabricate F19 two-receipt chain",
+      "passed": true
+    },
+    {
+      "name": "all necessary kill/weakening roots reserve a free actual damaging route",
+      "passed": true
+    },
+    {
+      "name": "F13 does not need its own future corpse blood before admission",
+      "passed": true
+    },
+    {
+      "name": "F13 can commit without producing a corpse first",
+      "passed": true
+    },
+    {
+      "name": "F03 breath is a registered player producer, not a preexisting required cloud",
+      "passed": true
+    },
+    {
+      "name": "S25 reflection steps may create their later no-shadow-zone condition",
+      "passed": true
+    },
+    {
+      "name": "F30 does not require first misusing the original stone to create water",
+      "passed": true
+    },
+    {
+      "name": "F60 main curtain/back-turn route does not depend on optional mirror light",
+      "passed": true
+    },
+    {
+      "name": "F60 main source graph bypasses optional read_mirror step",
+      "passed": true
+    },
+    {
+      "name": "environment consumers match current terrain registry",
+      "passed": true
+    },
+    {
+      "name": "F58 reaches free cold close terminal with no food or warm-source binding",
+      "passed": true
+    },
+    {
+      "name": "F58 no-food path still needs actual close_cold_section",
+      "passed": true
+    },
+    {
+      "name": "F58 no-food path still needs actual walk_to_warm_side",
+      "passed": true
+    },
+    {
+      "name": "F58 no-food path still needs actual exit_cold_boundary",
+      "passed": true
+    },
+    {
+      "name": "F58 optional original warm food remains a separate terminal branch",
+      "passed": true
+    },
+    {
+      "name": "F58 warm-only branch cannot omit its actual original heat source",
+      "passed": true
+    },
+    {
+      "name": "F58 optional heat supplies are not mandatory admission inventory",
+      "passed": true
+    },
+    {
+      "name": "F58 reference exit walks real three-tile body-clear route plus two half-second actions",
+      "passed": true
+    },
+    {
+      "name": "a second different large module cannot occupy same nightly task slot",
+      "passed": true
+    },
+    {
+      "name": "opening freezes installed scene modules; arrival cannot build a new station",
+      "passed": true
+    },
+    {
+      "name": "a valid-looking module receipt alone is not an installed-night-plan entry",
+      "passed": true
+    }
+  ],
+  "input_sha256": "21f5ce50c3e1928e2c47455dcfe046b055f43802a44b71559c94690557350b77",
+  "inputs_sha256": {
+    "content/condition_reachability_v06.json": "bd521f0fad9b684e9a830d66c25e7a66f672170d2b6e21e00b1396612c330d52",
+    "content/encounter_prerequisites_bc02.json": "21f5ce50c3e1928e2c47455dcfe046b055f43802a44b71559c94690557350b77",
+    "content/environment_conditions_bc02.json": "49cbe6128e489da6218d31b3506e81f318825d4f3a59fdf4d6836163f12fdb79",
+    "content/map_composition_bc01.json": "72b4517838d26fbe5afab1adcfb415c0be4b3ea80765a0b23922a90a94519dde",
+    "content/maps.json": "773e39b35bc16c63e6b4f294e27f8a944072599f21b8ad1bae46527f0a093b9a",
+    "content/mechanism_cases_v010_a.json": "4b7afdedb2aae8f0f1720d68c9737c7c8d5ef07aea7e2114afa4ebb7558c4608",
+    "content/mechanism_cases_v010_b.json": "a865eb7019131d7b6162fb10c91d93e65bbb49a9955e4bc16b54fd7a720064e1",
+    "content/monster_attacks_folklore_ma01.json": "ac92dc16cabbb18069f0da2471dc2d3b560c87e0d91ac024fc0278653ec11fe2",
+    "content/monster_attacks_scp_ma01.json": "5fd3b9db11c5c6d0caf5398b67a223e43f7c304f8fff529d72e3954caaef8684",
+    "content/monster_folklore_md01.json": "f7b019223130f255b49a5a7ce8aa44811db096542c235c36d5aa8c5d44ae01ae",
+    "content/monster_scp_a_md01.json": "23faa741c2aff38e6c2f254a46f5d9671a88620f73d9a67d0f53b51218272f01",
+    "content/monster_scp_b_md01.json": "2ec35fb9e9436474054f0ad3b8be488cc8b995bb6062e4f9f4b8a836e0526a38",
+    "scripts/bc01_map_reference.py": "e8904021a7e1cec6d5a5871b9336b623132ff9c394ae0e1e3856b0521e110a34",
+    "scripts/bc02_prerequisite_reference.py": "037dd25305f0c8d5e1736fc139939e54ebae987d3237923335a94e5164ddd654",
+    "scripts/check_bc02_prerequisites.py": "9ff2bba9f6ac59936c5d906d94e348ce49ab775ec420c0c3398c05d8c2b60615"
+  }
+}
