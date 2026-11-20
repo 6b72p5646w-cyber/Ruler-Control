@@ -1,5 +1,7 @@
 # BC01：营业积累战斗支援、随机入侵与主角成长
 
+> 版本导航：本文保留 BC01 当时的设计和有限参考证据。当前明确修订以 [BC02 总览](94_bc02_closure.md) 和 [BC02 权威表](../content/system_authority_bc02.json) 为准；客户端实施从 [Codex 开工入口](100_bc02_codex_start.md) 开始。旧短时设施规则不与 BC02 并行叠加。
+
 日期：2026-11-20。基于 SA02 提交 `a3d09c3bc8b5e6de83d523daa9d07aa894937f3d`。
 
 本轮先完成用户指定的循环调整，再按这个循环补齐 P0 的地图、时序、首版准入、存档事务、首周经济和教学设计。当前权威入口为 [system_authority_bc01.json](../content/system_authority_bc01.json)。只有本版明确覆盖的字段替代旧规则，其余怪物身份、原物、免费主解、塔树和付费陷阱价格继续沿用原合同。

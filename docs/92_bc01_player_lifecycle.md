@@ -1,5 +1,7 @@
 # BC01：等级、HP、唯一奖励账本与持久化
 
+> 版本导航：本文保留 BC01 当时的设计和有限参考证据。当前明确修订以 [BC02 总览](94_bc02_closure.md) 和 [BC02 权威表](../content/system_authority_bc02.json) 为准；客户端实施从 [Codex 开工入口](100_bc02_codex_start.md) 开始。旧短时设施规则不与 BC02 并行叠加。
+
 权威：[campaign_bc01.json](../content/campaign_bc01.json)。实现参考：[bc01_campaign_reference.py](../scripts/bc01_campaign_reference.py)；反例：[check_bc01_campaign.py](../scripts/check_bc01_campaign.py)。这是 BC01 设计与本地可执行事务参考，正式客户端/微信云存档并未接入。
 
 ## 1. 资源和成长

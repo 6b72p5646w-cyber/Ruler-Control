@@ -1,0 +1,374 @@
+{
+  "version": "BC02",
+  "status": "executable_public_customer_route_specification",
+  "runtime_enabled": false,
+  "runtime_integrated": false,
+  "scope": "A deterministic actual-path and original-object reference, not the full random arrival Director or the game client.",
+  "sources": [
+    "content/map_composition_bc01.json",
+    "content/facilities_bc02.json",
+    "content/campaign_bc01.json"
+  ],
+  "authority": "BC02 public-face and route authority. FR06 uses the new north public face of FX23; the original verification_desk remains an employee control. All customer-use proofs are derived from completed paths, timed actions, immutable original purchase items and real transformations.",
+  "geometry": {
+    "scene": "MAP_STORE",
+    "customer_radius_tiles": 0.3,
+    "customer_speed_tiles_s": 2.4,
+    "grid": "actual four-neighbour StoreMap graph",
+    "new_anchors": [
+      {
+        "role": "bc02_customer_verification",
+        "position": [
+          25.5,
+          24.5
+        ],
+        "fixture_id": "FX23",
+        "face": "north",
+        "access": "public",
+        "purpose": "独立公共取件核验读码面；不是南侧员工 verification_desk"
+      },
+      {
+        "role": "bc02_customer_drink_spot",
+        "position": [
+          7.5,
+          23.5
+        ],
+        "fixture_id": null,
+        "face": "public floor beside checkout",
+        "access": "public",
+        "purpose": "顾客付费后就地饮用位，不是 FR13 公共台面"
+      }
+    ],
+    "employee_faces_forbidden_to_customers": [
+      {
+        "rect": [
+          2,
+          26,
+          7,
+          2
+        ],
+        "reason": "cashier employee operating side"
+      },
+      {
+        "rect": [
+          25,
+          27,
+          4,
+          2
+        ],
+        "reason": "verification_desk employee operating side"
+      }
+    ],
+    "preserve_employee_anchors": [
+      "cashier",
+      "verification_desk"
+    ],
+    "new_nodes_are_not_towers_traps_or_appliance_network_nodes": true,
+    "dynamic_navigation": "All route segments use the current StoreMap and radius. New public service routes and endpoints join protected cells for trap placement. Barricades/closed doors require a fresh route and source geometry validation."
+  },
+  "preferences": {
+    "phase": "PREP",
+    "selected_profile_ids": "One or more registered profiles, frozen before BUSINESS; the actual arrival Director chooses only an eligible selected profile. No preference directly grants credit.",
+    "per_paid_order_optional_services_max": 2,
+    "natural_services_outside_limit": [
+      "FR01",
+      "FR10"
+    ],
+    "low_traffic": "No quota to visit all facilities; filtered profiles with missing stock/object/power are not replaced by fictitious completed use.",
+    "actual_director_integration": false
+  },
+  "inventory": {
+    "owner": "employer",
+    "manifest_required": true,
+    "allowed_skus": [
+      "goods",
+      "hot_food",
+      "frozen_goods",
+      "cold_drink",
+      "parcel_bag"
+    ],
+    "default_reference_units": {
+      "goods": 8,
+      "hot_food": 8,
+      "frozen_goods": 8,
+      "cold_drink": 12,
+      "parcel_bag": 4
+    },
+    "prepack": "In PREP only, consume one actual employer goods unit into one actual empty employer parcel_bag. Neither can be reserved/paid/already transformed. The sealed bag retains both source IDs, no new goods are minted; publish a deterministic prepack transaction receipt. Customer payment transfers this existing sealed bag and contained goods together.",
+    "ordinary_sale": "Exactly one original sale item/parcel per order. Immutable event/order/customer/logical IDs, item IDs and contained IDs. The existing campaign applies the one sale receipt once (6 coin,8 XP); this reference owns no wallet.",
+    "consumption": "A paid cold_drink owned by this customer/root is consumed once over 2 real seconds. Its existing material container becomes exactly one deterministic derived empty-container ID carrying the original parent/material/order IDs. The full drink is no longer an active object. No inventory item is created for the player.",
+    "return": "FR11 accepts only this paid order's derived empty container after its actual completed consume receipt. Recycling changes the container to non-sale waste, never returns a drink to stock or pays a refund.",
+    "full_receipt": "Payment locks original item and value fields. Post-payment actual fulfilment records append to facilities_used; they do not change payment time or original items. The final authenticated paid receipt may therefore include later pickup/scan/return facts.",
+    "source_scope": "Every actual item and receipt use must match the current logical order root, actual customer, order, night and attempt. Original employer manifest IDs and transformation receipts must exist."
+  },
+  "service_registry": {
+    "FR01": {
+      "anchor": "customer_checkout",
+      "usage_kind": "checkout",
+      "powered": true,
+      "circuit": "C1",
+      "duration_s": 1.5,
+      "requires_paid_original_order": true
+    },
+    "FR02": {
+      "anchor": "goods_shelf",
+      "usage_kind": "goods_selected",
+      "powered": false,
+      "circuit": null,
+      "duration_s": 1.5,
+      "requires_paid_original_order": true
+    },
+    "FR03": {
+      "anchor": "hot_food",
+      "usage_kind": "hot_food_collected",
+      "powered": true,
+      "circuit": "C2",
+      "duration_s": 1.5,
+      "requires_paid_original_order": true
+    },
+    "FR04": {
+      "anchor": "customer_freezer",
+      "usage_kind": "frozen_goods_collected",
+      "powered": true,
+      "circuit": "C2",
+      "duration_s": 1.5,
+      "requires_paid_original_order": true
+    },
+    "FR05": {
+      "anchor": "cold_cabinet",
+      "usage_kind": "cold_drink_collected",
+      "powered": true,
+      "circuit": "C2",
+      "duration_s": 1.5,
+      "requires_paid_original_order": true
+    },
+    "FR06": {
+      "anchor": "bc02_customer_verification",
+      "usage_kind": "pickup_identity_verified",
+      "powered": true,
+      "circuit": "C1",
+      "duration_s": 1.5,
+      "requires_paid_original_order": true
+    },
+    "FR09": {
+      "anchor": "customer_wait",
+      "usage_kind": "order_call_acknowledged",
+      "powered": true,
+      "circuit": "C1",
+      "duration_s": 1,
+      "requires_paid_original_order": true
+    },
+    "FR10": {
+      "anchor": "customer_exit",
+      "usage_kind": "paid_customer_exit",
+      "powered": false,
+      "circuit": null,
+      "duration_s": 0,
+      "requires_paid_original_order": true
+    },
+    "FR11": {
+      "anchor": "customer_return",
+      "usage_kind": "owned_empty_container_returned",
+      "powered": false,
+      "circuit": null,
+      "duration_s": 1.5,
+      "requires_paid_original_order": true
+    },
+    "FR12": {
+      "anchor": "pickup_shelf",
+      "usage_kind": "paid_parcel_collected",
+      "powered": false,
+      "circuit": null,
+      "duration_s": 1.5,
+      "requires_paid_original_order": true
+    },
+    "FR13": {
+      "anchor": "public_supplies",
+      "usage_kind": "owned_public_drink_consumed",
+      "powered": false,
+      "circuit": null,
+      "duration_s": 2,
+      "requires_paid_original_order": true
+    },
+    "FR14": {
+      "anchor": "lucky_receipt",
+      "usage_kind": "paid_lucky_receipt_scanned",
+      "powered": true,
+      "circuit": "C1",
+      "duration_s": 1.5,
+      "requires_paid_original_order": true
+    }
+  },
+  "profiles": [
+    {
+      "id": "goods_basic",
+      "sku": "goods",
+      "source_facility": "FR02",
+      "optional_services": [
+        "FR02"
+      ],
+      "flow": "product_then_pay",
+      "extra": null
+    },
+    {
+      "id": "goods_lucky",
+      "sku": "goods",
+      "source_facility": "FR02",
+      "optional_services": [
+        "FR02",
+        "FR14"
+      ],
+      "flow": "product_then_pay",
+      "extra": "lucky_receipt"
+    },
+    {
+      "id": "hot_basic",
+      "sku": "hot_food",
+      "source_facility": "FR03",
+      "optional_services": [
+        "FR03"
+      ],
+      "flow": "product_then_pay",
+      "extra": null
+    },
+    {
+      "id": "hot_lucky",
+      "sku": "hot_food",
+      "source_facility": "FR03",
+      "optional_services": [
+        "FR03",
+        "FR14"
+      ],
+      "flow": "product_then_pay",
+      "extra": "lucky_receipt"
+    },
+    {
+      "id": "frozen_basic",
+      "sku": "frozen_goods",
+      "source_facility": "FR04",
+      "optional_services": [
+        "FR04"
+      ],
+      "flow": "product_then_pay",
+      "extra": null
+    },
+    {
+      "id": "frozen_lucky",
+      "sku": "frozen_goods",
+      "source_facility": "FR04",
+      "optional_services": [
+        "FR04",
+        "FR14"
+      ],
+      "flow": "product_then_pay",
+      "extra": "lucky_receipt"
+    },
+    {
+      "id": "drink_basic",
+      "sku": "cold_drink",
+      "source_facility": "FR05",
+      "optional_services": [
+        "FR05"
+      ],
+      "flow": "product_then_pay",
+      "extra": null
+    },
+    {
+      "id": "drink_lucky",
+      "sku": "cold_drink",
+      "source_facility": "FR05",
+      "optional_services": [
+        "FR05",
+        "FR14"
+      ],
+      "flow": "product_then_pay",
+      "extra": "lucky_receipt"
+    },
+    {
+      "id": "hot_called",
+      "sku": "hot_food",
+      "source_facility": "FR03",
+      "optional_services": [
+        "FR09",
+        "FR03"
+      ],
+      "flow": "preorder_pay_then_call_collect",
+      "extra": "actual_order_call"
+    },
+    {
+      "id": "drink_return",
+      "sku": "cold_drink",
+      "source_facility": "FR05",
+      "optional_services": [
+        "FR05",
+        "FR11"
+      ],
+      "flow": "product_then_pay",
+      "extra": "consume_here_then_return",
+      "nonreward_actions": [
+        "drink_at_bc02_customer_drink_spot"
+      ],
+      "not_a_service": "This real drinking action is not FR13; it creates the same-container prerequisite for FR11 without adding a third reward service."
+    },
+    {
+      "id": "drink_public",
+      "sku": "cold_drink",
+      "source_facility": "FR05",
+      "optional_services": [
+        "FR05",
+        "FR13"
+      ],
+      "flow": "product_then_pay",
+      "extra": "consume_at_public_supplies",
+      "not_a_service": "No FR11 recycling reward occurs on this order; the customer leaves with their empty container."
+    },
+    {
+      "id": "parcel_verified",
+      "sku": "sealed_parcel",
+      "source_facility": null,
+      "optional_services": [
+        "FR06",
+        "FR12"
+      ],
+      "flow": "preorder_pay_then_verify_collect",
+      "extra": "same_prepacked_employer_parcel",
+      "not_a_service": "The nested goods unit is not a separate shelf selection or third optional service."
+    }
+  ],
+  "lifecycle": {
+    "business_only": "Start/advance ordinary services only in BUSINESS. OMEN may call evacuate_paid_uncollected for a paid hot-food or parcel preorder; only its physical public exit route runs in OMEN. No checkout, call, verification, pickup or ordinary chore runs in RAID. Full random Director scheduling and other evacuation adapters remain separate client work.",
+    "pause": "Menu/ad/background pause advances neither world clock, movement nor action progress.",
+    "power": "Powered service credit needs continuous actual source power from the real action-start event to its actual completion. Those events and power changes share a serial event stream with sequence and registered epoch IDs. Completion then outage at the same world time is valid in that order. Outage mid powered-device work resets that service action. Manual checkout does not reset its payment progress when power changes, but any off portion makes this payment ineligible for FR01 support, even if the final portion is powered.",
+    "commit": "Build customer_use only from the completed operation ledger and final immutable payment, never caller-supplied proof booleans. FR01 commit time equals actual payment; FR10 requires a positive real route ending at the exact public exit after payment.",
+    "reuse": "Same event and same order/facility are once-only. Missing/foreign/consumed objects, over-two profiles and invalid geometry fail before a credit can be produced.",
+    "persistence": "Snapshot includes original inventory, prepack/consume/recycle/scan receipts, path index, position, action elapsed time, payment and publication IDs. Restore the same logical identities; do not redraw service or facility outcomes.",
+    "source_event_order": "Actual start/end receipt fields carry source_event_stream_id, sequence, real begin/end world times and power epochs. publish_to_facilities forwards the same power transition ordering; the consumer validates against its own power history and rejects full-interval raid overlap. No consumer accepts a naked powered/phase boolean as a substitute."
+  },
+  "validation_limits": {
+    "actual_client_runtime": false,
+    "full_director_npc_scheduler": false,
+    "world_collision_engine": false,
+    "ad_sdk": false,
+    "reference_uses_actual_storemap": true,
+    "reference_uses_actual_facilities_bc02_consumer": true
+  },
+  "paid_uncollected": {
+    "authority": "Payment, actual delivery and final fulfilled exit are three separate receipts. A paid customer who has not collected their original food/parcel is not a completed delivery and generates no FR03/FR12 or FR10 for the missing actions. Real completed checkout may already have earned FR01 once.",
+    "omen": "Suspend the original service plan, preserve exact original item/order/customer/logical IDs and physical source-slot location, lock the customer-owned stock, then traverse a real safe public path to exit. No teleport, disappearance, refund, second charge or unperformed service credit.",
+    "claim": "Create one durable pickup entitlement keyed to the original paid event. Export original item and nested contents, original payment, prepack/verification receipts and completed source operations with the claim. It is an obligation record, not an active monster/critical threat. Night settlement may proceed only after its durable checkpoint commit.",
+    "same_night": "During later safe BUSINESS, the same original customer actually returns from the entrance, performs missing call/verification/collection steps, receives the same original item and physically exits. Do not charge again or emit another order_paid. Publish only unprocessed same-order source events; FR10 occurs once after actual completed delivery and exit.",
+    "next_night": "Load the preserved original objects and entitlement. Fulfil free using the original paid order/customer identities, without a new order-paid receipt, current-night coins/XP, facility credits or FR10 survival credit. Do not relabel the old paid receipt with the new night/attempt to bypass FacilitiesBC02 source scope. Current-night new orders remain independent.",
+    "reference_implemented": [
+      "paid hot_called and parcel_verified physical OMEN evacuation",
+      "same-night exact-source resumed collection and once-only use publication",
+      "durable export/import of pending originals",
+      "next-night free fulfilment with zero new facility events"
+    ],
+    "not_implemented": [
+      "production transactional persistence backend",
+      "automatic arrival/raid Director hookup",
+      "all other unpaid or already-carried customer evacuation flows"
+    ],
+    "repeat_interruption": "Re-evacuating the same entitlement merges its durable state instead of replacing its resume_count. Visits use strictly increasing per-claim ordinals; after two returns the journey is visit:3. The ordinal survives export/import and another interruption in the next night, so actual completed journeys remain distinct while order/facility payout IDs stay the same."
+  }
+}

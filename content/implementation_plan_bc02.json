@@ -1,0 +1,964 @@
+{
+  "version": "BC02",
+  "runtime_integrated": false,
+  "status": "implementation_plan_ready_not_external_codex_job_started",
+  "baseline_commit": "dfd2e32eecb8fb4dc7dd3efa066cfa3817363788",
+  "prerequisite_design_gate": {
+    "id": "D00",
+    "status": "design_contracts_and_finite_evidence_must_pass_before_C00",
+    "inputs": [
+      "content/system_authority_bc02.json",
+      "content/facilities_bc02.json",
+      "content/customer_routes_bc02.json",
+      "content/environment_conditions_bc02.json",
+      "content/encounter_prerequisites_bc02.json",
+      "content/player_loop_bc02.json",
+      "content/ad_contracts_bc02.json"
+    ],
+    "command": "python3 scripts/run_validation_bc02.py",
+    "not_equivalent_to_client_acceptance": true
+  },
+  "implementation_strategy": {
+    "language": "TypeScript, pure deterministic domain core",
+    "renderer": "Canvas2D greybox then sprites; no gameplay truth in renderer",
+    "targets": [
+      "Web development/playable delivery",
+      "WeChat Mini Game platform adapter"
+    ],
+    "dependency_versions": "C00检查实际环境后锁定具体工具链/lockfile；本设计不假写latest版本号",
+    "reuse": [
+      "content JSON and explicit BC02 overrides",
+      "existing prototype geometry/interaction ideas",
+      "Python finite references as parity fixtures, never as a live combat resolver"
+    ],
+    "entry": "docs/100_bc02_codex_start.md",
+    "actual_client_files_created_in_this_design_commit": false
+  },
+  "presentation_baseline": {
+    "orientation": "landscape, responsive safe areas",
+    "camera": "16×9 tile logical view with bounded follow; inspect-map only while full world paused",
+    "input": [
+      "left movement stick / WASD",
+      "right facing drag and lock-facing toggle",
+      "contextual primary interaction plus cancel and limited quick slots"
+    ],
+    "visibility": "danger geometry and currently known identity states use shape/text/color; screen or audio settings do not change world condition truth",
+    "art_order": [
+      "legible greybox and collision overlays",
+      "normal customer/object identity silhouettes",
+      "telegraphs and on/off power feedback",
+      "sprite/animation/audio polish after mechanics acceptance"
+    ]
+  },
+  "p0_content": {
+    "active_monsters": [
+      "F01",
+      "F05",
+      "F12",
+      "F13",
+      "F17",
+      "F60",
+      "S09",
+      "S29",
+      "S34",
+      "S40",
+      "S43"
+    ],
+    "passive_monsters": [
+      "S38"
+    ],
+    "facilities": "all14 roles;12 real rewarded customer sources",
+    "tower_scope": "T02 seven-node family with real projectile/status/HP consumers; other families in C11",
+    "trap_scope": [
+      "R01",
+      "R02",
+      "R07"
+    ],
+    "lottery_pool_version": "BC02_P0_EQ01_6",
+    "lottery_items": [
+      "Q09",
+      "Q14",
+      "Q15",
+      "I25",
+      "I32",
+      "I41"
+    ],
+    "lottery_probability_policy": "unchanged tier60/30/10 and class50/50; selected P0 entries only after real handlers. Display actual pool; do not imply full52-item pool is live.",
+    "live_ads_required_for_P0": false,
+    "fake_ads_and_all_three_surfaces_required": true,
+    "full_105_AI_required_for_P0": false
+  },
+  "shared_interfaces": [
+    {
+      "name": "SourceReceipt",
+      "fields": [
+        "event_id",
+        "logical_night_id",
+        "attempt_id",
+        "logical_root_id",
+        "source_object_id",
+        "owner_actor_id",
+        "world_time",
+        "source_revision",
+        "kind",
+        "payload"
+      ]
+    },
+    {
+      "name": "ActionSpec",
+      "fields": [
+        "handler_id",
+        "actual_actor_id",
+        "object_bindings",
+        "operation_port",
+        "required_hands",
+        "requires_current",
+        "manual_or_true_wait",
+        "base_duration_s",
+        "commit_changes",
+        "cancel_policy"
+      ]
+    },
+    {
+      "name": "ConditionLease",
+      "fields": [
+        "condition_id",
+        "source_ids",
+        "versions",
+        "root_id",
+        "layer",
+        "expires_world_at",
+        "revalidate_at_commit",
+        "task_energy_cycle",
+        "energy_recovery_window_expires_at",
+        "absolute_rule_deadline"
+      ]
+    },
+    {
+      "name": "RuleOutcome",
+      "fields": [
+        "root_id",
+        "actual_actions",
+        "original_objects",
+        "response_segment",
+        "real_terminal_receipt"
+      ]
+    },
+    {
+      "name": "SaveOwner",
+      "fields": [
+        "schema_version",
+        "content_version",
+        "snapshot",
+        "restore",
+        "validated_owner_refs",
+        "task_energy_cycle",
+        "energy_recovery_window_expires_at",
+        "absolute_rule_deadline"
+      ]
+    },
+    {
+      "name": "AdCompletion",
+      "fields": [
+        "offer_id",
+        "show_nonce",
+        "provider_kind",
+        "completion_semantics",
+        "completion_receipt_id"
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "C00",
+      "title": "独立BC02客户端与合同编译",
+      "stage": "P0",
+      "depends_on": [
+        "D00"
+      ],
+      "status": "planned_not_implemented",
+      "deliverables": [
+        "新client包：TypeScript纯游戏核、Canvas2D渲染、Web/微信平台适配接口",
+        "读取BC02唯一权威；结构化schema与处理器白名单，错误给出源指针",
+        "保留旧prototype练习；生成可追溯内容清单、独立BC02存档版本"
+      ],
+      "acceptance": [
+        "浏览器能进入BC02练习菜单和灰盒门店；npm build/test可重复",
+        "已知旧duration/8槽/固定每小时一怪字段不会同时生效",
+        "未实现能力显示开发原因并不入池；中文说明不可当执行代码"
+      ],
+      "target_paths_to_create_or_modify": [
+        "client/package.json",
+        "client/src/content/compileContracts.ts",
+        "client/src/platform/Platform.ts",
+        "client/src/main.ts",
+        "client/tests/contracts.test.ts"
+      ]
+    },
+    {
+      "id": "C01",
+      "title": "真实世界、身份与统一暂停",
+      "stage": "P0",
+      "depends_on": [
+        "C00"
+      ],
+      "status": "planned_not_implemented",
+      "deliverables": [
+        "固定模拟步长、独立世界/准备/广告墙钟，多个暂停持有者",
+        "真实body半径/地层/路径/LOS/朝向，取放/暂放/占手/取消",
+        "唯一ObjectRegistry与SourceEventLedger，输入只发命令，回执由世界提交"
+      ],
+      "acceptance": [
+        "能从前门到仓库、取箱、暂放、拾回并保持原ID；员工面/公共面不同权限",
+        "按住移动时开暂停，300s后回游戏没有偷走路/攻击/产血/工作/回血",
+        "动作与怪物命中同刻按合同顺序结算，保存恢复同样结果"
+      ],
+      "target_paths_to_create_or_modify": [
+        "client/src/core/GameClock.ts",
+        "client/src/core/PauseService.ts",
+        "client/src/world/Navigation.ts",
+        "client/src/world/ObjectRegistry.ts",
+        "client/src/world/ActionRunner.ts",
+        "client/src/world/SourceEventLedger.ts",
+        "client/tests/world.test.ts"
+      ]
+    },
+    {
+      "id": "C02",
+      "title": "条件生产、撤销和入场事务",
+      "stage": "P0",
+      "depends_on": [
+        "C01"
+      ],
+      "status": "planned_not_implemented",
+      "deliverables": [
+        "环境producer→真实地格/节点/痕迹→消费者查询；WaterGraph先实现",
+        "按105 registry解析source manifest、预约/真实到货/root_commit；历史事实不可由spawn创造",
+        "先接普通雨/杯/冷柜水、F05割点和候选镜面/影锚数据接口"
+      ],
+      "acceptance": [
+        "F05无湿路不入场；部署须实际走完+安装+预警，水不跳格",
+        "割点前后/预兆期间源过期/出口挡住都撤销许可，原物留在真实位置",
+        "每种新源有生成、消耗、取消、自然过期、主根结束及存档用例；选择怪不产生source",
+        "F13终态尸血/S25操作产物不提前作为入场真值；F58无热源仍能挂牌、实走3格、退出封区；任务灯>900s手摇只续原组60s并保留3s有限恢复窗。"
+      ],
+      "target_paths_to_create_or_modify": [
+        "client/src/world/EnvironmentSources.ts",
+        "client/src/world/WaterGraph.ts",
+        "client/src/game/EncounterAdmission.ts",
+        "client/src/game/SourceReservations.ts",
+        "client/tests/environment.test.ts"
+      ]
+    },
+    {
+      "id": "C03",
+      "title": "真实顾客、店务与整场支援",
+      "stage": "P0",
+      "depends_on": [
+        "C01",
+        "C02"
+      ],
+      "status": "planned_not_implemented",
+      "deliverables": [
+        "完整customer_routes_bc02 profiles与公共面：原货/付款/饮用/空瓶/取件/小票",
+        "BUSINESS/OMEN/RAID/RECOVERY，普通杂活冻结、真实撤客/配送与恢复",
+        "FacilitiesBC02所有12可奖励来源，整场支援、hp_regen预算ack、一次性随机陷阱和有限存活收入"
+      ],
+      "acceptance": [
+        "每条公共路线从实际进门到付款/离店输出可复核位置、原物与时间；未付款/错物不给buff",
+        "19/80/180+秒战斗期间支援持续，满血/停电不偷扣或补发，第二份留下一场",
+        "RAID杂活进度和杂活债罚为0；有奖任务、战术反制与buff来源不会混发"
+      ],
+      "target_paths_to_create_or_modify": [
+        "client/src/game/CustomerDirector.ts",
+        "client/src/game/StoreJobs.ts",
+        "client/src/game/Facilities.ts",
+        "client/src/game/Director.ts",
+        "client/src/ui/SupportHUD.ts",
+        "client/tests/store-support.test.ts"
+      ]
+    },
+    {
+      "id": "C04",
+      "title": "四怪真实战斗纵向切片",
+      "stage": "P0",
+      "depends_on": [
+        "C02",
+        "C03"
+      ],
+      "status": "planned_not_implemented",
+      "deliverables": [
+        "F12/F13/F05/F17真实移动、MA01攻击、玩家HP/SAN/体力/冲刺",
+        "T02全族处理器、R01/R02/R07真实目标/地层/容量/预警；暂不凭配置开放其它塔族",
+        "同一原回形针/肉箱/湿割点/包裹三结；F17高q非敌对取件响应"
+      ],
+      "acceptance": [
+        "Lv1/无装备/无广告/无顾客buff能以真实操作完成四种主解；受击失败和正确动作都实际演示",
+        "F13低空不会误触地面陷阱；塔和永久毒真实扣敌HP，不可调用参考make_combat_resolver替玩家胜利",
+        "F17高q、旧冻结/减速、包裹移走反例能有限恢复；不清q、不清已付成熟队列",
+        "Web画面可连续玩完整一夜，真实失败可读且可重试"
+      ],
+      "target_paths_to_create_or_modify": [
+        "client/src/combat/AttackRunner.ts",
+        "client/src/combat/Damage.ts",
+        "client/src/combat/StatusLedger.ts",
+        "client/src/combat/TowerSystem.ts",
+        "client/src/game/monsters/F05.ts",
+        "client/src/game/monsters/F12.ts",
+        "client/src/game/monsters/F13.ts",
+        "client/src/game/monsters/F17.ts",
+        "client/tests/vertical-slice.test.ts"
+      ]
+    },
+    {
+      "id": "C05",
+      "title": "其余首发遭遇与原物终态",
+      "stage": "P0",
+      "depends_on": [
+        "C04"
+      ],
+      "status": "planned_not_implemented",
+      "deliverables": [
+        "接F01/F60/S09/S29/S34/S40/S43和无奖被动S38",
+        "光/声/反射/真实视线等所需环境模块，任务NPC与正常顾客分类",
+        "每个root终态只提交一次，S40/S43响应保持实际路径和原物"
+      ],
+      "acceptance": [
+        "共11主动+1被动都能单独手动重现主解、误操作、无源拒绝、失败回滚",
+        "几何检查用真实body/物件占格，不能因BC01有脚本就默认AI完成",
+        "每怪有录屏/事件trace/坐标图；没有免费解、有效警示或恢复路径的条目不得进随机池"
+      ],
+      "target_paths_to_create_or_modify": [
+        "client/src/game/monsters/",
+        "client/src/world/LightShadow.ts",
+        "client/src/world/SoundField.ts",
+        "client/src/world/Reflection.ts",
+        "client/tests/first-roster.test.ts"
+      ]
+    },
+    {
+      "id": "C06",
+      "title": "七夜成长、日间准备和完整存档",
+      "stage": "P0",
+      "depends_on": [
+        "C03",
+        "C04"
+      ],
+      "status": "planned_not_implemented",
+      "deliverables": [
+        "BC01等级/防御/熟练度/攻击迁HP；SAN恐慌、基础资源与免费用品保留",
+        "局末统一金币/灵能/XP/券，班前生效等级，夜7周清及自动交班",
+        "完整状态快照+命令去重/CAS，失败整笔回滚和同随机计划；Web实际持久化、微信StorageAdapter"
+      ],
+      "acceptance": [
+        "七夜可走完；失败夜不留下暂得XP/金钱/装备且不重抽导演/陷阱",
+        "每个世界owner在半路/预兆/断电/取件/治疗ack边界保存后恢复一致",
+        "真正关闭并重开浏览器后继续，不只内存clone；旧局存档明确拒绝/显式迁移",
+        "无广告也有稳定免费开局及下一夜满HP",
+        "任务能源cycle、原恢复窗绝对截止、原rule deadline和顾客多次撤离访问ordinal随同一原物保存，读档不刷新保护窗或复用visit ID。"
+      ],
+      "target_paths_to_create_or_modify": [
+        "client/src/game/Player.ts",
+        "client/src/game/Campaign.ts",
+        "client/src/game/Preparation.ts",
+        "client/src/persistence/CampaignRepository.ts",
+        "client/src/platform/WebStorage.ts",
+        "client/src/platform/WeChatStorage.ts",
+        "client/tests/save-week.test.ts"
+      ]
+    },
+    {
+      "id": "C07",
+      "title": "首发装备、抽奖与领取箱",
+      "stage": "P0",
+      "depends_on": [
+        "C06"
+      ],
+      "status": "planned_not_implemented",
+      "deliverables": [
+        "先实现Q09/Q14/Q15、I25/I32/I41六个真实消费者作为明确P0池",
+        "沿EQ01 60/30/10品质、50/50类目和保底、重复同品质道具补偿",
+        "每抽先固化候选/池版本/持有快照，再扣1券15准备分钟；领券不自动抽"
+      ],
+      "acceptance": [
+        "六种消费者逐个实际生效且无来源循环；任一正概率类别缺handler时抽奖和额外券广告均不可用",
+        "同一draw重载结果不变、不重复扣券、不重复领物；满包能进入固定领取箱",
+        "显示实际P0池六项及原概率；扩池版本不能改变未完成老draw；后续按EQ01扩到34装备18道具"
+      ],
+      "target_paths_to_create_or_modify": [
+        "client/src/game/Equipment.ts",
+        "client/src/game/Consumables.ts",
+        "client/src/game/Lottery.ts",
+        "client/src/ui/LotteryScreen.ts",
+        "client/tests/lottery.test.ts"
+      ]
+    },
+    {
+      "id": "C08",
+      "title": "广告槽、模拟适配器和唯一领奖",
+      "stage": "P0",
+      "depends_on": [
+        "C06",
+        "C07"
+      ],
+      "status": "planned_not_implemented",
+      "deliverables": [
+        "三处UI位置+DisabledProvider/FakeProvider，AdProvider和CampaignRepository隔离",
+        "暂停token所有者、show_nonce、加载取消和5s墙钟超时",
+        "本局金币翻倍、额外一券、夜7例外、正常继续与频控"
+      ],
+      "acceptance": [
+        "300秒广告期间真实游戏快照不变；广告关闭不恢复其它暂停持有者",
+        "完成/提前关/无填充/旧回调/重复监听/崩溃/周界逐项重现",
+        "普通收益先到账；本局G只额外加G，不翻XP/券；抽奖广告只发1券",
+        "开发构建明确模拟广告，测试按钮不能以线上provider身份领奖",
+        "show请求/nonce先持久化才可外发；次夜开班后迟到结果页关闭或onLoad不改变phase/重新弹广告；拒奖也释放当前广告自己的暂停。"
+      ],
+      "target_paths_to_create_or_modify": [
+        "client/src/ads/AdProvider.ts",
+        "client/src/ads/FakeProvider.ts",
+        "client/src/ads/DisabledProvider.ts",
+        "client/src/ads/AdOffers.ts",
+        "client/src/ui/PauseMenu.ts",
+        "client/src/ui/ResultScreen.ts",
+        "client/tests/ads.test.ts"
+      ]
+    },
+    {
+      "id": "C09",
+      "title": "P0可玩验收与微信包",
+      "stage": "P0",
+      "depends_on": [
+        "C05",
+        "C06",
+        "C07",
+        "C08"
+      ],
+      "status": "planned_not_implemented",
+      "deliverables": [
+        "Web可玩包、微信适配构建、触屏/朝向/字幕/危险预告/可取消交互",
+        "完整一夜和七夜真实玩法验收记录、事件trace/性能日志",
+        "将content_admission状态逐一对应真实handler和验收材料"
+      ],
+      "acceptance": [
+        "首发11主动+1被动、14设施职责/12支援来源、七夜/等级/存档/抽奖/广告模拟全部串通",
+        "固定3类测试设备：低档Android、中档Android、iOS，目标30fps保底/60fps优先；记录内存和95分位帧耗时，数值是本项目目标而非平台保证",
+        "无广告模式及真实失败重试通过；手动验证挡路、两手满、断电、无水、失去原物、HP0/SAN0",
+        "P0验收必须能实际游玩，不得以Python finite reference结果代签"
+      ],
+      "target_paths_to_create_or_modify": [
+        "client/wechat/game.js",
+        "client/wechat/game.json",
+        "client/src/platform/WeChatPlatform.ts",
+        "docs/runtime/bc02-p0-acceptance.md",
+        "client/tests/e2e/"
+      ]
+    },
+    {
+      "id": "C10",
+      "title": "真实广告平台接入",
+      "stage": "release_integration",
+      "depends_on": [
+        "C09"
+      ],
+      "status": "planned_not_implemented",
+      "deliverables": [
+        "WeChatProvider能力检测/实例生命周期/真实回调，appId/adUnitId配置隔离",
+        "账户绑定和稳定领取幂等服务或明确受限本地模式；服务端完成验证仅接平台实际能力",
+        "四组广告经济回放、目标平台后台资格与投放位置实测"
+      ],
+      "acceptance": [
+        "真机完整看完/提前关/断网/无填充/后台恢复/退出都不改变普通玩法奖励",
+        "账户下重复回调/重复请求不多领；本地模拟不被宣称为服务端认证",
+        "对比0广告/只翻金币/只领券/都看下实际升级和装备获取；免费路径仍达到P0标准",
+        "依赖外部账号配置时先完成Disabled/Fake交付，正式广告开关保持关闭直到配置与实测完成"
+      ],
+      "target_paths_to_create_or_modify": [
+        "client/src/ads/WeChatProvider.ts",
+        "server/rewards/",
+        "client/config/ad-units.example.json",
+        "docs/runtime/bc02-ad-device-acceptance.md"
+      ]
+    },
+    {
+      "id": "P1_order_and_offer",
+      "title": "物理食品/商品供应、定时服务、异常来客与正常支付拆开。",
+      "stage": "P1_roster",
+      "depends_on": [
+        "C09"
+      ],
+      "status": "planned_not_implemented",
+      "deliverables": [
+        {
+          "monster_ids": [
+            "F04",
+            "F06",
+            "F09",
+            "F11",
+            "F20",
+            "F27",
+            "F29",
+            "F44",
+            "F47",
+            "F48",
+            "F55"
+          ],
+          "modules": [
+            "transaction_identity",
+            "order_ledger",
+            "NPC_transfer",
+            "actual_navigation"
+          ]
+        },
+        "每卡按source_manifest/module_binding/action_graph/NPC response/cleanup实际接入"
+      ],
+      "acceptance": [
+        "每卡来源独立生成、原物守恒、基准手/路/时窗、错误恢复、结束/去重和保存恢复都有实际场景",
+        "缺原订单/活血/端点/子体预算时明确拒绝，不能补写真相",
+        "每卡上线前至少一种正常主解与一种中断/误操作有可重现录像和事件trace；批内全通过后才更新对应runtime admission"
+      ],
+      "target_paths_to_create_or_modify": [
+        "client/src/game/monsters/",
+        "client/src/world/modules/",
+        "client/tests/encounters/",
+        "docs/runtime/roster/"
+      ]
+    },
+    {
+      "id": "P1_history_identity",
+      "title": "先真实发生历史，再抽对应怪；当前核验不由开班自动给真。",
+      "stage": "P1_roster",
+      "depends_on": [
+        "C09",
+        "P1_order_and_offer"
+      ],
+      "status": "planned_not_implemented",
+      "deliverables": [
+        {
+          "monster_ids": [
+            "F02",
+            "F16",
+            "F18",
+            "F19",
+            "F23",
+            "F25",
+            "F37",
+            "F38",
+            "F41",
+            "F43",
+            "F45",
+            "F51"
+          ],
+          "modules": [
+            "immutable_work_history",
+            "cross_night_sale_ledger",
+            "current_body_evidence",
+            "same_root_response"
+          ]
+        },
+        "每卡按source_manifest/module_binding/action_graph/NPC response/cleanup实际接入"
+      ],
+      "acceptance": [
+        "每卡来源独立生成、原物守恒、基准手/路/时窗、错误恢复、结束/去重和保存恢复都有实际场景",
+        "缺原订单/活血/端点/子体预算时明确拒绝，不能补写真相",
+        "每卡上线前至少一种正常主解与一种中断/误操作有可重现录像和事件trace；批内全通过后才更新对应runtime admission"
+      ],
+      "target_paths_to_create_or_modify": [
+        "client/src/game/monsters/",
+        "client/src/world/modules/",
+        "client/tests/encounters/",
+        "docs/runtime/roster/"
+      ]
+    },
+    {
+      "id": "P1_environment_routes",
+      "title": "水源/干边/影节点/实际反射/通道模块与安全侧控制。",
+      "stage": "P1_roster",
+      "depends_on": [
+        "C09"
+      ],
+      "status": "planned_not_implemented",
+      "deliverables": [
+        {
+          "monster_ids": [
+            "F10",
+            "F24",
+            "F28",
+            "F34",
+            "F40",
+            "F52",
+            "F56",
+            "F57",
+            "S22",
+            "S23",
+            "S25"
+          ],
+          "modules": [
+            "environment",
+            "condition_TTL",
+            "phase_revalidation",
+            "actual_navigation"
+          ]
+        },
+        "每卡按source_manifest/module_binding/action_graph/NPC response/cleanup实际接入"
+      ],
+      "acceptance": [
+        "每卡来源独立生成、原物守恒、基准手/路/时窗、错误恢复、结束/去重和保存恢复都有实际场景",
+        "缺原订单/活血/端点/子体预算时明确拒绝，不能补写真相",
+        "每卡上线前至少一种正常主解与一种中断/误操作有可重现录像和事件trace；批内全通过后才更新对应runtime admission"
+      ],
+      "target_paths_to_create_or_modify": [
+        "client/src/game/monsters/",
+        "client/src/world/modules/",
+        "client/tests/encounters/",
+        "docs/runtime/roster/"
+      ]
+    },
+    {
+      "id": "P1_work_orders",
+      "title": "真实杂务来源与根机制分账；任务保护窗口内可做必要规则动作。",
+      "stage": "P1_roster",
+      "depends_on": [
+        "C09"
+      ],
+      "status": "planned_not_implemented",
+      "deliverables": [
+        {
+          "monster_ids": [
+            "F07",
+            "F08",
+            "F21",
+            "F22",
+            "F31",
+            "F35",
+            "F36",
+            "F39",
+            "F49",
+            "F53",
+            "F58",
+            "F59"
+          ],
+          "modules": [
+            "real_jobs",
+            "staff_safe_staging",
+            "pause_clock",
+            "shift_close_ledger"
+          ]
+        },
+        "每卡按source_manifest/module_binding/action_graph/NPC response/cleanup实际接入"
+      ],
+      "acceptance": [
+        "每卡来源独立生成、原物守恒、基准手/路/时窗、错误恢复、结束/去重和保存恢复都有实际场景",
+        "缺原订单/活血/端点/子体预算时明确拒绝，不能补写真相",
+        "每卡上线前至少一种正常主解与一种中断/误操作有可重现录像和事件trace；批内全通过后才更新对应runtime admission"
+      ],
+      "target_paths_to_create_or_modify": [
+        "client/src/game/monsters/",
+        "client/src/world/modules/",
+        "client/tests/encounters/",
+        "docs/runtime/roster/"
+      ]
+    },
+    {
+      "id": "P1_timed_originals",
+      "title": "原物搬运、不可刷新窗口、活伤/活迹生成约束与有界失误恢复。",
+      "stage": "P1_roster",
+      "depends_on": [
+        "C09",
+        "P1_environment_routes"
+      ],
+      "status": "planned_not_implemented",
+      "deliverables": [
+        {
+          "monster_ids": [
+            "F03",
+            "F15",
+            "F26",
+            "F30",
+            "F32",
+            "F33",
+            "F42",
+            "F46",
+            "F50",
+            "F54"
+          ],
+          "modules": [
+            "hands_and_carry",
+            "source_transactions",
+            "world_timers",
+            "timed_route_proof"
+          ]
+        },
+        "每卡按source_manifest/module_binding/action_graph/NPC response/cleanup实际接入"
+      ],
+      "acceptance": [
+        "每卡来源独立生成、原物守恒、基准手/路/时窗、错误恢复、结束/去重和保存恢复都有实际场景",
+        "缺原订单/活血/端点/子体预算时明确拒绝，不能补写真相",
+        "每卡上线前至少一种正常主解与一种中断/误操作有可重现录像和事件trace；批内全通过后才更新对应runtime admission"
+      ],
+      "target_paths_to_create_or_modify": [
+        "client/src/game/monsters/",
+        "client/src/world/modules/",
+        "client/tests/encounters/",
+        "docs/runtime/roster/"
+      ]
+    },
+    {
+      "id": "P1_containment",
+      "title": "固定笼/槽/车道/门/脚圈原位安装，实体真实进场/收容/返舱。",
+      "stage": "P1_roster",
+      "depends_on": [
+        "C09"
+      ],
+      "status": "planned_not_implemented",
+      "deliverables": [
+        {
+          "monster_ids": [
+            "S01",
+            "S02",
+            "S03",
+            "S06",
+            "S07",
+            "S13",
+            "S31",
+            "S32",
+            "S35",
+            "S39"
+          ],
+          "modules": [
+            "reserved_large_module",
+            "actual_navigation",
+            "NPC_transfer",
+            "finite_children"
+          ]
+        },
+        "每卡按source_manifest/module_binding/action_graph/NPC response/cleanup实际接入"
+      ],
+      "acceptance": [
+        "每卡来源独立生成、原物守恒、基准手/路/时窗、错误恢复、结束/去重和保存恢复都有实际场景",
+        "缺原订单/活血/端点/子体预算时明确拒绝，不能补写真相",
+        "每卡上线前至少一种正常主解与一种中断/误操作有可重现录像和事件trace；批内全通过后才更新对应runtime admission"
+      ],
+      "target_paths_to_create_or_modify": [
+        "client/src/game/monsters/",
+        "client/src/world/modules/",
+        "client/tests/encounters/",
+        "docs/runtime/roster/"
+      ]
+    },
+    {
+      "id": "P1_side_workstations",
+      "title": "工具/证据/黏液/原丝/武器实际收回；安全侧工位与当前实体对应。",
+      "stage": "P1_roster",
+      "depends_on": [
+        "C09"
+      ],
+      "status": "planned_not_implemented",
+      "deliverables": [
+        {
+          "monster_ids": [
+            "S04",
+            "S05",
+            "S10",
+            "S11",
+            "S12",
+            "S19",
+            "S20",
+            "S21",
+            "S24",
+            "S26",
+            "S30",
+            "S33",
+            "S36",
+            "S37",
+            "S42",
+            "S44",
+            "S45"
+          ],
+          "modules": [
+            "reserved_counter_modules",
+            "physical_evidence",
+            "source_transactions",
+            "same_root_response"
+          ]
+        },
+        "每卡按source_manifest/module_binding/action_graph/NPC response/cleanup实际接入"
+      ],
+      "acceptance": [
+        "每卡来源独立生成、原物守恒、基准手/路/时窗、错误恢复、结束/去重和保存恢复都有实际场景",
+        "缺原订单/活血/端点/子体预算时明确拒绝，不能补写真相",
+        "每卡上线前至少一种正常主解与一种中断/误操作有可重现录像和事件trace；批内全通过后才更新对应runtime admission"
+      ],
+      "target_paths_to_create_or_modify": [
+        "client/src/game/monsters/",
+        "client/src/world/modules/",
+        "client/tests/encounters/",
+        "docs/runtime/roster/"
+      ]
+    },
+    {
+      "id": "P1_finite_lineages",
+      "title": "有限原料/卵/源口/成对与群体池，已死编号可闭合，绝不要求重生。",
+      "stage": "P1_roster",
+      "depends_on": [
+        "C09",
+        "P1_containment"
+      ],
+      "status": "planned_not_implemented",
+      "deliverables": [
+        {
+          "monster_ids": [
+            "S08",
+            "S14",
+            "S15",
+            "S16",
+            "S17",
+            "S18",
+            "S27",
+            "S28",
+            "S41"
+          ],
+          "modules": [
+            "finite_children",
+            "material_identity",
+            "group_attack_reservations",
+            "condition_cleanup"
+          ]
+        },
+        "每卡按source_manifest/module_binding/action_graph/NPC response/cleanup实际接入"
+      ],
+      "acceptance": [
+        "每卡来源独立生成、原物守恒、基准手/路/时窗、错误恢复、结束/去重和保存恢复都有实际场景",
+        "缺原订单/活血/端点/子体预算时明确拒绝，不能补写真相",
+        "每卡上线前至少一种正常主解与一种中断/误操作有可重现录像和事件trace；批内全通过后才更新对应runtime admission"
+      ],
+      "target_paths_to_create_or_modify": [
+        "client/src/game/monsters/",
+        "client/src/world/modules/",
+        "client/tests/encounters/",
+        "docs/runtime/roster/"
+      ]
+    },
+    {
+      "id": "P2_host_opt_in",
+      "title": "独立验证的人类宿主保护模式；默认禁用保留。",
+      "stage": "P2_optional",
+      "depends_on": [
+        "C09",
+        "P1_history_identity",
+        "P1_environment_routes"
+      ],
+      "status": "planned_not_implemented",
+      "deliverables": [
+        {
+          "monster_ids": [
+            "F14"
+          ],
+          "modules": [
+            "verified_human_host",
+            "three_slot_shadow_module",
+            "no_human_damage"
+          ]
+        },
+        "每卡按source_manifest/module_binding/action_graph/NPC response/cleanup实际接入"
+      ],
+      "acceptance": [
+        "每卡来源独立生成、原物守恒、基准手/路/时窗、错误恢复、结束/去重和保存恢复都有实际场景",
+        "缺原订单/活血/端点/子体预算时明确拒绝，不能补写真相",
+        "每卡上线前至少一种正常主解与一种中断/误操作有可重现录像和事件trace；批内全通过后才更新对应runtime admission"
+      ],
+      "target_paths_to_create_or_modify": [
+        "client/src/game/monsters/",
+        "client/src/world/modules/",
+        "client/tests/encounters/",
+        "docs/runtime/roster/"
+      ]
+    },
+    {
+      "id": "C11",
+      "title": "塔陷阱装备全目录与剩余事件",
+      "stage": "P1_systems",
+      "depends_on": [
+        "C09"
+      ],
+      "status": "planned_not_implemented",
+      "deliverables": [
+        "逐族完成TD05 10塔族70节点、16陷阱族80节点的全部实际效果消费者",
+        "EQ01扩全34启用装备和18特殊道具，原抽奖概率/保底/待领版本保留",
+        "SA02剩余旧事件迁移按七夜/随机阶段逐条重审，只接真实有消费者的事件；宠物/部署按旧身份和周资产合同"
+      ],
+      "acceptance": [
+        "属性、范围、地层、单击/弹匣/DoT/电链/永久毒/移动段实际作用不同，不套一个generic buff",
+        "开关电、同根子体、有限额外命中和同源联动去重；经济支出不重复",
+        "性能优化不能加未授权毒/电上限或消灭永久原物；每族有真实战斗场景"
+      ],
+      "target_paths_to_create_or_modify": [
+        "client/src/combat/towers/",
+        "client/src/combat/traps/",
+        "client/src/game/equipment/",
+        "client/src/game/events/",
+        "client/tests/content-handlers/"
+      ]
+    },
+    {
+      "id": "C12",
+      "title": "组合玩法、完整内容试玩与发布",
+      "stage": "release",
+      "depends_on": [
+        "C10",
+        "C11",
+        "P1_order_and_offer",
+        "P1_history_identity",
+        "P1_environment_routes",
+        "P1_work_orders",
+        "P1_timed_originals",
+        "P1_containment",
+        "P1_side_workstations",
+        "P1_finite_lineages"
+      ],
+      "status": "planned_not_implemented",
+      "deliverables": [
+        "在已验证单项之上逐个开放有实际来源的组合，不自动放行所有两两配对",
+        "完整105目录状态表（F14默认关闭独立可选），104默认候选依原首现日和条件控制",
+        "完整触屏/音画/热更新存档兼容、无障碍与来源许可清单，发布前真实回归"
+      ],
+      "acceptance": [
+        "完整首周/后续周重复游玩及失败/断线恢复；没有暗中用假NPC/原物/终态代替机制",
+        "每种移动/地形/通道/响应类型至少一次真实长战斗与暂停恢复；实际广告经济与无广告经济分别评估",
+        "发布包admission逐项可追踪到实现和验收，仍关闭的可选内容公开列出"
+      ],
+      "target_paths_to_create_or_modify": [
+        "docs/runtime/final-acceptance.md",
+        "client/release/",
+        "client/tests/regression/"
+      ]
+    }
+  ],
+  "task_delivery_rule": "每个任务独立小PR，描述实际可玩改变、复现命令、录像/事件trace和剩余内容。依赖未满足不得改成完成；计划状态和runtime开关由真实验收更新。实现中发现新的不自洽点先加具体反例和限定合同修订，再补消费者，不回到只写泛用TODO。",
+  "milestones": [
+    {
+      "id": "M1",
+      "after": [
+        "C04"
+      ],
+      "playable_outcome": "四怪+经营支援的真实完整一夜Web灰盒"
+    },
+    {
+      "id": "M2",
+      "after": [
+        "C09"
+      ],
+      "playable_outcome": "首发12遭遇七夜P0、等级存档抽奖、广告模拟及微信包"
+    },
+    {
+      "id": "M3",
+      "after": [
+        "C12"
+      ],
+      "playable_outcome": "默认内容扩展、系统全目录、真实广告及发布验收；F14仍独立opt-in"
+    }
+  ],
+  "parallel_work_rule": "C00/C01接口稳定后，顾客支援、环境/怪物、UI/广告可分支并行；Campaign/SourceEvent/Pause接口由单一负责人维护。不同任务不并发改同一状态owner文件。",
+  "estimation": "按依赖和验收推进，不把未做性能/美术/真实设备工作伪装成已确定日历工期。每批结束根据实际速度估剩余量。",
+  "external_execution": "本会话没有可用的独立Codex云任务启动接口；本文件和docs/100是GitHub上可直接消费的执行输入。未声称外部任务已排队或已实现完整客户端。"
+}

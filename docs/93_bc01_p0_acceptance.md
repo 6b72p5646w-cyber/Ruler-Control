@@ -1,5 +1,7 @@
 # BC01 P0 验收：设计完成与有限联合证据
 
+> 版本导航：本文保留 BC01 当时的设计和有限参考证据。当前明确修订以 [BC02 总览](94_bc02_closure.md) 和 [BC02 权威表](../content/system_authority_bc02.json) 为准；客户端实施从 [Codex 开工入口](100_bc02_codex_start.md) 开始。旧短时设施规则不与 BC02 并行叠加。
+
 日期：2026-11-20。当前设计入口：[BC01 权威表](../content/system_authority_bc01.json)。复现全部本轮检查：
 
 ```sh

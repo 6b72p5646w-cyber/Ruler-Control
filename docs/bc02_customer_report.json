@@ -1,0 +1,465 @@
+{
+  "version": "BC02",
+  "scope": "actual public-path and source-object reference with real FacilitiesBC02 consumer",
+  "passed": 37,
+  "failed": 0,
+  "actual_client_runtime": false,
+  "checks": [
+    {
+      "name": "default production customer adapter stays closed",
+      "passed": true
+    },
+    {
+      "name": "new public FR06 face excludes old employee control and has protected actual paths",
+      "passed": true
+    },
+    {
+      "name": "actual path/time/original-object/FacilitiesBC02 profile: goods_basic",
+      "passed": true
+    },
+    {
+      "name": "actual path/time/original-object/FacilitiesBC02 profile: goods_lucky",
+      "passed": true
+    },
+    {
+      "name": "actual path/time/original-object/FacilitiesBC02 profile: hot_basic",
+      "passed": true
+    },
+    {
+      "name": "actual path/time/original-object/FacilitiesBC02 profile: hot_lucky",
+      "passed": true
+    },
+    {
+      "name": "actual path/time/original-object/FacilitiesBC02 profile: frozen_basic",
+      "passed": true
+    },
+    {
+      "name": "actual path/time/original-object/FacilitiesBC02 profile: frozen_lucky",
+      "passed": true
+    },
+    {
+      "name": "actual path/time/original-object/FacilitiesBC02 profile: drink_basic",
+      "passed": true
+    },
+    {
+      "name": "actual path/time/original-object/FacilitiesBC02 profile: drink_lucky",
+      "passed": true
+    },
+    {
+      "name": "actual path/time/original-object/FacilitiesBC02 profile: hot_called",
+      "passed": true
+    },
+    {
+      "name": "actual path/time/original-object/FacilitiesBC02 profile: drink_return",
+      "passed": true
+    },
+    {
+      "name": "actual path/time/original-object/FacilitiesBC02 profile: drink_public",
+      "passed": true
+    },
+    {
+      "name": "actual path/time/original-object/FacilitiesBC02 profile: parcel_verified",
+      "passed": true
+    },
+    {
+      "name": "FR05 plus FR11 consumes the same paid drink without a third FR13 reward",
+      "passed": true
+    },
+    {
+      "name": "FR11 rejects a missing derived empty container",
+      "passed": true
+    },
+    {
+      "name": "skipping the actual drinking action cannot produce FR11 use",
+      "passed": true
+    },
+    {
+      "name": "unpaid original drink cannot be consumed for service credit",
+      "passed": true
+    },
+    {
+      "name": "wrong physical original object is rejected",
+      "passed": true
+    },
+    {
+      "name": "cross-root original object is rejected",
+      "passed": true
+    },
+    {
+      "name": "power loss interrupts actual call progress; restore needs a full real response",
+      "passed": true
+    },
+    {
+      "name": "manual checkout remains possible without powered cashier support",
+      "passed": true
+    },
+    {
+      "name": "actual completed hot-food use precedes a later same-tick outage by event sequence",
+      "passed": true
+    },
+    {
+      "name": "half manual and half powered checkout pays once without FR01 support",
+      "passed": true
+    },
+    {
+      "name": "a profile with three optional reward services cannot start",
+      "passed": true
+    },
+    {
+      "name": "consumption and recycling cannot replenish original sale stock",
+      "passed": true
+    },
+    {
+      "name": "a reserved item in the wrong physical slot cannot be collected at the public face",
+      "passed": true
+    },
+    {
+      "name": "parcel prepack inputs and same-root completed verification are required",
+      "passed": true
+    },
+    {
+      "name": "closed doors and changed live navigation cannot be bypassed",
+      "passed": true
+    },
+    {
+      "name": "pause freezes movement; snapshots resume exactly and use publication is once-only",
+      "passed": true
+    },
+    {
+      "name": "external fabricated completed-action receipt is not authoritative",
+      "passed": true
+    },
+    {
+      "name": "paid parcel_verified evacuates with original entitlement then fulfils same night once",
+      "passed": true
+    },
+    {
+      "name": "paid parcel_verified evacuates with original entitlement then fulfils next night without new rewards",
+      "passed": true
+    },
+    {
+      "name": "paid hot_called evacuates with original entitlement then fulfils same night once",
+      "passed": true
+    },
+    {
+      "name": "paid hot_called evacuates with original entitlement then fulfils next night without new rewards",
+      "passed": true
+    },
+    {
+      "name": "two paid-pickup interruptions preserve visit ordinals within the night",
+      "passed": true
+    },
+    {
+      "name": "two paid-pickup interruptions preserve visit ordinals across nights",
+      "passed": true
+    }
+  ],
+  "evidence": {
+    "profiles": [
+      {
+        "profile_id": "goods_basic",
+        "actual_world_seconds": 28.833333333,
+        "actual_path_tiles": 62.0,
+        "actual_service_seconds": 3.0,
+        "accepted_facilities": [
+          "FR02",
+          "FR01",
+          "FR10"
+        ],
+        "actual_optional_count": 1,
+        "original_paid_item_id": "employer:n1:goods:1",
+        "no_actor_proof_flags_injected_by_test": true,
+        "geometry_owner": "CustomerStoreMapBC02 extending actual StoreMap",
+        "consumer_owner": "FacilitiesBC02"
+      },
+      {
+        "profile_id": "goods_lucky",
+        "actual_world_seconds": 40.333333333,
+        "actual_path_tiles": 86.0,
+        "actual_service_seconds": 4.5,
+        "accepted_facilities": [
+          "FR02",
+          "FR01",
+          "FR14",
+          "FR10"
+        ],
+        "actual_optional_count": 2,
+        "original_paid_item_id": "employer:n1:goods:1",
+        "no_actor_proof_flags_injected_by_test": true,
+        "geometry_owner": "CustomerStoreMapBC02 extending actual StoreMap",
+        "consumer_owner": "FacilitiesBC02"
+      },
+      {
+        "profile_id": "hot_basic",
+        "actual_world_seconds": 33.833333333,
+        "actual_path_tiles": 74.0,
+        "actual_service_seconds": 3.0,
+        "accepted_facilities": [
+          "FR03",
+          "FR01",
+          "FR10"
+        ],
+        "actual_optional_count": 1,
+        "original_paid_item_id": "employer:n1:hot_food:1",
+        "no_actor_proof_flags_injected_by_test": true,
+        "geometry_owner": "CustomerStoreMapBC02 extending actual StoreMap",
+        "consumer_owner": "FacilitiesBC02"
+      },
+      {
+        "profile_id": "hot_lucky",
+        "actual_world_seconds": 45.333333333,
+        "actual_path_tiles": 98.0,
+        "actual_service_seconds": 4.5,
+        "accepted_facilities": [
+          "FR03",
+          "FR01",
+          "FR14",
+          "FR10"
+        ],
+        "actual_optional_count": 2,
+        "original_paid_item_id": "employer:n1:hot_food:1",
+        "no_actor_proof_flags_injected_by_test": true,
+        "geometry_owner": "CustomerStoreMapBC02 extending actual StoreMap",
+        "consumer_owner": "FacilitiesBC02"
+      },
+      {
+        "profile_id": "frozen_basic",
+        "actual_world_seconds": 37.166666667,
+        "actual_path_tiles": 82.0,
+        "actual_service_seconds": 3.0,
+        "accepted_facilities": [
+          "FR04",
+          "FR01",
+          "FR10"
+        ],
+        "actual_optional_count": 1,
+        "original_paid_item_id": "employer:n1:frozen_goods:1",
+        "no_actor_proof_flags_injected_by_test": true,
+        "geometry_owner": "CustomerStoreMapBC02 extending actual StoreMap",
+        "consumer_owner": "FacilitiesBC02"
+      },
+      {
+        "profile_id": "frozen_lucky",
+        "actual_world_seconds": 48.666666667,
+        "actual_path_tiles": 106.0,
+        "actual_service_seconds": 4.5,
+        "accepted_facilities": [
+          "FR04",
+          "FR01",
+          "FR14",
+          "FR10"
+        ],
+        "actual_optional_count": 2,
+        "original_paid_item_id": "employer:n1:frozen_goods:1",
+        "no_actor_proof_flags_injected_by_test": true,
+        "geometry_owner": "CustomerStoreMapBC02 extending actual StoreMap",
+        "consumer_owner": "FacilitiesBC02"
+      },
+      {
+        "profile_id": "drink_basic",
+        "actual_world_seconds": 35.5,
+        "actual_path_tiles": 78.0,
+        "actual_service_seconds": 3.0,
+        "accepted_facilities": [
+          "FR05",
+          "FR01",
+          "FR10"
+        ],
+        "actual_optional_count": 1,
+        "original_paid_item_id": "employer:n1:cold_drink:1",
+        "no_actor_proof_flags_injected_by_test": true,
+        "geometry_owner": "CustomerStoreMapBC02 extending actual StoreMap",
+        "consumer_owner": "FacilitiesBC02"
+      },
+      {
+        "profile_id": "drink_lucky",
+        "actual_world_seconds": 47.0,
+        "actual_path_tiles": 102.0,
+        "actual_service_seconds": 4.5,
+        "accepted_facilities": [
+          "FR05",
+          "FR01",
+          "FR14",
+          "FR10"
+        ],
+        "actual_optional_count": 2,
+        "original_paid_item_id": "employer:n1:cold_drink:1",
+        "no_actor_proof_flags_injected_by_test": true,
+        "geometry_owner": "CustomerStoreMapBC02 extending actual StoreMap",
+        "consumer_owner": "FacilitiesBC02"
+      },
+      {
+        "profile_id": "hot_called",
+        "actual_world_seconds": 34.833333333,
+        "actual_path_tiles": 74.0,
+        "actual_service_seconds": 4.0,
+        "accepted_facilities": [
+          "FR01",
+          "FR09",
+          "FR03",
+          "FR10"
+        ],
+        "actual_optional_count": 2,
+        "original_paid_item_id": "employer:n1:hot_food:1",
+        "no_actor_proof_flags_injected_by_test": true,
+        "geometry_owner": "CustomerStoreMapBC02 extending actual StoreMap",
+        "consumer_owner": "FacilitiesBC02"
+      },
+      {
+        "profile_id": "drink_return",
+        "actual_world_seconds": 45.666666667,
+        "actual_path_tiles": 94.0,
+        "actual_service_seconds": 6.5,
+        "accepted_facilities": [
+          "FR05",
+          "FR01",
+          "FR11",
+          "FR10"
+        ],
+        "actual_optional_count": 2,
+        "original_paid_item_id": "employer:n1:cold_drink:1",
+        "no_actor_proof_flags_injected_by_test": true,
+        "geometry_owner": "CustomerStoreMapBC02 extending actual StoreMap",
+        "consumer_owner": "FacilitiesBC02"
+      },
+      {
+        "profile_id": "drink_public",
+        "actual_world_seconds": 44.166666667,
+        "actual_path_tiles": 94.0,
+        "actual_service_seconds": 5.0,
+        "accepted_facilities": [
+          "FR05",
+          "FR01",
+          "FR13",
+          "FR10"
+        ],
+        "actual_optional_count": 2,
+        "original_paid_item_id": "employer:n1:cold_drink:1",
+        "no_actor_proof_flags_injected_by_test": true,
+        "geometry_owner": "CustomerStoreMapBC02 extending actual StoreMap",
+        "consumer_owner": "FacilitiesBC02"
+      },
+      {
+        "profile_id": "parcel_verified",
+        "actual_world_seconds": 32.833333333,
+        "actual_path_tiles": 68.0,
+        "actual_service_seconds": 4.5,
+        "accepted_facilities": [
+          "FR01",
+          "FR06",
+          "FR12",
+          "FR10"
+        ],
+        "actual_optional_count": 2,
+        "original_paid_item_id": "employer:n1:parcel_bag:1",
+        "no_actor_proof_flags_injected_by_test": true,
+        "geometry_owner": "CustomerStoreMapBC02 extending actual StoreMap",
+        "consumer_owner": "FacilitiesBC02"
+      }
+    ],
+    "actual_client_runtime": false,
+    "full_arrival_director": false,
+    "public_fr06": {
+      "old_employee_face": [
+        25.5,
+        27.5
+      ],
+      "new_public_face": [
+        25.5,
+        24.5
+      ],
+      "fixture": "FX23 north face",
+      "old_customer_graph_was_overpermissive": true,
+      "new_customer_graph_rejects_employee_face": true,
+      "player_employee_control_preserved": true,
+      "protected_against_temporary_trap_placement": true
+    },
+    "paid_uncollected": [
+      {
+        "profile": "parcel_verified",
+        "cross_night": false,
+        "original_item_id_preserved": "employer:n1:parcel_bag:1",
+        "original_order_id_preserved": "bc02:n1:1:order:1",
+        "partial_accepted_sources": [
+          "FR01"
+        ],
+        "after_actual_collection_accepted_sources": [
+          "FR06",
+          "FR12",
+          "FR10"
+        ],
+        "charged_again": 0,
+        "durable_claim_closed_after_actual_exit": true,
+        "uncollected_did_not_emit_fr10": true,
+        "old_night_support_not_minted_in_new_night": false
+      },
+      {
+        "profile": "parcel_verified",
+        "cross_night": true,
+        "original_item_id_preserved": "employer:n1:parcel_bag:1",
+        "original_order_id_preserved": "bc02:n1:1:order:1",
+        "partial_accepted_sources": [
+          "FR01"
+        ],
+        "after_actual_collection_accepted_sources": [],
+        "charged_again": 0,
+        "durable_claim_closed_after_actual_exit": true,
+        "uncollected_did_not_emit_fr10": true,
+        "old_night_support_not_minted_in_new_night": true
+      },
+      {
+        "profile": "hot_called",
+        "cross_night": false,
+        "original_item_id_preserved": "employer:n1:hot_food:1",
+        "original_order_id_preserved": "bc02:n1:1:order:1",
+        "partial_accepted_sources": [
+          "FR01"
+        ],
+        "after_actual_collection_accepted_sources": [
+          "FR09",
+          "FR03",
+          "FR10"
+        ],
+        "charged_again": 0,
+        "durable_claim_closed_after_actual_exit": true,
+        "uncollected_did_not_emit_fr10": true,
+        "old_night_support_not_minted_in_new_night": false
+      },
+      {
+        "profile": "hot_called",
+        "cross_night": true,
+        "original_item_id_preserved": "employer:n1:hot_food:1",
+        "original_order_id_preserved": "bc02:n1:1:order:1",
+        "partial_accepted_sources": [
+          "FR01"
+        ],
+        "after_actual_collection_accepted_sources": [],
+        "charged_again": 0,
+        "durable_claim_closed_after_actual_exit": true,
+        "uncollected_did_not_emit_fr10": true,
+        "old_night_support_not_minted_in_new_night": true
+      }
+    ],
+    "covered_reward_sources": [
+      "FR01",
+      "FR02",
+      "FR03",
+      "FR04",
+      "FR05",
+      "FR06",
+      "FR09",
+      "FR10",
+      "FR11",
+      "FR12",
+      "FR13",
+      "FR14"
+    ]
+  },
+  "source_sha256": {
+    "content/customer_routes_bc02.json": "6b3a0b3a34465a0bd228c15063bcb5bba1b7cea109da3df714b4df604fcb78cd",
+    "scripts/bc02_customer_reference.py": "2caea1fb652ce6d93d1c4435cc8c68235a6784cebd4d5817d8b8c0f6084162b0",
+    "scripts/check_bc02_customer_routes.py": "c919521e424d442118f9f391ebf4273db9c47fc3e02539b2fed9d5c53670939f",
+    "docs/101_bc02_customer_routes.md": "37067507484db97801c4e790e1de63f0c54621d3dc895cb90b538f0f21f4a0aa",
+    "content/facilities_bc02.json": "14ff0273e2cd469e693e0a5a928ee28b4f3d4cc8743c34a8ac0dd2aa668fc839"
+  }
+}

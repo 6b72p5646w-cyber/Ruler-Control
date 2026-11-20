@@ -1,0 +1,538 @@
+{
+  "version": "BC02",
+  "baseline_commit": "dfd2e32eecb8fb4dc7dd3efa066cfa3817363788",
+  "status": "passed",
+  "scope": "source lifecycle and continuous-time sampled finite references; not engine/105 AI integration",
+  "scenario_count": 41,
+  "assertion_count": 1034,
+  "passed_scenarios": 41,
+  "cases": [
+    {
+      "case": "catalogue_is_real_105_and_not_mirror_invention",
+      "passed": true,
+      "assertions": 6,
+      "details": {
+        "monsters": 105,
+        "attacks": 184,
+        "phase_species": 13,
+        "mirror_phase_species": 0
+      }
+    },
+    {
+      "case": "source_references_resolve_to_repository_content",
+      "passed": true,
+      "assertions": 755,
+      "details": {
+        "distinct_refs_resolved": 381
+      }
+    },
+    {
+      "case": "selecting_monsters_creates_no_environment",
+      "passed": true,
+      "assertions": 3,
+      "details": {
+        "reservations": 105,
+        "water_sources": 0,
+        "wounds": 0
+      }
+    },
+    {
+      "case": "old_wet_geometry_has_real_floor_and_dry_counterplay",
+      "passed": true,
+      "assertions": 25,
+      "details": {
+        "regions": [
+          {
+            "region": "WET_FRONT",
+            "cells": 6,
+            "dry_route": 11.0
+          },
+          {
+            "region": "WET_COLD",
+            "cells": 6,
+            "dry_route": 33.0
+          },
+          {
+            "region": "WET_REAR",
+            "cells": 9,
+            "dry_route": 48.0
+          },
+          {
+            "region": "WET_AISLE",
+            "cells": 6,
+            "dry_route": 14.0
+          },
+          {
+            "region": "WET_CHAIR",
+            "cells": 4,
+            "dry_route": 26.0
+          }
+        ]
+      }
+    },
+    {
+      "case": "deployment_charges_walk_then_install_then_visible_propagation",
+      "passed": true,
+      "assertions": 7,
+      "details": {
+        "walk_tiles": 33.0,
+        "install_s": 2,
+        "warning_s": 3,
+        "cold_fill_edges": 5
+      }
+    },
+    {
+      "case": "cancelled_deployment_preserves_same_item_and_partial_position",
+      "passed": true,
+      "assertions": 4,
+      "details": {
+        "cancel_position": [
+          15.5,
+          26.5
+        ],
+        "retry_item_count": 1
+      }
+    },
+    {
+      "case": "closing_door_during_delivery_blocks_actual_path",
+      "passed": true,
+      "assertions": 3,
+      "details": {
+        "status": "route_changed",
+        "last_position": [
+          15.5,
+          30.5
+        ]
+      }
+    },
+    {
+      "case": "water_connection_uses_real_edges_and_root_ownership",
+      "passed": true,
+      "assertions": 5,
+      "details": {
+        "actual_water_path": [
+          [
+            26.5,
+            10.5
+          ],
+          [
+            25.5,
+            10.5
+          ],
+          [
+            24.5,
+            10.5
+          ],
+          [
+            23.5,
+            10.5
+          ],
+          [
+            23.5,
+            11.5
+          ],
+          [
+            23.5,
+            12.5
+          ]
+        ],
+        "distance_tiles": 5
+      }
+    },
+    {
+      "case": "finite_cup_volume_stops_feeding_and_does_not_refresh_for_180s",
+      "passed": true,
+      "assertions": 5,
+      "details": {
+        "volume_units": 6,
+        "feed_duration_max_s": 6,
+        "residual_ttl_s": 180
+      }
+    },
+    {
+      "case": "rain_has_seeded_origin_closed_door_and_finite_end",
+      "passed": true,
+      "assertions": 6,
+      "details": {
+        "seed_dry": 0,
+        "seed_rain": 1,
+        "rain_end_world_s": 140
+      }
+    },
+    {
+      "case": "cut_cancelled_has_no_effect_committed_cut_disconnects_and_drains",
+      "passed": true,
+      "assertions": 6,
+      "details": {
+        "cut_cell": [
+          24,
+          10
+        ],
+        "detached_drain_s": 2,
+        "source_component_preserved": true
+      }
+    },
+    {
+      "case": "water_native_motion_is_not_a_phase_or_virtual_ground_trap",
+      "passed": true,
+      "assertions": 5,
+      "details": {
+        "water_distance": 5,
+        "world_seconds": 3.015151515151537,
+        "phase_events": 0
+      }
+    },
+    {
+      "case": "water_cut_during_windup_cancels_without_retarget_or_cooldown_refund",
+      "passed": true,
+      "assertions": 5,
+      "details": {
+        "reason": "source_or_destination_changed_during_warning",
+        "recovery_seconds": 4.0
+      }
+    },
+    {
+      "case": "water_cut_midroute_keeps_last_actual_position",
+      "passed": true,
+      "assertions": 5,
+      "details": {
+        "last_real_body_position": [
+          25.84,
+          10.5
+        ],
+        "origin": [
+          26.5,
+          10.5
+        ],
+        "destination": [
+          23.5,
+          12.5
+        ]
+      }
+    },
+    {
+      "case": "water_power_does_not_forge_electrical_or_optical_permissions",
+      "passed": true,
+      "assertions": 4,
+      "details": {
+        "water_remains": true,
+        "new_electrical_nodes": 0,
+        "mirror_ports": 0
+      }
+    },
+    {
+      "case": "cleaned_episode_rewards_once_and_only_in_safe_phase",
+      "passed": true,
+      "assertions": 6,
+      "details": {
+        "eligible_receipts": 1,
+        "duplicate_eligible": false
+      }
+    },
+    {
+      "case": "natural_drying_never_generates_cleaning_payment",
+      "passed": true,
+      "assertions": 3,
+      "details": {
+        "natural_expiry_cleaning_rewards": 0
+      }
+    },
+    {
+      "case": "mirror_needs_two_original_ports_and_never_grants_species_capability",
+      "passed": true,
+      "assertions": 7,
+      "details": {
+        "delivered_original_mirrors": 2,
+        "current_species_mirror_commits": 0
+      }
+    },
+    {
+      "case": "mirror_endpoint_cover_removal_low_reflectivity_and_stale_lease_fail",
+      "passed": true,
+      "assertions": 7,
+      "details": {
+        "failed_conditions": [
+          "covered",
+          "stale_version",
+          "low_reflectivity",
+          "removed"
+        ]
+      }
+    },
+    {
+      "case": "optical_reflection_uses_actual_plane_and_both_visible_legs",
+      "passed": true,
+      "assertions": 4,
+      "details": {
+        "finite_plane_half_width": 0.75,
+        "mirror_observation_is_direct_gaze": false
+      }
+    },
+    {
+      "case": "task_lamps_are_real_independent_sources_during_MAIN_blackout",
+      "passed": true,
+      "assertions": 10,
+      "details": {
+        "power_domains": [
+          "MAIN",
+          "TASK_ISOLATED"
+        ],
+        "task_battery_world_seconds": 900
+      }
+    },
+    {
+      "case": "S22_escape_is_to_existing_darker_farther_node_and_no_ground_traps",
+      "passed": true,
+      "assertions": 10,
+      "details": {
+        "origin": [
+          20.5,
+          18.5
+        ],
+        "destination": [
+          24.5,
+          18.5
+        ],
+        "recovery_s": 1.5
+      }
+    },
+    {
+      "case": "illumination_during_phase_warning_revokes_endpoint_without_soft_retarget",
+      "passed": true,
+      "assertions": 9,
+      "details": {
+        "first": "cancelled",
+        "retry": "committed",
+        "source_recreated": false
+      }
+    },
+    {
+      "case": "ambient_MAIN_light_is_not_ignored_when_claiming_a_dark_node",
+      "passed": true,
+      "assertions": 10,
+      "details": {
+        "ambient_lamp_blocks_dark_node": true,
+        "task_switch_off_is_insufficient": true
+      }
+    },
+    {
+      "case": "task_light_over_900s_has_free_local_energy_recovery_without_deadline_reset",
+      "passed": true,
+      "assertions": 21,
+      "details": {
+        "initial_energy_s": 900,
+        "manual_work_s": 2,
+        "recovery_energy_s": 60,
+        "MAIN_restored": false,
+        "deadline_refreshed": false
+      }
+    },
+    {
+      "case": "F58_no_heat_free_exit_uses_original_sign_real_three_tile_walk_and_one_terminal",
+      "passed": true,
+      "assertions": 11,
+      "details": {
+        "close_s": 0.5,
+        "walk_tiles": 3,
+        "exit_s": 0.5,
+        "main_power_required": false,
+        "terminal": "rule_leave",
+        "root_reward_receipts": 1
+      }
+    },
+    {
+      "case": "F58_legacy_900s_backup_packages_both_cool_and_cannot_reopen_expired_root",
+      "passed": true,
+      "assertions": 13,
+      "details": {
+        "thermal_test_world_s": 932.0,
+        "fog_original_s": 30,
+        "rule_original_s": 120,
+        "both_backup_packages_cold": true,
+        "infinite_pause": false,
+        "root_rewards": 0,
+        "scope": "withdrawn900s candidate migration counterexample, not a director-admitted900s F58 raid"
+      }
+    },
+    {
+      "case": "removed_or_wrong_layer_anchor_cannot_be_used",
+      "passed": true,
+      "assertions": 8,
+      "details": {
+        "failure_types": [
+          "layer",
+          "original_item_removed"
+        ]
+      }
+    },
+    {
+      "case": "warned_glass_real_contact_and_unchanged_90_second_deadline",
+      "passed": true,
+      "assertions": 5,
+      "details": {
+        "deadline_seconds": 90,
+        "same_incident_refresh": false
+      }
+    },
+    {
+      "case": "fresh_traces_come_from_path_distance_not_waiting_or_static_points",
+      "passed": true,
+      "assertions": 7,
+      "details": {
+        "trace_positions": [
+          [
+            11.5,
+            22.5
+          ],
+          [
+            13.5,
+            22.5
+          ]
+        ],
+        "actual_walk_tiles": 4
+      }
+    },
+    {
+      "case": "dressing_cancels_new_traces_but_does_not_erase_old_ones",
+      "passed": true,
+      "assertions": 7,
+      "details": {
+        "old_marks_retained": 2,
+        "new_marks_after_dressing": 0
+      }
+    },
+    {
+      "case": "blood_admission_uses_current_20_second_omen_and_actual_remaining_budget",
+      "passed": true,
+      "assertions": 7,
+      "details": {
+        "minimum_remaining_s": 53,
+        "minimum_omen_s": 20
+      }
+    },
+    {
+      "case": "blood_expiry_or_treatment_before_arrival_prevents_without_new_source",
+      "passed": true,
+      "assertions": 6,
+      "details": {
+        "F32_after_dressing": false,
+        "F26_after_trace_expiry": false
+      }
+    },
+    {
+      "case": "same_incident_cannot_reserve_both_blood_consumers",
+      "passed": true,
+      "assertions": 5,
+      "details": {
+        "same_incident_reserved_consumers": 1
+      }
+    },
+    {
+      "case": "F21_next_default_raid_is_unreachable_without_extending_real_wound",
+      "passed": true,
+      "assertions": 5,
+      "details": {
+        "default_followup_schedule_s": 115,
+        "real_wound_s": 90,
+        "next_raid_eligible": false
+      }
+    },
+    {
+      "case": "F13_cleanup_blood_cannot_become_employee_blood",
+      "passed": true,
+      "assertions": 4,
+      "details": {
+        "corpse_stains": 1,
+        "employee_wounds": 0
+      }
+    },
+    {
+      "case": "sound_uses_actual_path_doors_source_time_and_power",
+      "passed": true,
+      "assertions": 5,
+      "details": {
+        "open_route_tiles": 2,
+        "closed_route_within_range": false
+      }
+    },
+    {
+      "case": "direct_gaze_rechecks_current_geometry_and_facing",
+      "passed": true,
+      "assertions": 3,
+      "details": {
+        "open_and_facing": true,
+        "back_facing": false,
+        "door_closed": false
+      }
+    },
+    {
+      "case": "F60_curtain_blocks_only_current_intersecting_sight_segment",
+      "passed": true,
+      "assertions": 6,
+      "details": {
+        "curtain_segment": [
+          [
+            18.5,
+            23
+          ],
+          [
+            20.5,
+            23
+          ]
+        ],
+        "same_side_bypass_detected": true,
+        "low_and_tall_layers_separated": true
+      }
+    },
+    {
+      "case": "pause_freezes_real_sources_travel_and_deadlines_together",
+      "passed": true,
+      "assertions": 6,
+      "details": {
+        "paused_wall_time_attempt_s": 300,
+        "advanced_world_s_while_paused": 0
+      }
+    },
+    {
+      "case": "root_terminal_revokes_live_capability_but_keeps_original_objects",
+      "passed": true,
+      "assertions": 5,
+      "details": {
+        "pending_move": "cancelled",
+        "original_item_retained": true,
+        "residual_water_retained": true
+      }
+    }
+  ],
+  "not_claimed": [
+    "complete player collision/animation engine",
+    "live105-monster AI",
+    "real device SDK callbacks",
+    "all optional combinations or runtime performance",
+    "mirror teleport content; no current species consumes it"
+  ],
+  "hashes": {
+    "content/attack_contracts_ma01.json": "9df8f8456abf5872c97d5d88c2d3a2aa264bb68940e5c2ad39320e67918d078f",
+    "content/chase_profiles_td05.json": "770c2304944733edc791632d17de3f542cfeab28edf8b1a658a0878d64d34e12",
+    "content/combat_contracts_td05.json": "f83f18ae0314d3a19134a934ed347c7254c9eb2b5d5711305e007434dd5d8823",
+    "content/condition_lifecycle_v06.json": "dcf7e1bad8c36e4c2945a0eeb190523035ace7a7421afd3d4fc428fc419651a5",
+    "content/condition_reachability_v06.json": "bd521f0fad9b684e9a830d66c25e7a66f672170d2b6e21e00b1396612c330d52",
+    "content/director_bc01.json": "e31c47fe473987d991911908459d7d5bad5051577d104c8ed58b8d60fea4b995",
+    "content/environment_conditions_bc02.json": "49cbe6128e489da6218d31b3506e81f318825d4f3a59fdf4d6836163f12fdb79",
+    "content/facilities_bc01.json": "38a6120eddbb51f8ebb4a3d957cee375e2074bdcc860e1ba412f8fe8818baad0",
+    "content/map_composition_bc01.json": "72b4517838d26fbe5afab1adcfb415c0be4b3ea80765a0b23922a90a94519dde",
+    "content/map_mechanics_v05.json": "af126cd615549118fb4ab73200c88427d117e869aedf3eba47f73464732748bc",
+    "content/maps.json": "773e39b35bc16c63e6b4f294e27f8a944072599f21b8ad1bae46527f0a093b9a",
+    "content/mechanism_cases_v010_a.json": "4b7afdedb2aae8f0f1720d68c9737c7c8d5ef07aea7e2114afa4ebb7558c4608",
+    "content/mechanism_cases_v010_b.json": "a865eb7019131d7b6162fb10c91d93e65bbb49a9955e4bc16b54fd7a720064e1",
+    "content/monster_attacks_folklore_ma01.json": "ac92dc16cabbb18069f0da2471dc2d3b560c87e0d91ac024fc0278653ec11fe2",
+    "content/monster_attacks_scp_ma01.json": "5fd3b9db11c5c6d0caf5398b67a223e43f7c304f8fff529d72e3954caaef8684",
+    "content/monster_contracts_md01.json": "1dd0af0700a094f1b98c53b9060118c0f3e62068a45a90898c3504347d082f09",
+    "content/monster_folklore_md01.json": "f7b019223130f255b49a5a7ce8aa44811db096542c235c36d5aa8c5d44ae01ae",
+    "content/monster_scp_a_md01.json": "23faa741c2aff38e6c2f254a46f5d9671a88620f73d9a67d0f53b51218272f01",
+    "content/monster_scp_b_md01.json": "2ec35fb9e9436474054f0ad3b8be488cc8b995bb6062e4f9f4b8a836e0526a38",
+    "scripts/bc01_map_reference.py": "e8904021a7e1cec6d5a5871b9336b623132ff9c394ae0e1e3856b0521e110a34",
+    "scripts/bc02_environment_reference.py": "46778f5079702f5620c8d0a266fc37019d8e6a2709c1b5aa240dbb3c99540abc",
+    "scripts/check_bc02_environment.py": "d48c4ffed9a1a107160a6888b418232c31891c57a9d3aa59f05c4fd5a4f53f59"
+  }
+}

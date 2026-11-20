@@ -1,5 +1,7 @@
 # BC01：随机营业、入侵与安全杂活调度
 
+> 版本导航：本文保留 BC01 当时的设计和有限参考证据。当前明确修订以 [BC02 总览](94_bc02_closure.md) 和 [BC02 权威表](../content/system_authority_bc02.json) 为准；客户端实施从 [Codex 开工入口](100_bc02_codex_start.md) 开始。旧短时设施规则不与 BC02 并行叠加。
+
 这份设计把原先“六个小时各来一只怪、小时工单与追击同时发生”改成一条连续的营业／入侵流程。普通顾客的真实采购为设备积累战斗收益；收银、补货、收货、清洁和电闸恢复放在安全营业与恢复时段。玩家被追击时只需处理战斗及当前怪物的规则动作。
 
 机器合同为 [`content/director_bc01.json`](../content/director_bc01.json)，可执行有限参考为 [`scripts/bc01_director_reference.py`](../scripts/bc01_director_reference.py)。实际完整客户端与 105 种怪物 AI 尚未接入此模式；本文的“已验证”指地图、状态、回执与连续时间参考，不代表完整游戏胜率。

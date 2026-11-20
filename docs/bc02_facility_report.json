@@ -1,0 +1,296 @@
+{
+  "version": "BC02",
+  "scope": "bounded facility design reference and actual BC01 reference-route slice",
+  "actual_client_runtime": false,
+  "production_ad_sdk": false,
+  "passed": 39,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "default actual-client adapter stays closed",
+      "passed": true
+    },
+    {
+      "name": "strict BC01 source validation is preserved with capacity and actual raid-history gate",
+      "passed": true
+    },
+    {
+      "name": "machine-readable lifetime fields contain no old short support deadlines",
+      "passed": true
+    },
+    {
+      "name": "reject unsupported real-use proof: normal_customer",
+      "passed": true
+    },
+    {
+      "name": "reject unsupported real-use proof: customer_kind",
+      "passed": true
+    },
+    {
+      "name": "reject unsupported real-use proof: actual_use_completed",
+      "passed": true
+    },
+    {
+      "name": "reject unsupported real-use proof: consumer_registered",
+      "passed": true
+    },
+    {
+      "name": "reject unsupported real-use proof: facility_geometry_bound",
+      "passed": true
+    },
+    {
+      "name": "reject unsupported real-use proof: same_order_service",
+      "passed": true
+    },
+    {
+      "name": "reject unsupported real-use proof: source_item_owner_customer",
+      "passed": true
+    },
+    {
+      "name": "reject unsupported real-use proof: route_service_authorized",
+      "passed": true
+    },
+    {
+      "name": "reject unsupported real-use proof: progress_complete",
+      "passed": true
+    },
+    {
+      "name": "reject unsupported real-use proof: origin_kind",
+      "passed": true
+    },
+    {
+      "name": "two tokens per source provide 24 independent slots without checkout crowding",
+      "passed": true
+    },
+    {
+      "name": "different 20 and 181 second raids consume different reserves across business cycles",
+      "passed": true
+    },
+    {
+      "name": "300 second bank wait then 20 second raid keeps maintained support",
+      "passed": true
+    },
+    {
+      "name": "300 second bank wait then 80 second raid keeps maintained support",
+      "passed": true
+    },
+    {
+      "name": "300 second bank wait then 181 second raid keeps maintained support",
+      "passed": true
+    },
+    {
+      "name": "300 second bank wait then 300 second raid keeps maintained support",
+      "passed": true
+    },
+    {
+      "name": "menu or ad pause cannot advance the actual Director or facility clocks",
+      "passed": true
+    },
+    {
+      "name": "180 second outage stops power effects and restores same budget without catchup",
+      "passed": true
+    },
+    {
+      "name": "never-powered reservation carries but late-delivered safe credit cannot activate this raid",
+      "passed": true
+    },
+    {
+      "name": "real raid intervals reject current or delayed raid-time service but allow old safe receipts for next raid",
+      "passed": true
+    },
+    {
+      "name": "a service from 19 to 22 cannot cross the closed raid from 20 to 21",
+      "passed": true
+    },
+    {
+      "name": "FR03 and FR14 allocate nonoverlapping healing time and finite actual budgets",
+      "passed": true
+    },
+    {
+      "name": "full-health seconds consume no budget and cannot be replayed after damage",
+      "passed": true
+    },
+    {
+      "name": "partial actual heal only debits its source and circuit loss selects the remaining source",
+      "passed": true
+    },
+    {
+      "name": "HP owner cannot acknowledge more healing than the offered live interval",
+      "passed": true
+    },
+    {
+      "name": "unresolved actual HP transaction blocks time/power/close and survives snapshot",
+      "passed": true
+    },
+    {
+      "name": "business, dead intervals and a late dead owner never heal or revive",
+      "passed": true
+    },
+    {
+      "name": "survival support remains finite at 12 coins and 12 XP per night",
+      "passed": true
+    },
+    {
+      "name": "720 cutoff stops payouts while unresolved raid support continues",
+      "passed": true
+    },
+    {
+      "name": "one-charge safe-map trap waits 181 seconds but never duplicates or refunds",
+      "passed": true
+    },
+    {
+      "name": "rejected placement preserves fixed type/site and the unplaced credit",
+      "passed": true
+    },
+    {
+      "name": "attempt rollback and snapshot keep committed random variants and sites",
+      "passed": true
+    },
+    {
+      "name": "night close clears unused reserves and reports their expiry",
+      "passed": true
+    },
+    {
+      "name": "actual BC01 Director routes feed unmodified paid-use receipts through real power/raid events",
+      "passed": true
+    },
+    {
+      "name": "actual level 1 HP owner respects 0.2% rate and 20% source budget",
+      "passed": true
+    },
+    {
+      "name": "actual level 20 HP owner respects 0.2% rate and 20% source budget",
+      "passed": true
+    }
+  ],
+  "evidence": {
+    "two_business_cycles": {
+      "first_raid_seconds": 20,
+      "safe_business_wait_seconds": 300,
+      "second_raid_seconds": 181,
+      "whole_raid_support_sources": [
+        "FR01",
+        "FR05",
+        "FR06",
+        "FR09",
+        "FR11",
+        "FR12"
+      ],
+      "different_original_tokens": true,
+      "scenario": "explicit finite lifecycle fixture, not production playthrough"
+    },
+    "healing_owner": {
+      "owner_class": "bc01_campaign_reference.Player",
+      "combined_rate": 0.002,
+      "source_budgets": {
+        "FR03": 0.2,
+        "FR14_if_heal_variant": 0.1
+      },
+      "single_interval_seconds": 180,
+      "level_1_actual_restored_hp": 30.000000000000004,
+      "nonoverlapping_source_allocations": [
+        {
+          "effect_id": "bc02:night1:1:raid1:FR03",
+          "source_facility_id": "FR03",
+          "from_world_time": 10,
+          "to_world_time": 110.0,
+          "fraction_max_hp_per_second": 0.002,
+          "offered_fraction": 0.2
+        },
+        {
+          "effect_id": "bc02:night1:1:raid1:FR14",
+          "source_facility_id": "FR14",
+          "from_world_time": 110.0,
+          "to_world_time": 160.0,
+          "fraction_max_hp_per_second": 0.002,
+          "offered_fraction": 0.1
+        }
+      ],
+      "level_20_max_hp": 252,
+      "level_20_combined_max_hp_restoration": 75.6,
+      "production_hp_owner": false
+    },
+    "actual_bc01_director": {
+      "seed": 3,
+      "night_index": 7,
+      "attempt_id": 1,
+      "manual_action_factor": 0.6,
+      "paid_orders": 5,
+      "accepted_source_counts": {
+        "FR03": 2,
+        "FR01": 5,
+        "FR10": 5,
+        "FR02": 1,
+        "FR05": 2
+      },
+      "all_customer_receipts_forwarded_without_modification": true,
+      "actual_route_geometry": "bc01_map_reference.StoreMap",
+      "actual_reference_raid_durations": [
+        {
+          "raid_id": "bc01:[\"bc01\",1,7]:raid:1",
+          "duration_s": 19.0,
+          "active_sources_at_real_end": []
+        },
+        {
+          "raid_id": "bc01:[\"bc01\",1,7]:raid:2",
+          "duration_s": 31.0,
+          "active_sources_at_real_end": [
+            "FR01"
+          ]
+        },
+        {
+          "raid_id": "bc01:[\"bc01\",1,7]:raid:3",
+          "duration_s": 23.25,
+          "active_sources_at_real_end": [
+            "FR01",
+            "FR03"
+          ]
+        },
+        {
+          "raid_id": "bc01:[\"bc01\",1,7]:raid:4",
+          "duration_s": 16.0,
+          "active_sources_at_real_end": []
+        }
+      ],
+      "actual_outage_boundaries": [
+        {
+          "at": 108.0,
+          "power_on": false
+        },
+        {
+          "at": 125.25,
+          "power_on": true
+        },
+        {
+          "at": 582.25,
+          "power_on": false
+        },
+        {
+          "at": 604.25,
+          "power_on": true
+        }
+      ],
+      "ordinary_work_during_raid_seconds": 0,
+      "actual_reference_hp_restored": 5.850000000000001,
+      "survival_payouts": 5,
+      "delayed_first_paid_order_300_seconds_retained": true,
+      "additional_delay_is_lifecycle_counterexample_not_director_schedule": true,
+      "optional_sources_without_real_director_routes": [
+        "FR06",
+        "FR09",
+        "FR11",
+        "FR12",
+        "FR13",
+        "FR14"
+      ],
+      "production_npc_or_world_adapter": false,
+      "actual_client_runtime": false
+    }
+  },
+  "source_sha256": {
+    "content/facilities_bc02.json": "14ff0273e2cd469e693e0a5a928ee28b4f3d4cc8743c34a8ac0dd2aa668fc839",
+    "scripts/bc02_facility_reference.py": "e8891fc36f78e8e772f2667ec6f5d988f51f824fdf7deeafe20a6f831b0c99c5",
+    "scripts/check_bc02_facilities.py": "490dc8716d167114962eff9e0f7b7532edd858c610a9b4354d4eec867dd2ad87",
+    "docs/95_bc02_facility_duration.md": "59fc55b30c9e4cd5603e773d42f68783bf600a422c4fd4987a19305b92cf044d"
+  }
+}
